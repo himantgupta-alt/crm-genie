@@ -16,6 +16,7 @@
       body: opts.body ? JSON.stringify(opts.body) : undefined,
     });
     if (res.status === 204) return null;
+    if (res.status === 401) { location.href = `/login?next=${encodeURIComponent(location.pathname + location.hash)}`; return new Promise(() => {}); }
     const data = await res.json().catch(() => ({}));
     if (!res.ok) throw Object.assign(new Error(data.error?.message || res.statusText), { info: data.error || {}, status: res.status });
     return data;
@@ -72,6 +73,10 @@
       b.textContent = `Viewing as ${META.personas[persona].label}. Field access, sharing and validation rules are enforced by the database role compiled from this ${META.personas[persona].note.toLowerCase().startsWith('permission') ? 'permission set' : 'profile'}.`;
     } else b.hidden = true;
   }
+  $('#signout').addEventListener('click', async () => {
+    await fetch('/auth/logout', { method: 'POST' });
+    location.href = '/login';
+  });
   $('#persona').addEventListener('change', async (e) => {
     persona = e.target.value;
     store.set('crm-genie.persona', persona);

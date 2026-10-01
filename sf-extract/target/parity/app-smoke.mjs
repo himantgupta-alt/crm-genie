@@ -22,7 +22,7 @@ const run = (args, opts = {}) => new Promise((resolve, reject) => {
 });
 
 const db = await PGlite.create();
-const sock = new PGLiteSocketServer({ db, port: PGPORT, host: '127.0.0.1' });
+let sock = new PGLiteSocketServer({ db, port: PGPORT, host: '127.0.0.1' });
 await sock.start();
 let server;
 let failures = 0;
@@ -96,6 +96,31 @@ try {
   const m = par.data.fields.reduce((a, f) => a + f.matched, 0);
   // Two values changed above (MRR edit → annual value; added line → line count and total), so allow for them.
   check('parity endpoint', par.status === 200 && tot === 326 && m >= 322, `${m}/${tot} after test edits · export day ${par.data.asOf}`);
+
+  // Production mode: sign-in required everywhere except /health and the login page.
+  // PGlite's socket server serves one connection; restart it so the new server process can connect.
+  await new Promise((r) => { server.once('exit', r); server.kill(); });
+  await sock.stop();
+  sock = new PGLiteSocketServer({ db, port: PGPORT, host: '127.0.0.1' });
+  await sock.start();
+  const { createRequire } = await import('node:module');
+  const { hashPassword } = createRequire(import.meta.url)(path.join(appDir, 'auth.js'));
+  const users = JSON.stringify({ tester: { name: 'Smoke Tester', hash: hashPassword('correct-horse-battery') } });
+  server = spawn(process.execPath, ['server.js'], { cwd: appDir, env: { ...env, NODE_ENV: 'production', CRMGENIE_USERS: users, SESSION_SECRET: 'x'.repeat(40) }, stdio: ['ignore', 'pipe', 'inherit'] });
+  await new Promise((r) => server.stdout.once('data', r));
+  const base = `http://127.0.0.1:${PORT}`;
+  const hr = await fetch(`${base}/health`);
+  check('auth: /health stays public', hr.status === 200, `status ${hr.status}`);
+  check('auth: API without session → 401', (await fetch(`${base}/api/home`)).status === 401);
+  check('auth: page without session → login', (await fetch(`${base}/`, { redirect: 'manual' })).headers.get('location')?.startsWith('/login'));
+  const bad = await fetch(`${base}/auth/login`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username: 'tester', password: 'wrong-password-123' }) });
+  check('auth: wrong password → 401', bad.status === 401);
+  const good = await fetch(`${base}/auth/login`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username: 'tester', password: 'correct-horse-battery' }) });
+  const cookie = good.headers.get('set-cookie')?.split(';')[0];
+  check('auth: right password → HttpOnly session cookie', good.status === 200 && /HttpOnly/.test(good.headers.get('set-cookie') || ''));
+  const me = await fetch(`${base}/api/meta`, { headers: { cookie } }).then((r) => r.json());
+  check('auth: session reaches the API', me.user?.name === 'Smoke Tester');
+  check('auth: tampered cookie rejected', (await fetch(`${base}/api/home`, { headers: { cookie: cookie.replace(/.$/, (c) => (c === 'A' ? 'B' : 'A')) } })).status === 401);
 } finally {
   server?.kill();
   await sock.stop();

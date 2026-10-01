@@ -13,18 +13,17 @@ const pool = new Pool({
   ssl: process.env.PGSSLMODE === 'disable' ? false : { rejectUnauthorized: process.env.PGSSL_INSECURE !== '1' },
 });
 const SF_URL = process.env.SF_INSTANCE_URL || '';
+const pub = path.join(__dirname, 'public');
 const app = express();
+app.set('trust proxy', 1); // App Service front end; req.ip is the client for sign-in rate limiting
 app.use(express.json({ limit: '100kb' }));
 app.disable('x-powered-by');
+require('./auth').install(app, pub);
 
 // ---------------------------------------------------------------- identity and persona
 
-// App Service authentication (Entra ID) puts the signed-in user in these headers.
 function userOf(req) {
-  return {
-    name: req.get('x-ms-client-principal-name') || process.env.LOCAL_USER || 'local developer',
-    id: req.get('x-ms-client-principal-id') || null,
-  };
+  return { name: req.session?.n || 'unknown', id: req.session?.u || null };
 }
 function personaOf(req) {
   const key = req.get('x-persona') || 'admin';
@@ -141,7 +140,7 @@ async function decorate(obj, rows) {
 
 // ---------------------------------------------------------------- API
 
-app.get('/health', async (_req, res) => {
+app.get('/health', async (_req, res) => { // public: used by App Service and the pipeline
   try { await owner('SELECT 1'); res.json({ ok: true }); } catch (e) { res.status(503).json({ ok: false }); }
 });
 
@@ -324,7 +323,6 @@ app.use((err, _req, res, _next) => {
 
 // ---------------------------------------------------------------- web
 
-const pub = path.join(__dirname, 'public');
 app.use((req, res, next) => {
   if (/\.(html|js|css)$/.test(req.path) || req.path === '/') res.set('Cache-Control', 'no-cache');
   next();

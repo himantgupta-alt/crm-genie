@@ -25,6 +25,8 @@ $ErrorActionPreference = 'Continue'
 az account set --subscription $Subscription | Out-Null
 $pgPassword = Get-OrCreateSecret 'crmgenie-pg-admin'
 $authSecret = Get-SecretIfExists 'crmgenie-auth-client-secret'
+$sessionSecret = Get-OrCreateSecret 'crmgenie-session-secret'
+$appUsers = Get-AppUsersJson
 $myIp = (Invoke-RestMethod 'https://api.ipify.org?format=json' -UseBasicParsing).ip
 Write-Host "deployer IP: $myIp"
 
@@ -35,6 +37,8 @@ $paramFile = New-TemporaryFile
   parameters = @{
     pgAdminPassword = @{ value = $pgPassword }
     authClientSecret = @{ value = $authSecret }
+    appUsers = @{ value = $appUsers }
+    sessionSecret = @{ value = $sessionSecret }
     sfInstanceUrl = @{ value = $SfInstanceUrl }
     deployerIp = @{ value = $myIp }
   }

@@ -17,6 +17,38 @@ function Set-Secret([string]$name, [string]$value) {
   Set-Content -Path (Join-Path $script:SecretDir "$name.txt") -Value $value -Encoding ascii -NoNewline
 }
 
+function Get-OrCreateReadablePassword([string]$name) {
+  $v = Get-SecretIfExists $name
+  if ($v) { return $v }
+  # Four groups of four, without look-alike characters, for passwords people type: e.g. k7Qm-2xPa-Hd9r-Wt4e
+  $chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789'.ToCharArray()
+  $bytes = New-Object byte[] 16
+  [Security.Cryptography.RandomNumberGenerator]::Create().GetBytes($bytes)
+  $s = -join ($bytes | ForEach-Object { $chars[$_ % $chars.Length] })
+  $v = '{0}-{1}-{2}-{3}' -f $s.Substring(0, 4), $s.Substring(4, 4), $s.Substring(8, 4), $s.Substring(12, 4)
+  Set-Secret $name $v
+  return $v
+}
+
+# In-app sign-in users. Add a line here to give someone access, then re-run deploy.ps1.
+$script:AppUsers = [ordered]@{
+  'demo' = 'Demo User'
+  'guest'  = 'Guest Reviewer'
+}
+
+function Get-AppUsersJson {
+  $node = Join-Path $tools 'node\node.exe'
+  $hasher = Join-Path (Resolve-Path "$PSScriptRoot\..\app").Path 'scripts\hash-password.js'
+  $users = [ordered]@{}
+  foreach ($u in $script:AppUsers.Keys) {
+    $pw = Get-OrCreateReadablePassword "crmgenie-user-$u"
+    $hash = $pw | & $node $hasher
+    if ($LASTEXITCODE -ne 0 -or -not $hash) { throw "could not hash password for $u" }
+    $users[$u] = [ordered]@{ name = $script:AppUsers[$u]; hash = "$hash" }
+  }
+  return ($users | ConvertTo-Json -Compress)
+}
+
 function Get-OrCreateSecret([string]$name) {
   $v = Get-SecretIfExists $name
   if ($v) { return $v }

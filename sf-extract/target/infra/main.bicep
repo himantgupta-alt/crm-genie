@@ -34,6 +34,14 @@ param deployerIp string = ''
 @description('Client secret of the Entra app registration used by App Service authentication. Empty until deploy_auth.ps1 has run.')
 param authClientSecret string = ''
 
+@secure()
+@description('In-app sign-in users: JSON { username: { name, hash } } with scrypt hashes. Built by deploy.ps1.')
+param appUsers string
+
+@secure()
+@description('Key that signs session cookies (32+ characters).')
+param sessionSecret string
+
 param tags object = {
   owner: 'Demo User'
   project: 'CRM Genie'
@@ -138,6 +146,8 @@ var baseSettings = [
   // The deployment package already contains node_modules; no build on the server.
   { name: 'SCM_DO_BUILD_DURING_DEPLOYMENT', value: 'false' }
   { name: 'WEBSITE_RUN_FROM_PACKAGE', value: '1' }
+  { name: 'CRMGENIE_USERS', value: appUsers }
+  { name: 'SESSION_SECRET', value: sessionSecret }
 ]
 // Bicep replaces all app settings on every deploy, so the auth secret is passed back in each time.
 var authSettings = empty(authClientSecret) ? [] : [
