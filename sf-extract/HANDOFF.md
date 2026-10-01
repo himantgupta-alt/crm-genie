@@ -144,6 +144,29 @@ Bugs the harness caught and fixed: auto-number needed SECURITY DEFINER; checkbox
 **Open for this family:** Task-creating automations (At-Risk flow, handleStatusChange, renewal batch),
 OpportunityService outbox, org replay of the rule cases (needs login) — listed in `target/db/manifest.json`.
 
+## CRM Genie on Azure + pipeline (1 Oct 2026)
+
+The target state runs in Azure: **https://crmgenie-app-hg01.azurewebsites.net** (in-app sign-in).
+- **Azure** (sub Ascendion Production, RG `AZAP-agentic-finance`, centralindia; separate from Revenue Genie /
+  Cash Forecasting): `crmgenie-pg-hg01` (Postgres 17 Flexible B1ms, db `crm`), `crmgenie-app-plan` (B1),
+  `crmgenie-app-hg01` (Node 22). ~USD 30–35/month. Infra: `target/infra/main.bicep` + `deploy.ps1`
+  (`-WhatIf` first), `load_db.ps1 -Recreate`, `deploy_app.ps1`. Live parity on Azure: 326/326.
+- **App** `target/app`: Express + pg; every request runs `SET LOCAL ROLE` for the chosen persona, so FLS,
+  sharing and rules are enforced by Postgres. "Open in Salesforce" links for side-by-side demos.
+- **Sign-in**: Entra/Easy Auth was blocked (tenant denies app registration to this account, same as Cash
+  Forecasting), so in-app sign-in (`app/auth.js`, scrypt hashes, signed HttpOnly cookie, rate limit).
+  Users `demo`, `guest`; passwords in `C:\SALESFORCE\.secrets\crmgenie-user-*.txt` (git-ignored). Add a
+  user in `infra/common.ps1` `$AppUsers` and re-run `deploy.ps1`. `deploy_auth.ps1` is ready if a tenant
+  admin creates the app registration later.
+- **GitHub**: private `himantgupta-alt/crm-genie`, branch `main` (clean history; the full local snapshot
+  incl. the whole org export stays on local branch `snapshot-local`, never pushed). Workflow
+  `.github/workflows/crm-genie.yml`: tests → blueprint rebuild+validate (must equal committed) → DDL re-emit
+  (must equal committed) → parity harness → app smoke (27 checks) → deploy via publish profile secret
+  `AZURE_WEBAPP_PUBLISH_PROFILE` → /health. Only 6 org CSVs are versioned (see root `.gitignore`).
+- **Gotchas**: Windows PowerShell adds a BOM to text piped into native tools (broke password hashing once);
+  PS 5.1 + `$ErrorActionPreference='Stop'` turns az stderr warnings into failures (scripts check exit codes);
+  app settings change → restart the site and allow ~30 s before testing.
+
 ## Next step (was Phase 2a — steps 1–3 below are now done for the Subscription family)
 
 Build the blueprint normaliser and take **one object family end to end**:

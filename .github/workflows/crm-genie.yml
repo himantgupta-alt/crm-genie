@@ -26,9 +26,9 @@ jobs:
     name: Verify (blueprint, DDL, parity, smoke)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm
@@ -40,6 +40,8 @@ jobs:
         run: |
           npm ci --prefix sf-extract/target --no-fund --no-audit
           npm ci --prefix sf-extract/target/app --omit=dev --no-fund --no-audit
+          # The migration console ships inside the app; it is copied in, not versioned twice.
+          cp sf-extract/demo/org-compiler.html sf-extract/target/app/public/compiler.html
 
       - name: Formula parser tests
         run: node --test "sf-extract/scripts/test/*.test.js"
@@ -76,9 +78,9 @@ jobs:
       name: azure-dev
       url: https://crmgenie-app-hg01.azurewebsites.net
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: ${{ env.NODE_VERSION }}
 
