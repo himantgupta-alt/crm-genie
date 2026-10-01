@@ -118,4 +118,8 @@
         <viewAllFields>false</viewAllFields>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
+    <tabSettings>
+        <tab>Subscription__c</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
 </PermissionSet>
