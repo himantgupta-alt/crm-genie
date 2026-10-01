@@ -1,0 +1,212 @@
+{
+  "name": "FlowOrchestrationLog",
+  "label": "Orchestration Run Log",
+  "custom": false,
+  "keyPrefix": "0mZ",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Orchestration Run Log ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OrchestrationName",
+      "label": "Orchestration Name",
+      "type": "string",
+      "length": 80,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "OrchestrationVersion",
+      "label": "Orchestration Version",
+      "type": "int",
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "OrchestrationInstanceId",
+      "label": "Orchestration Run ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "FlowOrchestrationInstance"
+      ],
+      "relationshipName": "OrchestrationInstance"
+    },
+    {
+      "name": "StageName",
+      "label": "Stage",
+      "type": "string",
+      "length": 80,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "StepName",
+      "label": "Step",
+      "type": "string",
+      "length": 80,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Actor",
+      "label": "Completed By",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Kind",
+      "label": "Milestone",
+      "type": "picklist",
+      "length": 255,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "CancelInstance",
+        "DiscontinueStage",
+        "DiscontinueStep",
+        "EndInstance",
+        "EndStage",
+        "EndStep",
+        "EndWorkItem",
+        "FailInstance",
+        "FailStage",
+        "FailStep",
+        "ReassignWorkItem",
+        "ResumeInstance",
+        "RunRecallPath",
+        "StartInstance",
+        "StartStage",
+        "StartStep",
+        "StartWorkItem",
+        "SuspendInstance",
+        "SuspendStage"
+      ]
+    },
+    {
+      "name": "Timestamp",
+      "label": "Timestamp",
+      "type": "datetime",
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "Duration",
+      "label": "Duration (seconds)",
+      "type": "long",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Context",
+      "label": "Context Record",
+      "type": "string",
+      "length": 80,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "AssigneeType",
+      "label": "Assignment Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "User",
+        "Group",
+        "Queue",
+        "Invalid",
+        "Resource"
+      ]
+    },
+    {
+      "name": "Assignee",
+      "label": "Assigned To",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Comments",
+      "label": "Comments",
+      "type": "string",
+      "length": 1333,
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": []
+}

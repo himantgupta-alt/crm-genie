@@ -1,0 +1,171 @@
+{
+  "name": "PaymentGatewayProvider",
+  "label": "Payment Gateway Provider",
+  "custom": false,
+  "keyPrefix": "0cJ",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Payment Gateway Provider ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "DeveloperName",
+      "label": "Name",
+      "type": "string",
+      "length": 255,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "Language",
+      "label": "Master Language",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "en_US",
+        "de",
+        "es",
+        "fr",
+        "it",
+        "ja",
+        "sv",
+        "ko",
+        "zh_TW",
+        "zh_CN",
+        "pt_BR",
+        "nl_NL",
+        "da",
+        "th",
+        "fi",
+        "ru",
+        "es_MX",
+        "no"
+      ]
+    },
+    {
+      "name": "MasterLabel",
+      "label": "Label",
+      "type": "string",
+      "length": 255,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "NamespacePrefix",
+      "label": "Namespace Prefix",
+      "type": "string",
+      "length": 15,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ApexAdapterId",
+      "label": "Class ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "unique": true,
+      "custom": false,
+      "referenceTo": [
+        "ApexClass"
+      ],
+      "relationshipName": "ApexAdapter"
+    },
+    {
+      "name": "Comments",
+      "label": "Comments",
+      "type": "textarea",
+      "length": 1000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IdempotencySupported",
+      "label": "Idempotency Supported",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "No",
+      "picklistValues": [
+        "No",
+        "Yes"
+      ]
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "PaymentGateway",
+      "field": "PaymentGatewayProviderId",
+      "relationshipName": "PaymentGateways",
+      "cascadeDelete": false
+    }
+  ]
+}

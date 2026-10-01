@@ -1,0 +1,148 @@
+{
+  "name": "AccountPartner",
+  "label": "Account Partner",
+  "custom": false,
+  "keyPrefix": "00I",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Account Partner ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "AccountFromId",
+      "label": "Account ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "Account"
+      ],
+      "relationshipName": "AccountFrom"
+    },
+    {
+      "name": "AccountToId",
+      "label": "Account ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "Account"
+      ],
+      "relationshipName": "AccountTo"
+    },
+    {
+      "name": "OpportunityId",
+      "label": "Opportunity ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Opportunity"
+      ],
+      "relationshipName": "Opportunity"
+    },
+    {
+      "name": "Role",
+      "label": "Role",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "System Integrator",
+        "Agency",
+        "Advertiser",
+        "VAR/Reseller",
+        "Distributor",
+        "Developer",
+        "Broker",
+        "Lender",
+        "Supplier",
+        "Institution",
+        "Contractor",
+        "Dealer",
+        "Consultant"
+      ]
+    },
+    {
+      "name": "IsPrimary",
+      "label": "Primary",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ReversePartnerId",
+      "label": "Reverse Partner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "AccountPartner"
+      ]
+    }
+  ],
+  "childRelationships": []
+}

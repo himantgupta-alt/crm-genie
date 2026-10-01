@@ -1,0 +1,486 @@
+{
+  "name": "MarketSegmentActivation",
+  "label": "Activation",
+  "custom": false,
+  "keyPrefix": "85R",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Segment Activation ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Name",
+      "type": "string",
+      "length": 255,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MarketSegmentId",
+      "label": "Segment ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "MarketSegment"
+      ],
+      "relationshipName": "MarketSegment"
+    },
+    {
+      "name": "ActivationTargetId",
+      "label": "Partner Profile ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "ActivationTarget"
+      ],
+      "relationshipName": "ActivationTarget"
+    },
+    {
+      "name": "LastPublishStatus",
+      "label": "Last Publish Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "PUBLISHING",
+        "SUCCESS",
+        "ERROR",
+        "PARTNER_PROCESSING",
+        "PARTNER_ERROR",
+        "SEGMENT_ERROR",
+        "QUEUED",
+        "SKIPPED",
+        "NOT_SUPPORTED",
+        "NOT_PUBLISHED"
+      ]
+    },
+    {
+      "name": "LastPublishStatusErrorMessage",
+      "label": "Last Publish Status Error Message",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastPublishedDate",
+      "label": "Last Published Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Description",
+      "label": "Description",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ActivationObjectFilter",
+      "label": "Activation Object Filter",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ActivationObjectPath",
+      "label": "Activation Object Path",
+      "type": "textarea",
+      "length": 4096,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "DmoFilterExpression",
+      "label": "Dmo Filter Expression",
+      "type": "textarea",
+      "length": 131072,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CustomerFileSource",
+      "label": "Customer File Source Entity Name",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "1P",
+        "3P",
+        "1P&3P"
+      ]
+    },
+    {
+      "name": "ActivationRefreshType",
+      "label": "Activation Refresh Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "FULL_REFRESH",
+      "picklistValues": [
+        "FULL_REFRESH",
+        "INCREMENTAL",
+        "NOT_APPLICABLE"
+      ],
+      "inlineHelpText": "Choose how often to refresh your data. Incremental refresh updates new or changed data since the last publish. Full refresh updates all your data and can be selected once every 24 hours."
+    },
+    {
+      "name": "RecordCount",
+      "label": "Activation Record Count",
+      "type": "long",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "DirectAttributeDmoFilterExpression",
+      "label": "Direct Attribute Dmo Filter Expression",
+      "type": "textarea",
+      "length": 131072,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "StaticAttributes",
+      "label": "Static Attributes",
+      "type": "textarea",
+      "length": 131072,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LimitingAttributesExpression",
+      "label": "Adhoc limiting attribute expression",
+      "type": "textarea",
+      "length": 131072,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LimitValue",
+      "label": "Adhoc limit value",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "WaterfallSelectedChildSegmentsConfig",
+      "label": "Waterfall Selected Child Segments Config",
+      "type": "textarea",
+      "length": 131072,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ActivationStatus",
+      "label": "Activation Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "ACTIVE",
+      "picklistValues": [
+        "ACTIVE",
+        "PROCESSING",
+        "ERROR",
+        "INACTIVE"
+      ]
+    },
+    {
+      "name": "LastActivationStatusDateTime",
+      "label": "Activation Status Last Updated",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastActivationStatusErrorCode",
+      "label": "Activation Status Error Code",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "CREATE_FAILED",
+      "picklistValues": [
+        "CREATE_FAILED",
+        "UPDATE_FAILED",
+        "DELETE_FAILED",
+        "AUDIENCE_DMO_CREATE_FAILED",
+        "AUDIT_DMO_CREATE_FAILED",
+        "AD_AUDIENCE_INSIGHTS_DMO_CREATE_FAILED"
+      ]
+    },
+    {
+      "name": "StartDate",
+      "label": "Start date for processing the activation",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "EndDate",
+      "label": "End date for processing the activation",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "DataGraphPath",
+      "label": "Activation Data Graph Path",
+      "type": "textarea",
+      "length": 4096,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ActivationFlowType",
+      "label": "Activation Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "SEGMENT",
+        "DMO",
+        "API_TRIGGERED",
+        "TEMPLATE"
+      ]
+    },
+    {
+      "name": "ActivationEventMetadata",
+      "label": "Activation Event Metadata",
+      "type": "textarea",
+      "length": 32000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnedByOrg",
+      "label": "Owned By",
+      "type": "string",
+      "length": 100,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsRemote",
+      "label": "Is Remote",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "DoExcludeUpdates",
+      "label": "Exclude records modified since the last refresh",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "DoExcludeDeletes",
+      "label": "Exclude records removed since the last refresh",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "AudienceDmoLastRunTimestamp",
+      "label": "Audience DMO Last Run Timestamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ActivationRecordSchema",
+      "label": "Activation Schema",
+      "type": "textarea",
+      "length": 131072,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ActivationMappingSchema",
+      "label": "Activation Mapping Schema",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "PartnerObjectIds",
+      "label": "Partner Object Ids",
+      "type": "textarea",
+      "length": 131072,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ActivationProcessingType",
+      "label": "Processing Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Batch",
+        "Streaming"
+      ]
+    },
+    {
+      "name": "PlatformName",
+      "label": "Platform Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IdentityProviderDetails",
+      "label": "Identity Provider Details",
+      "type": "textarea",
+      "length": 131072,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CuratedEntityName",
+      "label": "Curated Data Model Entity Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "SourceDmoApiName",
+      "label": "Source DMO API Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ActivationObjectName",
+      "label": "Data Model Object",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "DataGraphName",
+      "label": "Data Graph",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    }
+  ]
+}

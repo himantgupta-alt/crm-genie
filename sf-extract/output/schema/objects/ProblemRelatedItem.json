@@ -1,0 +1,164 @@
+{
+  "name": "ProblemRelatedItem",
+  "label": "Problem Related Item",
+  "custom": false,
+  "keyPrefix": "0tB",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Problem Related Item ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Problem Related Item Number",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ProblemId",
+      "label": "Problem ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "Problem"
+      ],
+      "relationshipName": "Problem"
+    },
+    {
+      "name": "AssetId",
+      "label": "Asset ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "Asset"
+      ],
+      "relationshipName": "Asset"
+    },
+    {
+      "name": "ImpactType",
+      "label": "Impact Type",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "defaultValue": "Business-Blocking",
+      "picklistValues": [
+        "Business-Blocking",
+        "Partially Business-Blocking",
+        "Not Business-Blocking"
+      ]
+    },
+    {
+      "name": "ImpactLevel",
+      "label": "Impact Level",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "defaultValue": "High",
+      "picklistValues": [
+        "High",
+        "Medium",
+        "Low"
+      ]
+    },
+    {
+      "name": "Comment",
+      "label": "Comment",
+      "type": "textarea",
+      "length": 32000,
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    }
+  ]
+}

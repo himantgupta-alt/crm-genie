@@ -1,0 +1,193 @@
+{
+  "name": "ContentWorkspace",
+  "label": "Library",
+  "custom": false,
+  "keyPrefix": "058",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Library ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Name",
+      "type": "string",
+      "length": 255,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "Description",
+      "label": "Description",
+      "type": "textarea",
+      "length": 500,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TagModel",
+      "label": "Tag Model",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "defaultValue": "U",
+      "picklistValues": [
+        "U",
+        "G",
+        "R"
+      ]
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "DefaultRecordTypeId",
+      "label": "Record Type ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "RecordType"
+      ]
+    },
+    {
+      "name": "IsRestrictContentTypes",
+      "label": "Restrict Record Types",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsRestrictLinkedContentTypes",
+      "label": "Restrict Linked Record Types",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "WorkspaceType",
+      "label": "Library Type",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "defaultValue": "R",
+      "picklistValues": [
+        "R",
+        "B"
+      ]
+    },
+    {
+      "name": "ShouldAddCreatorMembership",
+      "label": "Add Creator Membership",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastWorkspaceActivityDate",
+      "label": "Last Activity",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "RootContentFolderId",
+      "label": "Content Folder ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "ContentFolder"
+      ]
+    },
+    {
+      "name": "NamespacePrefix",
+      "label": "Namespace Prefix",
+      "type": "string",
+      "length": 15,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "DeveloperName",
+      "label": "Unique Name",
+      "type": "string",
+      "length": 80,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "WorkspaceImageId",
+      "label": "Asset File ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "ContentAsset"
+      ],
+      "relationshipName": "WorkspaceImage",
+      "inlineHelpText": "Dress up your library with an image. An image that's 16:9 aspect ratio (for example 480 pixels by 270 pixels) works best. All users can see this image even if they aren't library members."
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    }
+  ]
+}

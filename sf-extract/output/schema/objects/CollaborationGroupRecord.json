@@ -1,0 +1,103 @@
+{
+  "name": "CollaborationGroupRecord",
+  "label": "Group Record",
+  "custom": false,
+  "keyPrefix": "0Aa",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Group Record ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CollaborationGroupId",
+      "label": "Chatter Group ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "CollaborationGroup"
+      ],
+      "relationshipName": "CollaborationGroup"
+    },
+    {
+      "name": "RecordId",
+      "label": "Record ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "Account",
+        "Campaign",
+        "Case",
+        "Contact",
+        "Contract",
+        "Lead",
+        "Opportunity",
+        "Subscription_Line__c",
+        "Subscription__c"
+      ],
+      "relationshipName": "Record"
+    }
+  ],
+  "childRelationships": []
+}

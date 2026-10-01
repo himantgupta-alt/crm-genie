@@ -1,0 +1,198 @@
+{
+  "name": "AsyncOperationLog",
+  "label": "Async Operation Log",
+  "custom": false,
+  "keyPrefix": "1ao",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Async Operation Log ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "AsyncOperationNumber",
+      "label": "Async Operation Number",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ExternalReference",
+      "label": "External Reference",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Description",
+      "label": "Description",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Status",
+      "label": "Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "New",
+        "InProgress",
+        "Error",
+        "Completed"
+      ]
+    },
+    {
+      "name": "Type",
+      "label": "Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "LocationManagement",
+        "ImportInventory",
+        "OrderSummaryAdjustmentAggregate",
+        "CreateAsset",
+        "CancelAsset",
+        "CancelOrderItemSummaries",
+        "CdsFullLocationGraphSync",
+        "CdsDeltaEntitySync"
+      ]
+    },
+    {
+      "name": "StartedAt",
+      "label": "Started At",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FinishedAt",
+      "label": "Finished At",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastStatusUpdateAt",
+      "label": "Last Status Update At",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Error",
+      "label": "Error",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "RelatedRecordId",
+      "label": "Related Record ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Asset"
+      ],
+      "relationshipName": "RelatedRecord"
+    },
+    {
+      "name": "Request",
+      "label": "Request",
+      "type": "textarea",
+      "length": 131072,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Response",
+      "label": "Response",
+      "type": "textarea",
+      "length": 131072,
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": []
+}

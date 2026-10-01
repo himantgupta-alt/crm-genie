@@ -1,0 +1,203 @@
+{
+  "name": "EngagementChannelType",
+  "label": "Engagement Channel Type",
+  "custom": false,
+  "keyPrefix": "0eF",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Engagement Channel Type ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnerId",
+      "label": "Owner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Group",
+        "User"
+      ],
+      "relationshipName": "Owner"
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Name",
+      "type": "string",
+      "length": 255,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ContactPointType",
+      "label": "Contact Point Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Email",
+        "Phone",
+        "Web",
+        "Social",
+        "MailingAddress",
+        "InPerson",
+        "Video"
+      ],
+      "inlineHelpText": "The contact point type record associated with the engagement channel type."
+    },
+    {
+      "name": "IsActive",
+      "label": "Active",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "UsageType",
+      "label": "Usage Type",
+      "type": "multipicklist",
+      "length": 4099,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Salesforce Scheduler"
+      ]
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "AppointmentInvitation",
+      "field": "EngagementChannelTypeId",
+      "relationshipName": "AppointmentInvitations",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "CommSubscriptionChannelType",
+      "field": "EngagementChannelTypeId",
+      "relationshipName": "CommSubscriptionChannelTypes",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "EngagementChannelWorkType",
+      "field": "EngagementChannelTypeId",
+      "relationshipName": "EngagementChannelWorkTypes",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Note",
+      "field": "ParentId",
+      "relationshipName": "Notes",
+      "cascadeDelete": true
+    },
+    {
+      "child": "ServiceAppointment",
+      "field": "EngagementChannelTypeId",
+      "relationshipName": "ServiceAppointments",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ShiftEngagementChannel",
+      "field": "EngagementChannelTypeId",
+      "relationshipName": "ShiftEngagementChannels",
+      "cascadeDelete": false
+    }
+  ]
+}

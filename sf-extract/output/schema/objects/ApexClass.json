@@ -1,0 +1,132 @@
+{
+  "name": "ApexClass",
+  "label": "Apex Class",
+  "custom": false,
+  "keyPrefix": "01p",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Class ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "NamespacePrefix",
+      "label": "Namespace Prefix",
+      "type": "string",
+      "length": 15,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Name",
+      "type": "string",
+      "length": 255,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "ApiVersion",
+      "label": "Api Version",
+      "type": "double",
+      "precision": 18,
+      "scale": 1,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "Status",
+      "label": "Status",
+      "type": "picklist",
+      "length": 40,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "Inactive",
+        "Active",
+        "Deleted"
+      ]
+    },
+    {
+      "name": "IsValid",
+      "label": "Is Valid",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "BodyCrc",
+      "label": "Body CRC",
+      "type": "double",
+      "precision": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Body",
+      "label": "Body",
+      "type": "textarea",
+      "length": 1000000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LengthWithoutComments",
+      "label": "Size Without Comments",
+      "type": "int",
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": []
+}

@@ -1,0 +1,127 @@
+{
+  "name": "ScorecardMetric",
+  "label": "Scorecard Metric",
+  "custom": false,
+  "keyPrefix": "0Om",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Scorecard Metric Id",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Name",
+      "type": "string",
+      "length": 255,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ScorecardId",
+      "label": "Scorecard ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "Scorecard"
+      ],
+      "relationshipName": "Scorecard"
+    },
+    {
+      "name": "Description",
+      "label": "Description",
+      "type": "textarea",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Category",
+      "label": "Category",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "defaultValue": "Sales",
+      "picklistValues": [
+        "Sales",
+        "Marketing",
+        "Field Enablement",
+        "Support",
+        "Adoption"
+      ]
+    },
+    {
+      "name": "ReportId",
+      "label": "Report ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Report"
+      ],
+      "relationshipName": "Report"
+    }
+  ],
+  "childRelationships": []
+}

@@ -1,0 +1,233 @@
+{
+  "name": "SourceCodeRepository",
+  "label": "Source Code Repository",
+  "custom": false,
+  "keyPrefix": "1Qh",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Source Code Repository ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnerId",
+      "label": "Owner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Group",
+        "User"
+      ],
+      "relationshipName": "Owner"
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Name",
+      "type": "string",
+      "length": 255,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "DefaultBranch",
+      "label": "Default Branch",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "RepositoryOwner",
+      "label": "Repository Owner",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ExternalRepositoryName",
+      "label": "External Repository Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Provider",
+      "label": "Provider",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "GITHUB",
+      "picklistValues": [
+        "GITHUB",
+        "BITBUCKET",
+        "GITLAB"
+      ]
+    },
+    {
+      "name": "SourceCodeRepoProviderId",
+      "label": "Source Code Repository Provider ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "SourceCodeRepoProvider"
+      ],
+      "relationshipName": "SourceCodeRepoProvider"
+    },
+    {
+      "name": "ProviderInfo",
+      "label": "Provider Info",
+      "type": "textarea",
+      "length": 1000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ExternalId",
+      "label": "External Id",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "DevopsPipeline",
+      "field": "SourceCodeRepositoryId",
+      "relationshipName": "DevopsPipelines",
+      "cascadeDelete": false
+    },
+    {
+      "child": "EmailMessage",
+      "field": "RelatedToId",
+      "relationshipName": "Emails",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Event",
+      "field": "WhatId",
+      "relationshipName": "Events",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Note",
+      "field": "ParentId",
+      "relationshipName": "Notes",
+      "cascadeDelete": true
+    },
+    {
+      "child": "SourceCodeRepositoryBranch",
+      "field": "SourceCodeRepositoryId",
+      "relationshipName": "SourceCodeRepositoryBranches",
+      "cascadeDelete": true
+    },
+    {
+      "child": "Task",
+      "field": "WhatId",
+      "relationshipName": "Tasks",
+      "cascadeDelete": true
+    }
+  ]
+}

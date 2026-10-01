@@ -1,0 +1,226 @@
+{
+  "name": "Coupon",
+  "label": "Coupon",
+  "custom": false,
+  "keyPrefix": "0lC",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Coupon ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnerId",
+      "label": "Owner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Group",
+        "User"
+      ],
+      "relationshipName": "Owner"
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Coupon Number",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "PromotionId",
+      "label": "Promotion ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "Promotion"
+      ],
+      "relationshipName": "Promotion"
+    },
+    {
+      "name": "CouponCode",
+      "label": "Coupon Code",
+      "type": "string",
+      "length": 255,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "Status",
+      "label": "Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "Inactive",
+      "picklistValues": [
+        "Active",
+        "Inactive"
+      ]
+    },
+    {
+      "name": "StartDateTime",
+      "label": "Start Date Time",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "EndDateTime",
+      "label": "End Date Time",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "RedemptionLimitAllBuyers",
+      "label": "Redemption Limit All Buyers",
+      "type": "int",
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "Number of times this coupon can be used in total."
+    },
+    {
+      "name": "RedemptionLimitPerBuyer",
+      "label": "Redemption Limit Per Buyer",
+      "type": "int",
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "Number of times this coupon can be used per customer."
+    },
+    {
+      "name": "Description",
+      "label": "Description",
+      "type": "textarea",
+      "length": 1000,
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "CouponCodeRedemption",
+      "field": "CouponId",
+      "relationshipName": "CouponCodeRedemptions",
+      "cascadeDelete": true
+    },
+    {
+      "child": "EmailMessage",
+      "field": "RelatedToId",
+      "relationshipName": "Emails",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Event",
+      "field": "WhatId",
+      "relationshipName": "Events",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Task",
+      "field": "WhatId",
+      "relationshipName": "Tasks",
+      "cascadeDelete": true
+    }
+  ]
+}

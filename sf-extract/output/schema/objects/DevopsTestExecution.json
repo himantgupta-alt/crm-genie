@@ -1,0 +1,242 @@
+{
+  "name": "DevopsTestExecution",
+  "label": "Test Execution",
+  "custom": false,
+  "keyPrefix": "9Pd",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Test Execution ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnerId",
+      "label": "Owner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Group",
+        "User"
+      ],
+      "relationshipName": "Owner"
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "SampleCode",
+      "label": "Sample Code",
+      "type": "textarea",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LearnMore",
+      "label": "Learn More",
+      "type": "url",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ReportUrl",
+      "label": "Report URL",
+      "type": "url",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Status",
+      "label": "Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "Passed",
+      "picklistValues": [
+        "Passed",
+        "Failed",
+        "InProgress",
+        "Error"
+      ]
+    },
+    {
+      "name": "ResultDetails",
+      "label": "Result Details",
+      "type": "textarea",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Message",
+      "label": "Message",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Severity",
+      "label": "Severity",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "1",
+      "picklistValues": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ]
+    },
+    {
+      "name": "ExecutionStartTime",
+      "label": "Execution Start Time",
+      "type": "datetime",
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "ExecutionEndTime",
+      "label": "Execution End Time",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ExternalTestRef",
+      "label": "External Test Ref",
+      "type": "string",
+      "length": 25,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "DevopsTestId",
+      "label": "DevopsTest ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "DevopsTest"
+      ],
+      "relationshipName": "DevopsTest"
+    },
+    {
+      "name": "DevopsTestSuiteExecutionId",
+      "label": "DevopsTestSuiteExecution ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "DevopsTestSuiteExecution"
+      ],
+      "relationshipName": "DevopsTestSuiteExecution"
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    }
+  ]
+}

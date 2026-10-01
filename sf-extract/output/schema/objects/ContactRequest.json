@@ -1,0 +1,249 @@
+{
+  "name": "ContactRequest",
+  "label": "Contact Request",
+  "custom": false,
+  "keyPrefix": "0Tz",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Contact Request ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnerId",
+      "label": "Owner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Group",
+        "User"
+      ],
+      "relationshipName": "Owner"
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Contact Request Number",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "WhatId",
+      "label": "Related To ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Account",
+        "Case",
+        "Opportunity",
+        "Subscription_Line__c",
+        "Subscription__c",
+        "VoiceCall",
+        "WorkOrder"
+      ],
+      "relationshipName": "What"
+    },
+    {
+      "name": "WhoId",
+      "label": "Requestor ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Contact",
+        "Lead",
+        "User"
+      ],
+      "relationshipName": "Who"
+    },
+    {
+      "name": "PreferredPhone",
+      "label": "Preferred Phone Number",
+      "type": "phone",
+      "length": 40,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "PreferredChannel",
+      "label": "Preferred Channel",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "defaultValue": "Phone",
+      "picklistValues": [
+        "Phone"
+      ]
+    },
+    {
+      "name": "Status",
+      "label": "Request Status",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "defaultValue": "New",
+      "picklistValues": [
+        "New",
+        "Attempted",
+        "Contacted",
+        "Abandoned"
+      ]
+    },
+    {
+      "name": "RequestReason",
+      "label": "Request Reason",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "defaultValue": "Account",
+      "picklistValues": [
+        "Account",
+        "Billing",
+        "Case",
+        "General",
+        "Order",
+        "Product",
+        "Other"
+      ]
+    },
+    {
+      "name": "RequestDescription",
+      "label": "Request Description",
+      "type": "textarea",
+      "length": 32000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsCallback",
+      "label": "Is Callback",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "EmailMessage",
+      "field": "RelatedToId",
+      "relationshipName": "Emails",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Event",
+      "field": "WhatId",
+      "relationshipName": "Events",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Task",
+      "field": "WhatId",
+      "relationshipName": "Tasks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "VoiceCall",
+      "field": "RelatedRecordId",
+      "relationshipName": "RelatedRecords",
+      "cascadeDelete": false
+    }
+  ]
+}

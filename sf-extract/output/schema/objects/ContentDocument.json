@@ -1,0 +1,317 @@
+{
+  "name": "ContentDocument",
+  "label": "Content Document",
+  "custom": false,
+  "keyPrefix": "069",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Content Document ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsArchived",
+      "label": "Is Archived",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ArchivedById",
+      "label": "User ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ]
+    },
+    {
+      "name": "ArchivedDate",
+      "label": "Archived Date",
+      "type": "date",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Is Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnerId",
+      "label": "Owner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "Owner"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Title",
+      "label": "Title",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "PublishStatus",
+      "label": "Publish Status",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "defaultValue": "U",
+      "picklistValues": [
+        "U",
+        "P",
+        "R"
+      ]
+    },
+    {
+      "name": "LatestPublishedVersionId",
+      "label": "Latest Published Version ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "ContentVersion"
+      ],
+      "relationshipName": "LatestPublishedVersion"
+    },
+    {
+      "name": "ParentId",
+      "label": "Parent ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "ContentWorkspace"
+      ]
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Description",
+      "label": "Description",
+      "type": "textarea",
+      "length": 1000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ContentSize",
+      "label": "Size",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ContentSizeLong",
+      "label": "Size",
+      "type": "long",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FileType",
+      "label": "File Type",
+      "type": "string",
+      "length": 20,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FileExtension",
+      "label": "File Extension",
+      "type": "string",
+      "length": 40,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "SharingOption",
+      "label": "Prevent others from sharing and unsharing",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "defaultValue": "A",
+      "picklistValues": [
+        "A",
+        "R"
+      ]
+    },
+    {
+      "name": "SharingPrivacy",
+      "label": "File Privacy on Records",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "defaultValue": "N",
+      "picklistValues": [
+        "N",
+        "P"
+      ]
+    },
+    {
+      "name": "ContentModifiedDate",
+      "label": "Content Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ContentAssetId",
+      "label": "Asset File ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "ContentAsset"
+      ],
+      "relationshipName": "ContentAsset"
+    },
+    {
+      "name": "IsInternalOnly",
+      "label": "Is Internal Only",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MalwareScanStatus",
+      "label": "Malware Scan Status",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "NotScanned",
+        "Scheduled",
+        "Clean",
+        "Malicious",
+        "Skipped",
+        "Failed"
+      ]
+    },
+    {
+      "name": "MalwareScanDate",
+      "label": "Malware Scan Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "AuthorizationFormText",
+      "field": "ContentDocumentId",
+      "relationshipName": "AuthorizationFormTexts",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ContentDocumentLink",
+      "field": "ContentDocumentId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "ContentVersion",
+      "field": "ContentDocumentId",
+      "relationshipName": "ContentVersions",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    }
+  ]
+}

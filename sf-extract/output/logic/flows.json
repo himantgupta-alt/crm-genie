@@ -1,0 +1,98 @@
+[
+  {
+    "name": "sfdc_default_ReportExport_Protection_Flow",
+    "label": "The default Report Export Policy Flow.",
+    "processType": "TransactionSecurityFlow",
+    "status": "Draft",
+    "description": "The default Condition Builder flow for the default ReportEvent Transaction Security Policy.",
+    "decisions": [
+      {
+        "name": "ConditionBuilder",
+        "rules": [
+          {
+            "name": "MatchAll",
+            "logic": "(1 OR 2) AND 3",
+            "conditions": [
+              "myVariable_myEvent.Operation EqualTo ReportExported",
+              "myVariable_myEvent.Operation EqualTo ReportExportedUsingExcelConnector",
+              "myVariable_myEvent.RowsProcessed GreaterThan 10000.0"
+            ],
+            "then": "EvaluationOutcomeAssignment"
+          }
+        ],
+        "default": "EvaluationOutcomeAssignmentFalse"
+      }
+    ],
+    "recordLookups": [],
+    "recordCreates": [],
+    "recordUpdates": [],
+    "recordDeletes": [],
+    "actions": [],
+    "subflows": [],
+    "formulas": []
+  },
+  {
+    "name": "Subscription_At_Risk_Alert",
+    "label": "Subscription At Risk Alert",
+    "processType": "AutoLaunchedFlow",
+    "status": "Active",
+    "description": "Raises a check-in task when an active subscription drops below the at-risk health threshold.",
+    "trigger": {
+      "object": "Subscription__c",
+      "triggerType": "RecordAfterSave",
+      "recordTriggerType": "CreateAndUpdate",
+      "entryConditions": [],
+      "filterFormula": "AND( {!$Record.Health_Score__c} < 50, ISPICKVAL({!$Record.Status__c}, \"Active\") )",
+      "doesRequireRecordChangedToMeetCriteria": false,
+      "firstElement": "Create_Health_Check_Task"
+    },
+    "decisions": [],
+    "recordLookups": [],
+    "recordCreates": [
+      {
+        "name": "Create_Health_Check_Task",
+        "object": "Task",
+        "assignments": [
+          {
+            "field": "ActivityDate",
+            "value": {
+              "ref": "$Flow.CurrentDate"
+            }
+          },
+          {
+            "field": "Priority",
+            "value": {
+              "literal": "High",
+              "kind": "stringValue"
+            }
+          },
+          {
+            "field": "Status",
+            "value": {
+              "literal": "Not Started",
+              "kind": "stringValue"
+            }
+          },
+          {
+            "field": "Subject",
+            "value": {
+              "literal": "Health check: at-risk subscription",
+              "kind": "stringValue"
+            }
+          },
+          {
+            "field": "WhatId",
+            "value": {
+              "ref": "$Record.Id"
+            }
+          }
+        ]
+      }
+    ],
+    "recordUpdates": [],
+    "recordDeletes": [],
+    "actions": [],
+    "subflows": [],
+    "formulas": []
+  }
+]

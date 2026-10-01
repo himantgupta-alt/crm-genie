@@ -1,0 +1,195 @@
+{
+  "name": "OpportunityLineItem",
+  "label": "Opportunity Product",
+  "custom": false,
+  "keyPrefix": "00k",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Line Item ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OpportunityId",
+      "label": "Opportunity ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "Opportunity"
+      ],
+      "relationshipName": "Opportunity"
+    },
+    {
+      "name": "SortOrder",
+      "label": "Sort Order",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "PricebookEntryId",
+      "label": "Price Book Entry ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "PricebookEntry"
+      ],
+      "relationshipName": "PricebookEntry"
+    },
+    {
+      "name": "Product2Id",
+      "label": "Product ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Product2"
+      ],
+      "relationshipName": "Product2"
+    },
+    {
+      "name": "ProductCode",
+      "label": "Product Code",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Opportunity Product Name",
+      "type": "string",
+      "length": 376,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Quantity",
+      "label": "Quantity",
+      "type": "double",
+      "precision": 12,
+      "scale": 2,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "TotalPrice",
+      "label": "Total Price",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "UnitPrice",
+      "label": "Sales Price",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ListPrice",
+      "label": "List Price",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ServiceDate",
+      "label": "Date",
+      "type": "date",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Description",
+      "label": "Line Description",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": []
+}

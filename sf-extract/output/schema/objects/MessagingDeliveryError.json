@@ -1,0 +1,168 @@
+{
+  "name": "MessagingDeliveryError",
+  "label": "Messaging Delivery Error",
+  "custom": false,
+  "keyPrefix": "0Ut",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Messaging Delivery Error ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Messaging Delivery Error Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MessagingChannelId",
+      "label": "Messaging Channel ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "MessagingChannel"
+      ],
+      "relationshipName": "MessagingChannel"
+    },
+    {
+      "name": "MessagingTemplateId",
+      "label": "Messaging Template ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "MessagingTemplate"
+      ],
+      "relationshipName": "MessagingTemplate"
+    },
+    {
+      "name": "FlowEntity",
+      "label": "Source Record ID",
+      "type": "string",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FullMessage",
+      "label": "Message",
+      "type": "textarea",
+      "length": 65536,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FailureReason",
+      "label": "Error",
+      "type": "textarea",
+      "length": 65536,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "DestinationPhoneNumber",
+      "label": "Recipient Phone",
+      "type": "string",
+      "length": 64,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MessagingEndUserId",
+      "label": "Messaging User ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "MessagingEndUser"
+      ],
+      "relationshipName": "MessagingEndUser"
+    },
+    {
+      "name": "Type",
+      "label": "Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "Error",
+      "picklistValues": [
+        "Error",
+        "Warning"
+      ]
+    },
+    {
+      "name": "CorrelationIdentifier",
+      "label": "Correlation Identifier",
+      "type": "string",
+      "length": 36,
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": []
+}

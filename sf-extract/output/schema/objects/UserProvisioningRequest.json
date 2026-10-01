@@ -1,0 +1,267 @@
+{
+  "name": "UserProvisioningRequest",
+  "label": "User Provisioning Request",
+  "custom": false,
+  "keyPrefix": "0HP",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "User Provisioning Request ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnerId",
+      "label": "Owner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Group",
+        "User"
+      ],
+      "relationshipName": "Owner"
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "SalesforceUserId",
+      "label": "User ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "SalesforceUser"
+    },
+    {
+      "name": "ExternalUserId",
+      "label": "External User Id",
+      "type": "string",
+      "length": 150,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "AppName",
+      "label": "App Name",
+      "type": "string",
+      "length": 150,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "State",
+      "label": "State",
+      "type": "picklist",
+      "length": 255,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "New",
+        "Requested",
+        "Completed",
+        "Failed",
+        "Collecting",
+        "Collected",
+        "Analyzing",
+        "Analyzed",
+        "Committing",
+        "Retried",
+        "Manually Completed"
+      ]
+    },
+    {
+      "name": "Operation",
+      "label": "Operation",
+      "type": "picklist",
+      "length": 255,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "Create",
+        "Read",
+        "Update",
+        "Deactivate",
+        "Activate",
+        "Freeze",
+        "Unfreeze",
+        "Reconcile",
+        "Linking"
+      ]
+    },
+    {
+      "name": "ScheduleDate",
+      "label": "Scheduled Provisioning Time",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ConnectedAppId",
+      "label": "Connected App ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "ConnectedApplication"
+      ],
+      "relationshipName": "ConnectedApp"
+    },
+    {
+      "name": "UserProvConfigId",
+      "label": "User Provisioning Configuration ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "UserProvisioningConfig"
+      ],
+      "relationshipName": "UserProvConfig"
+    },
+    {
+      "name": "UserProvAccountId",
+      "label": "User Provisioning Account ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "UserProvAccount"
+      ],
+      "relationshipName": "UserProvAccount"
+    },
+    {
+      "name": "ApprovalStatus",
+      "label": "Approval Status",
+      "type": "picklist",
+      "length": 255,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "Required",
+        "NotRequired",
+        "Approved",
+        "Denied"
+      ]
+    },
+    {
+      "name": "ManagerId",
+      "label": "User ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "Manager"
+    },
+    {
+      "name": "RetryCount",
+      "label": "Retry Count",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ParentId",
+      "label": "User Provisioning Request ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "UserProvisioningRequest"
+      ],
+      "relationshipName": "Parent"
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    }
+  ]
+}

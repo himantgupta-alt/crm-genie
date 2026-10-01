@@ -1,0 +1,373 @@
+{
+  "name": "FulfillmentOrderLineItem",
+  "label": "Fulfillment Order Product",
+  "custom": false,
+  "keyPrefix": "0a4",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Fulfillment Order Product ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FulfillmentOrderLineItemNumber",
+      "label": "Fulfillment Order Product Number",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FulfillmentOrderId",
+      "label": "Fulfillment Order ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "FulfillmentOrder"
+      ],
+      "relationshipName": "FulfillmentOrder"
+    },
+    {
+      "name": "OrderItemId",
+      "label": "Order Product ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "OrderItem"
+      ],
+      "relationshipName": "OrderItem"
+    },
+    {
+      "name": "Description",
+      "label": "Description",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Quantity",
+      "label": "Quantity",
+      "type": "double",
+      "precision": 18,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "OriginalQuantity",
+      "label": "Quantity on the Original Order",
+      "type": "double",
+      "precision": 18,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "QuantityUnitOfMeasure",
+      "label": "Quantity Unit Of Measure",
+      "type": "string",
+      "length": 100,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TotalPrice",
+      "label": "Pretax Total",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false,
+      "calculated": true
+    },
+    {
+      "name": "TotalLineAmount",
+      "label": "Line Subtotal",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TotalAdjustmentAmount",
+      "label": "Adjustments",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false,
+      "calculated": true
+    },
+    {
+      "name": "TotalAdjustmentTaxAmount",
+      "label": "Adjustments Tax",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false,
+      "calculated": true
+    },
+    {
+      "name": "TotalLineTaxAmount",
+      "label": "Line Subtotal Tax",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false,
+      "calculated": true
+    },
+    {
+      "name": "TotalTaxAmount",
+      "label": "Tax",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false,
+      "calculated": true
+    },
+    {
+      "name": "TotalAmount",
+      "label": "Total with Tax",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false,
+      "calculated": true
+    },
+    {
+      "name": "UnitPrice",
+      "label": "Unit Price",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ServiceDate",
+      "label": "Start Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "EndDate",
+      "label": "End Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Product2Id",
+      "label": "Product ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Product2"
+      ],
+      "relationshipName": "Product2"
+    },
+    {
+      "name": "GrossUnitPrice",
+      "label": "Gross Unit Price",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TotalLineAmountWithTax",
+      "label": "Line Subtotal with Tax",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false,
+      "calculated": true
+    },
+    {
+      "name": "TotalAdjustmentAmountWithTax",
+      "label": "Adjustments with Tax",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false,
+      "calculated": true
+    },
+    {
+      "name": "IsReship",
+      "label": "Reship",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ReshipReason",
+      "label": "Reship Reason",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Unknown",
+        "Damaged",
+        "Lost",
+        "Wrong Item"
+      ]
+    },
+    {
+      "name": "RejectReason",
+      "label": "Reject Reason",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Damaged",
+        "Just Sold",
+        "Out of Packing Supplies",
+        "Out of Stock",
+        "Other"
+      ]
+    },
+    {
+      "name": "RejectedQuantity",
+      "label": "Rejected Quantity",
+      "type": "double",
+      "precision": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MainFulfillmentOrderLineItemId",
+      "label": "Fulfillment Order Product ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "FulfillmentOrderLineItem"
+      ],
+      "relationshipName": "MainFulfillmentOrderLineItem"
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FulfillmentOrderItemAdjustment",
+      "field": "FulfillmentOrderLineItemId",
+      "relationshipName": "FulfillmentOrderItemAdjustments",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FulfillmentOrderItemTax",
+      "field": "FulfillmentOrderLineItemId",
+      "relationshipName": "FulfillmentOrderItemTaxes",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FulfillmentOrderLineItem",
+      "field": "MainFulfillmentOrderLineItemId",
+      "relationshipName": "FulfillmentOrderLineItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "InventoryItemReservation",
+      "field": "ItemReservationSourceId",
+      "relationshipName": "InventoryReservationSources",
+      "cascadeDelete": false
+    }
+  ]
+}

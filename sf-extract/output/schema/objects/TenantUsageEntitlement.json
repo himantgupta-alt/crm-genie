@@ -1,0 +1,173 @@
+{
+  "name": "TenantUsageEntitlement",
+  "label": "Tenant Usage Entitlement",
+  "custom": false,
+  "keyPrefix": "0UT",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Tenant Usage Entitlement ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ResourceGroupKey",
+      "label": "Resource Group Key",
+      "type": "string",
+      "length": 120,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Setting",
+      "label": "Setting",
+      "type": "string",
+      "length": 120,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "StartDate",
+      "label": "Start Date",
+      "type": "date",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "EndDate",
+      "label": "End Date",
+      "type": "date",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CurrentAmountAllowed",
+      "label": "Current Amount Allowed",
+      "type": "double",
+      "precision": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Frequency",
+      "label": "Frequency",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Daily",
+        "Weekly",
+        "Fortnightly",
+        "Monthly",
+        "Once",
+        "Quarterly",
+        "Yearly"
+      ]
+    },
+    {
+      "name": "IsPersistentResource",
+      "label": "Is Persistent Resource",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "HasRollover",
+      "label": "Has Rollover",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OverageGrace",
+      "label": "Overage Grace",
+      "type": "percent",
+      "precision": 5,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "AmountUsed",
+      "label": "Amount Used",
+      "type": "double",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "UsageDate",
+      "label": "Usage Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MasterLabel",
+      "label": "Setting Label",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": []
+}

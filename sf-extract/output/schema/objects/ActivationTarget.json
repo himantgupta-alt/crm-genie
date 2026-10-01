@@ -1,0 +1,350 @@
+{
+  "name": "ActivationTarget",
+  "label": "Activation Target",
+  "custom": false,
+  "keyPrefix": "85U",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Partner Profile ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnerId",
+      "label": "Owner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Group",
+        "User"
+      ],
+      "relationshipName": "Owner"
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MasterLabel",
+      "label": "Name",
+      "type": "string",
+      "length": 255,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Description",
+      "label": "Description",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "RunStatus",
+      "label": "Data Export Run Status",
+      "type": "picklist",
+      "length": 255,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "PUBLISHING",
+        "SUCCESS",
+        "ERROR",
+        "PARTNER_PROCESSING",
+        "PARTNER_ERROR",
+        "SEGMENT_ERROR",
+        "QUEUED",
+        "SKIPPED",
+        "NOT_SUPPORTED",
+        "NOT_PUBLISHED"
+      ]
+    },
+    {
+      "name": "LastPublishStatusDate",
+      "label": "Last Publish Status Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastPublishStatusErrorMessage",
+      "label": "Last Publish Status Error Message",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ConnectionType",
+      "label": "Platform",
+      "type": "picklist",
+      "length": 255,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "SalesforceMarketingCloud",
+        "SalesforceCommerceCloud",
+        "StreamingApp",
+        "SalesforceDotCom",
+        "AmazonS3",
+        "AwsS3",
+        "SFTP",
+        "UPLOAD",
+        "IngestApi",
+        "SalesforceInteractionStudio",
+        "CuratedEntity",
+        "DataCloud",
+        "GoogleCloudStorage",
+        "AzureBlob",
+        "ExternalPlatform",
+        "StreamingFlow"
+      ]
+    },
+    {
+      "name": "TargetType",
+      "label": "Target Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "DE",
+        "MCMA"
+      ]
+    },
+    {
+      "name": "ExportToDirectory",
+      "label": "Export To Directory",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ExportToEndpoint",
+      "label": "Export To Endpoint",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TargetStatus",
+      "label": "Target Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "ACTIVE",
+      "picklistValues": [
+        "ACTIVE",
+        "PROCESSING",
+        "ERROR",
+        "INACTIVE"
+      ]
+    },
+    {
+      "name": "LastTargetStatusDateTime",
+      "label": "Target Status Last Updated",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastTargetStatusErrorCode",
+      "label": "Target Status Error Code",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "CREATE_FAILED",
+      "picklistValues": [
+        "CREATE_FAILED",
+        "UPDATE_FAILED",
+        "DELETE_FAILED",
+        "MISSING_ACCOUNT",
+        "AUTH_FAILED",
+        "INVALID_ACCOUNT",
+        "TOKEN_EXCHANGE_FAILED"
+      ]
+    },
+    {
+      "name": "OutputFormat",
+      "label": "Output Format",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "JSON",
+      "picklistValues": [
+        "JSON",
+        "PARQUET",
+        "CSV"
+      ]
+    },
+    {
+      "name": "PlatformName",
+      "label": "Platform Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "PlatformPrivacyType",
+      "label": "Platform Privacy Type",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsCommunicationCappingEnabled",
+      "label": "Capping Relevance",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnedByOrg",
+      "label": "Owned By",
+      "type": "string",
+      "length": 100,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsRemote",
+      "label": "Is Remote",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "AudienceHistoryDmoName",
+      "label": "Audience History DMO",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "AudienceLatestDmoName",
+      "label": "Audience Latest DMO",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "AuditDmoName",
+      "label": "Audit DMO",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "MarketSegmentActivation",
+      "field": "ActivationTargetId",
+      "relationshipName": "ActivationTargets",
+      "cascadeDelete": false
+    }
+  ]
+}

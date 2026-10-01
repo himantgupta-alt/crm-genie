@@ -1,0 +1,198 @@
+{
+  "name": "ActionLinkTemplate",
+  "label": "Action Link Template",
+  "custom": false,
+  "keyPrefix": "07l",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Action Link Template ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ActionLinkGroupTemplateId",
+      "label": "Action Link Group Template ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "ActionLinkGroupTemplate"
+      ],
+      "relationshipName": "ActionLinkGroupTemplate"
+    },
+    {
+      "name": "LabelKey",
+      "label": "Label Key",
+      "type": "string",
+      "length": 128,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "Method",
+      "label": "HTTP Method",
+      "type": "picklist",
+      "length": 255,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "HttpDelete",
+        "HttpHead",
+        "HttpGet",
+        "HttpPatch",
+        "HttpPost",
+        "HttpPut"
+      ]
+    },
+    {
+      "name": "LinkType",
+      "label": "Action Type",
+      "type": "picklist",
+      "length": 255,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "API",
+        "APIAsync",
+        "Download",
+        "UI"
+      ]
+    },
+    {
+      "name": "Position",
+      "label": "Position",
+      "type": "int",
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "IsConfirmationRequired",
+      "label": "Confirmation Required",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsGroupDefault",
+      "label": "Default Link in Group",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "UserVisibility",
+      "label": "User Visibility",
+      "type": "picklist",
+      "length": 255,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "Creator",
+        "Everyone",
+        "EveryoneButCreator",
+        "Manager",
+        "CustomUser",
+        "CustomExcludedUser"
+      ]
+    },
+    {
+      "name": "UserAlias",
+      "label": "Custom User Alias",
+      "type": "string",
+      "length": 128,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Label",
+      "label": "Label",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ActionUrl",
+      "label": "Action URL",
+      "type": "textarea",
+      "length": 32000,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "RequestBody",
+      "label": "HTTP Request Body",
+      "type": "textarea",
+      "length": 32000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Headers",
+      "label": "HTTP Headers",
+      "type": "textarea",
+      "length": 32000,
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": []
+}

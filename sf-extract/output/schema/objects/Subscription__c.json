@@ -1,0 +1,371 @@
+{
+  "name": "Subscription__c",
+  "label": "Subscription",
+  "custom": true,
+  "keyPrefix": "a01",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Record ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Subscription Number",
+      "type": "string",
+      "length": 80,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastActivityDate",
+      "label": "Last Activity Date",
+      "type": "date",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Account__c",
+      "label": "Account",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": true,
+      "referenceTo": [
+        "Account"
+      ],
+      "relationshipName": "Account__r"
+    },
+    {
+      "name": "Auto_Renew__c",
+      "label": "Auto Renew",
+      "type": "boolean",
+      "required": false,
+      "custom": true
+    },
+    {
+      "name": "Cancellation_Reason__c",
+      "label": "Cancellation Reason",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": true
+    },
+    {
+      "name": "End_Date__c",
+      "label": "End Date",
+      "type": "date",
+      "required": true,
+      "custom": true
+    },
+    {
+      "name": "Health_Score__c",
+      "label": "Health Score",
+      "type": "double",
+      "precision": 3,
+      "required": false,
+      "custom": true
+    },
+    {
+      "name": "MRR__c",
+      "label": "MRR",
+      "type": "currency",
+      "precision": 16,
+      "scale": 2,
+      "required": false,
+      "custom": true
+    },
+    {
+      "name": "Primary_Contact__c",
+      "label": "Primary Contact",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": true,
+      "referenceTo": [
+        "Contact"
+      ],
+      "relationshipName": "Primary_Contact__r"
+    },
+    {
+      "name": "Source_Opportunity__c",
+      "label": "Source Opportunity",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": true,
+      "referenceTo": [
+        "Opportunity"
+      ],
+      "relationshipName": "Source_Opportunity__r"
+    },
+    {
+      "name": "Start_Date__c",
+      "label": "Start Date",
+      "type": "date",
+      "required": true,
+      "custom": true
+    },
+    {
+      "name": "Status__c",
+      "label": "Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": true,
+      "defaultValue": "Draft",
+      "picklistValues": [
+        "Draft",
+        "Active",
+        "Suspended",
+        "Cancelled",
+        "Renewed"
+      ]
+    },
+    {
+      "name": "Term_Months__c",
+      "label": "Term (Months)",
+      "type": "double",
+      "precision": 4,
+      "required": false,
+      "custom": true
+    },
+    {
+      "name": "Line_Count__c",
+      "label": "Line Count",
+      "type": "double",
+      "precision": 18,
+      "required": false,
+      "custom": true,
+      "calculated": true
+    },
+    {
+      "name": "Annual_Value__c",
+      "label": "Annual Value",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": true,
+      "calculated": true,
+      "formula": "MRR__c * 12"
+    },
+    {
+      "name": "Days_To_Renewal__c",
+      "label": "Days To Renewal",
+      "type": "double",
+      "precision": 18,
+      "required": false,
+      "custom": true,
+      "calculated": true,
+      "formula": "End_Date__c - TODAY()"
+    },
+    {
+      "name": "Total_Line_Value__c",
+      "label": "Total Line Value",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": true,
+      "calculated": true
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "CollaborationGroupRecord",
+      "field": "RecordId",
+      "relationshipName": "RecordAssociatedGroups",
+      "cascadeDelete": true
+    },
+    {
+      "child": "ContactRequest",
+      "field": "WhatId",
+      "relationshipName": "ContactRequests",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "DuplicateRecordItem",
+      "field": "RecordId",
+      "relationshipName": "DuplicateRecordItems",
+      "cascadeDelete": true
+    },
+    {
+      "child": "EmailMessage",
+      "field": "RelatedToId",
+      "relationshipName": "Emails",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Event",
+      "field": "WhatId",
+      "relationshipName": "Events",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FinanceBalanceSnapshot",
+      "field": "LegalEntityId",
+      "relationshipName": "FinanceBalanceSnapshots",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FinanceBalanceSnapshot",
+      "field": "ReferenceEntityId",
+      "relationshipName": "FinanceBalanceSnapshots",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FinanceTransaction",
+      "field": "DestinationEntityId",
+      "relationshipName": "DestinationFinanceTransactions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FinanceTransaction",
+      "field": "LegalEntityId",
+      "relationshipName": "FinanceTransactions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FinanceTransaction",
+      "field": "ParentReferenceEntityId",
+      "relationshipName": "ParentFinanceTransactions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FinanceTransaction",
+      "field": "ReferenceEntityId",
+      "relationshipName": "FinanceTransactions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FinanceTransaction",
+      "field": "SourceEntityId",
+      "relationshipName": "SourceFinanceTransactions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "InventoryItemReservation",
+      "field": "ItemReservationSourceId",
+      "relationshipName": "InventoryReservationSources",
+      "cascadeDelete": false
+    },
+    {
+      "child": "InventoryReservation",
+      "field": "ReservationSourceId",
+      "relationshipName": "InventoryReservations",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Note",
+      "field": "ParentId",
+      "relationshipName": "Notes",
+      "cascadeDelete": true
+    },
+    {
+      "child": "ProcessException",
+      "field": "AttachedToId",
+      "relationshipName": "ProcessExceptions",
+      "cascadeDelete": true
+    },
+    {
+      "child": "Subscription_Line__c",
+      "field": "Subscription__c",
+      "relationshipName": "Subscription_Lines__r",
+      "cascadeDelete": true
+    },
+    {
+      "child": "Task",
+      "field": "WhatId",
+      "relationshipName": "Tasks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "VoiceCall",
+      "field": "RelatedRecordId",
+      "relationshipName": "RelatedRecords",
+      "cascadeDelete": false
+    }
+  ]
+}

@@ -1,0 +1,258 @@
+{
+  "name": "Idea",
+  "label": "Idea",
+  "custom": false,
+  "keyPrefix": "087",
+  "isHistory": false,
+  "recordTypes": [
+    "InternalIdeasIdeaRecordType"
+  ],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Idea ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Title",
+      "label": "Title",
+      "type": "string",
+      "length": 255,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "RecordTypeId",
+      "label": "Record Type ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "RecordType"
+      ],
+      "relationshipName": "RecordType"
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CommunityId",
+      "label": "Zone ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "Community"
+      ],
+      "relationshipName": "Community"
+    },
+    {
+      "name": "Body",
+      "label": "Idea Body",
+      "type": "textarea",
+      "length": 32000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "NumComments",
+      "label": "Number of Comments",
+      "type": "int",
+      "required": false,
+      "custom": false,
+      "calculated": true
+    },
+    {
+      "name": "VoteScore",
+      "label": "Vote Score",
+      "type": "double",
+      "precision": 18,
+      "scale": 4,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "VoteTotal",
+      "label": "Vote Total",
+      "type": "double",
+      "precision": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Categories",
+      "label": "Categories",
+      "type": "multipicklist",
+      "length": 4099,
+      "precision": 7,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Status",
+      "label": "Status",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastCommentDate",
+      "label": "Last Idea Comment Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false,
+      "calculated": true
+    },
+    {
+      "name": "LastCommentId",
+      "label": "Idea Comment ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "IdeaComment"
+      ],
+      "relationshipName": "LastComment"
+    },
+    {
+      "name": "ParentIdeaId",
+      "label": "Idea ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Idea"
+      ],
+      "relationshipName": "ParentIdea"
+    },
+    {
+      "name": "IsHtml",
+      "label": "IsHtml",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsMerged",
+      "label": "Is Merged",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatorFullPhotoUrl",
+      "label": "URL of Creator's Profile Photo",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatorSmallPhotoUrl",
+      "label": "URL of Creator's Thumbnail Photo",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatorName",
+      "label": "Name of Creator",
+      "type": "string",
+      "length": 121,
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    }
+  ]
+}

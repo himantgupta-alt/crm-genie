@@ -1,0 +1,307 @@
+{
+  "name": "MessagingEndUser",
+  "label": "Messaging User",
+  "custom": false,
+  "keyPrefix": "0PA",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Messaging User ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnerId",
+      "label": "Owner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Group",
+        "User"
+      ],
+      "relationshipName": "Owner"
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Messaging User Name",
+      "type": "string",
+      "length": 255,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MessagingChannelId",
+      "label": "Messaging Channel ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "MessagingChannel"
+      ],
+      "relationshipName": "MessagingChannel"
+    },
+    {
+      "name": "MessageType",
+      "label": "Message Type",
+      "type": "picklist",
+      "length": 255,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "Text",
+        "Facebook",
+        "Line",
+        "GoogleHome",
+        "Alexa",
+        "Omega",
+        "AppleBusinessChat",
+        "WeChat",
+        "WebChat",
+        "WhatsApp",
+        "Phone",
+        "EmbeddedMessaging",
+        "Voice",
+        "Custom",
+        "InternalCopilot",
+        "VoiceIntegrationPilot",
+        "PstnVoice",
+        "WhatsAppVoice",
+        "SipVoice",
+        "Email",
+        "Rcs",
+        "MsCopilot"
+      ]
+    },
+    {
+      "name": "MessagingPlatformKey",
+      "label": "Messaging Platform Key",
+      "type": "string",
+      "length": 255,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "Locale",
+      "label": "Locale",
+      "type": "string",
+      "length": 20,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ProfilePictureUrl",
+      "label": "Profile Picture URL",
+      "type": "url",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "HasInitialResponseSent",
+      "label": "Has Initial Response Been Sent",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "AccountId",
+      "label": "Account ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Account"
+      ],
+      "relationshipName": "Account"
+    },
+    {
+      "name": "ContactId",
+      "label": "Contact ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Contact"
+      ],
+      "relationshipName": "Contact"
+    },
+    {
+      "name": "IsoCountryCode",
+      "label": "ISO Country Code",
+      "type": "string",
+      "length": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MessagingConsentStatus",
+      "label": "Messaging Consent Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "OptedOut",
+        "ImplicitlyOptedIn",
+        "ExplicitlyOptedIn",
+        "DoublyOptedIn"
+      ]
+    },
+    {
+      "name": "LeadId",
+      "label": "Lead ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Lead"
+      ],
+      "relationshipName": "Lead"
+    },
+    {
+      "name": "IsFullyOptedIn",
+      "label": "Opted In",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "AuthenticatedEndUserId",
+      "label": "User ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "AuthenticatedEndUser"
+    },
+    {
+      "name": "Language",
+      "label": "Language",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "en_US",
+        "de",
+        "es",
+        "fr",
+        "it",
+        "ja",
+        "sv",
+        "ko",
+        "zh_TW",
+        "zh_CN",
+        "pt_BR",
+        "nl_NL",
+        "da",
+        "th",
+        "fi",
+        "ru",
+        "es_MX",
+        "no"
+      ]
+    },
+    {
+      "name": "MessagingExternalUserKey",
+      "label": "Messaging External Key",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "MessagingSession",
+      "field": "MessagingEndUserId",
+      "relationshipName": "MessagingSessions",
+      "cascadeDelete": true
+    },
+    {
+      "child": "VoiceCall",
+      "field": "EndUserId",
+      "relationshipName": "VoiceCalls",
+      "cascadeDelete": false
+    }
+  ]
+}

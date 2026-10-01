@@ -1,0 +1,122 @@
+{
+  "name": "CollaborationGroupMember",
+  "label": "Group Member",
+  "custom": false,
+  "keyPrefix": "0FB",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Group Member Id",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CollaborationGroupId",
+      "label": "CollaborationGroup ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "CollaborationGroup"
+      ],
+      "relationshipName": "CollaborationGroup"
+    },
+    {
+      "name": "MemberId",
+      "label": "Member ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "Member"
+    },
+    {
+      "name": "CollaborationRole",
+      "label": "Group Member Role",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Admin",
+        "Standard"
+      ]
+    },
+    {
+      "name": "NotificationFrequency",
+      "label": "Notification Frequency",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "defaultValue": "N",
+      "picklistValues": [
+        "P",
+        "D",
+        "W",
+        "N"
+      ]
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastFeedAccessDate",
+      "label": "Last Feed Access Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": []
+}

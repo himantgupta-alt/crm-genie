@@ -1,0 +1,631 @@
+{
+  "name": "ContentVersion",
+  "label": "Content Version",
+  "custom": false,
+  "keyPrefix": "068",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Content Version ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ContentDocumentId",
+      "label": "Content Document ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "ContentDocument"
+      ],
+      "relationshipName": "ContentDocument"
+    },
+    {
+      "name": "IsLatest",
+      "label": "Is Latest",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ContentUrl",
+      "label": "Content URL",
+      "type": "url",
+      "length": 1333,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ContentBodyId",
+      "label": "Content Body ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "ContentBody"
+      ],
+      "relationshipName": "ContentBody"
+    },
+    {
+      "name": "VersionNumber",
+      "label": "Version Number",
+      "type": "string",
+      "length": 20,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Title",
+      "label": "Title",
+      "type": "string",
+      "length": 255,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "Description",
+      "label": "Description",
+      "type": "textarea",
+      "length": 1000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ReasonForChange",
+      "label": "Reason For Change",
+      "type": "string",
+      "length": 1000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "SharingOption",
+      "label": "Prevent others from sharing and unsharing",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "defaultValue": "A",
+      "picklistValues": [
+        "A",
+        "R"
+      ]
+    },
+    {
+      "name": "SharingPrivacy",
+      "label": "File Privacy on Records",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "defaultValue": "N",
+      "picklistValues": [
+        "N",
+        "P"
+      ]
+    },
+    {
+      "name": "PathOnClient",
+      "label": "Path On Client",
+      "type": "string",
+      "length": 500,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "RatingCount",
+      "label": "Rating Count",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Is Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ContentModifiedDate",
+      "label": "Content Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ContentModifiedById",
+      "label": "User ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "ContentModifiedBy"
+    },
+    {
+      "name": "PositiveRatingCount",
+      "label": "Positive Rating Count",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "NegativeRatingCount",
+      "label": "Negative Rating Count",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FeaturedContentBoost",
+      "label": "Featured Content Boost",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FeaturedContentDate",
+      "label": "Featured Content Date",
+      "type": "date",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnerId",
+      "label": "Owner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "Owner"
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TagCsv",
+      "label": "Tags",
+      "type": "textarea",
+      "length": 2000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FileType",
+      "label": "File Type",
+      "type": "string",
+      "length": 20,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "PublishStatus",
+      "label": "Publish Status",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "defaultValue": "U",
+      "picklistValues": [
+        "U",
+        "P",
+        "R"
+      ]
+    },
+    {
+      "name": "VersionData",
+      "label": "Version Data",
+      "type": "base64",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ContentSize",
+      "label": "Size",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ContentSizeLong",
+      "label": "Size",
+      "type": "long",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FileExtension",
+      "label": "File Extension",
+      "type": "string",
+      "length": 40,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FirstPublishLocationId",
+      "label": "First Publish Location ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Account",
+        "ActivationTarget",
+        "ActivationTrgtIntOrgAccess",
+        "ApiAnomalyEventStore",
+        "AppointmentCategory",
+        "AppointmentInvitation",
+        "AppointmentTopicTimeSlot",
+        "ApprovalSubmission",
+        "ApprovalSubmissionDetail",
+        "ApprovalWorkItem",
+        "Asset",
+        "AssetRelationship",
+        "AssignedResource",
+        "AuthorizationFormText",
+        "BuyerGroup",
+        "Campaign",
+        "Case",
+        "CaseRelatedIssue",
+        "ChangeRequest",
+        "ChangeRequestRelatedIssue",
+        "ChangeRequestRelatedItem",
+        "CollaborationGroup",
+        "CommSubscription",
+        "CommSubscriptionChannelType",
+        "CommSubscriptionConsent",
+        "CommSubscriptionTiming",
+        "ConsumptionSchedule",
+        "Contact",
+        "ContentWorkspace",
+        "Contract",
+        "ContractLineItem",
+        "ConversationEntry",
+        "Coupon",
+        "CredentialStuffingEventStore",
+        "CreditMemo",
+        "CreditMemoInvApplication",
+        "CreditMemoLine",
+        "Dashboard",
+        "DashboardComponent",
+        "DataAction",
+        "DataActionJobSummary",
+        "DataActionTarget",
+        "DataCleanRoom",
+        "DataCommunicationCap",
+        "DataContentLensSource",
+        "DataLakeObjectInstance",
+        "DataObjSecondaryIndex",
+        "DataQueryWorkspace",
+        "DataSemanticSearch",
+        "DataStream",
+        "DeliveryEstimationSetup",
+        "DevopsActivityLog",
+        "DevopsEnvDeployment",
+        "DevopsEnvDeploymentMbr",
+        "DevopsEnvironment",
+        "DevopsPipeline",
+        "DevopsPipelineEnvironment",
+        "DevopsPipelineStage",
+        "DevopsPipelnStgProm",
+        "DevopsPipelnStgPromWkItem",
+        "DevopsProject",
+        "DevopsProjectEnvironment",
+        "DevopsProjectPipeline",
+        "DevopsRequestInfo",
+        "EmailMessage",
+        "EmailTemplate",
+        "EngagementChannelType",
+        "EngagementChannelWorkType",
+        "EnhancedLetterhead",
+        "Entitlement",
+        "EntityMilestone",
+        "Event",
+        "ExtDataShare",
+        "ExtDataShareTarget",
+        "FulfillmentOrder",
+        "FulfillmentOrderItemAdjustment",
+        "FulfillmentOrderItemTax",
+        "FulfillmentOrderLineItem",
+        "GuestUserAnomalyEventStore",
+        "IdentityResolution",
+        "Image",
+        "Incident",
+        "IncidentRelatedItem",
+        "Invoice",
+        "InvoiceLine",
+        "Lead",
+        "LegalEntity",
+        "ListEmail",
+        "Location",
+        "LocationGroup",
+        "LocationShippingCarrierMethod",
+        "LoginAnomalyEventStore",
+        "MarketSegment",
+        "MarketSegmentActivation",
+        "MessagingSession",
+        "MktCalculatedInsight",
+        "MktDataTransform",
+        "MktMLModel",
+        "MktMLPredictionJob",
+        "OperatingHours",
+        "OperatingHoursHoliday",
+        "Opportunity",
+        "Order",
+        "OrderItem",
+        "Organization",
+        "OutgoingEmail",
+        "PartyConsent",
+        "Payment",
+        "PrivacyRTBFRequest",
+        "Problem",
+        "ProblemIncident",
+        "ProblemRelatedItem",
+        "Product2",
+        "ProductCatalog",
+        "ProductCategory",
+        "Promotion",
+        "PromotionMarketSegment",
+        "PromotionQualifier",
+        "PromotionSegment",
+        "PromotionSegmentBuyerGroup",
+        "PromotionSegmentSalesStore",
+        "PromotionTarget",
+        "PromotionTier",
+        "Report",
+        "ReportAnomalyEventStore",
+        "ResourceAbsence",
+        "ResourcePreference",
+        "ReturnOrder",
+        "ReturnOrderLineItem",
+        "ServiceAppointment",
+        "ServiceAppointmentAttendee",
+        "ServiceContract",
+        "ServiceResource",
+        "ServiceResourceSkill",
+        "ServiceTerritory",
+        "ServiceTerritoryMember",
+        "ServiceTerritoryWorkType",
+        "SessionHijackingEventStore",
+        "Shift",
+        "ShiftEngagementChannel",
+        "ShiftWorkTopic",
+        "Shipment",
+        "ShipmentItem",
+        "ShippingCarrier",
+        "ShippingCarrierMethod",
+        "Site",
+        "SkillRequirement",
+        "Solution",
+        "SourceCodeRepoProvider",
+        "SourceCodeRepository",
+        "SourceCodeRepositoryBranch",
+        "Subscription_Line__c",
+        "Subscription__c",
+        "Task",
+        "ThreatDetectionFeedback",
+        "Topic",
+        "UniversalAnomalyEventStore",
+        "User",
+        "VoiceCall",
+        "Waitlist",
+        "WaitlistParticipant",
+        "WaitlistServiceResource",
+        "WaitlistWorkType",
+        "WorkItem",
+        "WorkItemComponent",
+        "WorkItemComponentList",
+        "WorkOrder",
+        "WorkOrderLineItem",
+        "WorkPlan",
+        "WorkPlanTemplate",
+        "WorkPlanTemplateEntry",
+        "WorkStep",
+        "WorkStepTemplate",
+        "WorkType",
+        "WorkTypeGroup",
+        "WorkTypeGroupMember"
+      ],
+      "relationshipName": "FirstPublishLocation"
+    },
+    {
+      "name": "Origin",
+      "label": "Content Origin",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "defaultValue": "C",
+      "picklistValues": [
+        "C",
+        "H"
+      ]
+    },
+    {
+      "name": "ContentLocation",
+      "label": "Content Location",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "defaultValue": "S",
+      "picklistValues": [
+        "S",
+        "E",
+        "L",
+        "SfDrive",
+        "SCS"
+      ]
+    },
+    {
+      "name": "TextPreview",
+      "label": "Text Preview",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ExternalDocumentInfo1",
+      "label": "External Document Info1",
+      "type": "string",
+      "length": 1000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ExternalDocumentInfo2",
+      "label": "External Document Info2",
+      "type": "string",
+      "length": 1000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ExternalDataSourceId",
+      "label": "External Data Source ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "ExternalDataSource"
+      ],
+      "relationshipName": "ExternalDataSource"
+    },
+    {
+      "name": "Checksum",
+      "label": "Checksum",
+      "type": "string",
+      "length": 50,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsMajorVersion",
+      "label": "Major Version",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsAssetEnabled",
+      "label": "Asset File Enabled",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "VersionDataUrl",
+      "label": "Version Data URL",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MalwareScanStatus",
+      "label": "Malware Scan Status",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "NotScanned",
+        "Scheduled",
+        "Clean",
+        "Malicious",
+        "Skipped",
+        "Failed"
+      ]
+    },
+    {
+      "name": "MalwareScanDate",
+      "label": "Malware Scan Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "AuthorizationFormConsent",
+      "field": "DocumentVersionId",
+      "relationshipName": "AuthorizationFormConsents",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    }
+  ]
+}

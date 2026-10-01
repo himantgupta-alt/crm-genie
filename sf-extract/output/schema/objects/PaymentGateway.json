@@ -1,0 +1,197 @@
+{
+  "name": "PaymentGateway",
+  "label": "Payment Gateway",
+  "custom": false,
+  "keyPrefix": "0b0",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Payment Gateway ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "PaymentGatewayName",
+      "label": "Payment Gateway Name",
+      "type": "string",
+      "length": 255,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "PaymentGatewayProviderId",
+      "label": "Payment Gateway Provider ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "PaymentGatewayProvider"
+      ],
+      "relationshipName": "PaymentGatewayProvider"
+    },
+    {
+      "name": "MerchantCredentialId",
+      "label": "Named Credential ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "NamedCredential"
+      ],
+      "relationshipName": "MerchantCredential"
+    },
+    {
+      "name": "Status",
+      "label": "Status",
+      "type": "picklist",
+      "length": 255,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "Active",
+        "Inactive"
+      ]
+    },
+    {
+      "name": "Comments",
+      "label": "Comments",
+      "type": "textarea",
+      "length": 1000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ExternalReference",
+      "label": "External Reference",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "unique": true,
+      "custom": false
+    },
+    {
+      "name": "DefaultTapToPayLocation",
+      "label": "Tap To Pay Location",
+      "type": "string",
+      "length": 40,
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "AlternativePaymentMethod",
+      "field": "PaymentGatewayId",
+      "relationshipName": "AlternativePaymentMethods",
+      "cascadeDelete": false
+    },
+    {
+      "child": "CardPaymentMethod",
+      "field": "PaymentGatewayId",
+      "relationshipName": "CardPaymentMethods",
+      "cascadeDelete": false
+    },
+    {
+      "child": "DigitalWallet",
+      "field": "PaymentGatewayId",
+      "relationshipName": "DigitalWallets",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Payment",
+      "field": "PaymentGatewayId",
+      "relationshipName": "Payments",
+      "cascadeDelete": false
+    },
+    {
+      "child": "PaymentAuthorization",
+      "field": "PaymentGatewayId",
+      "relationshipName": "PaymentAuthorizations",
+      "cascadeDelete": false
+    },
+    {
+      "child": "PaymentGatewayLog",
+      "field": "PaymentGatewayId",
+      "relationshipName": "PaymentGatewayLogs",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Refund",
+      "field": "PaymentGatewayId",
+      "relationshipName": "Refunds",
+      "cascadeDelete": false
+    }
+  ]
+}

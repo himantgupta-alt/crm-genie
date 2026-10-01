@@ -1,0 +1,65 @@
+[
+  {
+    "object": "Opportunity",
+    "name": "Closed_Won_Requires_Amount",
+    "active": true,
+    "condition": "AND( ISPICKVAL(StageName, \"Closed Won\"), OR( ISBLANK(Amount), Amount <= 0 ) )",
+    "errorMessage": "A won opportunity must have an Amount greater than zero.",
+    "errorField": "Amount"
+  },
+  {
+    "object": "Opportunity",
+    "name": "Loss_Reason_Required_When_Lost",
+    "active": true,
+    "condition": "AND( ISPICKVAL(StageName, \"Closed Lost\"), ISBLANK(TEXT(Loss_Reason__c)) )",
+    "errorMessage": "A Loss Reason is required before an opportunity can be marked Closed Lost.",
+    "errorField": "Loss_Reason__c"
+  },
+  {
+    "object": "Subscription_Line__c",
+    "name": "Parent_Not_Cancelled",
+    "active": true,
+    "condition": "ISPICKVAL(Subscription__r.Status__c, \"Cancelled\")",
+    "errorMessage": "You cannot add or change lines on a cancelled subscription."
+  },
+  {
+    "object": "Subscription_Line__c",
+    "name": "Quantity_Must_Be_Positive",
+    "active": true,
+    "condition": "Quantity__c <= 0",
+    "errorMessage": "Quantity must be greater than zero.",
+    "errorField": "Quantity__c"
+  },
+  {
+    "object": "Subscription__c",
+    "name": "Active_Requires_MRR",
+    "active": true,
+    "condition": "AND( ISPICKVAL(Status__c, \"Active\"), OR( ISBLANK(MRR__c), MRR__c <= 0 ) )",
+    "errorMessage": "An active subscription must have an MRR greater than zero.",
+    "errorField": "MRR__c"
+  },
+  {
+    "object": "Subscription__c",
+    "name": "Cancellation_Reason_Required",
+    "active": true,
+    "condition": "AND( ISPICKVAL(Status__c, \"Cancelled\"), ISBLANK(Cancellation_Reason__c) )",
+    "errorMessage": "Cancellation Reason is required when Status is Cancelled.",
+    "errorField": "Cancellation_Reason__c"
+  },
+  {
+    "object": "Subscription__c",
+    "name": "End_Date_After_Start_Date",
+    "active": true,
+    "condition": "AND( NOT(ISBLANK(Start_Date__c)), NOT(ISBLANK(End_Date__c)), End_Date__c <= Start_Date__c )",
+    "errorMessage": "End Date must be after Start Date.",
+    "errorField": "End_Date__c"
+  },
+  {
+    "object": "Subscription__c",
+    "name": "No_Reactivation_After_Cancel",
+    "active": true,
+    "condition": "AND( ISCHANGED(Status__c), ISPICKVAL(PRIORVALUE(Status__c), \"Cancelled\"), NOT(ISPICKVAL(Status__c, \"Cancelled\")) )",
+    "errorMessage": "A cancelled subscription cannot be reactivated. Create a new subscription instead.",
+    "errorField": "Status__c"
+  }
+]

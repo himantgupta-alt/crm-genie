@@ -1,0 +1,360 @@
+{
+  "name": "IdentityResolution",
+  "label": "Identity Resolution",
+  "custom": false,
+  "keyPrefix": "1ir",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Identity Resolution ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Ruleset Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Description",
+      "label": "Description",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ErrorMessage",
+      "label": "Error Message",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ErrorCode",
+      "label": "Error Code",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "NO_ERROR",
+      "picklistValues": [
+        "NO_ERROR",
+        "PUBLISHING_ERROR",
+        "DELETING_ERROR",
+        "DELETING_DMO_ERROR",
+        "DELETING_OFFCORE_ERROR",
+        "UNKNOWN_ERROR",
+        "NO_MATCH_RULES_ERROR"
+      ]
+    },
+    {
+      "name": "Status",
+      "label": "Ruleset Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "NEW",
+      "picklistValues": [
+        "NEW",
+        "PUBLISHING",
+        "PUBLISHED",
+        "UPDATING",
+        "DELETING",
+        "DELETING_OFFCORE",
+        "DELETE_FAILED",
+        "ERROR"
+      ]
+    },
+    {
+      "name": "LastRunStatus",
+      "label": "Last Job Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "SUCCESS",
+        "IN_PROGRESS",
+        "ERROR",
+        "FAIL",
+        "SCHEDULED",
+        "DELETED",
+        "SKIPPED"
+      ]
+    },
+    {
+      "name": "LastRunStatusDateTime",
+      "label": "Last Job Status Time",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "SourceCount",
+      "label": "Source Profiles",
+      "type": "long",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MatchedCount",
+      "label": "Matched Source Profiles",
+      "type": "long",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "UnifiedCount",
+      "label": "Total Unified Profiles",
+      "type": "long",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ConsolidationRate",
+      "label": "Consolidation Rate",
+      "type": "percent",
+      "precision": 3,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsScheduled",
+      "label": "Is Scheduled",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TotalAnonymousRecords",
+      "label": "Anonymous Unified Profiles",
+      "type": "long",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TotalNonAnonymousRecords",
+      "label": "Known Unified Profiles",
+      "type": "long",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastSuccessfulRunDateTime",
+      "label": "Last Job Completed",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "RootEntityLabel",
+      "label": "Primary Data Model Object",
+      "type": "string",
+      "length": 40,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Suffix",
+      "label": "Ruleset ID",
+      "type": "string",
+      "length": 4,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "StatusDetails",
+      "label": "Error details from the last IR run",
+      "type": "textarea",
+      "length": 128000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "SecondaryEntityLabel",
+      "label": "Secondary Data Model Object",
+      "type": "string",
+      "length": 40,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsCaseSensitive",
+      "label": "Is Case Sensitive",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "SourceIrId",
+      "label": "SourceIr ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "IdentityResolution"
+      ],
+      "relationshipName": "SourceIr"
+    },
+    {
+      "name": "IsLimitedToSingleHousehold",
+      "label": "Is Limited To Single Household",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TotalCustomerHouseholds",
+      "label": "Total Customer Households",
+      "type": "long",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TotalDerivedHouseholds",
+      "label": "Total Derived Households",
+      "type": "long",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TotalCustomerHouseholdMembers",
+      "label": "Total Customer Household Members",
+      "type": "long",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TotalDerivedHouseholdMembers",
+      "label": "Total Derived Household Members",
+      "type": "long",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IrType",
+      "label": "Identity Resolution Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "BYO_MDM",
+        "INDIVIDUAL",
+        "HOUSEHOLD",
+        "ACCOUNT",
+        "CROSS_ENTITY",
+        "ENTERPRISE_USER"
+      ]
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "IdentityResolution",
+      "field": "SourceIrId",
+      "relationshipName": "SourceIrs",
+      "cascadeDelete": false
+    }
+  ]
+}

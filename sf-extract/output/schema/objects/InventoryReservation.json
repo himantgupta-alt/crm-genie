@@ -1,0 +1,202 @@
+{
+  "name": "InventoryReservation",
+  "label": "Inventory Reservation",
+  "custom": false,
+  "keyPrefix": "10r",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Inventory Reservation ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnerId",
+      "label": "Owner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Group",
+        "User"
+      ],
+      "relationshipName": "Owner"
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "InventoryReservationName",
+      "label": "Inventory Reservation Number",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ReservationDate",
+      "label": "Reservation Date",
+      "type": "datetime",
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "ReservationDurationInSeconds",
+      "label": "Reservation Duration in Seconds",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ReservationIdentifier",
+      "label": "Reservation Identifier",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "unique": true,
+      "custom": false
+    },
+    {
+      "name": "ReservationSourceId",
+      "label": "Reservation Source ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "FulfillmentOrder",
+        "Order",
+        "ReturnOrder",
+        "Subscription_Line__c",
+        "Subscription__c",
+        "WebCart",
+        "WorkOrder"
+      ],
+      "relationshipName": "ReservationSource"
+    },
+    {
+      "name": "IsAsyncOperationInProgress",
+      "label": "Async Operation in Progress",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsSuccess",
+      "label": "Latest Operation Succeeded",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ErrorMessage",
+      "label": "Error Message",
+      "type": "textarea",
+      "length": 2000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ErrorCode",
+      "label": "Error Code",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "InventoryItemReservation",
+      "field": "InventoryReservationId",
+      "relationshipName": "InventoryItemReservations",
+      "cascadeDelete": true
+    }
+  ]
+}

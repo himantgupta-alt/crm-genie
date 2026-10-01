@@ -1,0 +1,199 @@
+{
+  "name": "InventoryItemReservation",
+  "label": "Inventory Item Reservation",
+  "custom": false,
+  "keyPrefix": "10s",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Inventory Item Reservation ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "InventoryItemReservationName",
+      "label": "Inventory Item Reservation Number",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "InventoryReservationId",
+      "label": "Inventory Reservation ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "InventoryReservation"
+      ],
+      "relationshipName": "InventoryReservation"
+    },
+    {
+      "name": "ItemReservationSourceId",
+      "label": "Item Reservation Source ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "CartItem",
+        "FulfillmentOrderLineItem",
+        "OrderItem",
+        "ReturnOrderLineItem",
+        "Subscription_Line__c",
+        "Subscription__c",
+        "WorkOrderLineItem"
+      ],
+      "relationshipName": "ItemReservationSource"
+    },
+    {
+      "name": "ProductId",
+      "label": "Product ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Product2"
+      ],
+      "relationshipName": "Product"
+    },
+    {
+      "name": "StockKeepingUnit",
+      "label": "Stock Keeping Unit",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Quantity",
+      "label": "Quantity",
+      "type": "double",
+      "precision": 18,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "ReservedAtLocationId",
+      "label": "Reserved At Location ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Location",
+        "LocationGroup"
+      ],
+      "relationshipName": "ReservedAtLocation"
+    },
+    {
+      "name": "ErrorMessage",
+      "label": "Error Message",
+      "type": "textarea",
+      "length": 2000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ErrorCode",
+      "label": "Error Code",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    }
+  ]
+}

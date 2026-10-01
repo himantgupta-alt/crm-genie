@@ -1,0 +1,216 @@
+{
+  "name": "PaymentCreditLinePayment",
+  "label": "Payment Credit Line Payment",
+  "custom": false,
+  "keyPrefix": "1cP",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Payment Credit Line Payment ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "PaymentCreditLinePaymentNumber",
+      "label": "Payment Credit Line Payment Number",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "PaymentId",
+      "label": "Payment ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "Payment"
+      ],
+      "relationshipName": "Payment"
+    },
+    {
+      "name": "PaymentCreditId",
+      "label": "Payment Credit ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "PaymentCredit"
+      ],
+      "relationshipName": "PaymentCredit"
+    },
+    {
+      "name": "AssociatedLineId",
+      "label": "Payment Credit Line Payment ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "PaymentCreditLinePayment"
+      ],
+      "relationshipName": "AssociatedLine"
+    },
+    {
+      "name": "AssociatedAccountId",
+      "label": "Account ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Account"
+      ],
+      "relationshipName": "AssociatedAccount"
+    },
+    {
+      "name": "Amount",
+      "label": "Amount",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "Type",
+      "label": "Type",
+      "type": "picklist",
+      "length": 255,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "Applied",
+        "Unapplied"
+      ]
+    },
+    {
+      "name": "AppliedDate",
+      "label": "Applied Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "UnappliedDate",
+      "label": "Unapplied Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Description",
+      "label": "Description",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "HasBeenUnapplied",
+      "label": "Has Been Unapplied",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "PaymentCreditLinePayment",
+      "field": "AssociatedLineId",
+      "relationshipName": "PaymentCreditLinePayments",
+      "cascadeDelete": false
+    }
+  ]
+}

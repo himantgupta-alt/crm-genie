@@ -1,0 +1,193 @@
+{
+  "name": "FulfillmentOrderItemAdjustment",
+  "label": "Fulfillment Order Item Adjustment",
+  "custom": false,
+  "keyPrefix": "0c4",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Fulfillment Order Item Adjustment ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FulfillmentOrderItemAdjustmentNumber",
+      "label": "Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FulfillmentOrderLineItemId",
+      "label": "Fulfillment Order Product ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "FulfillmentOrderLineItem"
+      ],
+      "relationshipName": "FulfillmentOrderLineItem"
+    },
+    {
+      "name": "FulfillmentOrderId",
+      "label": "Fulfillment Order ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "FulfillmentOrder"
+      ],
+      "relationshipName": "FulfillmentOrder"
+    },
+    {
+      "name": "CampaignName",
+      "label": "Campaign Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CouponName",
+      "label": "Coupon Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "PromotionName",
+      "label": "Promotion Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Description",
+      "label": "Description",
+      "type": "textarea",
+      "length": 2000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TotalTaxAmount",
+      "label": "Tax",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Amount",
+      "label": "Adjustment",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "TotalAmtWithTax",
+      "label": "Adjustment with Tax",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FulfillmentOrderItemTax",
+      "field": "FulfillmentOrderItemAdjustId",
+      "relationshipName": "FulfillmentOrderItemTaxes",
+      "cascadeDelete": true
+    }
+  ]
+}

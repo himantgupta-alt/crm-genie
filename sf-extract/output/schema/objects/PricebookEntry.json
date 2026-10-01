@@ -1,0 +1,166 @@
+{
+  "name": "PricebookEntry",
+  "label": "Price Book Entry",
+  "custom": false,
+  "keyPrefix": "01u",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Price Book Entry ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Product Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Pricebook2Id",
+      "label": "Price Book ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "Pricebook2"
+      ],
+      "relationshipName": "Pricebook2"
+    },
+    {
+      "name": "Product2Id",
+      "label": "Product ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "Product2"
+      ],
+      "relationshipName": "Product2"
+    },
+    {
+      "name": "UnitPrice",
+      "label": "List Price",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "IsActive",
+      "label": "Active",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "UseStandardPrice",
+      "label": "Use Standard Price",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ProductCode",
+      "label": "Product Code",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsArchived",
+      "label": "Archived",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ContractLineItem",
+      "field": "PricebookEntryId",
+      "relationshipName": "ContractLineItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "OpportunityLineItem",
+      "field": "PricebookEntryId",
+      "relationshipName": "OpportunityLineItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "OrderItem",
+      "field": "PricebookEntryId",
+      "relationshipName": "OrderItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "WorkOrderLineItem",
+      "field": "PricebookEntryId",
+      "relationshipName": "WorkOrderLineItems",
+      "cascadeDelete": false
+    }
+  ]
+}

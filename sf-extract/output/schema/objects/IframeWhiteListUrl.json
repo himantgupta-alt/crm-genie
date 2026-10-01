@@ -1,0 +1,96 @@
+{
+  "name": "IframeWhiteListUrl",
+  "label": "Trusted Domain for Inline Frames",
+  "custom": false,
+  "keyPrefix": "6TS",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Trusted Domain for Inline Frames ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Url",
+      "label": "Domain",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "Accepts these formats: example.com, *.example.com, and http://example.com"
+    },
+    {
+      "name": "Context",
+      "label": "IFrame Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "VisualforcePages",
+      "picklistValues": [
+        "DCH_ADDIN_APP",
+        "LightningOut",
+        "Surveys",
+        "UIEmbedding",
+        "VisualforcePages"
+      ]
+    }
+  ],
+  "childRelationships": []
+}

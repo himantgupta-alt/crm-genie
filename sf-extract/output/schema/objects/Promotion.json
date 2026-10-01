@@ -1,0 +1,334 @@
+{
+  "name": "Promotion",
+  "label": "Promotion",
+  "custom": false,
+  "keyPrefix": "0c8",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Promotion ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnerId",
+      "label": "Owner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Group",
+        "User"
+      ],
+      "relationshipName": "Owner"
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Name",
+      "type": "string",
+      "length": 255,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CampaignId",
+      "label": "Campaign ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Campaign"
+      ],
+      "relationshipName": "Campaign"
+    },
+    {
+      "name": "Description",
+      "label": "Description",
+      "type": "textarea",
+      "length": 1000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Objective",
+      "label": "Objective",
+      "type": "textarea",
+      "length": 1000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsActive",
+      "label": "Active",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "DisplayName",
+      "label": "Display Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumUsageCount",
+      "label": "Maximum Applications Per Cart",
+      "type": "int",
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "Enter the maximum number of times this promotion can apply to a cart. The default value is 1."
+    },
+    {
+      "name": "PriorityNumber",
+      "label": "Priority Number",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsAutomatic",
+      "label": "Automatic",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "StartDateTime",
+      "label": "Start Datetime",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "EndDateTime",
+      "label": "End Datetime",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ExclusivityType",
+      "label": "Exclusivity Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "Class",
+      "picklistValues": [
+        "No",
+        "Class",
+        "Global"
+      ],
+      "inlineHelpText": "To combine the promotion with other promotions, select No. To prevent combining the promotion with promotions of the same class, select Class. To let it be the only promotion used for an entire order, select Global."
+    },
+    {
+      "name": "IsCommercePromotion",
+      "label": "Commerce Promotion",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsTiered",
+      "label": "Tiered Promotion",
+      "type": "boolean",
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "This setting is permanent and can't be changed after the promotion is saved. Create a new promotion instead."
+    },
+    {
+      "name": "TermsAndConditions",
+      "label": "Terms and Conditions",
+      "type": "textarea",
+      "length": 4000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "QualifierCriteria",
+      "label": "Qualifier Criteria",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "All",
+        "Any"
+      ],
+      "inlineHelpText": "Define whether a cart must meet the criteria for any qualifier or all qualifiers"
+    },
+    {
+      "name": "IsQualCriteriaNotRequiredPerApplication",
+      "label": "Qualifying Criteria Not Required Per Application",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "CartItemPriceAdjustment",
+      "field": "PriceAdjustmentCauseId",
+      "relationshipName": "PriceAdjustmentItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "Coupon",
+      "field": "PromotionId",
+      "relationshipName": "PromotionCoupons",
+      "cascadeDelete": true
+    },
+    {
+      "child": "EmailMessage",
+      "field": "RelatedToId",
+      "relationshipName": "Emails",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Event",
+      "field": "WhatId",
+      "relationshipName": "Events",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Note",
+      "field": "ParentId",
+      "relationshipName": "Notes",
+      "cascadeDelete": true
+    },
+    {
+      "child": "PromotionMarketSegment",
+      "field": "PromotionId",
+      "relationshipName": "PromotionMarketSegments",
+      "cascadeDelete": true
+    },
+    {
+      "child": "PromotionQualifier",
+      "field": "PromotionId",
+      "relationshipName": "PromotionQualifiers",
+      "cascadeDelete": true
+    },
+    {
+      "child": "PromotionTarget",
+      "field": "PromotionId",
+      "relationshipName": "PromotionTargets",
+      "cascadeDelete": true
+    },
+    {
+      "child": "PromotionTier",
+      "field": "PromotionId",
+      "relationshipName": "PromotionTiers",
+      "cascadeDelete": true
+    },
+    {
+      "child": "Task",
+      "field": "WhatId",
+      "relationshipName": "Tasks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "WebCartAdjustmentGroup",
+      "field": "PriceAdjustmentCauseId",
+      "relationshipName": "PriceAdjustmentGroups",
+      "cascadeDelete": false
+    }
+  ]
+}

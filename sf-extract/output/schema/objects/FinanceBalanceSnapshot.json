@@ -1,0 +1,446 @@
+{
+  "name": "FinanceBalanceSnapshot",
+  "label": "Finance Balance Snapshot",
+  "custom": false,
+  "keyPrefix": "2kA",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Finance Balance Snapshot ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnerId",
+      "label": "Owner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Group",
+        "User"
+      ],
+      "relationshipName": "Owner"
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FinanceBalanceSnapshotNumber",
+      "label": "Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FinanceTransactionId",
+      "label": "Finance Transaction ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "unique": true,
+      "custom": false,
+      "referenceTo": [
+        "FinanceTransaction"
+      ],
+      "relationshipName": "FinanceTransaction",
+      "inlineHelpText": "Parent finance transaction for the snapshot. The snapshot's fields inherit the transaction's values only if the finance transaction's reference entity type is an invoice, payment, credit memo, debit memo, or refund."
+    },
+    {
+      "name": "ReferenceEntityId",
+      "label": "ReferenceEntity ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "CreditMemo",
+        "CreditMemoInvApplication",
+        "CreditMemoLine",
+        "Invoice",
+        "InvoiceLine",
+        "Payment",
+        "PaymentLineInvoice",
+        "Refund",
+        "RefundLinePayment",
+        "Subscription_Line__c",
+        "Subscription__c"
+      ],
+      "relationshipName": "ReferenceEntity",
+      "inlineHelpText": "The financial object that was created or updated as a result of a customer action"
+    },
+    {
+      "name": "ReferenceEntityType",
+      "label": "Reference Entity Type",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Invoice",
+        "Invoice line",
+        "Invoice line tax",
+        "Sub invoice line",
+        "Sub invoice line tax",
+        "Credit memo",
+        "Credit memo line",
+        "Credit memo line tax",
+        "Credit memo line invoice application",
+        "Credit memo line invoice line application",
+        "Debit memo",
+        "Debit memo line",
+        "Debit memo line tax",
+        "Debit memo line credit memo application",
+        "Debit memo line credit memo line application",
+        "Debit memo line invoice application",
+        "Debit memo line invoice line application",
+        "Payment",
+        "Payment debit memo application",
+        "Payment debit memo line application",
+        "Payment invoice application",
+        "Payment invoice line application",
+        "Refund",
+        "Refund credit memo application",
+        "Refund credit memo line application",
+        "Refund payment application",
+        "Other"
+      ]
+    },
+    {
+      "name": "EventType",
+      "label": "Event Type",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Allocated",
+        "Unallocated",
+        "Posted",
+        "Canceled",
+        "Changed",
+        "Void",
+        "Other"
+      ]
+    },
+    {
+      "name": "ChargeAmount",
+      "label": "Charge Amount",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "The charge contributing to the transaction's subtotal"
+    },
+    {
+      "name": "AdjustmentAmount",
+      "label": "Adjustment Amount",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "The adjustment contributing to the transaction's subtotal"
+    },
+    {
+      "name": "Subtotal",
+      "label": "Subtotal",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "Total of the charge amount and adjustment. Doesn't include the tax amount."
+    },
+    {
+      "name": "TaxAmount",
+      "label": "Tax Amount",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "The total amount of tax for the change made to your reference entity as a result of the event action"
+    },
+    {
+      "name": "TotalAmountWithTax",
+      "label": "Total Amount With Tax",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "The subtotal plus the tax amount"
+    },
+    {
+      "name": "ImpactAmount",
+      "label": "Impact Amount",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "The finance transaction's impact on the customer's finances"
+    },
+    {
+      "name": "Balance",
+      "label": "Balance",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "Final balance of the snapshot's reference entity. Inherited from the finance transaction's resulting balance if the finance transaction's reference entity is a credit memo, debit memo, invoice, payment, or refund."
+    },
+    {
+      "name": "AccountId",
+      "label": "Account ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Account"
+      ],
+      "relationshipName": "Account",
+      "inlineHelpText": "Parent account of the reference entity"
+    },
+    {
+      "name": "TransactionDate",
+      "label": "Transaction Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "The date when the finance transaction occurred"
+    },
+    {
+      "name": "EffectiveDate",
+      "label": "Effective Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "The date when the financial transaction takes effect"
+    },
+    {
+      "name": "DueDate",
+      "label": "Due Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "Date when the invoice is due"
+    },
+    {
+      "name": "BaseCurrencyIsoCode",
+      "label": "Base Currency ISO Code",
+      "type": "string",
+      "length": 3,
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "Currency of the country defined for this account. Define this value to use later when you calculate currency conversions."
+    },
+    {
+      "name": "BaseCurrencyFxRate",
+      "label": "Base Currency FX Rate",
+      "type": "double",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "Rate of exchange according to the Base Currency FX Date. Define this value to use later when you calculate currency conversions."
+    },
+    {
+      "name": "BaseCurrencyFxDate",
+      "label": "Base Currency FX Date",
+      "type": "date",
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "Date used to determine the foreign exchange rate. Define this value to use later when you calculate currency conversions."
+    },
+    {
+      "name": "BaseCurrencyAmount",
+      "label": "Base Currency Amount",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "Define this value based on any currency conversion needed for the total amount with tax."
+    },
+    {
+      "name": "BaseCurrencyBalance",
+      "label": "Base Currency Balance",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "Define this value based on any currency conversion needed for the resulting balance."
+    },
+    {
+      "name": "LegalEntityId",
+      "label": "Legal Entity ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "LegalEntity",
+        "Subscription_Line__c",
+        "Subscription__c"
+      ],
+      "relationshipName": "LegalEntity",
+      "inlineHelpText": "Legal entity associated with the finance transaction. This is an optional lookup that you can add to associate the finance transaction to GL rules for external ledger processing."
+    },
+    {
+      "name": "OriginalReferenceEntityType",
+      "label": "Original Reference Entity Type",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "The finance transaction's reference entity type when the finance transaction was created."
+    },
+    {
+      "name": "OriginalEventType",
+      "label": "Original Event Type",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "The finance transaction's event type when the finance transaction was created."
+    },
+    {
+      "name": "FinanceSystemTransactionNumber",
+      "label": "Finance System Transaction Number",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FinanceSystemName",
+      "label": "Finance System Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "The name of the external financial system used to recognize the finance transaction."
+    },
+    {
+      "name": "FinanceSystemIntegrationMode",
+      "label": "Finance System Integration Mode",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "The type of the external financial system used to recognize the finance transaction."
+    },
+    {
+      "name": "FinanceSystemIntegrationStatus",
+      "label": "Finance System Integration Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Not Selected",
+        "Pending",
+        "In Process",
+        "Retry In Process",
+        "Success",
+        "Error",
+        "Failed"
+      ]
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    }
+  ]
+}

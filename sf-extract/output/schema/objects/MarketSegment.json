@@ -1,0 +1,569 @@
+{
+  "name": "MarketSegment",
+  "label": "Segment",
+  "custom": false,
+  "keyPrefix": "1sg",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Segment ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Segment Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Description",
+      "label": "Segment Description",
+      "type": "textarea",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IncludeCriteria",
+      "label": "Include Criteria",
+      "type": "textarea",
+      "length": 100000,
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "Query to execute to determine members to include in segment."
+    },
+    {
+      "name": "ExcludeCriteria",
+      "label": "Exclude Criteria",
+      "type": "textarea",
+      "length": 100000,
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "Query to execute to determine members excluded from this segment."
+    },
+    {
+      "name": "PublishScheduleInterval",
+      "label": "Publish Interval",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "NO_REFRESH",
+      "picklistValues": [
+        "NO_REFRESH",
+        "1",
+        "2",
+        "4",
+        "6",
+        "12",
+        "24"
+      ],
+      "inlineHelpText": "Determines when and how often your segment publishes to activation targets."
+    },
+    {
+      "name": "PublishScheduleStartDateTime",
+      "label": "Publish Schedule Start Date and Time",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "PublishScheduleEndDate",
+      "label": "Expiration Date",
+      "type": "date",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastPublishedEndDateTime",
+      "label": "Last Publish Completed",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "NextPublishDateTime",
+      "label": "Next Publish Date Time",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "SegmentStatus",
+      "label": "Segment Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "ACTIVE",
+      "picklistValues": [
+        "INACTIVE",
+        "COUNTING",
+        "PROCESSING",
+        "ACTIVE",
+        "ERROR"
+      ]
+    },
+    {
+      "name": "LastSegmentStatusDateTime",
+      "label": "Segment Status Last Updated",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastSegmentStatusErrorCode",
+      "label": "Segment Status Error Code",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "COUNTING_FAILED",
+        "PROCESSING_FAILED",
+        "SEG_ERROR_SYSTEM_DATE_OUT_OF_RANGE",
+        "SEG_ERROR_COUNT_IN_PROGRESS",
+        "SEG_ERROR_DATORAMA_BAD_REQUEST",
+        "SEG_ERROR_DATORAMA_FAILED_JOB",
+        "SEG_ERROR_DATORAMA_GENERIC",
+        "SEG_ERROR_DATORAMA_UNAUTHORIZED",
+        "SEG_ERROR_DATORAMA_UNKNOWN",
+        "SEG_ERROR_DATORAMA_UNPROCESSABLE",
+        "SEG_ERROR_DATORAMA_UNREACHABLE",
+        "SEG_ERROR_GET_TENANT_DISTRIBUTED_LOCK_FAILED",
+        "SEG_ERROR_INVALID_FILTER",
+        "SEG_ERROR_INVALID_STATE",
+        "SEG_ERROR_JMS_ERROR",
+        "SEG_ERROR_MATERIALIZE_IN_PROGRESS",
+        "SEG_ERROR_QUERY_BUILDING_FAILED",
+        "SEG_ERROR_QUERY_EXCEEDED_COMPLEXITY",
+        "SEG_ERROR_SEGMENT_DISABLED",
+        "SEG_ERROR_TENANT_NOT_FOUND",
+        "SEG_ERROR_TIMEOUT",
+        "SEG_ERROR_TOO_MANY_CONCURRENT_MATERIALIZATIONS",
+        "SEG_ERROR_UNKNOWN",
+        "SEG_ERROR_UNSUCCESSFUL_QUERY_RESULT",
+        "SEG_ERROR_MDS_ERROR",
+        "SEG_ERROR_MEMBERSHIP_DMO_FAILED",
+        "SEG_ERROR_RAPID_SEGMENT_TOO_LARGE",
+        "SEG_ERROR_DATAGRAPH_MEMBERSHIP_FAILED",
+        "SEG_ERROR_UPDATE_ATTEMPT_TIMED_OUT",
+        "SEG_ERROR_HYPER_SERVICE_RESOURCE_EXHAUSTED_RETRIED_ON_SPARK"
+      ]
+    },
+    {
+      "name": "LastSegmentMemberCount",
+      "label": "Population",
+      "type": "long",
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "Count of selected segment entity. GDPR requirements may impact your count."
+    },
+    {
+      "name": "LastSegmentRemainderCount",
+      "label": "Population Remainder",
+      "type": "long",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastSegmentExcludedCount",
+      "label": "Population Excluded",
+      "type": "long",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "PublishStatus",
+      "label": "Publish Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "PUBLISHING",
+        "SUCCESS",
+        "ERROR",
+        "NOT_PUBLISHED",
+        "SKIPPED",
+        "DEFERRED"
+      ]
+    },
+    {
+      "name": "LastPublishStatusDateTime",
+      "label": "Last Publish Status Date Time",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastPublishStatusErrorCode",
+      "label": "Last Publish Status Error Code",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "PUBLISHING_FAILED",
+        "PUBLISHING_SKIPPED"
+      ]
+    },
+    {
+      "name": "LastSegmentStatusErrorDetails",
+      "label": "Segment Status Error Details",
+      "type": "textarea",
+      "length": 4096,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "SegmentMembershipDataModelList",
+      "label": "Segment Membership Data Models",
+      "type": "textarea",
+      "length": 1000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MarketSegmentType",
+      "label": "Segment Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "UI",
+        "DBT",
+        "Lookalike",
+        "EinsteinGptSegmentsUI",
+        "Waterfall",
+        "Realtime",
+        "Dynamic"
+      ]
+    },
+    {
+      "name": "SeedModelStatus",
+      "label": "Seed Model Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "ACTIVE",
+      "picklistValues": [
+        "INACTIVE",
+        "COUNTING",
+        "PROCESSING",
+        "ACTIVE",
+        "ERROR"
+      ]
+    },
+    {
+      "name": "LastSeedModelStatusDateTime",
+      "label": "Last Seed Model Status Date Time",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastSeedModelStatusErrorCode",
+      "label": "Last Seed Model Status Error Code",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastSeedModelRunDateTime",
+      "label": "Last Seed Model Run Date Time",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastSegmentTotalCount",
+      "label": "Total Population",
+      "type": "long",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastSegmentIncludedCount",
+      "label": "Included Population",
+      "type": "long",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "PublishType",
+      "label": "Publish Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "STANDARD",
+      "picklistValues": [
+        "STANDARD",
+        "RAPID"
+      ]
+    },
+    {
+      "name": "SegmentMembershipTable",
+      "label": "Segment Membership data model object name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsSeedSegment",
+      "label": "Is Seed Segment",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "SeedSimilarityHighToMedium",
+      "label": "Similarity High to Medium",
+      "type": "long",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "SeedSimilarityMediumToLow",
+      "label": "Similarity Medium to Low",
+      "type": "long",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "SeedSimilarity",
+      "label": "Similarity",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "EXTREMELY_SIMILAR",
+        "MODERATELY_SIMILAR",
+        "SLIGHTLY_SIMILAR"
+      ],
+      "inlineHelpText": "Similarity of the Lookalike model."
+    },
+    {
+      "name": "LastSegmentCountEndDateTime",
+      "label": "Last Segment Count End Date Time",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "DataGraphId",
+      "label": "Data Graph ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "DataGraph"
+      ],
+      "relationshipName": "DataGraph"
+    },
+    {
+      "name": "PublishScheduleEndDateTime",
+      "label": "Publish Schedule End Date and Time",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastSegmentMemberCountError",
+      "label": "Approximate Segment Population Absolute Error",
+      "type": "long",
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "Error Count of selected segment entity. GDPR requirements may impact your count."
+    },
+    {
+      "name": "LastSegmentExcludedCountError",
+      "label": "Approximate Segment Population Excluded Absolute Error",
+      "type": "long",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LookbackPeriod",
+      "label": "Lookback Period",
+      "type": "string",
+      "length": 40,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsPrevSaveApproxCount",
+      "label": "Is Previous Count Approx",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsCurrentSaveApproxCount",
+      "label": "Is Current Count Approx",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "AdditionalMetadataInfo",
+      "label": "Additional Metadata Info",
+      "type": "textarea",
+      "length": 32000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "PublishScheduleInfo",
+      "label": "Publish Schedule Details",
+      "type": "textarea",
+      "length": 131072,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "GroupSortLimitFilterCriteria",
+      "label": "Advanced Criteria",
+      "type": "textarea",
+      "length": 100000,
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "Query to determine the members for group sort and limit from this segment."
+    },
+    {
+      "name": "SourceMarketSegment",
+      "label": "Source Market Segment",
+      "type": "string",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnedBy",
+      "label": "Owned By Connection",
+      "type": "string",
+      "length": 100,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsRemote",
+      "label": "Is Remote",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "MarketSegmentActivation",
+      "field": "MarketSegmentId",
+      "relationshipName": "MarketSegmentActivationTargets",
+      "cascadeDelete": false
+    }
+  ]
+}

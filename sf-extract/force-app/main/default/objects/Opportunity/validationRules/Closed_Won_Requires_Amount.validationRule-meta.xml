@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Closed_Won_Requires_Amount</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( ISPICKVAL(StageName, &quot;Closed Won&quot;), OR( ISBLANK(Amount), Amount &lt;= 0 ) )</errorConditionFormula>
+    <errorDisplayField>Amount</errorDisplayField>
+    <errorMessage>A won opportunity must have an Amount greater than zero.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,143 @@
+{
+  "name": "AppointmentTopicTimeSlot",
+  "label": "Appointment Topic Time Slot",
+  "custom": false,
+  "keyPrefix": "0mS",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Appointment Topic Time Slot ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TimeSlotId",
+      "label": "Time Slot ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "TimeSlot"
+      ],
+      "relationshipName": "TimeSlot"
+    },
+    {
+      "name": "WorkTypeId",
+      "label": "Work Type ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "WorkType"
+      ],
+      "relationshipName": "WorkType"
+    },
+    {
+      "name": "WorkTypeGroupId",
+      "label": "Work Type Group ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "WorkTypeGroup"
+      ],
+      "relationshipName": "WorkTypeGroup"
+    },
+    {
+      "name": "OperatingHoursId",
+      "label": "Operating Hour ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "OperatingHours"
+      ],
+      "relationshipName": "OperatingHours"
+    },
+    {
+      "name": "AppointmentTopicTimeSlotKey",
+      "label": "Appointment Topic Time Slot Key",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "unique": true,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    }
+  ]
+}

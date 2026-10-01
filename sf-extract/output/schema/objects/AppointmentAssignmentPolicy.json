@@ -1,0 +1,154 @@
+{
+  "name": "AppointmentAssignmentPolicy",
+  "label": "Appointment Assignment Policy",
+  "custom": false,
+  "keyPrefix": "0mT",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Appointment Assignment Policy ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "DeveloperName",
+      "label": "Developer Name",
+      "type": "string",
+      "length": 80,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "Language",
+      "label": "Master Language",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "en_US",
+        "de",
+        "es",
+        "fr",
+        "it",
+        "ja",
+        "sv",
+        "ko",
+        "zh_TW",
+        "zh_CN",
+        "pt_BR",
+        "nl_NL",
+        "da",
+        "th",
+        "fi",
+        "ru",
+        "es_MX",
+        "no"
+      ]
+    },
+    {
+      "name": "MasterLabel",
+      "label": "Name",
+      "type": "string",
+      "length": 80,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "PolicyType",
+      "label": "Policy Type",
+      "type": "picklist",
+      "length": 255,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "loadBalancing"
+      ]
+    },
+    {
+      "name": "PolicyApplicableDuration",
+      "label": "Utilization Calculation Frequency",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "ParameterBased",
+      "picklistValues": [
+        "ParameterBased",
+        "Monthly",
+        "Weekly"
+      ],
+      "inlineHelpText": "Calculates the utilization of service resources based on the selected utilization calculation frequency. Select Parameter-Based to calculate utilization based on the Start Time and End Time parameter values specified in the getAppointmentCandidates and available-territory-slots APIs."
+    },
+    {
+      "name": "UtilizationFactor",
+      "label": "Utilization Count Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "TotalAppointmentDuration",
+      "picklistValues": [
+        "TotalAppointmentDuration",
+        "NumberOfAppointments"
+      ]
+    }
+  ],
+  "childRelationships": []
+}

@@ -1,0 +1,227 @@
+{
+  "name": "DevopsTestSuite",
+  "label": "Test Suite",
+  "custom": false,
+  "keyPrefix": "9Pb",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Test Suite ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnerId",
+      "label": "Owner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Group",
+        "User"
+      ],
+      "relationshipName": "Owner"
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Name",
+      "type": "string",
+      "length": 255,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "DefinitionInTestProvider",
+      "label": "Definition In Test Provider",
+      "type": "url",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Description",
+      "label": "Description",
+      "type": "textarea",
+      "length": 5000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "DevopsPipelineId",
+      "label": "DevopsPipeline ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "DevopsPipeline"
+      ],
+      "relationshipName": "DevopsPipeline"
+    },
+    {
+      "name": "DevopsTestProviderId",
+      "label": "DevopsTestProvider ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "DevopsTestProvider"
+      ],
+      "relationshipName": "DevopsTestProvider"
+    },
+    {
+      "name": "TestProviderSpecificConfig",
+      "label": "Test Provider Specific Config",
+      "type": "textarea",
+      "length": 5000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsActive",
+      "label": "Is Active",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ExternalId",
+      "label": "External Id",
+      "type": "string",
+      "length": 80,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "SyncLogId",
+      "label": "Test Provider Sync Log ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "DevopsTestProviderSyncLog"
+      ],
+      "relationshipName": "SyncLog"
+    },
+    {
+      "name": "EnvironmentId",
+      "label": "DevOps Environment ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "DevopsEnvironment"
+      ],
+      "relationshipName": "Environment"
+    },
+    {
+      "name": "UniqueKey",
+      "label": "Unique Key",
+      "type": "textarea",
+      "length": 255,
+      "required": false,
+      "unique": true,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "DevopsTestSuiteTest",
+      "field": "DevopsTestSuiteId",
+      "relationshipName": "DevopsTestSuiteTests",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    }
+  ]
+}

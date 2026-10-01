@@ -1,0 +1,348 @@
+{
+  "name": "WorkItem",
+  "label": "Work Item",
+  "custom": false,
+  "keyPrefix": "1fk",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Work Item ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnerId",
+      "label": "Owner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Group",
+        "User"
+      ],
+      "relationshipName": "Owner"
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Work Item ID",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Description",
+      "label": "Description",
+      "type": "textarea",
+      "length": 32768,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Subject",
+      "label": "Subject",
+      "type": "string",
+      "length": 255,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "IsDevelopmentApproved",
+      "label": "Is Development Approved?",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "AssignedToId",
+      "label": "User ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "AssignedTo"
+    },
+    {
+      "name": "ParentWorkItemId",
+      "label": "ParentWorkItem ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "WorkItem"
+      ],
+      "relationshipName": "ParentWorkItem"
+    },
+    {
+      "name": "DevelopmentApprovedById",
+      "label": "User ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "DevelopmentApprovedBy"
+    },
+    {
+      "name": "Status",
+      "label": "Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "NEW",
+      "picklistValues": [
+        "NEW",
+        "IN_PROGRESS",
+        "IN_REVIEW",
+        "READY_TO_PROMOTE",
+        "MERGE_CONFLICT",
+        "PROMOTED",
+        "CLOSED",
+        "NEVERED",
+        "COMBINED",
+        "MIGRATION_PENDING"
+      ]
+    },
+    {
+      "name": "DevopsProjectId",
+      "label": "DevopsProject ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "DevopsProject"
+      ],
+      "relationshipName": "DevopsProject"
+    },
+    {
+      "name": "RebaseBranchId",
+      "label": "RebaseBranch ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "SourceCodeRepositoryBranch"
+      ],
+      "relationshipName": "RebaseBranch"
+    },
+    {
+      "name": "SourceCodeRepositoryBranchId",
+      "label": "SourceCodeRepositoryBranch ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "SourceCodeRepositoryBranch"
+      ],
+      "relationshipName": "SourceCodeRepositoryBranch"
+    },
+    {
+      "name": "DevelopmentEnvironmentId",
+      "label": "DevelopmentEnvironment ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "DevopsEnvironment"
+      ],
+      "relationshipName": "DevelopmentEnvironment"
+    },
+    {
+      "name": "DevopsPipelineStageId",
+      "label": "DevopsPipelineStage ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "DevopsPipelineStage"
+      ],
+      "relationshipName": "DevopsPipelineStage"
+    },
+    {
+      "name": "ReviewRemoteReference",
+      "label": "Review Remote Reference",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "RebaseStatusId",
+      "label": "DevOps Request Info ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "DevopsRequestInfo"
+      ],
+      "relationshipName": "RebaseStatus"
+    },
+    {
+      "name": "LastSyncDate",
+      "label": "Last Sync Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ExternalId",
+      "label": "External Id",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "DevopsActivityLog",
+      "field": "WorkItemId",
+      "relationshipName": "DevopsActivityLogs",
+      "cascadeDelete": false
+    },
+    {
+      "child": "EmailMessage",
+      "field": "RelatedToId",
+      "relationshipName": "Emails",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Event",
+      "field": "WhatId",
+      "relationshipName": "Events",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Note",
+      "field": "ParentId",
+      "relationshipName": "Notes",
+      "cascadeDelete": true
+    },
+    {
+      "child": "Task",
+      "field": "WhatId",
+      "relationshipName": "Tasks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "WorkItem",
+      "field": "ParentWorkItemId",
+      "relationshipName": "WorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "WorkItemComponentList",
+      "field": "WorkItemId",
+      "relationshipName": "WorkItemComponentLists",
+      "cascadeDelete": true
+    }
+  ]
+}

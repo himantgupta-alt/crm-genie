@@ -1,0 +1,256 @@
+{
+  "name": "Subscription_Line__c",
+  "label": "Subscription Line",
+  "custom": true,
+  "keyPrefix": "a00",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Record ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Line Number",
+      "type": "string",
+      "length": 80,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Subscription__c",
+      "label": "Subscription",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": true,
+      "referenceTo": [
+        "Subscription__c"
+      ],
+      "relationshipName": "Subscription__r"
+    },
+    {
+      "name": "Product__c",
+      "label": "Product",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": true,
+      "referenceTo": [
+        "Product2"
+      ],
+      "relationshipName": "Product__r"
+    },
+    {
+      "name": "Quantity__c",
+      "label": "Quantity",
+      "type": "double",
+      "precision": 6,
+      "required": true,
+      "custom": true
+    },
+    {
+      "name": "Unit_Price__c",
+      "label": "Unit Price",
+      "type": "currency",
+      "precision": 16,
+      "scale": 2,
+      "required": true,
+      "custom": true
+    },
+    {
+      "name": "Account_Name__c",
+      "label": "Account Name",
+      "type": "string",
+      "length": 1300,
+      "required": false,
+      "custom": true,
+      "calculated": true,
+      "formula": "Subscription__r.Account__r.Name"
+    },
+    {
+      "name": "Line_Total__c",
+      "label": "Line Total",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": true,
+      "calculated": true,
+      "formula": "Quantity__c * Unit_Price__c"
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "CollaborationGroupRecord",
+      "field": "RecordId",
+      "relationshipName": "RecordAssociatedGroups",
+      "cascadeDelete": true
+    },
+    {
+      "child": "ContactRequest",
+      "field": "WhatId",
+      "relationshipName": "ContactRequests",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "DuplicateRecordItem",
+      "field": "RecordId",
+      "relationshipName": "DuplicateRecordItems",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FinanceBalanceSnapshot",
+      "field": "LegalEntityId",
+      "relationshipName": "FinanceBalanceSnapshots",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FinanceBalanceSnapshot",
+      "field": "ReferenceEntityId",
+      "relationshipName": "FinanceBalanceSnapshots",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FinanceTransaction",
+      "field": "DestinationEntityId",
+      "relationshipName": "DestinationFinanceTransactions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FinanceTransaction",
+      "field": "LegalEntityId",
+      "relationshipName": "FinanceTransactions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FinanceTransaction",
+      "field": "ParentReferenceEntityId",
+      "relationshipName": "ParentFinanceTransactions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FinanceTransaction",
+      "field": "ReferenceEntityId",
+      "relationshipName": "FinanceTransactions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FinanceTransaction",
+      "field": "SourceEntityId",
+      "relationshipName": "SourceFinanceTransactions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "InventoryItemReservation",
+      "field": "ItemReservationSourceId",
+      "relationshipName": "InventoryReservationSources",
+      "cascadeDelete": false
+    },
+    {
+      "child": "InventoryReservation",
+      "field": "ReservationSourceId",
+      "relationshipName": "InventoryReservations",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Note",
+      "field": "ParentId",
+      "relationshipName": "Notes",
+      "cascadeDelete": true
+    },
+    {
+      "child": "ProcessException",
+      "field": "AttachedToId",
+      "relationshipName": "ProcessExceptions",
+      "cascadeDelete": true
+    },
+    {
+      "child": "VoiceCall",
+      "field": "RelatedRecordId",
+      "relationshipName": "RelatedRecords",
+      "cascadeDelete": false
+    }
+  ]
+}

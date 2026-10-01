@@ -1,0 +1,213 @@
+{
+  "name": "AssetStatePeriod",
+  "label": "Asset State Period",
+  "custom": false,
+  "keyPrefix": "4nK",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Asset State Period ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "AssetStatePeriodNumber",
+      "label": "Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "AssetId",
+      "label": "Asset ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Asset"
+      ],
+      "relationshipName": "Asset"
+    },
+    {
+      "name": "StartDate",
+      "label": "Start Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "EndDate",
+      "label": "End Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Quantity",
+      "label": "Quantity",
+      "type": "double",
+      "precision": 14,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Amount",
+      "label": "Amount",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Mrr",
+      "label": "Monthly Recurring Revenue",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "BillingFrequency",
+      "label": "Billing Frequency",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Monthly",
+        "Quarterly",
+        "Semi-Annual",
+        "Annual"
+      ]
+    },
+    {
+      "name": "LegalEntityId",
+      "label": "Legal Entity ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "LegalEntity"
+      ],
+      "relationshipName": "LegalEntity"
+    },
+    {
+      "name": "UnitPriceUplift",
+      "label": "Unit Price Uplift",
+      "type": "percent",
+      "precision": 5,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Discount",
+      "label": "Discount",
+      "type": "percent",
+      "precision": 5,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "DiscountAmount",
+      "label": "Discount Amount",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "UnitPrice",
+      "label": "Unit Price",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    }
+  ]
+}

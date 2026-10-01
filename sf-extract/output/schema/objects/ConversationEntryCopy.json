@@ -1,0 +1,229 @@
+{
+  "name": "ConversationEntryCopy",
+  "label": "Conversation Entry Copy",
+  "custom": false,
+  "keyPrefix": "2c5",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Conversation Entry Copy ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnerId",
+      "label": "Owner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Group",
+        "User"
+      ],
+      "relationshipName": "Owner"
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Conversation Entry Copy Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ConversationEntryIdentifier",
+      "label": "Conversation Entry Identifier",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ConversationId",
+      "label": "Conversation ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Conversation"
+      ],
+      "relationshipName": "Conversation"
+    },
+    {
+      "name": "ConversationParticipantId",
+      "label": "Conversation Participant ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "ConversationParticipant"
+      ],
+      "relationshipName": "ConversationParticipant"
+    },
+    {
+      "name": "ClientTimestamp",
+      "label": "Client Timestamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ClientDuration",
+      "label": "Client Duration",
+      "type": "long",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TranscriptedTimestamp",
+      "label": "Transcripted Timestamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "EntryType",
+      "label": "Entry Type",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "EntryPayload",
+      "label": "Entry Payload",
+      "type": "textarea",
+      "length": 131072,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Language",
+      "label": "Language",
+      "type": "string",
+      "length": 64,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Version",
+      "label": "Version",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "VisibilityStrategy",
+      "label": "Visibility Strategy",
+      "type": "string",
+      "length": 36,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ParentConvEntryCopyId",
+      "label": "Conversation Entry Copy ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "ConversationEntryCopy"
+      ],
+      "relationshipName": "ParentConvEntryCopy"
+    },
+    {
+      "name": "Modality",
+      "label": "Modality",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ConvEntryRelatedRecordCopy",
+      "field": "RelatedRecordId",
+      "relationshipName": "ConvEntryRelatedRecordCopies",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    }
+  ]
+}

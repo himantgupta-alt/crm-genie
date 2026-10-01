@@ -1,0 +1,209 @@
+{
+  "name": "Seller",
+  "label": "Seller",
+  "custom": false,
+  "keyPrefix": "0q6",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Seller ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnerId",
+      "label": "Owner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Group",
+        "User"
+      ],
+      "relationshipName": "Owner"
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Name",
+      "type": "string",
+      "length": 255,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "PartyId",
+      "label": "Individual ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Individual"
+      ],
+      "relationshipName": "Party"
+    },
+    {
+      "name": "SalesAmount",
+      "label": "Sales Amount",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "SellerType",
+      "label": "Seller Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Reseller",
+        "Distributor",
+        "Wholesaler",
+        "SalesPartner"
+      ]
+    },
+    {
+      "name": "SellerTier",
+      "label": "Seller Tier",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Gold",
+        "Silver",
+        "Bronze"
+      ]
+    },
+    {
+      "name": "ActiveFromDate",
+      "label": "Active From Date",
+      "type": "date",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ActiveToDate",
+      "label": "Active To Date",
+      "type": "date",
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "CommSubscriptionConsent",
+      "field": "PartyRoleId",
+      "relationshipName": "CommSubsConsents",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ContactPointConsent",
+      "field": "PartyRoleId",
+      "relationshipName": "ContactPointConsents",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ContactPointTypeConsent",
+      "field": "PartyRoleId",
+      "relationshipName": "ContactPointTypeConsents",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "PartyConsent",
+      "field": "PartyRoleId",
+      "relationshipName": "PartyConsents",
+      "cascadeDelete": false
+    }
+  ]
+}

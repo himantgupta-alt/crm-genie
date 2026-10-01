@@ -1,0 +1,484 @@
+{
+  "name": "MessagingSession",
+  "label": "Messaging Session",
+  "custom": false,
+  "keyPrefix": "0Mw",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Messaging Session ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnerId",
+      "label": "Owner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Group",
+        "User"
+      ],
+      "relationshipName": "Owner"
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Messaging Session Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MessagingChannelId",
+      "label": "Messaging Channel ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "MessagingChannel"
+      ],
+      "relationshipName": "MessagingChannel"
+    },
+    {
+      "name": "MessagingEndUserId",
+      "label": "Messaging User ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "MessagingEndUser"
+      ],
+      "relationshipName": "MessagingEndUser"
+    },
+    {
+      "name": "Status",
+      "label": "Status",
+      "type": "picklist",
+      "length": 255,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "Active",
+        "Ended",
+        "Waiting",
+        "New",
+        "Consent",
+        "Inactive",
+        "Error",
+        "Paused"
+      ]
+    },
+    {
+      "name": "CaseId",
+      "label": "Case ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Case"
+      ],
+      "relationshipName": "Case"
+    },
+    {
+      "name": "LeadId",
+      "label": "Lead ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Lead"
+      ],
+      "relationshipName": "Lead"
+    },
+    {
+      "name": "OpportunityId",
+      "label": "Opportunity ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Opportunity"
+      ],
+      "relationshipName": "Opportunity"
+    },
+    {
+      "name": "CampaignId",
+      "label": "Campaign ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Campaign"
+      ],
+      "relationshipName": "Campaign"
+    },
+    {
+      "name": "AcceptTime",
+      "label": "Accept Time",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "StartTime",
+      "label": "Start Time",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "EndTime",
+      "label": "End Time",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Origin",
+      "label": "Origin",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "InboundInitiated",
+      "picklistValues": [
+        "InboundInitiated",
+        "TriggeredOutbound",
+        "OptOut",
+        "OptIn",
+        "ConversationClose",
+        "AgentInitiated",
+        "Help",
+        "ConversationControlLost"
+      ]
+    },
+    {
+      "name": "AgentType",
+      "label": "Agent Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "Agent",
+      "picklistValues": [
+        "Agent",
+        "Bot",
+        "BotToAgent",
+        "System"
+      ]
+    },
+    {
+      "name": "SessionKey",
+      "label": "Session Key",
+      "type": "string",
+      "length": 36,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TargetUserId",
+      "label": "User ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "TargetUser"
+    },
+    {
+      "name": "ChannelGroup",
+      "label": "Group",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ChannelIntent",
+      "label": "Intent",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ChannelLocale",
+      "label": "Locale",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "EndUserLanguage",
+      "label": "Messaging User Language",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "en_US",
+        "de",
+        "es",
+        "fr",
+        "it",
+        "ja",
+        "sv",
+        "ko",
+        "zh_TW",
+        "zh_CN",
+        "pt_BR",
+        "nl_NL",
+        "da",
+        "th",
+        "fi",
+        "ru",
+        "es_MX",
+        "no"
+      ]
+    },
+    {
+      "name": "ConversationId",
+      "label": "Conversation ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Conversation"
+      ],
+      "relationshipName": "Conversation"
+    },
+    {
+      "name": "EndUserAccountId",
+      "label": "Account ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Account"
+      ],
+      "relationshipName": "EndUserAccount"
+    },
+    {
+      "name": "EndUserContactId",
+      "label": "Contact ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Contact"
+      ],
+      "relationshipName": "EndUserContact"
+    },
+    {
+      "name": "ChannelType",
+      "label": "Channel Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Text",
+        "Facebook",
+        "Line",
+        "GoogleHome",
+        "Alexa",
+        "Omega",
+        "AppleBusinessChat",
+        "WeChat",
+        "WebChat",
+        "WhatsApp",
+        "Phone",
+        "EmbeddedMessaging",
+        "Voice",
+        "Custom",
+        "InternalCopilot",
+        "VoiceIntegrationPilot",
+        "PstnVoice",
+        "WhatsAppVoice",
+        "SipVoice",
+        "Email",
+        "Rcs",
+        "MsCopilot"
+      ]
+    },
+    {
+      "name": "ChannelName",
+      "label": "Channel Name",
+      "type": "string",
+      "length": 80,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ChannelKey",
+      "label": "Channel Key",
+      "type": "string",
+      "length": 150,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "PreviewDetails",
+      "label": "Preview Details",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "EndUserMessageCount",
+      "label": "End User Message Count",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "AgentMessageCount",
+      "label": "Agent Message Count",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "EndedByType",
+      "label": "Ended By Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Agent",
+        "Bot",
+        "EndUser",
+        "System"
+      ]
+    },
+    {
+      "name": "SuspendedByType",
+      "label": "Suspended By Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Agent",
+        "Bot",
+        "System"
+      ]
+    },
+    {
+      "name": "ChannelEndUserFormula",
+      "label": "Concatenated Messaging Channel and Messaging User",
+      "type": "string",
+      "length": 50,
+      "required": false,
+      "custom": false,
+      "calculated": true
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "Case",
+      "field": "SourceId",
+      "relationshipName": "Cases",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "ConvEntryRelatedRecordCopy",
+      "field": "RelatedRecordId",
+      "relationshipName": "ConvEntryRelatedRecordCopies",
+      "cascadeDelete": false
+    }
+  ]
+}

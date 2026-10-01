@@ -1,0 +1,34 @@
+[
+  {
+    "name": "Account.Standard_Account_Duplicate_Rule",
+    "active": true,
+    "actionOnInsert": "Allow",
+    "actionOnUpdate": "Allow",
+    "alertText": "Use one of these records?",
+    "matchingRules": [
+      "Account.Standard_Account_Match_Rule_v1_0"
+    ]
+  },
+  {
+    "name": "Contact.Standard_Contact_Duplicate_Rule",
+    "active": true,
+    "actionOnInsert": "Allow",
+    "actionOnUpdate": "Allow",
+    "alertText": "Use one of these records?",
+    "matchingRules": [
+      "Contact.Standard_Contact_Match_Rule_v1_1",
+      "Lead.Standard_Lead_Match_Rule_v1_0"
+    ]
+  },
+  {
+    "name": "Lead.Standard_Lead_Duplicate_Rule",
+    "active": true,
+    "actionOnInsert": "Allow",
+    "actionOnUpdate": "Allow",
+    "alertText": "Use one of these records?",
+    "matchingRules": [
+      "Lead.Standard_Lead_Match_Rule_v1_0",
+      "Contact.Standard_Contact_Match_Rule_v1_1"
+    ]
+  }
+]

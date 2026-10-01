@@ -1,0 +1,381 @@
+{
+  "name": "WorkType",
+  "label": "Work Type",
+  "custom": false,
+  "keyPrefix": "08q",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Work Type ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnerId",
+      "label": "Owner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Group",
+        "User"
+      ],
+      "relationshipName": "Owner"
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Work Type Name",
+      "type": "string",
+      "length": 255,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Description",
+      "label": "Description",
+      "type": "textarea",
+      "length": 32000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "EstimatedDuration",
+      "label": "Estimated Duration",
+      "type": "double",
+      "precision": 18,
+      "scale": 2,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "DurationType",
+      "label": "Duration Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "Hours",
+      "picklistValues": [
+        "Hours",
+        "Minutes"
+      ]
+    },
+    {
+      "name": "DurationInMinutes",
+      "label": "Duration in Minutes",
+      "type": "double",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TimeframeStart",
+      "label": "Timeframe Start",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TimeframeEnd",
+      "label": "Timeframe End",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "BlockTimeBeforeAppointment",
+      "label": "Block Time Before Appointment",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "BlockTimeAfterAppointment",
+      "label": "Block Time After Appointment",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "DefaultAppointmentType",
+      "label": "Default Appointment Type",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TimeFrameStartUnit",
+      "label": "Time Frame Start Unit",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "Days",
+      "picklistValues": [
+        "Days",
+        "Hours"
+      ]
+    },
+    {
+      "name": "TimeFrameEndUnit",
+      "label": "Time Frame End Unit",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "Days",
+      "picklistValues": [
+        "Days",
+        "Hours"
+      ]
+    },
+    {
+      "name": "BlockTimeBeforeUnit",
+      "label": "Block Time Before Unit",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "Minutes",
+      "picklistValues": [
+        "Minutes",
+        "Hours"
+      ]
+    },
+    {
+      "name": "BlockTimeAfterUnit",
+      "label": "Block Time After Unit",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "Minutes",
+      "picklistValues": [
+        "Minutes",
+        "Hours"
+      ]
+    },
+    {
+      "name": "OperatingHoursId",
+      "label": "Operating Hour ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "OperatingHours"
+      ],
+      "relationshipName": "OperatingHours"
+    },
+    {
+      "name": "ApptStartTimeIntvlInMin",
+      "label": "Appointment Start Time Interval (Min)",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "AppointmentCategoryId",
+      "label": "Appointment Category ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "AppointmentCategory"
+      ],
+      "relationshipName": "AppointmentCategory"
+    },
+    {
+      "name": "AttendeeLimit",
+      "label": "Attendee Limit",
+      "type": "int",
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "Enter the maximum number of service appointment attendees that can attend a group service appointment. This field is mandatory if the appointment category is group."
+    },
+    {
+      "name": "ProductId",
+      "label": "Product ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Product2"
+      ],
+      "relationshipName": "Product"
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "AppointmentInvitation",
+      "field": "AppointmentTopicId",
+      "relationshipName": "AppointmentInvitations",
+      "cascadeDelete": true
+    },
+    {
+      "child": "AppointmentTopicTimeSlot",
+      "field": "WorkTypeId",
+      "relationshipName": "AppointmentTopicTimeSlots",
+      "cascadeDelete": true
+    },
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "EngagementChannelWorkType",
+      "field": "WorkTypeId",
+      "relationshipName": "EngagementChannelWorkTypes",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ServiceTerritoryWorkType",
+      "field": "WorkTypeId",
+      "relationshipName": "WorkTypes",
+      "cascadeDelete": true
+    },
+    {
+      "child": "Shift",
+      "field": "WorkTypeId",
+      "relationshipName": "ShiftWorkTypes",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ShiftWorkTopic",
+      "field": "WorkTypeId",
+      "relationshipName": "WorkTypeShifts",
+      "cascadeDelete": false
+    },
+    {
+      "child": "SkillRequirement",
+      "field": "RelatedRecordId",
+      "relationshipName": "SkillRequirements",
+      "cascadeDelete": true
+    },
+    {
+      "child": "WaitlistParticipant",
+      "field": "WorkTypeId",
+      "relationshipName": "WaitlistParticipants",
+      "cascadeDelete": false
+    },
+    {
+      "child": "WaitlistWorkType",
+      "field": "WorkTypeId",
+      "relationshipName": "WaitlistWorkTypes",
+      "cascadeDelete": true
+    },
+    {
+      "child": "WorkOrder",
+      "field": "WorkTypeId",
+      "relationshipName": "WorkOrders",
+      "cascadeDelete": false
+    },
+    {
+      "child": "WorkOrderLineItem",
+      "field": "WorkTypeId",
+      "relationshipName": "WorkOrderLineItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "WorkTypeGroupMember",
+      "field": "WorkTypeId",
+      "relationshipName": "WorkTypeGroupMembers",
+      "cascadeDelete": true
+    }
+  ]
+}

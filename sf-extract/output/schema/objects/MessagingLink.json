@@ -1,0 +1,125 @@
+{
+  "name": "MessagingLink",
+  "label": "Messaging Link",
+  "custom": false,
+  "keyPrefix": "0Mm",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Messaging Link ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MessagingChannelId",
+      "label": "Messaging Channel ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "MessagingChannel"
+      ],
+      "relationshipName": "MessagingChannel"
+    },
+    {
+      "name": "EntityType",
+      "label": "Custom Object Definition ID",
+      "type": "picklist",
+      "length": 255,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "Account",
+        "Case",
+        "Contact",
+        "Lead",
+        "Opportunity",
+        "CustomEntityDefinition"
+      ]
+    },
+    {
+      "name": "RecordTypeId",
+      "label": "Record Type ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "RecordType"
+      ],
+      "relationshipName": "RecordType"
+    },
+    {
+      "name": "ShouldAttemptAutoLink",
+      "label": "Attempt to auto-link record",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ShouldPromptCreate",
+      "label": "Prompt to manually create link",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": []
+}

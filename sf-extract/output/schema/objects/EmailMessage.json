@@ -1,0 +1,494 @@
+{
+  "name": "EmailMessage",
+  "label": "Email Message",
+  "custom": false,
+  "keyPrefix": "02s",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Email Message ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ParentId",
+      "label": "Case ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Case"
+      ],
+      "relationshipName": "Parent"
+    },
+    {
+      "name": "ActivityId",
+      "label": "Activity ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Task"
+      ]
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TextBody",
+      "label": "Text Body",
+      "type": "textarea",
+      "length": 131072,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "HtmlBody",
+      "label": "HTML Body",
+      "type": "textarea",
+      "length": 131072,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Headers",
+      "label": "Headers",
+      "type": "textarea",
+      "length": 32000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Subject",
+      "label": "Subject",
+      "type": "string",
+      "length": 3000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Email Message Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FromName",
+      "label": "From Name",
+      "type": "string",
+      "length": 1000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FromAddress",
+      "label": "From Address",
+      "type": "email",
+      "length": 1000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ValidatedFromAddress",
+      "label": "From",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "demo.user@example.com"
+      ]
+    },
+    {
+      "name": "ToAddress",
+      "label": "To Address",
+      "type": "string",
+      "length": 4000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CcAddress",
+      "label": "CC Address",
+      "type": "string",
+      "length": 4000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "BccAddress",
+      "label": "BCC Address",
+      "type": "string",
+      "length": 4000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Incoming",
+      "label": "Is Incoming",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "HasAttachment",
+      "label": "Has Attachment",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Status",
+      "label": "Status",
+      "type": "picklist",
+      "length": 40,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ]
+    },
+    {
+      "name": "MessageDate",
+      "label": "Message Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ReplyToEmailMessageId",
+      "label": "Email Message ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "EmailMessage"
+      ],
+      "relationshipName": "ReplyToEmailMessage"
+    },
+    {
+      "name": "IsExternallyVisible",
+      "label": "Is Externally Visible",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MessageIdentifier",
+      "label": "Message ID",
+      "type": "string",
+      "length": 765,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ThreadIdentifier",
+      "label": "Thread ID",
+      "type": "string",
+      "length": 765,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ClientThreadIdentifier",
+      "label": "Client Thread ID",
+      "type": "string",
+      "length": 765,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FromId",
+      "label": "From ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Contact",
+        "Lead",
+        "User"
+      ]
+    },
+    {
+      "name": "IsClientManaged",
+      "label": "Is Client Managed",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "AttachmentIds",
+      "label": "Attachment Ids",
+      "type": "string",
+      "length": 32768,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "RelatedToId",
+      "label": "Related To ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Account",
+        "AppointmentCategory",
+        "AppointmentInvitation",
+        "ApprovalSubmission",
+        "ApprovalSubmissionDetail",
+        "ApprovalWorkItem",
+        "Asset",
+        "AssetRelationship",
+        "AssignedResource",
+        "Campaign",
+        "Case",
+        "ChangeRequest",
+        "CommSubscriptionConsent",
+        "ContactRequest",
+        "Contract",
+        "ContractLineItem",
+        "Coupon",
+        "CreditMemo",
+        "DataQueryWorkspace",
+        "DeliveryEstimationSetup",
+        "DevopsActivityLog",
+        "DevopsEnvDeployment",
+        "DevopsEnvDeploymentMbr",
+        "DevopsEnvironment",
+        "DevopsPipeline",
+        "DevopsPipelineEnvironment",
+        "DevopsPipelineStage",
+        "DevopsPipelnStgProm",
+        "DevopsPipelnStgPromWkItem",
+        "DevopsProject",
+        "DevopsProjectEnvironment",
+        "DevopsProjectPipeline",
+        "DevopsRequestInfo",
+        "Entitlement",
+        "FulfillmentOrder",
+        "Image",
+        "Incident",
+        "Invoice",
+        "LegalEntity",
+        "ListEmail",
+        "Location",
+        "LocationShippingCarrierMethod",
+        "OperatingHoursHoliday",
+        "Opportunity",
+        "Order",
+        "PartyConsent",
+        "PrivacyRTBFRequest",
+        "Problem",
+        "ProcessException",
+        "Product2",
+        "ProductCatalog",
+        "Promotion",
+        "PromotionMarketSegment",
+        "PromotionQualifier",
+        "PromotionSegment",
+        "PromotionSegmentBuyerGroup",
+        "PromotionSegmentSalesStore",
+        "PromotionTarget",
+        "PromotionTier",
+        "ResourceAbsence",
+        "ReturnOrder",
+        "ReturnOrderLineItem",
+        "ServiceAppointment",
+        "ServiceContract",
+        "ServiceResource",
+        "Shift",
+        "Shipment",
+        "ShipmentItem",
+        "ShippingCarrier",
+        "ShippingCarrierMethod",
+        "Solution",
+        "SourceCodeRepoProvider",
+        "SourceCodeRepository",
+        "SourceCodeRepositoryBranch",
+        "Subscription__c",
+        "Waitlist",
+        "WaitlistParticipant",
+        "WorkItem",
+        "WorkItemComponent",
+        "WorkItemComponentList",
+        "WorkOrder",
+        "WorkOrderLineItem",
+        "WorkPlan",
+        "WorkPlanTemplate",
+        "WorkPlanTemplateEntry",
+        "WorkStep",
+        "WorkStepTemplate"
+      ],
+      "relationshipName": "RelatedTo"
+    },
+    {
+      "name": "IsTracked",
+      "label": "Is Tracked",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsOpened",
+      "label": "Opened?",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FirstOpenedDate",
+      "label": "First Opened",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastOpenedDate",
+      "label": "Last Opened",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsBounced",
+      "label": "Bounced?",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "EmailTemplateId",
+      "label": "Email Template ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "EmailTemplate"
+      ],
+      "relationshipName": "EmailTemplate"
+    },
+    {
+      "name": "AutomationType",
+      "label": "Automation Type",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "AiAssisted",
+        "AiAutomated"
+      ]
+    },
+    {
+      "name": "Source",
+      "label": "Email Source",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Einstein Activity Capture",
+        "Einstein Activity Capture Limited",
+        "Email Integration App Manual"
+      ]
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Case",
+      "field": "SourceId",
+      "relationshipName": "Cases",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    }
+  ]
+}

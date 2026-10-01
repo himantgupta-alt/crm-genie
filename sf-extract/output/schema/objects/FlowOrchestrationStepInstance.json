@@ -1,0 +1,196 @@
+{
+  "name": "FlowOrchestrationStepInstance",
+  "label": "Orchestration Step Run",
+  "custom": false,
+  "keyPrefix": "0jL",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Orchestration Step Run ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnerId",
+      "label": "Owner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Group",
+        "User"
+      ],
+      "relationshipName": "Owner"
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Name",
+      "type": "string",
+      "length": 255,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OrchestrationInstanceId",
+      "label": "Orchestration Run ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "FlowOrchestrationInstance"
+      ],
+      "relationshipName": "OrchestrationInstance"
+    },
+    {
+      "name": "StageInstanceId",
+      "label": "Orchestration Stage Run ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "FlowOrchestrationStageInstance"
+      ],
+      "relationshipName": "StageInstance"
+    },
+    {
+      "name": "StepType",
+      "label": "Step Type",
+      "type": "picklist",
+      "length": 255,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "Status",
+      "label": "Status",
+      "type": "picklist",
+      "length": 255,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "NotStarted",
+        "InProgress",
+        "Completed",
+        "Error",
+        "Discontinued",
+        "Canceled",
+        "Suspended"
+      ]
+    },
+    {
+      "name": "Label",
+      "label": "Label",
+      "type": "string",
+      "length": 80,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "OrchestrationName",
+      "label": "Orchestration Developer Name",
+      "type": "string",
+      "length": 80,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OrchestrationStageName",
+      "label": "Orchestration Stage Run Name",
+      "type": "string",
+      "length": 80,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "InProgressStepOutputs",
+      "label": "In-Progress Step Outputs",
+      "type": "textarea",
+      "length": 100000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "RelatedRecord",
+      "label": "Context Record ID",
+      "type": "string",
+      "length": 40,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Description",
+      "label": "Description",
+      "type": "textarea",
+      "length": 32000,
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "StepInstanceId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": true
+    }
+  ]
+}

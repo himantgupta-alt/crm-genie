@@ -1,0 +1,211 @@
+{
+  "name": "Holiday",
+  "label": "Holiday",
+  "custom": false,
+  "keyPrefix": "0C0",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Holiday ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Holiday Name",
+      "type": "string",
+      "length": 80,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "Description",
+      "label": "Description",
+      "type": "string",
+      "length": 100,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsAllDay",
+      "label": "All Day",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ActivityDate",
+      "label": "Holiday Date",
+      "type": "date",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "StartTimeInMinutes",
+      "label": "Start Time In Minutes From Midnight",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "EndTimeInMinutes",
+      "label": "End Time In Minutes From Midnight",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsRecurrence",
+      "label": "Recurring Holiday",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "RecurrenceStartDate",
+      "label": "Recurrence Start",
+      "type": "date",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "RecurrenceEndDateOnly",
+      "label": "Recurrence End",
+      "type": "date",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "RecurrenceType",
+      "label": "Recurrence Type",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "RecursDaily",
+        "RecursEveryWeekday",
+        "RecursMonthly",
+        "RecursMonthlyNth",
+        "RecursWeekly",
+        "RecursYearly",
+        "RecursYearlyNth"
+      ]
+    },
+    {
+      "name": "RecurrenceInterval",
+      "label": "Recurrence Interval",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "RecurrenceDayOfWeekMask",
+      "label": "Recurrence Day of Week Mask",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "RecurrenceDayOfMonth",
+      "label": "Recurrence Day of Month",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "RecurrenceInstance",
+      "label": "Recurrence Instance",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "First",
+        "Second",
+        "Third",
+        "Fourth",
+        "Last"
+      ]
+    },
+    {
+      "name": "RecurrenceMonthOfYear",
+      "label": "Recurrence Month of Year",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+      ]
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "OperatingHoursHoliday",
+      "field": "HolidayId",
+      "relationshipName": "OperatingHoursHolidays",
+      "cascadeDelete": false
+    }
+  ]
+}

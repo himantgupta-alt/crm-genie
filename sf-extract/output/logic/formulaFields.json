@@ -1,0 +1,56 @@
+[
+  {
+    "object": "Subscription_Line__c",
+    "field": "Account_Name__c",
+    "type": "Text",
+    "formula": "Subscription__r.Account__r.Name"
+  },
+  {
+    "object": "Subscription_Line__c",
+    "field": "Line_Total__c",
+    "type": "Currency",
+    "formula": "Quantity__c * Unit_Price__c",
+    "treatBlanksAs": "BlankAsZero",
+    "precision": "18",
+    "scale": "2"
+  },
+  {
+    "object": "Subscription__c",
+    "field": "Annual_Value__c",
+    "type": "Currency",
+    "formula": "MRR__c * 12",
+    "treatBlanksAs": "BlankAsZero",
+    "precision": "18",
+    "scale": "2"
+  },
+  {
+    "object": "Subscription__c",
+    "field": "Days_To_Renewal__c",
+    "type": "Number",
+    "formula": "End_Date__c - TODAY()",
+    "treatBlanksAs": "BlankAsZero",
+    "precision": "18",
+    "scale": "0"
+  },
+  {
+    "object": "Subscription__c",
+    "field": "Line_Count__c",
+    "type": "Summary",
+    "rollup": {
+      "op": "count",
+      "from": "Subscription_Line__c.Subscription__c",
+      "filter": []
+    }
+  },
+  {
+    "object": "Subscription__c",
+    "field": "Total_Line_Value__c",
+    "type": "Summary",
+    "rollup": {
+      "op": "sum",
+      "of": "Subscription_Line__c.Line_Total__c",
+      "from": "Subscription_Line__c.Subscription__c",
+      "filter": []
+    }
+  }
+]

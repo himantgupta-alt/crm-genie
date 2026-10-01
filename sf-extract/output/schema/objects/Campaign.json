@@ -1,0 +1,399 @@
+{
+  "name": "Campaign",
+  "label": "Campaign",
+  "custom": false,
+  "keyPrefix": "701",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Campaign ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Name",
+      "type": "string",
+      "length": 80,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ParentId",
+      "label": "Parent Campaign ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Campaign"
+      ],
+      "relationshipName": "Parent"
+    },
+    {
+      "name": "Type",
+      "label": "Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "Conference",
+      "picklistValues": [
+        "Conference",
+        "Webinar",
+        "Trade Show",
+        "Public Relations",
+        "Partners",
+        "Referral Program",
+        "Advertisement",
+        "Banner Ads",
+        "Direct Mail",
+        "Email",
+        "Telemarketing",
+        "Other"
+      ]
+    },
+    {
+      "name": "Status",
+      "label": "Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "Planned",
+      "picklistValues": [
+        "Planned",
+        "In Progress",
+        "Completed",
+        "Aborted"
+      ]
+    },
+    {
+      "name": "StartDate",
+      "label": "Start Date",
+      "type": "date",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "EndDate",
+      "label": "End Date",
+      "type": "date",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ExpectedRevenue",
+      "label": "Expected Revenue in Campaign",
+      "type": "currency",
+      "precision": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "BudgetedCost",
+      "label": "Budgeted Cost in Campaign",
+      "type": "currency",
+      "precision": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ActualCost",
+      "label": "Actual Cost in Campaign",
+      "type": "currency",
+      "precision": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ExpectedResponse",
+      "label": "Expected Response (%)",
+      "type": "percent",
+      "precision": 10,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "NumberSent",
+      "label": "Num Sent in Campaign",
+      "type": "double",
+      "precision": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsActive",
+      "label": "Active",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Description",
+      "label": "Description",
+      "type": "textarea",
+      "length": 32000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "NumberOfLeads",
+      "label": "Leads in Campaign",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "NumberOfConvertedLeads",
+      "label": "Converted Leads in Campaign",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "NumberOfContacts",
+      "label": "Contacts in Campaign",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "NumberOfResponses",
+      "label": "Responses in Campaign",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "NumberOfOpportunities",
+      "label": "Opportunities in Campaign",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "NumberOfWonOpportunities",
+      "label": "Won Opportunities in Campaign",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "AmountAllOpportunities",
+      "label": "Value Opportunities in Campaign",
+      "type": "currency",
+      "precision": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "AmountWonOpportunities",
+      "label": "Value Won Opportunities in Campaign",
+      "type": "currency",
+      "precision": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnerId",
+      "label": "Owner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "Owner"
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastActivityDate",
+      "label": "Last Activity",
+      "type": "date",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CampaignMemberRecordTypeId",
+      "label": "Record Type ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "RecordType"
+      ],
+      "relationshipName": "CampaignMemberRecordType"
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Campaign",
+      "field": "ParentId",
+      "relationshipName": "ChildCampaigns",
+      "cascadeDelete": false
+    },
+    {
+      "child": "CampaignMember",
+      "field": "CampaignId",
+      "relationshipName": "CampaignMembers",
+      "cascadeDelete": true
+    },
+    {
+      "child": "CampaignMemberStatus",
+      "field": "CampaignId",
+      "relationshipName": "CampaignMemberStatuses",
+      "cascadeDelete": true
+    },
+    {
+      "child": "CollaborationGroupRecord",
+      "field": "RecordId",
+      "relationshipName": "RecordAssociatedGroups",
+      "cascadeDelete": true
+    },
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "EmailMessage",
+      "field": "RelatedToId",
+      "relationshipName": "Emails",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Event",
+      "field": "WhatId",
+      "relationshipName": "Events",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FlowRecord",
+      "field": "AssociatedRecordId",
+      "relationshipName": "Flows",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ListEmail",
+      "field": "CampaignId",
+      "relationshipName": "ListEmails",
+      "cascadeDelete": false
+    },
+    {
+      "child": "MessagingSession",
+      "field": "CampaignId",
+      "relationshipName": "MessagingSessions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Opportunity",
+      "field": "CampaignId",
+      "relationshipName": "Opportunities",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Promotion",
+      "field": "CampaignId",
+      "relationshipName": "CampaignPromotions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Task",
+      "field": "WhatId",
+      "relationshipName": "Tasks",
+      "cascadeDelete": true
+    }
+  ]
+}

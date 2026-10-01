@@ -1,0 +1,183 @@
+{
+  "_comment": "Rule cases in Salesforce terms (API names), so the same file can drive the Postgres runner and an org replay. Tokens: @alias = id of an earlier insert; @today, @today+12m, @today-11m, @today+10d. expectError is a blueprint rule id, or system:<kind>. origin says where the expected answer comes from: apex-test = asserted by an Apex test that passes in the org; rule = the validation rule's own definition (to be confirmed by org replay).",
+  "cases": [
+    {
+      "id": "apex.appliesDefaultHealthScoreAndEndDate",
+      "origin": "apex-test:SubscriptionServiceTest#appliesDefaultHealthScoreAndEndDate",
+      "steps": [
+        { "insert": "Account", "as": "a", "values": { "Name": "Parity Test Account" } },
+        { "insert": "Subscription__c", "as": "s", "values": { "Account__c": "@a", "Start_Date__c": "@today", "End_Date__c": "@today+12m", "Term_Months__c": 12, "Status__c": "Active", "MRR__c": 1000 } },
+        { "read": "s", "expect": { "Health_Score__c": 70, "Annual_Value__c": 12000 } }
+      ]
+    },
+    {
+      "id": "apex.blocksReactivationOfCancelledSubscription",
+      "origin": "apex-test:SubscriptionServiceTest#blocksReactivationOfCancelledSubscription",
+      "steps": [
+        { "insert": "Account", "as": "a", "values": { "Name": "Parity Test Account" } },
+        { "insert": "Subscription__c", "as": "s", "values": { "Account__c": "@a", "Start_Date__c": "@today", "End_Date__c": "@today+12m", "Status__c": "Active", "MRR__c": 500 } },
+        { "update": "s", "values": { "Status__c": "Cancelled", "Cancellation_Reason__c": "Budget cut" } },
+        { "update": "s", "values": { "Status__c": "Active" }, "expectError": "Subscription__c.No_Reactivation_After_Cancel" }
+      ]
+    },
+    {
+      "id": "apex.rollsUpLineTotals",
+      "origin": "apex-test:SubscriptionServiceTest#rollsUpLineTotals",
+      "steps": [
+        { "insert": "Account", "as": "a", "values": { "Name": "Parity Test Account" } },
+        { "insert": "Subscription__c", "as": "s", "values": { "Account__c": "@a", "Start_Date__c": "@today", "End_Date__c": "@today+12m", "Status__c": "Active", "MRR__c": 900 } },
+        { "insert": "Subscription_Line__c", "as": "l1", "values": { "Subscription__c": "@s", "Quantity__c": 2, "Unit_Price__c": 250 } },
+        { "insert": "Subscription_Line__c", "as": "l2", "values": { "Subscription__c": "@s", "Quantity__c": 1, "Unit_Price__c": 400 } },
+        { "read": "s", "expect": { "Total_Line_Value__c": 900, "Line_Count__c": 2 } }
+      ]
+    },
+    {
+      "id": "apex.createsSubscriptionWhenOpportunityIsWon",
+      "origin": "apex-test:SubscriptionServiceTest#createsSubscriptionWhenOpportunityIsWon",
+      "pending": "needs the Opportunity family and the OpportunityService outbox consumer"
+    },
+    {
+      "id": "apex.renewalBatchRaisesTasks",
+      "origin": "apex-test:SubscriptionServiceTest#renewalBatchRaisesTasks",
+      "pending": "needs the Task entity and the SubscriptionRenewalBatch cron worker"
+    },
+
+    {
+      "id": "rule.Active_Requires_MRR.blank",
+      "origin": "rule",
+      "steps": [
+        { "insert": "Account", "as": "a", "values": { "Name": "Rules" } },
+        { "insert": "Subscription__c", "values": { "Account__c": "@a", "Start_Date__c": "@today", "End_Date__c": "@today+12m", "Status__c": "Active" }, "expectError": "Subscription__c.Active_Requires_MRR" }
+      ]
+    },
+    {
+      "id": "rule.Active_Requires_MRR.zero",
+      "origin": "rule",
+      "steps": [
+        { "insert": "Account", "as": "a", "values": { "Name": "Rules" } },
+        { "insert": "Subscription__c", "values": { "Account__c": "@a", "Start_Date__c": "@today", "End_Date__c": "@today+12m", "Status__c": "Active", "MRR__c": 0 }, "expectError": "Subscription__c.Active_Requires_MRR" }
+      ]
+    },
+    {
+      "id": "rule.Active_Requires_MRR.draftWithoutMrrAllowed",
+      "origin": "rule",
+      "steps": [
+        { "insert": "Account", "as": "a", "values": { "Name": "Rules" } },
+        { "insert": "Subscription__c", "as": "s", "values": { "Account__c": "@a", "Start_Date__c": "@today", "End_Date__c": "@today+12m" } },
+        { "read": "s", "expect": { "Status__c": "Draft", "Annual_Value__c": 0, "Auto_Renew__c": false } }
+      ]
+    },
+    {
+      "id": "rule.Cancellation_Reason_Required",
+      "origin": "rule",
+      "steps": [
+        { "insert": "Account", "as": "a", "values": { "Name": "Rules" } },
+        { "insert": "Subscription__c", "as": "s", "values": { "Account__c": "@a", "Start_Date__c": "@today", "End_Date__c": "@today+12m", "Status__c": "Active", "MRR__c": 10 } },
+        { "update": "s", "values": { "Status__c": "Cancelled" }, "expectError": "Subscription__c.Cancellation_Reason_Required" },
+        { "update": "s", "values": { "Status__c": "Cancelled", "Cancellation_Reason__c": "Moved provider" } }
+      ]
+    },
+    {
+      "id": "rule.End_Date_After_Start_Date",
+      "origin": "rule",
+      "steps": [
+        { "insert": "Account", "as": "a", "values": { "Name": "Rules" } },
+        { "insert": "Subscription__c", "values": { "Account__c": "@a", "Start_Date__c": "@today", "End_Date__c": "@today" }, "expectError": "Subscription__c.End_Date_After_Start_Date" },
+        { "insert": "Subscription__c", "values": { "Account__c": "@a", "Start_Date__c": "@today", "End_Date__c": "@today+10d" } }
+      ]
+    },
+    {
+      "id": "rule.No_Reactivation_After_Cancel.toSuspended",
+      "origin": "rule",
+      "steps": [
+        { "insert": "Account", "as": "a", "values": { "Name": "Rules" } },
+        { "insert": "Subscription__c", "as": "s", "values": { "Account__c": "@a", "Start_Date__c": "@today", "End_Date__c": "@today+12m", "Status__c": "Cancelled", "Cancellation_Reason__c": "Never started" } },
+        { "update": "s", "values": { "Status__c": "Suspended" }, "expectError": "Subscription__c.No_Reactivation_After_Cancel" },
+        { "update": "s", "values": { "Health_Score__c": 10 } }
+      ]
+    },
+    {
+      "id": "rule.Parent_Not_Cancelled",
+      "origin": "rule",
+      "steps": [
+        { "insert": "Account", "as": "a", "values": { "Name": "Rules" } },
+        { "insert": "Subscription__c", "as": "s", "values": { "Account__c": "@a", "Start_Date__c": "@today", "End_Date__c": "@today+12m", "Status__c": "Active", "MRR__c": 10 } },
+        { "insert": "Subscription_Line__c", "as": "l", "values": { "Subscription__c": "@s", "Quantity__c": 1, "Unit_Price__c": 10 } },
+        { "update": "s", "values": { "Status__c": "Cancelled", "Cancellation_Reason__c": "Closed" } },
+        { "insert": "Subscription_Line__c", "values": { "Subscription__c": "@s", "Quantity__c": 1, "Unit_Price__c": 10 }, "expectError": "Subscription_Line__c.Parent_Not_Cancelled" },
+        { "update": "l", "values": { "Quantity__c": 3 }, "expectError": "Subscription_Line__c.Parent_Not_Cancelled" },
+        { "delete": "l" },
+        { "read": "s", "expect": { "Line_Count__c": 0, "Total_Line_Value__c": 0 } }
+      ]
+    },
+    {
+      "id": "rule.Quantity_Must_Be_Positive",
+      "origin": "rule",
+      "steps": [
+        { "insert": "Account", "as": "a", "values": { "Name": "Rules" } },
+        { "insert": "Subscription__c", "as": "s", "values": { "Account__c": "@a", "Start_Date__c": "@today", "End_Date__c": "@today+12m", "Status__c": "Active", "MRR__c": 10 } },
+        { "insert": "Subscription_Line__c", "values": { "Subscription__c": "@s", "Quantity__c": 0, "Unit_Price__c": 10 }, "expectError": "Subscription_Line__c.Quantity_Must_Be_Positive" },
+        { "insert": "Subscription_Line__c", "values": { "Subscription__c": "@s", "Quantity__c": -2, "Unit_Price__c": 10 }, "expectError": "Subscription_Line__c.Quantity_Must_Be_Positive" }
+      ]
+    },
+    {
+      "id": "platform.restrictedPicklist",
+      "origin": "rule",
+      "steps": [
+        { "insert": "Account", "as": "a", "values": { "Name": "Rules" } },
+        { "insert": "Subscription__c", "values": { "Account__c": "@a", "Start_Date__c": "@today", "End_Date__c": "@today+12m", "Status__c": "Expired" }, "expectError": "system:restricted_picklist" }
+      ]
+    },
+    {
+      "id": "platform.masterDetailCascade",
+      "origin": "rule",
+      "steps": [
+        { "insert": "Account", "as": "a", "values": { "Name": "Rules" } },
+        { "insert": "Subscription__c", "as": "s", "values": { "Account__c": "@a", "Start_Date__c": "@today", "End_Date__c": "@today+12m", "Status__c": "Active", "MRR__c": 10 } },
+        { "insert": "Subscription_Line__c", "as": "l", "values": { "Subscription__c": "@s", "Quantity__c": 1, "Unit_Price__c": 10 } },
+        { "delete": "a" },
+        { "count": "Subscription_Line__c", "where": { "Subscription__c": "@s" }, "expect": 0 }
+      ]
+    },
+    {
+      "id": "apex.applyDefaults.termFromDates",
+      "origin": "rule",
+      "steps": [
+        { "insert": "Account", "as": "a", "values": { "Name": "Rules" } },
+        { "insert": "Subscription__c", "as": "s", "values": { "Account__c": "@a", "Start_Date__c": "2026-01-31", "End_Date__c": "2027-03-01" } },
+        { "read": "s", "expect": { "Term_Months__c": 14, "Health_Score__c": 70 } }
+      ]
+    },
+
+    {
+      "id": "security.permsetEditsAllowedFields",
+      "origin": "rule",
+      "steps": [
+        { "insert": "Account", "as": "a", "values": { "Name": "Security" } },
+        { "insert": "Subscription__c", "as": "s", "values": { "Account__c": "@a", "Start_Date__c": "@today", "End_Date__c": "@today+12m", "Status__c": "Active", "MRR__c": 10 } },
+        { "role": "permissionSet:Subscription_Management", "update": "s", "values": { "MRR__c": 20, "Health_Score__c": 40 } },
+        { "role": "permissionSet:Subscription_Management", "read": "s", "expect": { "Annual_Value__c": 240 } },
+        { "role": "permissionSet:Subscription_Management", "insert": "Subscription_Line__c", "values": { "Subscription__c": "@s", "Quantity__c": 1, "Unit_Price__c": 5 } }
+      ]
+    },
+    {
+      "id": "security.readOnlyFieldsNotWritable",
+      "origin": "rule",
+      "steps": [
+        { "insert": "Account", "as": "a", "values": { "Name": "Security" } },
+        { "insert": "Subscription__c", "as": "s", "values": { "Account__c": "@a", "Start_Date__c": "@today", "End_Date__c": "@today+12m", "Status__c": "Active", "MRR__c": 10 } },
+        { "role": "permissionSet:Subscription_Management", "update": "s", "values": { "Line_Count__c": 99 }, "expectError": "system:insufficient_access" }
+      ]
+    },
+    {
+      "id": "security.readOnlyProfileCannotEdit",
+      "origin": "rule",
+      "steps": [
+        { "insert": "Account", "as": "a", "values": { "Name": "Security" } },
+        { "insert": "Subscription__c", "as": "s", "values": { "Account__c": "@a", "Start_Date__c": "@today", "End_Date__c": "@today+12m", "Status__c": "Active", "MRR__c": 10 } },
+        { "role": "profile:Analytics Cloud Integration User", "count": "Subscription__c", "where": { "Id": "@s" }, "expect": 1 },
+        { "role": "profile:Analytics Cloud Integration User", "update": "s", "values": { "Status__c": "Suspended" }, "expectError": "system:insufficient_access" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,188 @@
+{
+  "name": "FlowInterview",
+  "label": "Flow Interview",
+  "custom": false,
+  "keyPrefix": "0Fo",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Flow Interview ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnerId",
+      "label": "Owner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Group",
+        "User"
+      ],
+      "relationshipName": "Owner"
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CurrentElement",
+      "label": "Current Element",
+      "type": "string",
+      "length": 100,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "InterviewLabel",
+      "label": "Interview Label",
+      "type": "string",
+      "length": 1000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "PauseLabel",
+      "label": "Pause Reason",
+      "type": "string",
+      "length": 1000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Guid",
+      "label": "Flow Interview Guid",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "WasPausedFromScreen",
+      "label": "Was Paused From Screen",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FlowVersionViewId",
+      "label": "Flow Version View ID",
+      "type": "string",
+      "length": 512,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "FlowVersionView"
+      ],
+      "relationshipName": "FlowVersionView"
+    },
+    {
+      "name": "InterviewStatus",
+      "label": "Interview Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Running",
+        "Paused",
+        "Completed",
+        "VersionPaused",
+        "Error",
+        "Autosaved",
+        "Expired",
+        "Pending"
+      ]
+    },
+    {
+      "name": "EngineType",
+      "label": "Engine Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Online",
+        "Offline"
+      ]
+    },
+    {
+      "name": "Error",
+      "label": "Error",
+      "type": "textarea",
+      "length": 1000,
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "WorkStep",
+      "field": "PausedFlowInterviewId",
+      "relationshipName": "WorkSteps",
+      "cascadeDelete": false
+    }
+  ]
+}

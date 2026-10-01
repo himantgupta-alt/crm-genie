@@ -1,0 +1,233 @@
+{
+  "name": "DataSemanticSearch",
+  "label": "Search Index",
+  "custom": false,
+  "keyPrefix": "18l",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Data Semantic Search ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Configuration Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "SemanticSearchApiName",
+      "label": "API Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "PrimaryDmo",
+      "label": "Source Data Model Object",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "VectorDmo",
+      "label": "Index Data Model Object",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ChunkDmo",
+      "label": "Chunk Data Model Object",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "AttachmentDmo",
+      "label": "File Attachments Data Model Object",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ProblemRecordDmo",
+      "label": "Problem Record Data Model Object",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreationType",
+      "label": "Creation Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Standard",
+        "Custom",
+        "System",
+        "Derived",
+        "Bridge",
+        "Curated",
+        "Segment_Membership",
+        "Calculated_Insight",
+        "Ml_Prediction",
+        "Activation_Audience",
+        "CG_Audience",
+        "Ad_Audience_Insights",
+        "Transform",
+        "ADG",
+        "External",
+        "Vector_Embedding",
+        "Chunk",
+        "Directory_Table",
+        "Semantic",
+        "Problem_Records",
+        "Clean_Room",
+        "Deletion_Records",
+        "Auxiliary"
+      ]
+    },
+    {
+      "name": "RuntimeStatus",
+      "label": "Search Index Last Run Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "SUCCESS",
+        "FAILED",
+        "IN_PROGRESS",
+        "ABORTED",
+        "NOT_STARTED",
+        "PENDING",
+        "SUBMITTED",
+        "READY",
+        "FILE_COPY_INITIATED",
+        "FILE_COPY_IN_PROGRESS",
+        "FILE_COPY_COMPLETED"
+      ]
+    },
+    {
+      "name": "IndexRefreshedOn",
+      "label": "Search Index Refreshed On",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "SearchType",
+      "label": "Search Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "VECTOR",
+        "HYBRID"
+      ]
+    },
+    {
+      "name": "SharingStatus",
+      "label": "Sharing Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "REGULAR",
+        "SHADOWED"
+      ]
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    }
+  ]
+}

@@ -1,0 +1,285 @@
+{
+  "name": "DataGraph",
+  "label": "Data Graph",
+  "custom": false,
+  "keyPrefix": "0g7",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Data Graph ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Data Graph Label",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Status",
+      "label": "Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "NONE",
+      "picklistValues": [
+        "NONE",
+        "CREATING",
+        "UPDATING",
+        "EDITING",
+        "EDITING_NO_VERSION_UPDATE",
+        "EDITING_NO_VERSION_UPDATE_TRANSFORM_UPDATE",
+        "EDITING_POST_SYNC",
+        "READY",
+        "DELETING",
+        "ERROR",
+        "EDITING_ERROR",
+        "SYNC_COMPLETED",
+        "ROLLING_OUT",
+        "PROCESSING",
+        "DRAFT",
+        "ACTIVE"
+      ],
+      "inlineHelpText": "Current Status of Data Graph"
+    },
+    {
+      "name": "LastRunStatus",
+      "label": "Last Run Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "DRAFT",
+        "PROCESSING",
+        "CREATING",
+        "ACTIVE",
+        "ACTIVE_VERSION_REFRESH",
+        "ERROR",
+        "ACTIVE_LAST_RUN_FAIL",
+        "DELETING",
+        "NONE",
+        "IN_PROGRESS",
+        "SUCCESS",
+        "FAILURE"
+      ],
+      "inlineHelpText": "Data Transform status for Data Graph"
+    },
+    {
+      "name": "RecordCount",
+      "label": "Record Count",
+      "type": "long",
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "Population count for Data Graph"
+    },
+    {
+      "name": "LastRefreshDate",
+      "label": "Last Refreshed On",
+      "type": "datetime",
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "Last refresh date for Data Graph"
+    },
+    {
+      "name": "DataGraphType",
+      "label": "Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "NONE",
+      "picklistValues": [
+        "REALTIME",
+        "NONE"
+      ],
+      "inlineHelpText": "Type"
+    },
+    {
+      "name": "DataSourceObjCount",
+      "label": "Source Object Count",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "DaoFieldsCount",
+      "label": "Fields Count",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Levels",
+      "label": "Levels",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "RolloutVersion",
+      "label": "Rollout Version",
+      "type": "string",
+      "length": 100,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Version",
+      "label": "Version",
+      "type": "string",
+      "length": 100,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "DataGraphApiName",
+      "label": "Data Graph API Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "PrimaryDmo",
+      "label": "Primary DMO",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FullRefreshConfig",
+      "label": "FullRefreshConfig",
+      "type": "textarea",
+      "length": 131072,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IncrementalRefreshConfig",
+      "label": "IncrementalRefreshConfig",
+      "type": "textarea",
+      "length": 131072,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Schedule",
+      "label": "Schedule",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnedBy",
+      "label": "Owned By Connection",
+      "type": "string",
+      "length": 100,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsRemote",
+      "label": "Is Remote",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    }
+  ]
+}

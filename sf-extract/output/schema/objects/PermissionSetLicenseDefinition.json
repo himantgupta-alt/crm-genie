@@ -1,0 +1,157 @@
+{
+  "name": "PermissionSetLicenseDefinition",
+  "label": "Custom Permission Set License Definition",
+  "custom": false,
+  "keyPrefix": "8CL",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Custom Permission Set License Definition ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "DeveloperName",
+      "label": "Name",
+      "type": "string",
+      "length": 80,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Language",
+      "label": "Master Language",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "en_US",
+        "de",
+        "es",
+        "fr",
+        "it",
+        "ja",
+        "sv",
+        "ko",
+        "zh_TW",
+        "zh_CN",
+        "pt_BR",
+        "nl_NL",
+        "da",
+        "th",
+        "fi",
+        "ru",
+        "es_MX",
+        "no"
+      ]
+    },
+    {
+      "name": "MasterLabel",
+      "label": "Label",
+      "type": "string",
+      "length": 80,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "NamespacePrefix",
+      "label": "Namespace Prefix",
+      "type": "string",
+      "length": 15,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "UserLicenseRestrictions",
+      "label": "User License Restrictions",
+      "type": "textarea",
+      "length": 32000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "DefaultTrialLicenseCount",
+      "label": "Default Trial License Count",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "DefaultTrialLengthInDays",
+      "label": "Default Trial Length (Days)",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ComponentAccess",
+      "label": "Component Access",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "None",
+        "Namespace"
+      ]
+    }
+  ],
+  "childRelationships": []
+}

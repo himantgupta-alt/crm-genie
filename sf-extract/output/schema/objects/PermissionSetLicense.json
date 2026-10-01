@@ -1,0 +1,4186 @@
+{
+  "name": "PermissionSetLicense",
+  "label": "Permission Set License",
+  "custom": false,
+  "keyPrefix": "0PL",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Permission Set License ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "DeveloperName",
+      "label": "Developer Name",
+      "type": "string",
+      "length": 80,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Language",
+      "label": "Language",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "en_US",
+        "de",
+        "es",
+        "fr",
+        "it",
+        "ja",
+        "sv",
+        "ko",
+        "zh_TW",
+        "zh_CN",
+        "pt_BR",
+        "nl_NL",
+        "da",
+        "th",
+        "fi",
+        "ru",
+        "es_MX",
+        "no"
+      ]
+    },
+    {
+      "name": "MasterLabel",
+      "label": "Permission Set License Label",
+      "type": "string",
+      "length": 80,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "PermissionSetLicenseKey",
+      "label": "Permission Set License Key",
+      "type": "string",
+      "length": 81,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TotalLicenses",
+      "label": "Total Licenses",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Status",
+      "label": "Status",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Active",
+        "Disabled"
+      ]
+    },
+    {
+      "name": "ExpirationDate",
+      "label": "Expiration Date",
+      "type": "date",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsEmailSingle",
+      "label": "Send Email",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsEmailMass",
+      "label": "Mass Email",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsEditTask",
+      "label": "Edit Tasks",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsEditEvent",
+      "label": "Edit Events",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsExportReport",
+      "label": "Export Reports",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsImportPersonal",
+      "label": "Import Personal Contacts",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsDataExport",
+      "label": "Weekly Data Export",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageUsers",
+      "label": "Manage Users",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsEditPublicFilters",
+      "label": "Manage Public List Views",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsEditPublicTemplates",
+      "label": "Manage Public Classic Email Templates",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsModifyAllData",
+      "label": "Modify All Data",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsEditBillingInfo",
+      "label": "Manage Billing",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageCases",
+      "label": "Manage Cases",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsMassInlineEdit",
+      "label": "Mass Edits from Lists",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsEditKnowledge",
+      "label": "Manage Articles",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageKnowledge",
+      "label": "Manage Salesforce Knowledge",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageSolutions",
+      "label": "Manage Published Solutions",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCustomizeApplication",
+      "label": "Customize Application",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsEditReadonlyFields",
+      "label": "Edit Read Only Fields",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsRunReports",
+      "label": "Run Reports",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewSetup",
+      "label": "View Setup and Configuration",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsTransferAnyEntity",
+      "label": "Transfer Record",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsNewReportBuilder",
+      "label": "Report Builder",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsActivateContract",
+      "label": "Activate Contracts",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsActivateOrder",
+      "label": "Activate Orders",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsImportLeads",
+      "label": "Import Leads",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageLeads",
+      "label": "Manage Leads",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsTransferAnyLead",
+      "label": "Transfer Leads",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewAllData",
+      "label": "View All Data",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsEditPublicDocuments",
+      "label": "Manage Public Documents",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewEncryptedData",
+      "label": "View Encrypted Data",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsEditBrandTemplates",
+      "label": "Manage Letterheads",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsEditHtmlTemplates",
+      "label": "Edit HTML Templates",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsChatterInternalUser",
+      "label": "Chatter Internal User",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageTranslation",
+      "label": "Manage Translation",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageEncryptionKeys",
+      "label": "Manage Encryption Keys",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsDeleteActivatedContract",
+      "label": "Delete Activated Contracts",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsChatterInviteExternalUsers",
+      "label": "Invite Customers To Chatter",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsSendSitRequests",
+      "label": "Send Stay-in-Touch Requests",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsApiUserOnly",
+      "label": "API Only User",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageRemoteAccess",
+      "label": "Manage Connected Apps",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCanUseNewDashboardBuilder",
+      "label": "Drag-and-Drop Dashboard Builder",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageCategories",
+      "label": "Manage Categories",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsConvertLeads",
+      "label": "Convert Leads",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsPasswordNeverExpires",
+      "label": "Password Never Expires",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsUseTeamReassignWizards",
+      "label": "Use Team Reassignment Wizards",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsEditActivatedOrders",
+      "label": "Edit Activated Orders",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsInstallPackaging",
+      "label": "Download AppExchange Packages",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsPublishPackaging",
+      "label": "Upload AppExchange Packages",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsChatterOwnGroups",
+      "label": "Create and Own New Chatter Groups",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsEditOppLineItemUnitPrice",
+      "label": "Edit Opportunity Product Sales Price",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCreatePackaging",
+      "label": "Create AppExchange Packages",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsBulkApiHardDelete",
+      "label": "Bulk API Hard Delete",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsSolutionImport",
+      "label": "Import Solutions",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageCallCenters",
+      "label": "Manage Call Centers",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageSynonyms",
+      "label": "Manage Synonyms",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewContent",
+      "label": "View Content in Portals",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageEmailClientConfig",
+      "label": "Manage Email Client Configurations",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsEnableNotifications",
+      "label": "Send Outbound Messages",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageDataIntegrations",
+      "label": "Manage Data Integrations",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsDistributeFromPersWksp",
+      "label": "Create Content Deliveries",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewDataCategories",
+      "label": "View Data Categories in Setup",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageDataCategories",
+      "label": "Manage Data Categories",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAuthorApex",
+      "label": "Author Apex",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageMobile",
+      "label": "Manage Mobile Configurations",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsApiEnabled",
+      "label": "API Enabled",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageCustomReportTypes",
+      "label": "Manage Custom Report Types",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsEditCaseComments",
+      "label": "Edit Case Comments",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsTransferAnyCase",
+      "label": "Transfer Cases",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsContentAdministrator",
+      "label": "Manage Salesforce CRM Content",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCreateWorkspaces",
+      "label": "Create Libraries",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageContentPermissions",
+      "label": "Manage Content Permissions",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageContentProperties",
+      "label": "Manage Content Properties",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageContentTypes",
+      "label": "Manage record types and layouts for Files",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageExchangeConfig",
+      "label": "Manage Lightning Sync",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageAnalyticSnapshots",
+      "label": "Manage Reporting Snapshots",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsScheduleReports",
+      "label": "Schedule Reports",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageBusinessHourHolidays",
+      "label": "Manage Business Hours Holidays",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageEntitlements",
+      "label": "Manage Entitlements",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageDynamicDashboards",
+      "label": "Manage Dynamic Dashboards",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCustomSidebarOnAllPages",
+      "label": "Show Custom Sidebar On All Pages",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageInteraction",
+      "label": "Manage Flow",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewMyTeamsDashboards",
+      "label": "View My Team's Dashboards",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsModerateChatter",
+      "label": "Moderate Chatter",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsResetPasswords",
+      "label": "Reset User Passwords and Unlock Users",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsFlowUFLRequired",
+      "label": "Require Flow User Feature License",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCanInsertFeedSystemFields",
+      "label": "Insert System Field Values for Chatter Feeds",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsActivitiesAccess",
+      "label": "Access Activities",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageKnowledgeImportExport",
+      "label": "Manage Knowledge Article Import/Export",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsUseInboxSchedulingOnBehalfOf",
+      "label": "Inbox Scheduling Proxy User",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsEmailTemplateManagement",
+      "label": "Manage Email Templates",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsEmailAdministration",
+      "label": "Email Administration",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageChatterMessages",
+      "label": "Manage Chatter Messages and Direct Messages",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAllowEmailIC",
+      "label": "Email-Based Identity Verification Option",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsChatterFileLink",
+      "label": "Create Public Links",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsForceTwoFactor",
+      "label": "Multi-Factor Authentication for User Interface Logins",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewEventLogFiles",
+      "label": "View Event Log Files",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageNetworks",
+      "label": "Create and Set Up Experiences",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageAuthProviders",
+      "label": "Manage Auth. Providers",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsRunFlow",
+      "label": "Run Flows",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCreateCustomizeDashboards",
+      "label": "Create and Customize Dashboards",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCreateDashboardFolders",
+      "label": "Create Dashboard Folders",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewPublicDashboards",
+      "label": "View Dashboards in Public Folders",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageDashbdsInPubFolders",
+      "label": "Manage Dashboards in Public Folders",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCreateCustomizeReports",
+      "label": "Create and Customize Reports",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCreateReportFolders",
+      "label": "Create Report Folders",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewPublicReports",
+      "label": "View Reports in Public Folders",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageReportsInPubFolders",
+      "label": "Manage Reports in Public Folders",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsEditMyDashboards",
+      "label": "Edit My Dashboards",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsEditMyReports",
+      "label": "Edit My Reports",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewAllUsers",
+      "label": "View All Users",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAllowUniversalSearch",
+      "label": "Knowledge One",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsConnectOrgToEnvironmentHub",
+      "label": "Connect Organization to Environment Hub",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsWorkCalibrationUser",
+      "label": "Enable WDC Calibration",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCreateCustomizeFilters",
+      "label": "Create and Customize List Views",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsWorkDotComUserPerm",
+      "label": "Enable WDC",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsContentHubUser",
+      "label": "Files Connect Cloud",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsGovernNetworks",
+      "label": "Manage Experiences",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsSalesConsole",
+      "label": "Sales Console",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsTwoFactorApi",
+      "label": "Multi-Factor Authentication for API Logins",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsDeleteTopics",
+      "label": "Delete Topics",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsEditTopics",
+      "label": "Edit Topics",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCreateTopics",
+      "label": "Create Topics",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAssignTopics",
+      "label": "Assign Topics",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsIdentityEnabled",
+      "label": "Use Identity Features",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsIdentityConnect",
+      "label": "Use Identity Connect",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAllowViewKnowledge",
+      "label": "Allow View Knowledge",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsContentWorkspaces",
+      "label": "Access Libraries",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageSearchPromotionRules",
+      "label": "Manage Promoted Search Terms",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCustomMobileAppsAccess",
+      "label": "Access Custom Mobile Apps",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewHelpLink",
+      "label": "View Help Link",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageProfilesPermissionsets",
+      "label": "Manage Profiles and Permission Sets",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAssignPermissionSets",
+      "label": "Assign Permission Sets",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageRoles",
+      "label": "Manage Roles",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageIpAddresses",
+      "label": "Manage IP Addresses",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageSharing",
+      "label": "Manage Sharing",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageInternalUsers",
+      "label": "Manage Internal Users",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManagePasswordPolicies",
+      "label": "Manage Password Policies",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageLoginAccessPolicies",
+      "label": "Manage Login Access Policies",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewPlatformEvents",
+      "label": "View Login Forensics Events",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageCustomPermissions",
+      "label": "Manage Custom Permissions",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCanVerifyComment",
+      "label": "Verify Answers to Chatter Questions",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageUnlistedGroups",
+      "label": "Manage Unlisted Groups",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsStdAutomaticActivityCapture",
+      "label": "Use Einstein Activity Capture Standard",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsFreezeUsers",
+      "label": "Freeze Users",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsInsightsAppDashboardEditor",
+      "label": "Create and Edit CRM Analytics Dashboards",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageTwoFactor",
+      "label": "Manage MFA in API",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsInsightsAppUser",
+      "label": "Use CRM Analytics",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsInsightsAppAdmin",
+      "label": "Manage CRM Analytics",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsInsightsAppEltEditor",
+      "label": "Edit CRM Analytics Dataflows",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsInsightsAppUploadUser",
+      "label": "Upload External Data to CRM Analytics",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsInsightsCreateApplication",
+      "label": "Create CRM Analytics Apps",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsLightningExperienceUser",
+      "label": "Lightning Experience User",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewDataLeakageEvents",
+      "label": "View Real-Time Event Monitoring Data",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsConfigCustomRecs",
+      "label": "Configure Custom Recommendations",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsSubmitMacrosAllowed",
+      "label": "Manage Macros Users Can't Undo",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsBulkMacrosAllowed",
+      "label": "Run Macros on Multiple Records",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsShareInternalArticles",
+      "label": "Share internal Knowledge articles externally",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageSessionPermissionSets",
+      "label": "Manage Session Permission Set Activations",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageTemplatedApp",
+      "label": "Manage CRM Analytics Templated Apps",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsUseTemplatedApp",
+      "label": "Use CRM Analytics Templated Apps",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsSendAnnouncementEmails",
+      "label": "Send announcement emails",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsChatterEditOwnPost",
+      "label": "Edit My Own Posts",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsChatterEditOwnRecordPost",
+      "label": "Edit Posts on Records I Own",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsWaveTabularDownload",
+      "label": "Download CRM Analytics Data",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsWaveCommunityUser",
+      "label": "View CRM Analytics on Experience Cloud site pages.",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAutomaticActivityCapture",
+      "label": "Use Einstein Activity Capture",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsImportCustomObjects",
+      "label": "Import Custom Objects",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsSalesforceIQInbox",
+      "label": "Use Inbox",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsDelegatedTwoFactor",
+      "label": "Manage MFA in User Interface",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsChatterComposeUiCodesnippet",
+      "label": "Allow Inclusion of Code Snippets from UI",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsSelectFilesFromSalesforce",
+      "label": "Select Files from Salesforce",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsModerateNetworkUsers",
+      "label": "Moderate Experience Cloud Site Users",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsMergeTopics",
+      "label": "Merge Topics",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsSubscribeToLightningReports",
+      "label": "Subscribe to Reports",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManagePvtRptsAndDashbds",
+      "label": "Manage All Private Reports and Dashboards",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAllowLightningLogin",
+      "label": "Lightning Login User",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCampaignInfluence2",
+      "label": "Campaign Influence",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewDataAssessment",
+      "label": "Access to view Data Assessment",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsRemoveDirectMessageMembers",
+      "label": "Remove People from Direct Messages",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCanApproveFeedPost",
+      "label": "Can Approve Feed Post and Comment",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAddDirectMessageMembers",
+      "label": "Add People to Direct Messages",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAllowViewEditConvertedLeads",
+      "label": "View and Edit Converted Leads",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsShowCompanyNameAsUserBadge",
+      "label": "Show Company Name as Site Role",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAccessCMC",
+      "label": "Access Experience Management",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewHealthCheck",
+      "label": "View Health Check",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageHealthCheck",
+      "label": "Manage Health Check",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsPackaging2",
+      "label": "Create and Update Second-Generation Packages",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageCertificates",
+      "label": "Manage Certificates",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCreateReportInLightning",
+      "label": "Report Builder (Lightning Experience)",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsPreventClassicExperience",
+      "label": "Hide Option to Switch to Salesforce Classic",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsHideReadByList",
+      "label": "Hide the Seen By List",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsListEmailSend",
+      "label": "Allow sending of List Emails",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsFeedPinning",
+      "label": "Pin Posts in Feeds",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsChangeDashboardColors",
+      "label": "Change Dashboard Colors",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageRecommendationStrategies",
+      "label": "Manage Next Best Action Strategies",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManagePropositions",
+      "label": "Manage Next Best Action Recommendations",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCloseConversations",
+      "label": "Close Conversation Threads",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsSubscribeReportRolesGrps",
+      "label": "Subscribe to Reports: Send to Groups and Roles",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsSubscribeDashboardRolesGrps",
+      "label": "Subscribe to Dashboards: Send to Groups and Roles",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsUseWebLink",
+      "label": "Allow Access to Customized Actions",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsHasUnlimitedNBAExecutions",
+      "label": "User Has Unlimited Next Best Action Strategy Executions",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewOnlyEmbeddedAppUser",
+      "label": "Access to View-Only Licensed Templates and Apps",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewAllActivities",
+      "label": "View All Activities",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsSubscribeReportToOtherUsers",
+      "label": "Subscribe to Reports: Add Recipients",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsLightningConsoleAllowedForUser",
+      "label": "Lightning Console User",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsSubscribeReportsRunAsUser",
+      "label": "Subscribe to Reports: Set Running User",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsSubscribeToLightningDashboards",
+      "label": "Subscribe to Dashboards",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsSubscribeDashboardToOtherUsers",
+      "label": "Subscribe to Dashboards: Add Recipients",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCreateLtngTempInPub",
+      "label": "Manage Public Lightning Email Templates",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAppointmentBookingUserAccess",
+      "label": "Enables the Appointment Booking feature",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsTransactionalEmailSend",
+      "label": "Send Non-Commercial Email",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewPrivateStaticResources",
+      "label": "View Private Static Resources",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCreateLtngTempFolder",
+      "label": "Create Folders for Lightning Email Templates",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsApexRestServices",
+      "label": "Apex REST Services",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsConfigureLiveMessage",
+      "label": "Configure Messaging",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsLiveMessageAgent",
+      "label": "Messaging Agent",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsEnableCommunityAppLauncher",
+      "label": "Show App Launcher in Experience Cloud Sites",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsGiveRecognitionBadge",
+      "label": "Give Recognition Badges in Experience Builder Sites",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsLightningSchedulerUserAccess",
+      "label": "Let a user be included in appointments in Salesforce Scheduler.",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsSalesforceIQInternal",
+      "label": "Allows the Cloud Integration User to perform SalesforceIQ internal operations",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsUseMySearch",
+      "label": "Einstein Search",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsLtngPromoReserved01UserPerm",
+      "label": "Remain in Salesforce Classic",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageSubscriptions",
+      "label": "Manage CRM Analytics Subscriptions",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsWaveManagePrivateAssetsUser",
+      "label": "Manage CRM Analytics Private Assets",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCanEditDataPrepRecipe",
+      "label": "Edit Dataset Recipes",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAddAnalyticsRemoteConnections",
+      "label": "Add CRM Analytics Remote Connections",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageSurveys",
+      "label": "Manage Surveys",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsUseAssistantDialog",
+      "label": "Instant Actionable Results",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsUseQuerySuggestions",
+      "label": "Natural Language Search",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsRecordVisibilityAPI",
+      "label": "Enable RecordVisibility API",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewRoles",
+      "label": "View Roles and Role Hierarchy",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCanManageMaps",
+      "label": "Manage CRM Analytics Custom Maps",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsLMOutboundMessagingUserPerm",
+      "label": "Agent Initiated Outbound Messaging",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsModifyDataClassification",
+      "label": "Modify Data Classification",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsPrivacyDataAccess",
+      "label": "Allow user to access privacy data",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsQueryAllFiles",
+      "label": "Query All Files",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsModifyMetadata",
+      "label": "Modify Metadata Through Metadata API Functions",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageCMS",
+      "label": "Create CMS Workspaces and Channels",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsSandboxTestingInCommunityApp",
+      "label": "Test Sandboxes in Mobile Publisher for Experience Cloud",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCanEditPrompts",
+      "label": "Design and Deliver In-App Guidance",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewUserPII",
+      "label": "View Concealed Field Data",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageHubConnections",
+      "label": "Connect Org to Customer 360 Data Manager",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsB2BMarketingAnalyticsUser",
+      "label": "Create B2B Marketing Analytics Apps",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsTraceXdsQueries",
+      "label": "Access Tracer for External Data Sources",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewSecurityCommandCenter",
+      "label": "View Security Center pages",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageSecurityCommandCenter",
+      "label": "Manage Security Center",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewAllCustomSettings",
+      "label": "View All Custom Settings",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewAllForeignKeyNames",
+      "label": "View All Lookup Record Names",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAddWaveNotificationRecipients",
+      "label": "Add Recipients to CRM Analytics Notifications",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsHeadlessCMSAccess",
+      "label": "Enable Salesforce CMS Integration",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsUseFulfillmentAPIs",
+      "label": "Use Order Management Fulfillment APIs",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsLMEndMessagingSessionUserPerm",
+      "label": "End Messaging Session",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsConsentApiUpdate",
+      "label": "Update Consent Preferences Using REST API",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsPaymentsAPIUser",
+      "label": "Payments API User",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAccessContentBuilder",
+      "label": "Access drag-and-drop content builder",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAccountSwitcherUser",
+      "label": "Account Switcher User",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewAnomalyEvents",
+      "label": "View Threat Detection Events",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageC360AConnections",
+      "label": "Connect Org to Data Cloud",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsIsContactCenterAdmin",
+      "label": "Salesforce Voice Contact Center Admin",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsIsContactCenterAgent",
+      "label": "Salesforce Voice Contact Center Rep",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageReleaseUpdates",
+      "label": "Manage Release Updates",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewAllProfiles",
+      "label": "View All Profiles",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsSkipIdentityConfirmation",
+      "label": "Skip Device Activation at Login",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCanToggleCallRecordings",
+      "label": "Control Call Recording",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsIsContactCenterAdminBYOT",
+      "label": "Salesforce Voice Contact Center Admin (Partner Telephony)",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsIsContactCenterAgentBYOT",
+      "label": "Salesforce Voice Contact Center Rep (Partner Telephony)",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsSendCustomNotifications",
+      "label": "Send Custom Notifications",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsPackaging2Delete",
+      "label": "Delete Second-Generation Packages",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsUseOmnichannelInventoryAPIs",
+      "label": "Use Omnichannel Inventory APIs",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAccessCdpDataExplorer",
+      "label": "Access Data Cloud Data Explorer",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewRestrictionAndScopingRules",
+      "label": "View Restriction and Scoping Rules",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsFSCComprehensiveUserAccess",
+      "label": "User license to access Lightning components and features delivered in Financial Services Cloud.",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsBotManageBots",
+      "label": "Manage Bots",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsBotManageBotsTrainingData",
+      "label": "Manage Bots Training Data",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsSchedulingLineAmbassador",
+      "label": "Queue Manager",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsSchedulingFacilityManager",
+      "label": "Facility Manager",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAllowAIAccelerator",
+      "label": "View AI Accelerator Predictions.",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsOmnichannelInventorySync",
+      "label": "Omnichannel Inventory Sync",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsIsContactCenterSupervisor",
+      "label": "Salesforce Voice Contact Center Supervisor",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsIsotopeCToCUser",
+      "label": "Salesforce Anywhere Integration Access",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCanAccessCE",
+      "label": "Access Conversation Entries",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsUseAddOrderItemSummaryAPIs",
+      "label": "Use Order Management Add Order Item Summary APIs",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsIsotopeAccess",
+      "label": "Salesforce Anywhere on Mobile",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsIsotopeLEX",
+      "label": "Salesforce Anywhere in Lightning Experience",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsQuipMetricsAccess",
+      "label": "Quip Metrics",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsQuipUserEngagementMetrics",
+      "label": "Quip User Engagement Metrics",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsRemoteMediaVirtualDesktop",
+      "label": "Remote Media for Virtual Desktop",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsTransactionSecurityExempt",
+      "label": "Exempt from Transaction Security",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageStores",
+      "label": "Manage Stores",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageExternalConnections",
+      "label": "Allow user to modify Private Connections",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsUseReturnOrder",
+      "label": "Use Order Management Return Order",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsUseReturnOrderAPIs",
+      "label": "Use Order Management Return APIs",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsUseSubscriptionEmails",
+      "label": "Subscribe to CRM Analytics Assets",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsUseOrderEntry",
+      "label": "Use Order Entry",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsUseRepricing",
+      "label": "Use Repricing Objects and APIs",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAIViewInsightObjects",
+      "label": "View AI Insight Objects",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAICreateInsightObjects",
+      "label": "Create AI Insight Objects",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewMLModels",
+      "label": "Allow users to view MLModels and related Entities",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsLifecycleManagementAPIUser",
+      "label": "Access Customer Asset Lifecycle Management APIs",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsEnablementUser",
+      "label": "Take Enablement Programs",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsNativeWebviewScrolling",
+      "label": "Salesforce Mobile App: Native scrolling on webviews",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewDeveloperName",
+      "label": "View Developer Name",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsClientSecretRotation",
+      "label": "Allow consumer key and secret rotation",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAccessToServiceProcess",
+      "label": "Service Process User",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageOrchInstsAndWorkItems",
+      "label": "Manage Orchestration Runs and Work Items",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCMSECEAuthoringAccess",
+      "label": "Migrate Enablement Content",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsEnablementAdmin",
+      "label": "Design and Deliver Enablement Programs",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageDataspaceScope",
+      "label": "Manage Dataspace Scope",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsConfigureDataspaceScope",
+      "label": "Configure Dataspace Scope",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsOmniSupervisorManageQueue",
+      "label": "Manage Queue Memberships",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewClientSecret",
+      "label": "View External Client App Consumer Secrets in Metadata",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCdcReportingCreateReports",
+      "label": "Allow access to creating and editing reports in Data Cloud Reporting",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCdcReportingViewReports",
+      "label": "Allow access to viewing reports in Data Cloud Reporting",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAccessGeniePlatform",
+      "label": "Allows user access Data Cloud",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAccessSegment",
+      "label": "Allows user access segments",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAccessActivation",
+      "label": "Allows user access activations",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAccessCustomerDataCloudSetup",
+      "label": "Allows user access Data Cloud setup menu",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCdcReportingManageFolders",
+      "label": "Allow access to managing folders in Data Cloud Reporting",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsExternalClientAppDeveloper",
+      "label": "Create, edit, and delete External Client Apps",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsExternalClientAppAdmin",
+      "label": "View all External Client Apps, view their settings, and edit their policies",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsExternalClientAppViewer",
+      "label": "View all External Client Apps",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsOmnichannelInventoryBasic",
+      "label": "Omnichannel Inventory Basic",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsDeleteCrMemoAndInvoice",
+      "label": "Delete Credit Memo and Invoice",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsEmbeddedMessagingAgent",
+      "label": "Enhanced Chat Rep",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewNonSetupFlow",
+      "label": "View Flows",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCreateEditNonSetupFlow",
+      "label": "Create or Edit Flows",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsDeleteNonSetupFlow",
+      "label": "Delete Flows",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsActivateDeactivateNonSetupFlow",
+      "label": "Activate or Deactivate Flows",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAddDecisionElmntNonSetupFlow",
+      "label": "Add Decision Element to Flows",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAddCreaRecElmntToNonSetupFlow",
+      "label": "Add Create Records Element to Flows",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAddWaitToNonSetupFlow",
+      "label": "Add Wait Element to Flows",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageNamedCredentials",
+      "label": "Allows users to modify Named Credentials and External Credentials",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAccessCdpProfileExplorer",
+      "label": "Access Data Cloud Profile Explorer",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAddUpdtRecElmntToNonSetupFlow",
+      "label": "Add Update Records Element to Flows",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCanInitiateMessagingSessions",
+      "label": "Initiate Messaging Sessions",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAuthorizePayments",
+      "label": "Authorize Payments",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCaptureAndReversePayments",
+      "label": "Capture and Reverse Payments",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCombAuthAndCapPayments",
+      "label": "Allow Sale Payments",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsRefundPayments",
+      "label": "Refund Payments",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewPayments",
+      "label": "Use Payments or Access Payments",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsMakePayments",
+      "label": "Make Payments",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsEditRepricing",
+      "label": "Edit Repricing Information",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageDataMaskPolicies",
+      "label": "Manage Data Mask Policies",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCanUpdateEmailMessage",
+      "label": "Update Email Messages",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsDownloadPackageVersionZips",
+      "label": "Download Package Version Zip Files",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsScoringFrameworkUser",
+      "label": "Scoring Framework User",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsScoringFrameworkAdmin",
+      "label": "Scoring Framework Admin",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewContentTaxonomy",
+      "label": "View Content Taxonomy",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageContentTaxonomy",
+      "label": "Manage Content Taxonomy",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsReassignOrchestrationWorkItems",
+      "label": "Reassign Orchestration Work Items",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageOrchestrationRuns",
+      "label": "Manage Orchestration Runs",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsDigitalLendingUser",
+      "label": "Digital Lending User",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageCertificatesExpiration",
+      "label": "Receive Certificate Expiration Notifications",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsUseOMAnalytics",
+      "label": "Use Order Management Analytics",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsUseExchangesAPIs",
+      "label": "Use Order Management Exchange APIs",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsEnableIPFSUpload",
+      "label": "Allow blockchain data upload",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsEnableBCTransactionPolling",
+      "label": "Enable blockchain transaction polling API",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsLobbyManagementUserAccess",
+      "label": "Let greeters access the Lobby Management tab.",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAddGetRecElmntToNonSetupFlow",
+      "label": "Add Get Records Element to Flows",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAddLoopElmntToNonSetupFlow",
+      "label": "Add Loop Element to Flows",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAddAsgntElmntToNonSetupFlow",
+      "label": "Add Assignment Element to Flows",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAddSubflowElmntToNonSetupFlow",
+      "label": "Add Subflow Element to Flows",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsMonitorLoginHistory",
+      "label": "Monitor Login History",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAddCollFltrElmntToNonSetupFlow",
+      "label": "Add Collection Filter Element to Flows",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAddCollSrtElmntToNonSetupFlow",
+      "label": "Add Collection Sort Element to Flows",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAddDelRecElmntToNonSetupFlow",
+      "label": "Add Delete Records Element to Flows",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsUseRegisterGuestBuyerAPI",
+      "label": "Use Register Guest Buyer API ",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsEnhancedSalesMobileExp",
+      "label": "Salesforce Mobile App: Native Seller Experience",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCanViewDataPrepRecipe",
+      "label": "Recipes View Only",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsSimpleCsvDataImportUser",
+      "label": "Basic Csv Data Import User Permission ",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAdvancedCsvDataImportUser",
+      "label": "Advanced Csv Data Import User Permission ",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAccessToComplaintMgmt",
+      "label": "Public Complaint Management User",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAccessToDisputeManagement",
+      "label": "Dispute Management User",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsPersonalizedFinanceUserAccess",
+      "label": "Data Cloud FlexCards for Financial Services Cloud",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCustomAppsOnFSMobile",
+      "label": "Custom Applications for Field Service Mobile",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsStageManagementDesignUser",
+      "label": "Stage Management Designer User",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsSegmentIntelligenceUser",
+      "label": "Segment Intelligence User",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsFSCArcGraphCommunityUser",
+      "label": "Access Actionable Relationship Center for partner users",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageCdpMlModels",
+      "label": "Allow users to manage models in Einstein Studio",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsDigitalLendingAdminUser",
+      "label": "Digital Lending Admin User",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsActivateSystemModeFlows",
+      "label": "Enable System Mode Flow Activation",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewAllNonSetupFlows",
+      "label": "View All Non-Admin Flows",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManagePromptTemplates",
+      "label": "Manage Prompt Templates",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsExecutePromptTemplates",
+      "label": "Execute Prompt Templates",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsPersonalizationPlatform",
+      "label": "Access Personalization Platform",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewEnablementAnalytics",
+      "label": "View Enablement Analytics",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsLeadInspectorUser",
+      "label": "Access Lead Intelligence View in Partner Sites",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsContactInspectorUser",
+      "label": "Access Contact Intelligence View in Partner Sites",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageIntegrationConnections",
+      "label": "Manage Integration Connections",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsTableauCreateDashboard",
+      "label": "Access to create Tableau Next dashboards",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsTableauViewDashboard",
+      "label": "Access to view Tableau Next dashboards",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsEinsteinCopilotUser",
+      "label": "Use Agentforce Default Agent",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsEinsteinCopilotBuilder",
+      "label": "Manage Agentforce Default Agent",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsUseRouting",
+      "label": "Access the Fulfillment Order routing APIs.",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsUseCreateOrderSummary",
+      "label": "Create order summaries by using APIs.",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsUseAddOrderItemSummary",
+      "label": "Add additional items to an order summary.",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsUseAddAdjustment",
+      "label": "Add order item summary level adjustments.",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsUseCreateCreditMemo",
+      "label": "Create credit memos.",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsUseEnsureFunds",
+      "label": "Execute ensure funds.",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsUseOrderItemSummaryCancel",
+      "label": "Cancel order item summaries.",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsUseOrderItemSummaryReturn",
+      "label": "Execute blind returns.",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsUsePartnerMessagingChannels",
+      "label": "Message Customers with Bring Your Own Channel",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageFilesAndAttachments",
+      "label": "Manage Policies' Files And Attachments",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAddTrfmElmntToNonSetupFlow",
+      "label": "Add Transform Element to Flows",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsMobileMessagingAgent",
+      "label": "Message on Mobile",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsTableauCreateVisualization",
+      "label": "Access to create Tableau Next visualizations",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsTableauViewVisualization",
+      "label": "Access to view Tableau Next visualizations",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageCustomDomains",
+      "label": "Manage Custom Domains",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsEngagementConfigUser",
+      "label": "Engagement Config User",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsPersonalizationIntelUser",
+      "label": "Personalization Intelligence User",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAttributionModelUser",
+      "label": "Attribution Model User",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsTableauCreateWorkspace",
+      "label": "Access to create Tableau Next workspaces",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsTableauViewWorkspace",
+      "label": "Access to view Tableau Next workspaces",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCanSendInitialSMSToIndividual",
+      "label": "Send Initial SMS Message to Individual",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAccessDisputePrompts",
+      "label": "Provides access to Financial Services Email prompt templates",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsQueryNonVetoedFiles",
+      "label": "Query Non Vetoed Files",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewAllCalls",
+      "label": "View All Voice And Video Calls",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsMetadataStudioUser",
+      "label": "Metadata studio User",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsDigitalLendingWorkbench",
+      "label": "Digital Lending Workbench",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsDigitalLendingEditReadOnly",
+      "label": "Digital Lending Edit Read Only Party Related Records",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsUseCanCancelInProgressChange",
+      "label": "Can cancel Order Management in-progress async calls.",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsPrmExtIntPrtnrAdminUser",
+      "label": "Set Up Partner Connect for a Partner Org",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCitrixVDIPlatform",
+      "label": "Access Virtual Desktop Infrastructure for Voice Calls through Citrix",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsEinsteinAgentPlatformBuilder",
+      "label": "Manage AI Agents",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsUseServicePartReturn",
+      "label": "Manufacturing Cloud Service Part Return Management User",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsHeadlessPublishNudges",
+      "label": "Headless Publish Nudges User",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsApprovalAdmin",
+      "label": "Approval Admin",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsApprovalDesigner",
+      "label": "Approval Designer",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsUserHasDevOpsCore",
+      "label": "Enable DevOps Core User Permission ",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAccessServiceEinstein",
+      "label": "Access Service Einstein",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewRecommendations",
+      "label": "View Recommendations",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsPrismPlaygroundUser",
+      "label": "Prism Playground User",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsModifyAllPolicyCenterPolicies",
+      "label": "Modify All Policy Center Policies",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewAllPolicyCenterPolicies",
+      "label": "View All Policy Center Policies",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewPublicCapstoneFolders",
+      "label": "View Public Capstone Folder",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCreateModActTrigNonSetupFlow",
+      "label": "Create or Modify Activation-Triggered Flows",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAccessSfDrive",
+      "label": "Grant users permission to SfDrive",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAppFrameworkManageApp",
+      "label": "Access to manage the template framework apps",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAppFrameworkViewApp",
+      "label": "Access to view templated apps and assets",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAgentforceServiceAgentUser",
+      "label": "Agentforce Service Agent User",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageAgentforceServiceAgent",
+      "label": "Manage Agentforce Service Agents",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsUseTeamsForEmployee",
+      "label": "Gives employee users the ability to use Microsoft Teams to manage and resolve IT issues and service requests",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCanTranslateScrt2Conversation",
+      "label": "Translate Enhanced Conversations",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsSlackFromTableau",
+      "label": "Slack from Tableau Next",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsTableauShareSnapshot",
+      "label": "Tableau Next Share Snapshot",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsDelegatedContactCenterAdmin",
+      "label": "Salesforce Voice Delegated Contact Center Admin",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsUseDeliveryEstimationAPIs",
+      "label": "Use Delivery Estimation Service APIs",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsUseAdvancedDeliveryEstimationAPI",
+      "label": "Use Advanced Delivery Estimation Service APIs",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAccessBankingServiceAgent",
+      "label": "Access Banking Service Agent",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAllowOCIAvailabilityAPIs",
+      "label": "Use Omnichannel Inventory Availability APIs",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageOCIRecords",
+      "label": "Manage Omnichannel Inventory Records",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsTableauMetricCards",
+      "label": "View Tableau Next Metrics",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsPersonalizationDecisioningUser",
+      "label": "Provides users access to the Personalization Decisions invocable action.",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsUsePaymentCreditAPIs",
+      "label": "Use Order Management Payment Credit APIs",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAccessBankingRelationshipAssistance",
+      "label": "Access Banking Relationship Assistance",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCanMarketingUserDebugFlow",
+      "label": "Can Marketing User Debug Marketing Flows",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCanDoActAsUser",
+      "label": "Act As User",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewAllFieldsGlobal",
+      "label": "View All Fields (Global)",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageHerokuAppLink",
+      "label": "Manage Heroku AppLink",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsMngBenVerfForAssistiveAgnt",
+      "label": "Gives AI agents access to the objects and fields required to reverify benefits.",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCreateModDGTrigNonSetupFlow",
+      "label": "Create or Modify Flows with Data Graph Event Triggers",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAccessPolicyAgent",
+      "label": "Access Policy Agent",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsMCPMetadataApi",
+      "label": "MCPMetadataApi",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAppFrameworkManageTemplate",
+      "label": "Access to manage the template framework templates",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsUseTeamsForItSrvcs",
+      "label": "Manage ITSM Teams",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageJourneys",
+      "label": "Manage Journeys",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewApiNamedQueries",
+      "label": "Allows users to view Named Query records",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageApiNamedQueries",
+      "label": "Allows users to create, read, update and delete Named Query records",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsOmniAssistiveActionUser",
+      "label": "Use Service Assistive Actions",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsPrismBackofficeUser",
+      "label": "Prism Backoffice User",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsDigitalAgentUser",
+      "label": "Use Custom Agents",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsDataCleanRoomSetupAccess",
+      "label": "Manage Clean Room Packages",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAccessWealthAdvisorAgent",
+      "label": "Financial Advisor Assistance Agent",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsDataCleanRoomReadAccess",
+      "label": "Access Clean Rooms",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsDataCleanRoomWriteAccess",
+      "label": "Manage Clean Room Collaborations and Mapped Templates",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsDataCleanRoomQueryAccess",
+      "label": "Run Clean Room Queries",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCanApproveUninstalledApps",
+      "label": "Approve Uninstalled Connected Apps",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsSetupAgentBuilder",
+      "label": "Legacy placeholder for Setup Agent Builder, do NOT use it or add any dependencies to it.",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsSetupAgentUser",
+      "label": "Legacy placeholder for Setup Agent User, do NOT use it or add any dependencies to it.",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsHydratePromptTemplateIA",
+      "label": "Hydrate Prompt Template IA",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAIWorkbenchUser",
+      "label": "Manage Agentforce Grids",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsUserCanDeployStore",
+      "label": "Users can perform the deployment operation on a store.",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsModifyAccessDenyPolicies",
+      "label": "Modify Deny Data Governance Policies",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageAccessPolicies",
+      "label": "Manage Access Policies",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewAccessPolicies",
+      "label": "View Access Policies",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsModifyAccessAllowPolicies",
+      "label": "Modify Allow Data Governance Policies",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewOrchestrationsInAutomApp",
+      "label": "View Orchestrations in Automation App",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsTerritoryOperations",
+      "label": "Administer territory operations",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAccessOrchestrationObjects",
+      "label": "Access Orchestration Objects",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewChangeRequestDshbrd",
+      "label": "View Change Request Dashboard\n        ",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewIncidentFulfrDshbrd",
+      "label": "View Incident Fulfiller Dashboard\n        ",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewProblemFulfrDshbrd",
+      "label": "View Problem Fulfiller Dashboard\n        ",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewProblemMgrDshbrd",
+      "label": "View Problem Manager Dashboard\n        ",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewItLeaderAnlytDshbrd",
+      "label": "View IT Leader Analytics Dashboard\n        ",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewIncidentAnlytDshbrd",
+      "label": "View Incident Analytics Dashboard\n        ",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewChangeRequestAnlytDshbrd",
+      "label": "View Change Request Analytics Dashboard\n        ",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewCaseAnlytDshbrd",
+      "label": "View Case Analytics Dashboard\n        ",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsProposeMajorIncidents",
+      "label": "Propose Major Incidents\n        ",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsDeleteIncident",
+      "label": "Delete Incident\n        ",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAcceptRiskForProblems",
+      "label": "Accept Risk For Problems\n        ",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsReopenProblems",
+      "label": "Reopen Problems\n        ",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAssocIncAndProb",
+      "label": "Associate Incidents and Problems\n        ",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAssocIncAndChgRqst",
+      "label": "Associate Incidents and Change Requests\n        ",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsDeleteProblem",
+      "label": "Delete Problem\n        ",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsSalesInsightsUser",
+      "label": "Sales Insights Admin",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsDeleteChangeRequest",
+      "label": "Delete Change Request\n        ",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsReadConfigurationItemInformation",
+      "label": "Allows user to read CMDB associations details.\n        ",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewItsmConsoleHmpg",
+      "label": "View Agentic IT Service Desk App Home Page\n        ",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewItsmConsoleAsFulfr",
+      "label": "View Agentic IT Service Desk App as Fulfillers\n        ",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewOmnichnlAnlytDshbrd",
+      "label": "View Omnichannel Analytics Dashboard\n        ",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewKnwlgAnlytDshbrd",
+      "label": "View Knowledge Analytics Dashboard\n        ",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewAgtfrceAnlytDshbrd",
+      "label": "View Agentforce Analytics Dashboard\n        ",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewIncidentMgrDshbrd",
+      "label": "View Incident Manager Dashboard\n        ",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewShieldApp",
+      "label": "View Shield App Pages",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsQrCodeGeneratorMobilePublisherPlayground",
+      "label": "Mobile Publisher QR Code Generator Playground User",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAssocChgRqstAndProb",
+      "label": "Associate Change Requests and Problems\n        ",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAssocRelAndProb",
+      "label": "Associate Releases and Problems\n        ",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAssocRelAndInc",
+      "label": "Associate Releases and Incidents\n        ",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAssocRelAndChgRqst",
+      "label": "Associate Releases and Change Requests\n        ",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsResolveIncAssoc",
+      "label": "Resolve Incident Associations\n        ",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsResolveProbAssoc",
+      "label": "Resolve Problem Associations\n        ",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsResolveChgRqstAssoc",
+      "label": "Resolve Change Request Associations\n        ",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsRegrelloUser",
+      "label": "Provides user permission to access the Regrello App",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageDataAnalyticsGroups",
+      "label": "Manage Data Analytics Groups",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewLicenseUtilization",
+      "label": "View License Utilization",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsUserInteractionInsights",
+      "label": "Collect User Engagement Data for Insight Calculation",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsDeleteSalesforceFiles",
+      "label": "Delete Salesforce Files",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageMCEEmails",
+      "label": "Manage Marketing Cloud Engagement Emails",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAITestingUser",
+      "label": "Manage Agentforce Testing",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsUseFulfillmentRoutingAPIs",
+      "label": "Use Order Management Fulfillment Routing APIs",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageSharedListViews",
+      "label": "Manage Shared List Views",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCdpConnectionManagementUser",
+      "label": "Manage Data Cloud connections",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageCustomerDataOptOut",
+      "label": "Manage Opt Out for Customer Data Access",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsClaimUnclaimNumber",
+      "label": "Manage Numbers",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsDownloadMaliciousFiles",
+      "label": "Download Malicious Files",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageMaliciousFiles",
+      "label": "Manage Malicious Files",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAccessKnowledgeSpace",
+      "label": "Create, edit, and delete knowledge spaces",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsSCVVoicemailDropUser",
+      "label": "Use Voicemail Drops",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsUserHasALMSimpleDeployAccess",
+      "label": "Enable ALM Simple Deploy User Permission ",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCanWriteWithAiScrt2Conversation",
+      "label": "Write with AI",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAccessToComplaintAgent",
+      "label": "Provides access to Complaint Fulfilment Agent",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsSCVVoicemailGreetingUser",
+      "label": "Manage Voicemail greetings",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsUseSetupWithAgentforce",
+      "label": "Use Setup with Agentforce",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsUseAnyApiAuth",
+      "label": "Use Any API Auth",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageQuickAttributes",
+      "label": "Manage Quick Attributes",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAddSendToFlowElmntToNonSetupFlow",
+      "label": "Add Send to a Flow Element to Flows",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsGrantOutboundBundling",
+      "label": "Grant Outbound Bundling",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAcceptInboundBundling",
+      "label": "Accept Inbound Bundling",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsViewHealthAssessments",
+      "label": "View Health Assessments",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageHealthAssessments",
+      "label": "Manage Health Assessments",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsIntegrationIntelligenceUser",
+      "label": "Integration Intelligence User",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsActivationWrite",
+      "label": "Allows use to hit cleanroom API while creating activations.",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsUseRestrictedTheme",
+      "label": "Use restricted theme",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCanExitFlowViaAPI",
+      "label": "Exit Flow Via API",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCreateModIndRecNonSetupFlow",
+      "label": "Create or Modify Flows with Individual Related Record Event Triggers",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCreateModListTrigNonSetupFlow",
+      "label": "Create or Modify List Triggered Flows",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCreateModCampaignMemberTrigNonSetupFlow",
+      "label": "Create or Modify Campaign Member-Triggered Flows",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCreateModRecordQueryFlow",
+      "label": "Create or Modify Record Query Flows",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsModifyTransactionSecurityPolicies",
+      "label": "Modify Transaction Security Policies",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsSuitesAgentEscalationPerm",
+      "label": "Suites Agent Edit Escalation",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsIntelligentDocumentProcessing",
+      "label": "Use generic Intelligent Document Processing",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsAccessCommandCenter",
+      "label": "Access Command Center",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCdpPerUserConnectionManagement",
+      "label": "Manage Data Cloud Per User connections",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsManageIntegrationPortals",
+      "label": "Manage Integration Portals",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsCanQueryForeignTables",
+      "label": "Ungoverned External Table Access",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsRunMyDayUser",
+      "label": "Run My Day User",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsUseOrderSummaryChangeAPIs",
+      "label": "Use Order Management Order Summary Change APIs",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsUseOMSDROInteropAPIs",
+      "label": "Use the Order Management DRO Integration APIs",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsSlackbotUi",
+      "label": "Slackbot UI",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaximumPermissionsMeetingEngagementUser",
+      "label": "Agentforce Meeting Concierge User",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "UsedLicenses",
+      "label": "Used Licenses",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MigratableLicenses",
+      "label": "Licenses to Migrate",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsAvailableForIntegrations",
+      "label": "Is License Available for Integrations?",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LicenseExpirationPolicy",
+      "label": "License Expiration Policy",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "AllowNamespaceAccess",
+        "BlockNamespaceAccess"
+      ]
+    },
+    {
+      "name": "IsSupplementLicense",
+      "label": "Is Supplement License",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": []
+}

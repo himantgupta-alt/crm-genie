@@ -1,0 +1,551 @@
+{
+  "name": "Payment",
+  "label": "Payment",
+  "custom": false,
+  "keyPrefix": "0aQ",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Payment ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "PaymentNumber",
+      "label": "Payment Number",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "PaymentGroupId",
+      "label": "Payment Group ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "PaymentGroup"
+      ],
+      "relationshipName": "PaymentGroup"
+    },
+    {
+      "name": "AccountId",
+      "label": "Account ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Account"
+      ],
+      "relationshipName": "Account"
+    },
+    {
+      "name": "PaymentAuthorizationId",
+      "label": "Payment Authorization ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "PaymentAuthorization"
+      ],
+      "relationshipName": "PaymentAuthorization"
+    },
+    {
+      "name": "Date",
+      "label": "Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CancellationDate",
+      "label": "Cancellation Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Amount",
+      "label": "Amount",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "Status",
+      "label": "Status",
+      "type": "picklist",
+      "length": 255,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "Draft",
+        "Processed",
+        "Canceled",
+        "Pending",
+        "Failed"
+      ]
+    },
+    {
+      "name": "Type",
+      "label": "Type",
+      "type": "picklist",
+      "length": 255,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "Sale",
+        "Capture"
+      ]
+    },
+    {
+      "name": "ProcessingMode",
+      "label": "Processing Mode",
+      "type": "picklist",
+      "length": 255,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "Salesforce",
+        "External"
+      ]
+    },
+    {
+      "name": "GatewayRefNumber",
+      "label": "Gateway Reference Number",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ClientContext",
+      "label": "Client Context",
+      "type": "textarea",
+      "length": 2000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "GatewayResultCode",
+      "label": "Gateway Result Code",
+      "type": "string",
+      "length": 64,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "SfResultCode",
+      "label": "Salesforce Result Code",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Success",
+        "PermanentFail",
+        "Decline",
+        "RequiresReview",
+        "Indeterminate",
+        "SystemError",
+        "ValidationError"
+      ]
+    },
+    {
+      "name": "GatewayDate",
+      "label": "Gateway Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CancellationGatewayRefNumber",
+      "label": "Cancellation Gateway Reference Number",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CancellationGatewayResultCode",
+      "label": "Cancellation Gateway Result Code",
+      "type": "string",
+      "length": 64,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CancellationSfResultCode",
+      "label": "Cancellation Salesforce Result Code",
+      "type": "string",
+      "length": 64,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CancellationGatewayDate",
+      "label": "Cancellation Gateway Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Comments",
+      "label": "Comments",
+      "type": "textarea",
+      "length": 1000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ImpactAmount",
+      "label": "Impact Amount",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false,
+      "calculated": true
+    },
+    {
+      "name": "EffectiveDate",
+      "label": "Effective Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CancellationEffectiveDate",
+      "label": "Cancellation Effective Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "GatewayResultCodeDescription",
+      "label": "Gateway Result Code Description",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "GatewayRefDetails",
+      "label": "Gateway Reference Details",
+      "type": "textarea",
+      "length": 1000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IpAddress",
+      "label": "IP Address",
+      "type": "string",
+      "length": 39,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MacAddress",
+      "label": "MAC Address",
+      "type": "string",
+      "length": 32,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Phone",
+      "label": "Phone",
+      "type": "phone",
+      "length": 40,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Email",
+      "label": "Audit Email",
+      "type": "email",
+      "length": 80,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "PaymentGatewayId",
+      "label": "Payment Gateway ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "PaymentGateway"
+      ],
+      "relationshipName": "PaymentGateway"
+    },
+    {
+      "name": "PaymentMethodId",
+      "label": "Payment Method ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "PaymentMethod"
+      ],
+      "relationshipName": "PaymentMethod"
+    },
+    {
+      "name": "TotalApplied",
+      "label": "Total Applied",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TotalUnapplied",
+      "label": "Total Unapplied",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "NetApplied",
+      "label": "Net Applied",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Balance",
+      "label": "Balance",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TotalRefundApplied",
+      "label": "Total Refund Applied",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false,
+      "calculated": true
+    },
+    {
+      "name": "TotalRefundUnapplied",
+      "label": "Total Refund Unapplied",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false,
+      "calculated": true
+    },
+    {
+      "name": "NetRefundApplied",
+      "label": "Net Refund Applied",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false,
+      "calculated": true
+    },
+    {
+      "name": "PaymentIntentGuid",
+      "label": "Payment Intent Guid",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TotalPaymentCreditApplied",
+      "label": "Total Payment Credit Applied",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false,
+      "calculated": true
+    },
+    {
+      "name": "TotalPaymentCreditUnapplied",
+      "label": "Total Payment Credit Unapplied",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false,
+      "calculated": true
+    },
+    {
+      "name": "NetPaymentCreditApplied",
+      "label": "Net Payment Credit Applied",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false,
+      "calculated": true
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FinanceBalanceSnapshot",
+      "field": "ReferenceEntityId",
+      "relationshipName": "FinanceBalanceSnapshots",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FinanceTransaction",
+      "field": "DestinationEntityId",
+      "relationshipName": "DestinationFinanceTransactions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FinanceTransaction",
+      "field": "ParentReferenceEntityId",
+      "relationshipName": "ParentFinanceTransactions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FinanceTransaction",
+      "field": "ReferenceEntityId",
+      "relationshipName": "FinanceTransactions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FinanceTransaction",
+      "field": "SourceEntityId",
+      "relationshipName": "SourceFinanceTransactions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "PaymentCredit",
+      "field": "PaymentId",
+      "relationshipName": "PaymentCredits",
+      "cascadeDelete": false
+    },
+    {
+      "child": "PaymentCreditLinePayment",
+      "field": "PaymentId",
+      "relationshipName": "PaymentCreditLinePayments",
+      "cascadeDelete": true
+    },
+    {
+      "child": "PaymentGatewayLog",
+      "field": "ReferencedEntityId",
+      "relationshipName": "PaymentGatewayLogs",
+      "cascadeDelete": false
+    },
+    {
+      "child": "PaymentLineInvoice",
+      "field": "PaymentId",
+      "relationshipName": "PaymentLinesInvoice",
+      "cascadeDelete": true
+    },
+    {
+      "child": "ProcessException",
+      "field": "AttachedToId",
+      "relationshipName": "ProcessExceptions",
+      "cascadeDelete": true
+    },
+    {
+      "child": "RefundLinePayment",
+      "field": "PaymentId",
+      "relationshipName": "RefundLinePayments",
+      "cascadeDelete": true
+    }
+  ]
+}

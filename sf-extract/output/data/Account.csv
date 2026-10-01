@@ -1,0 +1,47 @@
+Id,IsDeleted,MasterRecordId,Name,Type,ParentId,BillingStreet,BillingCity,BillingState,BillingPostalCode,BillingCountry,BillingStateCode,BillingCountryCode,BillingLatitude,BillingLongitude,BillingGeocodeAccuracy,ShippingStreet,ShippingCity,ShippingState,ShippingPostalCode,ShippingCountry,ShippingStateCode,ShippingCountryCode,ShippingLatitude,ShippingLongitude,ShippingGeocodeAccuracy,Phone,Fax,AccountNumber,Website,PhotoUrl,Sic,Industry,AnnualRevenue,NumberOfEmployees,Ownership,TickerSymbol,Description,Rating,Site,OwnerId,CreatedDate,CreatedById,LastModifiedDate,LastModifiedById,SystemModstamp,LastActivityDate,LastViewedDate,LastReferencedDate,Jigsaw,JigsawCompanyId,CleanStatus,AccountSource,DunsNumber,Tradestyle,NaicsCode,NaicsDesc,YearStarted,SicDesc,DandbCompanyId,OperatingHoursId,CustomerPriority__c,SLA__c,Active__c,NumberofLocations__c,UpsellOpportunity__c,SLASerialNumber__c,SLAExpirationDate__c
+001g800000nRMt3AAG,false,,Edge Communications,Customer - Direct,,"312 Constitution Place
+Austin, TX 78767
+USA",Austin,TX,,United States,TX,US,,,,"312 Constitution Place
+Austin, TX 78767
+USA",,,,,,,,,,(512) 757-6000,(512) 757-9000,CD451796,http://edgecomm.com,/services/images/photo/001g800000nRMt3AAG,6576,Electronics,139000000,1000,Public,EDGE,"Edge, founded in 1998, is a start-up based in Austin, TX. The company designs and manufactures a device to convert music from one digital format to another. Edge sells its product through retailers and its own website.",Hot,,005g8000009w3inAAA,2026-09-13T11:54:33.000+0000,005g8000009w3inAAA,2026-09-13T11:54:33.000+0000,005g8000009w3inAAA,2026-09-13T11:54:33.000+0000,,,,,,Pending,,,,,,,,,,Medium,Silver,Yes,2,Maybe,2657,2026-10-07
+001g800000nRMt4AAG,false,,Burlington Textiles Corp of America,Customer - Direct,,525 S. Lexington Ave,Burlington,NC,27215,USA,NC,US,,,,,,,,,,,,,,(336) 222-7000,(336) 222-8000,CD656092,www.burlington.com,/services/images/photo/001g800000nRMt4AAG,546732,Apparel,350000000,9000,Public,BTXT,,Warm,,005g8000009w3inAAA,2026-09-13T11:54:33.000+0000,005g8000009w3inAAA,2026-09-13T11:54:33.000+0000,005g8000009w3inAAA,2026-09-13T11:54:33.000+0000,,,,,,Pending,,,,,,,,,,,Silver,,6,Maybe,5367,2026-10-07
+001g800000nRMt5AAG,false,,Pyramid Construction Inc.,Customer - Channel,,2 Place Jussieu,Paris,,75251,France,,FR,,,,2 Place Jussieu,Paris,,75251,France,,FR,,,,(014) 427-4427,(014) 427-4428,CC213425,www.pyramid.com,/services/images/photo/001g800000nRMt5AAG,4253,Construction,950000000,2680,Public,PYR,,,,005g8000009w3inAAA,2026-09-13T11:54:33.000+0000,005g8000009w3inAAA,2026-09-13T11:54:33.000+0000,005g8000009w3inAAA,2026-09-13T11:54:33.000+0000,,,,,,Pending,,,,,,,,,,,Silver,Yes,17,Maybe,9840,2027-04-09
+001g800000nRMt6AAG,false,,Dickenson plc,Customer - Channel,,1301 Hoch Drive,Lawrence,KS,66045,USA,KS,US,,,,1301 Hoch Drive,Lawrence,KS,66045,USA,KS,US,,,,(785) 241-6200,(785) 241-6201,CC634267,dickenson-consulting.com,/services/images/photo/001g800000nRMt6AAG,6752,Consulting,50000000,120,Private,,,,,005g8000009w3inAAA,2026-09-13T11:54:33.000+0000,005g8000009w3inAAA,2026-09-13T11:54:33.000+0000,005g8000009w3inAAA,2026-09-13T11:54:33.000+0000,,,,,,Pending,,,,,,,,,,Low,Bronze,Yes,2,No,7425,2027-04-09
+001g800000nRMt7AAG,false,,Grand Hotels & Resorts Ltd,Customer - Direct,,"2334 N. Michigan Avenue, Suite 1500
+Chicago, IL 60601, USA",Chicago,IL,,United States,IL,US,,,,"2334 N. Michigan Avenue, Suite 1500
+Chicago, IL 60601, USA",,,,,,,,,,(312) 596-1000,(312) 596-1500,CD439877,www.grandhotels.com,/services/images/photo/001g800000nRMt7AAG,2268,Hospitality,500000000,5600,Public,GHTL,"Chain of hotels and resorts across the US, UK, Eastern Europe, Japan, and SE Asia.",Warm,,005g8000009w3inAAA,2026-09-13T11:54:33.000+0000,005g8000009w3inAAA,2026-09-13T11:54:33.000+0000,005g8000009w3inAAA,2026-09-13T11:54:33.000+0000,,,,,,Pending,,,,,,,,,,High,Gold,Yes,57,Yes,5572,2027-04-09
+001g800000nRMt8AAG,false,,United Oil & Gas Corp.,Customer - Direct,,"1301 Avenue of the Americas 
+New York, NY 10019
+USA",New York,NY,,United States,NY,US,,,,"1301 Avenue of the Americas 
+New York, NY 10019
+USA",,,,,,,,,,(212) 842-5500,(212) 842-5501,CD355118,http://www.uos.com,/services/images/photo/001g800000nRMt8AAG,4437,Energy,5600000000,145000,Public,UOS,World's third largest oil and gas company.,Hot,,005g8000009w3inAAA,2026-09-13T11:54:33.000+0000,005g8000009w3inAAA,2026-09-13T11:54:33.000+0000,005g8000009w3inAAA,2026-09-13T11:54:33.000+0000,,,,,,Pending,,,,,,,,,,High,Platinum,Yes,955,Yes,6654,2027-04-09
+001g800000nRMt9AAG,false,,Express Logistics and Transport,Customer - Channel,,"620 SW 5th Avenue Suite 400
+Portland, Oregon 97204
+United States",Portland,OR,,United States,OR,US,,,,"620 SW 5th Avenue Suite 400
+Portland, Oregon 97204
+United States",,,,,,,,,,(503) 421-7800,(503) 421-7801,CC947211,www.expressl&t.net,/services/images/photo/001g800000nRMt9AAG,8742,Transportation,950000000,12300,Public,EXLT,Commerical logistics and transportation company.,Cold,,005g8000009w3inAAA,2026-09-13T11:54:33.000+0000,005g8000009w3inAAA,2026-09-13T11:54:33.000+0000,005g8000009w3inAAA,2026-09-13T11:54:33.000+0000,,,,,,Pending,,,,,,,,,,Medium,Platinum,Yes,150,Maybe,4724,2027-04-09
+001g800000nRMtAAAW,false,,University of Arizona,Customer - Direct,,"888 N Euclid 
+Hallis Center, Room 501
+Tucson, AZ 85721
+United States",Tucson,AZ,,United States,AZ,US,,,,"888 N Euclid 
+Hallis Center, Room 501
+Tucson, AZ 85721
+United States",,,,,,,,,,(520) 773-9050,(520) 773-9060,CD736025,www.universityofarizona.com,/services/images/photo/001g800000nRMtAAAW,7321,Education,,39000,Other,,"Leading university in AZ offering undergraduate and graduate programs in arts and humanities, pure sciences, engineering, business, and medicine.",Warm,,005g8000009w3inAAA,2026-09-13T11:54:33.000+0000,005g8000009w3inAAA,2026-09-13T11:54:33.000+0000,005g8000009w3inAAA,2026-09-13T11:54:33.000+0000,,,,,,Pending,,,,,,,,,,Medium,Gold,Yes,3,Yes,8350,2026-10-07
+001g800000nRMtBAAW,false,,"United Oil & Gas, UK",Customer - Direct,,"Kings Park, 17th Avenue, Team Valley Trading Estate,
+Gateshead, Tyne and Wear NE26 3HS
+United Kingdom",,UK,,,,,,,,"Kings Park, 17th Avenue, Team Valley Trading Estate,
+Gateshead, Tyne and Wear NE26 3HS
+United Kingdom",,,,,,,,,,+44 191 4956203,+44 191 4956620,CD355119-A,http://www.uos.com,/services/images/photo/001g800000nRMtBAAW,4437,Energy,,24000,Public,UOS,,,,005g8000009w3inAAA,2026-09-13T11:54:33.000+0000,005g8000009w3inAAA,2026-09-13T11:54:33.000+0000,005g8000009w3inAAA,2026-09-13T11:54:33.000+0000,,,,,,Pending,,,,,,,,,,High,Platinum,Yes,34,No,3479,2026-10-07
+001g800000nRMtCAAW,false,,"United Oil & Gas, Singapore",Customer - Direct,,"9 Tagore Lane
+Singapore, Singapore 787472
+Singapore",Singapore,Singapore,,,,,,,,"9 Tagore Lane
+Singapore, Singapore 787472
+Singapore",,,,,,,,,,(650) 450-8810,(650) 450-8820,CD355120-B,http://www.uos.com,/services/images/photo/001g800000nRMtCAAW,4437,Energy,,3000,Public,UOS,,,,005g8000009w3inAAA,2026-09-13T11:54:33.000+0000,005g8000009w3inAAA,2026-09-13T11:54:33.000+0000,005g8000009w3inAAA,2026-09-13T11:54:33.000+0000,,,,,,Pending,,,,,,,,,,High,Platinum,Yes,6,Maybe,2457,2027-04-09
+001g800000nRMtDAAW,false,,GenePoint,Customer - Channel,,"345 Shoreline Park
+Mountain View, CA 94043
+USA",Mountain View,CA,,United States,CA,US,,,,"345 Shoreline Park
+Mountain View, CA 94043
+USA",,,,,,,,,,(650) 867-3450,(650) 867-9895,CC978213,www.genepoint.com,/services/images/photo/001g800000nRMtDAAW,3712,Biotechnology,30000000,265,Private,,Genomics company engaged in mapping and sequencing of the human genome and developing gene-based drugs,Cold,,005g8000009w3inAAA,2026-09-13T11:54:33.000+0000,005g8000009w3inAAA,2026-09-13T11:54:33.000+0000,005g8000009w3inAAA,2026-09-13T11:54:33.000+0000,,,,,,Pending,,,,,,,,,,Low,Bronze,Yes,1,Yes,7324,2027-04-09
+001g800000nRMtEAAW,false,,sForce,,,The Landmark @ One Market,San Francisco,CA,94087,US,CA,US,,,,,,,,,,,,,,(415) 901-7000,(415) 901-7002,,www.sforce.com,/services/images/photo/001g800000nRMtEAAW,,,,,,,,,,005g8000009w3inAAA,2026-09-13T11:54:33.000+0000,005g8000009w3inAAA,2026-09-13T11:54:33.000+0000,005g8000009w3inAAA,2026-09-13T11:54:33.000+0000,,,,,,Pending,,,,,,,,,,,,,,,,
+001g800000nRMtFAAW,false,,Sample Account for Entitlements,,,,,,,,,,,,,,,,,,,,,,,,,,,/services/images/photo/001g800000nRMtFAAW,,,,,,,,,,005g8000009wG5eAAE,2026-09-13T11:54:33.000+0000,005g8000009wG5eAAE,2026-09-13T11:54:33.000+0000,005g8000009wG5eAAE,2026-09-13T11:54:33.000+0000,,,,,,Pending,,,,,,,,,,,,,,,,
+001g800000pfWViAAM,false,,FLS Debug Account,,,,,,,,,,,,,,,,,,,,,,,,,,,/services/images/photo/001g800000pfWViAAM,,,,,,,,,,005g800000AJMlRAAX,2026-09-18T08:27:13.000+0000,005g800000AJMlRAAX,2026-09-18T08:27:13.000+0000,005g800000AJMlRAAX,2026-09-18T08:30:49.000+0000,,,,,,Pending,,,,,,,,,,,,,,,,

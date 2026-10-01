@@ -1,0 +1,150 @@
+{
+  "name": "ProblemIncidentHistory",
+  "label": "Problem Incident History",
+  "custom": false,
+  "keyPrefix": null,
+  "isHistory": true,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Problem Incident History ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ProblemIncidentId",
+      "label": "Related Problem and Incident ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "ProblemIncident"
+      ],
+      "relationshipName": "ProblemIncident"
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Field",
+      "label": "Changed Field",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "created",
+        "customPersonMerged",
+        "feedEvent",
+        "individualMerged",
+        "Issue",
+        "ownerAccepted",
+        "ownerAssignment",
+        "locked",
+        "unlocked",
+        "RelatedIssue",
+        "RelatedEntityType",
+        "Name",
+        "RelationshipType",
+        "UniqueProblemIncidentKey"
+      ]
+    },
+    {
+      "name": "DataType",
+      "label": "Datatype",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Address",
+        "AnyType",
+        "AutoNumber",
+        "Base64",
+        "BitVector",
+        "Boolean",
+        "Content",
+        "Currency",
+        "DataCategoryGroupReference",
+        "DateOnly",
+        "DateTime",
+        "Division",
+        "Double",
+        "DynamicEnum",
+        "Email",
+        "EncryptedBase64",
+        "EncryptedText",
+        "EntityId",
+        "EnumOrId",
+        "ExternalId",
+        "Fax",
+        "File",
+        "HtmlMultiLineText",
+        "HtmlStringPlusClob",
+        "InetAddress",
+        "Json",
+        "Location",
+        "MultiEnum",
+        "MultiLineText",
+        "Namespace",
+        "Percent",
+        "PersonName",
+        "Phone",
+        "Raw",
+        "RecordType",
+        "SfdcEncryptedText",
+        "SimpleNamespace",
+        "StringPlusClob",
+        "Switchable_PersonName",
+        "Text",
+        "TimeOnly",
+        "Url",
+        "YearQuarter"
+      ]
+    },
+    {
+      "name": "OldValue",
+      "label": "Old Value",
+      "type": "anyType",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "NewValue",
+      "label": "New Value",
+      "type": "anyType",
+      "length": 255,
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": []
+}

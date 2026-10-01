@@ -1,0 +1,222 @@
+{
+  "name": "CspTrustedSite",
+  "label": "Trusted URL",
+  "custom": false,
+  "keyPrefix": "08y",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Trusted URL ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "DeveloperName",
+      "label": "API Name",
+      "type": "string",
+      "length": 80,
+      "required": true,
+      "custom": false,
+      "inlineHelpText": "The API name for this trusted URL. Enter only underscores and alphanumeric characters. The name must be unique, begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores."
+    },
+    {
+      "name": "Language",
+      "label": "Master Language",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "en_US",
+        "de",
+        "es",
+        "fr",
+        "it",
+        "ja",
+        "sv",
+        "ko",
+        "zh_TW",
+        "zh_CN",
+        "pt_BR",
+        "nl_NL",
+        "da",
+        "th",
+        "fi",
+        "ru",
+        "es_MX",
+        "no"
+      ]
+    },
+    {
+      "name": "MasterLabel",
+      "label": "Label",
+      "type": "string",
+      "length": 80,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "NamespacePrefix",
+      "label": "Namespace Prefix",
+      "type": "string",
+      "length": 15,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "EndpointUrl",
+      "label": "URL",
+      "type": "string",
+      "length": 255,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "Description",
+      "label": "Description",
+      "type": "textarea",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsActive",
+      "label": "Active",
+      "type": "boolean",
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "To temporarily disable this trusted URL without deleting it, deselect this option."
+    },
+    {
+      "name": "Context",
+      "label": "CSP Context",
+      "type": "picklist",
+      "length": 255,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "All",
+        "LEX",
+        "Communities",
+        "FieldServiceMobileExtension",
+        "LightningOut",
+        "VisualForce"
+      ]
+    },
+    {
+      "name": "IsApplicableToConnectSrc",
+      "label": "connect-src (scripts)",
+      "type": "boolean",
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "Allow Lightning components, third-party APIs, and WebSocket connections to load URLs using script interfaces from this trusted URL."
+    },
+    {
+      "name": "IsApplicableToFrameSrc",
+      "label": "frame-src (iframe content)",
+      "type": "boolean",
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "Allow Lightning components, third-party APIs, and WebSocket connections to load resources contained in <iframe> elements from this trusted URL."
+    },
+    {
+      "name": "IsApplicableToImgSrc",
+      "label": "img-src (images)",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsApplicableToStyleSrc",
+      "label": "style-src (stylesheets)",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsApplicableToFontSrc",
+      "label": "font-src (fonts)",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsApplicableToMediaSrc",
+      "label": "media-src (audio and video)",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CanAccessCamera",
+      "label": "camera",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CanAccessMicrophone",
+      "label": "microphone",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": []
+}

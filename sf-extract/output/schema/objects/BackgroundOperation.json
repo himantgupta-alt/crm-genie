@@ -1,0 +1,288 @@
+{
+  "name": "BackgroundOperation",
+  "label": "Background Operation",
+  "custom": false,
+  "keyPrefix": "08P",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Background Operation ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "SubmittedAt",
+      "label": "Submitted",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Status",
+      "label": "Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "New",
+        "Scheduled",
+        "Canceled",
+        "Merged",
+        "Waiting",
+        "Running",
+        "Error",
+        "Complete"
+      ]
+    },
+    {
+      "name": "ExecutionGroup",
+      "label": "Execution Group",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "SequenceGroup",
+      "label": "Sequence Group",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "SequenceNumber",
+      "label": "Sequence Number",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "GroupLeaderId",
+      "label": "Background Operation ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "BackgroundOperation"
+      ],
+      "relationshipName": "GroupLeader"
+    },
+    {
+      "name": "StartedAt",
+      "label": "Started",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FinishedAt",
+      "label": "Finished",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "WorkerUri",
+      "label": "Worker URI",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Timeout",
+      "label": "Timeout",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ExpiresAt",
+      "label": "Expires",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "NumFollowers",
+      "label": "Num Followers",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ProcessAfter",
+      "label": "Process After",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ParentKey",
+      "label": "Parent Key",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "RetryLimit",
+      "label": "Retry Limit",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "RetryCount",
+      "label": "Retry Count",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "RetryBackoff",
+      "label": "Retry Backoff",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Error",
+      "label": "Error Message",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Type",
+      "label": "Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Sweeper",
+        "ExternalObject",
+        "ExternalObjectSync",
+        "ExternalChangeDataCapture",
+        "XClean",
+        "WebCart",
+        "BlockchainEventPoller",
+        "SiteTaskCreate",
+        "SiteTaskPublish",
+        "CdpMetadataDeploy",
+        "ExternalServiceCallback",
+        "ExternalConnectivityPoller",
+        "AutoTagging",
+        "TagPropagation",
+        "ApiCatalogPoller",
+        "SingularityAutoSync",
+        "MfgBulkUpdate",
+        "MetadataChangesetOperation",
+        "PrivateConnectMigration",
+        "DocumentExtraction",
+        "SingularitySchemaEvolutionTrigger",
+        "SingularityMappingRetry",
+        "SingularityMDSSync",
+        "ContentTagSync",
+        "TagMetadataColumn",
+        "CdpDeprovisionOperation",
+        "MfgDeepClone",
+        "ApiProtectionRuleSync",
+        "CdpMceUmaDivergentDataReport",
+        "CdpMceUmaStreamAdditiveUpdate",
+        "CdpMceUmaMigration",
+        "AedcDataStreamDeploy",
+        "ListViewMigration",
+        "DevopsTestingSync",
+        "DevopsTestingExecution",
+        "MesGeneratePlan",
+        "MesRevisePlan",
+        "MesGenerateSegment",
+        "MesAssignFlow",
+        "MesActivateCampaign",
+        "MesContentOptimization",
+        "MesCampaignOptimization",
+        "QuickAsaSiteCreation",
+        "AnalyzeInTableauNext",
+        "WebCartClearOperation"
+      ]
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "BackgroundOperation",
+      "field": "GroupLeaderId",
+      "relationshipName": "MergedOperations",
+      "cascadeDelete": false
+    }
+  ]
+}

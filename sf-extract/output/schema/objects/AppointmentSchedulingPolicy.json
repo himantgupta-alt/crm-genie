@@ -1,0 +1,232 @@
+{
+  "name": "AppointmentSchedulingPolicy",
+  "label": "Appointment Scheduling Policy",
+  "custom": false,
+  "keyPrefix": "0Vr",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Appointment Scheduling Policy ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "DeveloperName",
+      "label": "Developer Name",
+      "type": "string",
+      "length": 80,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "Language",
+      "label": "Master Language",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "en_US",
+        "de",
+        "es",
+        "fr",
+        "it",
+        "ja",
+        "sv",
+        "ko",
+        "zh_TW",
+        "zh_CN",
+        "pt_BR",
+        "nl_NL",
+        "da",
+        "th",
+        "fi",
+        "ru",
+        "es_MX",
+        "no"
+      ]
+    },
+    {
+      "name": "MasterLabel",
+      "label": "Name",
+      "type": "string",
+      "length": 80,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsOrgDefault",
+      "label": "Is Default",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ShouldEnforceExcludedResource",
+      "label": "Ignore Excluded Service Resources",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ShouldEnforceRequiredResource",
+      "label": "Include Only Required Service Resources",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ShouldUsePrimaryMembers",
+      "label": "Include Primary Service Territory Members",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ShouldUseSecondaryMembers",
+      "label": "Include Secondary Service Territory Members",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ShouldMatchSkill",
+      "label": "Match Skills",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ShouldMatchSkillLevel",
+      "label": "Match Skill Levels",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ShouldRespectVisitingHours",
+      "label": "Enforce Account's Visiting Hours",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "AppointmentStartTimeInterval",
+      "label": "Appointment Start Time Interval",
+      "type": "picklist",
+      "length": 255,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "5",
+        "10",
+        "15",
+        "20",
+        "30",
+        "45",
+        "60",
+        "90",
+        "120",
+        "150",
+        "180",
+        "240",
+        "300",
+        "360",
+        "420",
+        "480"
+      ]
+    },
+    {
+      "name": "ShouldConsiderCalendarEvents",
+      "label": "Check Salesforce Calendar for Resource Availability",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ExtCalEventHandlerId",
+      "label": "Class ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "ApexClass"
+      ],
+      "relationshipName": "ExtCalEventHandler"
+    },
+    {
+      "name": "IsSvcTerritoryMemberShiftUsed",
+      "label": "Use service territory member’s shift",
+      "type": "boolean",
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "Use service territory members’ shifts instead of their operating hours to determine available time slots. If this checkbox is selected, the member’s operating hours aren’t considered even if they’re defined."
+    },
+    {
+      "name": "IsSvcTerrOpHoursWithShiftsUsed",
+      "label": "Use service territory’s operating hours with shifts",
+      "type": "boolean",
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "Use a service territory’s operating hours along with a service territory member’s shift to determine available time slots. For example, if a service territory’s operating hours are from 10 AM to 5 PM and a member’s shift is from 11 AM to 6 PM, appointment slots are displayed from 11 AM to 5 PM."
+    }
+  ],
+  "childRelationships": []
+}

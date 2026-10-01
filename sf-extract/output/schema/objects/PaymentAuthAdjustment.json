@@ -1,0 +1,280 @@
+{
+  "name": "PaymentAuthAdjustment",
+  "label": "Payment Authorization Adjustment",
+  "custom": false,
+  "keyPrefix": "9tv",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Payment Authorization Adjustment ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "PaymentAuthAdjustmentNumber",
+      "label": "Payment Authorization Adjustment Number",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "PaymentAuthorizationId",
+      "label": "Payment Authorization ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "PaymentAuthorization"
+      ],
+      "relationshipName": "PaymentAuthorization"
+    },
+    {
+      "name": "ProcessingMode",
+      "label": "Processing Mode",
+      "type": "picklist",
+      "length": 255,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "Salesforce",
+        "External"
+      ]
+    },
+    {
+      "name": "Amount",
+      "label": "Amount",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "Status",
+      "label": "Status",
+      "type": "picklist",
+      "length": 255,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "Draft",
+        "Processed",
+        "Canceled",
+        "Pending"
+      ]
+    },
+    {
+      "name": "Type",
+      "label": "Adjustment Type",
+      "type": "picklist",
+      "length": 255,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "Reversal"
+      ]
+    },
+    {
+      "name": "Date",
+      "label": "Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "GatewayDate",
+      "label": "Gateway Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "EffectiveDate",
+      "label": "Effective Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Comments",
+      "label": "Comments",
+      "type": "textarea",
+      "length": 1000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "GatewayRefNumber",
+      "label": "Gateway Reference Number",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "GatewayResultCode",
+      "label": "Gateway Result Code",
+      "type": "string",
+      "length": 64,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "SfResultCode",
+      "label": "Salesforce Result Code",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Success",
+        "PermanentFail",
+        "Decline",
+        "RequiresReview",
+        "Indeterminate",
+        "SystemError",
+        "ValidationError"
+      ]
+    },
+    {
+      "name": "AccountId",
+      "label": "Account ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Account"
+      ],
+      "relationshipName": "Account"
+    },
+    {
+      "name": "GatewayRefDetails",
+      "label": "Gateway Reference Details",
+      "type": "textarea",
+      "length": 1000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "GatewayResultCodeDescription",
+      "label": "Gateway Result Code Description",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IpAddress",
+      "label": "IP Address",
+      "type": "string",
+      "length": 39,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MacAddress",
+      "label": "MAC Address",
+      "type": "string",
+      "length": 32,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Phone",
+      "label": "Phone",
+      "type": "phone",
+      "length": 40,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Email",
+      "label": "Audit Email",
+      "type": "email",
+      "length": 80,
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "PaymentGatewayLog",
+      "field": "ReferencedEntityId",
+      "relationshipName": "PaymentGatewayLogs",
+      "cascadeDelete": false
+    }
+  ]
+}

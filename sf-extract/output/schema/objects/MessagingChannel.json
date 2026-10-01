@@ -1,0 +1,412 @@
+{
+  "name": "MessagingChannel",
+  "label": "Messaging Channel",
+  "custom": false,
+  "keyPrefix": "0Mj",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Messaging Channel ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "DeveloperName",
+      "label": "Developer Name",
+      "type": "string",
+      "length": 80,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "Language",
+      "label": "Master Language",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "en_US",
+        "de",
+        "es",
+        "fr",
+        "it",
+        "ja",
+        "sv",
+        "ko",
+        "zh_TW",
+        "zh_CN",
+        "pt_BR",
+        "nl_NL",
+        "da",
+        "th",
+        "fi",
+        "ru",
+        "es_MX",
+        "no"
+      ]
+    },
+    {
+      "name": "MasterLabel",
+      "label": "Channel Name",
+      "type": "string",
+      "length": 80,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Modified On",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Description",
+      "label": "Description",
+      "type": "textarea",
+      "length": 65536,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ChannelAddressIdentifier",
+      "label": "Channel Address Identifier",
+      "type": "string",
+      "length": 36,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MessageType",
+      "label": "Type",
+      "type": "picklist",
+      "length": 255,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "Text",
+        "Facebook",
+        "Line",
+        "GoogleHome",
+        "Alexa",
+        "Omega",
+        "AppleBusinessChat",
+        "WeChat",
+        "WebChat",
+        "WhatsApp",
+        "Phone",
+        "EmbeddedMessaging",
+        "Voice",
+        "Custom",
+        "InternalCopilot",
+        "VoiceIntegrationPilot",
+        "PstnVoice",
+        "WhatsAppVoice",
+        "SipVoice",
+        "Email",
+        "Rcs",
+        "MsCopilot"
+      ]
+    },
+    {
+      "name": "MessagingPlatformKey",
+      "label": "Messaging Platform Key",
+      "type": "string",
+      "length": 150,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "IsoCountryCode",
+      "label": "ISO Country Code",
+      "type": "string",
+      "length": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "PlatformType",
+      "label": "Platform Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Standard",
+        "Enhanced"
+      ]
+    },
+    {
+      "name": "IsActive",
+      "label": "Active",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ChannelDefinitionId",
+      "label": "Conversation Channel Definition ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "ConversationChannelDefinition"
+      ],
+      "relationshipName": "ChannelDefinition"
+    },
+    {
+      "name": "RoutingType",
+      "label": "Routing Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "OmniQueue",
+        "OmniSkills"
+      ]
+    },
+    {
+      "name": "RoutingConfigurationId",
+      "label": "Routing Configuration ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "QueueRoutingConfig"
+      ],
+      "relationshipName": "RoutingConfiguration"
+    },
+    {
+      "name": "TargetQueueId",
+      "label": "Queue ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Group"
+      ],
+      "relationshipName": "TargetQueue"
+    },
+    {
+      "name": "SessionHandlerId",
+      "label": "Routing Type ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Group",
+        "User"
+      ],
+      "relationshipName": "SessionHandler"
+    },
+    {
+      "name": "FallbackQueueId",
+      "label": "Queue ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Group"
+      ],
+      "relationshipName": "FallbackQueue"
+    },
+    {
+      "name": "ConsentType",
+      "label": "Consent Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "ImplicitOptIn",
+        "ExplicitOptIn",
+        "DoubleOptIn"
+      ],
+      "inlineHelpText": "The level of customer consent required for your company to message them on this channel. Customers can opt out any time. If you don’t see a particular consent level, this channel type doesn’t allow it. Implicit Opt-In: By sending an initial message to your company, the customer agrees to receive messages. Explicit Opt-In and Double Opt-In: The customer uses keywords to actively opt into receiving messages."
+    },
+    {
+      "name": "OptInPrompt",
+      "label": "Opt-In Prompt",
+      "type": "textarea",
+      "length": 65536,
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "Asks customers to opt in to receive messages on this channel. To opt in, customers can reply with an opt-in keyword. You can’t customize the prompt for other languages."
+    },
+    {
+      "name": "DoubleOptInPrompt",
+      "label": "Double Opt-In Prompt",
+      "type": "textarea",
+      "length": 65536,
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "Double Opt-In Prompt"
+    },
+    {
+      "name": "IsRequireDoubleOptIn",
+      "label": "Require Double Opt-In?",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "DefaultResponse",
+      "label": "Default Response Text",
+      "type": "textarea",
+      "length": 4096,
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "Message sent to the customer when a customer initiates a conversation."
+    },
+    {
+      "name": "InitialResponse",
+      "label": "Conversation Acknowledgement",
+      "type": "textarea",
+      "length": 65536,
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "Message sent to the customer when a customer initiates a conversation."
+    },
+    {
+      "name": "EngagedResponse",
+      "label": "Start Conversation",
+      "type": "textarea",
+      "length": 65536,
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "Message sent to the customer when an agent accepts a chat."
+    },
+    {
+      "name": "ConversationEndResponse",
+      "label": "End Conversation",
+      "type": "textarea",
+      "length": 65536,
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "Message sent to the customer when the agent ends the conversation."
+    },
+    {
+      "name": "OfflineAgentsResponse",
+      "label": "Offline Agents Response",
+      "type": "textarea",
+      "length": 65536,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OutsideBusinessHoursResponse",
+      "label": "Outside Business Hours Response",
+      "type": "textarea",
+      "length": 65536,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "BusinessHoursId",
+      "label": "Business Hours ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "BusinessHours"
+      ],
+      "relationshipName": "BusinessHours"
+    },
+    {
+      "name": "IsRestrictedToBusinessHours",
+      "label": "Is Restricted to Business Hours",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LinkingPreference",
+      "label": "Select record type to link",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Contact"
+      ]
+    },
+    {
+      "name": "IsLinkedRecordOpenedAsSubTab",
+      "label": "Open linked record as a subtab within the Messaging Session",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "CommSubscriptionChannelType",
+      "field": "MessagingChannelId",
+      "relationshipName": "MessagingChannels",
+      "cascadeDelete": false
+    },
+    {
+      "child": "MessagingLink",
+      "field": "MessagingChannelId",
+      "relationshipName": "MessagingLinks",
+      "cascadeDelete": true
+    }
+  ]
+}

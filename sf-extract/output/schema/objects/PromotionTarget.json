@@ -1,0 +1,290 @@
+{
+  "name": "PromotionTarget",
+  "label": "Promotion Target",
+  "custom": false,
+  "keyPrefix": "2Pt",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Promotion Target ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Promotion Target Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "PromotionId",
+      "label": "Promotion ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "Promotion"
+      ],
+      "relationshipName": "Promotion"
+    },
+    {
+      "name": "PromotionTierId",
+      "label": "Promotion Tier ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "PromotionTier"
+      ],
+      "relationshipName": "PromotionTier"
+    },
+    {
+      "name": "TargetType",
+      "label": "Target Type",
+      "type": "picklist",
+      "length": 255,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "Product",
+        "ProductCategory",
+        "Transaction",
+        "Shipping",
+        "StandardShippingRate"
+      ]
+    },
+    {
+      "name": "TargetId",
+      "label": "Target ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Product2",
+        "ProductCategory",
+        "StandardShippingRate"
+      ],
+      "relationshipName": "Target"
+    },
+    {
+      "name": "AdjustmentType",
+      "label": "Adjustment Type",
+      "type": "picklist",
+      "length": 255,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "BonusProduct",
+        "FixedAmountOffLineItemTotal",
+        "FixedAmountOffTransaction",
+        "FixedAmountOffUnitPrice",
+        "FixedPrice",
+        "PercentageDiscount",
+        "TotalFixedPrice"
+      ]
+    },
+    {
+      "name": "AdjustmentPercent",
+      "label": "Adjustment Percent",
+      "type": "percent",
+      "precision": 5,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "AdjustmentAmount",
+      "label": "Adjustment Amount",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "RestrictionQuantity",
+      "label": "Quantity Limit",
+      "type": "double",
+      "precision": 18,
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "This field is mandatory if the Adjustment Type is Total Fixed Price. If the Adjustment Type is Bonus Product, then this field is limited to 1. For any other Adjustment Type, enter how many products can receive this discount or leave blank for an unlimited quantity."
+    },
+    {
+      "name": "TargetProductCategoryName",
+      "label": "Target Category Name",
+      "type": "string",
+      "length": 200,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TargetProductName",
+      "label": "Target Product Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TargetProductSku",
+      "label": "Target Product SKU",
+      "type": "string",
+      "length": 180,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TargetStandardShippingRateName",
+      "label": "Target Standard Shipping Rate Name",
+      "type": "string",
+      "length": 180,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TargetRuleCriteriaType",
+      "label": "Target Rule Criteria Type",
+      "type": "picklist",
+      "length": 255,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "All",
+        "Any"
+      ]
+    },
+    {
+      "name": "TargetOperator",
+      "label": "Target Operator",
+      "type": "picklist",
+      "length": 255,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "NONE",
+        "EQUAL_TO",
+        "NOT_EQUAL_TO"
+      ]
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "EmailMessage",
+      "field": "RelatedToId",
+      "relationshipName": "Emails",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Event",
+      "field": "WhatId",
+      "relationshipName": "Events",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Task",
+      "field": "WhatId",
+      "relationshipName": "Tasks",
+      "cascadeDelete": true
+    }
+  ]
+}

@@ -1,0 +1,467 @@
+{
+  "name": "FlowRecordVersion",
+  "label": "Flow Version",
+  "custom": false,
+  "keyPrefix": "10v",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Flow Version ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Flow Version Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FlowRecordId",
+      "label": "Flow ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "FlowRecord"
+      ],
+      "relationshipName": "FlowRecord"
+    },
+    {
+      "name": "VersionNumber",
+      "label": "Version Number",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ActivatedById",
+      "label": "User ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "ActivatedBy"
+    },
+    {
+      "name": "ActivatedDate",
+      "label": "Activated Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ProgressStatus",
+      "label": "Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Draft",
+        "Scheduled",
+        "PreparingData",
+        "InProgress",
+        "Finishing",
+        "Completed",
+        "Canceled",
+        "Error",
+        "UnderReview"
+      ]
+    },
+    {
+      "name": "Entries",
+      "label": "Entries",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Exits",
+      "label": "Exits",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Errors",
+      "label": "Errors",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Stopped",
+      "label": "Stopped",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsPaused",
+      "label": "Paused",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "PausingUserId",
+      "label": "User ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "PausingUser"
+    },
+    {
+      "name": "PausedDate",
+      "label": "Paused Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ResumingUserId",
+      "label": "User ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "ResumingUser"
+    },
+    {
+      "name": "ResumedDate",
+      "label": "Resumed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ReasonPaused",
+      "label": "Reason Paused",
+      "type": "textarea",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ScheduledStartDate",
+      "label": "Scheduled Start Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FlowType",
+      "label": "Flow Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "ActionCadenceAutolnch",
+        "ActionCadenceStepScrn",
+        "ActionPlanAutolnch",
+        "ApprovalOrchAutolnch",
+        "ApprovalOrchRecTrigAftSave",
+        "SchedulerApptsScrn",
+        "RecTrigAfterSave",
+        "RecTrigBefSave",
+        "SchdTrig",
+        "PfrmEvntTrig",
+        "RecTrigBefDel",
+        "DataCloudDataChg",
+        "AutolnchNoTrig",
+        "CartAsyncAutolnch",
+        "CheckoutScrn",
+        "ContactRequestScrn",
+        "CustLifecycleAftSave",
+        "CadenceStpRvwCrtr",
+        "ProcessBuilderCustmEvnt",
+        "DataCaptureScrn",
+        "DigitalFormScrn",
+        "EvaluationAutolnch",
+        "FieldServiceMobileScrn",
+        "FieldServiceWebScrn",
+        "Screen",
+        "MortgageLendingScrn",
+        "IndividualObjLinkingScrn",
+        "ProcessBuilderAutolnch",
+        "SegmentTrig",
+        "SegmentTrigAutolnch",
+        "EventDriven",
+        "FormSbmsEvntTrig",
+        "FormSbmsEvntTrigAutolnch",
+        "JourneyBuilderIntegration",
+        "LoginScrn",
+        "LoyaltyManagementAutolnch",
+        "CmsOrchAutolnch",
+        "ManagedContentAutolnch",
+        "IoTOrchestration",
+        "OrchAutolnch",
+        "OrchRecTrigAftSave",
+        "TemplateTrigPrompt",
+        "RcmdStrtgyAutolnch",
+        "RoutingAutolnch",
+        "EmpSvcCtlgItmScrn",
+        "SurveyScrn",
+        "SurveyEnrichAutolnch",
+        "TrxnSecurityAutolnch",
+        "IndicatorResultScrn",
+        "UserPrvsngScrn",
+        "ProcBldWkflw",
+        "ExternalSystemChange",
+        "EnterpriseScaleExternalSystemChange",
+        "ExtSysChgOrch",
+        "ExtSysChgFlowAppvl",
+        "DcvrFrameworkDataCaptureScrn",
+        "AutomationEventTrig",
+        "AutomationEventTrigAutolnch",
+        "ActvtyObjectMtchNoTrg",
+        "ActnEvntOrchAutolnchFlow",
+        "DataGraphDataChange",
+        "DataGraphDataChangeAutolnch",
+        "StgMgmtEvalAutolnch",
+        "ActivationTrigAutolnch",
+        "AdminAutomationEvent",
+        "IdentityUserRgstrAutolnch",
+        "BroadcastNoTrigger",
+        "AgxBackground",
+        "AgxDataRetrieval",
+        "AgxScreen",
+        "AgxOrchestration",
+        "OnDemandNoTrigger",
+        "IndivRelatedRecTrigAutolnch",
+        "UnifiedSchedulingFlowScrn",
+        "RecordQuery",
+        "CampaignMember",
+        "List",
+        "ApiEventFlow"
+      ]
+    },
+    {
+      "name": "Status",
+      "label": "Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Active",
+        "Draft",
+        "Obsolete",
+        "InvalidDraft",
+        "UnderReview"
+      ]
+    },
+    {
+      "name": "Description",
+      "label": "Description",
+      "type": "textarea",
+      "length": 65535,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "RunInMode",
+      "label": "Run in Mode",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "DefaultMode",
+        "SystemModeWithSharing",
+        "SystemModeWithoutSharing"
+      ]
+    },
+    {
+      "name": "ApiVersion",
+      "label": "API Version",
+      "type": "double",
+      "precision": 18,
+      "scale": 1,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsTemplate",
+      "label": "Template",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TriggerObjectOrEventLabel",
+      "label": "Triggering Object or Platform Event Label",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Builder",
+      "label": "Built with",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "SourceTemplateId",
+      "label": "Flow ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "FlowRecord"
+      ],
+      "relationshipName": "SourceTemplate"
+    },
+    {
+      "name": "IsOverridable",
+      "label": "Overridable",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OverriddenById",
+      "label": "Flow ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "FlowRecord"
+      ],
+      "relationshipName": "OverriddenBy"
+    },
+    {
+      "name": "OverriddenFlowId",
+      "label": "Flow ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "FlowRecord"
+      ],
+      "relationshipName": "OverriddenFlow"
+    },
+    {
+      "name": "CapacityCategory",
+      "label": "Capacity Category",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "MarketingCloudFlow"
+      ]
+    },
+    {
+      "name": "AreMetricsLoggedToDataCloud",
+      "label": "Log Metrics to Data Cloud",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "AccessType",
+      "label": "Access Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Open",
+        "NamespaceRestricted"
+      ]
+    }
+  ],
+  "childRelationships": []
+}

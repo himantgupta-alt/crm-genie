@@ -1,0 +1,61 @@
+[
+  {
+    "object": "Case",
+    "name": "Standard",
+    "active": true,
+    "entries": [
+      {
+        "criteria": [
+          "Account.BillingCountry equals US,USA,United States,United States of America",
+          "Account.SLA__c equals Platinum",
+          "Case.Priority equals High"
+        ]
+      },
+      {
+        "criteria": [
+          "Account.BillingCountry equals US,USA,United States,United States of America",
+          "Account.SLA__c equals Platinum",
+          "Case.Priority equals Medium,Low"
+        ]
+      },
+      {
+        "criteria": [
+          "Account.BillingCountry equals US,USA,United States,United States of America",
+          "Account.SLA__c equals Gold",
+          "Case.Priority equals High"
+        ]
+      },
+      {
+        "criteria": [
+          "Account.BillingCountry equals US,USA,United States,United States of America",
+          "Account.SLA__c equals Gold",
+          "Case.Priority equals Medium,Low"
+        ]
+      },
+      {
+        "criteria": [
+          "Account.BillingCountry equals US,USA,United States,United States of America",
+          "Account.SLA__c equals Silver"
+        ]
+      },
+      {
+        "criteria": [
+          "Account.BillingCountry equals US,USA,United States,United States of America",
+          "Account.SLA__c equals Bronze"
+        ]
+      },
+      {
+        "criteria": [
+          "Account.BillingCountry notEqual US,USA,United States,United States of America",
+          "Account.SLA__c equals Gold,Platinum"
+        ]
+      },
+      {
+        "criteria": [
+          "Account.BillingCountry notEqual US,USA,United States,United States of America",
+          "Account.SLA__c equals Silver,Bronze"
+        ]
+      }
+    ]
+  }
+]

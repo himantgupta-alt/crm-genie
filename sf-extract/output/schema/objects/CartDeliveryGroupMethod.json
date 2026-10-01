@@ -1,0 +1,239 @@
+{
+  "name": "CartDeliveryGroupMethod",
+  "label": "Cart Delivery Group Method",
+  "custom": false,
+  "keyPrefix": "7cd",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Cart Delivery Group Method ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Name",
+      "type": "string",
+      "length": 255,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "WebCartId",
+      "label": "Cart ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "WebCart"
+      ],
+      "relationshipName": "WebCart"
+    },
+    {
+      "name": "CartDeliveryGroupId",
+      "label": "Cart Delivery Group ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "CartDeliveryGroup"
+      ],
+      "relationshipName": "CartDeliveryGroup"
+    },
+    {
+      "name": "CartCheckoutSessionId",
+      "label": "Cart Checkout Session ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "CartCheckoutSession"
+      ],
+      "relationshipName": "CartCheckoutSession"
+    },
+    {
+      "name": "ShippingFee",
+      "label": "Shipping Fee",
+      "type": "currency",
+      "precision": 18,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "ExternalProvider",
+      "label": "External Provider",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Carrier",
+      "label": "Carrier",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ClassOfService",
+      "label": "Class Of Service",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ProductId",
+      "label": "Product ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Product2"
+      ],
+      "relationshipName": "Product"
+    },
+    {
+      "name": "ReferenceNumber",
+      "label": "Reference Number",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsActive",
+      "label": "Is Active",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TotalAdjustmentAmount",
+      "label": "Total Adjustment Amount",
+      "type": "currency",
+      "precision": 18,
+      "required": false,
+      "custom": false,
+      "calculated": true
+    },
+    {
+      "name": "AdjustedShippingFee",
+      "label": "Adjusted Shipping Fee",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TransitTimeMin",
+      "label": "Minimum Transit Time",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TransitTimeMax",
+      "label": "Maximum Transit Time",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TransitTimeUnit",
+      "label": "Unit of Transit Time",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Hours",
+        "Days",
+        "Weeks"
+      ]
+    },
+    {
+      "name": "ProcessTime",
+      "label": "Order Processing Time",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ProcessTimeUnit",
+      "label": "Unit of Order Processing Time",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Hours",
+        "Days",
+        "Weeks"
+      ]
+    }
+  ],
+  "childRelationships": []
+}

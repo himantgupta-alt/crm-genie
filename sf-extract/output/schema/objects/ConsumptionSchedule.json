@@ -1,0 +1,231 @@
+{
+  "name": "ConsumptionSchedule",
+  "label": "Consumption Schedule",
+  "custom": false,
+  "keyPrefix": "0Mh",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Consumption Schedule ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnerId",
+      "label": "Owner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Group",
+        "User"
+      ],
+      "relationshipName": "Owner"
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Consumption Schedule Name",
+      "type": "string",
+      "length": 255,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsActive",
+      "label": "Active",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Description",
+      "label": "Description",
+      "type": "textarea",
+      "length": 32000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "BillingTerm",
+      "label": "Billing Term",
+      "type": "int",
+      "required": true,
+      "custom": false,
+      "inlineHelpText": "Number of billing units that this consumption schedule applies to. For example, if the selected Billing Term Unit is Month, enter 12 to apply the consumption schedules for 12 months. Apply consumption schedules to as many as 20 quarters, 60 months, or 5 years."
+    },
+    {
+      "name": "BillingTermUnit",
+      "label": "Billing Term Unit",
+      "type": "picklist",
+      "length": 255,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "Month",
+        "Quarter",
+        "Year"
+      ],
+      "inlineHelpText": "The unit used with the billing term to determine the billing frequency."
+    },
+    {
+      "name": "Type",
+      "label": "Type",
+      "type": "picklist",
+      "length": 255,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "Range",
+        "Slab"
+      ],
+      "inlineHelpText": "Range: The schedule prices only using the tier that applies to the usage quantity. Slab: Usage within a given bound receives pricing equal to its tier's value."
+    },
+    {
+      "name": "UnitOfMeasure",
+      "label": "Unit of Measure",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "Usage quantities and rates apply to this unit of measurement."
+    },
+    {
+      "name": "RatingMethod",
+      "label": "Rating Method",
+      "type": "picklist",
+      "length": 255,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "Tier"
+      ],
+      "inlineHelpText": "Choose a specific use case to rate usage against this schedule. This is a controlling picklist for the Type field."
+    },
+    {
+      "name": "MatchingAttribute",
+      "label": "Matching Attribute",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "Usage is matched with a consumption schedule if the records share the same Matching Attribute value."
+    },
+    {
+      "name": "NumberOfRates",
+      "label": "Number of Consumption Rates",
+      "type": "int",
+      "required": false,
+      "custom": false,
+      "calculated": true
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ConsumptionRate",
+      "field": "ConsumptionScheduleId",
+      "relationshipName": "ConsumptionRates",
+      "cascadeDelete": true
+    },
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ProductConsumptionSchedule",
+      "field": "ConsumptionScheduleId",
+      "relationshipName": "ProductConsumptionSchedules",
+      "cascadeDelete": true
+    }
+  ]
+}

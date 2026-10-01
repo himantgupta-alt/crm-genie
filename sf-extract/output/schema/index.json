@@ -1,0 +1,3537 @@
+[
+  {
+    "name": "AITrustAttrSetup",
+    "label": "AI Trust Attribute Setup",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 13
+  },
+  {
+    "name": "AITrustAttribute",
+    "label": "AI Trust Attribute",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 15
+  },
+  {
+    "name": "Account",
+    "label": "Account",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 70
+  },
+  {
+    "name": "AccountPartner",
+    "label": "Account Partner",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 13
+  },
+  {
+    "name": "ActionLinkGroupTemplate",
+    "label": "Action Link Group Template",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 15
+  },
+  {
+    "name": "ActionLinkTemplate",
+    "label": "Action Link Template",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 20
+  },
+  {
+    "name": "ActivationTarget",
+    "label": "Activation Target",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 31
+  },
+  {
+    "name": "Address",
+    "label": "Address",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 27
+  },
+  {
+    "name": "AiSkill",
+    "label": "AI Skill",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 22
+  },
+  {
+    "name": "AlternativePaymentMethod",
+    "label": "Alternative Payment Method",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 49
+  },
+  {
+    "name": "ApexClass",
+    "label": "Apex Class",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 14
+  },
+  {
+    "name": "AppUsageAssignment",
+    "label": "Application Usage Assignment",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 10
+  },
+  {
+    "name": "AppointmentAssignmentPolicy",
+    "label": "Appointment Assignment Policy",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 13
+  },
+  {
+    "name": "AppointmentCategory",
+    "label": "Appointment Category",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 13
+  },
+  {
+    "name": "AppointmentInvitation",
+    "label": "Appointment Invitation",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 22
+  },
+  {
+    "name": "AppointmentInvitee",
+    "label": "Appointment Invitee",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 13
+  },
+  {
+    "name": "AppointmentSchedulingPolicy",
+    "label": "Appointment Scheduling Policy",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 23
+  },
+  {
+    "name": "AppointmentTopicTimeSlot",
+    "label": "Appointment Topic Time Slot",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 13
+  },
+  {
+    "name": "ApprovalSubmission",
+    "label": "Approval Submission",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 18
+  },
+  {
+    "name": "ApprovalSubmissionDetail",
+    "label": "Approval Submission Detail",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 18
+  },
+  {
+    "name": "ApprovalWorkItem",
+    "label": "Approval Work Item",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 21
+  },
+  {
+    "name": "Asset",
+    "label": "Asset",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 50
+  },
+  {
+    "name": "AssetAction",
+    "label": "Asset Action",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 36
+  },
+  {
+    "name": "AssetActionSource",
+    "label": "Asset Action Source",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 21
+  },
+  {
+    "name": "AssetRelationship",
+    "label": "Asset Relationship",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 15
+  },
+  {
+    "name": "AssetStatePeriod",
+    "label": "Asset State Period",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 20
+  },
+  {
+    "name": "AssignedResource",
+    "label": "Assigned Resource",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 13
+  },
+  {
+    "name": "AssociatedLocation",
+    "label": "Associated Location",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 15
+  },
+  {
+    "name": "AsyncOperationLog",
+    "label": "Async Operation Log",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 21
+  },
+  {
+    "name": "AuthorizationForm",
+    "label": "Authorization Form",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 16
+  },
+  {
+    "name": "AuthorizationFormConsent",
+    "label": "Authorization Form Consent",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 19
+  },
+  {
+    "name": "AuthorizationFormDataUse",
+    "label": "Authorization Form Data Use",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 13
+  },
+  {
+    "name": "AuthorizationFormText",
+    "label": "Authorization Form Text",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 16
+  },
+  {
+    "name": "BackgroundOperation",
+    "label": "Background Operation",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 27
+  },
+  {
+    "name": "BrowserPolicyViolation",
+    "label": "Browser Policy Violation",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 14
+  },
+  {
+    "name": "BusinessBrand",
+    "label": "Business Brand",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 13
+  },
+  {
+    "name": "BusinessHours",
+    "label": "Business Hours",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 25
+  },
+  {
+    "name": "BuyerGroup",
+    "label": "Buyer Group",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 12
+  },
+  {
+    "name": "Campaign",
+    "label": "Campaign",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 33
+  },
+  {
+    "name": "CampaignMember",
+    "label": "Campaign Member",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 36
+  },
+  {
+    "name": "CampaignMemberStatus",
+    "label": "Campaign Member Status",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 12
+  },
+  {
+    "name": "CardPaymentMethod",
+    "label": "Card Payment Method",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 59
+  },
+  {
+    "name": "CartDeliveryGroup",
+    "label": "Cart Delivery Group",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 43
+  },
+  {
+    "name": "CartDeliveryGroupMethod",
+    "label": "Cart Delivery Group Method",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 25
+  },
+  {
+    "name": "CartItem",
+    "label": "Cart Item",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 53
+  },
+  {
+    "name": "CartItemPriceAdjustment",
+    "label": "Cart Item Price Adjustment",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 24
+  },
+  {
+    "name": "CartTax",
+    "label": "Cart Tax",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 17
+  },
+  {
+    "name": "CartValidationOutput",
+    "label": "Cart Message",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 16
+  },
+  {
+    "name": "Case",
+    "label": "Case",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 40
+  },
+  {
+    "name": "CaseComment",
+    "label": "Case Comment",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 11
+  },
+  {
+    "name": "CaseContactRole",
+    "label": "Case Contact Role",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 10
+  },
+  {
+    "name": "CaseMilestone",
+    "label": "Case Milestone",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 27
+  },
+  {
+    "name": "CaseRelatedIssue",
+    "label": "Case Related Issue",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 12
+  },
+  {
+    "name": "ChangeRequest",
+    "label": "Change Request",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 29
+  },
+  {
+    "name": "ChangeRequestRelatedIssue",
+    "label": "Change Request Related Issue",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 12
+  },
+  {
+    "name": "ChangeRequestRelatedItem",
+    "label": "Change Request Related Item",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 13
+  },
+  {
+    "name": "CollaborationGroup",
+    "label": "Group",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 27
+  },
+  {
+    "name": "CollaborationGroupMember",
+    "label": "Group Member",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 11
+  },
+  {
+    "name": "CollaborationGroupRecord",
+    "label": "Group Record",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 9
+  },
+  {
+    "name": "CommSubscription",
+    "label": "Communication Subscription",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 11
+  },
+  {
+    "name": "CommSubscriptionChannelType",
+    "label": "Communication Subscription Channel Type",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 16
+  },
+  {
+    "name": "CommSubscriptionConsent",
+    "label": "Communication Subscription Consent",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 24
+  },
+  {
+    "name": "CommSubscriptionTiming",
+    "label": "Communication Subscription Timing",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 12
+  },
+  {
+    "name": "ConsumptionRate",
+    "label": "Consumption Rate",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 15
+  },
+  {
+    "name": "ConsumptionSchedule",
+    "label": "Consumption Schedule",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 20
+  },
+  {
+    "name": "Contact",
+    "label": "Contact",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 67
+  },
+  {
+    "name": "ContactPointAddress",
+    "label": "Contact Point Address",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 35
+  },
+  {
+    "name": "ContactPointConsent",
+    "label": "Contact Point Consent",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 23
+  },
+  {
+    "name": "ContactPointEmail",
+    "label": "Contact Point Email",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 25
+  },
+  {
+    "name": "ContactPointPhone",
+    "label": "Contact Point Phone",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 30
+  },
+  {
+    "name": "ContactPointTypeConsent",
+    "label": "Contact Point Type Consent",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 23
+  },
+  {
+    "name": "ContactRequest",
+    "label": "Contact Request",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 19
+  },
+  {
+    "name": "ContentDocument",
+    "label": "Content Document",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 29
+  },
+  {
+    "name": "ContentDocumentLink",
+    "label": "Content Document Link",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 7
+  },
+  {
+    "name": "ContentFolderItem",
+    "label": "Content Folder Item",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 14
+  },
+  {
+    "name": "ContentVersion",
+    "label": "Content Version",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 46
+  },
+  {
+    "name": "ContentWorkspace",
+    "label": "Library",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 19
+  },
+  {
+    "name": "Contract",
+    "label": "Contract",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 41
+  },
+  {
+    "name": "ContractContactRole",
+    "label": "Contract Contact Role",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 11
+  },
+  {
+    "name": "ContractLineItem",
+    "label": "Contract Line Item",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 27
+  },
+  {
+    "name": "ConvEntryRelatedRecordCopy",
+    "label": "Conv Entry Related Record Copy",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 12
+  },
+  {
+    "name": "Conversation",
+    "label": "Conversation",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 13
+  },
+  {
+    "name": "ConversationEntryCopy",
+    "label": "Conversation Entry Copy",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 22
+  },
+  {
+    "name": "Coupon",
+    "label": "Coupon",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 19
+  },
+  {
+    "name": "CouponCodeRedemption",
+    "label": "Coupon Code Redemption",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 12
+  },
+  {
+    "name": "CreditMemo",
+    "label": "Credit Memo",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 43
+  },
+  {
+    "name": "CreditMemoInvApplication",
+    "label": "Credit Memo Invoice Application",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 20
+  },
+  {
+    "name": "CreditMemoLine",
+    "label": "Credit Memo Line",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 39
+  },
+  {
+    "name": "CspTrustedSite",
+    "label": "Trusted URL",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 23
+  },
+  {
+    "name": "CustomHttpHeader",
+    "label": "Custom HTTP Header",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 11
+  },
+  {
+    "name": "CustomPermission",
+    "label": "Custom Permission",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 15
+  },
+  {
+    "name": "CustomPermissionDependency",
+    "label": "Custom Permission Dependency",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 9
+  },
+  {
+    "name": "Customer",
+    "label": "Customer",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 14
+  },
+  {
+    "name": "DandBCompany",
+    "label": "D&B Company",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 123
+  },
+  {
+    "name": "Dashboard",
+    "label": "Dashboard",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 31
+  },
+  {
+    "name": "DataAction",
+    "label": "Data Action",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 18
+  },
+  {
+    "name": "DataActionTarget",
+    "label": "Data Action Target",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 20
+  },
+  {
+    "name": "DataCommunicationCap",
+    "label": "Communication Capping",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 15
+  },
+  {
+    "name": "DataGraph",
+    "label": "Data Graph",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 27
+  },
+  {
+    "name": "DataKitDeploymentLog",
+    "label": "Data Kit Deployment Log",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 29
+  },
+  {
+    "name": "DataLakeObjectInstance",
+    "label": "Data Lake Object",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 34
+  },
+  {
+    "name": "DataMaskCustomValueLibrary",
+    "label": "Custom Library",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 16
+  },
+  {
+    "name": "DataObjSecondaryIndex",
+    "label": "Secondary Index",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 18
+  },
+  {
+    "name": "DataQueryWorkspace",
+    "label": "Query Editor",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 13
+  },
+  {
+    "name": "DataQueryWorkspaceTab",
+    "label": "Query Tab",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 13
+  },
+  {
+    "name": "DataSemanticSearch",
+    "label": "Search Index",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 21
+  },
+  {
+    "name": "DataStream",
+    "label": "Data Stream",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 33
+  },
+  {
+    "name": "DataUseLegalBasis",
+    "label": "Data Use Legal Basis",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 13
+  },
+  {
+    "name": "DataUsePurpose",
+    "label": "Data Use Purpose",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 14
+  },
+  {
+    "name": "DeliveryEstimationSetup",
+    "label": "Delivery Estimation Setup",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 32
+  },
+  {
+    "name": "DevopsActivityLog",
+    "label": "Activity History",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 25
+  },
+  {
+    "name": "DevopsEnvDeployment",
+    "label": "Env Deployment",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 31
+  },
+  {
+    "name": "DevopsEnvDeploymentMbr",
+    "label": "Env Deployment Member",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 18
+  },
+  {
+    "name": "DevopsEnvironment",
+    "label": "Environment",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 27
+  },
+  {
+    "name": "DevopsPipeline",
+    "label": "DevOps Pipeline",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 16
+  },
+  {
+    "name": "DevopsPipelineEnvironment",
+    "label": "DevOps Pipeline Environment",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 14
+  },
+  {
+    "name": "DevopsPipelineStage",
+    "label": "DevOps Pipeline Stage",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 18
+  },
+  {
+    "name": "DevopsPipelineStageTrigger",
+    "label": "Pipeline Stage Trigger",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 17
+  },
+  {
+    "name": "DevopsPipelineTestProvider",
+    "label": "Pipeline Test Provider",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 14
+  },
+  {
+    "name": "DevopsPipelnStgProm",
+    "label": "DevOps Pipeline Stage Promotion",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 14
+  },
+  {
+    "name": "DevopsPipelnStgPromWkItem",
+    "label": "DevOps Pipeline Stage Promotion Work Item",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 15
+  },
+  {
+    "name": "DevopsProject",
+    "label": "DevOps Project",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 14
+  },
+  {
+    "name": "DevopsProjectEnvironment",
+    "label": "DevOps Project Environment",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 13
+  },
+  {
+    "name": "DevopsProjectPipeline",
+    "label": "DevOps Project Pipeline",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 13
+  },
+  {
+    "name": "DevopsQualityGate",
+    "label": "Quality Gate",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 12
+  },
+  {
+    "name": "DevopsQualityGateResult",
+    "label": "Quality Gate Result",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 13
+  },
+  {
+    "name": "DevopsQualityGateRule",
+    "label": "Quality Gate Rule",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 13
+  },
+  {
+    "name": "DevopsQualityGateRuleResult",
+    "label": "Quality Gate Rule Result",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 13
+  },
+  {
+    "name": "DevopsRequestInfo",
+    "label": "Request Info",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 18
+  },
+  {
+    "name": "DevopsTest",
+    "label": "Test",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 28
+  },
+  {
+    "name": "DevopsTestExecution",
+    "label": "Test Execution",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 23
+  },
+  {
+    "name": "DevopsTestProviderSyncLog",
+    "label": "Test Provider Sync Log",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 17
+  },
+  {
+    "name": "DevopsTestSuite",
+    "label": "Test Suite",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 21
+  },
+  {
+    "name": "DevopsTestSuiteExecution",
+    "label": "Test Suite Execution",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 27
+  },
+  {
+    "name": "DevopsTestSuiteGroupExec",
+    "label": "Test Suite Group Execution",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 18
+  },
+  {
+    "name": "DevopsTestSuiteStage",
+    "label": "Test Suite Stage",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 15
+  },
+  {
+    "name": "DevopsTestSuiteTest",
+    "label": "Test Suite Test",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 15
+  },
+  {
+    "name": "DigitalWallet",
+    "label": "Digital Wallet",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 43
+  },
+  {
+    "name": "DuplicateRecordItem",
+    "label": "Duplicate Record Item",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 10
+  },
+  {
+    "name": "DuplicateRecordSet",
+    "label": "Duplicate Record Set",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 12
+  },
+  {
+    "name": "DuplicateRule",
+    "label": "Duplicate Rule",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 15
+  },
+  {
+    "name": "EmailMessage",
+    "label": "Email Message",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 41
+  },
+  {
+    "name": "EmailTemplate",
+    "label": "Email Template",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 29
+  },
+  {
+    "name": "EngagementChannelType",
+    "label": "Engagement Channel Type",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 14
+  },
+  {
+    "name": "EngagementChannelWorkType",
+    "label": "Engagement Channel Work Type",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 13
+  },
+  {
+    "name": "EnhancedLetterhead",
+    "label": "Enhanced Letterhead",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 13
+  },
+  {
+    "name": "Entitlement",
+    "label": "Entitlement",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 27
+  },
+  {
+    "name": "EntitlementContact",
+    "label": "Entitlement Contact",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 10
+  },
+  {
+    "name": "EntityMilestone",
+    "label": "Object Milestone",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 29
+  },
+  {
+    "name": "Event",
+    "label": "Event",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 49
+  },
+  {
+    "name": "ExtDataShareTarget",
+    "label": "Data Share Target",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 15
+  },
+  {
+    "name": "ExternalEvent",
+    "label": "External Event",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 13
+  },
+  {
+    "name": "FeedItem",
+    "label": "Feed Item",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 26
+  },
+  {
+    "name": "FinanceBalanceSnapshot",
+    "label": "Finance Balance Snapshot",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 38
+  },
+  {
+    "name": "FinanceTransaction",
+    "label": "Finance Transaction",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 54
+  },
+  {
+    "name": "FlowInterview",
+    "label": "Flow Interview",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 18
+  },
+  {
+    "name": "FlowOrchestration",
+    "label": "Orchestration",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 32
+  },
+  {
+    "name": "FlowOrchestrationInstance",
+    "label": "Orchestration Run",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 24
+  },
+  {
+    "name": "FlowOrchestrationLog",
+    "label": "Orchestration Run Log",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 21
+  },
+  {
+    "name": "FlowOrchestrationStageInstance",
+    "label": "Orchestration Stage Run",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 14
+  },
+  {
+    "name": "FlowOrchestrationStepInstance",
+    "label": "Orchestration Step Run",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 19
+  },
+  {
+    "name": "FlowOrchestrationVersion",
+    "label": "Orchestration Version",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 25
+  },
+  {
+    "name": "FlowOrchestrationWorkItem",
+    "label": "Orchestration Work Item",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 24
+  },
+  {
+    "name": "FlowRecord",
+    "label": "Flow",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 48
+  },
+  {
+    "name": "FlowRecordElement",
+    "label": "Flow Element",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 12
+  },
+  {
+    "name": "FlowRecordVersion",
+    "label": "Flow Version",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 41
+  },
+  {
+    "name": "FlowRecordVersionOccurrence",
+    "label": "Flow Version Occurrence",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 21
+  },
+  {
+    "name": "FulfillmentOrder",
+    "label": "Fulfillment Order",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 65
+  },
+  {
+    "name": "FulfillmentOrderItemAdjustment",
+    "label": "Fulfillment Order Item Adjustment",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 17
+  },
+  {
+    "name": "FulfillmentOrderItemTax",
+    "label": "Fulfillment Order Item Tax",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 16
+  },
+  {
+    "name": "FulfillmentOrderLineItem",
+    "label": "Fulfillment Order Product",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 33
+  },
+  {
+    "name": "Holiday",
+    "label": "Holiday",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 21
+  },
+  {
+    "name": "IPAddressRange",
+    "label": "IP Address Range",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 15
+  },
+  {
+    "name": "Idea",
+    "label": "Idea",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 26
+  },
+  {
+    "name": "IdentityResolution",
+    "label": "Identity Resolution",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 36
+  },
+  {
+    "name": "IframeWhiteListUrl",
+    "label": "Trusted Domain for Inline Frames",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 9
+  },
+  {
+    "name": "Image",
+    "label": "Image",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 20
+  },
+  {
+    "name": "Incident",
+    "label": "Incident",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 40
+  },
+  {
+    "name": "IncidentRelatedItem",
+    "label": "Incident Related Item",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 14
+  },
+  {
+    "name": "Individual",
+    "label": "Individual",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 34
+  },
+  {
+    "name": "InventoryItemReservation",
+    "label": "Inventory Item Reservation",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 18
+  },
+  {
+    "name": "InventoryReservation",
+    "label": "Inventory Reservation",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 19
+  },
+  {
+    "name": "Invoice",
+    "label": "Invoice",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 43
+  },
+  {
+    "name": "InvoiceLine",
+    "label": "Invoice Line",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 43
+  },
+  {
+    "name": "Lead",
+    "label": "Lead",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 62
+  },
+  {
+    "name": "LegalEntity",
+    "label": "Legal Entity",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 25
+  },
+  {
+    "name": "ListEmail",
+    "label": "List Email",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 27
+  },
+  {
+    "name": "Location",
+    "label": "Location",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 48
+  },
+  {
+    "name": "LocationGroup",
+    "label": "Location Group",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 15
+  },
+  {
+    "name": "LocationGroupAssignment",
+    "label": "Location Group Assignment",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 16
+  },
+  {
+    "name": "LocationShippingCarrierMethod",
+    "label": "Location Shipping Carrier Method",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 23
+  },
+  {
+    "name": "Macro",
+    "label": "Macro",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 15
+  },
+  {
+    "name": "ManagedContent",
+    "label": "Managed Content",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 14
+  },
+  {
+    "name": "ManagedContentVariant",
+    "label": "Managed Content Variant",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 19
+  },
+  {
+    "name": "MarketSegment",
+    "label": "Segment",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 56
+  },
+  {
+    "name": "MarketSegmentActivation",
+    "label": "Activation",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 50
+  },
+  {
+    "name": "MessagingChannel",
+    "label": "Messaging Channel",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 37
+  },
+  {
+    "name": "MessagingDeliveryError",
+    "label": "Messaging Delivery Error",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 17
+  },
+  {
+    "name": "MessagingEndUser",
+    "label": "Messaging User",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 26
+  },
+  {
+    "name": "MessagingLink",
+    "label": "Messaging Link",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 12
+  },
+  {
+    "name": "MessagingSession",
+    "label": "Messaging Session",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 41
+  },
+  {
+    "name": "MessagingTemplate",
+    "label": "Messaging Template",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 12
+  },
+  {
+    "name": "MktCalculatedInsight",
+    "label": "Calculated Insight",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 22
+  },
+  {
+    "name": "MktDataTransform",
+    "label": "Data Transform",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 25
+  },
+  {
+    "name": "MktMLModel",
+    "label": "Model",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 20
+  },
+  {
+    "name": "Note",
+    "label": "Note",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 12
+  },
+  {
+    "name": "OperatingHours",
+    "label": "Operating Hours",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 13
+  },
+  {
+    "name": "OperatingHoursHoliday",
+    "label": "Operating Hours Holiday",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 13
+  },
+  {
+    "name": "Opportunity",
+    "label": "Opportunity",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 47
+  },
+  {
+    "name": "OpportunityContactRole",
+    "label": "Opportunity Contact Role",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 11
+  },
+  {
+    "name": "OpportunityLineItem",
+    "label": "Opportunity Product",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 21
+  },
+  {
+    "name": "OpportunityPartner",
+    "label": "Opportunity Partner",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 12
+  },
+  {
+    "name": "Order",
+    "label": "Order",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 57
+  },
+  {
+    "name": "OrderItem",
+    "label": "Order Product",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 20
+  },
+  {
+    "name": "PartyConsent",
+    "label": "Party Consent",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 20
+  },
+  {
+    "name": "Payment",
+    "label": "Payment",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 51
+  },
+  {
+    "name": "PaymentAuthAdjustment",
+    "label": "Payment Authorization Adjustment",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 29
+  },
+  {
+    "name": "PaymentAuthorization",
+    "label": "Payment Authorization",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 36
+  },
+  {
+    "name": "PaymentCredit",
+    "label": "Payment Credit",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 25
+  },
+  {
+    "name": "PaymentCreditLinePayment",
+    "label": "Payment Credit Line Payment",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 20
+  },
+  {
+    "name": "PaymentCreditTransaction",
+    "label": "Payment Credit Transaction",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 18
+  },
+  {
+    "name": "PaymentGateway",
+    "label": "Payment Gateway",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 16
+  },
+  {
+    "name": "PaymentGatewayLog",
+    "label": "Payment Gateway Log",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 28
+  },
+  {
+    "name": "PaymentGatewayProvider",
+    "label": "Payment Gateway Provider",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 15
+  },
+  {
+    "name": "PaymentGroup",
+    "label": "Payment Group",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 9
+  },
+  {
+    "name": "PaymentLineInvoice",
+    "label": "Payment Line Invoice",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 25
+  },
+  {
+    "name": "PaymentMethod",
+    "label": "Payment Method",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 29
+  },
+  {
+    "name": "PendingOrderSummary",
+    "label": "Pending Order Summary",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 21
+  },
+  {
+    "name": "PermissionSetLicense",
+    "label": "Permission Set License",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 590
+  },
+  {
+    "name": "PermissionSetLicenseDefinition",
+    "label": "Custom Permission Set License Definition",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 15
+  },
+  {
+    "name": "Pricebook2",
+    "label": "Price Book",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 14
+  },
+  {
+    "name": "PricebookEntry",
+    "label": "Price Book Entry",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 15
+  },
+  {
+    "name": "PrivacyJobSession",
+    "label": "Privacy Job Session",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 34
+  },
+  {
+    "name": "PrivacyPolicy",
+    "label": "Privacy Policy",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 17
+  },
+  {
+    "name": "PrivacyRTBFRequest",
+    "label": "Privacy RTBF Request",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 15
+  },
+  {
+    "name": "Problem",
+    "label": "Problem",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 26
+  },
+  {
+    "name": "ProblemIncident",
+    "label": "Related Problem and Incident",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 12
+  },
+  {
+    "name": "ProblemRelatedItem",
+    "label": "Problem Related Item",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 13
+  },
+  {
+    "name": "ProcessException",
+    "label": "Process Exception",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 23
+  },
+  {
+    "name": "Product2",
+    "label": "Product",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 22
+  },
+  {
+    "name": "ProductAttribute",
+    "label": "Product Attribute",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 11
+  },
+  {
+    "name": "ProductAttributeSetProduct",
+    "label": "Product Attribute Set Product",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 10
+  },
+  {
+    "name": "ProductCatalog",
+    "label": "Catalog",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 12
+  },
+  {
+    "name": "ProductCategory",
+    "label": "Category",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 16
+  },
+  {
+    "name": "ProductCategoryProduct",
+    "label": "Product Category Product",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 13
+  },
+  {
+    "name": "ProductConsumptionSchedule",
+    "label": "Product Consumption Schedule",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 9
+  },
+  {
+    "name": "Promotion",
+    "label": "Promotion",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 27
+  },
+  {
+    "name": "PromotionMarketSegment",
+    "label": "Promotion Market Segment",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 12
+  },
+  {
+    "name": "PromotionQualifier",
+    "label": "Promotion Qualifier",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 22
+  },
+  {
+    "name": "PromotionSegment",
+    "label": "Promotion Segment",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 11
+  },
+  {
+    "name": "PromotionSegmentBuyerGroup",
+    "label": "Promotion Segment Buyer Group",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 12
+  },
+  {
+    "name": "PromotionSegmentSalesStore",
+    "label": "Promotion Segment Sales Store",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 12
+  },
+  {
+    "name": "PromotionTarget",
+    "label": "Promotion Target",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 24
+  },
+  {
+    "name": "PromotionTier",
+    "label": "Promotion Tier",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 12
+  },
+  {
+    "name": "QuickText",
+    "label": "Quick Text",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 16
+  },
+  {
+    "name": "Recommendation",
+    "label": "Recommendation",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 18
+  },
+  {
+    "name": "Refund",
+    "label": "Refund",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 42
+  },
+  {
+    "name": "RefundLinePayment",
+    "label": "Refund Line Payment",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 24
+  },
+  {
+    "name": "ResourceAbsence",
+    "label": "Resource Absence",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 26
+  },
+  {
+    "name": "ResourcePreference",
+    "label": "Resource Preference",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 13
+  },
+  {
+    "name": "ReturnOrder",
+    "label": "Return Order",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 59
+  },
+  {
+    "name": "ReturnOrderItemAdjustment",
+    "label": "Return Order Item Adjustment",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 14
+  },
+  {
+    "name": "ReturnOrderItemTax",
+    "label": "Return Order Item Tax",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 16
+  },
+  {
+    "name": "ReturnOrderLineItem",
+    "label": "Return Order Line Item",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 41
+  },
+  {
+    "name": "Scorecard",
+    "label": "Scorecard",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 13
+  },
+  {
+    "name": "ScorecardMetric",
+    "label": "Scorecard Metric",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 12
+  },
+  {
+    "name": "SearchPromotionRule",
+    "label": "Search Promotion Rule",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 8
+  },
+  {
+    "name": "Seller",
+    "label": "Seller",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 17
+  },
+  {
+    "name": "ServiceAppointment",
+    "label": "Service Appointment",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 66
+  },
+  {
+    "name": "ServiceAppointmentAttendee",
+    "label": "Service Appointment Attendee",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 14
+  },
+  {
+    "name": "ServiceContract",
+    "label": "Service Contract",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 55
+  },
+  {
+    "name": "ServiceResource",
+    "label": "Service Resource",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 17
+  },
+  {
+    "name": "ServiceResourceSkill",
+    "label": "Service Resource Skill",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 15
+  },
+  {
+    "name": "ServiceTerritory",
+    "label": "Service Territory",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 31
+  },
+  {
+    "name": "ServiceTerritoryMember",
+    "label": "Service Territory Member",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 28
+  },
+  {
+    "name": "ServiceTerritoryWorkType",
+    "label": "Service Territory Work Type",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 12
+  },
+  {
+    "name": "SessionPermSetActivation",
+    "label": "Session Permission Set Activation",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 12
+  },
+  {
+    "name": "SfdcPartnerSbscrOffer",
+    "label": "Partner Subscriber Offer",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 56
+  },
+  {
+    "name": "SfdcPartnerSbscrOfferItem",
+    "label": "Partner Offer Item",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 17
+  },
+  {
+    "name": "Shift",
+    "label": "Shift",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 27
+  },
+  {
+    "name": "ShiftEngagementChannel",
+    "label": "Shift Engagement Channel",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 13
+  },
+  {
+    "name": "ShiftWorkTopic",
+    "label": "Shift Work Topic",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 17
+  },
+  {
+    "name": "Shipment",
+    "label": "Shipment",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 15
+  },
+  {
+    "name": "ShipmentItem",
+    "label": "Shipment Item",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 15
+  },
+  {
+    "name": "ShippingCarrier",
+    "label": "Shipping Carrier",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 14
+  },
+  {
+    "name": "ShippingCarrierMethod",
+    "label": "Shipping Carrier Method",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 27
+  },
+  {
+    "name": "SkillRequirement",
+    "label": "Skill Requirement",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 13
+  },
+  {
+    "name": "SlaProcess",
+    "label": "Entitlement Process",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 15
+  },
+  {
+    "name": "Solution",
+    "label": "Solution",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 19
+  },
+  {
+    "name": "SourceCodeRepoProvider",
+    "label": "Source Code Repository Provider",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 14
+  },
+  {
+    "name": "SourceCodeRepository",
+    "label": "Source Code Repository",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 18
+  },
+  {
+    "name": "SourceCodeRepositoryBranch",
+    "label": "Source Code Repository Branch",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 17
+  },
+  {
+    "name": "StandardShippingRate",
+    "label": "Standard Shipping Rate",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 18
+  },
+  {
+    "name": "StreamingChannel",
+    "label": "Streaming Channel",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 13
+  },
+  {
+    "name": "Subscription_Line__c",
+    "label": "Subscription Line",
+    "custom": true,
+    "isHistory": false,
+    "fieldCount": 14
+  },
+  {
+    "name": "Subscription__c",
+    "label": "Subscription",
+    "custom": true,
+    "isHistory": false,
+    "fieldCount": 24
+  },
+  {
+    "name": "Task",
+    "label": "Task",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 39
+  },
+  {
+    "name": "TenantConsumptionAlert",
+    "label": "Utilization Alert",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 20
+  },
+  {
+    "name": "TenantUsageEntitlement",
+    "label": "Tenant Usage Entitlement",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 19
+  },
+  {
+    "name": "TimeSlot",
+    "label": "Time Slot",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 17
+  },
+  {
+    "name": "Topic",
+    "label": "Topic",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 8
+  },
+  {
+    "name": "UnstructuredStorageSpace",
+    "label": "UnstructuredStorageSpace",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 21
+  },
+  {
+    "name": "User",
+    "label": "User",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 192
+  },
+  {
+    "name": "UserDefinedLabel",
+    "label": "Label",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 14
+  },
+  {
+    "name": "UserProvisioningRequest",
+    "label": "User Provisioning Request",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 22
+  },
+  {
+    "name": "UserRole",
+    "label": "Role",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 16
+  },
+  {
+    "name": "VoiceCall",
+    "label": "Voice Call",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 55
+  },
+  {
+    "name": "Waitlist",
+    "label": "Waitlist",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 14
+  },
+  {
+    "name": "WaitlistParticipant",
+    "label": "Waitlist Participant",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 18
+  },
+  {
+    "name": "WaitlistServiceResource",
+    "label": "Waitlist Service Resource",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 14
+  },
+  {
+    "name": "WaitlistWorkType",
+    "label": "Waitlist Work Type",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 12
+  },
+  {
+    "name": "WebCart",
+    "label": "Cart",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 65
+  },
+  {
+    "name": "WebCartActivityLog",
+    "label": "Cart Activity Log",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 16
+  },
+  {
+    "name": "WebCartAdjustmentBasis",
+    "label": "Cart Adjustment Basis",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 11
+  },
+  {
+    "name": "WebCartAdjustmentGroup",
+    "label": "Cart Adjustment Group",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 20
+  },
+  {
+    "name": "WebCartCollaborator",
+    "label": "Cart Collaborator",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 13
+  },
+  {
+    "name": "WebCartCredit",
+    "label": "Web Cart Credit",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 13
+  },
+  {
+    "name": "WebStore",
+    "label": "Store",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 22
+  },
+  {
+    "name": "WebStoreBuyerGroup",
+    "label": "Store Buyer Group",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 12
+  },
+  {
+    "name": "WebStoreCatalog",
+    "label": "Store Catalog",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 12
+  },
+  {
+    "name": "WebStoreInventorySource",
+    "label": "Web Store Inventory Source",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 20
+  },
+  {
+    "name": "WorkItem",
+    "label": "Work Item",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 27
+  },
+  {
+    "name": "WorkItemComponent",
+    "label": "Work Item Component",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 18
+  },
+  {
+    "name": "WorkItemComponentList",
+    "label": "Work Item Component List",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 15
+  },
+  {
+    "name": "WorkOrder",
+    "label": "Work Order",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 58
+  },
+  {
+    "name": "WorkOrderLineItem",
+    "label": "Work Order Line Item",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 49
+  },
+  {
+    "name": "WorkPlan",
+    "label": "Work Plan",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 18
+  },
+  {
+    "name": "WorkPlanTemplate",
+    "label": "Work Plan Template",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 14
+  },
+  {
+    "name": "WorkPlanTemplateEntry",
+    "label": "Work Plan Template Entry",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 13
+  },
+  {
+    "name": "WorkStep",
+    "label": "Work Step",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 26
+  },
+  {
+    "name": "WorkStepTemplate",
+    "label": "Work Step Template",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 15
+  },
+  {
+    "name": "WorkType",
+    "label": "Work Type",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 29
+  },
+  {
+    "name": "WorkTypeGroup",
+    "label": "Work Type Group",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 15
+  },
+  {
+    "name": "WorkTypeGroupMember",
+    "label": "Work Type Group Member",
+    "custom": false,
+    "isHistory": false,
+    "fieldCount": 12
+  },
+  {
+    "name": "AccountHistory",
+    "label": "Account History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ActivationTargetHistory",
+    "label": "Activation Target History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "AddressHistory",
+    "label": "Address History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "AppointmentCategoryHistory",
+    "label": "Appointment Category History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "AppointmentInvitationHistory",
+    "label": "Appointment Invitation History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "AppointmentTopicTimeSlotHistory",
+    "label": "Appointment Topic Time Slot History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ApprovalSubmissionDetailHistory",
+    "label": "Approval Submission Detail History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ApprovalSubmissionHistory",
+    "label": "Approval Submission History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ApprovalWorkItemHistory",
+    "label": "Approval Work Item History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "AssetHistory",
+    "label": "Asset History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "AssetRelationshipHistory",
+    "label": "Asset Relationship History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "AssignedResourceHistory",
+    "label": "Assigned Resource History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "AssociatedLocationHistory",
+    "label": "Associated Location History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "AuthorizationFormConsentHistory",
+    "label": "Authorization Form Consent History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "AuthorizationFormDataUseHistory",
+    "label": "Authorization Form Data Use History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "AuthorizationFormHistory",
+    "label": "Authorization Form History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "AuthorizationFormTextHistory",
+    "label": "Authorization Form Text History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "BuyerGroupHistory",
+    "label": "Buyer Group History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "CampaignHistory",
+    "label": "Campaign Field History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "CaseHistory",
+    "label": "Case History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "CaseRelatedIssueHistory",
+    "label": "Case Related Issue History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ChangeRequestHistory",
+    "label": "Change Request History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ChangeRequestRelatedIssueHistory",
+    "label": "Change Request Related Issue History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ChangeRequestRelatedItemHistory",
+    "label": "Change Request Related Item History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "CommSubscriptionChannelTypeHistory",
+    "label": "Communication Subscription Channel Type History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "CommSubscriptionConsentHistory",
+    "label": "Communication Subscription Consent History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "CommSubscriptionHistory",
+    "label": "Communication Subscription History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "CommSubscriptionTimingHistory",
+    "label": "Communication Subscription Timing History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ConsumptionRateHistory",
+    "label": "Consumption Rate History ID",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ConsumptionScheduleHistory",
+    "label": "Consumption Schedule History ID",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ContactHistory",
+    "label": "Contact History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ContactPointAddressHistory",
+    "label": "Contact Point Address History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ContactPointConsentHistory",
+    "label": "Contact Point Consent History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ContactPointEmailHistory",
+    "label": "Contact Point Email History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ContactPointPhoneHistory",
+    "label": "Contact Point Phone History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ContactPointTypeConsentHistory",
+    "label": "Contact Point Type Consent History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ContentDocumentHistory",
+    "label": "Content Document History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ContentVersionHistory",
+    "label": "Content Version History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ContractHistory",
+    "label": "Contract History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ContractLineItemHistory",
+    "label": "Contract Line Item History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "CouponHistory",
+    "label": "Coupon History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "CreditMemoHistory",
+    "label": "Credit Memo History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "CreditMemoLineHistory",
+    "label": "Credit Memo Line History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "DataActionHistory",
+    "label": "Data Action History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "DataActionTargetHistory",
+    "label": "Data Action Target History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "DataCommunicationCapHistory",
+    "label": "Communication Capping",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "DataLakeObjectInstanceHistory",
+    "label": "Data Lake Object History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "DataObjSecondaryIndexHistory",
+    "label": "Secondary Index History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "DataQueryWorkspaceHistory",
+    "label": "Query Editor History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "DataSemanticSearchHistory",
+    "label": "__MISSING LABEL__ PropertyFile - val DataSemanticSearch not found in section StandardHistoryLabel",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "DataStreamHistory",
+    "label": "Data Stream History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "DataUseLegalBasisHistory",
+    "label": "Data Use Legal Basis History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "DataUsePurposeHistory",
+    "label": "Data Use Purpose History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "DeliveryEstimationSetupHistory",
+    "label": "Delivery Estimation Setup History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "DevopsEnvDeploymentHistory",
+    "label": "__MISSING LABEL__ PropertyFile - val DevopsEnvDeployment not found in section StandardHistoryLabel",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "DevopsEnvDeploymentMbrHistory",
+    "label": "__MISSING LABEL__ PropertyFile - val DevopsEnvDeploymentMbr not found in section StandardHistoryLabel",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "DevopsEnvironmentHistory",
+    "label": "__MISSING LABEL__ PropertyFile - val DevopsEnvironment not found in section StandardHistoryLabel",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "DevopsPipelineEnvironmentHistory",
+    "label": "__MISSING LABEL__ PropertyFile - val DevopsPipelineEnvironment not found in section StandardHistoryLabel",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "DevopsPipelineHistory",
+    "label": "__MISSING LABEL__ PropertyFile - val DevopsPipeline not found in section StandardHistoryLabel",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "DevopsPipelineStageHistory",
+    "label": "__MISSING LABEL__ PropertyFile - val DevopsPipelineStage not found in section StandardHistoryLabel",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "DevopsPipelnStgPromHistory",
+    "label": "__MISSING LABEL__ PropertyFile - val DevopsPipelnStgProm not found in section StandardHistoryLabel",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "DevopsPipelnStgPromWkItemHistory",
+    "label": "__MISSING LABEL__ PropertyFile - val DevopsPipelnStgPromWkItem not found in section StandardHistoryLabel",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "DevopsProjectEnvironmentHistory",
+    "label": "__MISSING LABEL__ PropertyFile - val DevopsProjectEnvironment not found in section StandardHistoryLabel",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "DevopsProjectHistory",
+    "label": "__MISSING LABEL__ PropertyFile - val DevopsProject not found in section StandardHistoryLabel",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "DevopsProjectPipelineHistory",
+    "label": "__MISSING LABEL__ PropertyFile - val DevopsProjectPipeline not found in section StandardHistoryLabel",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "DevopsRequestInfoHistory",
+    "label": "__MISSING LABEL__ PropertyFile - val DevopsRequestInfo not found in section StandardHistoryLabel",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "EngagementChannelTypeHistory",
+    "label": "Engagement Channel Type History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "EngagementChannelWorkTypeHistory",
+    "label": "Engagement Channel Work Type History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "EntitlementHistory",
+    "label": "Entitlement History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "EntityMilestoneHistory",
+    "label": "Object Milestone History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ExtDataShareTargetHistory",
+    "label": "Data Share Target History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "FlowRecordHistory",
+    "label": "Flow Record History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "IdentityResolutionHistory",
+    "label": "Identity Resolution History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ImageHistory",
+    "label": "Image History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "IncidentHistory",
+    "label": "Incident History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "IncidentRelatedItemHistory",
+    "label": "Incident Related Item History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "IndividualHistory",
+    "label": "Individual History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "InvoiceHistory",
+    "label": "Invoice History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "InvoiceLineHistory",
+    "label": "Invoice Line History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "LeadHistory",
+    "label": "Lead History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "LegalEntityHistory",
+    "label": "Legal Entity History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "LocationGroupHistory",
+    "label": "Location Group History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "LocationHistory",
+    "label": "Location History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "LocationShippingCarrierMethodHistory",
+    "label": "Location Shipping Carrier Method History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "MacroHistory",
+    "label": "Macro History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "MarketSegmentActivationHistory",
+    "label": "Activation History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "MarketSegmentHistory",
+    "label": "Segment History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "MessagingEndUserHistory",
+    "label": "Messaging User History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "MessagingSessionHistory",
+    "label": "Messaging Session History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "MktCalculatedInsightHistory",
+    "label": "Calculated Insight History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "MktDataTransformHistory",
+    "label": "Data Transform History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "MktMLModelHistory",
+    "label": "Model History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "OperatingHoursHistory",
+    "label": "Operating Hours History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "OperatingHoursHolidayHistory",
+    "label": "Operating Hours Holiday History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "OpportunityFieldHistory",
+    "label": "Opportunity Field History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "OpportunityHistory",
+    "label": "Opportunity History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 14
+  },
+  {
+    "name": "OrderHistory",
+    "label": "Order History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "OrderItemHistory",
+    "label": "Order Product History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "PartyConsentHistory",
+    "label": "Party Consent History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "PaymentLineInvoiceHistory",
+    "label": "Payment Line Invoice History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "Pricebook2History",
+    "label": "Price Book History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "PricebookEntryHistory",
+    "label": "Price Book Entry History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "PrivacyRTBFRequestHistory",
+    "label": "Privacy RTBF Request History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ProblemHistory",
+    "label": "Problem History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ProblemIncidentHistory",
+    "label": "Problem Incident History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ProblemRelatedItemHistory",
+    "label": "Problem Related Item History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "Product2History",
+    "label": "Product History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ProductCatalogHistory",
+    "label": "Product Catalog History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ProductCategoryHistory",
+    "label": "Product Category History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ProductCategoryProductHistory",
+    "label": "Product Category Product History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "PromotionHistory",
+    "label": "Promotion History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "PromotionMarketSegmentHistory",
+    "label": "Promotion Market Segment History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "PromotionQualifierHistory",
+    "label": "Promotion Qualifier History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "PromotionSegmentBuyerGroupHistory",
+    "label": "Promotion Segment Buyer Group History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "PromotionSegmentHistory",
+    "label": "Promotion Segment History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "PromotionSegmentSalesStoreHistory",
+    "label": "Promotion Segment Sales Store History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "PromotionTargetHistory",
+    "label": "Promotion Target History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "PromotionTierHistory",
+    "label": "Promotion Tier History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "QuickTextHistory",
+    "label": "Quick Text History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "RefundLinePaymentHistory",
+    "label": "Refund Line Payment History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ResourceAbsenceHistory",
+    "label": "Resource Absence History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ResourcePreferenceHistory",
+    "label": "Resource Preference History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ReturnOrderHistory",
+    "label": "Return Order History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ReturnOrderLineItemHistory",
+    "label": "Return Order Line Item History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "SellerHistory",
+    "label": "Seller History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ServiceAppointmentAttendeeHistory",
+    "label": "Service Appointment Attendee History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ServiceAppointmentHistory",
+    "label": "Service Appointment History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ServiceContractHistory",
+    "label": "Service Contract History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ServiceResourceHistory",
+    "label": "Service Resource History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ServiceResourceSkillHistory",
+    "label": "Service Resource Skill History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ServiceTerritoryHistory",
+    "label": "Service Territory History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ServiceTerritoryMemberHistory",
+    "label": "Service Territory Member History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ServiceTerritoryWorkTypeHistory",
+    "label": "Service Territory Work Type History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "SfdcPartnerSbscrOfferHistory",
+    "label": "__MISSING LABEL__ PropertyFile - val SfdcPartnerSbscrOffer not found in section StandardHistoryLabel",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ShiftEngagementChannelHistory",
+    "label": "Shift Engagement Channel History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ShiftHistory",
+    "label": "Shift History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ShiftWorkTopicHistory",
+    "label": "Shift Work Topic History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ShipmentHistory",
+    "label": "Shipment History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ShipmentItemHistory",
+    "label": "__MISSING LABEL__ PropertyFile - val ShipmentItem not found in section StandardHistoryLabel",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ShippingCarrierHistory",
+    "label": "Shipping Carrier History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "ShippingCarrierMethodHistory",
+    "label": "Shipping Carrier Method History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "SkillRequirementHistory",
+    "label": "Skill Requirement History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "SolutionHistory",
+    "label": "Solution History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "SourceCodeRepoProviderHistory",
+    "label": "__MISSING LABEL__ PropertyFile - val SourceCodeRepoProvider not found in section StandardHistoryLabel",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "SourceCodeRepositoryBranchHistory",
+    "label": "__MISSING LABEL__ PropertyFile - val SourceCodeRepositoryBranch not found in section StandardHistoryLabel",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "SourceCodeRepositoryHistory",
+    "label": "__MISSING LABEL__ PropertyFile - val SourceCodeRepository not found in section StandardHistoryLabel",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "Subscription_Line__History",
+    "label": "History: Subscription Line",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "Subscription__History",
+    "label": "History: Subscription",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "TimeSlotHistory",
+    "label": "Time Slot History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "UserHistory",
+    "label": "User History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "VoiceCallHistory",
+    "label": "Voice Call History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "WaitlistHistory",
+    "label": "Waitlist History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "WaitlistParticipantHistory",
+    "label": "Waitlist Participant History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "WaitlistServiceResourceHistory",
+    "label": "Waitlist Service Resource History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "WaitlistWorkTypeHistory",
+    "label": "Waitlist Work Type History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "WebCartCollaboratorHistory",
+    "label": "Cart Collaborator History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "WebCartHistory",
+    "label": "Cart History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "WebStoreCatalogHistory",
+    "label": "Store Catalog History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "WorkItemComponentHistory",
+    "label": "__MISSING LABEL__ PropertyFile - val WorkItemComponent not found in section StandardHistoryLabel",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "WorkItemComponentListHistory",
+    "label": "__MISSING LABEL__ PropertyFile - val WorkItemComponentList not found in section StandardHistoryLabel",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "WorkItemHistory",
+    "label": "__MISSING LABEL__ PropertyFile - val WorkItem not found in section StandardHistoryLabel",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "WorkOrderHistory",
+    "label": "Work Order History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "WorkOrderLineItemHistory",
+    "label": "Work Order Line Item History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "WorkPlanHistory",
+    "label": "Work Plan History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "WorkPlanTemplateEntryHistory",
+    "label": "Work Plan Template Entry History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "WorkPlanTemplateHistory",
+    "label": "Work Plan Template History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "WorkStepHistory",
+    "label": "Work Step History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "WorkStepTemplateHistory",
+    "label": "Work Step Template History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "WorkTypeGroupHistory",
+    "label": "Work Type Group History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "WorkTypeGroupMemberHistory",
+    "label": "Work Type Group Member History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  },
+  {
+    "name": "WorkTypeHistory",
+    "label": "Work Type History",
+    "custom": false,
+    "isHistory": true,
+    "fieldCount": 9
+  }
+]

@@ -1,0 +1,276 @@
+{
+  "name": "ListEmail",
+  "label": "List Email",
+  "custom": false,
+  "keyPrefix": "0XB",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "List Email ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnerId",
+      "label": "Owner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Group",
+        "User"
+      ],
+      "relationshipName": "Owner"
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Name",
+      "type": "string",
+      "length": 255,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Subject",
+      "label": "Subject",
+      "type": "textarea",
+      "length": 3000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "HtmlBody",
+      "label": "Html Body",
+      "type": "textarea",
+      "length": 32000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TextBody",
+      "label": "Text Body",
+      "type": "textarea",
+      "length": 32000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FromName",
+      "label": "From Name",
+      "type": "string",
+      "length": 121,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FromAddress",
+      "label": "From Address",
+      "type": "textarea",
+      "length": 320,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "ReplyToName",
+      "label": "Reply To Name",
+      "type": "string",
+      "length": 121,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CcAddress",
+      "label": "CC Address",
+      "type": "textarea",
+      "length": 320,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsSyntheticCcEnabled",
+      "label": "Synthetic CC Enabled",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Status",
+      "label": "Status",
+      "type": "picklist",
+      "length": 255,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "Draft",
+        "Scheduled",
+        "Sent",
+        "LimitError",
+        "Cancelled",
+        "Running"
+      ]
+    },
+    {
+      "name": "HasAttachment",
+      "label": "Has Attachment",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ScheduledDate",
+      "label": "Scheduled Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TotalSent",
+      "label": "Total Sent",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CampaignId",
+      "label": "Campaign ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Campaign"
+      ],
+      "relationshipName": "Campaign"
+    },
+    {
+      "name": "IsTracked",
+      "label": "Is Tracked",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "RelatedToId",
+      "label": "RelatedTo ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "AppointmentInvitation",
+        "Case",
+        "Contact",
+        "Incident",
+        "Lead",
+        "Opportunity",
+        "Product2",
+        "User"
+      ],
+      "relationshipName": "RelatedTo"
+    },
+    {
+      "name": "IsEmailArchiveRequired",
+      "label": "Is Email Archive Required",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "EmailMessage",
+      "field": "RelatedToId",
+      "relationshipName": "Emails",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Event",
+      "field": "WhatId",
+      "relationshipName": "Events",
+      "cascadeDelete": true
+    },
+    {
+      "child": "Task",
+      "field": "WhatId",
+      "relationshipName": "Tasks",
+      "cascadeDelete": true
+    }
+  ]
+}

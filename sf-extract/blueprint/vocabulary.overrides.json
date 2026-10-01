@@ -1,0 +1,18 @@
+{
+  "_comment": "Client vocabulary: target names that differ from the mechanical snake_case of the Salesforce API name. Entities keyed by API name; fields keyed by Entity.Field. Edit this file, not blueprint.json.",
+  "entities": {
+    "User": "app_user",
+    "Group": "user_group",
+    "Order": "sales_order",
+    "Case": "support_case",
+    "Subscription__c": "subscription",
+    "Subscription_Line__c": "subscription_line",
+    "Subscription__History": "subscription_history",
+    "Subscription_Line__History": "subscription_line_history"
+  },
+  "fields": {
+    "Subscription__c.MRR__c": "monthly_recurring_revenue",
+    "Subscription__c.Name": "subscription_number",
+    "Subscription_Line__c.Name": "line_number"
+  }
+}

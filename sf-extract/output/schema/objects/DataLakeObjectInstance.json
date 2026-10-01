@@ -1,0 +1,407 @@
+{
+  "name": "DataLakeObjectInstance",
+  "label": "Data Lake Object",
+  "custom": false,
+  "keyPrefix": "1dl",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Data Lake Object Instance ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Description",
+      "label": "Description",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastRefreshDate",
+      "label": "Last Updated On",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TotalRecords",
+      "label": "Total Records",
+      "type": "long",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "DataLakeObjectRef",
+      "label": "Data Lake Object Definition ID",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Account_std__dll",
+        "ApiGrounding_std__dll",
+        "Benefit_std__dll",
+        "BenefitType_std__dll",
+        "Case_std__dll",
+        "CatalogEnrichment_std__dll",
+        "CatalogMetadata_std__dll",
+        "CatalogMetadataRelationship_std__dll",
+        "ConsumptionResourceTags_std__dll",
+        "Contact_std__dll",
+        "ForecastingFact_std__dll",
+        "ForecastingItem_std__dll",
+        "FtestMain_std__dll",
+        "FtestMetadataDlo_std__dll",
+        "GameDefinition_std__dll",
+        "GameParticipant_std__dll",
+        "GameReward_std__dll",
+        "JournalSubType_std__dll",
+        "JournalType_std__dll",
+        "KnowledgeLayout_std__dll",
+        "KnowledgeLayoutAssignment_std__dll",
+        "ListEmail_std__dll",
+        "LoyaltyAggrPointExprLedger_std__dll",
+        "LoyaltyMemberCurrency_std__dll",
+        "LoyaltyMemberTier_std__dll",
+        "LoyaltyPartnerProduct_std__dll",
+        "LoyaltyPgmEngmtAttribute_std__dll",
+        "LoyaltyPgmEngmtAttrProm_std__dll",
+        "LoyaltyPgmGroupMbrRlnsp_std__dll",
+        "LoyaltyPgmMbrAttributeVal_std__dll",
+        "LoyaltyPgmPartnerCurrency_std__dll",
+        "LoyaltyPgmPartnerPromotion_std__dll",
+        "LoyaltyProgram_std__dll",
+        "LoyaltyProgramBadge_std__dll",
+        "LoyaltyProgramCurrency_std__dll",
+        "LoyaltyProgramMbrPromotion_std__dll",
+        "LoyaltyProgramMemberCase_std__dll",
+        "LoyaltyProgramMemberMerge_std__dll",
+        "LoyaltyProgramPartner_std__dll",
+        "LoyaltyTier_std__dll",
+        "LoyaltyTierBenefit_std__dll",
+        "LoyaltyTierGroup_std__dll",
+        "ManagedContent_std__dll",
+        "ManagedContentVariant_std__dll",
+        "MemberBenefit_std__dll",
+        "OpportunityContactRole_std__dll",
+        "ProductCatalog_std__dll",
+        "ProductCategory_std__dll",
+        "ProductCategoryProduct_std__dll",
+        "Promotion_std__dll",
+        "PromotionLoyaltyPtnrProdt_std__dll",
+        "PromotionMarketSegment_std__dll",
+        "PromotionPartyUsage_std__dll",
+        "Voucher_std__dll",
+        "VoucherDefinition_std__dll"
+      ]
+    },
+    {
+      "name": "DataLakeObjectStatus",
+      "label": "Data Lake Object Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "PROCESSING",
+      "picklistValues": [
+        "PROCESSING",
+        "ACTIVE",
+        "INACTIVE",
+        "ERROR",
+        "DELETING",
+        "NONE"
+      ]
+    },
+    {
+      "name": "Category",
+      "label": "Category",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ExternalName",
+      "label": "External Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Storage",
+      "label": "Storage",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "LOCAL",
+        "EXTERNAL"
+      ]
+    },
+    {
+      "name": "AccelerationEnabled",
+      "label": "Accelerated",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "YES",
+        "NO"
+      ]
+    },
+    {
+      "name": "AccelerationSchedule",
+      "label": "Acceleration Schedule",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "EVERY_4_HOURS",
+        "EVERY_12_HOURS",
+        "EVERY_24_HOURS",
+        "EVERY_7_DAYS"
+      ]
+    },
+    {
+      "name": "ExternalObjectErrorStatus",
+      "label": "External Object Error Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "ACTIVE",
+        "ERROR"
+      ]
+    },
+    {
+      "name": "ExternalObjectErrorCode",
+      "label": "External Object Error Code",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ProblemRecordsDataLakeObject",
+      "label": "Problem Records Data Lake Object Name",
+      "type": "string",
+      "length": 40,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Billable",
+      "label": "Billable",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "YES"
+      ]
+    },
+    {
+      "name": "SyncStatus",
+      "label": "Sync Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "PROCESSING",
+      "picklistValues": [
+        "PROCESSING",
+        "ACTIVE",
+        "INACTIVE",
+        "ERROR",
+        "DELETING",
+        "NONE"
+      ]
+    },
+    {
+      "name": "LastSyncedFingerprint",
+      "label": "Last Synced Fingerprint",
+      "type": "textarea",
+      "length": 32000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "HydrationStatus",
+      "label": "Hydration Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Hydrated",
+        "Unhydrated",
+        "PartiallyHydrated"
+      ]
+    },
+    {
+      "name": "LastDataChangeStatusDateTime",
+      "label": "Last Data Change Status Date Time",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastDataChangeStatusErrorCode",
+      "label": "Last Data Change Status Error Code",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TotalNumberOfFields",
+      "label": "Total # Of Fields",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "DeletionRecordsDataLakeObject",
+      "label": "Deletion Records Data Lake Object Name",
+      "type": "string",
+      "length": 40,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MktDataLakeObjectDeveloperName",
+      "label": "Mkt Data Lake Object Developer Name",
+      "type": "string",
+      "length": 40,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "DataLakeObjectNamespacePrefix",
+      "label": "Data Lake Object Namespace Prefix",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MktDataLakeObjectLabel",
+      "label": "Mkt Data Lake Object Label",
+      "type": "string",
+      "length": 40,
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    }
+  ]
+}

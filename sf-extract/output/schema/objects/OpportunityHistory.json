@@ -1,0 +1,162 @@
+{
+  "name": "OpportunityHistory",
+  "label": "Opportunity History",
+  "custom": false,
+  "keyPrefix": "008",
+  "isHistory": true,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Opportunity History ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OpportunityId",
+      "label": "Opportunity ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Opportunity"
+      ],
+      "relationshipName": "Opportunity"
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "StageName",
+      "label": "Stage Name",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Prospecting",
+        "Qualification",
+        "Needs Analysis",
+        "Value Proposition",
+        "Id. Decision Makers",
+        "Perception Analysis",
+        "Proposal/Price Quote",
+        "Negotiation/Review",
+        "Closed Won",
+        "Closed Lost"
+      ]
+    },
+    {
+      "name": "Amount",
+      "label": "Amount",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ExpectedRevenue",
+      "label": "Expected Revenue",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CloseDate",
+      "label": "Close Date",
+      "type": "date",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Probability",
+      "label": "Probability",
+      "type": "percent",
+      "precision": 3,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ForecastCategory",
+      "label": "To Forecast Category",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Omitted",
+        "Pipeline",
+        "BestCase",
+        "MostLikely",
+        "Forecast",
+        "Closed"
+      ]
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "PrevAmount",
+      "label": "Previous Amount",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "PrevCloseDate",
+      "label": "Previous Close Date",
+      "type": "date",
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "Opportunity",
+      "field": "LastAmountChangedHistoryId",
+      "relationshipName": "OpportunitiesAmountChanged",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Opportunity",
+      "field": "LastCloseDateChangedHistoryId",
+      "relationshipName": "OpportunitiesCloseDateChanged",
+      "cascadeDelete": false
+    }
+  ]
+}

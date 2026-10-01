@@ -1,0 +1,434 @@
+{
+  "name": "Problem",
+  "label": "Problem",
+  "custom": false,
+  "keyPrefix": "0o2",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Problem ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnerId",
+      "label": "Owner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Group",
+        "User"
+      ],
+      "relationshipName": "Owner"
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ProblemNumber",
+      "label": "Problem Number",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created On",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified On",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Subject",
+      "label": "Subject",
+      "type": "string",
+      "length": 255,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "Description",
+      "label": "Description",
+      "type": "textarea",
+      "length": 32000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "StatusCode",
+      "label": "Status Code",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Closed",
+        "FixInProgress",
+        "KnownError",
+        "New",
+        "Open",
+        "PendingChange",
+        "Resolved",
+        "RootCauseAnalysis",
+        "WorkInProgress"
+      ]
+    },
+    {
+      "name": "Status",
+      "label": "Status",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "defaultValue": "New",
+      "picklistValues": [
+        "New",
+        "Open",
+        "Root Case Analysis",
+        "Fix In Progress",
+        "Resolved",
+        "Closed",
+        "Pending Change",
+        "Known Error",
+        "Work In Progress"
+      ]
+    },
+    {
+      "name": "Impact",
+      "label": "Impact",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "defaultValue": "High",
+      "picklistValues": [
+        "High",
+        "Medium",
+        "Low"
+      ]
+    },
+    {
+      "name": "Urgency",
+      "label": "Urgency",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "defaultValue": "High",
+      "picklistValues": [
+        "High",
+        "Medium",
+        "Low"
+      ]
+    },
+    {
+      "name": "Priority",
+      "label": "Priority",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "defaultValue": "Critical",
+      "picklistValues": [
+        "Critical",
+        "High",
+        "Moderate",
+        "Low"
+      ]
+    },
+    {
+      "name": "PriorityOverrideReason",
+      "label": "Priority Override Reason",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "RootCauseSummary",
+      "label": "Root Cause Summary",
+      "type": "textarea",
+      "length": 32000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Category",
+      "label": "Category",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "defaultValue": "Database",
+      "picklistValues": [
+        "Database",
+        "Hardware",
+        "Inquiry / Help",
+        "Network",
+        "Software",
+        "Security",
+        "Telephony",
+        "Storage",
+        "Email",
+        "Access Management"
+      ]
+    },
+    {
+      "name": "SubCategory",
+      "label": "Subcategory",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "defaultValue": "DB2",
+      "picklistValues": [
+        "DB2",
+        "MS SQL Server",
+        "Oracle",
+        "MySQL",
+        "PostgreSQL",
+        "CPU",
+        "Disk",
+        "Keyboard",
+        "Memory",
+        "Monitor",
+        "Mouse",
+        "Printer",
+        "Power Supply",
+        "Laptop/Workstation",
+        "Antivirus",
+        "Email",
+        "Internal Application",
+        "Software Installation",
+        "Password Reset",
+        "Account Creation",
+        "DHCP",
+        "DNS",
+        "IP Address",
+        "VPN",
+        "Wireless",
+        "LAN/WAN",
+        "Firewall",
+        "Switch/Router",
+        "Operating System",
+        "Office Suite",
+        "Application Crashes",
+        "License Issue",
+        "Patch/Update",
+        "Web Browser",
+        "Access Violation",
+        "Malware/Virus Detected",
+        "Data Breach",
+        "Phishing",
+        "VoIP",
+        "Call Quality",
+        "PBX",
+        "Mobile Devices",
+        "Backup Failure",
+        "SAN Issues",
+        "Disk Space Low",
+        "File Corruption",
+        "Email Delivery Failure",
+        "Spam",
+        "Access Issues",
+        "Account Lockout",
+        "Permissions Issue",
+        "MFA/2FA Problem"
+      ]
+    },
+    {
+      "name": "ParentProblemId",
+      "label": "Parent Problem ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Problem"
+      ],
+      "relationshipName": "ParentProblem"
+    },
+    {
+      "name": "ResolvedById",
+      "label": "Resolved By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "ResolvedBy"
+    },
+    {
+      "name": "ResolutionDateTime",
+      "label": "Resolution Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ResolutionSummary",
+      "label": "Resolution Summary",
+      "type": "textarea",
+      "length": 32000,
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "CaseRelatedIssue",
+      "field": "RelatedIssueId",
+      "relationshipName": "CaseRelatedIssues",
+      "cascadeDelete": true
+    },
+    {
+      "child": "ChangeRequestRelatedIssue",
+      "field": "RelatedIssueId",
+      "relationshipName": "ChangeRequestRelatedIssues",
+      "cascadeDelete": true
+    },
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "EmailMessage",
+      "field": "RelatedToId",
+      "relationshipName": "Emails",
+      "cascadeDelete": false
+    },
+    {
+      "child": "EntityMilestone",
+      "field": "ParentEntityId",
+      "relationshipName": "EntityMilestones",
+      "cascadeDelete": true
+    },
+    {
+      "child": "Event",
+      "field": "WhatId",
+      "relationshipName": "Events",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Note",
+      "field": "ParentId",
+      "relationshipName": "Notes",
+      "cascadeDelete": true
+    },
+    {
+      "child": "Problem",
+      "field": "ParentProblemId",
+      "relationshipName": "Problems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ProblemIncident",
+      "field": "IssueId",
+      "relationshipName": "ProblemIncidents",
+      "cascadeDelete": true
+    },
+    {
+      "child": "ProblemIncident",
+      "field": "RelatedIssueId",
+      "relationshipName": "ProblemIncidentRelatedIssues",
+      "cascadeDelete": true
+    },
+    {
+      "child": "ProblemRelatedItem",
+      "field": "ProblemId",
+      "relationshipName": "ProblemRelatedItems",
+      "cascadeDelete": true
+    },
+    {
+      "child": "Task",
+      "field": "WhatId",
+      "relationshipName": "Tasks",
+      "cascadeDelete": true
+    }
+  ]
+}

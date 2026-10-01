@@ -1,0 +1,193 @@
+{
+  "name": "FlowRecordVersionOccurrence",
+  "label": "Flow Version Occurrence",
+  "custom": false,
+  "keyPrefix": "10p",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Flow Version Occurrence ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Flow Version Occurrence Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FlowRecordVersionId",
+      "label": "Flow Version ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "FlowRecordVersion"
+      ],
+      "relationshipName": "FlowRecordVersion"
+    },
+    {
+      "name": "FlowRecordId",
+      "label": "Flow ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "FlowRecord"
+      ],
+      "relationshipName": "FlowRecord"
+    },
+    {
+      "name": "ProgressStatus",
+      "label": "Occurrence Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Draft",
+        "Scheduled",
+        "PreparingData",
+        "InProgress",
+        "Finishing",
+        "Completed",
+        "Canceled",
+        "Error",
+        "UnderReview"
+      ]
+    },
+    {
+      "name": "ScheduledDate",
+      "label": "Run Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CompletedDate",
+      "label": "Completed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Entries",
+      "label": "Entries",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Exits",
+      "label": "Exits",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Errors",
+      "label": "Errors",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Stopped",
+      "label": "Stopped",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Enqueued",
+      "label": "Enqueued",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ErrorDetail",
+      "label": "Error Details",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": []
+}

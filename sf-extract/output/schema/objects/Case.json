@@ -1,0 +1,558 @@
+{
+  "name": "Case",
+  "label": "Case",
+  "custom": false,
+  "keyPrefix": "500",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Case ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MasterRecordId",
+      "label": "Master Record ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Case"
+      ],
+      "relationshipName": "MasterRecord"
+    },
+    {
+      "name": "CaseNumber",
+      "label": "Case Number",
+      "type": "string",
+      "length": 30,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ContactId",
+      "label": "Contact ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Contact"
+      ],
+      "relationshipName": "Contact"
+    },
+    {
+      "name": "AccountId",
+      "label": "Account ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Account"
+      ],
+      "relationshipName": "Account"
+    },
+    {
+      "name": "AssetId",
+      "label": "Asset ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Asset"
+      ],
+      "relationshipName": "Asset"
+    },
+    {
+      "name": "SourceId",
+      "label": "Case Source ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "EmailMessage",
+        "MessagingSession"
+      ],
+      "relationshipName": "Source"
+    },
+    {
+      "name": "ParentId",
+      "label": "Parent Case ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Case"
+      ],
+      "relationshipName": "Parent"
+    },
+    {
+      "name": "SuppliedName",
+      "label": "Name",
+      "type": "string",
+      "length": 80,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "SuppliedEmail",
+      "label": "Email Address",
+      "type": "email",
+      "length": 80,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "SuppliedPhone",
+      "label": "Phone",
+      "type": "string",
+      "length": 40,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "SuppliedCompany",
+      "label": "Company",
+      "type": "string",
+      "length": 80,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Type",
+      "label": "Case Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Mechanical",
+        "Electrical",
+        "Electronic",
+        "Structural",
+        "Other"
+      ]
+    },
+    {
+      "name": "Status",
+      "label": "Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "New",
+      "picklistValues": [
+        "New",
+        "Working",
+        "Escalated",
+        "Closed"
+      ]
+    },
+    {
+      "name": "Reason",
+      "label": "Case Reason",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Installation",
+        "Equipment Complexity",
+        "Performance",
+        "Breakdown",
+        "Equipment Design",
+        "Feedback",
+        "Other"
+      ]
+    },
+    {
+      "name": "Origin",
+      "label": "Case Origin",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Phone",
+        "Email",
+        "Web"
+      ]
+    },
+    {
+      "name": "Subject",
+      "label": "Subject",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Priority",
+      "label": "Priority",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "Medium",
+      "picklistValues": [
+        "High",
+        "Medium",
+        "Low"
+      ]
+    },
+    {
+      "name": "Description",
+      "label": "Description",
+      "type": "textarea",
+      "length": 32000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsClosed",
+      "label": "Closed",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ClosedDate",
+      "label": "Closed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsEscalated",
+      "label": "Escalated",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnerId",
+      "label": "Owner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Group",
+        "User"
+      ],
+      "relationshipName": "Owner"
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ContactPhone",
+      "label": "Contact Phone",
+      "type": "phone",
+      "length": 40,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ContactMobile",
+      "label": "Contact Mobile",
+      "type": "phone",
+      "length": 40,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ContactEmail",
+      "label": "Contact Email",
+      "type": "email",
+      "length": 80,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ContactFax",
+      "label": "Contact Fax",
+      "type": "phone",
+      "length": 40,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Comments",
+      "label": "Internal Comments",
+      "type": "textarea",
+      "length": 4000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "EngineeringReqNumber__c",
+      "label": "Engineering Req Number",
+      "type": "string",
+      "length": 12,
+      "required": false,
+      "custom": true
+    },
+    {
+      "name": "SLAViolation__c",
+      "label": "SLA Violation",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": true,
+      "picklistValues": [
+        "No",
+        "Yes"
+      ]
+    },
+    {
+      "name": "Product__c",
+      "label": "Product",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": true,
+      "picklistValues": [
+        "GC1040",
+        "GC1060",
+        "GC3020",
+        "GC3040",
+        "GC3060",
+        "GC5020",
+        "GC5040",
+        "GC5060",
+        "GC1020"
+      ]
+    },
+    {
+      "name": "PotentialLiability__c",
+      "label": "Potential Liability",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": true,
+      "picklistValues": [
+        "No",
+        "Yes"
+      ]
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Case",
+      "field": "ParentId",
+      "relationshipName": "Cases",
+      "cascadeDelete": false
+    },
+    {
+      "child": "CaseComment",
+      "field": "ParentId",
+      "relationshipName": "CaseComments",
+      "cascadeDelete": true
+    },
+    {
+      "child": "CaseContactRole",
+      "field": "CasesId",
+      "relationshipName": "CaseContactRoles",
+      "cascadeDelete": true
+    },
+    {
+      "child": "CaseMilestone",
+      "field": "CaseId",
+      "relationshipName": "CaseMilestones",
+      "cascadeDelete": true
+    },
+    {
+      "child": "CaseRelatedIssue",
+      "field": "CaseId",
+      "relationshipName": "CaseRelatedIssues",
+      "cascadeDelete": true
+    },
+    {
+      "child": "ChangeRequestRelatedIssue",
+      "field": "RelatedIssueId",
+      "relationshipName": "ChangeRequestRelatedIssues",
+      "cascadeDelete": true
+    },
+    {
+      "child": "CollaborationGroupRecord",
+      "field": "RecordId",
+      "relationshipName": "RecordAssociatedGroups",
+      "cascadeDelete": true
+    },
+    {
+      "child": "ContactRequest",
+      "field": "WhatId",
+      "relationshipName": "ContactRequests",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "DuplicateRecordItem",
+      "field": "RecordId",
+      "relationshipName": "DuplicateRecordItems",
+      "cascadeDelete": true
+    },
+    {
+      "child": "EmailMessage",
+      "field": "ParentId",
+      "relationshipName": "EmailMessages",
+      "cascadeDelete": true
+    },
+    {
+      "child": "EmailMessage",
+      "field": "RelatedToId",
+      "relationshipName": "Emails",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Event",
+      "field": "WhatId",
+      "relationshipName": "Events",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ListEmail",
+      "field": "RelatedToId",
+      "relationshipName": "ListEmails",
+      "cascadeDelete": false
+    },
+    {
+      "child": "MessagingSession",
+      "field": "CaseId",
+      "relationshipName": "MessagingSessions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ProcessException",
+      "field": "CaseId",
+      "relationshipName": "ProcessExceptions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ReturnOrder",
+      "field": "CaseId",
+      "relationshipName": "ReturnOrders",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ServiceAppointment",
+      "field": "ParentRecordId",
+      "relationshipName": "ServiceAppointments",
+      "cascadeDelete": true
+    },
+    {
+      "child": "Task",
+      "field": "WhatId",
+      "relationshipName": "Tasks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "VoiceCall",
+      "field": "RelatedRecordId",
+      "relationshipName": "RelatedRecords",
+      "cascadeDelete": false
+    },
+    {
+      "child": "WorkOrder",
+      "field": "CaseId",
+      "relationshipName": "WorkOrders",
+      "cascadeDelete": false
+    }
+  ]
+}

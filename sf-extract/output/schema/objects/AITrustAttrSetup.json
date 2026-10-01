@@ -1,0 +1,127 @@
+{
+  "name": "AITrustAttrSetup",
+  "label": "AI Trust Attribute Setup",
+  "custom": false,
+  "keyPrefix": "8H2",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "AI Trust Attribute Setup ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TrustAttribute",
+      "label": "AI Trust Attribute ID",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsEnabled",
+      "label": "Is Enabled",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsLocked",
+      "label": "Is Locked",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Scope",
+      "label": "Scope",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Organization",
+        "ConfiguredModel",
+        "PromptTemplate",
+        "ClientFeature"
+      ]
+    },
+    {
+      "name": "SourceObject",
+      "label": "Source Object",
+      "type": "string",
+      "length": 40,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "AttributeId",
+      "label": "AI Trust Attribute ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "AITrustAttribute"
+      ],
+      "relationshipName": "Attribute"
+    }
+  ],
+  "childRelationships": []
+}

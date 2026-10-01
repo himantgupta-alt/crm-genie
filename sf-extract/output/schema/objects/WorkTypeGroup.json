@@ -1,0 +1,203 @@
+{
+  "name": "WorkTypeGroup",
+  "label": "Work Type Group",
+  "custom": false,
+  "keyPrefix": "0VS",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Work Type Group ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnerId",
+      "label": "Owner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Group",
+        "User"
+      ],
+      "relationshipName": "Owner"
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Work Type Group Name",
+      "type": "string",
+      "length": 255,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Description",
+      "label": "Description",
+      "type": "textarea",
+      "length": 32000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "GroupType",
+      "label": "Group Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "Default",
+      "picklistValues": [
+        "Default",
+        "Capacity"
+      ]
+    },
+    {
+      "name": "IsActive",
+      "label": "Active",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "AdditionalInformation",
+      "label": "Additional Information",
+      "type": "multipicklist",
+      "length": 4099,
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "AppointmentInvitation",
+      "field": "AppointmentTopicId",
+      "relationshipName": "AppointmentInvitations",
+      "cascadeDelete": true
+    },
+    {
+      "child": "AppointmentTopicTimeSlot",
+      "field": "WorkTypeGroupId",
+      "relationshipName": "AppointmentTopicTimeSlots",
+      "cascadeDelete": true
+    },
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Shift",
+      "field": "WorkTypeGroupId",
+      "relationshipName": "ShiftWorkTypeGroups",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ShiftWorkTopic",
+      "field": "WorkTypeGroupId",
+      "relationshipName": "WorkTypeGroupShifts",
+      "cascadeDelete": false
+    },
+    {
+      "child": "TimeSlot",
+      "field": "WorkTypeGroupId",
+      "relationshipName": "Timeslots",
+      "cascadeDelete": false
+    },
+    {
+      "child": "WorkTypeGroupMember",
+      "field": "WorkTypeGroupId",
+      "relationshipName": "WorkTypeGroupMembers",
+      "cascadeDelete": true
+    }
+  ]
+}

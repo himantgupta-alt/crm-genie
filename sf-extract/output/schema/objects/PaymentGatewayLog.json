@@ -1,0 +1,295 @@
+{
+  "name": "PaymentGatewayLog",
+  "label": "Payment Gateway Log",
+  "custom": false,
+  "keyPrefix": "0Xt",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Payment Gateway Log ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "PaymentGatewayLogNumber",
+      "label": "Payment Gateway Log Number",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ReferencedEntityId",
+      "label": "Referenced Entity ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "AlternativePaymentMethod",
+        "CardPaymentMethod",
+        "Payment",
+        "PaymentAuthAdjustment",
+        "PaymentAuthorization",
+        "Refund"
+      ],
+      "relationshipName": "ReferencedEntity"
+    },
+    {
+      "name": "InteractionType",
+      "label": "Interaction Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Authorization",
+        "Sale",
+        "Void",
+        "Capture",
+        "Tokenize",
+        "Avs",
+        "ReferencedRefund",
+        "CheckGiftCardBalance",
+        "AuthorizationReversal",
+        "PostAuth"
+      ]
+    },
+    {
+      "name": "SfRefNumber",
+      "label": "Salesforce Reference Number",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "InteractionStatus",
+      "label": "Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "NoOp",
+        "Initiated",
+        "Success",
+        "Failed",
+        "Timeout"
+      ]
+    },
+    {
+      "name": "GatewayAuthCode",
+      "label": "Gateway Auth Code",
+      "type": "string",
+      "length": 64,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "GatewayRefNumber",
+      "label": "Gateway Reference Number",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "SfResultCode",
+      "label": "Salesforce Result Code",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Success",
+        "PermanentFail",
+        "Decline",
+        "RequiresReview",
+        "Indeterminate",
+        "SystemError",
+        "ValidationError"
+      ]
+    },
+    {
+      "name": "GatewayResultCode",
+      "label": "Gateway Result Code",
+      "type": "string",
+      "length": 64,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "GatewayResultCodeDescription",
+      "label": "Gateway Result Code Description",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "GatewayDate",
+      "label": "Gateway Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "GatewayMessage",
+      "label": "Gateway Message",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "GatewayAvsCode",
+      "label": "Gateway Avs Code",
+      "type": "string",
+      "length": 64,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "PaymentGatewayId",
+      "label": "Payment Gateway ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "PaymentGateway"
+      ],
+      "relationshipName": "PaymentGateway"
+    },
+    {
+      "name": "IsNotification",
+      "label": "Is Notification",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "No",
+      "picklistValues": [
+        "No",
+        "Yes"
+      ]
+    },
+    {
+      "name": "RetryDecision",
+      "label": "Retry Decision",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Retriable",
+        "NonRetriable"
+      ]
+    },
+    {
+      "name": "RetryCategory",
+      "label": "Retry Category",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "CardLimit",
+        "PaymentProcessing",
+        "PaymentInformation",
+        "Security",
+        "GatewayConnection",
+        "ValidationFailure",
+        "Unknown"
+      ]
+    },
+    {
+      "name": "Request",
+      "label": "Request",
+      "type": "textarea",
+      "length": 131072,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Response",
+      "label": "Response",
+      "type": "textarea",
+      "length": 131072,
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": []
+}

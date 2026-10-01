@@ -1,0 +1,583 @@
+{
+  "name": "Opportunity",
+  "label": "Opportunity",
+  "custom": false,
+  "keyPrefix": "006",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Opportunity ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "AccountId",
+      "label": "Account ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Account"
+      ],
+      "relationshipName": "Account"
+    },
+    {
+      "name": "IsPrivate",
+      "label": "Private",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Name",
+      "type": "string",
+      "length": 120,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "Description",
+      "label": "Description",
+      "type": "textarea",
+      "length": 32000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "StageName",
+      "label": "Stage",
+      "type": "picklist",
+      "length": 255,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "Prospecting",
+        "Qualification",
+        "Needs Analysis",
+        "Value Proposition",
+        "Id. Decision Makers",
+        "Perception Analysis",
+        "Proposal/Price Quote",
+        "Negotiation/Review",
+        "Closed Won",
+        "Closed Lost"
+      ]
+    },
+    {
+      "name": "Amount",
+      "label": "Amount",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Probability",
+      "label": "Probability (%)",
+      "type": "percent",
+      "precision": 3,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ExpectedRevenue",
+      "label": "Expected Amount",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TotalOpportunityQuantity",
+      "label": "Quantity",
+      "type": "double",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CloseDate",
+      "label": "Close Date",
+      "type": "date",
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "Type",
+      "label": "Opportunity Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Existing Customer - Upgrade",
+        "Existing Customer - Replacement",
+        "Existing Customer - Downgrade",
+        "New Customer"
+      ]
+    },
+    {
+      "name": "NextStep",
+      "label": "Next Step",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LeadSource",
+      "label": "Lead Source",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Web",
+        "Phone Inquiry",
+        "Partner Referral",
+        "Purchased List",
+        "Other"
+      ]
+    },
+    {
+      "name": "IsClosed",
+      "label": "Closed",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsWon",
+      "label": "Won",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ForecastCategory",
+      "label": "Forecast Category",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Omitted",
+        "Pipeline",
+        "BestCase",
+        "MostLikely",
+        "Forecast",
+        "Closed"
+      ]
+    },
+    {
+      "name": "ForecastCategoryName",
+      "label": "Forecast Category",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Omitted",
+        "Pipeline",
+        "Best Case",
+        "Commit",
+        "Closed"
+      ]
+    },
+    {
+      "name": "CampaignId",
+      "label": "Campaign ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Campaign"
+      ],
+      "relationshipName": "Campaign"
+    },
+    {
+      "name": "HasOpportunityLineItem",
+      "label": "Has Line Item",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Pricebook2Id",
+      "label": "Price Book ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Pricebook2"
+      ],
+      "relationshipName": "Pricebook2"
+    },
+    {
+      "name": "OwnerId",
+      "label": "Owner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "Owner"
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastActivityDate",
+      "label": "Last Activity",
+      "type": "date",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "PushCount",
+      "label": "Push Count",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastStageChangeDate",
+      "label": "Last Stage Change Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FiscalQuarter",
+      "label": "Fiscal Quarter",
+      "type": "int",
+      "required": false,
+      "custom": false,
+      "compoundFieldName": "Fiscal"
+    },
+    {
+      "name": "FiscalYear",
+      "label": "Fiscal Year",
+      "type": "int",
+      "required": false,
+      "custom": false,
+      "compoundFieldName": "Fiscal"
+    },
+    {
+      "name": "Fiscal",
+      "label": "Fiscal Period",
+      "type": "string",
+      "length": 6,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ContactId",
+      "label": "Contact ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Contact"
+      ]
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "HasOpenActivity",
+      "label": "Has Open Activity",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "HasOverdueTask",
+      "label": "Has Overdue Task",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastAmountChangedHistoryId",
+      "label": "Opportunity History ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "OpportunityHistory"
+      ],
+      "relationshipName": "LastAmountChangedHistory"
+    },
+    {
+      "name": "LastCloseDateChangedHistoryId",
+      "label": "Opportunity History ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "OpportunityHistory"
+      ],
+      "relationshipName": "LastCloseDateChangedHistory"
+    },
+    {
+      "name": "DeliveryInstallationStatus__c",
+      "label": "Delivery/Installation Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": true,
+      "picklistValues": [
+        "In progress",
+        "Yet to begin",
+        "Completed"
+      ]
+    },
+    {
+      "name": "TrackingNumber__c",
+      "label": "Tracking Number",
+      "type": "string",
+      "length": 12,
+      "required": false,
+      "custom": true
+    },
+    {
+      "name": "OrderNumber__c",
+      "label": "Order Number",
+      "type": "string",
+      "length": 8,
+      "required": false,
+      "custom": true
+    },
+    {
+      "name": "CurrentGenerators__c",
+      "label": "Current Generator(s)",
+      "type": "string",
+      "length": 100,
+      "required": false,
+      "custom": true
+    },
+    {
+      "name": "MainCompetitors__c",
+      "label": "Main Competitor(s)",
+      "type": "string",
+      "length": 100,
+      "required": false,
+      "custom": true
+    },
+    {
+      "name": "Loss_Reason__c",
+      "label": "Loss Reason",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": true,
+      "picklistValues": [
+        "Price",
+        "Timing",
+        "Competitor",
+        "No Budget",
+        "No Decision",
+        "Other"
+      ]
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "AccountPartner",
+      "field": "OpportunityId",
+      "relationshipName": "AccountPartners",
+      "cascadeDelete": true
+    },
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "CollaborationGroupRecord",
+      "field": "RecordId",
+      "relationshipName": "RecordAssociatedGroups",
+      "cascadeDelete": true
+    },
+    {
+      "child": "ContactRequest",
+      "field": "WhatId",
+      "relationshipName": "ContactRequests",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "EmailMessage",
+      "field": "RelatedToId",
+      "relationshipName": "Emails",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Event",
+      "field": "WhatId",
+      "relationshipName": "Events",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Invoice",
+      "field": "ReferenceEntityId",
+      "relationshipName": "Invoices",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ListEmail",
+      "field": "RelatedToId",
+      "relationshipName": "ListEmails",
+      "cascadeDelete": false
+    },
+    {
+      "child": "MessagingSession",
+      "field": "OpportunityId",
+      "relationshipName": "MessagingSessions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Note",
+      "field": "ParentId",
+      "relationshipName": "Notes",
+      "cascadeDelete": true
+    },
+    {
+      "child": "OpportunityContactRole",
+      "field": "OpportunityId",
+      "relationshipName": "OpportunityContactRoles",
+      "cascadeDelete": true
+    },
+    {
+      "child": "OpportunityLineItem",
+      "field": "OpportunityId",
+      "relationshipName": "OpportunityLineItems",
+      "cascadeDelete": true
+    },
+    {
+      "child": "OpportunityPartner",
+      "field": "OpportunityId",
+      "relationshipName": "OpportunityPartnersFrom",
+      "cascadeDelete": true
+    },
+    {
+      "child": "ServiceAppointment",
+      "field": "ParentRecordId",
+      "relationshipName": "ServiceAppointments",
+      "cascadeDelete": true
+    },
+    {
+      "child": "Subscription__c",
+      "field": "Source_Opportunity__c",
+      "relationshipName": "Subscriptions__r",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Task",
+      "field": "WhatId",
+      "relationshipName": "Tasks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "VoiceCall",
+      "field": "RelatedRecordId",
+      "relationshipName": "RelatedRecords",
+      "cascadeDelete": false
+    }
+  ]
+}

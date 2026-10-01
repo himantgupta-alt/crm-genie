@@ -1,0 +1,2104 @@
+[
+  {
+    "object": "AITrustAttrSetup",
+    "records": 0
+  },
+  {
+    "object": "AITrustAttribute",
+    "records": 0
+  },
+  {
+    "object": "Account",
+    "records": 14,
+    "fields": 68,
+    "method": "rest"
+  },
+  {
+    "object": "AccountPartner",
+    "records": 0
+  },
+  {
+    "object": "ActionLinkGroupTemplate",
+    "records": 0
+  },
+  {
+    "object": "ActionLinkTemplate",
+    "records": 0
+  },
+  {
+    "object": "ActivationTarget",
+    "records": 0
+  },
+  {
+    "object": "Address",
+    "records": 0
+  },
+  {
+    "object": "AiSkill",
+    "records": 0
+  },
+  {
+    "object": "AlternativePaymentMethod",
+    "records": 0
+  },
+  {
+    "object": "ApexClass",
+    "records": 8,
+    "fields": 14,
+    "method": "rest"
+  },
+  {
+    "object": "AppUsageAssignment",
+    "records": 0
+  },
+  {
+    "object": "AppointmentAssignmentPolicy",
+    "records": 0
+  },
+  {
+    "object": "AppointmentCategory",
+    "records": 0
+  },
+  {
+    "object": "AppointmentInvitation",
+    "records": 0
+  },
+  {
+    "object": "AppointmentInvitee",
+    "records": 0
+  },
+  {
+    "object": "AppointmentSchedulingPolicy",
+    "records": 1,
+    "fields": 23,
+    "method": "rest"
+  },
+  {
+    "object": "AppointmentTopicTimeSlot",
+    "records": 0
+  },
+  {
+    "object": "ApprovalSubmission",
+    "records": 0
+  },
+  {
+    "object": "ApprovalSubmissionDetail",
+    "records": 0
+  },
+  {
+    "object": "ApprovalWorkItem",
+    "records": 0
+  },
+  {
+    "object": "Asset",
+    "records": 0
+  },
+  {
+    "object": "AssetAction",
+    "records": 0
+  },
+  {
+    "object": "AssetActionSource",
+    "records": 0
+  },
+  {
+    "object": "AssetRelationship",
+    "records": 0
+  },
+  {
+    "object": "AssetStatePeriod",
+    "records": 0
+  },
+  {
+    "object": "AssignedResource",
+    "records": 0
+  },
+  {
+    "object": "AssociatedLocation",
+    "records": 0
+  },
+  {
+    "object": "AsyncOperationLog",
+    "records": 0
+  },
+  {
+    "object": "AuthorizationForm",
+    "records": 0
+  },
+  {
+    "object": "AuthorizationFormConsent",
+    "records": 0
+  },
+  {
+    "object": "AuthorizationFormDataUse",
+    "records": 0
+  },
+  {
+    "object": "AuthorizationFormText",
+    "records": 0
+  },
+  {
+    "object": "BackgroundOperation",
+    "records": 0
+  },
+  {
+    "object": "BrowserPolicyViolation",
+    "records": 0
+  },
+  {
+    "object": "BusinessBrand",
+    "records": 0
+  },
+  {
+    "object": "BusinessHours",
+    "records": 1,
+    "fields": 25,
+    "method": "rest"
+  },
+  {
+    "object": "BuyerGroup",
+    "records": 0
+  },
+  {
+    "object": "Campaign",
+    "records": 4,
+    "fields": 33,
+    "method": "rest"
+  },
+  {
+    "object": "CampaignMember",
+    "records": 0
+  },
+  {
+    "object": "CampaignMemberStatus",
+    "records": 12,
+    "fields": 12,
+    "method": "rest"
+  },
+  {
+    "object": "CardPaymentMethod",
+    "records": 0
+  },
+  {
+    "object": "CartDeliveryGroup",
+    "records": 0
+  },
+  {
+    "object": "CartDeliveryGroupMethod",
+    "records": 0
+  },
+  {
+    "object": "CartItem",
+    "records": 0
+  },
+  {
+    "object": "CartItemPriceAdjustment",
+    "records": 0
+  },
+  {
+    "object": "CartTax",
+    "records": 0
+  },
+  {
+    "object": "CartValidationOutput",
+    "records": 0
+  },
+  {
+    "object": "Case",
+    "records": 26,
+    "fields": 40,
+    "method": "rest"
+  },
+  {
+    "object": "CaseComment",
+    "records": 0
+  },
+  {
+    "object": "CaseContactRole",
+    "records": 0
+  },
+  {
+    "object": "CaseMilestone",
+    "records": 0
+  },
+  {
+    "object": "CaseRelatedIssue",
+    "records": 0
+  },
+  {
+    "object": "ChangeRequest",
+    "records": 0
+  },
+  {
+    "object": "ChangeRequestRelatedIssue",
+    "records": 0
+  },
+  {
+    "object": "ChangeRequestRelatedItem",
+    "records": 0
+  },
+  {
+    "object": "CollaborationGroup",
+    "records": 0
+  },
+  {
+    "object": "CollaborationGroupMember",
+    "records": 0
+  },
+  {
+    "object": "CollaborationGroupRecord",
+    "records": 0
+  },
+  {
+    "object": "CommSubscription",
+    "records": 0
+  },
+  {
+    "object": "CommSubscriptionChannelType",
+    "records": 0
+  },
+  {
+    "object": "CommSubscriptionConsent",
+    "records": 0
+  },
+  {
+    "object": "CommSubscriptionTiming",
+    "records": 0
+  },
+  {
+    "object": "ConsumptionRate",
+    "records": 0
+  },
+  {
+    "object": "ConsumptionSchedule",
+    "records": 0
+  },
+  {
+    "object": "Contact",
+    "records": 20,
+    "fields": 65,
+    "method": "rest"
+  },
+  {
+    "object": "ContactPointAddress",
+    "records": 0
+  },
+  {
+    "object": "ContactPointConsent",
+    "records": 0
+  },
+  {
+    "object": "ContactPointEmail",
+    "records": 0
+  },
+  {
+    "object": "ContactPointPhone",
+    "records": 0
+  },
+  {
+    "object": "ContactPointTypeConsent",
+    "records": 0
+  },
+  {
+    "object": "ContactRequest",
+    "records": 0
+  },
+  {
+    "object": "ContentDocument",
+    "records": 0
+  },
+  {
+    "object": "ContentDocumentLink",
+    "error": "Implementation restriction: ContentDocumentLink requires a filter by a single Id on ContentDocumentId or LinkedEntityId using the equals operator or multiple Id's using the IN operator."
+  },
+  {
+    "object": "ContentFolderItem",
+    "error": "Implementation restriction: ContentFolderItem requires a filter by Id or ParentContentFolderId using the equals or 'IN' operator"
+  },
+  {
+    "object": "ContentVersion",
+    "records": 0
+  },
+  {
+    "object": "ContentWorkspace",
+    "records": 1,
+    "fields": 19,
+    "method": "rest"
+  },
+  {
+    "object": "Contract",
+    "records": 0
+  },
+  {
+    "object": "ContractContactRole",
+    "records": 0
+  },
+  {
+    "object": "ContractLineItem",
+    "records": 0
+  },
+  {
+    "object": "ConvEntryRelatedRecordCopy",
+    "records": 0
+  },
+  {
+    "object": "Conversation",
+    "records": 0
+  },
+  {
+    "object": "ConversationEntryCopy",
+    "records": 0
+  },
+  {
+    "object": "Coupon",
+    "records": 0
+  },
+  {
+    "object": "CouponCodeRedemption",
+    "records": 0
+  },
+  {
+    "object": "CreditMemo",
+    "records": 0
+  },
+  {
+    "object": "CreditMemoInvApplication",
+    "records": 0
+  },
+  {
+    "object": "CreditMemoLine",
+    "records": 0
+  },
+  {
+    "object": "CspTrustedSite",
+    "records": 2,
+    "fields": 23,
+    "method": "rest"
+  },
+  {
+    "object": "CustomHttpHeader",
+    "records": 0
+  },
+  {
+    "object": "CustomPermission",
+    "records": 0
+  },
+  {
+    "object": "CustomPermissionDependency",
+    "records": 0
+  },
+  {
+    "object": "Customer",
+    "records": 0
+  },
+  {
+    "object": "DandBCompany",
+    "records": 0
+  },
+  {
+    "object": "Dashboard",
+    "records": 2,
+    "fields": 31,
+    "method": "rest"
+  },
+  {
+    "object": "DataAction",
+    "records": 0
+  },
+  {
+    "object": "DataActionTarget",
+    "records": 0
+  },
+  {
+    "object": "DataCommunicationCap",
+    "records": 0
+  },
+  {
+    "object": "DataGraph",
+    "records": 0
+  },
+  {
+    "object": "DataKitDeploymentLog",
+    "records": 0
+  },
+  {
+    "object": "DataLakeObjectInstance",
+    "records": 0
+  },
+  {
+    "object": "DataMaskCustomValueLibrary",
+    "records": 0
+  },
+  {
+    "object": "DataObjSecondaryIndex",
+    "records": 0
+  },
+  {
+    "object": "DataQueryWorkspace",
+    "records": 0
+  },
+  {
+    "object": "DataQueryWorkspaceTab",
+    "records": 0
+  },
+  {
+    "object": "DataSemanticSearch",
+    "records": 0
+  },
+  {
+    "object": "DataStream",
+    "records": 0
+  },
+  {
+    "object": "DataUseLegalBasis",
+    "records": 0
+  },
+  {
+    "object": "DataUsePurpose",
+    "records": 0
+  },
+  {
+    "object": "DeliveryEstimationSetup",
+    "records": 0
+  },
+  {
+    "object": "DevopsActivityLog",
+    "records": 0
+  },
+  {
+    "object": "DevopsEnvDeployment",
+    "records": 0
+  },
+  {
+    "object": "DevopsEnvDeploymentMbr",
+    "records": 0
+  },
+  {
+    "object": "DevopsEnvironment",
+    "records": 0
+  },
+  {
+    "object": "DevopsPipeline",
+    "records": 0
+  },
+  {
+    "object": "DevopsPipelineEnvironment",
+    "records": 0
+  },
+  {
+    "object": "DevopsPipelineStage",
+    "records": 0
+  },
+  {
+    "object": "DevopsPipelineStageTrigger",
+    "records": 0
+  },
+  {
+    "object": "DevopsPipelineTestProvider",
+    "records": 0
+  },
+  {
+    "object": "DevopsPipelnStgProm",
+    "records": 0
+  },
+  {
+    "object": "DevopsPipelnStgPromWkItem",
+    "records": 0
+  },
+  {
+    "object": "DevopsProject",
+    "records": 0
+  },
+  {
+    "object": "DevopsProjectEnvironment",
+    "records": 0
+  },
+  {
+    "object": "DevopsProjectPipeline",
+    "records": 0
+  },
+  {
+    "object": "DevopsQualityGate",
+    "records": 0
+  },
+  {
+    "object": "DevopsQualityGateResult",
+    "records": 0
+  },
+  {
+    "object": "DevopsQualityGateRule",
+    "records": 0
+  },
+  {
+    "object": "DevopsQualityGateRuleResult",
+    "records": 0
+  },
+  {
+    "object": "DevopsRequestInfo",
+    "records": 0
+  },
+  {
+    "object": "DevopsTest",
+    "records": 0
+  },
+  {
+    "object": "DevopsTestExecution",
+    "records": 0
+  },
+  {
+    "object": "DevopsTestProviderSyncLog",
+    "records": 0
+  },
+  {
+    "object": "DevopsTestSuite",
+    "records": 0
+  },
+  {
+    "object": "DevopsTestSuiteExecution",
+    "records": 0
+  },
+  {
+    "object": "DevopsTestSuiteGroupExec",
+    "records": 0
+  },
+  {
+    "object": "DevopsTestSuiteStage",
+    "records": 0
+  },
+  {
+    "object": "DevopsTestSuiteTest",
+    "records": 0
+  },
+  {
+    "object": "DigitalWallet",
+    "records": 0
+  },
+  {
+    "object": "DuplicateRecordItem",
+    "records": 0
+  },
+  {
+    "object": "DuplicateRecordSet",
+    "records": 0
+  },
+  {
+    "object": "DuplicateRule",
+    "records": 3,
+    "fields": 15,
+    "method": "rest"
+  },
+  {
+    "object": "EmailMessage",
+    "records": 0
+  },
+  {
+    "object": "EmailTemplate",
+    "records": 28,
+    "fields": 29,
+    "method": "rest"
+  },
+  {
+    "object": "EngagementChannelType",
+    "records": 0
+  },
+  {
+    "object": "EngagementChannelWorkType",
+    "records": 0
+  },
+  {
+    "object": "EnhancedLetterhead",
+    "records": 0
+  },
+  {
+    "object": "Entitlement",
+    "records": 1,
+    "fields": 27,
+    "method": "rest"
+  },
+  {
+    "object": "EntitlementContact",
+    "records": 0
+  },
+  {
+    "object": "EntityMilestone",
+    "records": 0
+  },
+  {
+    "object": "Event",
+    "records": 0
+  },
+  {
+    "object": "ExtDataShareTarget",
+    "records": 0
+  },
+  {
+    "object": "ExternalEvent",
+    "records": 0
+  },
+  {
+    "object": "FeedItem",
+    "records": 9,
+    "fields": 26,
+    "method": "rest"
+  },
+  {
+    "object": "FinanceBalanceSnapshot",
+    "records": 0
+  },
+  {
+    "object": "FinanceTransaction",
+    "records": 0
+  },
+  {
+    "object": "FlowInterview",
+    "records": 0
+  },
+  {
+    "object": "FlowOrchestration",
+    "records": 3,
+    "fields": 32,
+    "method": "rest"
+  },
+  {
+    "object": "FlowOrchestrationInstance",
+    "records": 0
+  },
+  {
+    "object": "FlowOrchestrationLog",
+    "records": 0
+  },
+  {
+    "object": "FlowOrchestrationStageInstance",
+    "records": 0
+  },
+  {
+    "object": "FlowOrchestrationStepInstance",
+    "records": 0
+  },
+  {
+    "object": "FlowOrchestrationVersion",
+    "records": 3,
+    "fields": 25,
+    "method": "rest"
+  },
+  {
+    "object": "FlowOrchestrationWorkItem",
+    "records": 0
+  },
+  {
+    "object": "FlowRecord",
+    "records": 94,
+    "fields": 48,
+    "method": "rest"
+  },
+  {
+    "object": "FlowRecordElement",
+    "records": 1,
+    "fields": 12,
+    "method": "rest"
+  },
+  {
+    "object": "FlowRecordVersion",
+    "records": 94,
+    "fields": 41,
+    "method": "rest"
+  },
+  {
+    "object": "FlowRecordVersionOccurrence",
+    "records": 0
+  },
+  {
+    "object": "FulfillmentOrder",
+    "records": 0
+  },
+  {
+    "object": "FulfillmentOrderItemAdjustment",
+    "records": 0
+  },
+  {
+    "object": "FulfillmentOrderItemTax",
+    "records": 0
+  },
+  {
+    "object": "FulfillmentOrderLineItem",
+    "records": 0
+  },
+  {
+    "object": "Holiday",
+    "records": 0
+  },
+  {
+    "object": "IPAddressRange",
+    "records": 0
+  },
+  {
+    "object": "Idea",
+    "records": 0
+  },
+  {
+    "object": "IdentityResolution",
+    "records": 0
+  },
+  {
+    "object": "IframeWhiteListUrl",
+    "records": 2,
+    "fields": 9,
+    "method": "rest"
+  },
+  {
+    "object": "Image",
+    "records": 0
+  },
+  {
+    "object": "Incident",
+    "records": 0
+  },
+  {
+    "object": "IncidentRelatedItem",
+    "records": 0
+  },
+  {
+    "object": "Individual",
+    "records": 0
+  },
+  {
+    "object": "InventoryItemReservation",
+    "records": 0
+  },
+  {
+    "object": "InventoryReservation",
+    "records": 0
+  },
+  {
+    "object": "Invoice",
+    "records": 0
+  },
+  {
+    "object": "InvoiceLine",
+    "records": 0
+  },
+  {
+    "object": "Lead",
+    "records": 22,
+    "fields": 61,
+    "method": "rest"
+  },
+  {
+    "object": "LegalEntity",
+    "records": 0
+  },
+  {
+    "object": "ListEmail",
+    "records": 0
+  },
+  {
+    "object": "Location",
+    "records": 0
+  },
+  {
+    "object": "LocationGroup",
+    "records": 0
+  },
+  {
+    "object": "LocationGroupAssignment",
+    "records": 0
+  },
+  {
+    "object": "LocationShippingCarrierMethod",
+    "records": 0
+  },
+  {
+    "object": "Macro",
+    "records": 0
+  },
+  {
+    "object": "ManagedContent",
+    "records": 2,
+    "fields": 14,
+    "method": "rest"
+  },
+  {
+    "object": "ManagedContentVariant",
+    "records": 2,
+    "fields": 19,
+    "method": "rest"
+  },
+  {
+    "object": "MarketSegment",
+    "records": 0
+  },
+  {
+    "object": "MarketSegmentActivation",
+    "records": 0
+  },
+  {
+    "object": "MessagingChannel",
+    "records": 0
+  },
+  {
+    "object": "MessagingDeliveryError",
+    "records": 0
+  },
+  {
+    "object": "MessagingEndUser",
+    "records": 0
+  },
+  {
+    "object": "MessagingLink",
+    "records": 0
+  },
+  {
+    "object": "MessagingSession",
+    "records": 0
+  },
+  {
+    "object": "MessagingTemplate",
+    "records": 0
+  },
+  {
+    "object": "MktCalculatedInsight",
+    "records": 0
+  },
+  {
+    "object": "MktDataTransform",
+    "records": 0
+  },
+  {
+    "object": "MktMLModel",
+    "records": 0
+  },
+  {
+    "object": "Note",
+    "records": 0
+  },
+  {
+    "object": "OperatingHours",
+    "records": 0
+  },
+  {
+    "object": "OperatingHoursHoliday",
+    "records": 0
+  },
+  {
+    "object": "Opportunity",
+    "records": 31,
+    "fields": 47,
+    "method": "rest"
+  },
+  {
+    "object": "OpportunityContactRole",
+    "records": 0
+  },
+  {
+    "object": "OpportunityLineItem",
+    "records": 0
+  },
+  {
+    "object": "OpportunityPartner",
+    "records": 0
+  },
+  {
+    "object": "Order",
+    "records": 0
+  },
+  {
+    "object": "OrderItem",
+    "records": 0
+  },
+  {
+    "object": "PartyConsent",
+    "records": 0
+  },
+  {
+    "object": "Payment",
+    "records": 0
+  },
+  {
+    "object": "PaymentAuthAdjustment",
+    "records": 0
+  },
+  {
+    "object": "PaymentAuthorization",
+    "records": 0
+  },
+  {
+    "object": "PaymentCredit",
+    "records": 0
+  },
+  {
+    "object": "PaymentCreditLinePayment",
+    "records": 0
+  },
+  {
+    "object": "PaymentCreditTransaction",
+    "records": 0
+  },
+  {
+    "object": "PaymentGateway",
+    "records": 0
+  },
+  {
+    "object": "PaymentGatewayLog",
+    "records": 0
+  },
+  {
+    "object": "PaymentGatewayProvider",
+    "records": 0
+  },
+  {
+    "object": "PaymentGroup",
+    "records": 0
+  },
+  {
+    "object": "PaymentLineInvoice",
+    "records": 0
+  },
+  {
+    "object": "PaymentMethod",
+    "records": 0
+  },
+  {
+    "object": "PendingOrderSummary",
+    "error": "COUNT() query could not be processed"
+  },
+  {
+    "object": "PermissionSetLicense",
+    "error": "<html>"
+  },
+  {
+    "object": "PermissionSetLicenseDefinition",
+    "records": 0
+  },
+  {
+    "object": "Pricebook2",
+    "records": 2,
+    "fields": 14,
+    "method": "rest"
+  },
+  {
+    "object": "PricebookEntry",
+    "records": 34,
+    "fields": 15,
+    "method": "rest"
+  },
+  {
+    "object": "PrivacyJobSession",
+    "records": 0
+  },
+  {
+    "object": "PrivacyPolicy",
+    "records": 0
+  },
+  {
+    "object": "PrivacyRTBFRequest",
+    "records": 0
+  },
+  {
+    "object": "Problem",
+    "records": 0
+  },
+  {
+    "object": "ProblemIncident",
+    "records": 0
+  },
+  {
+    "object": "ProblemRelatedItem",
+    "records": 0
+  },
+  {
+    "object": "ProcessException",
+    "records": 0
+  },
+  {
+    "object": "Product2",
+    "records": 17,
+    "fields": 22,
+    "method": "rest"
+  },
+  {
+    "object": "ProductAttribute",
+    "records": 0
+  },
+  {
+    "object": "ProductAttributeSetProduct",
+    "records": 0
+  },
+  {
+    "object": "ProductCatalog",
+    "records": 0
+  },
+  {
+    "object": "ProductCategory",
+    "records": 0
+  },
+  {
+    "object": "ProductCategoryProduct",
+    "records": 0
+  },
+  {
+    "object": "ProductConsumptionSchedule",
+    "records": 0
+  },
+  {
+    "object": "Promotion",
+    "records": 0
+  },
+  {
+    "object": "PromotionMarketSegment",
+    "records": 0
+  },
+  {
+    "object": "PromotionQualifier",
+    "records": 0
+  },
+  {
+    "object": "PromotionSegment",
+    "records": 0
+  },
+  {
+    "object": "PromotionSegmentBuyerGroup",
+    "records": 0
+  },
+  {
+    "object": "PromotionSegmentSalesStore",
+    "records": 0
+  },
+  {
+    "object": "PromotionTarget",
+    "records": 0
+  },
+  {
+    "object": "PromotionTier",
+    "records": 0
+  },
+  {
+    "object": "QuickText",
+    "records": 0
+  },
+  {
+    "object": "Recommendation",
+    "records": 0
+  },
+  {
+    "object": "Refund",
+    "records": 0
+  },
+  {
+    "object": "RefundLinePayment",
+    "records": 0
+  },
+  {
+    "object": "ResourceAbsence",
+    "records": 0
+  },
+  {
+    "object": "ResourcePreference",
+    "records": 0
+  },
+  {
+    "object": "ReturnOrder",
+    "records": 0
+  },
+  {
+    "object": "ReturnOrderItemAdjustment",
+    "records": 0
+  },
+  {
+    "object": "ReturnOrderItemTax",
+    "records": 0
+  },
+  {
+    "object": "ReturnOrderLineItem",
+    "records": 0
+  },
+  {
+    "object": "Scorecard",
+    "records": 0
+  },
+  {
+    "object": "ScorecardMetric",
+    "records": 0
+  },
+  {
+    "object": "SearchPromotionRule",
+    "records": 0
+  },
+  {
+    "object": "Seller",
+    "records": 0
+  },
+  {
+    "object": "ServiceAppointment",
+    "records": 0
+  },
+  {
+    "object": "ServiceAppointmentAttendee",
+    "records": 0
+  },
+  {
+    "object": "ServiceContract",
+    "records": 0
+  },
+  {
+    "object": "ServiceResource",
+    "records": 0
+  },
+  {
+    "object": "ServiceResourceSkill",
+    "records": 0
+  },
+  {
+    "object": "ServiceTerritory",
+    "records": 0
+  },
+  {
+    "object": "ServiceTerritoryMember",
+    "records": 0
+  },
+  {
+    "object": "ServiceTerritoryWorkType",
+    "records": 0
+  },
+  {
+    "object": "SessionPermSetActivation",
+    "records": 0
+  },
+  {
+    "object": "SfdcPartnerSbscrOffer",
+    "records": 0
+  },
+  {
+    "object": "SfdcPartnerSbscrOfferItem",
+    "records": 0
+  },
+  {
+    "object": "Shift",
+    "records": 0
+  },
+  {
+    "object": "ShiftEngagementChannel",
+    "records": 0
+  },
+  {
+    "object": "ShiftWorkTopic",
+    "records": 0
+  },
+  {
+    "object": "Shipment",
+    "records": 0
+  },
+  {
+    "object": "ShipmentItem",
+    "records": 0
+  },
+  {
+    "object": "ShippingCarrier",
+    "records": 0
+  },
+  {
+    "object": "ShippingCarrierMethod",
+    "records": 0
+  },
+  {
+    "object": "SkillRequirement",
+    "records": 0
+  },
+  {
+    "object": "SlaProcess",
+    "records": 1,
+    "fields": 15,
+    "method": "rest"
+  },
+  {
+    "object": "Solution",
+    "records": 10,
+    "fields": 19,
+    "method": "rest"
+  },
+  {
+    "object": "SourceCodeRepoProvider",
+    "records": 0
+  },
+  {
+    "object": "SourceCodeRepository",
+    "records": 0
+  },
+  {
+    "object": "SourceCodeRepositoryBranch",
+    "records": 0
+  },
+  {
+    "object": "StandardShippingRate",
+    "records": 0
+  },
+  {
+    "object": "StreamingChannel",
+    "records": 0
+  },
+  {
+    "object": "Subscription_Line__c",
+    "records": 69,
+    "fields": 14,
+    "method": "rest"
+  },
+  {
+    "object": "Subscription__c",
+    "records": 47,
+    "fields": 24,
+    "method": "rest"
+  },
+  {
+    "object": "Task",
+    "records": 17,
+    "fields": 39,
+    "method": "rest"
+  },
+  {
+    "object": "TenantConsumptionAlert",
+    "records": 0
+  },
+  {
+    "object": "TenantUsageEntitlement",
+    "records": 24,
+    "fields": 19,
+    "method": "rest"
+  },
+  {
+    "object": "TimeSlot",
+    "records": 0
+  },
+  {
+    "object": "Topic",
+    "records": 0
+  },
+  {
+    "object": "UnstructuredStorageSpace",
+    "records": 0
+  },
+  {
+    "object": "User",
+    "records": 8,
+    "fields": 191,
+    "method": "rest"
+  },
+  {
+    "object": "UserDefinedLabel",
+    "records": 0
+  },
+  {
+    "object": "UserProvisioningRequest",
+    "records": 0
+  },
+  {
+    "object": "UserRole",
+    "records": 18,
+    "fields": 16,
+    "method": "rest"
+  },
+  {
+    "object": "VoiceCall",
+    "records": 0
+  },
+  {
+    "object": "Waitlist",
+    "records": 0
+  },
+  {
+    "object": "WaitlistParticipant",
+    "records": 0
+  },
+  {
+    "object": "WaitlistServiceResource",
+    "records": 0
+  },
+  {
+    "object": "WaitlistWorkType",
+    "records": 0
+  },
+  {
+    "object": "WebCart",
+    "records": 0
+  },
+  {
+    "object": "WebCartActivityLog",
+    "records": 0
+  },
+  {
+    "object": "WebCartAdjustmentBasis",
+    "records": 0
+  },
+  {
+    "object": "WebCartAdjustmentGroup",
+    "records": 0
+  },
+  {
+    "object": "WebCartCollaborator",
+    "records": 0
+  },
+  {
+    "object": "WebCartCredit",
+    "records": 0
+  },
+  {
+    "object": "WebStore",
+    "records": 0
+  },
+  {
+    "object": "WebStoreBuyerGroup",
+    "records": 0
+  },
+  {
+    "object": "WebStoreCatalog",
+    "records": 0
+  },
+  {
+    "object": "WebStoreInventorySource",
+    "records": 0
+  },
+  {
+    "object": "WorkItem",
+    "records": 0
+  },
+  {
+    "object": "WorkItemComponent",
+    "records": 0
+  },
+  {
+    "object": "WorkItemComponentList",
+    "records": 0
+  },
+  {
+    "object": "WorkOrder",
+    "records": 0
+  },
+  {
+    "object": "WorkOrderLineItem",
+    "records": 0
+  },
+  {
+    "object": "WorkPlan",
+    "records": 0
+  },
+  {
+    "object": "WorkPlanTemplate",
+    "records": 0
+  },
+  {
+    "object": "WorkPlanTemplateEntry",
+    "records": 0
+  },
+  {
+    "object": "WorkStep",
+    "records": 0
+  },
+  {
+    "object": "WorkStepTemplate",
+    "records": 0
+  },
+  {
+    "object": "WorkType",
+    "records": 0
+  },
+  {
+    "object": "WorkTypeGroup",
+    "records": 0
+  },
+  {
+    "object": "WorkTypeGroupMember",
+    "records": 0
+  },
+  {
+    "object": "AccountHistory",
+    "records": 0
+  },
+  {
+    "object": "ActivationTargetHistory",
+    "records": 0
+  },
+  {
+    "object": "AddressHistory",
+    "records": 0
+  },
+  {
+    "object": "AppointmentCategoryHistory",
+    "records": 0
+  },
+  {
+    "object": "AppointmentInvitationHistory",
+    "records": 0
+  },
+  {
+    "object": "AppointmentTopicTimeSlotHistory",
+    "records": 0
+  },
+  {
+    "object": "ApprovalSubmissionDetailHistory",
+    "records": 0
+  },
+  {
+    "object": "ApprovalSubmissionHistory",
+    "records": 0
+  },
+  {
+    "object": "ApprovalWorkItemHistory",
+    "records": 0
+  },
+  {
+    "object": "AssetHistory",
+    "records": 0
+  },
+  {
+    "object": "AssetRelationshipHistory",
+    "records": 0
+  },
+  {
+    "object": "AssignedResourceHistory",
+    "records": 0
+  },
+  {
+    "object": "AssociatedLocationHistory",
+    "records": 0
+  },
+  {
+    "object": "AuthorizationFormConsentHistory",
+    "records": 0
+  },
+  {
+    "object": "AuthorizationFormDataUseHistory",
+    "records": 0
+  },
+  {
+    "object": "AuthorizationFormHistory",
+    "records": 0
+  },
+  {
+    "object": "AuthorizationFormTextHistory",
+    "records": 0
+  },
+  {
+    "object": "BuyerGroupHistory",
+    "records": 0
+  },
+  {
+    "object": "CampaignHistory",
+    "records": 0
+  },
+  {
+    "object": "CaseHistory",
+    "records": 0
+  },
+  {
+    "object": "CaseRelatedIssueHistory",
+    "records": 0
+  },
+  {
+    "object": "ChangeRequestHistory",
+    "records": 0
+  },
+  {
+    "object": "ChangeRequestRelatedIssueHistory",
+    "records": 0
+  },
+  {
+    "object": "ChangeRequestRelatedItemHistory",
+    "records": 0
+  },
+  {
+    "object": "CommSubscriptionChannelTypeHistory",
+    "records": 0
+  },
+  {
+    "object": "CommSubscriptionConsentHistory",
+    "records": 0
+  },
+  {
+    "object": "CommSubscriptionHistory",
+    "records": 0
+  },
+  {
+    "object": "CommSubscriptionTimingHistory",
+    "records": 0
+  },
+  {
+    "object": "ConsumptionRateHistory",
+    "records": 0
+  },
+  {
+    "object": "ConsumptionScheduleHistory",
+    "records": 0
+  },
+  {
+    "object": "ContactHistory",
+    "records": 0
+  },
+  {
+    "object": "ContactPointAddressHistory",
+    "records": 0
+  },
+  {
+    "object": "ContactPointConsentHistory",
+    "records": 0
+  },
+  {
+    "object": "ContactPointEmailHistory",
+    "records": 0
+  },
+  {
+    "object": "ContactPointPhoneHistory",
+    "records": 0
+  },
+  {
+    "object": "ContactPointTypeConsentHistory",
+    "records": 0
+  },
+  {
+    "object": "ContentDocumentHistory",
+    "records": 0
+  },
+  {
+    "object": "ContentVersionHistory",
+    "records": 0
+  },
+  {
+    "object": "ContractHistory",
+    "records": 0
+  },
+  {
+    "object": "ContractLineItemHistory",
+    "records": 0
+  },
+  {
+    "object": "CouponHistory",
+    "records": 0
+  },
+  {
+    "object": "CreditMemoHistory",
+    "records": 0
+  },
+  {
+    "object": "CreditMemoLineHistory",
+    "records": 0
+  },
+  {
+    "object": "DataActionHistory",
+    "records": 0
+  },
+  {
+    "object": "DataActionTargetHistory",
+    "records": 0
+  },
+  {
+    "object": "DataCommunicationCapHistory",
+    "records": 0
+  },
+  {
+    "object": "DataLakeObjectInstanceHistory",
+    "records": 0
+  },
+  {
+    "object": "DataObjSecondaryIndexHistory",
+    "records": 0
+  },
+  {
+    "object": "DataQueryWorkspaceHistory",
+    "records": 0
+  },
+  {
+    "object": "DataSemanticSearchHistory",
+    "records": 0
+  },
+  {
+    "object": "DataStreamHistory",
+    "records": 0
+  },
+  {
+    "object": "DataUseLegalBasisHistory",
+    "records": 0
+  },
+  {
+    "object": "DataUsePurposeHistory",
+    "records": 0
+  },
+  {
+    "object": "DeliveryEstimationSetupHistory",
+    "records": 0
+  },
+  {
+    "object": "DevopsEnvDeploymentHistory",
+    "records": 0
+  },
+  {
+    "object": "DevopsEnvDeploymentMbrHistory",
+    "records": 0
+  },
+  {
+    "object": "DevopsEnvironmentHistory",
+    "records": 0
+  },
+  {
+    "object": "DevopsPipelineEnvironmentHistory",
+    "records": 0
+  },
+  {
+    "object": "DevopsPipelineHistory",
+    "records": 0
+  },
+  {
+    "object": "DevopsPipelineStageHistory",
+    "records": 0
+  },
+  {
+    "object": "DevopsPipelnStgPromHistory",
+    "records": 0
+  },
+  {
+    "object": "DevopsPipelnStgPromWkItemHistory",
+    "records": 0
+  },
+  {
+    "object": "DevopsProjectEnvironmentHistory",
+    "records": 0
+  },
+  {
+    "object": "DevopsProjectHistory",
+    "records": 0
+  },
+  {
+    "object": "DevopsProjectPipelineHistory",
+    "records": 0
+  },
+  {
+    "object": "DevopsRequestInfoHistory",
+    "records": 0
+  },
+  {
+    "object": "EngagementChannelTypeHistory",
+    "records": 0
+  },
+  {
+    "object": "EngagementChannelWorkTypeHistory",
+    "records": 0
+  },
+  {
+    "object": "EntitlementHistory",
+    "records": 0
+  },
+  {
+    "object": "EntityMilestoneHistory",
+    "records": 0
+  },
+  {
+    "object": "ExtDataShareTargetHistory",
+    "records": 0
+  },
+  {
+    "object": "FlowRecordHistory",
+    "records": 10,
+    "fields": 9,
+    "method": "rest"
+  },
+  {
+    "object": "IdentityResolutionHistory",
+    "records": 0
+  },
+  {
+    "object": "ImageHistory",
+    "records": 0
+  },
+  {
+    "object": "IncidentHistory",
+    "records": 0
+  },
+  {
+    "object": "IncidentRelatedItemHistory",
+    "records": 0
+  },
+  {
+    "object": "IndividualHistory",
+    "records": 0
+  },
+  {
+    "object": "InvoiceHistory",
+    "records": 0
+  },
+  {
+    "object": "InvoiceLineHistory",
+    "records": 0
+  },
+  {
+    "object": "LeadHistory",
+    "records": 0
+  },
+  {
+    "object": "LegalEntityHistory",
+    "records": 0
+  },
+  {
+    "object": "LocationGroupHistory",
+    "records": 0
+  },
+  {
+    "object": "LocationHistory",
+    "records": 0
+  },
+  {
+    "object": "LocationShippingCarrierMethodHistory",
+    "records": 0
+  },
+  {
+    "object": "MacroHistory",
+    "records": 0
+  },
+  {
+    "object": "MarketSegmentActivationHistory",
+    "records": 0
+  },
+  {
+    "object": "MarketSegmentHistory",
+    "records": 0
+  },
+  {
+    "object": "MessagingEndUserHistory",
+    "records": 0
+  },
+  {
+    "object": "MessagingSessionHistory",
+    "records": 0
+  },
+  {
+    "object": "MktCalculatedInsightHistory",
+    "records": 0
+  },
+  {
+    "object": "MktDataTransformHistory",
+    "records": 0
+  },
+  {
+    "object": "MktMLModelHistory",
+    "records": 0
+  },
+  {
+    "object": "OperatingHoursHistory",
+    "records": 0
+  },
+  {
+    "object": "OperatingHoursHolidayHistory",
+    "records": 0
+  },
+  {
+    "object": "OpportunityFieldHistory",
+    "records": 0
+  },
+  {
+    "object": "OpportunityHistory",
+    "records": 71,
+    "fields": 14,
+    "method": "rest"
+  },
+  {
+    "object": "OrderHistory",
+    "records": 0
+  },
+  {
+    "object": "OrderItemHistory",
+    "records": 0
+  },
+  {
+    "object": "PartyConsentHistory",
+    "records": 0
+  },
+  {
+    "object": "PaymentLineInvoiceHistory",
+    "records": 0
+  },
+  {
+    "object": "Pricebook2History",
+    "records": 0
+  },
+  {
+    "object": "PricebookEntryHistory",
+    "records": 0
+  },
+  {
+    "object": "PrivacyRTBFRequestHistory",
+    "records": 0
+  },
+  {
+    "object": "ProblemHistory",
+    "records": 0
+  },
+  {
+    "object": "ProblemIncidentHistory",
+    "records": 0
+  },
+  {
+    "object": "ProblemRelatedItemHistory",
+    "records": 0
+  },
+  {
+    "object": "Product2History",
+    "records": 0
+  },
+  {
+    "object": "ProductCatalogHistory",
+    "records": 0
+  },
+  {
+    "object": "ProductCategoryHistory",
+    "records": 0
+  },
+  {
+    "object": "ProductCategoryProductHistory",
+    "records": 0
+  },
+  {
+    "object": "PromotionHistory",
+    "records": 0
+  },
+  {
+    "object": "PromotionMarketSegmentHistory",
+    "records": 0
+  },
+  {
+    "object": "PromotionQualifierHistory",
+    "records": 0
+  },
+  {
+    "object": "PromotionSegmentBuyerGroupHistory",
+    "records": 0
+  },
+  {
+    "object": "PromotionSegmentHistory",
+    "records": 0
+  },
+  {
+    "object": "PromotionSegmentSalesStoreHistory",
+    "records": 0
+  },
+  {
+    "object": "PromotionTargetHistory",
+    "records": 0
+  },
+  {
+    "object": "PromotionTierHistory",
+    "records": 0
+  },
+  {
+    "object": "QuickTextHistory",
+    "records": 0
+  },
+  {
+    "object": "RefundLinePaymentHistory",
+    "records": 0
+  },
+  {
+    "object": "ResourceAbsenceHistory",
+    "records": 0
+  },
+  {
+    "object": "ResourcePreferenceHistory",
+    "records": 0
+  },
+  {
+    "object": "ReturnOrderHistory",
+    "records": 0
+  },
+  {
+    "object": "ReturnOrderLineItemHistory",
+    "records": 0
+  },
+  {
+    "object": "SellerHistory",
+    "records": 0
+  },
+  {
+    "object": "ServiceAppointmentAttendeeHistory",
+    "records": 0
+  },
+  {
+    "object": "ServiceAppointmentHistory",
+    "records": 0
+  },
+  {
+    "object": "ServiceContractHistory",
+    "records": 0
+  },
+  {
+    "object": "ServiceResourceHistory",
+    "records": 0
+  },
+  {
+    "object": "ServiceResourceSkillHistory",
+    "records": 0
+  },
+  {
+    "object": "ServiceTerritoryHistory",
+    "records": 0
+  },
+  {
+    "object": "ServiceTerritoryMemberHistory",
+    "records": 0
+  },
+  {
+    "object": "ServiceTerritoryWorkTypeHistory",
+    "records": 0
+  },
+  {
+    "object": "SfdcPartnerSbscrOfferHistory",
+    "records": 0
+  },
+  {
+    "object": "ShiftEngagementChannelHistory",
+    "records": 0
+  },
+  {
+    "object": "ShiftHistory",
+    "records": 0
+  },
+  {
+    "object": "ShiftWorkTopicHistory",
+    "records": 0
+  },
+  {
+    "object": "ShipmentHistory",
+    "records": 0
+  },
+  {
+    "object": "ShipmentItemHistory",
+    "records": 0
+  },
+  {
+    "object": "ShippingCarrierHistory",
+    "records": 0
+  },
+  {
+    "object": "ShippingCarrierMethodHistory",
+    "records": 0
+  },
+  {
+    "object": "SkillRequirementHistory",
+    "records": 0
+  },
+  {
+    "object": "SolutionHistory",
+    "records": 0
+  },
+  {
+    "object": "SourceCodeRepoProviderHistory",
+    "records": 0
+  },
+  {
+    "object": "SourceCodeRepositoryBranchHistory",
+    "records": 0
+  },
+  {
+    "object": "SourceCodeRepositoryHistory",
+    "records": 0
+  },
+  {
+    "object": "Subscription_Line__History",
+    "records": 69,
+    "fields": 9,
+    "method": "rest"
+  },
+  {
+    "object": "Subscription__History",
+    "records": 53,
+    "fields": 9,
+    "method": "rest"
+  },
+  {
+    "object": "TimeSlotHistory",
+    "records": 0
+  },
+  {
+    "object": "UserHistory",
+    "records": 2,
+    "fields": 9,
+    "method": "rest"
+  },
+  {
+    "object": "VoiceCallHistory",
+    "records": 0
+  },
+  {
+    "object": "WaitlistHistory",
+    "records": 0
+  },
+  {
+    "object": "WaitlistParticipantHistory",
+    "records": 0
+  },
+  {
+    "object": "WaitlistServiceResourceHistory",
+    "records": 0
+  },
+  {
+    "object": "WaitlistWorkTypeHistory",
+    "records": 0
+  },
+  {
+    "object": "WebCartCollaboratorHistory",
+    "records": 0
+  },
+  {
+    "object": "WebCartHistory",
+    "records": 0
+  },
+  {
+    "object": "WebStoreCatalogHistory",
+    "records": 0
+  },
+  {
+    "object": "WorkItemComponentHistory",
+    "records": 0
+  },
+  {
+    "object": "WorkItemComponentListHistory",
+    "records": 0
+  },
+  {
+    "object": "WorkItemHistory",
+    "records": 0
+  },
+  {
+    "object": "WorkOrderHistory",
+    "records": 0
+  },
+  {
+    "object": "WorkOrderLineItemHistory",
+    "records": 0
+  },
+  {
+    "object": "WorkPlanHistory",
+    "records": 0
+  },
+  {
+    "object": "WorkPlanTemplateEntryHistory",
+    "records": 0
+  },
+  {
+    "object": "WorkPlanTemplateHistory",
+    "records": 0
+  },
+  {
+    "object": "WorkStepHistory",
+    "records": 0
+  },
+  {
+    "object": "WorkStepTemplateHistory",
+    "records": 0
+  },
+  {
+    "object": "WorkTypeGroupHistory",
+    "records": 0
+  },
+  {
+    "object": "WorkTypeGroupMemberHistory",
+    "records": 0
+  },
+  {
+    "object": "WorkTypeHistory",
+    "records": 0
+  }
+]

@@ -1,0 +1,342 @@
+{
+  "name": "DevopsActivityLog",
+  "label": "Activity History",
+  "custom": false,
+  "keyPrefix": "9Ka",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "DevOps Activity Log ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnerId",
+      "label": "Owner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Group",
+        "User"
+      ],
+      "relationshipName": "Owner"
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ActivityDate",
+      "label": "Activity Date",
+      "type": "datetime",
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "ActivityType",
+      "label": "Activity Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "PROJECT_CREATED",
+      "picklistValues": [
+        "PROJECT_CREATED",
+        "PIPELINE_CREATED",
+        "PIPELINE_STAGE_CREATED",
+        "WORK_ITEM_CREATED",
+        "WORK_ITEM_CONNECTED",
+        "WORK_ITEM_STATE_TRANSITION",
+        "WORK_ITEM_SWITCHED",
+        "COMMIT_STARTED",
+        "COMMIT_COMPONENT",
+        "COMMIT_COMPLETED",
+        "BACK_SYNC_STARTED",
+        "BACK_SYNC_COMPLETED",
+        "SWAP_STARTED",
+        "SWAP_COMPLETED",
+        "MIGRATION_STARTED",
+        "MIGRATION_COMPLETED",
+        "PROMOTION_STARTED",
+        "PROMOTION_WORK_ITEM",
+        "PROMOTION_COMPLETED",
+        "MERGE",
+        "DEPLOYMENT",
+        "DEPLOYMENT_STARTED",
+        "DEPLOYMENT_COMPLETED",
+        "REVIEW_CREATED",
+        "TEST_SUITE_GROUP_EXECUTION_STARTED",
+        "TEST_SUITE_GROUP_EXECUTION_COMPLETED",
+        "TEST_PROVIDER_CONFIGURED",
+        "QUALITY_GATE_EVALUATED",
+        "TEST_PROVIDER_SYNC_STARTED",
+        "TEST_PROVIDER_SYNC_COMPLETED"
+      ]
+    },
+    {
+      "name": "Description",
+      "label": "Description",
+      "type": "textarea",
+      "length": 5000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Status",
+      "label": "Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "SUCCESS",
+      "picklistValues": [
+        "SUCCESS",
+        "FAIL"
+      ]
+    },
+    {
+      "name": "ParentActivityId",
+      "label": "DevOps Activity Log ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "DevopsActivityLog"
+      ],
+      "relationshipName": "ParentActivity"
+    },
+    {
+      "name": "WorkItemId",
+      "label": "Work Item ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "WorkItem"
+      ],
+      "relationshipName": "WorkItem"
+    },
+    {
+      "name": "ProjectId",
+      "label": "DevOps Project ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "DevopsProject"
+      ],
+      "relationshipName": "Project"
+    },
+    {
+      "name": "PipelineId",
+      "label": "DevOps Pipeline ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "DevopsPipeline"
+      ],
+      "relationshipName": "Pipeline"
+    },
+    {
+      "name": "PipelineStageId",
+      "label": "DevOps Pipeline Stage ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "DevopsPipelineStage"
+      ],
+      "relationshipName": "PipelineStage"
+    },
+    {
+      "name": "PerformedById",
+      "label": "User ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "PerformedBy"
+    },
+    {
+      "name": "DevopsRequestInfoId",
+      "label": "DevOps Request Info ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "DevopsRequestInfo"
+      ],
+      "relationshipName": "DevopsRequestInfo"
+    },
+    {
+      "name": "Activity",
+      "label": "Activity",
+      "type": "string",
+      "length": 1000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TestSuiteGroupExecId",
+      "label": "Test Suite Group Execution ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "DevopsTestSuiteGroupExec"
+      ],
+      "relationshipName": "TestSuiteGroupExec"
+    },
+    {
+      "name": "RequestInfoErrorDetails",
+      "label": "Error Details",
+      "type": "string",
+      "length": 1333,
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "DevopsActivityLog",
+      "field": "ParentActivityId",
+      "relationshipName": "ChildDevopsActivityLogs",
+      "cascadeDelete": false
+    },
+    {
+      "child": "EmailMessage",
+      "field": "RelatedToId",
+      "relationshipName": "Emails",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Event",
+      "field": "WhatId",
+      "relationshipName": "Events",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Note",
+      "field": "ParentId",
+      "relationshipName": "Notes",
+      "cascadeDelete": true
+    },
+    {
+      "child": "Task",
+      "field": "WhatId",
+      "relationshipName": "Tasks",
+      "cascadeDelete": true
+    }
+  ]
+}

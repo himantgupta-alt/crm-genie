@@ -1,0 +1,272 @@
+{
+  "name": "CollaborationGroup",
+  "label": "Group",
+  "custom": false,
+  "keyPrefix": "0F9",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Group Id",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Name",
+      "type": "string",
+      "length": 40,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "MemberCount",
+      "label": "Member Count",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnerId",
+      "label": "Owner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "Owner"
+    },
+    {
+      "name": "CollaborationType",
+      "label": "Access Type",
+      "type": "picklist",
+      "length": 40,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "Public",
+        "Private"
+      ]
+    },
+    {
+      "name": "Description",
+      "label": "Description",
+      "type": "textarea",
+      "length": 1000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FullPhotoUrl",
+      "label": "Url for full-sized Photo",
+      "type": "url",
+      "length": 1024,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MediumPhotoUrl",
+      "label": "URL for medium profile photo",
+      "type": "url",
+      "length": 1024,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "SmallPhotoUrl",
+      "label": "Photo",
+      "type": "url",
+      "length": 1024,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastFeedModifiedDate",
+      "label": "Last Feed Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "InformationTitle",
+      "label": "Information Title",
+      "type": "string",
+      "length": 30,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "InformationBody",
+      "label": "Information",
+      "type": "textarea",
+      "length": 4000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "HasPrivateFieldsAccess",
+      "label": "Has Private Fields Access",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CanHaveGuests",
+      "label": "Allow customers",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsArchived",
+      "label": "Archive",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsAutoArchiveDisabled",
+      "label": "Disable automatic archiving",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "AnnouncementId",
+      "label": "Announcement ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Announcement"
+      ],
+      "relationshipName": "Announcement"
+    },
+    {
+      "name": "GroupEmail",
+      "label": "Group Email",
+      "type": "email",
+      "length": 1000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "BannerPhotoUrl",
+      "label": "Banner Photo URL",
+      "type": "url",
+      "length": 1024,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsBroadcast",
+      "label": "Broadcast Only",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "CollaborationGroupMember",
+      "field": "CollaborationGroupId",
+      "relationshipName": "GroupMembers",
+      "cascadeDelete": true
+    },
+    {
+      "child": "CollaborationGroupRecord",
+      "field": "CollaborationGroupId",
+      "relationshipName": "CollaborationGroupRecords",
+      "cascadeDelete": true
+    },
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    }
+  ]
+}

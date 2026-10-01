@@ -1,0 +1,742 @@
+{
+  "name": "VoiceCall",
+  "label": "Voice Call",
+  "custom": false,
+  "keyPrefix": "0LQ",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Name",
+      "label": "Name",
+      "type": "string",
+      "length": 30,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Id",
+      "label": "Voice Call ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnerId",
+      "label": "Owner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Group",
+        "User"
+      ],
+      "relationshipName": "Owner"
+    },
+    {
+      "name": "CallStartDateTime",
+      "label": "Call Started",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CallEndDateTime",
+      "label": "Call Ended",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FromPhoneNumber",
+      "label": "Caller Contact Info",
+      "type": "phone",
+      "length": 40,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ToPhoneNumber",
+      "label": "Recipient Contact Info",
+      "type": "phone",
+      "length": 40,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CallDurationInSeconds",
+      "label": "Call Duration",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "VendorCallKey",
+      "label": "Vendor Call Key",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Price",
+      "label": "Price",
+      "type": "double",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CurrencyCode",
+      "label": "Currency Code",
+      "type": "picklist",
+      "length": 3,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "AED",
+        "AFN",
+        "ALL",
+        "AMD",
+        "ANG",
+        "AOA",
+        "ARS",
+        "AUD",
+        "AWG",
+        "AZN",
+        "BAM",
+        "BBD",
+        "BDT",
+        "BGN",
+        "BHD",
+        "BIF",
+        "BMD",
+        "BND",
+        "BOB",
+        "BOV",
+        "BRL",
+        "BSD",
+        "BTN",
+        "BWP",
+        "BYN",
+        "BYR",
+        "BZD",
+        "CAD",
+        "CDF",
+        "CHF",
+        "CLF",
+        "CLP",
+        "CNH",
+        "CNY",
+        "COP",
+        "CRC",
+        "CVE",
+        "CZK",
+        "DJF",
+        "DKK",
+        "DOP",
+        "DZD",
+        "EEK",
+        "EGP",
+        "ERN",
+        "ETB",
+        "EUR",
+        "FJD",
+        "FKP",
+        "GBP",
+        "GBT",
+        "GEL",
+        "GHS",
+        "GIP",
+        "GMD",
+        "GNF",
+        "GTQ",
+        "GYD",
+        "HKD",
+        "HNL",
+        "HRK",
+        "HTG",
+        "HUF",
+        "IDR",
+        "ILS",
+        "INR",
+        "IQD",
+        "ISK",
+        "JMD",
+        "JOD",
+        "JPY",
+        "KES",
+        "KGS",
+        "KHR",
+        "KMF",
+        "KRW",
+        "KWD",
+        "KYD",
+        "KZT",
+        "LAK",
+        "LBP",
+        "LKR",
+        "LRD",
+        "LSL",
+        "LYD",
+        "MAD",
+        "MDL",
+        "MGA",
+        "MKD",
+        "MMK",
+        "MNT",
+        "MOP",
+        "MRO",
+        "MRU",
+        "MUR",
+        "MVR",
+        "MWK",
+        "MXN",
+        "MXV",
+        "MYR",
+        "MZN",
+        "NAD",
+        "NGN",
+        "NIO",
+        "NOK",
+        "NPR",
+        "NZD",
+        "OMR",
+        "PAB",
+        "PEN",
+        "PGK",
+        "PHP",
+        "PKR",
+        "PLN",
+        "PYG",
+        "QAR",
+        "RON",
+        "RSD",
+        "RUB",
+        "RWF",
+        "SAR",
+        "SBD",
+        "SCR",
+        "SDG",
+        "SEK",
+        "SGD",
+        "SHP",
+        "SLE",
+        "SLL",
+        "SOS",
+        "SRD",
+        "SSP",
+        "STD",
+        "STN",
+        "SZL",
+        "THB",
+        "TJS",
+        "TMT",
+        "TND",
+        "TOP",
+        "TRY",
+        "TTD",
+        "TWD",
+        "TZS",
+        "UAH",
+        "UGX",
+        "USD",
+        "UYU",
+        "UZS",
+        "VEF",
+        "VES",
+        "VND",
+        "VUV",
+        "WST",
+        "XAF",
+        "XCD",
+        "XCG",
+        "XOF",
+        "XPF",
+        "YER",
+        "ZAR",
+        "ZMW",
+        "ZWG",
+        "ZWL",
+        "ZIG"
+      ]
+    },
+    {
+      "name": "CallDisposition",
+      "label": "Call Status",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CallType",
+      "label": "Call Type",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Internal",
+        "Inbound",
+        "Outbound",
+        "Coach",
+        "Bridge",
+        "Transfer",
+        "Callback",
+        "InternalCall",
+        "Consult"
+      ]
+    },
+    {
+      "name": "VendorParentCallKey",
+      "label": "Vendor Parent Call Key",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "UserId",
+      "label": "User ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "User"
+    },
+    {
+      "name": "RelatedRecordId",
+      "label": "RelatedRecord ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Account",
+        "Case",
+        "Contact",
+        "ContactRequest",
+        "Lead",
+        "Opportunity",
+        "Subscription_Line__c",
+        "Subscription__c",
+        "WorkOrder"
+      ],
+      "relationshipName": "RelatedRecord"
+    },
+    {
+      "name": "VendorType",
+      "label": "Vendor Type",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Twilio",
+        "Custom",
+        "TwilioTrial",
+        "ContactCenter",
+        "RingCentral",
+        "DialPad",
+        "AmazonConnect",
+        "AirCall",
+        "VirtualVoiceAgent",
+        "NativeVoice"
+      ]
+    },
+    {
+      "name": "ConferenceKey",
+      "label": "Conference Key",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CallRecordingId",
+      "label": "Voice Call Recording ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "VoiceCallRecording"
+      ],
+      "relationshipName": "CallRecording"
+    },
+    {
+      "name": "CallerIdType",
+      "label": "Caller Id",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "VendorLine",
+        "CompanyNumber",
+        "LocalPresence",
+        "CustomCallerId"
+      ]
+    },
+    {
+      "name": "IsRecorded",
+      "label": "Is Call Recorded",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CallerId",
+      "label": "Caller ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "ConversationParticipant"
+      ],
+      "relationshipName": "Caller"
+    },
+    {
+      "name": "RecipientId",
+      "label": "Recipient ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "ConversationParticipant"
+      ],
+      "relationshipName": "Recipient"
+    },
+    {
+      "name": "PreviousCallId",
+      "label": "Previous Call ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "VoiceCall"
+      ],
+      "relationshipName": "PreviousCall"
+    },
+    {
+      "name": "NextCallId",
+      "label": "Next Call ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "VoiceCall"
+      ],
+      "relationshipName": "NextCall"
+    },
+    {
+      "name": "CallAcceptDateTime",
+      "label": "Call Accepted",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CallQueuedDateTime",
+      "label": "Call Entered Queue",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CallCenterId",
+      "label": "Call Center ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "CallCenter"
+      ],
+      "relationshipName": "CallCenter"
+    },
+    {
+      "name": "ConversationId",
+      "label": "Conversation ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Conversation"
+      ],
+      "relationshipName": "Conversation"
+    },
+    {
+      "name": "Description",
+      "label": "Description",
+      "type": "textarea",
+      "length": 32000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CallResolution",
+      "label": "Call Resolution",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Resolved"
+      ]
+    },
+    {
+      "name": "CustomerHoldDuration",
+      "label": "Customer Hold Duration",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LongestHoldDuration",
+      "label": "Longest Hold Duration",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "NumberOfHolds",
+      "label": "Number Of Holds",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "QueueName",
+      "label": "Queue Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ActivityId",
+      "label": "Activity ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Task"
+      ],
+      "relationshipName": "Activity"
+    },
+    {
+      "name": "CallConnectDateTime",
+      "label": "Call Connected",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MediaProviderId",
+      "label": "CallCoachingMediaProvider ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "CallCoachingMediaProvider"
+      ],
+      "relationshipName": "MediaProvider"
+    },
+    {
+      "name": "SourceType",
+      "label": "Source Type",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Sales",
+        "Service"
+      ]
+    },
+    {
+      "name": "EndUserId",
+      "label": "Messaging User ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "MessagingEndUser"
+      ],
+      "relationshipName": "EndUser"
+    },
+    {
+      "name": "QualityScore",
+      "label": "Mean Opinion Score",
+      "type": "double",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CallOrigin",
+      "label": "Call Origin",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Preview",
+        "Progressive",
+        "Voicemail",
+        "Campaign"
+      ]
+    },
+    {
+      "name": "AgentSentimentScore",
+      "label": "Agent Sentiment Score",
+      "type": "double",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CustomerSentimentScore",
+      "label": "Customer Sentiment Score",
+      "type": "double",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "DisconnectReason",
+      "label": "Disconnect Reason",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CallSubtype",
+      "label": "Call Subtype",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "PSTN",
+        "WebRTC",
+        "WhatsAppVoice",
+        "SIP"
+      ]
+    },
+    {
+      "name": "CallStatus",
+      "label": "Call Status Internal",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ContactRequest",
+      "field": "WhatId",
+      "relationshipName": "ContactRequests",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "ConvEntryRelatedRecordCopy",
+      "field": "RelatedRecordId",
+      "relationshipName": "ConvEntryRelatedRecordCopies",
+      "cascadeDelete": false
+    }
+  ]
+}

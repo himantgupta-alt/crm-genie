@@ -1,0 +1,258 @@
+{
+  "name": "CreditMemoInvApplication",
+  "label": "Credit Memo Invoice Application",
+  "custom": false,
+  "keyPrefix": "4sF",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Credit Memo Invoice Application ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreditMemoInvoiceNumber",
+      "label": "Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "InvoiceId",
+      "label": "Invoice ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Invoice"
+      ],
+      "relationshipName": "Invoice"
+    },
+    {
+      "name": "CreditMemoId",
+      "label": "Credit Memo ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "CreditMemo"
+      ],
+      "relationshipName": "CreditMemo"
+    },
+    {
+      "name": "Amount",
+      "label": "Amount",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Type",
+      "label": "Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Applied",
+        "Unapplied"
+      ]
+    },
+    {
+      "name": "Description",
+      "label": "Description",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Date",
+      "label": "Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "AppliedDate",
+      "label": "Applied Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "EffectiveDate",
+      "label": "Effective Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "UnappliedDate",
+      "label": "Unapplied Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "AssociatedLineId",
+      "label": "Credit Memo Invoice Application ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "CreditMemoInvApplication"
+      ],
+      "relationshipName": "AssociatedLine",
+      "inlineHelpText": "The application that this credit memo invoice application has unapplied."
+    },
+    {
+      "name": "HasBeenUnapplied",
+      "label": "Has Been Unapplied",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "No",
+        "Yes",
+        "NA"
+      ]
+    },
+    {
+      "name": "ImpactAmount",
+      "label": "Impact Amount",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false,
+      "calculated": true,
+      "inlineHelpText": "Impact on the balance of the credit memo and invoice. Unapplied-type applications have a negative impact, while Applied-type applications have a positive impact."
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "CreditMemoInvApplication",
+      "field": "AssociatedLineId",
+      "relationshipName": "CreditMemoInvApplications",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FinanceBalanceSnapshot",
+      "field": "ReferenceEntityId",
+      "relationshipName": "FinanceBalanceSnapshots",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FinanceTransaction",
+      "field": "DestinationEntityId",
+      "relationshipName": "DestinationFinanceTransactions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FinanceTransaction",
+      "field": "ParentReferenceEntityId",
+      "relationshipName": "ParentFinanceTransactions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FinanceTransaction",
+      "field": "ReferenceEntityId",
+      "relationshipName": "FinanceTransactions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FinanceTransaction",
+      "field": "SourceEntityId",
+      "relationshipName": "SourceFinanceTransactions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    }
+  ]
+}

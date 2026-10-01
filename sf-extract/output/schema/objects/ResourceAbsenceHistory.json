@@ -1,0 +1,160 @@
+{
+  "name": "ResourceAbsenceHistory",
+  "label": "Resource Absence History",
+  "custom": false,
+  "keyPrefix": null,
+  "isHistory": true,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Resource Absence History ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ResourceAbsenceId",
+      "label": "Absence ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "ResourceAbsence"
+      ],
+      "relationshipName": "ResourceAbsence"
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Field",
+      "label": "Changed Field",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Address",
+        "Street",
+        "City",
+        "Country",
+        "CountryCode",
+        "created",
+        "customPersonMerged",
+        "Description",
+        "End",
+        "feedEvent",
+        "GeocodeAccuracy",
+        "individualMerged",
+        "Latitude",
+        "Longitude",
+        "ownerAccepted",
+        "ownerAssignment",
+        "locked",
+        "unlocked",
+        "Resource",
+        "Start",
+        "State",
+        "StateCode",
+        "Type",
+        "PostalCode"
+      ]
+    },
+    {
+      "name": "DataType",
+      "label": "Datatype",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Address",
+        "AnyType",
+        "AutoNumber",
+        "Base64",
+        "BitVector",
+        "Boolean",
+        "Content",
+        "Currency",
+        "DataCategoryGroupReference",
+        "DateOnly",
+        "DateTime",
+        "Division",
+        "Double",
+        "DynamicEnum",
+        "Email",
+        "EncryptedBase64",
+        "EncryptedText",
+        "EntityId",
+        "EnumOrId",
+        "ExternalId",
+        "Fax",
+        "File",
+        "HtmlMultiLineText",
+        "HtmlStringPlusClob",
+        "InetAddress",
+        "Json",
+        "Location",
+        "MultiEnum",
+        "MultiLineText",
+        "Namespace",
+        "Percent",
+        "PersonName",
+        "Phone",
+        "Raw",
+        "RecordType",
+        "SfdcEncryptedText",
+        "SimpleNamespace",
+        "StringPlusClob",
+        "Switchable_PersonName",
+        "Text",
+        "TimeOnly",
+        "Url",
+        "YearQuarter"
+      ]
+    },
+    {
+      "name": "OldValue",
+      "label": "Old Value",
+      "type": "anyType",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "NewValue",
+      "label": "New Value",
+      "type": "anyType",
+      "length": 255,
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": []
+}

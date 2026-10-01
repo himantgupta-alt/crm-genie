@@ -1,0 +1,588 @@
+{
+  "name": "FlowRecord",
+  "label": "Flow",
+  "custom": false,
+  "keyPrefix": "2aF",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Flow ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnerId",
+      "label": "Owner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Group",
+        "User"
+      ],
+      "relationshipName": "Owner"
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Flow Label",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FlowDefinition",
+      "label": "Flow Definition",
+      "type": "string",
+      "length": 15,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "AssociatedRecordId",
+      "label": "Associated Record ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Campaign",
+        "FlowRecord"
+      ],
+      "relationshipName": "AssociatedRecord"
+    },
+    {
+      "name": "Description",
+      "label": "Description",
+      "type": "textarea",
+      "length": 65535,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "SegmentId",
+      "label": "Segment ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "MarketSegment"
+      ],
+      "relationshipName": "Segment"
+    },
+    {
+      "name": "Type",
+      "label": "Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "None",
+        "Scheduled",
+        "RecordBeforeSave",
+        "RecordBeforeDelete",
+        "RecordAfterSave",
+        "PlatformEvent",
+        "EventDrivenJourney",
+        "Segment",
+        "DataCloudDataChange",
+        "FormSubmissionEvent",
+        "Capability",
+        "AutomationEvent",
+        "ExternalSystemChange",
+        "DataGraphDataChange",
+        "Activation",
+        "AdminAutomationEvent",
+        "BroadcastNoTrigger",
+        "OnDemandNoTrigger",
+        "IndivRelatedRecord",
+        "RecordQuery",
+        "CampaignMember",
+        "EnterpriseScaleExternalSystemChange",
+        "List",
+        "ApiEventTrigger"
+      ]
+    },
+    {
+      "name": "ProgressStatus",
+      "label": "Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Draft",
+        "Scheduled",
+        "PreparingData",
+        "InProgress",
+        "Finishing",
+        "Completed",
+        "Canceled",
+        "Error",
+        "UnderReview"
+      ]
+    },
+    {
+      "name": "ScheduledStartDate",
+      "label": "Scheduled Start Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ErrorCode",
+      "label": "Error Code",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "ACTIVATING_USER_LOST_PERMISSIONS",
+        "ACTIVATING_USER_ACCOUNT_DEACTIVATED",
+        "CANNOT_UPDATE_DATASTREAM_METADATA",
+        "CANNOT_REFRESH_DATA_STREAM",
+        "CANNOT_REFRESH_IDENTITY_RES_METADATA",
+        "CANNOT_REFRESH_IDENTITY_RES_DATA",
+        "CANNOT_PUBLISH_SEGMENT",
+        "CANNOT_QUERY_SEGMENT_MEMBER_DATA",
+        "ACTIVATION_TRIGGERED_FLOW_UNKNOWN_EXCEPTION",
+        "CREATE_EXPERIMENT_ERROR",
+        "DATA_ACTION_STATUS_ERROR",
+        "FLOW_FAILED_TO_START",
+        "SYNC_PAUSED_PROFILE_LIMIT_REACHED"
+      ]
+    },
+    {
+      "name": "ErrorDetails",
+      "label": "Error Details",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FlowCategory",
+      "label": "Category",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FlowSubcategory",
+      "label": "Subcategory",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsPaused",
+      "label": "Paused",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FlowType",
+      "label": "Flow Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "ActionCadenceAutolnch",
+        "ActionCadenceStepScrn",
+        "ActionPlanAutolnch",
+        "ApprovalOrchAutolnch",
+        "ApprovalOrchRecTrigAftSave",
+        "SchedulerApptsScrn",
+        "RecTrigAfterSave",
+        "RecTrigBefSave",
+        "SchdTrig",
+        "PfrmEvntTrig",
+        "RecTrigBefDel",
+        "DataCloudDataChg",
+        "AutolnchNoTrig",
+        "CartAsyncAutolnch",
+        "CheckoutScrn",
+        "ContactRequestScrn",
+        "CustLifecycleAftSave",
+        "CadenceStpRvwCrtr",
+        "ProcessBuilderCustmEvnt",
+        "DataCaptureScrn",
+        "DigitalFormScrn",
+        "EvaluationAutolnch",
+        "FieldServiceMobileScrn",
+        "FieldServiceWebScrn",
+        "Screen",
+        "MortgageLendingScrn",
+        "IndividualObjLinkingScrn",
+        "ProcessBuilderAutolnch",
+        "SegmentTrig",
+        "SegmentTrigAutolnch",
+        "EventDriven",
+        "FormSbmsEvntTrig",
+        "FormSbmsEvntTrigAutolnch",
+        "JourneyBuilderIntegration",
+        "LoginScrn",
+        "LoyaltyManagementAutolnch",
+        "CmsOrchAutolnch",
+        "ManagedContentAutolnch",
+        "IoTOrchestration",
+        "OrchAutolnch",
+        "OrchRecTrigAftSave",
+        "TemplateTrigPrompt",
+        "RcmdStrtgyAutolnch",
+        "RoutingAutolnch",
+        "EmpSvcCtlgItmScrn",
+        "SurveyScrn",
+        "SurveyEnrichAutolnch",
+        "TrxnSecurityAutolnch",
+        "IndicatorResultScrn",
+        "UserPrvsngScrn",
+        "ProcBldWkflw",
+        "ExternalSystemChange",
+        "EnterpriseScaleExternalSystemChange",
+        "ExtSysChgOrch",
+        "ExtSysChgFlowAppvl",
+        "DcvrFrameworkDataCaptureScrn",
+        "AutomationEventTrig",
+        "AutomationEventTrigAutolnch",
+        "ActvtyObjectMtchNoTrg",
+        "ActnEvntOrchAutolnchFlow",
+        "DataGraphDataChange",
+        "DataGraphDataChangeAutolnch",
+        "StgMgmtEvalAutolnch",
+        "ActivationTrigAutolnch",
+        "AdminAutomationEvent",
+        "IdentityUserRgstrAutolnch",
+        "BroadcastNoTrigger",
+        "AgxBackground",
+        "AgxDataRetrieval",
+        "AgxScreen",
+        "AgxOrchestration",
+        "OnDemandNoTrigger",
+        "IndivRelatedRecTrigAutolnch",
+        "UnifiedSchedulingFlowScrn",
+        "RecordQuery",
+        "CampaignMember",
+        "List",
+        "ApiEventFlow"
+      ]
+    },
+    {
+      "name": "NamespacePrefix",
+      "label": "Flow Namespace",
+      "type": "string",
+      "length": 40,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ManageableState",
+      "label": "Package State",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "released",
+        "deleted",
+        "deprecated",
+        "installed",
+        "beta",
+        "unmanaged",
+        "installedEditable",
+        "deprecatedEditable"
+      ]
+    },
+    {
+      "name": "ActiveVersionId",
+      "label": "Flow Version ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "FlowRecordVersion"
+      ],
+      "relationshipName": "ActiveVersion"
+    },
+    {
+      "name": "ApiVersion",
+      "label": "API Version",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsTemplate",
+      "label": "Template",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TriggerObjectOrEventLabel",
+      "label": "Triggering Object or Platform Event Label",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Builder",
+      "label": "Built with",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "SourceTemplateId",
+      "label": "Flow ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "FlowRecord"
+      ],
+      "relationshipName": "SourceTemplate"
+    },
+    {
+      "name": "IsOverridable",
+      "label": "Overridable",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OverriddenById",
+      "label": "Flow ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "FlowRecord"
+      ],
+      "relationshipName": "OverriddenBy"
+    },
+    {
+      "name": "OverriddenFlowId",
+      "label": "Flow ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "FlowRecord"
+      ],
+      "relationshipName": "OverriddenFlow"
+    },
+    {
+      "name": "StartSource",
+      "label": "Start Trigger",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsCitizenEnabled",
+      "label": "Enabled for Non-Admins",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FlowLabel",
+      "label": "Flow Label",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ApiName",
+      "label": "API Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "InstalledPackageName",
+      "label": "Package Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CapacityCategory",
+      "label": "Capacity Category",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "MarketingCloudFlow"
+      ]
+    },
+    {
+      "name": "ActivationId",
+      "label": "Segment Activation ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "MarketSegmentActivation"
+      ],
+      "relationshipName": "Activation"
+    },
+    {
+      "name": "AreMetricsLoggedToDataCloud",
+      "label": "Log Metrics to Data Cloud",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LogsEnabledFlowVersion",
+      "label": "Flow Version with Logs Enabled",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Health",
+      "label": "Element Error Rate",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ElementEntries",
+      "label": "Element Runs",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ElementErrors",
+      "label": "Element Errors",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ListId",
+      "label": "List ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Campaign"
+      ],
+      "relationshipName": "List"
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "FlowRecord",
+      "field": "AssociatedRecordId",
+      "relationshipName": "Flows",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FlowRecordVersion",
+      "field": "FlowRecordId",
+      "relationshipName": "FlowRecordVersions",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FlowRecordVersionOccurrence",
+      "field": "FlowRecordId",
+      "relationshipName": "FlowRecordVersionOccurrences",
+      "cascadeDelete": true
+    }
+  ]
+}

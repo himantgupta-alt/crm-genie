@@ -1,0 +1,29 @@
+-- Translated from apex-class:SubscriptionService#applyDefaults, dispatched by
+-- apex-trigger:SubscriptionTrigger on before insert / before update.
+--
+-- Semantics kept from Apex:
+--   * runs before validation (Salesforce order of execution: before-triggers, then system and custom
+--     validation). Here: trigger name a10_ sorts before the v50_ guard triggers, and Postgres evaluates
+--     NOT NULL / CHECK after all BEFORE triggers.
+--   * Date.addMonths clamps to the last day of the month; Postgres date + interval does the same.
+--   * Date.monthsBetween ignores the day of month: (year diff * 12) + month diff.
+--   * DEFAULT_HEALTH_SCORE = 70 (SubscriptionService constant).
+-- Skipped in load mode: historical rows keep the values Salesforce stored.
+CREATE FUNCTION app.subscription_apply_defaults() RETURNS trigger LANGUAGE plpgsql AS $$
+BEGIN
+  IF app.is_loading() THEN RETURN NEW; END IF;
+  IF NEW.health_score IS NULL THEN
+    NEW.health_score := 70;
+  END IF;
+  IF NEW.start_date IS NOT NULL AND NEW.term_months IS NOT NULL AND NEW.end_date IS NULL THEN
+    NEW.end_date := (NEW.start_date + make_interval(months => NEW.term_months::int))::date;
+  END IF;
+  IF NEW.start_date IS NOT NULL AND NEW.end_date IS NOT NULL AND NEW.term_months IS NULL THEN
+    NEW.term_months := (extract(year FROM NEW.end_date) - extract(year FROM NEW.start_date)) * 12
+                     + (extract(month FROM NEW.end_date) - extract(month FROM NEW.start_date));
+  END IF;
+  RETURN NEW;
+END $$;
+
+CREATE TRIGGER a10_apex_apply_defaults BEFORE INSERT OR UPDATE ON app.subscription
+  FOR EACH ROW EXECUTE FUNCTION app.subscription_apply_defaults();

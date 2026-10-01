@@ -1,0 +1,373 @@
+{
+  "name": "DataStream",
+  "label": "Data Stream",
+  "custom": false,
+  "keyPrefix": "1ds",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Data Stream ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Data Stream Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Description",
+      "label": "Description",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ImportRunStatus",
+      "label": "Last Run Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "NONE",
+      "picklistValues": [
+        "NONE",
+        "PENDING",
+        "IN_PROGRESS",
+        "SUCCESS",
+        "FAILURE",
+        "ERROR",
+        "EXTRACTING"
+      ]
+    },
+    {
+      "name": "DataStreamStatus",
+      "label": "Data Stream Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "PROCESSING",
+      "picklistValues": [
+        "PROCESSING",
+        "ACTIVE",
+        "ERROR",
+        "DELETING",
+        "NEEDS_ACTIVATION",
+        "INACTIVE"
+      ]
+    },
+    {
+      "name": "LastRefreshDate",
+      "label": "Last Refreshed",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastNumberOfRowsAddedCount",
+      "label": "Last # of Records Added",
+      "type": "long",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TotalNumberOfRowsAdded",
+      "label": "Total Records",
+      "type": "long",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "RefreshFrequency",
+      "label": "Frequency",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "NONE",
+        "MINUTES_5",
+        "MINUTES_15",
+        "MINUTES_30",
+        "HOURLY",
+        "EVERY_4_HOURS",
+        "EVERY_12_HOURS",
+        "DAILY",
+        "WEEKLY",
+        "MONTHLY",
+        "NOT_APPLICABLE",
+        "BATCH",
+        "STREAMING"
+      ]
+    },
+    {
+      "name": "RefreshHours",
+      "label": "Refresh Hours",
+      "type": "multipicklist",
+      "length": 4099,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23"
+      ]
+    },
+    {
+      "name": "IsRefreshDeliveryHourAutomatic",
+      "label": "Is Refresh Delivery Hour Automatic",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "RefreshDayOfWeek",
+      "label": "Refresh Day of Week",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "RefreshDayOfMonth",
+      "label": "Refresh Day of Month",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "RefreshMode",
+      "label": "Refresh Mode",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "FULL_REFRESH",
+        "UPSERT",
+        "INCREMENTAL",
+        "PARTIAL_UPDATE",
+        "REPLACE",
+        "NEAR_REAL_TIME_INCREMENTAL",
+        "NOT_APPLICABLE"
+      ]
+    },
+    {
+      "name": "ExternalRecordIdentifier",
+      "label": "External Record Identifier",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TotalRowsProcessed",
+      "label": "Last Processed Records",
+      "type": "long",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastDataChangeStatusDateTime",
+      "label": "Last Data Change Status at",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastDataChangeStatusErrorCode",
+      "label": "Last Data Change Status Error",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsNewFieldsAvailable",
+      "label": "Is New Fields Available",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "StreamType",
+      "label": "Stream Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "INGEST",
+        "DIRECT_ACCESS",
+        "DIRECT_ACCESS_ACCELERATED"
+      ]
+    },
+    {
+      "name": "ExternalStreamErrorCode",
+      "label": "External Stream Error Code",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ProblemRecordsDataLakeObject",
+      "label": "Problem Records Data Lake Object Name",
+      "type": "string",
+      "length": 40,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "DeletionRecordsDataLakeObject",
+      "label": "Deletion Records Data Lake Object Name",
+      "type": "string",
+      "length": 40,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FullRefreshIntervalDays",
+      "label": "Full Refresh Interval",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "NONE",
+        "DAYS_10",
+        "DAYS_25",
+        "DAYS_50"
+      ],
+      "inlineHelpText": "The full refresh interval is used to determine when a periodic full refresh is triggered."
+    },
+    {
+      "name": "ExtractionTime",
+      "label": "Extraction Time",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    }
+  ]
+}

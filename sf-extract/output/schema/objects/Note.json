@@ -1,0 +1,183 @@
+{
+  "name": "Note",
+  "label": "Note",
+  "custom": false,
+  "keyPrefix": "002",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Note ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ParentId",
+      "label": "Parent ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "Account",
+        "AppointmentCategory",
+        "AppointmentInvitation",
+        "ApprovalSubmission",
+        "ApprovalSubmissionDetail",
+        "ApprovalWorkItem",
+        "Asset",
+        "ChangeRequest",
+        "CommSubscription",
+        "CommSubscriptionChannelType",
+        "CommSubscriptionConsent",
+        "CommSubscriptionTiming",
+        "Contact",
+        "Contract",
+        "ContractLineItem",
+        "CreditMemo",
+        "DataQueryWorkspace",
+        "DeliveryEstimationSetup",
+        "DevopsActivityLog",
+        "DevopsEnvDeployment",
+        "DevopsEnvDeploymentMbr",
+        "DevopsEnvironment",
+        "DevopsPipeline",
+        "DevopsPipelineEnvironment",
+        "DevopsPipelineStage",
+        "DevopsPipelnStgProm",
+        "DevopsPipelnStgPromWkItem",
+        "DevopsProject",
+        "DevopsProjectEnvironment",
+        "DevopsProjectPipeline",
+        "DevopsRequestInfo",
+        "EngagementChannelType",
+        "Entitlement",
+        "Image",
+        "Incident",
+        "Invoice",
+        "Lead",
+        "LegalEntity",
+        "Location",
+        "LocationShippingCarrierMethod",
+        "Opportunity",
+        "Order",
+        "Problem",
+        "Product2",
+        "Promotion",
+        "ReturnOrder",
+        "ReturnOrderLineItem",
+        "ServiceAppointment",
+        "ServiceContract",
+        "ServiceResource",
+        "Shift",
+        "SourceCodeRepoProvider",
+        "SourceCodeRepository",
+        "SourceCodeRepositoryBranch",
+        "Subscription_Line__c",
+        "Subscription__c",
+        "Waitlist",
+        "WorkItem",
+        "WorkItemComponent",
+        "WorkItemComponentList",
+        "WorkOrder",
+        "WorkOrderLineItem",
+        "WorkPlan",
+        "WorkPlanTemplate",
+        "WorkStep",
+        "WorkStepTemplate"
+      ],
+      "relationshipName": "Parent"
+    },
+    {
+      "name": "Title",
+      "label": "Title",
+      "type": "string",
+      "length": 80,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "IsPrivate",
+      "label": "Private",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Body",
+      "label": "Body",
+      "type": "textarea",
+      "length": 32000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnerId",
+      "label": "Owner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "Owner"
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": []
+}

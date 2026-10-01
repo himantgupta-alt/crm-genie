@@ -1,0 +1,341 @@
+{
+  "name": "FlowOrchestrationVersion",
+  "label": "Orchestration Version",
+  "custom": false,
+  "keyPrefix": "1Ff",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Orchestration Version ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Orchestration Version Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FlowOrchestrationId",
+      "label": "Orchestration ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "FlowOrchestration"
+      ],
+      "relationshipName": "FlowOrchestration"
+    },
+    {
+      "name": "VersionNumber",
+      "label": "Version Number",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ActivatedById",
+      "label": "User ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "ActivatedBy"
+    },
+    {
+      "name": "ActivatedDate",
+      "label": "Activated Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OrchestrationType",
+      "label": "Orchestration Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "ActionCadenceAutolnch",
+        "ActionCadenceStepScrn",
+        "ActionPlanAutolnch",
+        "ApprovalOrchAutolnch",
+        "ApprovalOrchRecTrigAftSave",
+        "SchedulerApptsScrn",
+        "RecTrigAfterSave",
+        "RecTrigBefSave",
+        "SchdTrig",
+        "PfrmEvntTrig",
+        "RecTrigBefDel",
+        "DataCloudDataChg",
+        "AutolnchNoTrig",
+        "CartAsyncAutolnch",
+        "CheckoutScrn",
+        "ContactRequestScrn",
+        "CustLifecycleAftSave",
+        "CadenceStpRvwCrtr",
+        "ProcessBuilderCustmEvnt",
+        "DataCaptureScrn",
+        "DigitalFormScrn",
+        "EvaluationAutolnch",
+        "FieldServiceMobileScrn",
+        "FieldServiceWebScrn",
+        "Screen",
+        "MortgageLendingScrn",
+        "IndividualObjLinkingScrn",
+        "ProcessBuilderAutolnch",
+        "SegmentTrig",
+        "SegmentTrigAutolnch",
+        "EventDriven",
+        "FormSbmsEvntTrig",
+        "FormSbmsEvntTrigAutolnch",
+        "JourneyBuilderIntegration",
+        "LoginScrn",
+        "LoyaltyManagementAutolnch",
+        "CmsOrchAutolnch",
+        "ManagedContentAutolnch",
+        "IoTOrchestration",
+        "OrchAutolnch",
+        "OrchRecTrigAftSave",
+        "TemplateTrigPrompt",
+        "RcmdStrtgyAutolnch",
+        "RoutingAutolnch",
+        "EmpSvcCtlgItmScrn",
+        "SurveyScrn",
+        "SurveyEnrichAutolnch",
+        "TrxnSecurityAutolnch",
+        "IndicatorResultScrn",
+        "UserPrvsngScrn",
+        "ProcBldWkflw",
+        "ExternalSystemChange",
+        "EnterpriseScaleExternalSystemChange",
+        "ExtSysChgOrch",
+        "ExtSysChgFlowAppvl",
+        "DcvrFrameworkDataCaptureScrn",
+        "AutomationEventTrig",
+        "AutomationEventTrigAutolnch",
+        "ActvtyObjectMtchNoTrg",
+        "ActnEvntOrchAutolnchFlow",
+        "DataGraphDataChange",
+        "DataGraphDataChangeAutolnch",
+        "StgMgmtEvalAutolnch",
+        "ActivationTrigAutolnch",
+        "AdminAutomationEvent",
+        "IdentityUserRgstrAutolnch",
+        "BroadcastNoTrigger",
+        "AgxBackground",
+        "AgxDataRetrieval",
+        "AgxScreen",
+        "AgxOrchestration",
+        "OnDemandNoTrigger",
+        "IndivRelatedRecTrigAutolnch",
+        "UnifiedSchedulingFlowScrn",
+        "RecordQuery",
+        "CampaignMember",
+        "List",
+        "ApiEventFlow"
+      ]
+    },
+    {
+      "name": "Status",
+      "label": "Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Active",
+        "Draft",
+        "Obsolete",
+        "InvalidDraft",
+        "UnderReview"
+      ]
+    },
+    {
+      "name": "Description",
+      "label": "Description",
+      "type": "textarea",
+      "length": 65535,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "RunInMode",
+      "label": "Run in Mode",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "DefaultMode",
+        "SystemModeWithSharing",
+        "SystemModeWithoutSharing"
+      ]
+    },
+    {
+      "name": "ApiVersion",
+      "label": "API Version",
+      "type": "double",
+      "precision": 18,
+      "scale": 1,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsTemplate",
+      "label": "Template",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TriggerObjectOrEventLabel",
+      "label": "Triggering Object or Platform Event Label",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "SourceTemplateId",
+      "label": "Orchestration ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "FlowOrchestration"
+      ],
+      "relationshipName": "SourceTemplate"
+    },
+    {
+      "name": "IsOverridable",
+      "label": "Overridable",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OverriddenById",
+      "label": "Orchestration ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "FlowOrchestration"
+      ],
+      "relationshipName": "OverriddenBy"
+    },
+    {
+      "name": "OverriddenOrchestrationId",
+      "label": "Orchestration ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "FlowOrchestration"
+      ],
+      "relationshipName": "OverriddenOrchestration"
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    }
+  ]
+}

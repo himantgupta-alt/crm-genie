@@ -1,0 +1,259 @@
+{
+  "name": "MktCalculatedInsight",
+  "label": "Calculated Insight",
+  "custom": false,
+  "keyPrefix": "0kX",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Calculated Insight ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Calculated Insight Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CalculatedInsightStatus",
+      "label": "Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "INACTIVE",
+        "PROCESSING",
+        "ACTIVE",
+        "ERROR",
+        "DRAFT",
+        "DELETING",
+        "DELETE_FAILED",
+        "PROCESSING_DEPENDENCIES",
+        "ERROR_DEPENDENCIES"
+      ]
+    },
+    {
+      "name": "LastCalcInsightStatusErrorCode",
+      "label": "Last Calculated Insight Status Error Code",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "PROCESSING_FAILED",
+        "CREATE_FAILED",
+        "DELETE_FAILED",
+        "VALIDATION_FAILED",
+        "SYNTAX_ERROR",
+        "EXTERNAL_ACCESS_ERROR",
+        "NOT_OPTIMIZED",
+        "DEPENDENCY_ERROR",
+        "DEPENDENCY_RESOLUTION_ERROR",
+        "NONE"
+      ]
+    },
+    {
+      "name": "LastCalcInsightStatusDateTime",
+      "label": "Last Calculated Insight Status Time",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastRunStatus",
+      "label": "Last Run Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "NONE",
+        "PENDING",
+        "PROCESSING",
+        "SUCCESS",
+        "ERROR",
+        "ABORTED"
+      ]
+    },
+    {
+      "name": "LastRunStatusErrorCode",
+      "label": "Last Run Status Error Code",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "PROCESSING_FAILED",
+        "CREATE_FAILED",
+        "DELETE_FAILED",
+        "SYNTAX_ERROR",
+        "EXTERNAL_ACCESS_ERROR",
+        "NOT_OPTIMIZED",
+        "NONE"
+      ]
+    },
+    {
+      "name": "LastRunStatusDateTime",
+      "label": "Last Run Status Time",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastRunDateTime",
+      "label": "Last Run Time",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ExternalErrorProperties",
+      "label": "Last Run Status error properties",
+      "type": "textarea",
+      "length": 128000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnedBy",
+      "label": "Owned By Connection",
+      "type": "string",
+      "length": 100,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsRemote",
+      "label": "Is Remote",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Dialect",
+      "label": "SQL Dialect",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "ANSI_SQL",
+      "picklistValues": [
+        "ANSI_SQL",
+        "DC_SQL"
+      ]
+    },
+    {
+      "name": "HistoryCiId",
+      "label": "History Calculated Insight ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "MktCalculatedInsight"
+      ],
+      "relationshipName": "HistoryCi"
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    }
+  ]
+}

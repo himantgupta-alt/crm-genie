@@ -1,0 +1,384 @@
+{
+  "name": "Product2",
+  "label": "Product",
+  "custom": false,
+  "keyPrefix": "01t",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Product ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Product Name",
+      "type": "string",
+      "length": 255,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "ProductCode",
+      "label": "Product Code",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Description",
+      "label": "Product Description",
+      "type": "textarea",
+      "length": 4000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsActive",
+      "label": "Active",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Family",
+      "label": "Product Family",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "None"
+      ]
+    },
+    {
+      "name": "ExternalDataSourceId",
+      "label": "External Data Source ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "ExternalDataSource"
+      ]
+    },
+    {
+      "name": "ExternalId",
+      "label": "External ID",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "DisplayUrl",
+      "label": "Display URL",
+      "type": "url",
+      "length": 1000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "QuantityUnitOfMeasure",
+      "label": "Quantity Unit Of Measure",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Each"
+      ]
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsArchived",
+      "label": "Archived",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "StockKeepingUnit",
+      "label": "Product SKU",
+      "type": "string",
+      "length": 180,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Type",
+      "label": "Product Type",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Base",
+        "Bundle",
+        "Set"
+      ]
+    },
+    {
+      "name": "ProductClass",
+      "label": "Product Class",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "defaultValue": "Simple",
+      "picklistValues": [
+        "Simple",
+        "VariationParent",
+        "Variation",
+        "Bundle",
+        "Set"
+      ]
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Asset",
+      "field": "Product2Id",
+      "relationshipName": "Assets",
+      "cascadeDelete": false
+    },
+    {
+      "child": "CartDeliveryGroupMethod",
+      "field": "ProductId",
+      "relationshipName": "CartDeliveryGroupMethods",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "ContractLineItem",
+      "field": "Product2Id",
+      "relationshipName": "ContractLineItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "CreditMemoLine",
+      "field": "Product2Id",
+      "relationshipName": "CreditMemoLines",
+      "cascadeDelete": false
+    },
+    {
+      "child": "EmailMessage",
+      "field": "RelatedToId",
+      "relationshipName": "Emails",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Event",
+      "field": "WhatId",
+      "relationshipName": "Events",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FulfillmentOrderLineItem",
+      "field": "Product2Id",
+      "relationshipName": "FulfillmentOrderLineItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "IncidentRelatedItem",
+      "field": "Product2Id",
+      "relationshipName": "IncidentRelatedItems",
+      "cascadeDelete": true
+    },
+    {
+      "child": "InventoryItemReservation",
+      "field": "ProductId",
+      "relationshipName": "InventoryProducts",
+      "cascadeDelete": false
+    },
+    {
+      "child": "InvoiceLine",
+      "field": "Product2Id",
+      "relationshipName": "InvoiceLines",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ListEmail",
+      "field": "RelatedToId",
+      "relationshipName": "ListEmails",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Note",
+      "field": "ParentId",
+      "relationshipName": "Notes",
+      "cascadeDelete": true
+    },
+    {
+      "child": "PricebookEntry",
+      "field": "Product2Id",
+      "relationshipName": "PricebookEntries",
+      "cascadeDelete": true
+    },
+    {
+      "child": "ProductAttribute",
+      "field": "ProductId",
+      "relationshipName": "ProductAttributes",
+      "cascadeDelete": true
+    },
+    {
+      "child": "ProductAttribute",
+      "field": "VariantParentId",
+      "relationshipName": "ProductVariantAttributes",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ProductAttributeSetProduct",
+      "field": "ProductId",
+      "relationshipName": "ProductAttributeSetProducts",
+      "cascadeDelete": true
+    },
+    {
+      "child": "ProductCategoryProduct",
+      "field": "ProductId",
+      "relationshipName": "ProductCategoryProducts",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ProductConsumptionSchedule",
+      "field": "ProductId",
+      "relationshipName": "ProductConsumptionSchedules",
+      "cascadeDelete": true
+    },
+    {
+      "child": "ReturnOrderLineItem",
+      "field": "Product2Id",
+      "relationshipName": "ReturnOrderLineItems",
+      "cascadeDelete": true
+    },
+    {
+      "child": "ShipmentItem",
+      "field": "Product2Id",
+      "relationshipName": "ShipmentItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Subscription_Line__c",
+      "field": "Product__c",
+      "relationshipName": "Subscription_Lines__r",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Task",
+      "field": "WhatId",
+      "relationshipName": "Tasks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "WebCartActivityLog",
+      "field": "ProductId",
+      "relationshipName": "ProductActivityLogs",
+      "cascadeDelete": false
+    },
+    {
+      "child": "WorkOrderLineItem",
+      "field": "Product2Id",
+      "relationshipName": "WorkOrderLineItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "WorkType",
+      "field": "ProductId",
+      "relationshipName": "WorkTypes",
+      "cascadeDelete": false
+    }
+  ]
+}

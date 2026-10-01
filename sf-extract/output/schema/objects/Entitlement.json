@@ -1,0 +1,331 @@
+{
+  "name": "Entitlement",
+  "label": "Entitlement",
+  "custom": false,
+  "keyPrefix": "550",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Entitlement ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Entitlement Name",
+      "type": "string",
+      "length": 255,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "AccountId",
+      "label": "Account ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "Account"
+      ],
+      "relationshipName": "Account"
+    },
+    {
+      "name": "Type",
+      "label": "Type",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "defaultValue": "Phone Support",
+      "picklistValues": [
+        "Phone Support",
+        "Web Support"
+      ]
+    },
+    {
+      "name": "ServiceContractId",
+      "label": "Service Contract ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "ServiceContract"
+      ],
+      "relationshipName": "ServiceContract"
+    },
+    {
+      "name": "ContractLineItemId",
+      "label": "Contract Line Item ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "ContractLineItem"
+      ],
+      "relationshipName": "ContractLineItem"
+    },
+    {
+      "name": "AssetId",
+      "label": "Asset ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Asset"
+      ],
+      "relationshipName": "Asset"
+    },
+    {
+      "name": "StartDate",
+      "label": "Start Date",
+      "type": "date",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "EndDate",
+      "label": "End Date",
+      "type": "date",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "SlaProcessId",
+      "label": "Entitlement Process ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "SlaProcess"
+      ],
+      "relationshipName": "SlaProcess"
+    },
+    {
+      "name": "BusinessHoursId",
+      "label": "Business Hours ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "BusinessHours"
+      ],
+      "relationshipName": "BusinessHours"
+    },
+    {
+      "name": "IsPerIncident",
+      "label": "Per Incident",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CasesPerEntitlement",
+      "label": "Cases Per Entitlement",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "RemainingCases",
+      "label": "Remaining Cases",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Status",
+      "label": "Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Inactive",
+        "Active",
+        "Expired"
+      ]
+    },
+    {
+      "name": "SvcApptBookingWindowsId",
+      "label": "Operating Hour ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "OperatingHours"
+      ],
+      "relationshipName": "SvcApptBookingWindows"
+    },
+    {
+      "name": "LocationId",
+      "label": "Location ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Location"
+      ],
+      "relationshipName": "Location"
+    },
+    {
+      "name": "WorkOrdersPerEntitlement",
+      "label": "Work Orders Per Entitlement",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "RemainingWorkOrders",
+      "label": "Remaining Work Orders",
+      "type": "int",
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "EmailMessage",
+      "field": "RelatedToId",
+      "relationshipName": "Emails",
+      "cascadeDelete": false
+    },
+    {
+      "child": "EntitlementContact",
+      "field": "EntitlementId",
+      "relationshipName": "EntitlementContacts",
+      "cascadeDelete": true
+    },
+    {
+      "child": "Event",
+      "field": "WhatId",
+      "relationshipName": "Events",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Incident",
+      "field": "EntitlementId",
+      "relationshipName": "Incidents",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Note",
+      "field": "ParentId",
+      "relationshipName": "Notes",
+      "cascadeDelete": true
+    },
+    {
+      "child": "Task",
+      "field": "WhatId",
+      "relationshipName": "Tasks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "WorkOrder",
+      "field": "EntitlementId",
+      "relationshipName": "WorkOrders",
+      "cascadeDelete": false
+    }
+  ]
+}

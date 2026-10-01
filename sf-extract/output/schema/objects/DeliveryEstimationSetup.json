@@ -1,0 +1,348 @@
+{
+  "name": "DeliveryEstimationSetup",
+  "label": "Delivery Estimation Setup",
+  "custom": false,
+  "keyPrefix": "2A0",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Delivery Estimation Setup ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnerId",
+      "label": "Owner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Group",
+        "User"
+      ],
+      "relationshipName": "Owner"
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Name",
+      "type": "string",
+      "length": 255,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ChannelId",
+      "label": "Channel ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "WebStore"
+      ],
+      "relationshipName": "Channel"
+    },
+    {
+      "name": "LocationGroupId",
+      "label": "Location Group ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "LocationGroup"
+      ],
+      "relationshipName": "LocationGroup"
+    },
+    {
+      "name": "DefaultBusinessHoursId",
+      "label": "Business Hours ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "BusinessHours"
+      ],
+      "relationshipName": "DefaultBusinessHours"
+    },
+    {
+      "name": "IsEnabled",
+      "label": "Is Enabled",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "RoutingType",
+      "label": "Routing Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "NONE",
+      "picklistValues": [
+        "NONE",
+        "STANDARD"
+      ]
+    },
+    {
+      "name": "ExternalReference",
+      "label": "External Reference",
+      "type": "string",
+      "length": 255,
+      "required": true,
+      "unique": true,
+      "custom": false
+    },
+    {
+      "name": "DefaultProcessingTime",
+      "label": "Default Processing Time",
+      "type": "int",
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "DefaultProcessingTimeUnit",
+      "label": "Default Processing Time Unit",
+      "type": "picklist",
+      "length": 255,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "Hours",
+        "Days",
+        "Weeks"
+      ]
+    },
+    {
+      "name": "DefaultPickupTime",
+      "label": "Default Pickup Time",
+      "type": "time",
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "SyncStatus",
+      "label": "Sync Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "NONE",
+      "picklistValues": [
+        "NONE",
+        "SYNCING",
+        "SYNCED",
+        "ERROR",
+        "DELETING",
+        "DEPROVISIONED"
+      ]
+    },
+    {
+      "name": "LastSyncedById",
+      "label": "User ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastSyncedBy"
+    },
+    {
+      "name": "LastSyncedDate",
+      "label": "Last Synced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastSyncedMessage",
+      "label": "Last Synced Message",
+      "type": "textarea",
+      "length": 10000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MondayPickUpTime",
+      "label": "Monday Pickup Time",
+      "type": "time",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TuesdayPickUpTime",
+      "label": "Tuesday Pickup Time",
+      "type": "time",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "WednesdayPickUpTime",
+      "label": "Wednesday Pickup Time",
+      "type": "time",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ThursdayPickUpTime",
+      "label": "Thursday Pickup Time",
+      "type": "time",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FridayPickUpTime",
+      "label": "Friday Pickup Time",
+      "type": "time",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "SaturdayPickUpTime",
+      "label": "Saturday Pickup Time",
+      "type": "time",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "SundayPickUpTime",
+      "label": "Sunday Pickup Time",
+      "type": "time",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ServiceRegion",
+      "label": "Service Region",
+      "type": "string",
+      "length": 256,
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "EmailMessage",
+      "field": "RelatedToId",
+      "relationshipName": "Emails",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Event",
+      "field": "WhatId",
+      "relationshipName": "Events",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Note",
+      "field": "ParentId",
+      "relationshipName": "Notes",
+      "cascadeDelete": true
+    },
+    {
+      "child": "Task",
+      "field": "WhatId",
+      "relationshipName": "Tasks",
+      "cascadeDelete": true
+    }
+  ]
+}

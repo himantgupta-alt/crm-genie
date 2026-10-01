@@ -1,0 +1,111 @@
+{
+  "name": "CampaignMemberStatus",
+  "label": "Campaign Member Status",
+  "custom": false,
+  "keyPrefix": "01Y",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Campaign Member Status ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CampaignId",
+      "label": "Campaign ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Campaign"
+      ]
+    },
+    {
+      "name": "Label",
+      "label": "Member Status",
+      "type": "string",
+      "length": 765,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "SortOrder",
+      "label": "Sort Order",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDefault",
+      "label": "Is Default",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "HasResponded",
+      "label": "Responded",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": []
+}

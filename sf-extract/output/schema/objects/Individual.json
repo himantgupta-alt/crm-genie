@@ -1,0 +1,390 @@
+{
+  "name": "Individual",
+  "label": "Individual",
+  "custom": false,
+  "keyPrefix": "0PK",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Individual ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnerId",
+      "label": "Owner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "Owner"
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastName",
+      "label": "Last Name",
+      "type": "string",
+      "length": 80,
+      "required": true,
+      "custom": false,
+      "compoundFieldName": "Name"
+    },
+    {
+      "name": "FirstName",
+      "label": "First Name",
+      "type": "string",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "compoundFieldName": "Name"
+    },
+    {
+      "name": "Salutation",
+      "label": "Salutation",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Mr.",
+        "Ms.",
+        "Mrs.",
+        "Dr.",
+        "Prof.",
+        "Mx."
+      ],
+      "compoundFieldName": "Name"
+    },
+    {
+      "name": "Name",
+      "label": "Name",
+      "type": "string",
+      "length": 121,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "HasOptedOutTracking",
+      "label": "Don't Track",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "HasOptedOutProfiling",
+      "label": "Don't Profile",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "HasOptedOutProcessing",
+      "label": "Don't Process",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "HasOptedOutSolicit",
+      "label": "Don't Market",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ShouldForget",
+      "label": "Forget this Individual",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "SendIndividualData",
+      "label": "Export Individual's Data",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CanStorePiiElsewhere",
+      "label": "OK to Store PII Data Elsewhere",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "HasOptedOutGeoTracking",
+      "label": "Block Geolocation Tracking",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "BirthDate",
+      "label": "Birth Date",
+      "type": "date",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "DeathDate",
+      "label": "Death Date",
+      "type": "date",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ConvictionsCount",
+      "label": "Conviction Count",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ChildrenCount",
+      "label": "Number of Children",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MilitaryService",
+      "label": "Military Service",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Unknown",
+        "Yes",
+        "No"
+      ]
+    },
+    {
+      "name": "IsHomeOwner",
+      "label": "Is Homeowner",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Occupation",
+      "label": "Occupation",
+      "type": "string",
+      "length": 150,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Website",
+      "label": "Website",
+      "type": "url",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IndividualsAge",
+      "label": "Individual's Age",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "13 or Older",
+        "16 or Older"
+      ]
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MasterRecordId",
+      "label": "Master Record ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Individual"
+      ],
+      "relationshipName": "MasterRecord"
+    },
+    {
+      "name": "ConsumerCreditScore",
+      "label": "Consumer Credit Score",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ConsumerCreditScoreProviderName",
+      "label": "Consumer Credit Score Provider Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "InfluencerRating",
+      "label": "Influencer Rating",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "AuthorizationFormConsent",
+      "field": "ConsentGiverId",
+      "relationshipName": "AuthorizationFormConsents",
+      "cascadeDelete": false
+    },
+    {
+      "child": "CommSubscriptionConsent",
+      "field": "ConsentGiverId",
+      "relationshipName": "CommSubscriptionConsents",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Contact",
+      "field": "IndividualId",
+      "relationshipName": "Contacts",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ContactPointAddress",
+      "field": "ParentId",
+      "relationshipName": "ContactPointAddresses",
+      "cascadeDelete": true
+    },
+    {
+      "child": "ContactPointEmail",
+      "field": "ParentId",
+      "relationshipName": "ContactPointEmails",
+      "cascadeDelete": true
+    },
+    {
+      "child": "ContactPointPhone",
+      "field": "ParentId",
+      "relationshipName": "ContactPointPhones",
+      "cascadeDelete": true
+    },
+    {
+      "child": "ContactPointTypeConsent",
+      "field": "PartyId",
+      "relationshipName": "Individuals",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Customer",
+      "field": "PartyId",
+      "relationshipName": "PartyRoleCustomers",
+      "cascadeDelete": true
+    },
+    {
+      "child": "DuplicateRecordItem",
+      "field": "RecordId",
+      "relationshipName": "DuplicateRecordItems",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Lead",
+      "field": "IndividualId",
+      "relationshipName": "Leads",
+      "cascadeDelete": false
+    },
+    {
+      "child": "PartyConsent",
+      "field": "PartyId",
+      "relationshipName": "PartyConsents",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Seller",
+      "field": "PartyId",
+      "relationshipName": "PartyRoleSellers",
+      "cascadeDelete": true
+    }
+  ]
+}

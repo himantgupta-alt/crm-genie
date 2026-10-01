@@ -1,0 +1,285 @@
+{
+  "name": "MktDataTransform",
+  "label": "Data Transform",
+  "custom": false,
+  "keyPrefix": "1dt",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Data Transform ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnerId",
+      "label": "Owner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Group",
+        "User"
+      ],
+      "relationshipName": "Owner"
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Data Transform Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "DataTransformStatus",
+      "label": "Data Transform Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "PROCESSING",
+      "picklistValues": [
+        "PROCESSING",
+        "ACTIVE",
+        "ERROR",
+        "DELETING",
+        "DRAFT"
+      ]
+    },
+    {
+      "name": "LastRunStatus",
+      "label": "Last Run Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "NONE",
+      "picklistValues": [
+        "NONE",
+        "PENDING",
+        "IN_PROGRESS",
+        "SUCCESS",
+        "FAILURE",
+        "CANCELED",
+        "PARTIAL_FAILURE",
+        "PARTIALLY_CANCELED",
+        "REBUILD_PENDING",
+        "REBUILDING",
+        "REBUILD_FAILURE",
+        "REBUILD_SUCCESS"
+      ]
+    },
+    {
+      "name": "LastRunTime",
+      "label": "Last Run Time",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastDataChangeStatusDateTime",
+      "label": "Last Data Change Status At",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastDataChangeStatusErrorCode",
+      "label": "Last Data Change Status Error Code",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreationType",
+      "label": "Creation Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "CUSTOM",
+      "picklistValues": [
+        "CUSTOM",
+        "SYSTEM"
+      ]
+    },
+    {
+      "name": "Type",
+      "label": "Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "STREAMING",
+      "picklistValues": [
+        "STREAMING",
+        "BATCH"
+      ]
+    },
+    {
+      "name": "TargetObject",
+      "label": "Target Object",
+      "type": "string",
+      "length": 40,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "DataTransformStatusDetails",
+      "label": "Data Transform Status Details",
+      "type": "textarea",
+      "length": 128000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CurrencyCode",
+      "label": "Currency ISO Code",
+      "type": "string",
+      "length": 40,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsSystem",
+      "label": "System",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsCreatedAsMultiDefinition",
+      "label": "Transform created as multidefinition",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FullRunFrequency",
+      "label": "Full Run Frequency",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "DAILY",
+        "WEEKLY",
+        "MONTHLY",
+        "ALWAYS"
+      ]
+    },
+    {
+      "name": "CreationSource",
+      "label": "Source",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "DBT_LABS",
+        "BYOC_SCRIPT",
+        "DATA_GRAPH",
+        "SENT_OS",
+        "SECONDARY_INDEX"
+      ]
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    }
+  ]
+}

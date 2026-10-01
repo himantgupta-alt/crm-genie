@@ -1,0 +1,47 @@
+# Secrets
+.env
+.env.*
+!.env.example
+.secrets/
+*.pem
+*.key
+*.pfx
+*apikey*
+*client_secret*.json
+# Dependencies / virtualenvs
+node_modules/
+.venv*/
+venv/
+env/
+vendor/
+# Build / caches
+__pycache__/
+*.pyc
+.pytest_cache/
+dist/
+build/
+target/
+.ipynb_checkpoints/
+# OS / editor / tool-local
+Thumbs.db
+desktop.ini
+.DS_Store
+~$*
+.claude/settings.local.json
+# Portable toolchain (Node, Git, sf CLI) - reinstall per machine
+tools/
+# The compiled, client-owned stack is source here, not build output
+!sf-extract/target/
+# Org data export: only what the pipeline needs is versioned. The rest holds real user names and emails.
+sf-extract/output/data/*
+!sf-extract/output/data/_export-report.json
+!sf-extract/output/data/Account.csv
+!sf-extract/output/data/Contact.csv
+!sf-extract/output/data/Opportunity.csv
+!sf-extract/output/data/Product2.csv
+!sf-extract/output/data/Subscription__c.csv
+!sf-extract/output/data/Subscription_Line__c.csv
+# Produced at run time
+sf-extract/target/parity/report.json
+sf-extract/target/parity/report.md
+sf-extract/target/app/public/compiler.html

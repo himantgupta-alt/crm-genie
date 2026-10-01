@@ -1,0 +1,348 @@
+{
+  "name": "ShippingCarrierMethod",
+  "label": "Shipping Carrier Method",
+  "custom": false,
+  "keyPrefix": "2A1",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Shipping Carrier Method ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnerId",
+      "label": "Owner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Group",
+        "User"
+      ],
+      "relationshipName": "Owner"
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Name",
+      "type": "string",
+      "length": 255,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ShippingCarrierId",
+      "label": "Shipping Carrier ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "ShippingCarrier"
+      ],
+      "relationshipName": "ShippingCarrier"
+    },
+    {
+      "name": "ExternalReference",
+      "label": "External Reference",
+      "type": "string",
+      "length": 255,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "MinTransitTime",
+      "label": "Minimum Transit Time",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MaxTransitTime",
+      "label": "Maximum Transit Time",
+      "type": "int",
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "TransitTimeUnit",
+      "label": "Transit Time Unit",
+      "type": "picklist",
+      "length": 255,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "Hours",
+        "Days",
+        "Weeks"
+      ]
+    },
+    {
+      "name": "ShippingScope",
+      "label": "Shipping Scope",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "Domestic",
+      "picklistValues": [
+        "Domestic",
+        "DomesticAndInternational",
+        "International"
+      ],
+      "inlineHelpText": "Type of shipping available for the shipping carrier method."
+    },
+    {
+      "name": "ManagedShippingCarrierMethod",
+      "label": "Managed Shipping Carrier Method",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "FEDEX_GROUND",
+        "FEDEX_FIRST_OVERNIGHT",
+        "FEDEX_GROUND_HOME_DELIVERY",
+        "FEDEX_SMART_POST",
+        "FEDEX_PRIORITY_OVERNIGHT",
+        "FEDEX_STANDARD_OVERNIGHT",
+        "FEDEX_2_DAY",
+        "FEDEX_2_DAY_AM",
+        "FEDEX_EXPRESS_SAVER",
+        "FEDEX_SAME_DAY",
+        "FEDEX_SAME_DAY_CITY",
+        "UPS_1DA",
+        "UPS_1DAS",
+        "UPS_1DM",
+        "UPS_1DMS",
+        "UPS_1DP",
+        "UPS_2DA",
+        "UPS_2DAS",
+        "UPS_2DM",
+        "UPS_3DS",
+        "UPS_3DSS",
+        "UPS_GND",
+        "UPS_GNDS",
+        "USPS_BOUND_PRINTED_MATTER",
+        "USPS_FIRST_CLASS_MAIL_CARDS",
+        "USPS_FIRST_CLASS_MAIL_FLATS",
+        "USPS_FIRST_CLASS_MAIL_LETTERS",
+        "USPS_LIBRARY_MAIL",
+        "USPS_MEDIA_MAIL",
+        "USPS_PARCEL_SELECT",
+        "USPS_PRIORITY_MAIL",
+        "USPS_PRIORITY_MAIL_EXPRESS",
+        "USPS_PRIORITY_MAIL_EXPRESS_FOR_LIVES",
+        "USPS_GROUND_ADVANTAGE",
+        "CANADA_POST_REGULAR_PARCEL",
+        "CANADA_POST_EXPEDITED_PARCEL",
+        "CANADA_POST_XPRESSPOST",
+        "CANADA_POST_PRIORITY",
+        "ROYAL_MAIL_SPECIAL_DELIVERY_GUARANTEED_BY_9AM",
+        "ROYAL_MAIL_SPECIAL_DELIVERY_GUARANTEED_BY_1PM",
+        "ROYAL_MAIL_SPECIAL_DELIVERY_GUARANTEED_NEXT_DAY",
+        "ROYAL_MAIL_TRACKED_24",
+        "ROYAL_MAIL_TRACKED_48",
+        "ROYAL_MAIL_24",
+        "ROYAL_MAIL_48",
+        "ROYAL_MAIL_SPECIAL_DELIVERY_GUARANTEED_RETURNS_BY_1PM",
+        "ROYAL_MAIL_TRACKED_RETURNS_24",
+        "ROYAL_MAIL_TRACKED_RETURNS_48",
+        "ROYAL_MAIL_1ST_CLASS_ACCOUNT_MAIL_PARCELS",
+        "ROYAL_MAIL_2ND_CLASS_ACCOUNT_MAIL_PARCELS",
+        "ROYAL_MAIL_SAME_DAY"
+      ],
+      "inlineHelpText": "Salesforce managed shipping carrier method information that provides estimated transit times."
+    },
+    {
+      "name": "ProcessingTime",
+      "label": "Processing Time",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ProcessingTimeUnit",
+      "label": "Processing Time Unit",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Hours",
+        "Days",
+        "Weeks"
+      ]
+    },
+    {
+      "name": "MondayPickUpTime",
+      "label": "Monday Pickup Time",
+      "type": "time",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TuesdayPickUpTime",
+      "label": "Tuesday Pickup Time",
+      "type": "time",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "WednesdayPickUpTime",
+      "label": "Wednesday Pickup Time",
+      "type": "time",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ThursdayPickUpTime",
+      "label": "Thursday Pickup Time",
+      "type": "time",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FridayPickUpTime",
+      "label": "Friday Pickup Time",
+      "type": "time",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "SaturdayPickUpTime",
+      "label": "Saturday Pickup Time",
+      "type": "time",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "SundayPickUpTime",
+      "label": "Sunday Pickup Time",
+      "type": "time",
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "EmailMessage",
+      "field": "RelatedToId",
+      "relationshipName": "Emails",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Event",
+      "field": "WhatId",
+      "relationshipName": "Events",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "LocationShippingCarrierMethod",
+      "field": "ShippingCarrierMethodId",
+      "relationshipName": "LocationShippingCarrierMethods",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Task",
+      "field": "WhatId",
+      "relationshipName": "Tasks",
+      "cascadeDelete": true
+    }
+  ]
+}

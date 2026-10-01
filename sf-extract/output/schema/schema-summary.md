@@ -1,0 +1,10919 @@
+# Salesforce Org Schema
+
+## AITrustAttrSetup (AI Trust Attribute Setup)
+- Id: id
+- IsDeleted: boolean
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- TrustAttribute: picklist
+- IsEnabled: boolean
+- IsLocked: boolean
+- Scope: picklist {Organization, ConfiguredModel, PromptTemplate, ClientFeature}
+- SourceObject: string
+- AttributeId: reference -> AITrustAttribute (required)
+
+## AITrustAttribute (AI Trust Attribute)
+- Id: id
+- IsDeleted: boolean
+- DeveloperName: string (required)
+- Language: picklist {en_US, de, es, fr, it, ja, sv, ko, zh_TW, zh_CN, pt_BR, nl_NL, da, th, fi, …}
+- MasterLabel: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- AttributeType: picklist {PII, Toxicity, Prompt_Injection, Bias, Facticity_Accuracy, Relevance_Alignment, Copyright_Plagiarism, Linguistic_Quality, Policy_Adherence, Compliance_Group, Security_Classification, Shield_Encryption} (required)
+- Description: string
+- AttributeSubtype: string
+- CountryCode: string
+- LanguageCode: string
+
+## Account (Account)
+- Id: id
+- IsDeleted: boolean
+- MasterRecordId: reference -> Account
+- Name: string (required)
+- Type: picklist {Prospect, Customer - Direct, Customer - Channel, Channel Partner / Reseller, Installation Partner, Technology Partner, Other}
+- ParentId: reference -> Account
+- BillingStreet: textarea
+- BillingCity: string
+- BillingState: string
+- BillingPostalCode: string
+- BillingCountry: string
+- BillingStateCode: picklist {AC, AG, AG, 05, 02, AL, AL, AK, AB, AL, AP, AM, AN, AN, AP, …}
+- BillingCountryCode: picklist {AF, AX, AL, DZ, AD, AO, AI, AQ, AG, AR, AM, AW, AU, AT, AZ, …}
+- BillingLatitude: double
+- BillingLongitude: double
+- BillingGeocodeAccuracy: picklist {Address, NearAddress, Block, Street, ExtendedZip, Zip, Neighborhood, City, County, State, Unknown}
+- BillingAddress: address
+- ShippingStreet: textarea
+- ShippingCity: string
+- ShippingState: string
+- ShippingPostalCode: string
+- ShippingCountry: string
+- ShippingStateCode: picklist {AC, AG, AG, 05, 02, AL, AL, AK, AB, AL, AP, AM, AN, AN, AP, …}
+- ShippingCountryCode: picklist {AF, AX, AL, DZ, AD, AO, AI, AQ, AG, AR, AM, AW, AU, AT, AZ, …}
+- ShippingLatitude: double
+- ShippingLongitude: double
+- ShippingGeocodeAccuracy: picklist {Address, NearAddress, Block, Street, ExtendedZip, Zip, Neighborhood, City, County, State, Unknown}
+- ShippingAddress: address
+- Phone: phone
+- Fax: phone
+- AccountNumber: string
+- Website: url
+- PhotoUrl: url
+- Sic: string
+- Industry: picklist {Agriculture, Apparel, Banking, Biotechnology, Chemicals, Communications, Construction, Consulting, Education, Electronics, Energy, Engineering, Entertainment, Environmental, Finance, …}
+- AnnualRevenue: currency
+- NumberOfEmployees: int
+- Ownership: picklist {Public, Private, Subsidiary, Other}
+- TickerSymbol: string
+- Description: textarea
+- Rating: picklist {Hot, Warm, Cold}
+- Site: string
+- OwnerId: reference -> User
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastActivityDate: date
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- Jigsaw: string
+- JigsawCompanyId: string
+- CleanStatus: picklist {Matched, Different, Acknowledged, NotFound, Inactive, Pending, SelectMatch, Skipped}
+- AccountSource: picklist {Web, Phone Inquiry, Partner Referral, Purchased List, Other}
+- DunsNumber: string
+- Tradestyle: string
+- NaicsCode: string
+- NaicsDesc: string
+- YearStarted: string
+- SicDesc: string
+- DandbCompanyId: reference -> DandBCompany
+- OperatingHoursId: reference -> OperatingHours
+- CustomerPriority__c: picklist {High, Low, Medium}
+- SLA__c: picklist {Gold, Silver, Platinum, Bronze}
+- Active__c: picklist {No, Yes}
+- NumberofLocations__c: double
+- UpsellOpportunity__c: picklist {Maybe, No, Yes}
+- SLASerialNumber__c: string
+- SLAExpirationDate__c: date
+
+## AccountPartner (Account Partner)
+- Id: id
+- AccountFromId: reference -> Account (required)
+- AccountToId: reference -> Account (required)
+- OpportunityId: reference -> Opportunity
+- Role: picklist {System Integrator, Agency, Advertiser, VAR/Reseller, Distributor, Developer, Broker, Lender, Supplier, Institution, Contractor, Dealer, Consultant}
+- IsPrimary: boolean
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- IsDeleted: boolean
+- ReversePartnerId: reference -> AccountPartner
+
+## ActionLinkGroupTemplate (Action Link Group Template)
+- Id: id
+- IsDeleted: boolean
+- DeveloperName: string (required)
+- Language: picklist {en_US, de, es, fr, it, ja, sv, ko, zh_TW, zh_CN, pt_BR, nl_NL, da, th, fi, …}
+- MasterLabel: string (required)
+- NamespacePrefix: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- ExecutionsAllowed: picklist {Once, OncePerUser, Unlimited} (required)
+- HoursUntilExpiration: int
+- Category: picklist {Primary, Overflow} (required)
+- IsPublished: boolean
+
+## ActionLinkTemplate (Action Link Template)
+- Id: id
+- IsDeleted: boolean
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- ActionLinkGroupTemplateId: reference -> ActionLinkGroupTemplate (required)
+- LabelKey: string (required)
+- Method: picklist {HttpDelete, HttpHead, HttpGet, HttpPatch, HttpPost, HttpPut} (required)
+- LinkType: picklist {API, APIAsync, Download, UI} (required)
+- Position: int (required)
+- IsConfirmationRequired: boolean
+- IsGroupDefault: boolean
+- UserVisibility: picklist {Creator, Everyone, EveryoneButCreator, Manager, CustomUser, CustomExcludedUser} (required)
+- UserAlias: string
+- Label: string
+- ActionUrl: textarea (required)
+- RequestBody: textarea
+- Headers: textarea
+
+## ActivationTarget (Activation Target)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- MasterLabel: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- Description: string
+- RunStatus: picklist {PUBLISHING, SUCCESS, ERROR, PARTNER_PROCESSING, PARTNER_ERROR, SEGMENT_ERROR, QUEUED, SKIPPED, NOT_SUPPORTED, NOT_PUBLISHED} (required)
+- LastPublishStatusDate: datetime
+- LastPublishStatusErrorMessage: string
+- ConnectionType: picklist {SalesforceMarketingCloud, SalesforceCommerceCloud, StreamingApp, SalesforceDotCom, AmazonS3, AwsS3, SFTP, UPLOAD, IngestApi, SalesforceInteractionStudio, CuratedEntity, DataCloud, GoogleCloudStorage, AzureBlob, ExternalPlatform, …} (required)
+- TargetType: picklist {DE, MCMA}
+- ExportToDirectory: string
+- ExportToEndpoint: string
+- TargetStatus: picklist {ACTIVE, PROCESSING, ERROR, INACTIVE}
+- LastTargetStatusDateTime: datetime
+- LastTargetStatusErrorCode: picklist {CREATE_FAILED, UPDATE_FAILED, DELETE_FAILED, MISSING_ACCOUNT, AUTH_FAILED, INVALID_ACCOUNT, TOKEN_EXCHANGE_FAILED}
+- OutputFormat: picklist {JSON, PARQUET, CSV}
+- PlatformName: string
+- PlatformPrivacyType: string
+- IsCommunicationCappingEnabled: boolean
+- OwnedByOrg: string
+- IsRemote: boolean
+- AudienceHistoryDmoName: string
+- AudienceLatestDmoName: string
+- AuditDmoName: string
+
+## Address (Address)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- ParentId: reference -> Location (required)
+- LocationType: picklist (required)
+- AddressType: picklist
+- Street: textarea
+- City: string
+- State: string
+- PostalCode: string
+- Country: string
+- StateCode: picklist {AC, AG, AG, 05, 02, AL, AL, AK, AB, AL, AP, AM, AN, AN, AP, …}
+- CountryCode: picklist {AF, AX, AL, DZ, AD, AO, AI, AQ, AG, AR, AM, AW, AU, AT, AZ, …}
+- Latitude: double
+- Longitude: double
+- GeocodeAccuracy: picklist {Address, NearAddress, Block, Street, ExtendedZip, Zip, Neighborhood, City, County, State, Unknown}
+- Address: address
+- Description: string
+- DrivingDirections: string
+- TimeZone: picklist {Pacific/Kiritimati, Pacific/Apia, Pacific/Fakaofo, Pacific/Kanton, Pacific/Tongatapu, Pacific/Chatham, Antarctica/McMurdo, Asia/Anadyr, Asia/Kamchatka, Pacific/Auckland, Pacific/Fiji, Pacific/Funafuti, Pacific/Kwajalein, Pacific/Majuro, Pacific/Nauru, …}
+
+## AiSkill (AI Skill)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- AiSkillDefinition: string
+- ApiName: string
+- Description: string
+- NamespacePrefix: string
+- Category: picklist {DiscoveryFrmwrk__aiAssistedQuestionPromptTemplate, einstein_gpt__arConvoQueryGenType, einstein_gpt__arConvoTextHighlightType, sturecruitment__academicTerm, Sales__account360PromptTemplateType, einstein_gpt__accountSummary, einstein_gpt__agentConversationGuidance, einstein_gpt__testAgentEval, einstein_gpt__agentEval, AiCopilot__AgileAppDevPlannerType, einstein_gpt__einsteinSdrEmail, agentforce_session_tracing__scorerMeasurement, agentforce_session_tracing__scorerMultilabel, agentforce_session_tracing__scorerOpenEnded, einstein_gpt__agenticSearchSummaryType, …}
+- Type: string
+- Status: picklist {Published, Draft, Retired}
+- Visibility: picklist {Locked, API, Global, Private}
+- Source: picklist {OOTB, Custom, ISV}
+- ActiveVersion: string
+- LastCreatedVersion: string
+
+## AlternativePaymentMethod (Alternative Payment Method)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- AlternativePaymentMethodNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- PaymentGatewayId: reference -> PaymentGateway
+- NickName: string
+- GatewayToken: encryptedstring
+- GatewayTokenDetails: textarea
+- Email: email
+- AccountId: reference -> Account
+- Status: picklist {Active, InActive, Canceled} (required)
+- CompanyName: string
+- PaymentMethodStreet: textarea
+- PaymentMethodCity: string
+- PaymentMethodState: string
+- PaymentMethodPostalCode: string
+- PaymentMethodCountry: string
+- PaymentMethodStateCode: picklist {AC, AG, AG, 05, 02, AL, AL, AK, AB, AL, AP, AM, AN, AN, AP, …}
+- PaymentMethodCountryCode: picklist {AF, AX, AL, DZ, AD, AO, AI, AQ, AG, AR, AM, AW, AU, AT, AZ, …}
+- PaymentMethodLatitude: double
+- PaymentMethodLongitude: double
+- PaymentMethodGeocodeAccuracy: picklist {Address, NearAddress, Block, Street, ExtendedZip, Zip, Neighborhood, City, County, State, Unknown}
+- PaymentMethodAddress: address
+- Comments: textarea
+- ProcessingMode: picklist {Salesforce, External} (required)
+- MacAddress: string
+- Phone: phone
+- IpAddress: string
+- AuditEmail: email
+- IsAutoPayEnabled: boolean
+- PaymentMethodType: picklist {ACH, Affirm, Afterpay, AfterpayClearpay, AmazonPay, AmericanExpress, ApplePay, BACS, BanContact, BECS, Clearpay, DinersClub, Discover, EPS, ExtendedAPM, …}
+- PaymentMethodSubType: string
+- PaymentMethodDetails: string
+- ExtendedPaymentMethodType: string
+- BillingFirstName: string
+- BillingLastName: string
+- BillingName: string
+- BankAccountHolderType: picklist {Business, Individual}
+- BankAccountType: string
+- StandardEntryClassCode: picklist {WEB, CCD, PPD, TEL}
+- BankCode: string
+- Mandate: string
+
+## ApexClass (Apex Class)
+- Id: id
+- NamespacePrefix: string
+- Name: string (required)
+- ApiVersion: double (required)
+- Status: picklist {Inactive, Active, Deleted} (required)
+- IsValid: boolean
+- BodyCrc: double
+- Body: textarea
+- LengthWithoutComments: int (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+
+## AppUsageAssignment (Application Usage Assignment)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- RecordId: reference -> Asset|Contract|Order|WebCart (required)
+- AppUsageType: string (required)
+
+## AppointmentAssignmentPolicy (Appointment Assignment Policy)
+- Id: id
+- IsDeleted: boolean
+- DeveloperName: string (required)
+- Language: picklist {en_US, de, es, fr, it, ja, sv, ko, zh_TW, zh_CN, pt_BR, nl_NL, da, th, fi, …}
+- MasterLabel: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- PolicyType: picklist {loadBalancing} (required)
+- PolicyApplicableDuration: picklist {ParameterBased, Monthly, Weekly}
+- UtilizationFactor: picklist {TotalAppointmentDuration, NumberOfAppointments}
+
+## AppointmentCategory (Appointment Category)
+- Id: id
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- IsScheduled: boolean
+- IsDropIn: boolean
+- IsGroup: boolean
+
+## AppointmentInvitation (Appointment Invitation)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- InvitationNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- InvitationIdentifier: string
+- ServiceTerritoryId: reference -> ServiceTerritory
+- BookingStartDate: date
+- BookingEndDate: date
+- UrlExpiryDate: date
+- IsActive: boolean
+- InvitationUrl: url
+- AppointmentTopicId: reference -> WorkType|WorkTypeGroup
+- AppointmentTopicType: string
+- AppointmentType: picklist
+- EngagementChannelTypeId: reference -> EngagementChannelType
+
+## AppointmentInvitee (Appointment Invitee)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- AppointmentInvitationId: reference -> AppointmentInvitation (required)
+- ParticipantServiceResourceId: reference -> ServiceResource
+- IsRequiredResource: boolean
+
+## AppointmentSchedulingPolicy (Appointment Scheduling Policy)
+- Id: id
+- IsDeleted: boolean
+- DeveloperName: string (required)
+- Language: picklist {en_US, de, es, fr, it, ja, sv, ko, zh_TW, zh_CN, pt_BR, nl_NL, da, th, fi, …}
+- MasterLabel: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- IsOrgDefault: boolean
+- ShouldEnforceExcludedResource: boolean
+- ShouldEnforceRequiredResource: boolean
+- ShouldUsePrimaryMembers: boolean
+- ShouldUseSecondaryMembers: boolean
+- ShouldMatchSkill: boolean
+- ShouldMatchSkillLevel: boolean
+- ShouldRespectVisitingHours: boolean
+- AppointmentStartTimeInterval: picklist {5, 10, 15, 20, 30, 45, 60, 90, 120, 150, 180, 240, 300, 360, 420, …} (required)
+- ShouldConsiderCalendarEvents: boolean
+- ExtCalEventHandlerId: reference -> ApexClass
+- IsSvcTerritoryMemberShiftUsed: boolean
+- IsSvcTerrOpHoursWithShiftsUsed: boolean
+
+## AppointmentTopicTimeSlot (Appointment Topic Time Slot)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- TimeSlotId: reference -> TimeSlot (required)
+- WorkTypeId: reference -> WorkType
+- WorkTypeGroupId: reference -> WorkTypeGroup
+- OperatingHoursId: reference -> OperatingHours
+- AppointmentTopicTimeSlotKey: string
+
+## ApprovalSubmission (Approval Submission)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- RelatedRecordId: reference -> Account|ActivationTarget|ActivationTargetPlatform|ActvTgtPlatformFieldValue|Address|AgentWork|AiJobRun|AiJobRunItem|AnalyticsUserAttrFuncTkn|AppointmentInvitation|AppointmentInvitee|AppointmentScheduleLog|ApprovalSubmission|ApprovalSubmissionDetail|ApprovalWorkItem|Asset|AssetAction|AssetActionSource|AssetRelationship|AssetStatePeriod|AssignedResource|AssociatedLocation|AuthorizationForm|AuthorizationFormConsent|AuthorizationFormDataUse|AuthorizationFormText|BusinessBrand|BuyerGroup|Campaign|CartItem|CartItemPriceAdjustment|CartRelatedItem|CartTax|CartValidationOutput|Case|CaseComment|CaseRelatedIssue|ChangeRequest|ChangeRequestRelatedIssue|ChangeRequestRelatedItem|CollaborationGroup|CommSubscription|CommSubscriptionChannelType|CommSubscriptionConsent|CommSubscriptionTiming|ConsumptionRate|ConsumptionSchedule|Contact|ContactPointAddress|ContactPointConsent|ContactPointEmail|ContactPointPhone|ContactPointTypeConsent|ContactRequest|ContentDocument|ContentVersion|Contract|ContractLineItem|ConvEntryRelatedRecordCopy|ConversationApiLog|ConversationApiLogObjSum|ConversationEntryCopy|Coupon|CouponCodeRedemption|CreditMemo|CreditMemoInvApplication|CreditMemoLine|Customer|DandBCompany|DataAction|DataActionJobSummary|DataActionTarget|DataCleanRoom|DataCommunicationCap|DataGraph|DataGuidance|DataGuidanceStep|DataGuidanceStepGroup|DataKitDeploymentLog|DataKnowledgeRsrchRpt|DataKnowledgeRsrchTmpl|DataKnowledgeSpace|DataKnowledgeSpcJobRun|DataKnowledgeSrcFileRef|DataLakeObjectInstance|DataMaskCustomValueLibrary|DataQueryWorkspace|DataQueryWorkspaceTab|DataSourceBundle|DataStream|DataUseLegalBasis|DataUsePurpose|DeliveryEstimationSetup|DevopsActivityLog|DevopsEnvDeployment|DevopsEnvDeploymentMbr|DevopsEnvironment|DevopsPipeline|DevopsPipelineEnvironment|DevopsPipelineStage|DevopsPipelineStageTrigger|DevopsPipelineTestProvider|DevopsPipelnStgProm|DevopsPipelnStgPromWkItem|DevopsProject|DevopsProjectEnvironment|DevopsProjectPipeline|DevopsQualityGate|DevopsQualityGateResult|DevopsQualityGateRule|DevopsQualityGateRuleResult|DevopsRequestInfo|DevopsTest|DevopsTestExecution|DevopsTestProviderSyncLog|DevopsTestSuite|DevopsTestSuiteExecution|DevopsTestSuiteGroupExec|DevopsTestSuiteStage|DevopsTestSuiteTest|DevopsWkItmTstSteGrpExec|DuplicateRecordItem|DuplicateRecordSet|EmailMessage|EngagementChannelType|EngagementChannelWorkType|Entitlement|EntitlementContact|EntityMilestone|ExpressionFilter|ExpressionFilterCriteria|ExtDataShare|ExtDataShareTarget|ExternalEventMapping|ExtlRecShrStagedRecord|FinanceBalanceSnapshot|FinanceTransaction|FlowOrchestrationInstance|FlowOrchestrationVersion|FulfillmentOrder|FulfillmentOrderItemAdjustment|FulfillmentOrderItemTax|FulfillmentOrderLineItem|GisPrvdCnctrJobObjRun|Idea|IdentityResolution|Image|Incident|IncidentRelatedItem|Individual|InventoryItemReservation|InventoryReservation|Invoice|InvoiceLine|Lead|Location|LocationGroup|LocationGroupAssignment|LocationShippingCarrierMethod|Macro|MacroInstruction|MacroUsage|ManagedContentVariant|MarketSegment|MarketSegmentActivation|MktCalculatedInsight|MktDataTransform|MktMLModel|MktMLPredictionJob|OperatingHours|OperatingHoursHoliday|Opportunity|OpportunityRelatedDeleteLog|Order|OrderItem|OrgMetricScanSummary|Organization|PartyConsent|PaymentCreditLinePayment|PaymentCreditTransaction|PendingServiceRouting|PrivacyJobSession|PrivacyRTBFRequest|Problem|ProblemIncident|ProblemRelatedItem|ProcessException|Product2|ProductCatalog|ProductCategory|ProductCategoryProduct|Promotion|PromotionLineItemRule|PromotionMarketSegment|PromotionQualifier|PromotionSegment|PromotionSegmentBuyerGroup|PromotionSegmentSalesStore|PromotionTarget|PromotionTier|PromptAction|PromptError|QuickText|QuickTextUsage|ReportHierarchyObjectField|ResourceAbsence|ResourcePreference|ReturnOrder|ReturnOrderItemAdjustment|ReturnOrderItemTax|ReturnOrderLineItem|SecurityHealthCheckAlertRecipient|SecurityHealthCheckResult|Seller|ServiceAppointment|ServiceAppointmentAttendee|ServiceContract|ServiceResource|ServiceResourceSkill|ServiceTerritory|ServiceTerritoryMember|ServiceTerritoryWorkType|SfdcPartnerSbscrOffer|SfdcPartnerSbscrOfferItem|Shift|ShiftEngagementChannel|ShiftWorkTopic|Shipment|ShipmentItem|ShippingCarrier|ShippingCarrierMethod|ShippingConfigurationSet|ShippingRateArea|ShippingRateGroup|Site|SkillRequirement|SlackChannelRelatedRecord|Solution|SourceCodeRepoProvider|SourceCodeRepository|SourceCodeRepositoryBranch|StandardShippingRate|StreamingChannel|Subscription_Line__c|Subscription__c|TableauHostMapping|TenantConsumptionAlert|TimeSlot|Topic|UnstructuredStorageSpace|User|UserLicense|UserLocalWebServerIdentity|UserPrioritizedRecord|UserProvisioningRequest|UserServicePresence|Waitlist|WaitlistParticipant|WaitlistServiceResource|WaitlistWorkType|WebCart|WebCartActivityLog|WebCartAdjustmentBasis|WebCartAdjustmentGroup|WebCartCollaborator|WebCartCredit|WebStore|WebStoreBuyerGroup|WebStoreCatalog|WebStoreInventorySource|WorkItem|WorkItemComponent|WorkItemComponentList|WorkOrder|WorkOrderLineItem|WorkPlan|WorkPlanTemplate|WorkPlanTemplateEntry|WorkStep|WorkStepTemplate|WorkType|WorkTypeGroup|WorkTypeGroupMember
+- FlowOrchestrationInstanceId: reference -> FlowOrchestrationInstance
+- Status: picklist {Approved, Canceled, Errored, InProgress, Recalled, Rejected, Suspended}
+- SubmittedById: reference -> User
+- Comments: textarea
+- RelatedRecordObjectName: string
+- DoesSendApprovalEmail: boolean
+
+## ApprovalSubmissionDetail (Approval Submission Detail)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- ApprovalSubmissionId: reference -> ApprovalSubmission
+- ApprovalWorkItemId: reference -> ApprovalWorkItem
+- ActionName: picklist {Cancel, Override, Reassign, Recall, Review}
+- ActionContext: string
+- ActionPerformedById: reference -> User
+- ActionPerformerRole: picklist {Admin, Assignee, Delegate, Submitter, System}
+- Comments: textarea
+- ActionChannelName: picklist {InvocableAction, ScreenFlow, Slack, System, Email, ApprovalRecord, Agent}
+
+## ApprovalWorkItem (Approval Work Item)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- ApprovalSubmissionId: reference -> ApprovalSubmission
+- RelatedRecordId: reference -> Account|ActivationTarget|ActivationTargetPlatform|ActvTgtPlatformFieldValue|Address|AgentWork|AiJobRun|AiJobRunItem|AnalyticsUserAttrFuncTkn|AppointmentInvitation|AppointmentInvitee|AppointmentScheduleLog|ApprovalSubmission|ApprovalSubmissionDetail|ApprovalWorkItem|Asset|AssetAction|AssetActionSource|AssetRelationship|AssetStatePeriod|AssignedResource|AssociatedLocation|AuthorizationForm|AuthorizationFormConsent|AuthorizationFormDataUse|AuthorizationFormText|BusinessBrand|BuyerGroup|Campaign|CartItem|CartItemPriceAdjustment|CartRelatedItem|CartTax|CartValidationOutput|Case|CaseComment|CaseRelatedIssue|ChangeRequest|ChangeRequestRelatedIssue|ChangeRequestRelatedItem|CollaborationGroup|CommSubscription|CommSubscriptionChannelType|CommSubscriptionConsent|CommSubscriptionTiming|ConsumptionRate|ConsumptionSchedule|Contact|ContactPointAddress|ContactPointConsent|ContactPointEmail|ContactPointPhone|ContactPointTypeConsent|ContactRequest|ContentDocument|ContentVersion|Contract|ContractLineItem|ConvEntryRelatedRecordCopy|ConversationApiLog|ConversationApiLogObjSum|ConversationEntryCopy|Coupon|CouponCodeRedemption|CreditMemo|CreditMemoInvApplication|CreditMemoLine|Customer|DandBCompany|DataAction|DataActionJobSummary|DataActionTarget|DataCleanRoom|DataCommunicationCap|DataGraph|DataGuidance|DataGuidanceStep|DataGuidanceStepGroup|DataKitDeploymentLog|DataKnowledgeRsrchRpt|DataKnowledgeRsrchTmpl|DataKnowledgeSpace|DataKnowledgeSpcJobRun|DataKnowledgeSrcFileRef|DataLakeObjectInstance|DataMaskCustomValueLibrary|DataQueryWorkspace|DataQueryWorkspaceTab|DataSourceBundle|DataStream|DataUseLegalBasis|DataUsePurpose|DeliveryEstimationSetup|DevopsActivityLog|DevopsEnvDeployment|DevopsEnvDeploymentMbr|DevopsEnvironment|DevopsPipeline|DevopsPipelineEnvironment|DevopsPipelineStage|DevopsPipelineStageTrigger|DevopsPipelineTestProvider|DevopsPipelnStgProm|DevopsPipelnStgPromWkItem|DevopsProject|DevopsProjectEnvironment|DevopsProjectPipeline|DevopsQualityGate|DevopsQualityGateResult|DevopsQualityGateRule|DevopsQualityGateRuleResult|DevopsRequestInfo|DevopsTest|DevopsTestExecution|DevopsTestProviderSyncLog|DevopsTestSuite|DevopsTestSuiteExecution|DevopsTestSuiteGroupExec|DevopsTestSuiteStage|DevopsTestSuiteTest|DevopsWkItmTstSteGrpExec|DuplicateRecordItem|DuplicateRecordSet|EmailMessage|EngagementChannelType|EngagementChannelWorkType|Entitlement|EntitlementContact|EntityMilestone|ExpressionFilter|ExpressionFilterCriteria|ExtDataShare|ExtDataShareTarget|ExternalEventMapping|ExtlRecShrStagedRecord|FinanceBalanceSnapshot|FinanceTransaction|FlowOrchestrationInstance|FlowOrchestrationVersion|FulfillmentOrder|FulfillmentOrderItemAdjustment|FulfillmentOrderItemTax|FulfillmentOrderLineItem|GisPrvdCnctrJobObjRun|Idea|IdentityResolution|Image|Incident|IncidentRelatedItem|Individual|InventoryItemReservation|InventoryReservation|Invoice|InvoiceLine|Lead|Location|LocationGroup|LocationGroupAssignment|LocationShippingCarrierMethod|Macro|MacroInstruction|MacroUsage|ManagedContentVariant|MarketSegment|MarketSegmentActivation|MktCalculatedInsight|MktDataTransform|MktMLModel|MktMLPredictionJob|OperatingHours|OperatingHoursHoliday|Opportunity|OpportunityRelatedDeleteLog|Order|OrderItem|OrgMetricScanSummary|Organization|PartyConsent|PaymentCreditLinePayment|PaymentCreditTransaction|PendingServiceRouting|PrivacyJobSession|PrivacyRTBFRequest|Problem|ProblemIncident|ProblemRelatedItem|ProcessException|Product2|ProductCatalog|ProductCategory|ProductCategoryProduct|Promotion|PromotionLineItemRule|PromotionMarketSegment|PromotionQualifier|PromotionSegment|PromotionSegmentBuyerGroup|PromotionSegmentSalesStore|PromotionTarget|PromotionTier|PromptAction|PromptError|QuickText|QuickTextUsage|ReportHierarchyObjectField|ResourceAbsence|ResourcePreference|ReturnOrder|ReturnOrderItemAdjustment|ReturnOrderItemTax|ReturnOrderLineItem|SecurityHealthCheckAlertRecipient|SecurityHealthCheckResult|Seller|ServiceAppointment|ServiceAppointmentAttendee|ServiceContract|ServiceResource|ServiceResourceSkill|ServiceTerritory|ServiceTerritoryMember|ServiceTerritoryWorkType|SfdcPartnerSbscrOffer|SfdcPartnerSbscrOfferItem|Shift|ShiftEngagementChannel|ShiftWorkTopic|Shipment|ShipmentItem|ShippingCarrier|ShippingCarrierMethod|ShippingConfigurationSet|ShippingRateArea|ShippingRateGroup|Site|SkillRequirement|SlackChannelRelatedRecord|Solution|SourceCodeRepoProvider|SourceCodeRepository|SourceCodeRepositoryBranch|StandardShippingRate|StreamingChannel|Subscription_Line__c|Subscription__c|TableauHostMapping|TenantConsumptionAlert|TimeSlot|Topic|UnstructuredStorageSpace|User|UserLicense|UserLocalWebServerIdentity|UserPrioritizedRecord|UserProvisioningRequest|UserServicePresence|Waitlist|WaitlistParticipant|WaitlistServiceResource|WaitlistWorkType|WebCart|WebCartActivityLog|WebCartAdjustmentBasis|WebCartAdjustmentGroup|WebCartCollaborator|WebCartCredit|WebStore|WebStoreBuyerGroup|WebStoreCatalog|WebStoreInventorySource|WorkItem|WorkItemComponent|WorkItemComponentList|WorkOrder|WorkOrderLineItem|WorkPlan|WorkPlanTemplate|WorkPlanTemplateEntry|WorkStep|WorkStepTemplate|WorkType|WorkTypeGroup|WorkTypeGroupMember
+- FlowOrchestrationWorkItemId: reference -> FlowOrchestrationWorkItem
+- Status: picklist {Assigned, Approved, Canceled, Errored, Recalled, Rejected, Withdrawn}
+- AssignedToId: reference -> Group|Group|User
+- ReviewedById: reference -> User
+- Comments: textarea
+- RelatedRecordObjectName: string
+- ApprovalConditionName: string
+- ReviewedDate: datetime
+- ParentWorkItemId: reference -> ApprovalWorkItem
+
+## Asset (Asset)
+- Id: id
+- ContactId: reference -> Contact
+- AccountId: reference -> Account
+- ParentId: reference -> Asset
+- RootAssetId: reference -> Asset
+- Product2Id: reference -> Product2
+- ProductCode: string
+- IsCompetitorProduct: boolean
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- IsDeleted: boolean
+- Name: string (required)
+- SerialNumber: string
+- InstallDate: date
+- PurchaseDate: date
+- UsageEndDate: date
+- LifecycleStartDate: datetime
+- LifecycleEndDate: datetime
+- Status: picklist {Shipped, Installed, Registered, Obsolete, Purchased}
+- Price: currency
+- Quantity: double
+- Description: textarea
+- OwnerId: reference -> User
+- AssetProvidedById: reference -> Account
+- AssetServicedById: reference -> Account
+- IsInternal: boolean
+- AssetLevel: int
+- StockKeepingUnit: string
+- HasLifecycleManagement: boolean
+- CurrentMrr: currency
+- CurrentLifecycleEndDate: datetime
+- CurrentQuantity: double
+- CurrentAmount: currency
+- TotalLifecycleAmount: currency
+- Street: textarea
+- City: string
+- State: string
+- PostalCode: string
+- Country: string
+- StateCode: picklist {AC, AG, AG, 05, 02, AL, AL, AK, AB, AL, AP, AM, AN, AN, AP, …}
+- CountryCode: picklist {AF, AX, AL, DZ, AD, AO, AI, AQ, AG, AR, AM, AW, AU, AT, AZ, …}
+- Latitude: double
+- Longitude: double
+- GeocodeAccuracy: picklist {Address, NearAddress, Block, Street, ExtendedZip, Zip, Neighborhood, City, County, State, Unknown}
+- Address: address
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+
+## AssetAction (Asset Action)
+- Id: id
+- IsDeleted: boolean
+- AssetActionNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- AssetId: reference -> Asset
+- Type: picklist {Generate, Change, Cancel, Convert}
+- CategoryEnum: picklist {Initial Sale, Upsells, Downsells, Cross-Sells, Cancellations, Transfers, Terms And Conditions Changes, Renewals, Upgrades, Downgrades, Swaps, Other}
+- ActionDate: datetime
+- ProductAmountChange: currency
+- AdjustmentAmountChange: currency
+- EstimatedTaxChange: currency
+- ActualTaxChange: currency
+- SubtotalChange: currency
+- QuantityChange: double
+- MrrChange: currency
+- Amount: currency
+- TotalInitialSaleAmount: currency
+- TotalRenewalsAmount: currency
+- TotalUpsellsAmount: currency
+- TotalDownsellsAmount: currency
+- TotalCrossSellsAmount: currency
+- TotalCancellationsAmount: currency
+- TotalTransfersAmount: currency
+- TotalTermsAndConditionsAmount: currency
+- TotalOtherAmount: currency
+- TotalSwapsAmount: currency
+- TotalUpgradesAmount: currency
+- TotalDowngradesAmount: currency
+- TotalAmount: currency
+- TotalQuantity: double
+- TotalMrr: currency
+- Subtype: picklist {StartDateAdjustment, TransferFrom, TransferTo, Rollback, FieldAmendment, SwapIn, SwapOut, UpgradeFrom, UpgradeTo, DowngradeFrom, DowngradeTo}
+
+## AssetActionSource (Asset Action Source)
+- Id: id
+- IsDeleted: boolean
+- AssetActionSourceNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- AssetActionId: reference -> AssetAction
+- ReferenceEntityItemId: reference -> OrderItem|WorkOrderLineItem
+- ProductAmount: currency
+- AdjustmentAmount: currency
+- EstimatedTax: currency
+- ActualTax: currency
+- Subtotal: currency
+- StartDate: datetime
+- EndDate: datetime
+- Quantity: double
+- TransactionDate: datetime
+- ExternalReference: string
+- ExternalReferenceDataSource: string
+
+## AssetRelationship (Asset Relationship)
+- Id: id
+- IsDeleted: boolean
+- AssetRelationshipNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- AssetId: reference -> Asset (required)
+- RelatedAssetId: reference -> Asset (required)
+- FromDate: datetime
+- ToDate: datetime
+- RelationshipType: picklist {Replacement, Upgrade, Crossgrade}
+
+## AssetStatePeriod (Asset State Period)
+- Id: id
+- IsDeleted: boolean
+- AssetStatePeriodNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- AssetId: reference -> Asset
+- StartDate: datetime
+- EndDate: datetime
+- Quantity: double
+- Amount: currency
+- Mrr: currency
+- BillingFrequency: picklist {Monthly, Quarterly, Semi-Annual, Annual}
+- LegalEntityId: reference -> LegalEntity
+- UnitPriceUplift: percent
+- Discount: percent
+- DiscountAmount: currency
+- UnitPrice: currency
+
+## AssignedResource (Assigned Resource)
+- Id: id
+- IsDeleted: boolean
+- AssignedResourceNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- ServiceAppointmentId: reference -> ServiceAppointment (required)
+- ServiceResourceId: reference -> ServiceResource (required)
+- IsRequiredResource: boolean
+- Role: picklist
+- EventId: reference -> Event
+
+## AssociatedLocation (Associated Location)
+- Id: id
+- IsDeleted: boolean
+- AssociatedLocationNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- ParentRecordId: reference -> Account (required)
+- LocationId: reference -> Location (required)
+- Type: picklist
+- ActiveFrom: datetime
+- ActiveTo: datetime
+
+## AsyncOperationLog (Async Operation Log)
+- Id: id
+- IsDeleted: boolean
+- AsyncOperationNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- ExternalReference: string
+- Description: string
+- Status: picklist {New, InProgress, Error, Completed}
+- Type: picklist {LocationManagement, ImportInventory, OrderSummaryAdjustmentAggregate, CreateAsset, CancelAsset, CancelOrderItemSummaries, CdsFullLocationGraphSync, CdsDeltaEntitySync}
+- StartedAt: datetime
+- FinishedAt: datetime
+- LastStatusUpdateAt: datetime
+- Error: string
+- RelatedRecordId: reference -> Asset
+- Request: textarea
+- Response: textarea
+
+## AuthorizationForm (Authorization Form)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- RevisionNumber: string
+- EffectiveFromDate: date
+- EffectiveToDate: date
+- DefaultAuthFormTextId: reference -> AuthorizationFormText
+- IsSignatureRequired: boolean
+
+## AuthorizationFormConsent (Authorization Form Consent)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- ConsentGiverId: reference -> Account|Contact|Individual|Lead|User (required)
+- AuthorizationFormTextId: reference -> AuthorizationFormText
+- ConsentCapturedSource: string
+- ConsentCapturedSourceType: picklist {Email, Phone, Web, Social, MailingAddress, InPerson, Video}
+- ConsentCapturedDateTime: datetime
+- Status: picklist {Seen, Signed, Rejected}
+- DocumentVersionId: reference -> ContentVersion
+- RelatedRecordId: reference -> Account
+
+## AuthorizationFormDataUse (Authorization Form Data Use)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- AuthorizationFormId: reference -> AuthorizationForm (required)
+- DataUsePurposeId: reference -> DataUsePurpose (required)
+
+## AuthorizationFormText (Authorization Form Text)
+- Id: id
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- AuthorizationFormId: reference -> AuthorizationForm (required)
+- FullAuthorizationFormUrl: string
+- SummaryAuthFormText: string
+- Locale: picklist {af_ZA, en_TH, es_EC, fr_LU, en_TO, en_TT, en_TR, nl_AW, es_ES, en_TW, pt_ST, xh_ZA, en_TZ, sh_CS, nl_BE, …}
+- LocaleSelection: picklist {af_ZA, en_TH, es_EC, fr_LU, en_TO, en_TT, en_TR, nl_AW, es_ES, en_TW, pt_ST, xh_ZA, en_TZ, sh_CS, nl_BE, …}
+- ContentDocumentId: reference -> ContentDocument
+
+## BackgroundOperation (Background Operation)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- SubmittedAt: datetime
+- Status: picklist {New, Scheduled, Canceled, Merged, Waiting, Running, Error, Complete}
+- ExecutionGroup: string
+- SequenceGroup: string
+- SequenceNumber: int
+- GroupLeaderId: reference -> BackgroundOperation
+- StartedAt: datetime
+- FinishedAt: datetime
+- WorkerUri: string
+- Timeout: int
+- ExpiresAt: datetime
+- NumFollowers: int
+- ProcessAfter: datetime
+- ParentKey: string
+- RetryLimit: int
+- RetryCount: int
+- RetryBackoff: int
+- Error: string
+- Type: picklist {Sweeper, ExternalObject, ExternalObjectSync, ExternalChangeDataCapture, XClean, WebCart, BlockchainEventPoller, SiteTaskCreate, SiteTaskPublish, CdpMetadataDeploy, ExternalServiceCallback, ExternalConnectivityPoller, AutoTagging, TagPropagation, ApiCatalogPoller, …}
+
+## BrowserPolicyViolation (Browser Policy Violation)
+- Id: id
+- IsDeleted: boolean
+- DeveloperName: string
+- Language: picklist {en_US, de, es, fr, it, ja, sv, ko, zh_TW, zh_CN, pt_BR, nl_NL, da, th, fi, …}
+- MasterLabel: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- UntrustedUrl: string
+- ViolationContext: picklist {Lightning}
+- ViolationType: picklist {ImageSrc, FrameSrc, FontSrc, Redirect, MalformedUrl}
+- ViolationImpact: picklist {BLOCKED, REPORTED}
+
+## BusinessBrand (Business Brand)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- OrgId: string
+- ParentId: reference -> BusinessBrand
+
+## BusinessHours (Business Hours)
+- Id: id
+- Name: string (required)
+- IsActive: boolean
+- IsDefault: boolean
+- SundayStartTime: time
+- SundayEndTime: time
+- MondayStartTime: time
+- MondayEndTime: time
+- TuesdayStartTime: time
+- TuesdayEndTime: time
+- WednesdayStartTime: time
+- WednesdayEndTime: time
+- ThursdayStartTime: time
+- ThursdayEndTime: time
+- FridayStartTime: time
+- FridayEndTime: time
+- SaturdayStartTime: time
+- SaturdayEndTime: time
+- TimeZoneSidKey: picklist {Pacific/Kiritimati, Pacific/Apia, Pacific/Fakaofo, Pacific/Kanton, Pacific/Tongatapu, Pacific/Chatham, Antarctica/McMurdo, Asia/Anadyr, Asia/Kamchatka, Pacific/Auckland, Pacific/Fiji, Pacific/Funafuti, Pacific/Kwajalein, Pacific/Majuro, Pacific/Nauru, …} (required)
+- SystemModstamp: datetime
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- LastViewedDate: datetime
+
+## BuyerGroup (Buyer Group)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- Description: string
+
+## Campaign (Campaign)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- ParentId: reference -> Campaign
+- Type: picklist {Conference, Webinar, Trade Show, Public Relations, Partners, Referral Program, Advertisement, Banner Ads, Direct Mail, Email, Telemarketing, Other}
+- Status: picklist {Planned, In Progress, Completed, Aborted}
+- StartDate: date
+- EndDate: date
+- ExpectedRevenue: currency
+- BudgetedCost: currency
+- ActualCost: currency
+- ExpectedResponse: percent
+- NumberSent: double
+- IsActive: boolean
+- Description: textarea
+- NumberOfLeads: int
+- NumberOfConvertedLeads: int
+- NumberOfContacts: int
+- NumberOfResponses: int
+- NumberOfOpportunities: int
+- NumberOfWonOpportunities: int
+- AmountAllOpportunities: currency
+- AmountWonOpportunities: currency
+- OwnerId: reference -> User
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastActivityDate: date
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- CampaignMemberRecordTypeId: reference -> RecordType
+
+## CampaignMember (Campaign Member)
+- Id: id
+- IsDeleted: boolean
+- CampaignId: reference -> Campaign (required)
+- LeadId: reference -> Lead
+- ContactId: reference -> Contact
+- Status: picklist {Planned, Received, Responded, Sent}
+- HasResponded: boolean
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- FirstRespondedDate: date
+- Salutation: picklist {Mr., Ms., Mrs., Dr., Prof., Mx.}
+- Name: string
+- FirstName: string
+- LastName: string
+- Title: string
+- Street: string
+- City: string
+- State: string
+- PostalCode: string
+- Country: string
+- Email: email
+- Phone: phone
+- Fax: phone
+- MobilePhone: phone
+- Description: textarea
+- DoNotCall: boolean
+- HasOptedOutOfEmail: boolean
+- HasOptedOutOfFax: boolean
+- LeadSource: picklist {Web, Phone Inquiry, Partner Referral, Purchased List, Other}
+- CompanyOrAccount: string
+- Type: string
+- LeadOrContactId: reference -> Account|Contact|Lead
+- LeadOrContactOwnerId: reference -> Group|User
+
+## CampaignMemberStatus (Campaign Member Status)
+- Id: id
+- IsDeleted: boolean
+- CampaignId: reference -> Campaign
+- Label: string
+- SortOrder: int
+- IsDefault: boolean
+- HasResponded: boolean
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+
+## CardPaymentMethod (Card Payment Method)
+- Id: id
+- IsDeleted: boolean
+- CardPaymentMethodNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- DisplayCardNumber: string
+- ExpiryMonth: int
+- ExpiryYear: int
+- StartMonth: int
+- StartYear: int
+- CardType: picklist {Visa, Master Card, American Express, Diners Club, JCB, Maestro}
+- CardTypeCategory: picklist {Visa, MasterCard, AmericanExpress, Jcb, DinersClub, Maestro, Discover, UnionPay}
+- AutoCardType: string
+- CardCategory: picklist {CreditCard, DebitCard}
+- AccountId: reference -> Account
+- PaymentMethodStreet: textarea
+- PaymentMethodCity: string
+- PaymentMethodState: string
+- PaymentMethodPostalCode: string
+- PaymentMethodCountry: string
+- PaymentMethodStateCode: picklist {AC, AG, AG, 05, 02, AL, AL, AK, AB, AL, AP, AM, AN, AN, AP, …}
+- PaymentMethodCountryCode: picklist {AF, AX, AL, DZ, AD, AO, AI, AQ, AG, AR, AM, AW, AU, AT, AZ, …}
+- PaymentMethodLatitude: double
+- PaymentMethodLongitude: double
+- PaymentMethodGeocodeAccuracy: picklist {Address, NearAddress, Block, Street, ExtendedZip, Zip, Neighborhood, City, County, State, Unknown}
+- PaymentMethodAddress: address
+- NickName: string
+- CardHolderName: string
+- CardBin: int
+- CardLastFour: int
+- Email: email
+- Comments: textarea
+- Status: picklist {Active, InActive, Canceled} (required)
+- InputCardNumber: string
+- CardHolderFirstName: string
+- CardHolderLastName: string
+- CompanyName: string
+- GatewayToken: string
+- GatewayTokenDetails: textarea
+- PaymentGatewayId: reference -> PaymentGateway
+- ProcessingMode: picklist {Salesforce, External} (required)
+- MacAddress: string
+- Phone: phone
+- IpAddress: string
+- AuditEmail: email
+- GatewayResultCode: string
+- GatewayResultCodeDescription: string
+- SfResultCode: picklist {Success, PermanentFail, Decline, RequiresReview, Indeterminate, SystemError, ValidationError}
+- GatewayDate: datetime
+- GatewayTokenEncrypted: encryptedstring
+- IsAutoPayEnabled: boolean
+- PaymentMethodType: picklist {ACH, Affirm, Afterpay, AfterpayClearpay, AmazonPay, AmericanExpress, ApplePay, BACS, BanContact, BECS, Clearpay, DinersClub, Discover, EPS, ExtendedAPM, …}
+- PaymentMethodSubType: string
+- PaymentMethodDetails: string
+
+## CartDeliveryGroup (Cart Delivery Group)
+- Id: id
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- CartId: reference -> WebCart (required)
+- DesiredDeliveryDate: datetime
+- ShippingInstructions: textarea
+- DeliverToFirstName: string
+- DeliverToLastName: string
+- DeliverToName: string
+- DeliverToStreet: textarea
+- DeliverToCity: string
+- DeliverToState: string
+- DeliverToPostalCode: string
+- DeliverToCountry: string
+- DeliverToStateCode: picklist {AC, AG, AG, 05, 02, AL, AL, AK, AB, AL, AP, AM, AN, AN, AP, …}
+- DeliverToCountryCode: picklist {AF, AX, AL, DZ, AD, AO, AI, AQ, AG, AR, AM, AW, AU, AT, AZ, …}
+- DeliverToLatitude: double
+- DeliverToLongitude: double
+- DeliverToGeocodeAccuracy: picklist {Address, NearAddress, Block, Street, ExtendedZip, Zip, Neighborhood, City, County, State, Unknown}
+- DeliverToAddress: address
+- IsDefault: boolean
+- TotalProductAmount: currency
+- TotalChargeAmount: currency
+- TotalAmount: currency
+- TotalProductTaxAmount: currency
+- TotalChargeTaxAmount: currency
+- TotalTaxAmount: currency
+- TotalCartItemCount: int
+- TotalCartItemQuantity: double
+- GrandTotalAmount: currency
+- TotalAdjustmentAmount: currency
+- TotalAdjustmentTaxAmount: currency
+- SelectedDeliveryMethodId: reference -> CartDeliveryGroupMethod
+- ShipToPhoneNumber: phone
+- CompanyName: string
+- IsGift: boolean
+- GiftMessage: textarea
+- GiftToName: string
+
+## CartDeliveryGroupMethod (Cart Delivery Group Method)
+- Id: id
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- WebCartId: reference -> WebCart (required)
+- CartDeliveryGroupId: reference -> CartDeliveryGroup (required)
+- CartCheckoutSessionId: reference -> CartCheckoutSession
+- ShippingFee: currency (required)
+- ExternalProvider: string
+- Carrier: picklist
+- ClassOfService: picklist
+- ProductId: reference -> Product2
+- ReferenceNumber: string
+- IsActive: boolean
+- TotalAdjustmentAmount: currency
+- AdjustedShippingFee: currency
+- TransitTimeMin: int
+- TransitTimeMax: int
+- TransitTimeUnit: picklist {Hours, Days, Weeks}
+- ProcessTime: int
+- ProcessTimeUnit: picklist {Hours, Days, Weeks}
+
+## CartItem (Cart Item)
+- Id: id
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- CartId: reference -> WebCart (required)
+- CartDeliveryGroupId: reference -> CartDeliveryGroup (required)
+- Product2Id: reference -> Product2
+- ParentCartItemId: reference -> CartItem
+- Type: picklist {Product, Charge}
+- SubType: picklist {GiftWrap, Bonus}
+- Sku: string
+- Quantity: double
+- ListPrice: currency
+- NetUnitPrice: currency
+- GrossUnitPrice: currency
+- SalesPrice: currency
+- UnitAdjustmentAmount: currency
+- UnitAdjustedPrice: currency
+- TotalListPrice: currency
+- TotalLineAmount: currency
+- TotalLineTaxAmount: currency
+- AdjustmentAmount: currency
+- UnitItemAdjustmentAmount: currency
+- UnitAdjustedPriceWithItemAdj: currency
+- AdjustmentTaxAmount: currency
+- TotalPrice: currency
+- TotalPriceTaxAmount: currency
+- ItemizedAdjustmentAmount: currency
+- ItemizedAdjustmentTaxAmount: currency
+- DistributedAdjustmentAmount: currency
+- DistributedAdjustmentTaxAmount: currency
+- TotalPromoAdjustmentAmount: currency
+- TotalPromoAdjustmentTaxAmount: currency
+- TotalAdjustmentAmount: currency
+- TotalPriceAfterAllAdjustments: currency
+- TotalTaxAmount: currency
+- TotalAmount: currency
+- TotalLineNetAmount: currency
+- TotalLineGrossAmount: currency
+- NetAdjustmentAmount: currency
+- GrossAdjustmentAmount: currency
+- ProductClass: picklist {Simple, VariationParent, Variation, Bundle, Set}
+- StockCheckMethod: picklist {ParentProduct, ChildProducts}
+- ProductValidationKey: string
+- ChildProductCount: int
+- PerUnitWeight: double
+- WeightUnit: picklist
+- TotalWeight: double
+- IsShippingChargeNotApplicable: boolean
+
+## CartItemPriceAdjustment (Cart Item Price Adjustment)
+- Id: id
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- CartItemId: reference -> CartItem (required)
+- WebCartAdjustmentGroupId: reference -> WebCartAdjustmentGroup
+- TotalAmount: currency
+- TotalTax: currency
+- AdjustmentSource: picklist {System, Discretionary, Promotion, Rule} (required)
+- Description: textarea
+- AdjustmentType: picklist {AdjustmentPercentage, AdjustmentAmount, OverrideAmount} (required)
+- AdjustmentValue: double (required)
+- Priority: int
+- AdjustmentTargetType: picklist {Cart, Item} (required)
+- PriceAdjustmentCauseId: reference -> Promotion
+- AdjustmentBasisReferenceId: reference -> Coupon
+- AdjustmentAmountScope: picklist {Unit, Total, UnproratedTotal}
+- CartId: reference -> WebCart
+- TotalNetAmount: currency
+- TotalGrossAmount: currency
+
+## CartTax (Cart Tax)
+- Id: id
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- CartItemId: reference -> CartItem (required)
+- CartId: reference -> WebCart
+- CartItemPriceAdjustmentId: reference -> CartItemPriceAdjustment
+- TaxType: picklist {Actual, Estimated} (required)
+- TaxCalculationDate: date (required)
+- Amount: currency (required)
+- TaxRate: percent
+- Description: textarea
+- AdjustmentTargetType: picklist {Cart, Item}
+
+## CartValidationOutput (Cart Message)
+- Id: id
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- CartId: reference -> WebCart (required)
+- RelatedEntityId: reference -> CartDeliveryGroup|CartItem|CartTax|WebCart (required)
+- BackgroundOperationId: reference -> BackgroundOperation
+- Type: picklist {Inventory, Taxes, Pricing, Promotions, Shipping, ShippingPromotions, Entitlement, CartSave, SystemError, Other} (required)
+- Level: picklist {Info, Error, Warning} (required)
+- Message: string
+- IsDismissed: boolean
+- RelatedEntityPrefix: string
+
+## Case (Case)
+- Id: id
+- IsDeleted: boolean
+- MasterRecordId: reference -> Case
+- CaseNumber: string
+- ContactId: reference -> Contact
+- AccountId: reference -> Account
+- AssetId: reference -> Asset
+- SourceId: reference -> EmailMessage|MessagingSession
+- ParentId: reference -> Case
+- SuppliedName: string
+- SuppliedEmail: email
+- SuppliedPhone: string
+- SuppliedCompany: string
+- Type: picklist {Mechanical, Electrical, Electronic, Structural, Other}
+- Status: picklist {New, Working, Escalated, Closed}
+- Reason: picklist {Installation, Equipment Complexity, Performance, Breakdown, Equipment Design, Feedback, Other}
+- Origin: picklist {Phone, Email, Web}
+- Subject: string
+- Priority: picklist {High, Medium, Low}
+- Description: textarea
+- IsClosed: boolean
+- ClosedDate: datetime
+- IsEscalated: boolean
+- OwnerId: reference -> Group|User
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- ContactPhone: phone
+- ContactMobile: phone
+- ContactEmail: email
+- ContactFax: phone
+- Comments: textarea
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- EngineeringReqNumber__c: string
+- SLAViolation__c: picklist {No, Yes}
+- Product__c: picklist {GC1040, GC1060, GC3020, GC3040, GC3060, GC5020, GC5040, GC5060, GC1020}
+- PotentialLiability__c: picklist {No, Yes}
+
+## CaseComment (Case Comment)
+- Id: id
+- ParentId: reference -> Case (required)
+- IsPublished: boolean
+- CommentBody: textarea
+- CommentBodyRichtext: textarea
+- CreatedById: reference -> User
+- CreatedDate: datetime
+- SystemModstamp: datetime
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- IsDeleted: boolean
+
+## CaseContactRole (Case Contact Role)
+- Id: id
+- CasesId: reference -> Case (required)
+- ContactId: reference -> Contact (required)
+- Role: picklist {Technical Contact, Business Contact, Decision Maker, Other}
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- IsDeleted: boolean
+
+## CaseMilestone (Case Milestone)
+- Id: id
+- CaseId: reference -> Case
+- StartDate: datetime
+- TargetDate: datetime
+- CompletionDate: datetime
+- MilestoneTypeId: reference -> MilestoneType
+- IsCompleted: boolean
+- IsViolated: boolean
+- SystemModstamp: datetime
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- IsDeleted: boolean
+- TargetResponseInMins: int
+- TargetResponseInHrs: double
+- TargetResponseInDays: double
+- TimeRemainingInMins: string
+- TimeRemainingInHrs: string
+- TimeRemainingInDays: double
+- ElapsedTimeInMins: int
+- ElapsedTimeInHrs: double
+- ElapsedTimeInDays: double
+- TimeSinceTargetInMins: string
+- TimeSinceTargetInHrs: string
+- TimeSinceTargetInDays: double
+- BusinessHoursId: reference -> BusinessHours
+
+## CaseRelatedIssue (Case Related Issue)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- CaseId: reference -> Case (required)
+- RelatedIssueId: reference -> Incident|Problem (required)
+- RelatedEntityType: picklist {Incident, Problem}
+- RelationshipType: picklist {Root Cause, Similar}
+
+## ChangeRequest (Change Request)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- ChangeRequestNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- Subject: string (required)
+- Description: textarea
+- StatusCode: picklist {New, Open, Planning, Scheduled, Implementing, Reviewed, Approved, Closed, Canceled, Rejected}
+- Status: picklist {New, Open, Planning, Scheduled, Implementing, Reviewed, Approved, Closed, Canceled, Rejected}
+- Priority: picklist {Critical, High, Moderate, Low}
+- Impact: picklist {High, Medium, Low}
+- RiskLevel: picklist {High, Medium, Low}
+- Category: picklist
+- ChangeType: picklist {Standard, Normal, Major, Emergency}
+- ReviewerId: reference -> User
+- FinalReviewNotes: textarea
+- FinalReviewDateTime: datetime
+- BusinessReason: picklist
+- BusinessJustification: textarea
+- RiskImpactAnalysis: textarea
+- RemediationPlan: textarea
+- EstimatedStartTime: datetime
+- EstimatedEndTime: datetime
+
+## ChangeRequestRelatedIssue (Change Request Related Issue)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- ChangeRequestId: reference -> ChangeRequest (required)
+- RelatedIssueId: reference -> Case|ChangeRequest|Incident|Problem (required)
+- RelatedEntityType: picklist {Incident, Problem, Case, ChangeRequest}
+- RelationshipType: picklist {Caused By, Resolved By}
+
+## ChangeRequestRelatedItem (Change Request Related Item)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- ChangeRequestId: reference -> ChangeRequest (required)
+- AssetId: reference -> Asset (required)
+- RelationshipType: picklist {Broke Item, Fixed Item}
+- ImpactLevel: picklist {High, Medium, Low}
+- Comment: textarea
+
+## CollaborationGroup (Group)
+- Id: id
+- Name: string (required)
+- MemberCount: int
+- OwnerId: reference -> User
+- CollaborationType: picklist {Public, Private} (required)
+- Description: textarea
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- FullPhotoUrl: url
+- MediumPhotoUrl: url
+- SmallPhotoUrl: url
+- LastFeedModifiedDate: datetime
+- InformationTitle: string
+- InformationBody: textarea
+- HasPrivateFieldsAccess: boolean
+- CanHaveGuests: boolean
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- IsArchived: boolean
+- IsAutoArchiveDisabled: boolean
+- AnnouncementId: reference -> Announcement
+- GroupEmail: email
+- BannerPhotoUrl: url
+- IsBroadcast: boolean
+
+## CollaborationGroupMember (Group Member)
+- Id: id
+- CollaborationGroupId: reference -> CollaborationGroup (required)
+- MemberId: reference -> User (required)
+- CollaborationRole: picklist {Admin, Standard}
+- NotificationFrequency: picklist {P, D, W, N}
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastFeedAccessDate: datetime
+
+## CollaborationGroupRecord (Group Record)
+- Id: id
+- IsDeleted: boolean
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- CollaborationGroupId: reference -> CollaborationGroup (required)
+- RecordId: reference -> Account|Campaign|Case|Contact|Contract|Lead|Opportunity|Subscription_Line__c|Subscription__c (required)
+
+## CommSubscription (Communication Subscription)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+
+## CommSubscriptionChannelType (Communication Subscription Channel Type)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- CommunicationSubscriptionId: reference -> CommSubscription (required)
+- EngagementChannelTypeId: reference -> EngagementChannelType (required)
+- DataUsePurposeId: reference -> CommSubscription
+- MessagingChannelId: reference -> MessagingChannel
+- MessagingChannelUsageId: reference -> MessagingChannelUsage
+
+## CommSubscriptionConsent (Communication Subscription Consent)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- ConsentGiverId: reference -> Account|Contact|Individual|User
+- ContactPointId: reference -> ContactPointAddress|ContactPointEmail|ContactPointPhone (required)
+- EffectiveFromDate: date (required)
+- ConsentCapturedDateTime: datetime
+- ConsentCapturedSource: string
+- CommSubscriptionChannelTypeId: reference -> CommSubscriptionChannelType (required)
+- PartyRoleId: reference -> Customer|Seller
+- BusinessBrandId: reference -> BusinessBrand
+- PrivacyConsentStatus: picklist {NotSeen, Seen, OptIn, OptOut, OptInPending, OptOutPending}
+- DataUsePurposeId: reference -> DataUsePurpose
+- EngagementChannelTypeId: reference -> EngagementChannelType
+- PartyId: reference -> Individual
+- ContactPointValue: string
+
+## CommSubscriptionTiming (Communication Subscription Timing)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- CommSubscriptionConsentId: reference -> CommSubscriptionConsent (required)
+- Unit: picklist {DayOfWeek, Hour, Day, Week, Month} (required)
+
+## ConsumptionRate (Consumption Rate)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- ConsumptionScheduleId: reference -> ConsumptionSchedule (required)
+- Description: textarea
+- ProcessingOrder: int (required)
+- PricingMethod: picklist {PerUnit, FlatFee} (required)
+- LowerBound: int (required)
+- UpperBound: int
+- Price: currency (required)
+
+## ConsumptionSchedule (Consumption Schedule)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- IsActive: boolean
+- Description: textarea
+- BillingTerm: int (required)
+- BillingTermUnit: picklist {Month, Quarter, Year} (required)
+- Type: picklist {Range, Slab} (required)
+- UnitOfMeasure: picklist
+- RatingMethod: picklist {Tier} (required)
+- MatchingAttribute: string
+- NumberOfRates: int
+
+## Contact (Contact)
+- Id: id
+- IsDeleted: boolean
+- MasterRecordId: reference -> Contact
+- AccountId: reference -> Account
+- LastName: string (required)
+- FirstName: string
+- Salutation: picklist {Mr., Ms., Mrs., Dr., Prof., Mx.}
+- Name: string
+- OtherStreet: textarea
+- OtherCity: string
+- OtherState: string
+- OtherPostalCode: string
+- OtherCountry: string
+- OtherStateCode: picklist {AC, AG, AG, 05, 02, AL, AL, AK, AB, AL, AP, AM, AN, AN, AP, …}
+- OtherCountryCode: picklist {AF, AX, AL, DZ, AD, AO, AI, AQ, AG, AR, AM, AW, AU, AT, AZ, …}
+- OtherLatitude: double
+- OtherLongitude: double
+- OtherGeocodeAccuracy: picklist {Address, NearAddress, Block, Street, ExtendedZip, Zip, Neighborhood, City, County, State, Unknown}
+- OtherAddress: address
+- MailingStreet: textarea
+- MailingCity: string
+- MailingState: string
+- MailingPostalCode: string
+- MailingCountry: string
+- MailingStateCode: picklist {AC, AG, AG, 05, 02, AL, AL, AK, AB, AL, AP, AM, AN, AN, AP, …}
+- MailingCountryCode: picklist {AF, AX, AL, DZ, AD, AO, AI, AQ, AG, AR, AM, AW, AU, AT, AZ, …}
+- MailingLatitude: double
+- MailingLongitude: double
+- MailingGeocodeAccuracy: picklist {Address, NearAddress, Block, Street, ExtendedZip, Zip, Neighborhood, City, County, State, Unknown}
+- MailingAddress: address
+- Phone: phone
+- Fax: phone
+- MobilePhone: phone
+- HomePhone: phone
+- OtherPhone: phone
+- AssistantPhone: phone
+- ReportsToId: reference -> Contact
+- Email: email
+- Title: string
+- Department: string
+- AssistantName: string
+- LeadSource: picklist {Web, Phone Inquiry, Partner Referral, Purchased List, Other}
+- Birthdate: date
+- Description: textarea
+- OwnerId: reference -> User
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastActivityDate: date
+- LastCURequestDate: datetime
+- LastCUUpdateDate: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- EmailBouncedReason: string
+- EmailBouncedDate: datetime
+- IsEmailBounced: boolean
+- PhotoUrl: url
+- Jigsaw: string
+- JigsawContactId: string
+- CleanStatus: picklist {Matched, Different, Acknowledged, NotFound, Inactive, Pending, SelectMatch, Skipped}
+- IndividualId: reference -> Individual
+- IsPriorityRecord: boolean
+- ContactSource: picklist {Auto Create, Email Message, Meeting Digest, Seller Home}
+- Level__c: picklist {Secondary, Tertiary, Primary}
+- Languages__c: string
+
+## ContactPointAddress (Contact Point Address)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- ParentId: reference -> Account|Individual
+- ActiveFromDate: date
+- ActiveToDate: date
+- BestTimeToContactEndTime: time
+- BestTimeToContactStartTime: time
+- BestTimeToContactTimezone: picklist {Pacific/Kiritimati, Pacific/Apia, Pacific/Fakaofo, Pacific/Kanton, Pacific/Tongatapu, Pacific/Chatham, Antarctica/McMurdo, Asia/Anadyr, Asia/Kamchatka, Pacific/Auckland, Pacific/Fiji, Pacific/Funafuti, Pacific/Kwajalein, Pacific/Majuro, Pacific/Nauru, …}
+- IsPrimary: boolean
+- ContactPointPhoneId: reference -> ContactPointPhone
+- AddressType: picklist {Billing, Shipping}
+- Street: textarea
+- City: string
+- State: string
+- PostalCode: string
+- Country: string
+- StateCode: picklist {AC, AG, AG, 05, 02, AL, AL, AK, AB, AL, AP, AM, AN, AN, AP, …}
+- CountryCode: picklist {AF, AX, AL, DZ, AD, AO, AI, AQ, AG, AR, AM, AW, AU, AT, AZ, …}
+- Latitude: double
+- Longitude: double
+- GeocodeAccuracy: picklist {Address, NearAddress, Block, Street, ExtendedZip, Zip, Neighborhood, City, County, State, Unknown}
+- Address: address
+- IsDefault: boolean
+- PreferenceRank: int
+- UsageType: picklist {Home, Work, Temporary, Inactive}
+- IsThirdPartyAddress: boolean
+
+## ContactPointConsent (Contact Point Consent)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- ContactPointId: reference -> ContactPointAddress|ContactPointEmail|ContactPointPhone (required)
+- DataUsePurposeId: reference -> DataUsePurpose
+- PrivacyConsentStatus: picklist {NotSeen, Seen, OptIn, OptOut, OptInPending, OptOutPending}
+- EffectiveFrom: datetime
+- EffectiveTo: datetime
+- CaptureDate: datetime
+- CaptureContactPointType: picklist {Email, Phone, Web, Social, MailingAddress, InPerson, Video}
+- CaptureSource: string
+- DoubleConsentCaptureDate: datetime
+- PartyRoleId: reference -> Customer|Seller
+- BusinessBrandId: reference -> BusinessBrand
+- PartyId: reference -> Individual
+
+## ContactPointEmail (Contact Point Email)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- ParentId: reference -> Account|Individual
+- ActiveFromDate: date
+- ActiveToDate: date
+- BestTimeToContactEndTime: time
+- BestTimeToContactStartTime: time
+- BestTimeToContactTimezone: picklist {Pacific/Kiritimati, Pacific/Apia, Pacific/Fakaofo, Pacific/Kanton, Pacific/Tongatapu, Pacific/Chatham, Antarctica/McMurdo, Asia/Anadyr, Asia/Kamchatka, Pacific/Auckland, Pacific/Fiji, Pacific/Funafuti, Pacific/Kwajalein, Pacific/Majuro, Pacific/Nauru, …}
+- IsPrimary: boolean
+- EmailAddress: email (required)
+- EmailMailBox: string
+- EmailDomain: string
+- EmailLatestBounceDateTime: datetime
+- EmailLatestBounceReasonText: string
+- PreferenceRank: int
+- UsageType: picklist {Home, Work, Temporary, Inactive}
+
+## ContactPointPhone (Contact Point Phone)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- ParentId: reference -> Account|Individual
+- ActiveFromDate: date
+- ActiveToDate: date
+- BestTimeToContactEndTime: time
+- BestTimeToContactStartTime: time
+- BestTimeToContactTimezone: picklist {Pacific/Kiritimati, Pacific/Apia, Pacific/Fakaofo, Pacific/Kanton, Pacific/Tongatapu, Pacific/Chatham, Antarctica/McMurdo, Asia/Anadyr, Asia/Kamchatka, Pacific/Auckland, Pacific/Fiji, Pacific/Funafuti, Pacific/Kwajalein, Pacific/Majuro, Pacific/Nauru, …}
+- IsPrimary: boolean
+- AreaCode: string
+- TelephoneNumber: phone (required)
+- ExtensionNumber: string
+- PhoneType: picklist {Home, Mobile}
+- IsSmsCapable: boolean
+- FormattedInternationalPhoneNumber: string
+- FormattedNationalPhoneNumber: string
+- IsFaxCapable: boolean
+- IsPersonalPhone: boolean
+- IsBusinessPhone: boolean
+- PreferenceRank: int
+- UsageType: picklist {Home, Work, Temporary, Inactive}
+
+## ContactPointTypeConsent (Contact Point Type Consent)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- PartyId: reference -> Individual (required)
+- ContactPointType: picklist {Email, Phone, Web, Social, MailingAddress, InPerson, Video}
+- DataUsePurposeId: reference -> DataUsePurpose
+- PrivacyConsentStatus: picklist {NotSeen, Seen, OptIn, OptOut, OptInPending, OptOutPending}
+- EffectiveFrom: datetime
+- EffectiveTo: datetime
+- CaptureDate: datetime
+- CaptureContactPointType: picklist {Email, Phone, Web, Social, MailingAddress, InPerson, Video}
+- CaptureSource: string
+- DoubleConsentCaptureDate: datetime
+- PartyRoleId: reference -> Customer|Seller
+- BusinessBrandId: reference -> BusinessBrand
+
+## ContactRequest (Contact Request)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- WhatId: reference -> Account|Case|Opportunity|Subscription_Line__c|Subscription__c|VoiceCall|WorkOrder
+- WhoId: reference -> Contact|Lead|User
+- PreferredPhone: phone
+- PreferredChannel: picklist {Phone}
+- Status: picklist {New, Attempted, Contacted, Abandoned}
+- RequestReason: picklist {Account, Billing, Case, General, Order, Product, Other}
+- RequestDescription: textarea
+- IsCallback: boolean
+
+## ContentDocument (Content Document)
+- Id: id
+- CreatedById: reference -> User
+- CreatedDate: datetime
+- LastModifiedById: reference -> User
+- LastModifiedDate: datetime
+- IsArchived: boolean
+- ArchivedById: reference -> User
+- ArchivedDate: date
+- IsDeleted: boolean
+- OwnerId: reference -> User
+- SystemModstamp: datetime
+- Title: string
+- PublishStatus: picklist {U, P, R}
+- LatestPublishedVersionId: reference -> ContentVersion
+- ParentId: reference -> ContentWorkspace
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- Description: textarea
+- ContentSize: int
+- ContentSizeLong: long
+- FileType: string
+- FileExtension: string
+- SharingOption: picklist {A, R}
+- SharingPrivacy: picklist {N, P}
+- ContentModifiedDate: datetime
+- ContentAssetId: reference -> ContentAsset
+- IsInternalOnly: boolean
+- MalwareScanStatus: picklist {NotScanned, Scheduled, Clean, Malicious, Skipped, Failed}
+- MalwareScanDate: datetime
+
+## ContentDocumentLink (Content Document Link)
+- Id: id
+- LinkedEntityId: reference -> Account|ActivationTarget|ActivationTrgtIntOrgAccess|ApiAnomalyEventStore|AppointmentCategory|AppointmentInvitation|AppointmentTopicTimeSlot|ApprovalSubmission|ApprovalSubmissionDetail|ApprovalWorkItem|Asset|AssetRelationship|AssignedResource|AuthorizationFormText|BuyerGroup|Campaign|Case|CaseRelatedIssue|ChangeRequest|ChangeRequestRelatedIssue|ChangeRequestRelatedItem|CollaborationGroup|CommSubscription|CommSubscriptionChannelType|CommSubscriptionConsent|CommSubscriptionTiming|ConsumptionSchedule|Contact|ContentWorkspace|Contract|ContractLineItem|ConversationEntry|Coupon|CredentialStuffingEventStore|CreditMemo|CreditMemoInvApplication|CreditMemoLine|Dashboard|DashboardComponent|DataAction|DataActionJobSummary|DataActionTarget|DataCleanRoom|DataCommunicationCap|DataContentLensSource|DataLakeObjectInstance|DataObjSecondaryIndex|DataQueryWorkspace|DataSemanticSearch|DataStream|DeliveryEstimationSetup|DevopsActivityLog|DevopsEnvDeployment|DevopsEnvDeploymentMbr|DevopsEnvironment|DevopsPipeline|DevopsPipelineEnvironment|DevopsPipelineStage|DevopsPipelnStgProm|DevopsPipelnStgPromWkItem|DevopsProject|DevopsProjectEnvironment|DevopsProjectPipeline|DevopsRequestInfo|EmailMessage|EmailTemplate|EngagementChannelType|EngagementChannelWorkType|EnhancedLetterhead|Entitlement|EntityMilestone|Event|ExtDataShare|ExtDataShareTarget|FulfillmentOrder|FulfillmentOrderItemAdjustment|FulfillmentOrderItemTax|FulfillmentOrderLineItem|GuestUserAnomalyEventStore|IdentityResolution|Image|Incident|IncidentRelatedItem|Invoice|InvoiceLine|Lead|LegalEntity|ListEmail|Location|LocationGroup|LocationShippingCarrierMethod|LoginAnomalyEventStore|MarketSegment|MarketSegmentActivation|MessagingSession|MktCalculatedInsight|MktDataTransform|MktMLModel|MktMLPredictionJob|OperatingHours|OperatingHoursHoliday|Opportunity|Order|OrderItem|Organization|OutgoingEmail|PartyConsent|Payment|PrivacyRTBFRequest|Problem|ProblemIncident|ProblemRelatedItem|Product2|ProductCatalog|ProductCategory|Promotion|PromotionMarketSegment|PromotionQualifier|PromotionSegment|PromotionSegmentBuyerGroup|PromotionSegmentSalesStore|PromotionTarget|PromotionTier|Report|ReportAnomalyEventStore|ResourceAbsence|ResourcePreference|ReturnOrder|ReturnOrderLineItem|ServiceAppointment|ServiceAppointmentAttendee|ServiceContract|ServiceResource|ServiceResourceSkill|ServiceTerritory|ServiceTerritoryMember|ServiceTerritoryWorkType|SessionHijackingEventStore|Shift|ShiftEngagementChannel|ShiftWorkTopic|Shipment|ShipmentItem|ShippingCarrier|ShippingCarrierMethod|Site|SkillRequirement|Solution|SourceCodeRepoProvider|SourceCodeRepository|SourceCodeRepositoryBranch|Subscription_Line__c|Subscription__c|Task|ThreatDetectionFeedback|Topic|UniversalAnomalyEventStore|User|VoiceCall|Waitlist|WaitlistParticipant|WaitlistServiceResource|WaitlistWorkType|WorkItem|WorkItemComponent|WorkItemComponentList|WorkOrder|WorkOrderLineItem|WorkPlan|WorkPlanTemplate|WorkPlanTemplateEntry|WorkStep|WorkStepTemplate|WorkType|WorkTypeGroup|WorkTypeGroupMember (required)
+- ContentDocumentId: reference -> ContentDocument (required)
+- IsDeleted: boolean
+- SystemModstamp: datetime
+- ShareType: picklist {V, C, I}
+- Visibility: picklist {AllUsers, InternalUsers, SharedUsers}
+
+## ContentFolderItem (Content Folder Item)
+- Id: id
+- IsDeleted: boolean
+- IsFolder: boolean
+- ParentContentFolderId: reference -> ContentFolder
+- Title: string
+- FileType: string
+- ContentSize: int
+- ContentSizeLong: long
+- FileExtension: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+
+## ContentVersion (Content Version)
+- Id: id
+- ContentDocumentId: reference -> ContentDocument (required)
+- IsLatest: boolean
+- ContentUrl: url
+- ContentBodyId: reference -> ContentBody
+- VersionNumber: string
+- Title: string (required)
+- Description: textarea
+- ReasonForChange: string
+- SharingOption: picklist {A, R}
+- SharingPrivacy: picklist {N, P}
+- PathOnClient: string
+- RatingCount: int
+- IsDeleted: boolean
+- ContentModifiedDate: datetime
+- ContentModifiedById: reference -> User
+- PositiveRatingCount: int
+- NegativeRatingCount: int
+- FeaturedContentBoost: int
+- FeaturedContentDate: date
+- OwnerId: reference -> User
+- CreatedById: reference -> User
+- CreatedDate: datetime
+- LastModifiedById: reference -> User
+- LastModifiedDate: datetime
+- SystemModstamp: datetime
+- TagCsv: textarea
+- FileType: string
+- PublishStatus: picklist {U, P, R}
+- VersionData: base64
+- ContentSize: int
+- ContentSizeLong: long
+- FileExtension: string
+- FirstPublishLocationId: reference -> Account|ActivationTarget|ActivationTrgtIntOrgAccess|ApiAnomalyEventStore|AppointmentCategory|AppointmentInvitation|AppointmentTopicTimeSlot|ApprovalSubmission|ApprovalSubmissionDetail|ApprovalWorkItem|Asset|AssetRelationship|AssignedResource|AuthorizationFormText|BuyerGroup|Campaign|Case|CaseRelatedIssue|ChangeRequest|ChangeRequestRelatedIssue|ChangeRequestRelatedItem|CollaborationGroup|CommSubscription|CommSubscriptionChannelType|CommSubscriptionConsent|CommSubscriptionTiming|ConsumptionSchedule|Contact|ContentWorkspace|Contract|ContractLineItem|ConversationEntry|Coupon|CredentialStuffingEventStore|CreditMemo|CreditMemoInvApplication|CreditMemoLine|Dashboard|DashboardComponent|DataAction|DataActionJobSummary|DataActionTarget|DataCleanRoom|DataCommunicationCap|DataContentLensSource|DataLakeObjectInstance|DataObjSecondaryIndex|DataQueryWorkspace|DataSemanticSearch|DataStream|DeliveryEstimationSetup|DevopsActivityLog|DevopsEnvDeployment|DevopsEnvDeploymentMbr|DevopsEnvironment|DevopsPipeline|DevopsPipelineEnvironment|DevopsPipelineStage|DevopsPipelnStgProm|DevopsPipelnStgPromWkItem|DevopsProject|DevopsProjectEnvironment|DevopsProjectPipeline|DevopsRequestInfo|EmailMessage|EmailTemplate|EngagementChannelType|EngagementChannelWorkType|EnhancedLetterhead|Entitlement|EntityMilestone|Event|ExtDataShare|ExtDataShareTarget|FulfillmentOrder|FulfillmentOrderItemAdjustment|FulfillmentOrderItemTax|FulfillmentOrderLineItem|GuestUserAnomalyEventStore|IdentityResolution|Image|Incident|IncidentRelatedItem|Invoice|InvoiceLine|Lead|LegalEntity|ListEmail|Location|LocationGroup|LocationShippingCarrierMethod|LoginAnomalyEventStore|MarketSegment|MarketSegmentActivation|MessagingSession|MktCalculatedInsight|MktDataTransform|MktMLModel|MktMLPredictionJob|OperatingHours|OperatingHoursHoliday|Opportunity|Order|OrderItem|Organization|OutgoingEmail|PartyConsent|Payment|PrivacyRTBFRequest|Problem|ProblemIncident|ProblemRelatedItem|Product2|ProductCatalog|ProductCategory|Promotion|PromotionMarketSegment|PromotionQualifier|PromotionSegment|PromotionSegmentBuyerGroup|PromotionSegmentSalesStore|PromotionTarget|PromotionTier|Report|ReportAnomalyEventStore|ResourceAbsence|ResourcePreference|ReturnOrder|ReturnOrderLineItem|ServiceAppointment|ServiceAppointmentAttendee|ServiceContract|ServiceResource|ServiceResourceSkill|ServiceTerritory|ServiceTerritoryMember|ServiceTerritoryWorkType|SessionHijackingEventStore|Shift|ShiftEngagementChannel|ShiftWorkTopic|Shipment|ShipmentItem|ShippingCarrier|ShippingCarrierMethod|Site|SkillRequirement|Solution|SourceCodeRepoProvider|SourceCodeRepository|SourceCodeRepositoryBranch|Subscription_Line__c|Subscription__c|Task|ThreatDetectionFeedback|Topic|UniversalAnomalyEventStore|User|VoiceCall|Waitlist|WaitlistParticipant|WaitlistServiceResource|WaitlistWorkType|WorkItem|WorkItemComponent|WorkItemComponentList|WorkOrder|WorkOrderLineItem|WorkPlan|WorkPlanTemplate|WorkPlanTemplateEntry|WorkStep|WorkStepTemplate|WorkType|WorkTypeGroup|WorkTypeGroupMember
+- Origin: picklist {C, H}
+- ContentLocation: picklist {S, E, L, SfDrive, SCS}
+- TextPreview: string
+- ExternalDocumentInfo1: string
+- ExternalDocumentInfo2: string
+- ExternalDataSourceId: reference -> ExternalDataSource
+- Checksum: string
+- IsMajorVersion: boolean
+- IsAssetEnabled: boolean
+- VersionDataUrl: string
+- MalwareScanStatus: picklist {NotScanned, Scheduled, Clean, Malicious, Skipped, Failed}
+- MalwareScanDate: datetime
+
+## ContentWorkspace (Library)
+- Id: id
+- Name: string (required)
+- Description: textarea
+- TagModel: picklist {U, G, R}
+- CreatedById: reference -> User
+- CreatedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastModifiedDate: datetime
+- DefaultRecordTypeId: reference -> RecordType
+- IsRestrictContentTypes: boolean
+- IsRestrictLinkedContentTypes: boolean
+- WorkspaceType: picklist {R, B}
+- ShouldAddCreatorMembership: boolean
+- LastWorkspaceActivityDate: datetime
+- RootContentFolderId: reference -> ContentFolder
+- NamespacePrefix: string
+- DeveloperName: string
+- WorkspaceImageId: reference -> ContentAsset
+
+## Contract (Contract)
+- Id: id
+- AccountId: reference -> Account (required)
+- Pricebook2Id: reference -> Pricebook2
+- OwnerExpirationNotice: picklist {15, 30, 45, 60, 90, 120}
+- StartDate: date
+- EndDate: date
+- BillingStreet: textarea
+- BillingCity: string
+- BillingState: string
+- BillingPostalCode: string
+- BillingCountry: string
+- BillingStateCode: picklist {AC, AG, AG, 05, 02, AL, AL, AK, AB, AL, AP, AM, AN, AN, AP, …}
+- BillingCountryCode: picklist {AF, AX, AL, DZ, AD, AO, AI, AQ, AG, AR, AM, AW, AU, AT, AZ, …}
+- BillingLatitude: double
+- BillingLongitude: double
+- BillingGeocodeAccuracy: picklist {Address, NearAddress, Block, Street, ExtendedZip, Zip, Neighborhood, City, County, State, Unknown}
+- BillingAddress: address
+- ContractTerm: int
+- OwnerId: reference -> User
+- Status: picklist {In Approval Process, Activated, Draft}
+- CompanySignedId: reference -> User
+- CompanySignedDate: date
+- CustomerSignedId: reference -> Contact
+- CustomerSignedTitle: string
+- CustomerSignedDate: date
+- SpecialTerms: textarea
+- ActivatedById: reference -> User
+- ActivatedDate: datetime
+- StatusCode: picklist {Draft, InApproval, Activated, Terminated, Expired, Rejected, Negotiating, AwaitingSignature, SignatureDeclined, Signed, Cancelled, Expired2, Terminated2}
+- Description: textarea
+- IsDeleted: boolean
+- ContractNumber: string
+- LastApprovedDate: datetime
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastActivityDate: date
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+
+## ContractContactRole (Contract Contact Role)
+- Id: id
+- ContractId: reference -> Contract (required)
+- ContactId: reference -> Contact (required)
+- Role: picklist {Business User, Decision Maker, Economic Buyer, Economic Decision Maker, Evaluator, Executive Sponsor, Influencer, Technical Buyer, Other}
+- IsPrimary: boolean
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- IsDeleted: boolean
+
+## ContractLineItem (Contract Line Item)
+- Id: id
+- IsDeleted: boolean
+- LineItemNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- ServiceContractId: reference -> ServiceContract (required)
+- Product2Id: reference -> Product2
+- AssetId: reference -> Asset
+- StartDate: date
+- EndDate: date
+- Description: textarea
+- PricebookEntryId: reference -> PricebookEntry (required)
+- Quantity: double (required)
+- UnitPrice: currency (required)
+- Discount: percent
+- ListPrice: currency
+- Subtotal: currency
+- TotalPrice: currency
+- Status: picklist {Inactive, Active, Expired}
+- ParentContractLineItemId: reference -> ContractLineItem
+- RootContractLineItemId: reference -> ContractLineItem
+- LocationId: reference -> Location
+
+## ConvEntryRelatedRecordCopy (Conv Entry Related Record Copy)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- ConversationEntryCopyId: reference -> ConversationEntryCopy
+- RelatedRecordId: reference -> ConversationEntry|ConversationEntryCopy|MessagingSession|VoiceCall
+- RelatedRecordObject: string
+
+## Conversation (Conversation)
+- Id: id
+- Name: string
+- IsDeleted: boolean
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- ConversationIdentifier: string
+- StartTime: datetime
+- StartTimeMilliSecs: int
+- EndTime: datetime
+- EndTimeMilliSecs: int
+- ConversationChannelId: reference -> CallCenter|MessagingChannel
+
+## ConversationEntryCopy (Conversation Entry Copy)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- ConversationEntryIdentifier: string
+- ConversationId: reference -> Conversation
+- ConversationParticipantId: reference -> ConversationParticipant
+- ClientTimestamp: datetime
+- ClientDuration: long
+- TranscriptedTimestamp: datetime
+- EntryType: string
+- EntryPayload: textarea
+- Language: string
+- Version: int
+- VisibilityStrategy: string
+- ParentConvEntryCopyId: reference -> ConversationEntryCopy
+- Modality: string
+
+## Coupon (Coupon)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- PromotionId: reference -> Promotion (required)
+- CouponCode: string (required)
+- Status: picklist {Active, Inactive}
+- StartDateTime: datetime
+- EndDateTime: datetime
+- RedemptionLimitAllBuyers: int
+- RedemptionLimitPerBuyer: int
+- Description: textarea
+
+## CouponCodeRedemption (Coupon Code Redemption)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- CouponId: reference -> Coupon (required)
+- Transaction: string (required)
+- Buyer: string (required)
+
+## CreditMemo (Credit Memo)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- DocumentNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- BillingAccountId: reference -> Account
+- ReferenceEntityId: reference -> Invoice|Order
+- CreditMemoNumber: string
+- TotalAmount: currency
+- TotalAmountWithTax: currency
+- TotalChargeAmount: currency
+- TotalAdjustmentAmount: currency
+- TotalTaxAmount: currency
+- CreditDate: date
+- Description: string
+- Status: picklist {Draft, Pending, Posted, Void In Progress, Canceled, Error, Voided}
+- BillToContactId: reference -> Contact
+- Balance: currency
+- TotalChargeTaxAmount: currency
+- TotalChargeAmountWithTax: currency
+- TotalAdjustmentTaxAmount: currency
+- TotalAdjustmentAmountWithTax: currency
+- TotalCreditAmountApplied: currency
+- TotalCreditAmountUnapplied: currency
+- NetCreditsApplied: currency
+- CreationMode: picklist {Salesforce, External}
+- ExternalReference: string
+- ExternalReferenceDataSource: string
+- CorporateCurrencyCvsnRate: double
+- CorporateCurrencyCvsnDate: date
+- CorpCrcyCnvTotAmtWithTax: double
+- Category: picklist {InvoiceWriteOff, Referenced, DisputeManagement, Standalone}
+- ReasonCode: picklist
+- FunctionalCurrencyCvsnRate: double
+- FunctionalCurrencyCvsnDate: date
+- FuncCrcyCnvTotAmtWithTax: double
+- TotalTaxesCapturedAtHeader: currency
+
+## CreditMemoInvApplication (Credit Memo Invoice Application)
+- Id: id
+- IsDeleted: boolean
+- CreditMemoInvoiceNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- InvoiceId: reference -> Invoice
+- CreditMemoId: reference -> CreditMemo
+- Amount: currency
+- Type: picklist {Applied, Unapplied}
+- Description: string
+- Date: datetime
+- AppliedDate: datetime
+- EffectiveDate: datetime
+- UnappliedDate: datetime
+- AssociatedLineId: reference -> CreditMemoInvApplication
+- HasBeenUnapplied: picklist {No, Yes, NA}
+- ImpactAmount: currency
+
+## CreditMemoLine (Credit Memo Line)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- CreditMemoId: reference -> CreditMemo
+- ReferenceEntityItemId: reference -> InvoiceLine|OrderItem
+- StartDate: date
+- EndDate: date
+- TaxEffectiveDate: date
+- Type: picklist {Charge, Tax, Adjustment}
+- TaxCode: string
+- TaxRate: percent
+- Status: string
+- ChargeAmount: currency
+- TaxAmount: currency
+- AdjustmentAmount: currency
+- LineAmount: currency
+- Description: string
+- ReferenceEntityItemTypeCode: picklist {Product, Charge}
+- ReferenceEntityItemType: picklist {Order Product, Delivery Charge, Fee}
+- RelatedLineId: reference -> CreditMemoLine
+- Product2Id: reference -> Product2
+- TaxName: string
+- ChargeTaxAmount: currency
+- ChargeAmountWithTax: currency
+- AdjustmentTaxAmount: currency
+- AdjustmentAmountWithTax: currency
+- CorporateCurrencyCvsnRate: double
+- CorporateCurrencyCvsnDate: date
+- CorpCurrencyCnvChargeAmt: double
+- CorpCurrencyCnvTotalTaxAmt: double
+- FunctionalCurrencyCvsnRate: double
+- FunctionalCurrencyCvsnDate: date
+- FuncCurrencyCnvChargeAmt: double
+- FuncCrcyCnvTotalTaxAmt: double
+
+## CspTrustedSite (Trusted URL)
+- Id: id
+- IsDeleted: boolean
+- DeveloperName: string (required)
+- Language: picklist {en_US, de, es, fr, it, ja, sv, ko, zh_TW, zh_CN, pt_BR, nl_NL, da, th, fi, …}
+- MasterLabel: string (required)
+- NamespacePrefix: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- EndpointUrl: string (required)
+- Description: textarea
+- IsActive: boolean
+- Context: picklist {All, LEX, Communities, FieldServiceMobileExtension, LightningOut, VisualForce} (required)
+- IsApplicableToConnectSrc: boolean
+- IsApplicableToFrameSrc: boolean
+- IsApplicableToImgSrc: boolean
+- IsApplicableToStyleSrc: boolean
+- IsApplicableToFontSrc: boolean
+- IsApplicableToMediaSrc: boolean
+- CanAccessCamera: boolean
+- CanAccessMicrophone: boolean
+
+## CustomHttpHeader (Custom HTTP Header)
+- Id: id
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- ParentId: reference -> ExternalDataSource|NamedCredential
+- HeaderFieldName: string
+- HeaderFieldValue: string
+- IsActive: boolean
+- Description: textarea
+
+## CustomPermission (Custom Permission)
+- Id: id
+- IsDeleted: boolean
+- DeveloperName: string
+- Language: picklist {en_US, de, es, fr, it, ja, sv, ko, zh_TW, zh_CN, pt_BR, nl_NL, da, th, fi, …}
+- MasterLabel: string
+- NamespacePrefix: string
+- IsProtected: boolean
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- Description: textarea
+- ExternalClientApplicationId: reference -> ExternalClientApplication
+- IsLicensed: boolean
+
+## CustomPermissionDependency (Custom Permission Dependency)
+- Id: id
+- IsDeleted: boolean
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- CustomPermissionId: reference -> CustomPermission
+- RequiredCustomPermissionId: reference -> CustomPermission
+
+## Customer (Customer)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- PartyId: reference -> Individual
+- TotalLifeTimeValue: int
+- CustomerStatusType: picklist {Active, Inactive}
+
+## DandBCompany (D&B Company)
+- Id: id
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- DunsNumber: string (required)
+- Street: textarea
+- City: string
+- State: string
+- PostalCode: string
+- Country: string
+- StateCode: picklist {AC, AG, AG, 05, 02, AL, AL, AK, AB, AL, AP, AM, AN, AN, AP, …}
+- CountryCode: picklist {AF, AX, AL, DZ, AD, AO, AI, AQ, AG, AR, AM, AW, AU, AT, AZ, …}
+- GeocodeAccuracyStandard: picklist {Address, NearAddress, Block, Street, ExtendedZip, Zip, Neighborhood, City, County, State, Unknown}
+- Address: address
+- Phone: phone
+- Fax: phone
+- CountryAccessCode: string
+- PublicIndicator: picklist {Y, N}
+- StockSymbol: string
+- StockExchange: string
+- SalesVolume: double
+- URL: url
+- OutOfBusiness: picklist {Y, N}
+- EmployeesTotal: double
+- FipsMsaCode: string
+- FipsMsaDesc: string
+- TradeStyle1: string
+- YearStarted: string
+- MailingStreet: textarea
+- MailingCity: string
+- MailingState: string
+- MailingPostalCode: string
+- MailingCountry: string
+- MailingStateCode: picklist {AC, AG, AG, 05, 02, AL, AL, AK, AB, AL, AP, AM, AN, AN, AP, …}
+- MailingCountryCode: picklist {AF, AX, AL, DZ, AD, AO, AI, AQ, AG, AR, AM, AW, AU, AT, AZ, …}
+- MailingGeocodeAccuracy: picklist {Address, NearAddress, Block, Street, ExtendedZip, Zip, Neighborhood, City, County, State, Unknown}
+- MailingAddress: address
+- Latitude: string
+- Longitude: string
+- PrimarySic: string
+- PrimarySicDesc: string
+- SecondSic: string
+- SecondSicDesc: string
+- ThirdSic: string
+- ThirdSicDesc: string
+- FourthSic: string
+- FourthSicDesc: string
+- FifthSic: string
+- FifthSicDesc: string
+- SixthSic: string
+- SixthSicDesc: string
+- PrimaryNaics: string
+- PrimaryNaicsDesc: string
+- SecondNaics: string
+- SecondNaicsDesc: string
+- ThirdNaics: string
+- ThirdNaicsDesc: string
+- FourthNaics: string
+- FourthNaicsDesc: string
+- FifthNaics: string
+- FifthNaicsDesc: string
+- SixthNaics: string
+- SixthNaicsDesc: string
+- OwnOrRent: picklist {0, 1, 2}
+- EmployeesHere: double
+- EmployeesHereReliability: picklist {0, 1, 2, 3}
+- SalesVolumeReliability: picklist {0, 1, 2, 3}
+- CurrencyCode: picklist {0010, 0020, 0030, 0040, 0050, 0070, 0075, 0090, 0095, 0105, 0110, 0120, 0140, 0150, 0155, …}
+- LegalStatus: picklist {100, 101, 118, 012, 120, 013, 003, 050, 008, 000, 009, 010, 011, 014, 015, …}
+- GlobalUltimateTotalEmployees: double
+- EmployeesTotalReliability: picklist {0, 1, 2, 3}
+- MinorityOwned: picklist {Y, N}
+- WomenOwned: picklist {Y, N}
+- SmallBusiness: picklist {Y, N}
+- MarketingSegmentationCluster: picklist {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, …}
+- ImportExportAgent: picklist {A, B, C, D, E, F, G, H}
+- Subsidiary: picklist {0, 3}
+- TradeStyle2: string
+- TradeStyle3: string
+- TradeStyle4: string
+- TradeStyle5: string
+- NationalId: string
+- NationalIdType: picklist {00010, 00011, 00100, 00102, 00103, 00104, 00105, 00106, 00107, 00108, 00109, 00110, 00111, 00112, 00113, …}
+- UsTaxId: string
+- GeoCodeAccuracy: picklist {D, S, B, T, M, Z, 0, C, N, I, P, A, H, K, G, …}
+- FamilyMembers: int
+- MarketingPreScreen: picklist {L, M, H}
+- GlobalUltimateDunsNumber: string
+- GlobalUltimateBusinessName: string
+- ParentOrHqDunsNumber: string
+- ParentOrHqBusinessName: string
+- DomesticUltimateDunsNumber: string
+- DomesticUltimateBusinessName: string
+- LocationStatus: picklist {0, 1, 2}
+- CompanyCurrencyIsoCode: picklist {AED, AFN, ALL, AMD, ANG, AOA, ARS, AUD, AWG, AZN, BAM, BBD, BDT, BGN, BHD, …}
+- Description: textarea
+- FortuneRank: int
+- IncludedInSnP500: string
+- PremisesMeasure: int
+- PremisesMeasureReliability: string
+- PremisesMeasureUnit: string
+- EmployeeQuantityGrowthRate: double
+- SalesTurnoverGrowthRate: double
+- PrimarySic8: string
+- PrimarySic8Desc: string
+- SecondSic8: string
+- SecondSic8Desc: string
+- ThirdSic8: string
+- ThirdSic8Desc: string
+- FourthSic8: string
+- FourthSic8Desc: string
+- FifthSic8: string
+- FifthSic8Desc: string
+- SixthSic8: string
+- SixthSic8Desc: string
+- PriorYearEmployees: int
+- PriorYearRevenue: double
+
+## Dashboard (Dashboard)
+- Id: id
+- IsDeleted: boolean
+- OwnerId: reference -> User
+- FolderId: reference -> Folder|User
+- FolderName: string
+- Title: string
+- DeveloperName: string
+- NamespacePrefix: string
+- Description: string
+- LeftSize: picklist {Narrow, Medium, Wide}
+- MiddleSize: picklist {Narrow, Medium, Wide}
+- RightSize: picklist {Narrow, Medium, Wide}
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- RunningUserId: reference -> User
+- TitleColor: int
+- TitleSize: int
+- TextColor: int
+- BackgroundStart: int
+- BackgroundEnd: int
+- BackgroundDirection: picklist {TopToBottom, LeftToRight, Diagonal}
+- Type: picklist {SpecifiedUser, LoggedInUser, MyTeamUser}
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- DashboardResultRefreshedDate: string
+- DashboardResultRunningUser: string
+- ColorPalette: picklist {Default, gray, colorSafe, unity, justice, nightfall, sunrise, bluegrass, tropic, heat, dusk, pond, watermelon, fire, water, …}
+- ChartTheme: picklist {light, dark}
+
+## DataAction (Data Action)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- Description: string
+- ActionStatus: picklist {INACTIVE, PROCESSING, ACTIVE, ERROR, DRAFT}
+- LastActionStatusErrorCode: picklist {PROCESSING_FAILED, CREATE_FAILED, DELETE_FAILED}
+- LastActionStatusDateTime: datetime
+- ActionApiName: string
+- ShouldProcessDayZero: boolean
+- AffiliationDmoDeveloperName: string
+- ManagedBy: picklist {DATA_CLOUD_USER, FLOW_INTEGRATION, ENRICHMENT_INTEGRATION}
+
+## DataActionTarget (Data Action Target)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- TargetStatus: picklist {INACTIVE, PROCESSING, ACTIVE, ERROR, DRAFT}
+- LastTargetStatusErrorCode: picklist {PROCESSING_FAILED, CREATE_FAILED, DELETE_FAILED}
+- LastTargetStatusDateTime: datetime
+- LastSigningKeyDateTime: datetime
+- TargetType: picklist {WEBHOOK, CORE, MARKETING_CLOUD, INTERNAL_WEBHOOK, KINESIS}
+- TargetEndpoint: url
+- TargetApiName: string
+- ApiContract: string
+- ManagedBy: picklist {DATA_CLOUD_USER, FLOW_INTEGRATION, ENRICHMENT_INTEGRATION}
+
+## DataCommunicationCap (Communication Capping)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- DataCommunicationCapStatus: picklist {INACTIVE, PROCESSING, ACTIVE, ERROR}
+- LastStatusErrorCode: picklist {CREATE_FAILED, UPDATE_FAILED, DELETE_FAILED, SUCCESS}
+- LastStatusDateTime: datetime
+- Description: string
+
+## DataGraph (Data Graph)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- Status: picklist {NONE, CREATING, UPDATING, EDITING, EDITING_NO_VERSION_UPDATE, EDITING_NO_VERSION_UPDATE_TRANSFORM_UPDATE, EDITING_POST_SYNC, READY, DELETING, ERROR, EDITING_ERROR, SYNC_COMPLETED, ROLLING_OUT, PROCESSING, DRAFT, …}
+- LastRunStatus: picklist {DRAFT, PROCESSING, CREATING, ACTIVE, ACTIVE_VERSION_REFRESH, ERROR, ACTIVE_LAST_RUN_FAIL, DELETING, NONE, IN_PROGRESS, SUCCESS, FAILURE}
+- RecordCount: long
+- LastRefreshDate: datetime
+- DataGraphType: picklist {REALTIME, NONE}
+- DataSourceObjCount: int
+- DaoFieldsCount: int
+- Levels: int
+- RolloutVersion: string
+- Version: string
+- DataGraphApiName: string
+- PrimaryDmo: string
+- FullRefreshConfig: textarea
+- IncrementalRefreshConfig: textarea
+- Schedule: string
+- OwnedBy: string
+- IsRemote: boolean
+
+## DataKitDeploymentLog (Data Kit Deployment Log)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- DataPackageKitDefinition: picklist {1dk.AssistCatalog__RcmdRecSelActions, 1dk.AssistiveAction__RcmdSvcPrcs, 1dk.cdp_crm_dk1__SalesDK, 1dk.cdp_crm_dk4__LoyaltyStarterDataKit, 1dk.cdp_mrktng_base__UMA_Easy, 1dk.datacloudflow__Data_Cloud_Flow, 1dk.MAM_PROD_V2__MobileAppMessagingV2, 1dk.nsp__fbdk_test, 1dk.sf_mktg__Marketing_Setup, 1dk.sf_mktg_ae__Marketing_Account_Engagement_CRM_Data, 1dk.sf_mktg_web__External_Tracking, 1dk.sfcomm__B2B_Commerce_DK, 1dk.sfm_Academic_Operations, 1dk.sfm_AccrualAndPayoutEngine, 1dk.sfm_AgentGuidanceDataKit, …}
+- ComponentTemplateId: reference -> DataSourceBundle
+- PublisherOrgComponentId: reference -> MktCalculatedInsight|MktDataTransform
+- SubscriberOrgComponentId: reference -> ActivationTarget|AnalyticsDashboard|AnalyticsVisualization|AnalyticsWorkspace|DataAction|DataActionTarget|DataGraph|DataSemanticSearch|DataStream|ExtDataShare|IdentityResolution|MarketSegment|MarketSegmentActivation|MktCalculatedInsight|MktDataTransform
+- ComponentType: picklist {MktDataLakeObject, MktDataModelObject, MktCalculatedInsight, MktDataTransform, MktDataStream, EngagementSignal, DataAction, DataActionTarget, MarketSegmentActivation, ActivationTarget, MarketSegment, IdentityResolution, PersonalizationObjective, PersonalizationRecommender, PersonalizationPoint, …}
+- DeployJob: string
+- TemplateVersion: double
+- ComponentName: string
+- DataSpaceName: string
+- BundleName: string
+- DataKitName: string
+- DeploymentError: textarea
+- FlowInterviewIdentifier: string
+- DeploymentStatus: picklist {Successful, Failed, Started, Scheduled}
+- FileBasedComponentTemplate: string
+- DeploymentAction: picklist {Deploy, Undeploy}
+- JobIdentifier: string
+- DeployExtensionIdentifier: string
+
+## DataLakeObjectInstance (Data Lake Object)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- Description: string
+- LastRefreshDate: datetime
+- TotalRecords: long
+- DataLakeObjectRef: picklist {Account_std__dll, ApiGrounding_std__dll, Benefit_std__dll, BenefitType_std__dll, Case_std__dll, CatalogEnrichment_std__dll, CatalogMetadata_std__dll, CatalogMetadataRelationship_std__dll, ConsumptionResourceTags_std__dll, Contact_std__dll, ForecastingFact_std__dll, ForecastingItem_std__dll, FtestMain_std__dll, FtestMetadataDlo_std__dll, GameDefinition_std__dll, …}
+- DataLakeObjectStatus: picklist {PROCESSING, ACTIVE, INACTIVE, ERROR, DELETING, NONE}
+- Category: string
+- ExternalName: string
+- Storage: picklist {LOCAL, EXTERNAL}
+- AccelerationEnabled: picklist {YES, NO}
+- AccelerationSchedule: picklist {EVERY_4_HOURS, EVERY_12_HOURS, EVERY_24_HOURS, EVERY_7_DAYS}
+- ExternalObjectErrorStatus: picklist {ACTIVE, ERROR}
+- ExternalObjectErrorCode: string
+- ProblemRecordsDataLakeObject: string
+- Billable: picklist {YES}
+- SyncStatus: picklist {PROCESSING, ACTIVE, INACTIVE, ERROR, DELETING, NONE}
+- LastSyncedFingerprint: textarea
+- HydrationStatus: picklist {Hydrated, Unhydrated, PartiallyHydrated}
+- LastDataChangeStatusDateTime: datetime
+- LastDataChangeStatusErrorCode: string
+- TotalNumberOfFields: int
+- DeletionRecordsDataLakeObject: string
+- MktDataLakeObjectDeveloperName: string
+- DataLakeObjectNamespacePrefix: string
+- MktDataLakeObjectLabel: string
+
+## DataMaskCustomValueLibrary (Custom Library)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- Values: textarea
+- ContentType: picklist {string, email}
+- IsActive: boolean
+- Description: string
+- Type: picklist {user_defined, default}
+
+## DataObjSecondaryIndex (Secondary Index)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- SourceObjectType: picklist {DATA_LAKE_OBJECT, DATA_MODEL_OBJECT}
+- SourceObjectName: string
+- SecondaryIndexDeveloperName: string
+- RuntimeStatus: picklist {NONE, PENDING, IN_PROGRESS, SUCCESS, FAILURE, ABORTED, CANCELED}
+- Status: picklist {INACTIVE, PROCESSING, ACTIVE, ERROR, DELETING, DATA_KIT_PROCESSING}
+- LastRefreshTime: datetime
+- IndexedFields: string
+- Description: string
+
+## DataQueryWorkspace (Query Editor)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- DataSpace: string (required)
+- LandingTabId: reference -> DataQueryWorkspaceTab
+
+## DataQueryWorkspaceTab (Query Tab)
+- Id: id
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- QueryWorkspaceId: reference -> DataQueryWorkspace (required)
+- Entity: string
+- EntityType: string
+- TabOption: string
+- Query: textarea
+
+## DataSemanticSearch (Search Index)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- SemanticSearchApiName: string
+- PrimaryDmo: string
+- VectorDmo: string
+- ChunkDmo: string
+- AttachmentDmo: string
+- ProblemRecordDmo: string
+- CreationType: picklist {Standard, Custom, System, Derived, Bridge, Curated, Segment_Membership, Calculated_Insight, Ml_Prediction, Activation_Audience, CG_Audience, Ad_Audience_Insights, Transform, ADG, External, …}
+- RuntimeStatus: picklist {SUCCESS, FAILED, IN_PROGRESS, ABORTED, NOT_STARTED, PENDING, SUBMITTED, READY, FILE_COPY_INITIATED, FILE_COPY_IN_PROGRESS, FILE_COPY_COMPLETED}
+- IndexRefreshedOn: datetime
+- SearchType: picklist {VECTOR, HYBRID}
+- SharingStatus: picklist {REGULAR, SHADOWED}
+
+## DataStream (Data Stream)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- Description: string
+- ImportRunStatus: picklist {NONE, PENDING, IN_PROGRESS, SUCCESS, FAILURE, ERROR, EXTRACTING}
+- DataStreamStatus: picklist {PROCESSING, ACTIVE, ERROR, DELETING, NEEDS_ACTIVATION, INACTIVE}
+- LastRefreshDate: datetime
+- LastNumberOfRowsAddedCount: long
+- TotalNumberOfRowsAdded: long
+- RefreshFrequency: picklist {NONE, MINUTES_5, MINUTES_15, MINUTES_30, HOURLY, EVERY_4_HOURS, EVERY_12_HOURS, DAILY, WEEKLY, MONTHLY, NOT_APPLICABLE, BATCH, STREAMING}
+- RefreshHours: multipicklist {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, …}
+- IsRefreshDeliveryHourAutomatic: boolean
+- RefreshDayOfWeek: int
+- RefreshDayOfMonth: int
+- RefreshMode: picklist {FULL_REFRESH, UPSERT, INCREMENTAL, PARTIAL_UPDATE, REPLACE, NEAR_REAL_TIME_INCREMENTAL, NOT_APPLICABLE}
+- ExternalRecordIdentifier: string
+- TotalRowsProcessed: long
+- LastDataChangeStatusDateTime: datetime
+- LastDataChangeStatusErrorCode: string
+- IsNewFieldsAvailable: boolean
+- StreamType: picklist {INGEST, DIRECT_ACCESS, DIRECT_ACCESS_ACCELERATED}
+- ExternalStreamErrorCode: string
+- ProblemRecordsDataLakeObject: string
+- DeletionRecordsDataLakeObject: string
+- FullRefreshIntervalDays: picklist {NONE, DAYS_10, DAYS_25, DAYS_50}
+- ExtractionTime: datetime
+
+## DataUseLegalBasis (Data Use Legal Basis)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- Source: string
+- Description: string
+
+## DataUsePurpose (Data Use Purpose)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- LegalBasisId: reference -> DataUseLegalBasis
+- Description: string
+- CanDataSubjectOptOut: boolean
+
+## DeliveryEstimationSetup (Delivery Estimation Setup)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- ChannelId: reference -> WebStore (required)
+- LocationGroupId: reference -> LocationGroup (required)
+- DefaultBusinessHoursId: reference -> BusinessHours (required)
+- IsEnabled: boolean
+- RoutingType: picklist {NONE, STANDARD}
+- ExternalReference: string (required)
+- DefaultProcessingTime: int (required)
+- DefaultProcessingTimeUnit: picklist {Hours, Days, Weeks} (required)
+- DefaultPickupTime: time (required)
+- SyncStatus: picklist {NONE, SYNCING, SYNCED, ERROR, DELETING, DEPROVISIONED}
+- LastSyncedById: reference -> User
+- LastSyncedDate: datetime
+- LastSyncedMessage: textarea
+- MondayPickUpTime: time
+- TuesdayPickUpTime: time
+- WednesdayPickUpTime: time
+- ThursdayPickUpTime: time
+- FridayPickUpTime: time
+- SaturdayPickUpTime: time
+- SundayPickUpTime: time
+- ServiceRegion: string
+
+## DevopsActivityLog (Activity History)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- ActivityDate: datetime (required)
+- ActivityType: picklist {PROJECT_CREATED, PIPELINE_CREATED, PIPELINE_STAGE_CREATED, WORK_ITEM_CREATED, WORK_ITEM_CONNECTED, WORK_ITEM_STATE_TRANSITION, WORK_ITEM_SWITCHED, COMMIT_STARTED, COMMIT_COMPONENT, COMMIT_COMPLETED, BACK_SYNC_STARTED, BACK_SYNC_COMPLETED, SWAP_STARTED, SWAP_COMPLETED, MIGRATION_STARTED, …}
+- Description: textarea
+- Status: picklist {SUCCESS, FAIL}
+- ParentActivityId: reference -> DevopsActivityLog
+- WorkItemId: reference -> WorkItem
+- ProjectId: reference -> DevopsProject
+- PipelineId: reference -> DevopsPipeline
+- PipelineStageId: reference -> DevopsPipelineStage
+- PerformedById: reference -> User
+- DevopsRequestInfoId: reference -> DevopsRequestInfo
+- Activity: string
+- TestSuiteGroupExecId: reference -> DevopsTestSuiteGroupExec
+- RequestInfoErrorDetails: string
+
+## DevopsEnvDeployment (Env Deployment)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- TargetDeployOrgId: reference -> DevopsEnvironment (required)
+- DevopsPipelnStgPromId: reference -> DevopsPipelnStgProm
+- DeployRequestInfoId: reference -> DevopsRequestInfo
+- Status: picklist {NEW, IN_PROGRESS, SUCCESS, ERROR, CANCELLED, INTERRUPTED, FINALIZING}
+- DeploymentIdentifier: string
+- DeploymentDate: datetime
+- IsCheckDeploy: boolean
+- CheckDeployDate: datetime
+- TestLevel: picklist {Default, NoTestRun, RunAllTestsInOrg, RunLocalTests, RunSpecifiedTests}
+- RunTests: textarea
+- DeployStatus: picklist {NEW, IN_PROGRESS, SUCCESS, ERROR, CANCELLED, INTERRUPTED, FINALIZING}
+- CheckDeployRequestInfoId: reference -> DevopsRequestInfo
+- CheckDeployStatus: picklist {NEW, IN_PROGRESS, SUCCESS, ERROR, CANCELLED, INTERRUPTED, FINALIZING}
+- DeployCompletionDate: datetime
+- CheckDeployCompletionDate: datetime
+- IsFullDeploy: boolean
+- StartRevisionCounter: int
+- EndRevisionCounter: int
+- BackSyncStageId: reference -> DevopsPipelineStage
+- SwapStageId: reference -> DevopsPipelineStage
+- SelectedWorkItemIds: textarea
+
+## DevopsEnvDeploymentMbr (Env Deployment Member)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- DevopsEnvDeploymentId: reference -> DevopsEnvDeployment (required)
+- MemberName: string (required)
+- MemberType: string (required)
+- ChangedById: reference -> User
+- ChangedOn: datetime
+- VersionNumber: int
+- NumberOfRecords: int
+- ChangeType: picklist {NEW, CHANGE, DELETE, MANUAL, DATA}
+
+## DevopsEnvironment (Environment)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- CanTrackChanges: boolean
+- IsExpired: boolean
+- LastRevisionCounter: int
+- NamedCredential: string
+- OrgIdentifier: string
+- RefreshDate: datetime
+- RefreshSourceId: reference -> DevopsEnvironment
+- IsTestEnvironment: boolean
+- IsDevEnvironment: boolean
+- OrgType: picklist {PRODUCTION, SANDBOX, ORGFARM}
+- OrgUrl: url
+- ReplacesId: reference -> DevopsEnvironment
+- DoceHubType: picklist {CORE, MANAGED_PACKAGE}
+- IsVibeEnvironment: boolean
+- ExternalId: string
+- Status: picklist {SWAP_ERROR}
+
+## DevopsPipeline (DevOps Pipeline)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- IsActive: boolean
+- SourceCodeRepositoryId: reference -> SourceCodeRepository (required)
+- PackageDirectories: textarea
+- Description: string
+- ExternalId: string
+
+## DevopsPipelineEnvironment (DevOps Pipeline Environment)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- DevopsPipelineId: reference -> DevopsPipeline (required)
+- DevopsEnvironmentId: reference -> DevopsEnvironment (required)
+- IsActive: boolean
+- ExternalId: string
+
+## DevopsPipelineStage (DevOps Pipeline Stage)
+- Id: id
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- DevopsPipelineId: reference -> DevopsPipeline (required)
+- SourceCodeRepositoryBranchId: reference -> SourceCodeRepositoryBranch
+- DevOpsEnvironmentId: reference -> DevopsEnvironment
+- ReviewRemoteReference: string
+- IsBundled: boolean
+- NextStageId: reference -> DevopsPipelineStage
+- LastSyncDate: datetime
+- ExternalId: string
+
+## DevopsPipelineStageTrigger (Pipeline Stage Trigger)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- TriggerType: picklist {Pre-Promote, Post-Promote, Review}
+- TestSuiteCount: int
+- QualityGateCount: int
+- LastExecutionTime: datetime
+- LastExecutionStatus: picklist {Passed, Failed, InProgress, Error}
+- RelatedRecordId: reference -> DevopsPipeline|DevopsPipelineStage
+
+## DevopsPipelineTestProvider (Pipeline Test Provider)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- DevopsPipelineId: reference -> DevopsPipeline (required)
+- DevopsTestProviderId: reference -> DevopsTestProvider
+- TestProviderProject: string
+- TestProviderSpecificConfig: textarea
+
+## DevopsPipelnStgProm (DevOps Pipeline Stage Promotion)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- PipelineStageId: reference -> DevopsPipelineStage (required)
+- RequestInfoId: reference -> DevopsRequestInfo
+- CompletionDate: datetime
+- Status: picklist {NEW, IN_PROGRESS, SUCCESS, ERROR, CANCELLED, INTERRUPTED, FINALIZING}
+
+## DevopsPipelnStgPromWkItem (DevOps Pipeline Stage Promotion Work Item)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- DevopsPipelnStgPromId: reference -> DevopsPipelnStgProm (required)
+- WorkItemId: reference -> WorkItem (required)
+- MergeRemoteReference: string
+- MergeSourceBranchId: reference -> SourceCodeRepositoryBranch
+- MergeCompletionDate: datetime
+
+## DevopsProject (DevOps Project)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- Description: string
+- IsActive: boolean
+- ExternalId: string
+
+## DevopsProjectEnvironment (DevOps Project Environment)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- DevopsProjectId: reference -> DevopsProject (required)
+- DevopsEnvironmentId: reference -> DevopsEnvironment
+- RemovedOn: datetime
+
+## DevopsProjectPipeline (DevOps Project Pipeline)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- DevopsProjectId: reference -> DevopsProject (required)
+- DevopsPipelineId: reference -> DevopsPipeline (required)
+- ExternalId: string
+
+## DevopsQualityGate (Quality Gate)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- Description: textarea
+
+## DevopsQualityGateResult (Quality Gate Result)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- DevopsQualityGateId: reference -> DevopsQualityGate (required)
+- DevopsTestSuiteExecutionId: reference -> DevopsTestSuiteExecution (required)
+- Status: picklist {Passed, Failed, InProgress, Error}
+
+## DevopsQualityGateRule (Quality Gate Rule)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- DevopsQualityGateId: reference -> DevopsQualityGate (required)
+- Rule: picklist {SEVERITY, PASS_PERCENTAGE, ESSENTIAL}
+- Threshold: int
+
+## DevopsQualityGateRuleResult (Quality Gate Rule Result)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- DevopsQualityGateRuleId: reference -> DevopsQualityGateRule (required)
+- DevopsQualityGateResultId: reference -> DevopsQualityGateResult (required)
+- Status: picklist {Passed, Failed, InProgress, Error}
+
+## DevopsRequestInfo (Request Info)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- Status: picklist {NEW, IN_PROGRESS, SUCCESS, ERROR, CANCELLED, INTERRUPTED, FINALIZING}
+- RequestToken: string
+- Message: string
+- ErrorDetails: textarea
+- OperationType: picklist {PROMOTE, COMMIT, DEPLOY, REBASE, REBASE_AND_COMBINE, SWAP, BACK_SYNC, TEST_RESUME, TEST_ONLY, INSPECT, MIGRATE}
+- RequestCompletionDate: datetime
+- ParentRequestInfoId: reference -> DevopsRequestInfo
+
+## DevopsTest (Test)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- DevopsPipelineId: reference -> DevopsPipeline
+- DevopsTestProviderId: reference -> DevopsTestProvider
+- LastExecutionStatus: picklist {Passed, Failed, InProgress, Error}
+- LastExecutionTime: datetime
+- TestProviderSpecificConfig: textarea
+- IsActive: boolean
+- DefinitionInTestProvider: url
+- EnvironmentId: reference -> DevopsEnvironment
+- ExternalId: string (required)
+- Description: textarea
+- IsEssential: boolean
+- TestClass: string
+- Severity: picklist {1, 2, 3, 4, 5}
+- Type: picklist {Linting, Scanning, Unit Test, Integration Test, End-to-End Test, Profiling}
+- Subtype: string
+- UniqueKey: textarea
+- SyncLogId: reference -> DevopsTestProviderSyncLog
+
+## DevopsTestExecution (Test Execution)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- SampleCode: textarea
+- LearnMore: url
+- ReportUrl: url
+- Status: picklist {Passed, Failed, InProgress, Error}
+- ResultDetails: textarea
+- Message: string
+- Severity: picklist {1, 2, 3, 4, 5}
+- ExecutionStartTime: datetime (required)
+- ExecutionEndTime: datetime
+- ExternalTestRef: string
+- DevopsTestId: reference -> DevopsTest (required)
+- DevopsTestSuiteExecutionId: reference -> DevopsTestSuiteExecution (required)
+
+## DevopsTestProviderSyncLog (Test Provider Sync Log)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- DevopsTestProviderId: reference -> DevopsTestProvider
+- DevopsPipelineId: reference -> DevopsPipeline
+- ErrorDetails: textarea
+- StartTime: datetime
+- EndTime: datetime
+- Status: picklist {Passed, Failed, InProgress, Error}
+
+## DevopsTestSuite (Test Suite)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- DefinitionInTestProvider: url
+- Description: textarea
+- DevopsPipelineId: reference -> DevopsPipeline
+- DevopsTestProviderId: reference -> DevopsTestProvider
+- TestProviderSpecificConfig: textarea
+- IsActive: boolean
+- ExternalId: string
+- SyncLogId: reference -> DevopsTestProviderSyncLog
+- EnvironmentId: reference -> DevopsEnvironment
+- UniqueKey: textarea
+
+## DevopsTestSuiteExecution (Test Suite Execution)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- SuccessRate: percent
+- FailureRate: percent
+- SuccessCount: int
+- FailureCount: int
+- Coverage: percent
+- Status: picklist {Passed, Failed, InProgress, Error}
+- ExecutionStartTime: datetime (required)
+- ExecutionEndTime: datetime
+- ResultDetails: textarea
+- LearnMore: url
+- ReportUrl: url
+- ExternalIdRef: string
+- DevopsTestSuiteGroupExecId: reference -> DevopsTestSuiteGroupExec (required)
+- DevopsTestSuiteStageId: reference -> DevopsTestSuiteStage
+- DevopsTestSuiteId: reference -> DevopsTestSuite
+- QualityGateStatus: picklist {Passed, Failed, InProgress, Error}
+
+## DevopsTestSuiteGroupExec (Test Suite Group Execution)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- ExecutionEndTime: datetime
+- ExecutionStartTime: datetime (required)
+- DevopsPipelineStageTriggerId: reference -> DevopsPipelineStageTrigger
+- RequestInfoId: reference -> DevopsRequestInfo
+- QualityGateStatus: picklist {Passed, Failed, InProgress, Error}
+- Status: picklist {Passed, Failed, InProgress, Error}
+- PendingExecutionCount: int
+
+## DevopsTestSuiteStage (Test Suite Stage)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- DevopsPipelineStageTriggerId: reference -> DevopsPipelineStageTrigger (required)
+- TestSuiteId: reference -> DevopsTestSuite (required)
+- IsQualityGateEnabled: boolean
+- DevopsQualityGateId: reference -> DevopsQualityGate
+
+## DevopsTestSuiteTest (Test Suite Test)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- DevopsTestSuiteId: reference -> DevopsTestSuite (required)
+- DevopsTestId: reference -> DevopsTest
+- IsActive: boolean
+- UniqueKey: textarea
+- SyncLogId: reference -> DevopsTestProviderSyncLog
+
+## DigitalWallet (Digital Wallet)
+- Id: id
+- IsDeleted: boolean
+- DigitalWalletNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- PaymentGatewayId: reference -> PaymentGateway
+- NickName: string
+- GatewayToken: string
+- GatewayTokenDetails: textarea
+- Customer: string
+- Email: email
+- AccountId: reference -> Account
+- Status: picklist {Active, InActive, Canceled} (required)
+- CompanyName: string
+- PaymentMethodStreet: textarea
+- PaymentMethodCity: string
+- PaymentMethodState: string
+- PaymentMethodPostalCode: string
+- PaymentMethodCountry: string
+- PaymentMethodStateCode: picklist {AC, AG, AG, 05, 02, AL, AL, AK, AB, AL, AP, AM, AN, AN, AP, …}
+- PaymentMethodCountryCode: picklist {AF, AX, AL, DZ, AD, AO, AI, AQ, AG, AR, AM, AW, AU, AT, AZ, …}
+- PaymentMethodLatitude: double
+- PaymentMethodLongitude: double
+- PaymentMethodGeocodeAccuracy: picklist {Address, NearAddress, Block, Street, ExtendedZip, Zip, Neighborhood, City, County, State, Unknown}
+- PaymentMethodAddress: address
+- Comments: textarea
+- ProcessingMode: picklist {Salesforce, External} (required)
+- MacAddress: string
+- Phone: phone
+- IpAddress: string
+- AuditEmail: email
+- GatewayTokenEncrypted: encryptedstring
+- IsAutoPayEnabled: boolean
+- PaymentMethodType: picklist {ACH, Affirm, Afterpay, AfterpayClearpay, AmazonPay, AmericanExpress, ApplePay, BACS, BanContact, BECS, Clearpay, DinersClub, Discover, EPS, ExtendedAPM, …}
+- PaymentMethodSubType: string
+- PaymentMethodDetails: string
+- BillingName: string
+- ExtendedPaymentMethodType: string
+
+## DuplicateRecordItem (Duplicate Record Item)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- DuplicateRecordSetId: reference -> DuplicateRecordSet (required)
+- RecordId: reference -> Account|Address|Case|Contact|Individual|Lead|Subscription_Line__c|Subscription__c (required)
+
+## DuplicateRecordSet (Duplicate Record Set)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- DuplicateRuleId: reference -> DuplicateRule
+- RecordCount: int
+
+## DuplicateRule (Duplicate Rule)
+- Id: id
+- IsDeleted: boolean
+- SobjectType: picklist {Account, Address, Contact, Individual, Lead}
+- DeveloperName: string
+- Language: picklist {en_US, de, es, fr, it, ja, sv, ko, zh_TW, zh_CN, pt_BR, nl_NL, da, th, fi, …}
+- MasterLabel: string
+- NamespacePrefix: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- IsActive: boolean
+- SobjectSubtype: picklist {None, PersonAccount}
+- LastViewedDate: datetime
+
+## EmailMessage (Email Message)
+- Id: id
+- ParentId: reference -> Case
+- ActivityId: reference -> Task
+- CreatedById: reference -> User
+- CreatedDate: datetime
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- TextBody: textarea
+- HtmlBody: textarea
+- Headers: textarea
+- Subject: string
+- Name: string
+- FromName: string
+- FromAddress: email
+- ValidatedFromAddress: picklist {demo.user@example.com}
+- ToAddress: string
+- CcAddress: string
+- BccAddress: string
+- Incoming: boolean
+- HasAttachment: boolean
+- Status: picklist {0, 1, 2, 3, 4, 5} (required)
+- MessageDate: datetime
+- IsDeleted: boolean
+- ReplyToEmailMessageId: reference -> EmailMessage
+- IsExternallyVisible: boolean
+- MessageIdentifier: string
+- ThreadIdentifier: string
+- ClientThreadIdentifier: string
+- FromId: reference -> Contact|Lead|User
+- IsClientManaged: boolean
+- AttachmentIds: string
+- RelatedToId: reference -> Account|AppointmentCategory|AppointmentInvitation|ApprovalSubmission|ApprovalSubmissionDetail|ApprovalWorkItem|Asset|AssetRelationship|AssignedResource|Campaign|Case|ChangeRequest|CommSubscriptionConsent|ContactRequest|Contract|ContractLineItem|Coupon|CreditMemo|DataQueryWorkspace|DeliveryEstimationSetup|DevopsActivityLog|DevopsEnvDeployment|DevopsEnvDeploymentMbr|DevopsEnvironment|DevopsPipeline|DevopsPipelineEnvironment|DevopsPipelineStage|DevopsPipelnStgProm|DevopsPipelnStgPromWkItem|DevopsProject|DevopsProjectEnvironment|DevopsProjectPipeline|DevopsRequestInfo|Entitlement|FulfillmentOrder|Image|Incident|Invoice|LegalEntity|ListEmail|Location|LocationShippingCarrierMethod|OperatingHoursHoliday|Opportunity|Order|PartyConsent|PrivacyRTBFRequest|Problem|ProcessException|Product2|ProductCatalog|Promotion|PromotionMarketSegment|PromotionQualifier|PromotionSegment|PromotionSegmentBuyerGroup|PromotionSegmentSalesStore|PromotionTarget|PromotionTier|ResourceAbsence|ReturnOrder|ReturnOrderLineItem|ServiceAppointment|ServiceContract|ServiceResource|Shift|Shipment|ShipmentItem|ShippingCarrier|ShippingCarrierMethod|Solution|SourceCodeRepoProvider|SourceCodeRepository|SourceCodeRepositoryBranch|Subscription__c|Waitlist|WaitlistParticipant|WorkItem|WorkItemComponent|WorkItemComponentList|WorkOrder|WorkOrderLineItem|WorkPlan|WorkPlanTemplate|WorkPlanTemplateEntry|WorkStep|WorkStepTemplate
+- IsTracked: boolean
+- IsOpened: boolean
+- FirstOpenedDate: datetime
+- LastOpenedDate: datetime
+- IsBounced: boolean
+- EmailTemplateId: reference -> EmailTemplate
+- AutomationType: picklist {AiAssisted, AiAutomated}
+- Source: picklist {Einstein Activity Capture, Einstein Activity Capture Limited, Email Integration App Manual}
+
+## EmailTemplate (Email Template)
+- Id: id
+- Name: string (required)
+- DeveloperName: string
+- NamespacePrefix: string
+- OwnerId: reference -> User
+- FolderId: reference -> Folder|Organization|User (required)
+- FolderName: string
+- BrandTemplateId: reference -> BrandTemplate
+- EnhancedLetterheadId: reference -> EnhancedLetterhead
+- TemplateStyle: picklist {none, freeForm, formalLetter, promotionRight, promotionLeft, newsletter, products} (required)
+- IsActive: boolean
+- TemplateType: picklist {text, html, custom, visualforce} (required)
+- Encoding: picklist {UTF-8, ISO-8859-1, Shift_JIS, ISO-2022-JP, EUC-JP, ks_c_5601-1987, Big5, GB2312, Big5-HKSCS, x-SJIS_0213}
+- Description: string
+- Subject: string
+- HtmlValue: textarea
+- Body: textarea
+- TimesUsed: int
+- LastUsedDate: datetime
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- ApiVersion: double
+- Markup: textarea
+- UiType: picklist {Aloha, SFX, SFX_Sample}
+- RelatedEntityType: picklist {AcceptedEventRelation, AcceptedRecommendation, Account, AccountCleanInfo, AccountContactRole, AccountPartner, AccountRecordUserAccess, ActionLink, ActionLinkGroup, ActionLinkGroupAssoc, ActionLinkTemplateBinding, ActionLinkUserState, ActivationTarget, ActivationTargetPlatform, ActivationTargetSecureFTP, …}
+- IsBuilderContent: boolean
+
+## EngagementChannelType (Engagement Channel Type)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- ContactPointType: picklist {Email, Phone, Web, Social, MailingAddress, InPerson, Video}
+- IsActive: boolean
+- UsageType: multipicklist {Salesforce Scheduler}
+
+## EngagementChannelWorkType (Engagement Channel Work Type)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- WorkTypeId: reference -> WorkType (required)
+- EngagementChannelTypeId: reference -> EngagementChannelType
+- AreAllEngmtChnlSupported: boolean
+
+## EnhancedLetterhead (Enhanced Letterhead)
+- Id: id
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- Description: string
+- LetterheadHeader: textarea
+- LetterheadFooter: textarea
+
+## Entitlement (Entitlement)
+- Id: id
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- AccountId: reference -> Account (required)
+- Type: picklist {Phone Support, Web Support}
+- ServiceContractId: reference -> ServiceContract
+- ContractLineItemId: reference -> ContractLineItem
+- AssetId: reference -> Asset
+- StartDate: date
+- EndDate: date
+- SlaProcessId: reference -> SlaProcess
+- BusinessHoursId: reference -> BusinessHours
+- IsPerIncident: boolean
+- CasesPerEntitlement: int
+- RemainingCases: int
+- Status: picklist {Inactive, Active, Expired}
+- SvcApptBookingWindowsId: reference -> OperatingHours
+- LocationId: reference -> Location
+- WorkOrdersPerEntitlement: int
+- RemainingWorkOrders: int
+
+## EntitlementContact (Entitlement Contact)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- EntitlementId: reference -> Entitlement (required)
+- ContactId: reference -> Contact (required)
+
+## EntityMilestone (Object Milestone)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- ParentEntityId: reference -> ChangeRequest|Incident|Problem|WorkOrder
+- StartDate: datetime
+- TargetDate: datetime
+- CompletionDate: datetime
+- SlaProcessId: reference -> SlaProcess
+- MilestoneTypeId: reference -> MilestoneType
+- IsCompleted: boolean
+- IsViolated: boolean
+- TargetResponseInMins: int
+- TargetResponseInHrs: double
+- TargetResponseInDays: double
+- TimeRemainingInMins: string
+- TimeRemainingInHrs: string
+- TimeRemainingInDays: double
+- ElapsedTimeInMins: int
+- ElapsedTimeInHrs: double
+- ElapsedTimeInDays: double
+- TimeSinceTargetInMins: string
+- TimeSinceTargetInHrs: string
+- TimeSinceTargetInDays: double
+- BusinessHoursId: reference -> BusinessHours
+
+## Event (Event)
+- Id: id
+- WhoId: reference -> Contact|Lead
+- WhatId: reference -> Account|AppointmentCategory|AppointmentInvitation|ApprovalSubmission|ApprovalSubmissionDetail|ApprovalWorkItem|Asset|AssetRelationship|AssignedResource|Campaign|Case|ChangeRequest|CommSubscriptionConsent|ContactRequest|Contract|ContractLineItem|Coupon|CreditMemo|DataQueryWorkspace|DeliveryEstimationSetup|DevopsActivityLog|DevopsEnvDeployment|DevopsEnvDeploymentMbr|DevopsEnvironment|DevopsPipeline|DevopsPipelineEnvironment|DevopsPipelineStage|DevopsPipelnStgProm|DevopsPipelnStgPromWkItem|DevopsProject|DevopsProjectEnvironment|DevopsProjectPipeline|DevopsRequestInfo|Entitlement|FulfillmentOrder|Image|Incident|Invoice|LegalEntity|ListEmail|Location|LocationShippingCarrierMethod|OperatingHoursHoliday|Opportunity|Order|PartyConsent|PrivacyRTBFRequest|Problem|ProcessException|Product2|ProductCatalog|Promotion|PromotionMarketSegment|PromotionQualifier|PromotionSegment|PromotionSegmentBuyerGroup|PromotionSegmentSalesStore|PromotionTarget|PromotionTier|ResourceAbsence|ReturnOrder|ReturnOrderLineItem|ServiceAppointment|ServiceContract|ServiceResource|Shift|Shipment|ShipmentItem|ShippingCarrier|ShippingCarrierMethod|Solution|SourceCodeRepoProvider|SourceCodeRepository|SourceCodeRepositoryBranch|Subscription__c|Waitlist|WaitlistParticipant|WorkItem|WorkItemComponent|WorkItemComponentList|WorkOrder|WorkOrderLineItem|WorkPlan|WorkPlanTemplate|WorkPlanTemplateEntry|WorkStep|WorkStepTemplate
+- Subject: combobox {Call, Email, Meeting, Send Letter/Quote, Other}
+- Location: string
+- IsAllDayEvent: boolean
+- ActivityDateTime: datetime
+- ActivityDate: date
+- DurationInMinutes: int
+- StartDateTime: datetime
+- EndDateTime: datetime
+- EndDate: date
+- Description: textarea
+- AccountId: reference -> Account
+- OwnerId: reference -> Calendar|User
+- IsPrivate: boolean
+- ShowAs: picklist {Busy, OutOfOffice, Free}
+- IsDeleted: boolean
+- IsChild: boolean
+- IsGroupEvent: boolean
+- GroupEventType: picklist {0, 1, 2, 3}
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- IsArchived: boolean
+- RecurrenceActivityId: reference -> Event
+- IsRecurrence: boolean
+- RecurrenceStartDateTime: datetime
+- RecurrenceEndDateOnly: date
+- RecurrenceTimeZoneSidKey: picklist {Pacific/Kiritimati, Pacific/Apia, Pacific/Fakaofo, Pacific/Kanton, Pacific/Tongatapu, Pacific/Chatham, Antarctica/McMurdo, Asia/Anadyr, Asia/Kamchatka, Pacific/Auckland, Pacific/Fiji, Pacific/Funafuti, Pacific/Kwajalein, Pacific/Majuro, Pacific/Nauru, …}
+- RecurrenceType: picklist {RecursDaily, RecursEveryWeekday, RecursMonthly, RecursMonthlyNth, RecursWeekly, RecursYearly, RecursYearlyNth}
+- RecurrenceInterval: int
+- RecurrenceDayOfWeekMask: int
+- RecurrenceDayOfMonth: int
+- RecurrenceInstance: picklist {First, Second, Third, Fourth, Last}
+- RecurrenceMonthOfYear: picklist {January, February, March, April, May, June, July, August, September, October, November, December}
+- ReminderDateTime: datetime
+- IsReminderSet: boolean
+- EventSubtype: picklist {Event}
+- IsRecurrence2Exclusion: boolean
+- Recurrence2PatternText: textarea
+- Recurrence2PatternVersion: picklist {1, 2}
+- IsRecurrence2: boolean
+- IsRecurrence2Exception: boolean
+- Recurrence2PatternStartDate: datetime
+- Recurrence2PatternTimeZone: string
+- ServiceAppointmentId: reference -> ServiceAppointment
+
+## ExtDataShareTarget (Data Share Target)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- DataShareTargetStatus: picklist {INACTIVE, PROCESSING, ACTIVE, ERROR, DELETING, GRANT_REVOKE_ACCESS}
+- LastDataChangeStatusDateTime: datetime
+- LastDataChangeStatusErrorCode: string
+- ConnectionType: picklist {SNOWFLAKE, SNOWFLAKE_V2, SAGEMAKER, REDSHIFT, BIGQUERY, DATABRICKS, SALESFORCE_DATA_CLOUD, IBM, GENERIC, AZURE}
+
+## ExternalEvent (External Event)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- ExternalId: string
+- Title: string
+- Location: string
+- Notes: textarea
+- Time: string
+
+## FeedItem (Feed Item)
+- Id: id
+- ParentId: reference -> Account|ActivationTarget|ActivationTrgtIntOrgAccess|ApiAnomalyEventStore|AppointmentCategory|AppointmentInvitation|AppointmentTopicTimeSlot|ApprovalSubmission|ApprovalSubmissionDetail|ApprovalWorkItem|Asset|AssetRelationship|AssignedResource|AuthorizationFormText|BuyerGroup|Campaign|Case|CaseRelatedIssue|ChangeRequest|ChangeRequestRelatedIssue|ChangeRequestRelatedItem|CollaborationGroup|CommSubscription|CommSubscriptionChannelType|CommSubscriptionConsent|CommSubscriptionTiming|ConsumptionSchedule|Contact|ContentDocument|Contract|ContractLineItem|Coupon|CredentialStuffingEventStore|CreditMemo|CreditMemoInvApplication|CreditMemoLine|Dashboard|DashboardComponent|DataAction|DataActionJobSummary|DataActionTarget|DataCleanRoom|DataCommunicationCap|DataContentLensSource|DataLakeObjectInstance|DataObjSecondaryIndex|DataQueryWorkspace|DataSemanticSearch|DataStream|DeliveryEstimationSetup|DevopsEnvDeployment|DevopsEnvDeploymentMbr|DevopsEnvironment|DevopsPipeline|DevopsPipelineEnvironment|DevopsPipelineStage|DevopsPipelnStgProm|DevopsPipelnStgPromWkItem|DevopsProject|DevopsProjectEnvironment|DevopsProjectPipeline|DevopsRequestInfo|EngagementChannelType|EngagementChannelWorkType|EnhancedLetterhead|Entitlement|EntityMilestone|Event|ExtDataShare|ExtDataShareTarget|FulfillmentOrder|FulfillmentOrderItemAdjustment|FulfillmentOrderItemTax|FulfillmentOrderLineItem|GuestUserAnomalyEventStore|IdentityResolution|Image|Incident|IncidentRelatedItem|Invoice|InvoiceLine|Lead|LegalEntity|Location|LocationGroup|LocationShippingCarrierMethod|LoginAnomalyEventStore|MarketSegment|MarketSegmentActivation|MessagingSession|MktCalculatedInsight|MktDataTransform|MktMLModel|MktMLPredictionJob|OperatingHours|OperatingHoursHoliday|Opportunity|Order|OrderItem|PartyConsent|Payment|PrivacyRTBFRequest|Problem|ProblemIncident|ProblemRelatedItem|Product2|ProductCatalog|ProductCategory|Promotion|PromotionMarketSegment|PromotionQualifier|PromotionSegment|PromotionSegmentBuyerGroup|PromotionSegmentSalesStore|PromotionTarget|PromotionTier|Report|ReportAnomalyEventStore|ResourceAbsence|ResourcePreference|ReturnOrder|ReturnOrderLineItem|ServiceAppointment|ServiceAppointmentAttendee|ServiceContract|ServiceResource|ServiceResourceSkill|ServiceTerritory|ServiceTerritoryMember|ServiceTerritoryWorkType|SessionHijackingEventStore|Shift|ShiftEngagementChannel|ShiftWorkTopic|Shipment|ShipmentItem|ShippingCarrier|ShippingCarrierMethod|Site|SkillRequirement|Solution|SourceCodeRepoProvider|SourceCodeRepository|SourceCodeRepositoryBranch|Subscription_Line__c|Subscription__c|Task|ThreatDetectionFeedback|Topic|UniversalAnomalyEventStore|User|VoiceCall|Waitlist|WaitlistParticipant|WaitlistServiceResource|WaitlistWorkType|WorkItem|WorkItemComponent|WorkItemComponentList|WorkOrder|WorkOrderLineItem|WorkPlan|WorkPlanTemplate|WorkPlanTemplateEntry|WorkStep|WorkStepTemplate|WorkType|WorkTypeGroup|WorkTypeGroupMember (required)
+- Type: picklist {TrackedChange, UserStatus, TextPost, AdvancedTextPost, LinkPost, ContentPost, PollPost, RypplePost, ProfileSkillPost, DashboardComponentSnapshot, ApprovalPost, CaseCommentPost, ReplyPost, EmailMessageEvent, CallLogPost, …}
+- CreatedById: reference -> User
+- CreatedDate: datetime
+- IsDeleted: boolean
+- LastModifiedDate: datetime
+- SystemModstamp: datetime
+- Revision: int
+- LastEditById: reference -> User
+- LastEditDate: datetime
+- CommentCount: int
+- LikeCount: int
+- Title: string
+- Body: textarea
+- LinkUrl: url
+- IsRichText: boolean
+- RelatedRecordId: reference -> ContentVersion
+- InsertedById: reference -> User
+- BestCommentId: reference -> FeedComment
+- HasContent: boolean
+- HasLink: boolean
+- HasFeedEntity: boolean
+- HasVerifiedComment: boolean
+- IsClosed: boolean
+- Status: picklist {Published, PendingReview, Draft, Isolated}
+
+## FinanceBalanceSnapshot (Finance Balance Snapshot)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- FinanceBalanceSnapshotNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- FinanceTransactionId: reference -> FinanceTransaction
+- ReferenceEntityId: reference -> CreditMemo|CreditMemoInvApplication|CreditMemoLine|Invoice|InvoiceLine|Payment|PaymentLineInvoice|Refund|RefundLinePayment|Subscription_Line__c|Subscription__c
+- ReferenceEntityType: picklist {Invoice, Invoice line, Invoice line tax, Sub invoice line, Sub invoice line tax, Credit memo, Credit memo line, Credit memo line tax, Credit memo line invoice application, Credit memo line invoice line application, Debit memo, Debit memo line, Debit memo line tax, Debit memo line credit memo application, Debit memo line credit memo line application, …}
+- EventType: picklist {Allocated, Unallocated, Posted, Canceled, Changed, Void, Other}
+- ChargeAmount: currency
+- AdjustmentAmount: currency
+- Subtotal: currency
+- TaxAmount: currency
+- TotalAmountWithTax: currency
+- ImpactAmount: currency
+- Balance: currency
+- AccountId: reference -> Account
+- TransactionDate: datetime
+- EffectiveDate: datetime
+- DueDate: datetime
+- BaseCurrencyIsoCode: string
+- BaseCurrencyFxRate: double
+- BaseCurrencyFxDate: date
+- BaseCurrencyAmount: currency
+- BaseCurrencyBalance: currency
+- LegalEntityId: reference -> LegalEntity|Subscription_Line__c|Subscription__c
+- OriginalReferenceEntityType: string
+- OriginalEventType: string
+- FinanceSystemTransactionNumber: string
+- FinanceSystemName: string
+- FinanceSystemIntegrationMode: string
+- FinanceSystemIntegrationStatus: picklist {Not Selected, Pending, In Process, Retry In Process, Success, Error, Failed}
+
+## FinanceTransaction (Finance Transaction)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- FinanceTransactionNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- ReferenceEntityId: reference -> CreditMemo|CreditMemoInvApplication|CreditMemoLine|Invoice|InvoiceLine|Payment|PaymentLineInvoice|Refund|RefundLinePayment|Subscription_Line__c|Subscription__c
+- ReferenceEntityType: picklist {Invoice, Invoice line, Invoice line tax, Sub invoice line, Sub invoice line tax, Credit memo, Credit memo line, Credit memo line tax, Credit memo line invoice application, Credit memo line invoice line application, Debit memo, Debit memo line, Debit memo line tax, Debit memo line credit memo application, Debit memo line credit memo line application, …}
+- EventAction: picklist {Post an invoice, Void an invoice, Cancel & rebill, Convert negative invoice lines, Subtotal change on sub invoice line, Tax change on sub invoice line, Invoice line reference changed on sub invoice line, Currency change on sub invoice line, Credit invoice header, Unallocate credit from invoice header, Credit invoice line, Unallocate credit from invoice line, Pay invoice header, Unallocate payment from invoice header, Pay invoice line, …}
+- EventType: picklist {Allocated, Unallocated, Posted, Canceled, Changed, Void, Other}
+- ChargeAmount: currency
+- AdjustmentAmount: currency
+- Subtotal: currency
+- TaxAmount: currency
+- TotalAmountWithTax: currency (required)
+- ImpactAmount: currency
+- ResultingBalance: currency
+- AccountId: reference -> Account
+- SourceEntityId: reference -> CreditMemo|CreditMemoInvApplication|CreditMemoLine|Invoice|InvoiceLine|Payment|PaymentLineInvoice|Refund|RefundLinePayment|Subscription_Line__c|Subscription__c
+- DestinationEntityId: reference -> CreditMemo|CreditMemoInvApplication|CreditMemoLine|Invoice|InvoiceLine|Payment|PaymentLineInvoice|Refund|RefundLinePayment|Subscription_Line__c|Subscription__c
+- TransactionDate: datetime (required)
+- EffectiveDate: datetime (required)
+- DueDate: datetime
+- BaseCurrencyIsoCode: string
+- BaseCurrencyFxRate: double
+- BaseCurrencyFxDate: date
+- BaseCurrencyAmount: currency
+- BaseCurrencyBalance: currency
+- LegalEntityId: reference -> LegalEntity|Subscription_Line__c|Subscription__c
+- CreationMode: picklist {Salesforce, External}
+- ParentReferenceEntityId: reference -> CreditMemo|CreditMemoInvApplication|CreditMemoLine|Invoice|InvoiceLine|Payment|PaymentLineInvoice|Refund|RefundLinePayment|Subscription_Line__c|Subscription__c
+- OriginalReferenceEntityType: string
+- OriginalEventType: string
+- OriginalEventAction: string
+- OriginalCreditGlAccountName: string
+- OriginalCreditGlAccountNumber: string
+- OriginalDebitGlAccountName: string
+- OriginalDebitGlAccountNumber: string
+- OriginalFinancePeriodName: string
+- OriginalFinancePeriodStartDate: string
+- OriginalFinancePeriodEndDate: string
+- OriginalFinancePeriodStatus: string
+- OriginalGlRuleName: string
+- OriginalGlTreatmentName: string
+- OriginalFinanceBookName: string
+- FinanceSystemTransactionNumber: string
+- FinanceSystemName: string
+- FinanceSystemIntegrationMode: string
+- FinanceSystemIntegrationStatus: picklist {Not Selected, Pending, In Process, Retry In Process, Success, Error, Failed}
+
+## FlowInterview (Flow Interview)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- CurrentElement: string
+- InterviewLabel: string
+- PauseLabel: string
+- Guid: string
+- WasPausedFromScreen: boolean
+- FlowVersionViewId: string -> FlowVersionView
+- InterviewStatus: picklist {Running, Paused, Completed, VersionPaused, Error, Autosaved, Expired, Pending}
+- EngineType: picklist {Online, Offline}
+- Error: textarea
+
+## FlowOrchestration (Orchestration)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- OrchestrationDefinition: string
+- Description: textarea
+- TriggerType: picklist {None, Scheduled, RecordBeforeSave, RecordBeforeDelete, RecordAfterSave, PlatformEvent, EventDrivenJourney, Segment, DataCloudDataChange, FormSubmissionEvent, Capability, AutomationEvent, ExternalSystemChange, DataGraphDataChange, Activation, …}
+- OrchestrationType: picklist {ActionCadenceAutolnch, ActionCadenceStepScrn, ActionPlanAutolnch, ApprovalOrchAutolnch, ApprovalOrchRecTrigAftSave, SchedulerApptsScrn, RecTrigAfterSave, RecTrigBefSave, SchdTrig, PfrmEvntTrig, RecTrigBefDel, DataCloudDataChg, AutolnchNoTrig, CartAsyncAutolnch, CheckoutScrn, …}
+- NamespacePrefix: string
+- ManageableState: picklist {released, deleted, deprecated, installed, beta, unmanaged, installedEditable, deprecatedEditable}
+- ActiveVersionId: reference -> FlowOrchestrationVersion
+- Status: picklist {Active, Draft, Obsolete, InvalidDraft, UnderReview}
+- IsCitizenEnabled: boolean
+- OrchestrationLabel: string
+- ApiName: string
+- InstalledPackageName: string
+- RunCount: int
+- CompletionRate: percent
+- AverageRunTime: int
+- FailedRunCount: int
+- ApiVersion: int
+- IsTemplate: boolean
+- SourceTemplateId: reference -> FlowOrchestration
+- IsOverridable: boolean
+- OverriddenById: reference -> FlowOrchestration
+- OverriddenOrchestrationId: reference -> FlowOrchestration
+
+## FlowOrchestrationInstance (Orchestration Run)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- Status: picklist {NotStarted, InProgress, Completed, Error, Discontinued, Canceled, Suspended} (required)
+- InterviewId: reference -> FlowInterview
+- OrchestrationName: string
+- OrchestrationDeveloperName: string
+- OrchestrationLabel: string
+- Duration: long
+- CurrentStage: string
+- TriggeringRecord: string
+- TriggeringRecordType: string
+- AuxiliaryTriggeringRecord: string
+- FlowType: picklist {ActionCadenceAutolnch, ActionCadenceStepScrn, ActionPlanAutolnch, ApprovalOrchAutolnch, ApprovalOrchRecTrigAftSave, SchedulerApptsScrn, RecTrigAfterSave, RecTrigBefSave, SchdTrig, PfrmEvntTrig, RecTrigBefDel, DataCloudDataChg, AutolnchNoTrig, CartAsyncAutolnch, CheckoutScrn, …}
+- FlowDefinitionVersionName: picklist {AiCopilot__LanguageChat-1, cms_orch__CMS_BasicApprovalRequest-1, cms_orch__CMS_EvalApprovalStepStatus-1, cms_orch__CMS_NotifyRequester-1, cms_orch__CMS_ReviewContent-1, cms_orch__CMS_ReviseContent-1, cms_orch__CMS_WithdrawReviewRequest-1, enablement_coaching__SendFdbkRdyNtfcn-1, fsc_tearsheet_agent__CreateSummaryDoc-1, identity_flows__AuthProviderUserRgstr-1, industries_rra__AIRR_DC_Dynamic-1, omnichannel_chat__QueuesChat-1, omnichannel_chat__SkillsChat-1, omnichannel_messaging__MsgRouting-1, omnichannel_voice__VoiceRouting-1, …}
+- IsDebugRun: boolean
+
+## FlowOrchestrationLog (Orchestration Run Log)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- OrchestrationName: string (required)
+- OrchestrationVersion: int (required)
+- OrchestrationInstanceId: reference -> FlowOrchestrationInstance (required)
+- StageName: string
+- StepName: string
+- Actor: string
+- Kind: picklist {CancelInstance, DiscontinueStage, DiscontinueStep, EndInstance, EndStage, EndStep, EndWorkItem, FailInstance, FailStage, FailStep, ReassignWorkItem, ResumeInstance, RunRecallPath, StartInstance, StartStage, …} (required)
+- Timestamp: datetime (required)
+- Duration: long
+- Context: string
+- AssigneeType: picklist {User, Group, Queue, Invalid, Resource}
+- Assignee: string
+- Comments: string
+
+## FlowOrchestrationStageInstance (Orchestration Stage Run)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- OrchestrationInstanceId: reference -> FlowOrchestrationInstance (required)
+- Status: picklist {NotStarted, InProgress, Completed, Error, Discontinued, Canceled, Suspended} (required)
+- Position: int (required)
+- Label: string (required)
+- OrchestrationName: string
+
+## FlowOrchestrationStepInstance (Orchestration Step Run)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- OrchestrationInstanceId: reference -> FlowOrchestrationInstance (required)
+- StageInstanceId: reference -> FlowOrchestrationStageInstance (required)
+- StepType: picklist (required)
+- Status: picklist {NotStarted, InProgress, Completed, Error, Discontinued, Canceled, Suspended} (required)
+- Label: string (required)
+- OrchestrationName: string
+- OrchestrationStageName: string
+- InProgressStepOutputs: textarea
+- RelatedRecord: string
+- Description: textarea
+
+## FlowOrchestrationVersion (Orchestration Version)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- FlowOrchestrationId: reference -> FlowOrchestration
+- VersionNumber: int
+- ActivatedById: reference -> User
+- ActivatedDate: datetime
+- OrchestrationType: picklist {ActionCadenceAutolnch, ActionCadenceStepScrn, ActionPlanAutolnch, ApprovalOrchAutolnch, ApprovalOrchRecTrigAftSave, SchedulerApptsScrn, RecTrigAfterSave, RecTrigBefSave, SchdTrig, PfrmEvntTrig, RecTrigBefDel, DataCloudDataChg, AutolnchNoTrig, CartAsyncAutolnch, CheckoutScrn, …}
+- Status: picklist {Active, Draft, Obsolete, InvalidDraft, UnderReview}
+- Description: textarea
+- RunInMode: picklist {DefaultMode, SystemModeWithSharing, SystemModeWithoutSharing}
+- ApiVersion: double
+- IsTemplate: boolean
+- TriggerObjectOrEventLabel: string
+- SourceTemplateId: reference -> FlowOrchestration
+- IsOverridable: boolean
+- OverriddenById: reference -> FlowOrchestration
+- OverriddenOrchestrationId: reference -> FlowOrchestration
+
+## FlowOrchestrationWorkItem (Orchestration Work Item)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- StepInstanceId: reference -> FlowOrchestrationStepInstance
+- Status: picklist {Assigned, Completed} (required)
+- RelatedRecordId: reference -> Account|ActivationTarget|ActivationTargetPlatform|ActvTgtPlatformFieldValue|Address|AgentWork|AiJobRun|AiJobRunItem|AnalyticsUserAttrFuncTkn|AppointmentInvitation|AppointmentInvitee|AppointmentScheduleLog|ApprovalSubmission|ApprovalSubmissionDetail|ApprovalWorkItem|Asset|AssetAction|AssetActionSource|AssetRelationship|AssetStatePeriod|AssignedResource|AssociatedLocation|AuthorizationForm|AuthorizationFormConsent|AuthorizationFormDataUse|AuthorizationFormText|BusinessBrand|BuyerGroup|Campaign|CartItem|CartItemPriceAdjustment|CartRelatedItem|CartTax|CartValidationOutput|Case|CaseComment|CaseRelatedIssue|ChangeRequest|ChangeRequestRelatedIssue|ChangeRequestRelatedItem|CollaborationGroup|CommSubscription|CommSubscriptionChannelType|CommSubscriptionConsent|CommSubscriptionTiming|ConsumptionRate|ConsumptionSchedule|Contact|ContactPointAddress|ContactPointConsent|ContactPointEmail|ContactPointPhone|ContactPointTypeConsent|ContactRequest|ContentDocument|ContentVersion|Contract|ContractLineItem|ConvEntryRelatedRecordCopy|ConversationApiLog|ConversationApiLogObjSum|ConversationEntryCopy|Coupon|CouponCodeRedemption|CreditMemo|CreditMemoInvApplication|CreditMemoLine|Customer|DandBCompany|DataAction|DataActionJobSummary|DataActionTarget|DataCleanRoom|DataCommunicationCap|DataGraph|DataGuidance|DataGuidanceStep|DataGuidanceStepGroup|DataKitDeploymentLog|DataKnowledgeRsrchRpt|DataKnowledgeRsrchTmpl|DataKnowledgeSpace|DataKnowledgeSpcJobRun|DataKnowledgeSrcFileRef|DataLakeObjectInstance|DataMaskCustomValueLibrary|DataQueryWorkspace|DataQueryWorkspaceTab|DataSourceBundle|DataStream|DataUseLegalBasis|DataUsePurpose|DeliveryEstimationSetup|DevopsActivityLog|DevopsEnvDeployment|DevopsEnvDeploymentMbr|DevopsEnvironment|DevopsPipeline|DevopsPipelineEnvironment|DevopsPipelineStage|DevopsPipelineStageTrigger|DevopsPipelineTestProvider|DevopsPipelnStgProm|DevopsPipelnStgPromWkItem|DevopsProject|DevopsProjectEnvironment|DevopsProjectPipeline|DevopsQualityGate|DevopsQualityGateResult|DevopsQualityGateRule|DevopsQualityGateRuleResult|DevopsRequestInfo|DevopsTest|DevopsTestExecution|DevopsTestProviderSyncLog|DevopsTestSuite|DevopsTestSuiteExecution|DevopsTestSuiteGroupExec|DevopsTestSuiteStage|DevopsTestSuiteTest|DevopsWkItmTstSteGrpExec|DuplicateRecordItem|DuplicateRecordSet|EmailMessage|EngagementChannelType|EngagementChannelWorkType|Entitlement|EntitlementContact|EntityMilestone|ExpressionFilter|ExpressionFilterCriteria|ExtDataShare|ExtDataShareTarget|ExternalEventMapping|ExtlRecShrStagedRecord|FinanceBalanceSnapshot|FinanceTransaction|FlowOrchestrationInstance|FlowOrchestrationVersion|FulfillmentOrder|FulfillmentOrderItemAdjustment|FulfillmentOrderItemTax|FulfillmentOrderLineItem|GisPrvdCnctrJobObjRun|Idea|IdentityResolution|Image|Incident|IncidentRelatedItem|Individual|InventoryItemReservation|InventoryReservation|Invoice|InvoiceLine|Lead|Location|LocationGroup|LocationGroupAssignment|LocationShippingCarrierMethod|Macro|MacroInstruction|MacroUsage|ManagedContentVariant|MarketSegment|MarketSegmentActivation|MktCalculatedInsight|MktDataTransform|MktMLModel|MktMLPredictionJob|OperatingHours|OperatingHoursHoliday|Opportunity|OpportunityRelatedDeleteLog|Order|OrderItem|OrgMetricScanSummary|Organization|PartyConsent|PaymentCreditLinePayment|PaymentCreditTransaction|PendingServiceRouting|PrivacyJobSession|PrivacyRTBFRequest|Problem|ProblemIncident|ProblemRelatedItem|ProcessException|Product2|ProductCatalog|ProductCategory|ProductCategoryProduct|Promotion|PromotionLineItemRule|PromotionMarketSegment|PromotionQualifier|PromotionSegment|PromotionSegmentBuyerGroup|PromotionSegmentSalesStore|PromotionTarget|PromotionTier|PromptAction|PromptError|QuickText|QuickTextUsage|ReportHierarchyObjectField|ResourceAbsence|ResourcePreference|ReturnOrder|ReturnOrderItemAdjustment|ReturnOrderItemTax|ReturnOrderLineItem|SecurityHealthCheckAlertRecipient|SecurityHealthCheckResult|Seller|ServiceAppointment|ServiceAppointmentAttendee|ServiceContract|ServiceResource|ServiceResourceSkill|ServiceTerritory|ServiceTerritoryMember|ServiceTerritoryWorkType|SfdcPartnerSbscrOffer|SfdcPartnerSbscrOfferItem|Shift|ShiftEngagementChannel|ShiftWorkTopic|Shipment|ShipmentItem|ShippingCarrier|ShippingCarrierMethod|ShippingConfigurationSet|ShippingRateArea|ShippingRateGroup|Site|SkillRequirement|SlackChannelRelatedRecord|Solution|SourceCodeRepoProvider|SourceCodeRepository|SourceCodeRepositoryBranch|StandardShippingRate|StreamingChannel|Subscription_Line__c|Subscription__c|TableauHostMapping|TenantConsumptionAlert|TimeSlot|Topic|UnstructuredStorageSpace|User|UserLicense|UserLocalWebServerIdentity|UserPrioritizedRecord|UserProvisioningRequest|UserServicePresence|Waitlist|WaitlistParticipant|WaitlistServiceResource|WaitlistWorkType|WebCart|WebCartActivityLog|WebCartAdjustmentBasis|WebCartAdjustmentGroup|WebCartCollaborator|WebCartCredit|WebStore|WebStoreBuyerGroup|WebStoreCatalog|WebStoreInventorySource|WorkItem|WorkItemComponent|WorkItemComponentList|WorkOrder|WorkOrderLineItem|WorkPlan|WorkPlanTemplate|WorkPlanTemplateEntry|WorkStep|WorkStepTemplate|WorkType|WorkTypeGroup|WorkTypeGroupMember
+- Label: string
+- Description: string
+- AssigneeId: reference -> Group|Group|User (required)
+- ScreenFlow: picklist {AiCopilot__LanguageChat, cms_orch__CMS_BasicApprovalRequest, cms_orch__CMS_EvalApprovalStepStatus, cms_orch__CMS_NotifyRequester, cms_orch__CMS_ReviewContent, cms_orch__CMS_ReviseContent, cms_orch__CMS_WithdrawReviewRequest, enablement_coaching__SendFdbkRdyNtfcn, fsc_tearsheet_agent__CreateSummaryDoc, identity_flows__AuthProviderUserRgstr, industries_rra__AIRR_DC_Dynamic, omnichannel_chat__QueuesChat, omnichannel_chat__SkillsChat, omnichannel_messaging__MsgRouting, omnichannel_voice__VoiceRouting, …}
+- ScreenFlowInputs: textarea
+- OrchestrationName: string
+- FlowType: picklist {ActionCadenceAutolnch, ActionCadenceStepScrn, ActionPlanAutolnch, ApprovalOrchAutolnch, ApprovalOrchRecTrigAftSave, SchedulerApptsScrn, RecTrigAfterSave, RecTrigBefSave, SchdTrig, PfrmEvntTrig, RecTrigBefDel, DataCloudDataChg, AutolnchNoTrig, CartAsyncAutolnch, CheckoutScrn, …}
+- ElapsedTimeSinceCreationInSec: long
+- ElapsedTimeSinceAsgntInSec: long
+- ParentWorkItemId: reference -> FlowOrchestrationWorkItem
+
+## FlowRecord (Flow)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- FlowDefinition: string
+- AssociatedRecordId: reference -> Campaign|FlowRecord
+- Description: textarea
+- SegmentId: reference -> MarketSegment
+- Type: picklist {None, Scheduled, RecordBeforeSave, RecordBeforeDelete, RecordAfterSave, PlatformEvent, EventDrivenJourney, Segment, DataCloudDataChange, FormSubmissionEvent, Capability, AutomationEvent, ExternalSystemChange, DataGraphDataChange, Activation, …}
+- ProgressStatus: picklist {Draft, Scheduled, PreparingData, InProgress, Finishing, Completed, Canceled, Error, UnderReview}
+- ScheduledStartDate: datetime
+- ErrorCode: picklist {ACTIVATING_USER_LOST_PERMISSIONS, ACTIVATING_USER_ACCOUNT_DEACTIVATED, CANNOT_UPDATE_DATASTREAM_METADATA, CANNOT_REFRESH_DATA_STREAM, CANNOT_REFRESH_IDENTITY_RES_METADATA, CANNOT_REFRESH_IDENTITY_RES_DATA, CANNOT_PUBLISH_SEGMENT, CANNOT_QUERY_SEGMENT_MEMBER_DATA, ACTIVATION_TRIGGERED_FLOW_UNKNOWN_EXCEPTION, CREATE_EXPERIMENT_ERROR, DATA_ACTION_STATUS_ERROR, FLOW_FAILED_TO_START, SYNC_PAUSED_PROFILE_LIMIT_REACHED}
+- ErrorDetails: string
+- FlowCategory: string
+- FlowSubcategory: string
+- IsPaused: boolean
+- FlowType: picklist {ActionCadenceAutolnch, ActionCadenceStepScrn, ActionPlanAutolnch, ApprovalOrchAutolnch, ApprovalOrchRecTrigAftSave, SchedulerApptsScrn, RecTrigAfterSave, RecTrigBefSave, SchdTrig, PfrmEvntTrig, RecTrigBefDel, DataCloudDataChg, AutolnchNoTrig, CartAsyncAutolnch, CheckoutScrn, …}
+- NamespacePrefix: string
+- ManageableState: picklist {released, deleted, deprecated, installed, beta, unmanaged, installedEditable, deprecatedEditable}
+- ActiveVersionId: reference -> FlowRecordVersion
+- ApiVersion: int
+- IsTemplate: boolean
+- TriggerObjectOrEventLabel: string
+- Builder: string
+- SourceTemplateId: reference -> FlowRecord
+- IsOverridable: boolean
+- OverriddenById: reference -> FlowRecord
+- OverriddenFlowId: reference -> FlowRecord
+- StartSource: string
+- IsCitizenEnabled: boolean
+- FlowLabel: string
+- ApiName: string
+- InstalledPackageName: string
+- CapacityCategory: picklist {MarketingCloudFlow}
+- ActivationId: reference -> MarketSegmentActivation
+- AreMetricsLoggedToDataCloud: boolean
+- LogsEnabledFlowVersion: int
+- Health: int
+- ElementEntries: int
+- ElementErrors: int
+- ListId: reference -> Campaign
+
+## FlowRecordElement (Flow Element)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- FlowRecordVersionId: reference -> FlowRecordVersion
+- ElementName: string
+
+## FlowRecordVersion (Flow Version)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- FlowRecordId: reference -> FlowRecord
+- VersionNumber: int
+- ActivatedById: reference -> User
+- ActivatedDate: datetime
+- ProgressStatus: picklist {Draft, Scheduled, PreparingData, InProgress, Finishing, Completed, Canceled, Error, UnderReview}
+- Entries: int
+- Exits: int
+- Errors: int
+- Stopped: int
+- IsPaused: boolean
+- PausingUserId: reference -> User
+- PausedDate: datetime
+- ResumingUserId: reference -> User
+- ResumedDate: datetime
+- ReasonPaused: textarea
+- ScheduledStartDate: datetime
+- FlowType: picklist {ActionCadenceAutolnch, ActionCadenceStepScrn, ActionPlanAutolnch, ApprovalOrchAutolnch, ApprovalOrchRecTrigAftSave, SchedulerApptsScrn, RecTrigAfterSave, RecTrigBefSave, SchdTrig, PfrmEvntTrig, RecTrigBefDel, DataCloudDataChg, AutolnchNoTrig, CartAsyncAutolnch, CheckoutScrn, …}
+- Status: picklist {Active, Draft, Obsolete, InvalidDraft, UnderReview}
+- Description: textarea
+- RunInMode: picklist {DefaultMode, SystemModeWithSharing, SystemModeWithoutSharing}
+- ApiVersion: double
+- IsTemplate: boolean
+- TriggerObjectOrEventLabel: string
+- Builder: string
+- SourceTemplateId: reference -> FlowRecord
+- IsOverridable: boolean
+- OverriddenById: reference -> FlowRecord
+- OverriddenFlowId: reference -> FlowRecord
+- CapacityCategory: picklist {MarketingCloudFlow}
+- AreMetricsLoggedToDataCloud: boolean
+- AccessType: picklist {Open, NamespaceRestricted}
+
+## FlowRecordVersionOccurrence (Flow Version Occurrence)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- FlowRecordVersionId: reference -> FlowRecordVersion
+- FlowRecordId: reference -> FlowRecord
+- ProgressStatus: picklist {Draft, Scheduled, PreparingData, InProgress, Finishing, Completed, Canceled, Error, UnderReview}
+- ScheduledDate: datetime
+- CompletedDate: datetime
+- Entries: int
+- Exits: int
+- Errors: int
+- Stopped: int
+- Enqueued: int
+- ErrorDetail: string
+
+## FulfillmentOrder (Fulfillment Order)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- FulfillmentOrderNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- AccountId: reference -> Account
+- FulfilledFromLocationId: reference -> Location
+- FulfilledToName: string (required)
+- FulfilledToStreet: textarea
+- FulfilledToCity: string
+- FulfilledToState: string
+- FulfilledToPostalCode: string
+- FulfilledToCountry: string
+- FulfilledToStateCode: picklist {AC, AG, AG, 05, 02, AL, AL, AK, AB, AL, AP, AM, AN, AN, AP, …}
+- FulfilledToCountryCode: picklist {AF, AX, AL, DZ, AD, AO, AI, AQ, AG, AR, AM, AW, AU, AT, AZ, …}
+- FulfilledToLatitude: double
+- FulfilledToLongitude: double
+- FulfilledToGeocodeAccuracy: picklist {Address, NearAddress, Block, Street, ExtendedZip, Zip, Neighborhood, City, County, State, Unknown}
+- FulfilledToAddress: address
+- FulfilledToEmailAddress: email
+- FulfilledToPhone: phone
+- ItemCount: double
+- Status: picklist {Draft, Allocated, Assigned, Pickpack, Fulfilled, Cancelled, Rejected, Printed, Pick Complete, Pack Complete} (required)
+- StatusCategory: picklist {DRAFT, ACTIVATED, FULFILLING, CLOSED, CANCELLED, REJECTED}
+- Type: picklist {Warehouse, Retail Store, In Store Pickup, Supplier, Download, Email}
+- TypeCategory: picklist {PHYSICAL, DROPSHIP, DIGITAL}
+- TotalProductAmount: currency
+- TotalAdjustmentAmount: currency
+- TotalDeliveryAmount: currency
+- TotalProductTaxAmount: currency
+- TotalAdjustmentTaxAmount: currency
+- TotalDeliveryTaxAmount: currency
+- TotalFeeAmount: currency
+- TotalFeeTaxAmount: currency
+- TotalAmount: currency
+- TotalTaxAmount: currency
+- OrderId: reference -> Order
+- InvoiceId: reference -> Invoice
+- GrandTotalAmount: currency
+- IsSuspended: boolean
+- TotalDeliveryAdjustAmount: currency
+- TotalDeliveryAdjustTaxAmount: currency
+- TotalFeeAdjustAmount: currency
+- TotalFeeAdjustTaxAmount: currency
+- TaxLocaleType: picklist {Net, Gross, Automatic}
+- BillToContactId: reference -> Contact
+- TotalProductAmtWithTax: currency
+- TotalAdjustmentAmtWithTax: currency
+- TotalDeliveryAmtWithTax: currency
+- TotalDeliveryAdjustAmtWithTax: currency
+- TotalFeeAmtWithTax: currency
+- TotalFeeAdjustAmtWithTax: currency
+- IsReship: boolean
+- ActivatedDate: datetime
+- ClosedDate: datetime
+- DeliveryDate: datetime
+- ProcessingTimeInMinutes: int
+- StartFulfillmentDate: datetime
+- RoutingReference: string
+
+## FulfillmentOrderItemAdjustment (Fulfillment Order Item Adjustment)
+- Id: id
+- IsDeleted: boolean
+- FulfillmentOrderItemAdjustmentNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- FulfillmentOrderLineItemId: reference -> FulfillmentOrderLineItem (required)
+- FulfillmentOrderId: reference -> FulfillmentOrder (required)
+- CampaignName: string
+- CouponName: string
+- PromotionName: string
+- Description: textarea
+- TotalTaxAmount: currency
+- Amount: currency (required)
+- TotalAmtWithTax: currency
+
+## FulfillmentOrderItemTax (Fulfillment Order Item Tax)
+- Id: id
+- IsDeleted: boolean
+- FulfillmentOrderItemTaxNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- FulfillmentOrderLineItemId: reference -> FulfillmentOrderLineItem (required)
+- FulfillmentOrderId: reference -> FulfillmentOrder (required)
+- FulfillmentOrderItemAdjustId: reference -> FulfillmentOrderItemAdjustment
+- Type: picklist {Actual, Estimated} (required)
+- Amount: currency (required)
+- Description: textarea
+- Rate: percent
+- TaxEffectiveDate: date (required)
+
+## FulfillmentOrderLineItem (Fulfillment Order Product)
+- Id: id
+- IsDeleted: boolean
+- FulfillmentOrderLineItemNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- FulfillmentOrderId: reference -> FulfillmentOrder (required)
+- OrderItemId: reference -> OrderItem
+- Description: string
+- Quantity: double (required)
+- OriginalQuantity: double (required)
+- QuantityUnitOfMeasure: string
+- TotalPrice: currency
+- TotalLineAmount: currency
+- TotalAdjustmentAmount: currency
+- TotalAdjustmentTaxAmount: currency
+- TotalLineTaxAmount: currency
+- TotalTaxAmount: currency
+- TotalAmount: currency
+- UnitPrice: currency
+- ServiceDate: datetime
+- EndDate: datetime
+- Product2Id: reference -> Product2
+- GrossUnitPrice: currency
+- TotalLineAmountWithTax: currency
+- TotalAdjustmentAmountWithTax: currency
+- IsReship: boolean
+- ReshipReason: picklist {Unknown, Damaged, Lost, Wrong Item}
+- RejectReason: picklist {Damaged, Just Sold, Out of Packing Supplies, Out of Stock, Other}
+- RejectedQuantity: double
+- MainFulfillmentOrderLineItemId: reference -> FulfillmentOrderLineItem
+
+## Holiday (Holiday)
+- Id: id
+- Name: string (required)
+- Description: string
+- IsAllDay: boolean
+- ActivityDate: date
+- StartTimeInMinutes: int
+- EndTimeInMinutes: int
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- IsRecurrence: boolean
+- RecurrenceStartDate: date
+- RecurrenceEndDateOnly: date
+- RecurrenceType: picklist {RecursDaily, RecursEveryWeekday, RecursMonthly, RecursMonthlyNth, RecursWeekly, RecursYearly, RecursYearlyNth}
+- RecurrenceInterval: int
+- RecurrenceDayOfWeekMask: int
+- RecurrenceDayOfMonth: int
+- RecurrenceInstance: picklist {First, Second, Third, Fourth, Last}
+- RecurrenceMonthOfYear: picklist {January, February, March, April, May, June, July, August, September, October, November, December}
+
+## IPAddressRange (IP Address Range)
+- Id: id
+- IsDeleted: boolean
+- DeveloperName: string (required)
+- Language: picklist {en_US, de, es, fr, it, ja, sv, ko, zh_TW, zh_CN, pt_BR, nl_NL, da, th, fi, …}
+- MasterLabel: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- IpAddressFeature: picklist {EmailIpFiltering}
+- IpAddressUsageScope: picklist {Exclusion, Inclusion}
+- StartAddress: string (required)
+- EndAddress: string (required)
+- Description: string
+
+## Idea (Idea)
+Record types: InternalIdeasIdeaRecordType
+- Id: id
+- IsDeleted: boolean
+- Title: string (required)
+- RecordTypeId: reference -> RecordType
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- CommunityId: reference -> Community (required)
+- Body: textarea
+- NumComments: int
+- VoteScore: double
+- VoteTotal: double
+- Categories: multipicklist
+- Status: picklist
+- LastCommentDate: datetime
+- LastCommentId: reference -> IdeaComment
+- ParentIdeaId: reference -> Idea
+- IsHtml: boolean
+- IsMerged: boolean
+- CreatorFullPhotoUrl: string
+- CreatorSmallPhotoUrl: string
+- CreatorName: string
+
+## IdentityResolution (Identity Resolution)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- Description: string
+- ErrorMessage: string
+- ErrorCode: picklist {NO_ERROR, PUBLISHING_ERROR, DELETING_ERROR, DELETING_DMO_ERROR, DELETING_OFFCORE_ERROR, UNKNOWN_ERROR, NO_MATCH_RULES_ERROR}
+- Status: picklist {NEW, PUBLISHING, PUBLISHED, UPDATING, DELETING, DELETING_OFFCORE, DELETE_FAILED, ERROR}
+- LastRunStatus: picklist {SUCCESS, IN_PROGRESS, ERROR, FAIL, SCHEDULED, DELETED, SKIPPED}
+- LastRunStatusDateTime: datetime
+- SourceCount: long
+- MatchedCount: long
+- UnifiedCount: long
+- ConsolidationRate: percent
+- IsScheduled: boolean
+- TotalAnonymousRecords: long
+- TotalNonAnonymousRecords: long
+- LastSuccessfulRunDateTime: datetime
+- RootEntityLabel: string
+- Suffix: string
+- StatusDetails: textarea
+- SecondaryEntityLabel: string
+- IsCaseSensitive: boolean
+- SourceIrId: reference -> IdentityResolution
+- IsLimitedToSingleHousehold: boolean
+- TotalCustomerHouseholds: long
+- TotalDerivedHouseholds: long
+- TotalCustomerHouseholdMembers: long
+- TotalDerivedHouseholdMembers: long
+- IrType: picklist {BYO_MDM, INDIVIDUAL, HOUSEHOLD, ACCOUNT, CROSS_ENTITY, ENTERPRISE_USER}
+
+## IframeWhiteListUrl (Trusted Domain for Inline Frames)
+- Id: id
+- IsDeleted: boolean
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- Url: string
+- Context: picklist {DCH_ADDIN_APP, LightningOut, Surveys, UIEmbedding, VisualforcePages}
+
+## Image (Image)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- ImageViewType: string
+- IsActive: boolean
+- ImageClass: picklist {SCENES, FOOD, OBJECTS, LOGOS}
+- ImageClassObjectType: picklist {TRAINING, DETECTION, FEEDBACK}
+- ContentDocumentId: reference -> ContentDocument
+- CapturedAngle: string
+- Title: string
+- AlternateText: string
+- Url: url
+
+## Incident (Incident)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- IncidentNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- Subject: string (required)
+- Description: textarea
+- ParentIncidentId: reference -> Incident
+- DetectedDateTime: datetime
+- StartDateTime: datetime
+- EndDateTime: datetime
+- ResolutionSummary: textarea
+- ResolvedById: reference -> User
+- ResolutionDateTime: datetime
+- StatusCode: picklist {New, Open, InProgress, Resolved, Completed, Closed, ProblemCreated}
+- Status: picklist {New, Open, In Progress, Resolved, Completed, Problem Created, Closed}
+- Impact: picklist {High, Medium, Low}
+- Urgency: picklist {High, Medium, Low}
+- Priority: picklist {Critical, High, Moderate, Low}
+- ReportedMethod: picklist {Email, Chat, Voice}
+- Type: picklist {New, Recurring}
+- Category: picklist {Database, Hardware, Inquiry / Help, Network, Software, Security, Telephony, Storage, Email, Access Management}
+- SubCategory: picklist {DB2, MS SQL Server, Oracle, MySQL, PostgreSQL, CPU, Disk, Keyboard, Memory, Monitor, Mouse, Printer, Power Supply, Laptop/Workstation, Antivirus, …}
+- PriorityOverrideReason: string
+- IsMajorIncident: boolean
+- IsStopped: boolean
+- StopStartDate: datetime
+- SlaStartDate: datetime
+- SlaExitDate: datetime
+- BusinessHoursId: reference -> BusinessHours
+- MilestoneStatus: string
+- IsClosed: boolean
+- EntitlementId: reference -> Entitlement
+- MilestoneTimer: string
+
+## IncidentRelatedItem (Incident Related Item)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- IncidentId: reference -> Incident (required)
+- AssetId: reference -> Asset
+- ImpactType: picklist {Business-Blocking, Partially Business-Blocking, Not Business-Blocking}
+- ImpactLevel: picklist {High, Medium, Low}
+- Comment: textarea
+- Product2Id: reference -> Product2
+
+## Individual (Individual)
+- Id: id
+- OwnerId: reference -> User
+- IsDeleted: boolean
+- LastName: string (required)
+- FirstName: string
+- Salutation: picklist {Mr., Ms., Mrs., Dr., Prof., Mx.}
+- Name: string
+- HasOptedOutTracking: boolean
+- HasOptedOutProfiling: boolean
+- HasOptedOutProcessing: boolean
+- HasOptedOutSolicit: boolean
+- ShouldForget: boolean
+- SendIndividualData: boolean
+- CanStorePiiElsewhere: boolean
+- HasOptedOutGeoTracking: boolean
+- BirthDate: date
+- DeathDate: date
+- ConvictionsCount: int
+- ChildrenCount: int
+- MilitaryService: picklist {Unknown, Yes, No}
+- IsHomeOwner: boolean
+- Occupation: string
+- Website: url
+- IndividualsAge: picklist {13 or Older, 16 or Older}
+- LastViewedDate: datetime
+- MasterRecordId: reference -> Individual
+- ConsumerCreditScore: int
+- ConsumerCreditScoreProviderName: string
+- InfluencerRating: int
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+
+## InventoryItemReservation (Inventory Item Reservation)
+- Id: id
+- IsDeleted: boolean
+- InventoryItemReservationName: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- InventoryReservationId: reference -> InventoryReservation (required)
+- ItemReservationSourceId: reference -> CartItem|FulfillmentOrderLineItem|OrderItem|ReturnOrderLineItem|Subscription_Line__c|Subscription__c|WorkOrderLineItem
+- ProductId: reference -> Product2
+- StockKeepingUnit: string
+- Quantity: double (required)
+- ReservedAtLocationId: reference -> Location|LocationGroup
+- ErrorMessage: textarea
+- ErrorCode: string
+
+## InventoryReservation (Inventory Reservation)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- InventoryReservationName: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- ReservationDate: datetime (required)
+- ReservationDurationInSeconds: int
+- ReservationIdentifier: string
+- ReservationSourceId: reference -> FulfillmentOrder|Order|ReturnOrder|Subscription_Line__c|Subscription__c|WebCart|WorkOrder
+- IsAsyncOperationInProgress: boolean
+- IsSuccess: boolean
+- ErrorMessage: textarea
+- ErrorCode: string
+
+## Invoice (Invoice)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- DocumentNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- ReferenceEntityId: reference -> CreditMemo|Opportunity|Order
+- InvoiceNumber: string
+- BillingAccountId: reference -> Account
+- TotalAmount: currency
+- TotalAmountWithTax: currency
+- TotalChargeAmount: currency
+- TotalAdjustmentAmount: currency
+- TotalTaxAmount: currency
+- Status: picklist {Draft, Draft In Progress, Pending, Posting In Progress, Posted, Canceled, Error, Void In Progress, Voided, Split In Progress, Split, Split Draft, Split Posting In Progress, Split Posted, Split Canceled, …}
+- InvoiceDate: date
+- DueDate: date
+- BillToContactId: reference -> Contact
+- Description: string
+- Balance: currency
+- TotalChargeTaxAmount: currency
+- TotalChargeAmountWithTax: currency
+- TotalAdjustmentTaxAmount: currency
+- TotalAdjustmentAmountWithTax: currency
+- NetCreditsApplied: currency
+- NetPaymentsApplied: currency
+- IsInvoiceLocked: boolean
+- InvoiceLockedDateTime: datetime
+- CorporateCurrencyCvsnRate: double
+- CorporateCurrencyCvsnDate: date
+- CorpCrcyCnvTotAmtWithTax: double
+- WriteOffStatus: picklist {InProgress, Completed, Failed}
+- WriteOffTotalChargeAmount: currency
+- WriteOffTotalTaxAmount: currency
+- FunctionalCurrencyCvsnRate: double
+- FunctionalCurrencyCvsnDate: date
+- FuncCrcyCnvTotAmtWithTax: double
+- TotalTaxesCapturedAtHeader: currency
+
+## InvoiceLine (Invoice Line)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- InvoiceId: reference -> Invoice
+- ReferenceEntityItemId: reference -> OrderItem
+- GroupReferenceEntityItemId: reference -> OrderItem
+- LineAmount: currency
+- Quantity: double
+- UnitPrice: currency
+- ChargeAmount: currency
+- TaxAmount: currency
+- AdjustmentAmount: currency
+- InvoiceStatus: string
+- Description: string
+- InvoiceLineStartDate: date
+- InvoiceLineEndDate: date
+- ReferenceEntityItemType: picklist {Order Product, Delivery Charge, Fee}
+- ReferenceEntityItemTypeCode: picklist {Product, Charge}
+- Product2Id: reference -> Product2
+- RelatedLineId: reference -> InvoiceLine
+- Type: picklist {Charge, Tax, Adjustment}
+- TaxName: string
+- TaxCode: string
+- TaxRate: percent
+- TaxEffectiveDate: date
+- ChargeTaxAmount: currency
+- ChargeAmountWithTax: currency
+- AdjustmentTaxAmount: currency
+- AdjustmentAmountWithTax: currency
+- TaxProcessingStatus: picklist {Pending, Posted, Estimated}
+- CorporateCurrencyCvsnRate: double
+- CorporateCurrencyCvsnDate: date
+- CorpCurrencyCnvChargeAmt: double
+- CorpCurrencyCnvTotalTaxAmt: double
+- FunctionalCurrencyCvsnRate: double
+- FunctionalCurrencyCvsnDate: date
+- FuncCurrencyCnvChargeAmt: double
+- FuncCrcyCnvTotalTaxAmt: double
+
+## Lead (Lead)
+- Id: id
+- IsDeleted: boolean
+- MasterRecordId: reference -> Lead
+- LastName: string (required)
+- FirstName: string
+- Salutation: picklist {Mr., Ms., Mrs., Dr., Prof., Mx.}
+- Name: string
+- Title: string
+- Company: string (required)
+- Street: textarea
+- City: string
+- State: string
+- PostalCode: string
+- Country: string
+- StateCode: picklist {AC, AG, AG, 05, 02, AL, AL, AK, AB, AL, AP, AM, AN, AN, AP, …}
+- CountryCode: picklist {AF, AX, AL, DZ, AD, AO, AI, AQ, AG, AR, AM, AW, AU, AT, AZ, …}
+- Latitude: double
+- Longitude: double
+- GeocodeAccuracy: picklist {Address, NearAddress, Block, Street, ExtendedZip, Zip, Neighborhood, City, County, State, Unknown}
+- Address: address
+- Phone: phone
+- MobilePhone: phone
+- Fax: phone
+- Email: email
+- Website: url
+- PhotoUrl: url
+- Description: textarea
+- LeadSource: picklist {Web, Phone Inquiry, Partner Referral, Purchased List, Other}
+- Status: picklist {Open - Not Contacted, Working - Contacted, Closed - Converted, Closed - Not Converted}
+- Industry: picklist {Agriculture, Apparel, Banking, Biotechnology, Chemicals, Communications, Construction, Consulting, Education, Electronics, Energy, Engineering, Entertainment, Environmental, Finance, …}
+- Rating: picklist {Hot, Warm, Cold}
+- AnnualRevenue: currency
+- NumberOfEmployees: int
+- OwnerId: reference -> Group|User
+- IsConverted: boolean
+- ConvertedDate: date
+- ConvertedAccountId: reference -> Account
+- ConvertedContactId: reference -> Contact
+- ConvertedOpportunityId: reference -> Opportunity
+- IsUnreadByOwner: boolean
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastActivityDate: date
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- Jigsaw: string
+- JigsawContactId: string
+- CleanStatus: picklist {Matched, Different, Acknowledged, NotFound, Inactive, Pending, SelectMatch, Skipped}
+- CompanyDunsNumber: string
+- DandbCompanyId: reference -> DandBCompany
+- EmailBouncedReason: string
+- EmailBouncedDate: datetime
+- IndividualId: reference -> Individual
+- IsPriorityRecord: boolean
+- SICCode__c: string
+- ProductInterest__c: picklist {GC1000 series, GC5000 series, GC3000 series}
+- Primary__c: picklist {No, Yes}
+- CurrentGenerators__c: string
+- NumberofLocations__c: double
+
+## LegalEntity (Legal Entity)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- CompanyName: string
+- Description: textarea
+- Status: picklist {Active, Inactive}
+- LegalEntityStreet: textarea
+- LegalEntityCity: string
+- LegalEntityState: string
+- LegalEntityPostalCode: string
+- LegalEntityCountry: string
+- LegalEntityStateCode: picklist {AC, AG, AG, 05, 02, AL, AL, AK, AB, AL, AP, AM, AN, AN, AP, …}
+- LegalEntityCountryCode: picklist {AF, AX, AL, DZ, AD, AO, AI, AQ, AG, AR, AM, AW, AU, AT, AZ, …}
+- LegalEntityLatitude: double
+- LegalEntityLongitude: double
+- LegalEntityGeocodeAccuracy: picklist {Address, NearAddress, Block, Street, ExtendedZip, Zip, Neighborhood, City, County, State, Unknown}
+- LegalEntityAddress: address
+
+## ListEmail (List Email)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- Subject: textarea
+- HtmlBody: textarea
+- TextBody: textarea
+- FromName: string
+- FromAddress: textarea (required)
+- ReplyToName: string
+- CcAddress: textarea
+- IsSyntheticCcEnabled: boolean
+- Status: picklist {Draft, Scheduled, Sent, LimitError, Cancelled, Running} (required)
+- HasAttachment: boolean
+- ScheduledDate: datetime
+- TotalSent: int
+- CampaignId: reference -> Campaign
+- IsTracked: boolean
+- RelatedToId: reference -> AppointmentInvitation|Case|Contact|Incident|Lead|Opportunity|Product2|User
+- IsEmailArchiveRequired: boolean
+
+## Location (Location)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- LocationType: picklist (required)
+- Latitude: double
+- Longitude: double
+- Location: location
+- Description: string
+- DrivingDirections: string
+- TimeZone: picklist {Pacific/Kiritimati, Pacific/Apia, Pacific/Fakaofo, Pacific/Kanton, Pacific/Tongatapu, Pacific/Chatham, Antarctica/McMurdo, Asia/Anadyr, Asia/Kamchatka, Pacific/Auckland, Pacific/Fiji, Pacific/Funafuti, Pacific/Kwajalein, Pacific/Majuro, Pacific/Nauru, …}
+- ParentLocationId: reference -> Location
+- PossessionDate: date
+- ConstructionStartDate: date
+- ConstructionEndDate: date
+- OpenDate: date
+- CloseDate: date
+- RemodelStartDate: date
+- RemodelEndDate: date
+- IsMobile: boolean
+- IsInventoryLocation: boolean
+- VisitorAddressId: reference -> Address
+- RootLocationId: reference -> Location
+- LocationLevel: int
+- ExternalReference: string
+- ShouldSyncWithOci: boolean
+- LogoId: reference -> ContentAsset
+- DefaultProcessingTime: int
+- DefaultProcessingTimeUnit: picklist {Hours, Days, Weeks}
+- DefaultPickupTime: time
+- FulfillingBusinessHoursId: reference -> BusinessHours
+- EarliestPickupTimeOffset: int
+- LatestPickupTimeOffset: int
+- IsEligibleForPickup: boolean
+- PickupProcessingTime: int
+- PickupProcessingTimeUnit: picklist {Hours, Days, Weeks}
+- Email: email
+- Fax: phone
+- Mobile: phone
+- Phone: phone
+- FulfillingOperationalHoursId: reference -> OperatingHours
+
+## LocationGroup (Location Group)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- LocationGroupName: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- ExternalReference: string
+- IsEnabled: boolean
+- ShouldSyncWithOci: boolean
+- Description: textarea
+
+## LocationGroupAssignment (Location Group Assignment)
+- Id: id
+- IsDeleted: boolean
+- LocationGroupAssignment: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- LocationId: reference -> Location (required)
+- LocationGroupId: reference -> LocationGroup (required)
+- LocationExternalReference: string
+- LocationGroupExternalReference: string
+- LocationName: string
+- LocationGroupName: string
+
+## LocationShippingCarrierMethod (Location Shipping Carrier Method)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- LocationSourceId: reference -> Location|LocationGroup (required)
+- ShippingCarrierMethodId: reference -> ShippingCarrierMethod (required)
+- PickupTime: time
+- MondayPickUpTime: time
+- TuesdayPickUpTime: time
+- WednesdayPickUpTime: time
+- ThursdayPickUpTime: time
+- FridayPickUpTime: time
+- SaturdayPickUpTime: time
+- SundayPickUpTime: time
+- ProcessingTime: int
+- ProcessingTimeUnit: picklist {Hours, Days, Weeks}
+
+## Macro (Macro)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- Description: textarea
+- IsAlohaSupported: boolean
+- IsLightningSupported: boolean
+- StartingContext: picklist {Account, ActivationTarget, AlternativePaymentMethod, ApiAnomalyEventStore, AppointmentCategory, AppointmentInvitation, AppointmentTopicTimeSlot, ApprovalSubmission, ApprovalSubmissionDetail, ApprovalWorkItem, Asset, AssetRelationship, AssignedResource, AuthorizationForm, AuthorizationFormConsent, …}
+
+## ManagedContent (Managed Content)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- PrimaryLanguage: picklist {en_US, de, es, fr, it, ja, sv, ko, zh_TW, zh_CN, pt_BR, nl_NL, da, th, fi, …}
+- ContentKey: string
+- AuthoredManagedContentSpaceId: reference -> ManagedContentSpace
+- ApiName: string
+- ExternalId: string
+- ContentTypeFullyQualifiedName: string
+
+## ManagedContentVariant (Managed Content Variant)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- VariantType: picklist {Content}
+- Language: picklist {en_US, de, es, fr, it, ja, sv, ko, zh_TW, zh_CN, pt_BR, nl_NL, da, th, fi, …}
+- UrlName: string
+- ManagedContentId: reference -> ManagedContent
+- IsReady: boolean
+- ManagedContentKey: string
+- ContentTypeFullyQualifiedName: string
+- IsPublished: boolean
+- ManagedContentVariantStatus: picklist {Draft, Published, Revised}
+- HasLocks: boolean
+- IsPrimary: boolean
+
+## MarketSegment (Segment)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- Description: textarea
+- IncludeCriteria: textarea
+- ExcludeCriteria: textarea
+- PublishScheduleInterval: picklist {NO_REFRESH, 1, 2, 4, 6, 12, 24}
+- PublishScheduleStartDateTime: datetime
+- PublishScheduleEndDate: date
+- LastPublishedEndDateTime: datetime
+- NextPublishDateTime: datetime
+- SegmentStatus: picklist {INACTIVE, COUNTING, PROCESSING, ACTIVE, ERROR}
+- LastSegmentStatusDateTime: datetime
+- LastSegmentStatusErrorCode: picklist {COUNTING_FAILED, PROCESSING_FAILED, SEG_ERROR_SYSTEM_DATE_OUT_OF_RANGE, SEG_ERROR_COUNT_IN_PROGRESS, SEG_ERROR_DATORAMA_BAD_REQUEST, SEG_ERROR_DATORAMA_FAILED_JOB, SEG_ERROR_DATORAMA_GENERIC, SEG_ERROR_DATORAMA_UNAUTHORIZED, SEG_ERROR_DATORAMA_UNKNOWN, SEG_ERROR_DATORAMA_UNPROCESSABLE, SEG_ERROR_DATORAMA_UNREACHABLE, SEG_ERROR_GET_TENANT_DISTRIBUTED_LOCK_FAILED, SEG_ERROR_INVALID_FILTER, SEG_ERROR_INVALID_STATE, SEG_ERROR_JMS_ERROR, …}
+- LastSegmentMemberCount: long
+- LastSegmentRemainderCount: long
+- LastSegmentExcludedCount: long
+- PublishStatus: picklist {PUBLISHING, SUCCESS, ERROR, NOT_PUBLISHED, SKIPPED, DEFERRED}
+- LastPublishStatusDateTime: datetime
+- LastPublishStatusErrorCode: picklist {PUBLISHING_FAILED, PUBLISHING_SKIPPED}
+- LastSegmentStatusErrorDetails: textarea
+- SegmentMembershipDataModelList: textarea
+- MarketSegmentType: picklist {UI, DBT, Lookalike, EinsteinGptSegmentsUI, Waterfall, Realtime, Dynamic}
+- SeedModelStatus: picklist {INACTIVE, COUNTING, PROCESSING, ACTIVE, ERROR}
+- LastSeedModelStatusDateTime: datetime
+- LastSeedModelStatusErrorCode: string
+- LastSeedModelRunDateTime: datetime
+- LastSegmentTotalCount: long
+- LastSegmentIncludedCount: long
+- PublishType: picklist {STANDARD, RAPID}
+- SegmentMembershipTable: string
+- IsSeedSegment: boolean
+- SeedSimilarityHighToMedium: long
+- SeedSimilarityMediumToLow: long
+- SeedSimilarity: picklist {EXTREMELY_SIMILAR, MODERATELY_SIMILAR, SLIGHTLY_SIMILAR}
+- LastSegmentCountEndDateTime: datetime
+- DataGraphId: reference -> DataGraph
+- PublishScheduleEndDateTime: datetime
+- LastSegmentMemberCountError: long
+- LastSegmentExcludedCountError: long
+- LookbackPeriod: string
+- IsPrevSaveApproxCount: boolean
+- IsCurrentSaveApproxCount: boolean
+- AdditionalMetadataInfo: textarea
+- PublishScheduleInfo: textarea
+- GroupSortLimitFilterCriteria: textarea
+- SourceMarketSegment: string
+- OwnedBy: string
+- IsRemote: boolean
+
+## MarketSegmentActivation (Activation)
+- Id: id
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- MarketSegmentId: reference -> MarketSegment
+- ActivationTargetId: reference -> ActivationTarget
+- LastPublishStatus: picklist {PUBLISHING, SUCCESS, ERROR, PARTNER_PROCESSING, PARTNER_ERROR, SEGMENT_ERROR, QUEUED, SKIPPED, NOT_SUPPORTED, NOT_PUBLISHED}
+- LastPublishStatusErrorMessage: string
+- LastPublishedDate: datetime
+- Description: string
+- ActivationObjectFilter: string
+- ActivationObjectPath: textarea
+- DmoFilterExpression: textarea
+- CustomerFileSource: picklist {1P, 3P, 1P&3P}
+- ActivationRefreshType: picklist {FULL_REFRESH, INCREMENTAL, NOT_APPLICABLE}
+- RecordCount: long
+- DirectAttributeDmoFilterExpression: textarea
+- StaticAttributes: textarea
+- LimitingAttributesExpression: textarea
+- LimitValue: int
+- WaterfallSelectedChildSegmentsConfig: textarea
+- ActivationStatus: picklist {ACTIVE, PROCESSING, ERROR, INACTIVE}
+- LastActivationStatusDateTime: datetime
+- LastActivationStatusErrorCode: picklist {CREATE_FAILED, UPDATE_FAILED, DELETE_FAILED, AUDIENCE_DMO_CREATE_FAILED, AUDIT_DMO_CREATE_FAILED, AD_AUDIENCE_INSIGHTS_DMO_CREATE_FAILED}
+- StartDate: datetime
+- EndDate: datetime
+- DataGraphPath: textarea
+- ActivationFlowType: picklist {SEGMENT, DMO, API_TRIGGERED, TEMPLATE}
+- ActivationEventMetadata: textarea
+- OwnedByOrg: string
+- IsRemote: boolean
+- DoExcludeUpdates: boolean
+- DoExcludeDeletes: boolean
+- AudienceDmoLastRunTimestamp: datetime
+- ActivationRecordSchema: textarea
+- ActivationMappingSchema: string
+- PartnerObjectIds: textarea
+- ActivationProcessingType: picklist {Batch, Streaming}
+- PlatformName: string
+- IdentityProviderDetails: textarea
+- CuratedEntityName: string
+- SourceDmoApiName: string
+- ActivationObjectName: string
+- DataGraphName: string
+
+## MessagingChannel (Messaging Channel)
+- Id: id
+- IsDeleted: boolean
+- DeveloperName: string (required)
+- Language: picklist {en_US, de, es, fr, it, ja, sv, ko, zh_TW, zh_CN, pt_BR, nl_NL, da, th, fi, …}
+- MasterLabel: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- Description: textarea
+- ChannelAddressIdentifier: string
+- MessageType: picklist {Text, Facebook, Line, GoogleHome, Alexa, Omega, AppleBusinessChat, WeChat, WebChat, WhatsApp, Phone, EmbeddedMessaging, Voice, Custom, InternalCopilot, …} (required)
+- MessagingPlatformKey: string (required)
+- IsoCountryCode: string
+- PlatformType: picklist {Standard, Enhanced}
+- IsActive: boolean
+- ChannelDefinitionId: reference -> ConversationChannelDefinition
+- RoutingType: picklist {OmniQueue, OmniSkills}
+- RoutingConfigurationId: reference -> QueueRoutingConfig
+- TargetQueueId: reference -> Group
+- SessionHandlerId: reference -> Group|User
+- FallbackQueueId: reference -> Group
+- ConsentType: picklist {ImplicitOptIn, ExplicitOptIn, DoubleOptIn}
+- OptInPrompt: textarea
+- DoubleOptInPrompt: textarea
+- IsRequireDoubleOptIn: boolean
+- DefaultResponse: textarea
+- InitialResponse: textarea
+- EngagedResponse: textarea
+- ConversationEndResponse: textarea
+- OfflineAgentsResponse: textarea
+- OutsideBusinessHoursResponse: textarea
+- BusinessHoursId: reference -> BusinessHours
+- IsRestrictedToBusinessHours: boolean
+- LinkingPreference: picklist {Contact}
+- IsLinkedRecordOpenedAsSubTab: boolean
+
+## MessagingDeliveryError (Messaging Delivery Error)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- MessagingChannelId: reference -> MessagingChannel
+- MessagingTemplateId: reference -> MessagingTemplate
+- FlowEntity: string
+- FullMessage: textarea
+- FailureReason: textarea
+- DestinationPhoneNumber: string
+- MessagingEndUserId: reference -> MessagingEndUser
+- Type: picklist {Error, Warning}
+- CorrelationIdentifier: string
+
+## MessagingEndUser (Messaging User)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- MessagingChannelId: reference -> MessagingChannel (required)
+- MessageType: picklist {Text, Facebook, Line, GoogleHome, Alexa, Omega, AppleBusinessChat, WeChat, WebChat, WhatsApp, Phone, EmbeddedMessaging, Voice, Custom, InternalCopilot, …} (required)
+- MessagingPlatformKey: string (required)
+- Locale: string
+- ProfilePictureUrl: url
+- HasInitialResponseSent: boolean
+- AccountId: reference -> Account
+- ContactId: reference -> Contact
+- IsoCountryCode: string
+- MessagingConsentStatus: picklist {OptedOut, ImplicitlyOptedIn, ExplicitlyOptedIn, DoublyOptedIn}
+- LeadId: reference -> Lead
+- IsFullyOptedIn: boolean
+- AuthenticatedEndUserId: reference -> User
+- Language: picklist {en_US, de, es, fr, it, ja, sv, ko, zh_TW, zh_CN, pt_BR, nl_NL, da, th, fi, …}
+- MessagingExternalUserKey: string
+
+## MessagingLink (Messaging Link)
+- Id: id
+- IsDeleted: boolean
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- MessagingChannelId: reference -> MessagingChannel (required)
+- EntityType: picklist {Account, Case, Contact, Lead, Opportunity, CustomEntityDefinition} (required)
+- RecordTypeId: reference -> RecordType
+- ShouldAttemptAutoLink: boolean
+- ShouldPromptCreate: boolean
+
+## MessagingSession (Messaging Session)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- MessagingChannelId: reference -> MessagingChannel (required)
+- MessagingEndUserId: reference -> MessagingEndUser (required)
+- Status: picklist {Active, Ended, Waiting, New, Consent, Inactive, Error, Paused} (required)
+- CaseId: reference -> Case
+- LeadId: reference -> Lead
+- OpportunityId: reference -> Opportunity
+- CampaignId: reference -> Campaign
+- AcceptTime: datetime
+- StartTime: datetime
+- EndTime: datetime
+- Origin: picklist {InboundInitiated, TriggeredOutbound, OptOut, OptIn, ConversationClose, AgentInitiated, Help, ConversationControlLost}
+- AgentType: picklist {Agent, Bot, BotToAgent, System}
+- SessionKey: string
+- TargetUserId: reference -> User
+- ChannelGroup: string
+- ChannelIntent: string
+- ChannelLocale: string
+- EndUserLanguage: picklist {en_US, de, es, fr, it, ja, sv, ko, zh_TW, zh_CN, pt_BR, nl_NL, da, th, fi, …}
+- ConversationId: reference -> Conversation
+- EndUserAccountId: reference -> Account
+- EndUserContactId: reference -> Contact
+- ChannelType: picklist {Text, Facebook, Line, GoogleHome, Alexa, Omega, AppleBusinessChat, WeChat, WebChat, WhatsApp, Phone, EmbeddedMessaging, Voice, Custom, InternalCopilot, …}
+- ChannelName: string
+- ChannelKey: string
+- PreviewDetails: string
+- EndUserMessageCount: int
+- AgentMessageCount: int
+- EndedByType: picklist {Agent, Bot, EndUser, System}
+- SuspendedByType: picklist {Agent, Bot, System}
+- ChannelEndUserFormula: string
+
+## MessagingTemplate (Messaging Template)
+- Id: id
+- IsDeleted: boolean
+- DeveloperName: string (required)
+- Language: picklist {en_US, de, es, fr, it, ja, sv, ko, zh_TW, zh_CN, pt_BR, nl_NL, da, th, fi, …}
+- MasterLabel: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- Message: textarea (required)
+- Description: textarea
+
+## MktCalculatedInsight (Calculated Insight)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- CalculatedInsightStatus: picklist {INACTIVE, PROCESSING, ACTIVE, ERROR, DRAFT, DELETING, DELETE_FAILED, PROCESSING_DEPENDENCIES, ERROR_DEPENDENCIES}
+- LastCalcInsightStatusErrorCode: picklist {PROCESSING_FAILED, CREATE_FAILED, DELETE_FAILED, VALIDATION_FAILED, SYNTAX_ERROR, EXTERNAL_ACCESS_ERROR, NOT_OPTIMIZED, DEPENDENCY_ERROR, DEPENDENCY_RESOLUTION_ERROR, NONE}
+- LastCalcInsightStatusDateTime: datetime
+- LastRunStatus: picklist {NONE, PENDING, PROCESSING, SUCCESS, ERROR, ABORTED}
+- LastRunStatusErrorCode: picklist {PROCESSING_FAILED, CREATE_FAILED, DELETE_FAILED, SYNTAX_ERROR, EXTERNAL_ACCESS_ERROR, NOT_OPTIMIZED, NONE}
+- LastRunStatusDateTime: datetime
+- LastRunDateTime: datetime
+- ExternalErrorProperties: textarea
+- OwnedBy: string
+- IsRemote: boolean
+- Dialect: picklist {ANSI_SQL, DC_SQL}
+- HistoryCiId: reference -> MktCalculatedInsight
+
+## MktDataTransform (Data Transform)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- DataTransformStatus: picklist {PROCESSING, ACTIVE, ERROR, DELETING, DRAFT}
+- LastRunStatus: picklist {NONE, PENDING, IN_PROGRESS, SUCCESS, FAILURE, CANCELED, PARTIAL_FAILURE, PARTIALLY_CANCELED, REBUILD_PENDING, REBUILDING, REBUILD_FAILURE, REBUILD_SUCCESS}
+- LastRunTime: datetime
+- LastDataChangeStatusDateTime: datetime
+- LastDataChangeStatusErrorCode: string
+- CreationType: picklist {CUSTOM, SYSTEM}
+- Type: picklist {STREAMING, BATCH}
+- TargetObject: string
+- DataTransformStatusDetails: textarea
+- CurrencyCode: string
+- IsSystem: boolean
+- IsCreatedAsMultiDefinition: boolean
+- FullRunFrequency: picklist {DAILY, WEEKLY, MONTHLY, ALWAYS}
+- CreationSource: picklist {DBT_LABS, BYOC_SCRIPT, DATA_GRAPH, SENT_OS, SECONDARY_INDEX}
+
+## MktMLModel (Model)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- Description: textarea
+- MlModelApiName: string
+- OffCoreSyncStatus: picklist {NOT_SYNCED, SYNCING, SYNCED, ERROR}
+- DeployStatus: picklist {DRAFT, REGISTERED, ACTIVATED, DEACTIVATED, FAILED}
+- LastRunStatus: picklist {SUCCESS, FAILED, IN_PROGRESS, ABORTED, NOT_STARTED, PENDING, SUBMITTED}
+- LastRefreshDate: datetime
+- LastProcessedRecords: long
+- AggregatedStatus: picklist {NOT_SYNCED, SYNCING, SYNCED, ERROR}
+- ScoringMode: picklist {Batch, OnDemand, Streaming, Scheduled}
+
+## Note (Note)
+- Id: id
+- IsDeleted: boolean
+- ParentId: reference -> Account|AppointmentCategory|AppointmentInvitation|ApprovalSubmission|ApprovalSubmissionDetail|ApprovalWorkItem|Asset|ChangeRequest|CommSubscription|CommSubscriptionChannelType|CommSubscriptionConsent|CommSubscriptionTiming|Contact|Contract|ContractLineItem|CreditMemo|DataQueryWorkspace|DeliveryEstimationSetup|DevopsActivityLog|DevopsEnvDeployment|DevopsEnvDeploymentMbr|DevopsEnvironment|DevopsPipeline|DevopsPipelineEnvironment|DevopsPipelineStage|DevopsPipelnStgProm|DevopsPipelnStgPromWkItem|DevopsProject|DevopsProjectEnvironment|DevopsProjectPipeline|DevopsRequestInfo|EngagementChannelType|Entitlement|Image|Incident|Invoice|Lead|LegalEntity|Location|LocationShippingCarrierMethod|Opportunity|Order|Problem|Product2|Promotion|ReturnOrder|ReturnOrderLineItem|ServiceAppointment|ServiceContract|ServiceResource|Shift|SourceCodeRepoProvider|SourceCodeRepository|SourceCodeRepositoryBranch|Subscription_Line__c|Subscription__c|Waitlist|WorkItem|WorkItemComponent|WorkItemComponentList|WorkOrder|WorkOrderLineItem|WorkPlan|WorkPlanTemplate|WorkStep|WorkStepTemplate (required)
+- Title: string (required)
+- IsPrivate: boolean
+- Body: textarea
+- OwnerId: reference -> User
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+
+## OperatingHours (Operating Hours)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- Description: textarea
+- TimeZone: picklist {Pacific/Kiritimati, Pacific/Apia, Pacific/Fakaofo, Pacific/Kanton, Pacific/Tongatapu, Pacific/Chatham, Antarctica/McMurdo, Asia/Anadyr, Asia/Kamchatka, Pacific/Auckland, Pacific/Fiji, Pacific/Funafuti, Pacific/Kwajalein, Pacific/Majuro, Pacific/Nauru, …} (required)
+
+## OperatingHoursHoliday (Operating Hours Holiday)
+- Id: id
+- IsDeleted: boolean
+- OperatingHoursHolidayNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- OperatingHoursId: reference -> OperatingHours (required)
+- HolidayId: reference -> Holiday (required)
+- DateAndTime: string
+
+## Opportunity (Opportunity)
+- Id: id
+- IsDeleted: boolean
+- AccountId: reference -> Account
+- IsPrivate: boolean
+- Name: string (required)
+- Description: textarea
+- StageName: picklist {Prospecting, Qualification, Needs Analysis, Value Proposition, Id. Decision Makers, Perception Analysis, Proposal/Price Quote, Negotiation/Review, Closed Won, Closed Lost} (required)
+- Amount: currency
+- Probability: percent
+- ExpectedRevenue: currency
+- TotalOpportunityQuantity: double
+- CloseDate: date (required)
+- Type: picklist {Existing Customer - Upgrade, Existing Customer - Replacement, Existing Customer - Downgrade, New Customer}
+- NextStep: string
+- LeadSource: picklist {Web, Phone Inquiry, Partner Referral, Purchased List, Other}
+- IsClosed: boolean
+- IsWon: boolean
+- ForecastCategory: picklist {Omitted, Pipeline, BestCase, MostLikely, Forecast, Closed}
+- ForecastCategoryName: picklist {Omitted, Pipeline, Best Case, Commit, Closed}
+- CampaignId: reference -> Campaign
+- HasOpportunityLineItem: boolean
+- Pricebook2Id: reference -> Pricebook2
+- OwnerId: reference -> User
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastActivityDate: date
+- PushCount: int
+- LastStageChangeDate: datetime
+- FiscalQuarter: int
+- FiscalYear: int
+- Fiscal: string
+- ContactId: reference -> Contact
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- HasOpenActivity: boolean
+- HasOverdueTask: boolean
+- LastAmountChangedHistoryId: reference -> OpportunityHistory
+- LastCloseDateChangedHistoryId: reference -> OpportunityHistory
+- DeliveryInstallationStatus__c: picklist {In progress, Yet to begin, Completed}
+- TrackingNumber__c: string
+- OrderNumber__c: string
+- CurrentGenerators__c: string
+- MainCompetitors__c: string
+- Loss_Reason__c: picklist {Price, Timing, Competitor, No Budget, No Decision, Other}
+
+## OpportunityContactRole (Opportunity Contact Role)
+- Id: id
+- OpportunityId: reference -> Opportunity (required)
+- ContactId: reference -> Contact (required)
+- Role: picklist {Business User, Decision Maker, Economic Buyer, Economic Decision Maker, Evaluator, Executive Sponsor, Influencer, Technical Buyer, Other}
+- IsPrimary: boolean
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- IsDeleted: boolean
+
+## OpportunityLineItem (Opportunity Product)
+- Id: id
+- OpportunityId: reference -> Opportunity (required)
+- SortOrder: int
+- PricebookEntryId: reference -> PricebookEntry
+- Product2Id: reference -> Product2
+- ProductCode: string
+- Name: string
+- Quantity: double (required)
+- TotalPrice: currency
+- UnitPrice: currency
+- ListPrice: currency
+- ServiceDate: date
+- Description: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- IsDeleted: boolean
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+
+## OpportunityPartner (Opportunity Partner)
+- Id: id
+- OpportunityId: reference -> Opportunity (required)
+- AccountToId: reference -> Account (required)
+- Role: picklist {System Integrator, Agency, Advertiser, VAR/Reseller, Distributor, Developer, Broker, Lender, Supplier, Institution, Contractor, Dealer, Consultant}
+- IsPrimary: boolean
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- IsDeleted: boolean
+- ReversePartnerId: reference -> OpportunityPartner
+
+## Order (Order)
+- Id: id
+- OwnerId: reference -> Group|User
+- ContractId: reference -> Contract
+- AccountId: reference -> Account
+- Pricebook2Id: reference -> Pricebook2
+- OriginalOrderId: reference -> Order
+- EffectiveDate: date (required)
+- EndDate: date
+- IsReductionOrder: boolean
+- Status: picklist {Draft, Activated} (required)
+- Description: textarea
+- CustomerAuthorizedById: reference -> Contact
+- CustomerAuthorizedDate: date
+- CompanyAuthorizedById: reference -> User
+- CompanyAuthorizedDate: date
+- Type: picklist
+- BillingStreet: textarea
+- BillingCity: string
+- BillingState: string
+- BillingPostalCode: string
+- BillingCountry: string
+- BillingStateCode: picklist {AC, AG, AG, 05, 02, AL, AL, AK, AB, AL, AP, AM, AN, AN, AP, …}
+- BillingCountryCode: picklist {AF, AX, AL, DZ, AD, AO, AI, AQ, AG, AR, AM, AW, AU, AT, AZ, …}
+- BillingLatitude: double
+- BillingLongitude: double
+- BillingGeocodeAccuracy: picklist {Address, NearAddress, Block, Street, ExtendedZip, Zip, Neighborhood, City, County, State, Unknown}
+- BillingAddress: address
+- ShippingStreet: textarea
+- ShippingCity: string
+- ShippingState: string
+- ShippingPostalCode: string
+- ShippingCountry: string
+- ShippingStateCode: picklist {AC, AG, AG, 05, 02, AL, AL, AK, AB, AL, AP, AM, AN, AN, AP, …}
+- ShippingCountryCode: picklist {AF, AX, AL, DZ, AD, AO, AI, AQ, AG, AR, AM, AW, AU, AT, AZ, …}
+- ShippingLatitude: double
+- ShippingLongitude: double
+- ShippingGeocodeAccuracy: picklist {Address, NearAddress, Block, Street, ExtendedZip, Zip, Neighborhood, City, County, State, Unknown}
+- ShippingAddress: address
+- Name: string
+- PoDate: date
+- PoNumber: string
+- OrderReferenceNumber: string
+- BillToContactId: reference -> Contact
+- ShipToContactId: reference -> Contact
+- ActivatedDate: datetime
+- ActivatedById: reference -> User
+- StatusCode: picklist {Draft, Activated, Canceled, Expired, Superseded}
+- OrderNumber: string
+- TotalAmount: currency
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- IsDeleted: boolean
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+
+## OrderItem (Order Product)
+- Id: id
+- Product2Id: reference -> Product2
+- IsDeleted: boolean
+- OrderId: reference -> Order (required)
+- PricebookEntryId: reference -> PricebookEntry (required)
+- OriginalOrderItemId: reference -> OrderItem
+- AvailableQuantity: double
+- Quantity: double (required)
+- UnitPrice: currency
+- ListPrice: currency
+- TotalPrice: currency
+- ServiceDate: date
+- EndDate: date
+- Description: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- OrderItemNumber: string
+
+## PartyConsent (Party Consent)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- PartyId: reference -> Individual (required)
+- Action: picklist {Target, Segment, Data Collection, Cross Device, Reidentification, Share Data}
+- PrivacyConsentStatus: picklist {NotSeen, Seen, OptIn, OptOut, OptInPending, OptOutPending}
+- CaptureDate: datetime
+- CaptureContactPointType: picklist {Email, Phone, Web, Social, MailingAddress, InPerson, Video}
+- CaptureSource: string
+- PartyRoleId: reference -> Customer|Seller
+- BusinessBrandId: reference -> BusinessBrand
+- DataUsePurposeId: reference -> DataUsePurpose
+
+## Payment (Payment)
+- Id: id
+- IsDeleted: boolean
+- PaymentNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- PaymentGroupId: reference -> PaymentGroup
+- AccountId: reference -> Account
+- PaymentAuthorizationId: reference -> PaymentAuthorization
+- Date: datetime
+- CancellationDate: datetime
+- Amount: currency (required)
+- Status: picklist {Draft, Processed, Canceled, Pending, Failed} (required)
+- Type: picklist {Sale, Capture} (required)
+- ProcessingMode: picklist {Salesforce, External} (required)
+- GatewayRefNumber: string
+- ClientContext: textarea
+- GatewayResultCode: string
+- SfResultCode: picklist {Success, PermanentFail, Decline, RequiresReview, Indeterminate, SystemError, ValidationError}
+- GatewayDate: datetime
+- CancellationGatewayRefNumber: string
+- CancellationGatewayResultCode: string
+- CancellationSfResultCode: string
+- CancellationGatewayDate: datetime
+- Comments: textarea
+- ImpactAmount: currency
+- EffectiveDate: datetime
+- CancellationEffectiveDate: datetime
+- GatewayResultCodeDescription: string
+- GatewayRefDetails: textarea
+- IpAddress: string
+- MacAddress: string
+- Phone: phone
+- Email: email
+- PaymentGatewayId: reference -> PaymentGateway
+- PaymentMethodId: reference -> PaymentMethod
+- TotalApplied: currency
+- TotalUnapplied: currency
+- NetApplied: currency
+- Balance: currency
+- TotalRefundApplied: currency
+- TotalRefundUnapplied: currency
+- NetRefundApplied: currency
+- PaymentIntentGuid: string
+- TotalPaymentCreditApplied: currency
+- TotalPaymentCreditUnapplied: currency
+- NetPaymentCreditApplied: currency
+
+## PaymentAuthAdjustment (Payment Authorization Adjustment)
+- Id: id
+- IsDeleted: boolean
+- PaymentAuthAdjustmentNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- PaymentAuthorizationId: reference -> PaymentAuthorization (required)
+- ProcessingMode: picklist {Salesforce, External} (required)
+- Amount: currency (required)
+- Status: picklist {Draft, Processed, Canceled, Pending} (required)
+- Type: picklist {Reversal} (required)
+- Date: datetime
+- GatewayDate: datetime
+- EffectiveDate: datetime
+- Comments: textarea
+- GatewayRefNumber: string
+- GatewayResultCode: string
+- SfResultCode: picklist {Success, PermanentFail, Decline, RequiresReview, Indeterminate, SystemError, ValidationError}
+- AccountId: reference -> Account
+- GatewayRefDetails: textarea
+- GatewayResultCodeDescription: string
+- IpAddress: string
+- MacAddress: string
+- Phone: phone
+- Email: email
+
+## PaymentAuthorization (Payment Authorization)
+- Id: id
+- IsDeleted: boolean
+- PaymentAuthorizationNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- PaymentGroupId: reference -> PaymentGroup
+- AccountId: reference -> Account
+- Date: datetime
+- GatewayDate: datetime
+- ExpirationDate: datetime
+- EffectiveDate: datetime
+- Amount: currency (required)
+- Status: picklist {Draft, Processed, Canceled, Pending, Failed} (required)
+- ProcessingMode: picklist {Salesforce, External} (required)
+- PaymentMethodId: reference -> PaymentMethod
+- Comments: textarea
+- GatewayRefDetails: textarea
+- GatewayRefNumber: string
+- GatewayResultCode: string
+- SfResultCode: picklist {Success, PermanentFail, Decline, RequiresReview, Indeterminate, SystemError, ValidationError}
+- GatewayAuthCode: string
+- TotalAuthReversalAmount: currency
+- GatewayResultCodeDescription: string
+- Balance: currency
+- TotalPaymentCaptureAmount: currency
+- IpAddress: string
+- MacAddress: string
+- Phone: phone
+- Email: email
+- PaymentGatewayId: reference -> PaymentGateway
+- PaymentIntentGuid: string
+
+## PaymentCredit (Payment Credit)
+- Id: id
+- IsDeleted: boolean
+- PaymentCreditNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- AccountId: reference -> Account
+- PaymentId: reference -> Payment (required)
+- ReturnOrderId: reference -> ReturnOrder
+- CreditMemoId: reference -> CreditMemo
+- CreditType: picklist (required)
+- CreditTypeCategory: picklist {Credit}
+- TotalApplied: currency
+- TotalUnapplied: currency
+- NetApplied: currency
+- Balance: currency
+- Amount: currency (required)
+- TotalCreditTxnAmt: currency
+- TotalCreditPendingTxnAmt: currency
+- Comments: textarea
+- EffectiveDate: datetime (required)
+
+## PaymentCreditLinePayment (Payment Credit Line Payment)
+- Id: id
+- IsDeleted: boolean
+- PaymentCreditLinePaymentNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- PaymentId: reference -> Payment (required)
+- PaymentCreditId: reference -> PaymentCredit (required)
+- AssociatedLineId: reference -> PaymentCreditLinePayment
+- AssociatedAccountId: reference -> Account
+- Amount: currency (required)
+- Type: picklist {Applied, Unapplied} (required)
+- AppliedDate: datetime
+- UnappliedDate: datetime
+- Description: string
+- HasBeenUnapplied: boolean
+
+## PaymentCreditTransaction (Payment Credit Transaction)
+- Id: id
+- IsDeleted: boolean
+- PaymentCreditTransactionNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- PaymentCreditId: reference -> PaymentCredit (required)
+- AssociatedAccountId: reference -> Account
+- Amount: currency (required)
+- ProcessingMode: picklist {Salesforce, External} (required)
+- Status: picklist {Draft, Processed, Canceled, Pending, Failed} (required)
+- TransactionMessage: string
+- ExternalReference: string
+- ClientContext: textarea
+
+## PaymentGateway (Payment Gateway)
+- Id: id
+- IsDeleted: boolean
+- PaymentGatewayName: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- PaymentGatewayProviderId: reference -> PaymentGatewayProvider
+- MerchantCredentialId: reference -> NamedCredential
+- Status: picklist {Active, Inactive} (required)
+- Comments: textarea
+- ExternalReference: string
+- DefaultTapToPayLocation: string
+
+## PaymentGatewayLog (Payment Gateway Log)
+- Id: id
+- IsDeleted: boolean
+- PaymentGatewayLogNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- ReferencedEntityId: reference -> AlternativePaymentMethod|CardPaymentMethod|Payment|PaymentAuthAdjustment|PaymentAuthorization|Refund
+- InteractionType: picklist {Authorization, Sale, Void, Capture, Tokenize, Avs, ReferencedRefund, CheckGiftCardBalance, AuthorizationReversal, PostAuth}
+- SfRefNumber: string
+- InteractionStatus: picklist {NoOp, Initiated, Success, Failed, Timeout}
+- GatewayAuthCode: string
+- GatewayRefNumber: string
+- SfResultCode: picklist {Success, PermanentFail, Decline, RequiresReview, Indeterminate, SystemError, ValidationError}
+- GatewayResultCode: string
+- GatewayResultCodeDescription: string
+- GatewayDate: datetime
+- GatewayMessage: string
+- GatewayAvsCode: string
+- PaymentGatewayId: reference -> PaymentGateway
+- IsNotification: picklist {No, Yes}
+- RetryDecision: picklist {Retriable, NonRetriable}
+- RetryCategory: picklist {CardLimit, PaymentProcessing, PaymentInformation, Security, GatewayConnection, ValidationFailure, Unknown}
+- Request: textarea
+- Response: textarea
+
+## PaymentGatewayProvider (Payment Gateway Provider)
+- Id: id
+- IsDeleted: boolean
+- DeveloperName: string (required)
+- Language: picklist {en_US, de, es, fr, it, ja, sv, ko, zh_TW, zh_CN, pt_BR, nl_NL, da, th, fi, …}
+- MasterLabel: string (required)
+- NamespacePrefix: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- ApexAdapterId: reference -> ApexClass
+- Comments: textarea
+- IdempotencySupported: picklist {No, Yes}
+
+## PaymentGroup (Payment Group)
+- Id: id
+- IsDeleted: boolean
+- PaymentGroupNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- SourceObjectId: reference -> Order
+
+## PaymentLineInvoice (Payment Line Invoice)
+- Id: id
+- IsDeleted: boolean
+- PaymentLineInvoiceNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- InvoiceId: reference -> Invoice (required)
+- PaymentId: reference -> Payment (required)
+- Amount: currency (required)
+- Type: picklist {Applied, Unapplied} (required)
+- HasBeenUnapplied: picklist {No, Yes, NA} (required)
+- Comments: textarea
+- Date: datetime
+- AppliedDate: datetime
+- EffectiveDate: datetime
+- UnappliedDate: datetime
+- AssociatedAccountId: reference -> Account
+- AssociatedPaymentLineId: reference -> PaymentLineInvoice
+- ImpactAmount: currency
+- EffectiveImpactAmount: currency
+- PaymentBalance: currency
+
+## PaymentMethod (Payment Method)
+- Id: id
+- ImplementorType: string
+- AccountId: reference -> Account
+- NickName: string
+- CompanyName: string
+- Status: picklist {Active, InActive, Canceled}
+- Comments: textarea
+- IsAutoPayEnabled: boolean
+- PaymentMethodStreet: textarea
+- PaymentMethodCity: string
+- PaymentMethodState: string
+- PaymentMethodPostalCode: string
+- PaymentMethodCountry: string
+- PaymentMethodStateCode: picklist {AC, AG, AG, 05, 02, AL, AL, AK, AB, AL, AP, AM, AN, AN, AP, …}
+- PaymentMethodCountryCode: picklist {AF, AX, AL, DZ, AD, AO, AI, AQ, AG, AR, AM, AW, AU, AT, AZ, …}
+- PaymentMethodLatitude: double
+- PaymentMethodLongitude: double
+- PaymentMethodGeocodeAccuracy: picklist {Address, NearAddress, Block, Street, ExtendedZip, Zip, Neighborhood, City, County, State, Unknown}
+- PaymentMethodAddress: address
+- PaymentMethodType: picklist {ACH, Affirm, Afterpay, AfterpayClearpay, AmazonPay, AmericanExpress, ApplePay, BACS, BanContact, BECS, Clearpay, DinersClub, Discover, EPS, ExtendedAPM, …}
+- PaymentMethodSubType: string
+- PaymentMethodDetails: string
+- CreatedById: reference -> User
+- CreatedDate: datetime
+- LastModifiedById: reference -> User
+- LastModifiedDate: datetime
+- SystemModstamp: datetime
+- IsDeleted: boolean
+- Name: string
+
+## PendingOrderSummary (Pending Order Summary)
+- Id: id
+- ExternalId: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- OrderNumber: string
+- AccountId: reference -> Account
+- BillToContactId: reference -> Contact
+- SalesStoreId: reference -> WebStore
+- ShopperName: string
+- BillingEmailAddress: email
+- BillingPhoneNumber: phone
+- OrderedDate: datetime
+- GrandTotalAmount: currency
+- Description: string
+- Payload: textarea
+- ExternalReferenceIdentifier: string
+- PayloadType: picklist {JSON_RAW, JSON_GZIP}
+- ProcessingInstructions: textarea
+
+## PermissionSetLicense (Permission Set License)
+- Id: id
+- IsDeleted: boolean
+- DeveloperName: string
+- Language: picklist {en_US, de, es, fr, it, ja, sv, ko, zh_TW, zh_CN, pt_BR, nl_NL, da, th, fi, …}
+- MasterLabel: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- PermissionSetLicenseKey: string
+- TotalLicenses: int
+- Status: picklist {Active, Disabled}
+- ExpirationDate: date
+- MaximumPermissionsEmailSingle: boolean
+- MaximumPermissionsEmailMass: boolean
+- MaximumPermissionsEditTask: boolean
+- MaximumPermissionsEditEvent: boolean
+- MaximumPermissionsExportReport: boolean
+- MaximumPermissionsImportPersonal: boolean
+- MaximumPermissionsDataExport: boolean
+- MaximumPermissionsManageUsers: boolean
+- MaximumPermissionsEditPublicFilters: boolean
+- MaximumPermissionsEditPublicTemplates: boolean
+- MaximumPermissionsModifyAllData: boolean
+- MaximumPermissionsEditBillingInfo: boolean
+- MaximumPermissionsManageCases: boolean
+- MaximumPermissionsMassInlineEdit: boolean
+- MaximumPermissionsEditKnowledge: boolean
+- MaximumPermissionsManageKnowledge: boolean
+- MaximumPermissionsManageSolutions: boolean
+- MaximumPermissionsCustomizeApplication: boolean
+- MaximumPermissionsEditReadonlyFields: boolean
+- MaximumPermissionsRunReports: boolean
+- MaximumPermissionsViewSetup: boolean
+- MaximumPermissionsTransferAnyEntity: boolean
+- MaximumPermissionsNewReportBuilder: boolean
+- MaximumPermissionsActivateContract: boolean
+- MaximumPermissionsActivateOrder: boolean
+- MaximumPermissionsImportLeads: boolean
+- MaximumPermissionsManageLeads: boolean
+- MaximumPermissionsTransferAnyLead: boolean
+- MaximumPermissionsViewAllData: boolean
+- MaximumPermissionsEditPublicDocuments: boolean
+- MaximumPermissionsViewEncryptedData: boolean
+- MaximumPermissionsEditBrandTemplates: boolean
+- MaximumPermissionsEditHtmlTemplates: boolean
+- MaximumPermissionsChatterInternalUser: boolean
+- MaximumPermissionsManageTranslation: boolean
+- MaximumPermissionsManageEncryptionKeys: boolean
+- MaximumPermissionsDeleteActivatedContract: boolean
+- MaximumPermissionsChatterInviteExternalUsers: boolean
+- MaximumPermissionsSendSitRequests: boolean
+- MaximumPermissionsApiUserOnly: boolean
+- MaximumPermissionsManageRemoteAccess: boolean
+- MaximumPermissionsCanUseNewDashboardBuilder: boolean
+- MaximumPermissionsManageCategories: boolean
+- MaximumPermissionsConvertLeads: boolean
+- MaximumPermissionsPasswordNeverExpires: boolean
+- MaximumPermissionsUseTeamReassignWizards: boolean
+- MaximumPermissionsEditActivatedOrders: boolean
+- MaximumPermissionsInstallPackaging: boolean
+- MaximumPermissionsPublishPackaging: boolean
+- MaximumPermissionsChatterOwnGroups: boolean
+- MaximumPermissionsEditOppLineItemUnitPrice: boolean
+- MaximumPermissionsCreatePackaging: boolean
+- MaximumPermissionsBulkApiHardDelete: boolean
+- MaximumPermissionsSolutionImport: boolean
+- MaximumPermissionsManageCallCenters: boolean
+- MaximumPermissionsManageSynonyms: boolean
+- MaximumPermissionsViewContent: boolean
+- MaximumPermissionsManageEmailClientConfig: boolean
+- MaximumPermissionsEnableNotifications: boolean
+- MaximumPermissionsManageDataIntegrations: boolean
+- MaximumPermissionsDistributeFromPersWksp: boolean
+- MaximumPermissionsViewDataCategories: boolean
+- MaximumPermissionsManageDataCategories: boolean
+- MaximumPermissionsAuthorApex: boolean
+- MaximumPermissionsManageMobile: boolean
+- MaximumPermissionsApiEnabled: boolean
+- MaximumPermissionsManageCustomReportTypes: boolean
+- MaximumPermissionsEditCaseComments: boolean
+- MaximumPermissionsTransferAnyCase: boolean
+- MaximumPermissionsContentAdministrator: boolean
+- MaximumPermissionsCreateWorkspaces: boolean
+- MaximumPermissionsManageContentPermissions: boolean
+- MaximumPermissionsManageContentProperties: boolean
+- MaximumPermissionsManageContentTypes: boolean
+- MaximumPermissionsManageExchangeConfig: boolean
+- MaximumPermissionsManageAnalyticSnapshots: boolean
+- MaximumPermissionsScheduleReports: boolean
+- MaximumPermissionsManageBusinessHourHolidays: boolean
+- MaximumPermissionsManageEntitlements: boolean
+- MaximumPermissionsManageDynamicDashboards: boolean
+- MaximumPermissionsCustomSidebarOnAllPages: boolean
+- MaximumPermissionsManageInteraction: boolean
+- MaximumPermissionsViewMyTeamsDashboards: boolean
+- MaximumPermissionsModerateChatter: boolean
+- MaximumPermissionsResetPasswords: boolean
+- MaximumPermissionsFlowUFLRequired: boolean
+- MaximumPermissionsCanInsertFeedSystemFields: boolean
+- MaximumPermissionsActivitiesAccess: boolean
+- MaximumPermissionsManageKnowledgeImportExport: boolean
+- MaximumPermissionsUseInboxSchedulingOnBehalfOf: boolean
+- MaximumPermissionsEmailTemplateManagement: boolean
+- MaximumPermissionsEmailAdministration: boolean
+- MaximumPermissionsManageChatterMessages: boolean
+- MaximumPermissionsAllowEmailIC: boolean
+- MaximumPermissionsChatterFileLink: boolean
+- MaximumPermissionsForceTwoFactor: boolean
+- MaximumPermissionsViewEventLogFiles: boolean
+- MaximumPermissionsManageNetworks: boolean
+- MaximumPermissionsManageAuthProviders: boolean
+- MaximumPermissionsRunFlow: boolean
+- MaximumPermissionsCreateCustomizeDashboards: boolean
+- MaximumPermissionsCreateDashboardFolders: boolean
+- MaximumPermissionsViewPublicDashboards: boolean
+- MaximumPermissionsManageDashbdsInPubFolders: boolean
+- MaximumPermissionsCreateCustomizeReports: boolean
+- MaximumPermissionsCreateReportFolders: boolean
+- MaximumPermissionsViewPublicReports: boolean
+- MaximumPermissionsManageReportsInPubFolders: boolean
+- MaximumPermissionsEditMyDashboards: boolean
+- MaximumPermissionsEditMyReports: boolean
+- MaximumPermissionsViewAllUsers: boolean
+- MaximumPermissionsAllowUniversalSearch: boolean
+- MaximumPermissionsConnectOrgToEnvironmentHub: boolean
+- MaximumPermissionsWorkCalibrationUser: boolean
+- MaximumPermissionsCreateCustomizeFilters: boolean
+- MaximumPermissionsWorkDotComUserPerm: boolean
+- MaximumPermissionsContentHubUser: boolean
+- MaximumPermissionsGovernNetworks: boolean
+- MaximumPermissionsSalesConsole: boolean
+- MaximumPermissionsTwoFactorApi: boolean
+- MaximumPermissionsDeleteTopics: boolean
+- MaximumPermissionsEditTopics: boolean
+- MaximumPermissionsCreateTopics: boolean
+- MaximumPermissionsAssignTopics: boolean
+- MaximumPermissionsIdentityEnabled: boolean
+- MaximumPermissionsIdentityConnect: boolean
+- MaximumPermissionsAllowViewKnowledge: boolean
+- MaximumPermissionsContentWorkspaces: boolean
+- MaximumPermissionsManageSearchPromotionRules: boolean
+- MaximumPermissionsCustomMobileAppsAccess: boolean
+- MaximumPermissionsViewHelpLink: boolean
+- MaximumPermissionsManageProfilesPermissionsets: boolean
+- MaximumPermissionsAssignPermissionSets: boolean
+- MaximumPermissionsManageRoles: boolean
+- MaximumPermissionsManageIpAddresses: boolean
+- MaximumPermissionsManageSharing: boolean
+- MaximumPermissionsManageInternalUsers: boolean
+- MaximumPermissionsManagePasswordPolicies: boolean
+- MaximumPermissionsManageLoginAccessPolicies: boolean
+- MaximumPermissionsViewPlatformEvents: boolean
+- MaximumPermissionsManageCustomPermissions: boolean
+- MaximumPermissionsCanVerifyComment: boolean
+- MaximumPermissionsManageUnlistedGroups: boolean
+- MaximumPermissionsStdAutomaticActivityCapture: boolean
+- MaximumPermissionsFreezeUsers: boolean
+- MaximumPermissionsInsightsAppDashboardEditor: boolean
+- MaximumPermissionsManageTwoFactor: boolean
+- MaximumPermissionsInsightsAppUser: boolean
+- MaximumPermissionsInsightsAppAdmin: boolean
+- MaximumPermissionsInsightsAppEltEditor: boolean
+- MaximumPermissionsInsightsAppUploadUser: boolean
+- MaximumPermissionsInsightsCreateApplication: boolean
+- MaximumPermissionsLightningExperienceUser: boolean
+- MaximumPermissionsViewDataLeakageEvents: boolean
+- MaximumPermissionsConfigCustomRecs: boolean
+- MaximumPermissionsSubmitMacrosAllowed: boolean
+- MaximumPermissionsBulkMacrosAllowed: boolean
+- MaximumPermissionsShareInternalArticles: boolean
+- MaximumPermissionsManageSessionPermissionSets: boolean
+- MaximumPermissionsManageTemplatedApp: boolean
+- MaximumPermissionsUseTemplatedApp: boolean
+- MaximumPermissionsSendAnnouncementEmails: boolean
+- MaximumPermissionsChatterEditOwnPost: boolean
+- MaximumPermissionsChatterEditOwnRecordPost: boolean
+- MaximumPermissionsWaveTabularDownload: boolean
+- MaximumPermissionsWaveCommunityUser: boolean
+- MaximumPermissionsAutomaticActivityCapture: boolean
+- MaximumPermissionsImportCustomObjects: boolean
+- MaximumPermissionsSalesforceIQInbox: boolean
+- MaximumPermissionsDelegatedTwoFactor: boolean
+- MaximumPermissionsChatterComposeUiCodesnippet: boolean
+- MaximumPermissionsSelectFilesFromSalesforce: boolean
+- MaximumPermissionsModerateNetworkUsers: boolean
+- MaximumPermissionsMergeTopics: boolean
+- MaximumPermissionsSubscribeToLightningReports: boolean
+- MaximumPermissionsManagePvtRptsAndDashbds: boolean
+- MaximumPermissionsAllowLightningLogin: boolean
+- MaximumPermissionsCampaignInfluence2: boolean
+- MaximumPermissionsViewDataAssessment: boolean
+- MaximumPermissionsRemoveDirectMessageMembers: boolean
+- MaximumPermissionsCanApproveFeedPost: boolean
+- MaximumPermissionsAddDirectMessageMembers: boolean
+- MaximumPermissionsAllowViewEditConvertedLeads: boolean
+- MaximumPermissionsShowCompanyNameAsUserBadge: boolean
+- MaximumPermissionsAccessCMC: boolean
+- MaximumPermissionsViewHealthCheck: boolean
+- MaximumPermissionsManageHealthCheck: boolean
+- MaximumPermissionsPackaging2: boolean
+- MaximumPermissionsManageCertificates: boolean
+- MaximumPermissionsCreateReportInLightning: boolean
+- MaximumPermissionsPreventClassicExperience: boolean
+- MaximumPermissionsHideReadByList: boolean
+- MaximumPermissionsListEmailSend: boolean
+- MaximumPermissionsFeedPinning: boolean
+- MaximumPermissionsChangeDashboardColors: boolean
+- MaximumPermissionsManageRecommendationStrategies: boolean
+- MaximumPermissionsManagePropositions: boolean
+- MaximumPermissionsCloseConversations: boolean
+- MaximumPermissionsSubscribeReportRolesGrps: boolean
+- MaximumPermissionsSubscribeDashboardRolesGrps: boolean
+- MaximumPermissionsUseWebLink: boolean
+- MaximumPermissionsHasUnlimitedNBAExecutions: boolean
+- MaximumPermissionsViewOnlyEmbeddedAppUser: boolean
+- MaximumPermissionsViewAllActivities: boolean
+- MaximumPermissionsSubscribeReportToOtherUsers: boolean
+- MaximumPermissionsLightningConsoleAllowedForUser: boolean
+- MaximumPermissionsSubscribeReportsRunAsUser: boolean
+- MaximumPermissionsSubscribeToLightningDashboards: boolean
+- MaximumPermissionsSubscribeDashboardToOtherUsers: boolean
+- MaximumPermissionsCreateLtngTempInPub: boolean
+- MaximumPermissionsAppointmentBookingUserAccess: boolean
+- MaximumPermissionsTransactionalEmailSend: boolean
+- MaximumPermissionsViewPrivateStaticResources: boolean
+- MaximumPermissionsCreateLtngTempFolder: boolean
+- MaximumPermissionsApexRestServices: boolean
+- MaximumPermissionsConfigureLiveMessage: boolean
+- MaximumPermissionsLiveMessageAgent: boolean
+- MaximumPermissionsEnableCommunityAppLauncher: boolean
+- MaximumPermissionsGiveRecognitionBadge: boolean
+- MaximumPermissionsLightningSchedulerUserAccess: boolean
+- MaximumPermissionsSalesforceIQInternal: boolean
+- MaximumPermissionsUseMySearch: boolean
+- MaximumPermissionsLtngPromoReserved01UserPerm: boolean
+- MaximumPermissionsManageSubscriptions: boolean
+- MaximumPermissionsWaveManagePrivateAssetsUser: boolean
+- MaximumPermissionsCanEditDataPrepRecipe: boolean
+- MaximumPermissionsAddAnalyticsRemoteConnections: boolean
+- MaximumPermissionsManageSurveys: boolean
+- MaximumPermissionsUseAssistantDialog: boolean
+- MaximumPermissionsUseQuerySuggestions: boolean
+- MaximumPermissionsRecordVisibilityAPI: boolean
+- MaximumPermissionsViewRoles: boolean
+- MaximumPermissionsCanManageMaps: boolean
+- MaximumPermissionsLMOutboundMessagingUserPerm: boolean
+- MaximumPermissionsModifyDataClassification: boolean
+- MaximumPermissionsPrivacyDataAccess: boolean
+- MaximumPermissionsQueryAllFiles: boolean
+- MaximumPermissionsModifyMetadata: boolean
+- MaximumPermissionsManageCMS: boolean
+- MaximumPermissionsSandboxTestingInCommunityApp: boolean
+- MaximumPermissionsCanEditPrompts: boolean
+- MaximumPermissionsViewUserPII: boolean
+- MaximumPermissionsManageHubConnections: boolean
+- MaximumPermissionsB2BMarketingAnalyticsUser: boolean
+- MaximumPermissionsTraceXdsQueries: boolean
+- MaximumPermissionsViewSecurityCommandCenter: boolean
+- MaximumPermissionsManageSecurityCommandCenter: boolean
+- MaximumPermissionsViewAllCustomSettings: boolean
+- MaximumPermissionsViewAllForeignKeyNames: boolean
+- MaximumPermissionsAddWaveNotificationRecipients: boolean
+- MaximumPermissionsHeadlessCMSAccess: boolean
+- MaximumPermissionsUseFulfillmentAPIs: boolean
+- MaximumPermissionsLMEndMessagingSessionUserPerm: boolean
+- MaximumPermissionsConsentApiUpdate: boolean
+- MaximumPermissionsPaymentsAPIUser: boolean
+- MaximumPermissionsAccessContentBuilder: boolean
+- MaximumPermissionsAccountSwitcherUser: boolean
+- MaximumPermissionsViewAnomalyEvents: boolean
+- MaximumPermissionsManageC360AConnections: boolean
+- MaximumPermissionsIsContactCenterAdmin: boolean
+- MaximumPermissionsIsContactCenterAgent: boolean
+- MaximumPermissionsManageReleaseUpdates: boolean
+- MaximumPermissionsViewAllProfiles: boolean
+- MaximumPermissionsSkipIdentityConfirmation: boolean
+- MaximumPermissionsCanToggleCallRecordings: boolean
+- MaximumPermissionsIsContactCenterAdminBYOT: boolean
+- MaximumPermissionsIsContactCenterAgentBYOT: boolean
+- MaximumPermissionsSendCustomNotifications: boolean
+- MaximumPermissionsPackaging2Delete: boolean
+- MaximumPermissionsUseOmnichannelInventoryAPIs: boolean
+- MaximumPermissionsAccessCdpDataExplorer: boolean
+- MaximumPermissionsViewRestrictionAndScopingRules: boolean
+- MaximumPermissionsFSCComprehensiveUserAccess: boolean
+- MaximumPermissionsBotManageBots: boolean
+- MaximumPermissionsBotManageBotsTrainingData: boolean
+- MaximumPermissionsSchedulingLineAmbassador: boolean
+- MaximumPermissionsSchedulingFacilityManager: boolean
+- MaximumPermissionsAllowAIAccelerator: boolean
+- MaximumPermissionsOmnichannelInventorySync: boolean
+- MaximumPermissionsIsContactCenterSupervisor: boolean
+- MaximumPermissionsIsotopeCToCUser: boolean
+- MaximumPermissionsCanAccessCE: boolean
+- MaximumPermissionsUseAddOrderItemSummaryAPIs: boolean
+- MaximumPermissionsIsotopeAccess: boolean
+- MaximumPermissionsIsotopeLEX: boolean
+- MaximumPermissionsQuipMetricsAccess: boolean
+- MaximumPermissionsQuipUserEngagementMetrics: boolean
+- MaximumPermissionsRemoteMediaVirtualDesktop: boolean
+- MaximumPermissionsTransactionSecurityExempt: boolean
+- MaximumPermissionsManageStores: boolean
+- MaximumPermissionsManageExternalConnections: boolean
+- MaximumPermissionsUseReturnOrder: boolean
+- MaximumPermissionsUseReturnOrderAPIs: boolean
+- MaximumPermissionsUseSubscriptionEmails: boolean
+- MaximumPermissionsUseOrderEntry: boolean
+- MaximumPermissionsUseRepricing: boolean
+- MaximumPermissionsAIViewInsightObjects: boolean
+- MaximumPermissionsAICreateInsightObjects: boolean
+- MaximumPermissionsViewMLModels: boolean
+- MaximumPermissionsLifecycleManagementAPIUser: boolean
+- MaximumPermissionsEnablementUser: boolean
+- MaximumPermissionsNativeWebviewScrolling: boolean
+- MaximumPermissionsViewDeveloperName: boolean
+- MaximumPermissionsClientSecretRotation: boolean
+- MaximumPermissionsAccessToServiceProcess: boolean
+- MaximumPermissionsManageOrchInstsAndWorkItems: boolean
+- MaximumPermissionsCMSECEAuthoringAccess: boolean
+- MaximumPermissionsEnablementAdmin: boolean
+- MaximumPermissionsManageDataspaceScope: boolean
+- MaximumPermissionsConfigureDataspaceScope: boolean
+- MaximumPermissionsOmniSupervisorManageQueue: boolean
+- MaximumPermissionsViewClientSecret: boolean
+- MaximumPermissionsCdcReportingCreateReports: boolean
+- MaximumPermissionsCdcReportingViewReports: boolean
+- MaximumPermissionsAccessGeniePlatform: boolean
+- MaximumPermissionsAccessSegment: boolean
+- MaximumPermissionsAccessActivation: boolean
+- MaximumPermissionsAccessCustomerDataCloudSetup: boolean
+- MaximumPermissionsCdcReportingManageFolders: boolean
+- MaximumPermissionsExternalClientAppDeveloper: boolean
+- MaximumPermissionsExternalClientAppAdmin: boolean
+- MaximumPermissionsExternalClientAppViewer: boolean
+- MaximumPermissionsOmnichannelInventoryBasic: boolean
+- MaximumPermissionsDeleteCrMemoAndInvoice: boolean
+- MaximumPermissionsEmbeddedMessagingAgent: boolean
+- MaximumPermissionsViewNonSetupFlow: boolean
+- MaximumPermissionsCreateEditNonSetupFlow: boolean
+- MaximumPermissionsDeleteNonSetupFlow: boolean
+- MaximumPermissionsActivateDeactivateNonSetupFlow: boolean
+- MaximumPermissionsAddDecisionElmntNonSetupFlow: boolean
+- MaximumPermissionsAddCreaRecElmntToNonSetupFlow: boolean
+- MaximumPermissionsAddWaitToNonSetupFlow: boolean
+- MaximumPermissionsManageNamedCredentials: boolean
+- MaximumPermissionsAccessCdpProfileExplorer: boolean
+- MaximumPermissionsAddUpdtRecElmntToNonSetupFlow: boolean
+- MaximumPermissionsCanInitiateMessagingSessions: boolean
+- MaximumPermissionsAuthorizePayments: boolean
+- MaximumPermissionsCaptureAndReversePayments: boolean
+- MaximumPermissionsCombAuthAndCapPayments: boolean
+- MaximumPermissionsRefundPayments: boolean
+- MaximumPermissionsViewPayments: boolean
+- MaximumPermissionsMakePayments: boolean
+- MaximumPermissionsEditRepricing: boolean
+- MaximumPermissionsManageDataMaskPolicies: boolean
+- MaximumPermissionsCanUpdateEmailMessage: boolean
+- MaximumPermissionsDownloadPackageVersionZips: boolean
+- MaximumPermissionsScoringFrameworkUser: boolean
+- MaximumPermissionsScoringFrameworkAdmin: boolean
+- MaximumPermissionsViewContentTaxonomy: boolean
+- MaximumPermissionsManageContentTaxonomy: boolean
+- MaximumPermissionsReassignOrchestrationWorkItems: boolean
+- MaximumPermissionsManageOrchestrationRuns: boolean
+- MaximumPermissionsDigitalLendingUser: boolean
+- MaximumPermissionsManageCertificatesExpiration: boolean
+- MaximumPermissionsUseOMAnalytics: boolean
+- MaximumPermissionsUseExchangesAPIs: boolean
+- MaximumPermissionsEnableIPFSUpload: boolean
+- MaximumPermissionsEnableBCTransactionPolling: boolean
+- MaximumPermissionsLobbyManagementUserAccess: boolean
+- MaximumPermissionsAddGetRecElmntToNonSetupFlow: boolean
+- MaximumPermissionsAddLoopElmntToNonSetupFlow: boolean
+- MaximumPermissionsAddAsgntElmntToNonSetupFlow: boolean
+- MaximumPermissionsAddSubflowElmntToNonSetupFlow: boolean
+- MaximumPermissionsMonitorLoginHistory: boolean
+- MaximumPermissionsAddCollFltrElmntToNonSetupFlow: boolean
+- MaximumPermissionsAddCollSrtElmntToNonSetupFlow: boolean
+- MaximumPermissionsAddDelRecElmntToNonSetupFlow: boolean
+- MaximumPermissionsUseRegisterGuestBuyerAPI: boolean
+- MaximumPermissionsEnhancedSalesMobileExp: boolean
+- MaximumPermissionsCanViewDataPrepRecipe: boolean
+- MaximumPermissionsSimpleCsvDataImportUser: boolean
+- MaximumPermissionsAdvancedCsvDataImportUser: boolean
+- MaximumPermissionsAccessToComplaintMgmt: boolean
+- MaximumPermissionsAccessToDisputeManagement: boolean
+- MaximumPermissionsPersonalizedFinanceUserAccess: boolean
+- MaximumPermissionsCustomAppsOnFSMobile: boolean
+- MaximumPermissionsStageManagementDesignUser: boolean
+- MaximumPermissionsSegmentIntelligenceUser: boolean
+- MaximumPermissionsFSCArcGraphCommunityUser: boolean
+- MaximumPermissionsManageCdpMlModels: boolean
+- MaximumPermissionsDigitalLendingAdminUser: boolean
+- MaximumPermissionsActivateSystemModeFlows: boolean
+- MaximumPermissionsViewAllNonSetupFlows: boolean
+- MaximumPermissionsManagePromptTemplates: boolean
+- MaximumPermissionsExecutePromptTemplates: boolean
+- MaximumPermissionsPersonalizationPlatform: boolean
+- MaximumPermissionsViewEnablementAnalytics: boolean
+- MaximumPermissionsLeadInspectorUser: boolean
+- MaximumPermissionsContactInspectorUser: boolean
+- MaximumPermissionsManageIntegrationConnections: boolean
+- MaximumPermissionsTableauCreateDashboard: boolean
+- MaximumPermissionsTableauViewDashboard: boolean
+- MaximumPermissionsEinsteinCopilotUser: boolean
+- MaximumPermissionsEinsteinCopilotBuilder: boolean
+- MaximumPermissionsUseRouting: boolean
+- MaximumPermissionsUseCreateOrderSummary: boolean
+- MaximumPermissionsUseAddOrderItemSummary: boolean
+- MaximumPermissionsUseAddAdjustment: boolean
+- MaximumPermissionsUseCreateCreditMemo: boolean
+- MaximumPermissionsUseEnsureFunds: boolean
+- MaximumPermissionsUseOrderItemSummaryCancel: boolean
+- MaximumPermissionsUseOrderItemSummaryReturn: boolean
+- MaximumPermissionsUsePartnerMessagingChannels: boolean
+- MaximumPermissionsManageFilesAndAttachments: boolean
+- MaximumPermissionsAddTrfmElmntToNonSetupFlow: boolean
+- MaximumPermissionsMobileMessagingAgent: boolean
+- MaximumPermissionsTableauCreateVisualization: boolean
+- MaximumPermissionsTableauViewVisualization: boolean
+- MaximumPermissionsManageCustomDomains: boolean
+- MaximumPermissionsEngagementConfigUser: boolean
+- MaximumPermissionsPersonalizationIntelUser: boolean
+- MaximumPermissionsAttributionModelUser: boolean
+- MaximumPermissionsTableauCreateWorkspace: boolean
+- MaximumPermissionsTableauViewWorkspace: boolean
+- MaximumPermissionsCanSendInitialSMSToIndividual: boolean
+- MaximumPermissionsAccessDisputePrompts: boolean
+- MaximumPermissionsQueryNonVetoedFiles: boolean
+- MaximumPermissionsViewAllCalls: boolean
+- MaximumPermissionsMetadataStudioUser: boolean
+- MaximumPermissionsDigitalLendingWorkbench: boolean
+- MaximumPermissionsDigitalLendingEditReadOnly: boolean
+- MaximumPermissionsUseCanCancelInProgressChange: boolean
+- MaximumPermissionsPrmExtIntPrtnrAdminUser: boolean
+- MaximumPermissionsCitrixVDIPlatform: boolean
+- MaximumPermissionsEinsteinAgentPlatformBuilder: boolean
+- MaximumPermissionsUseServicePartReturn: boolean
+- MaximumPermissionsHeadlessPublishNudges: boolean
+- MaximumPermissionsApprovalAdmin: boolean
+- MaximumPermissionsApprovalDesigner: boolean
+- MaximumPermissionsUserHasDevOpsCore: boolean
+- MaximumPermissionsAccessServiceEinstein: boolean
+- MaximumPermissionsViewRecommendations: boolean
+- MaximumPermissionsPrismPlaygroundUser: boolean
+- MaximumPermissionsModifyAllPolicyCenterPolicies: boolean
+- MaximumPermissionsViewAllPolicyCenterPolicies: boolean
+- MaximumPermissionsViewPublicCapstoneFolders: boolean
+- MaximumPermissionsCreateModActTrigNonSetupFlow: boolean
+- MaximumPermissionsAccessSfDrive: boolean
+- MaximumPermissionsAppFrameworkManageApp: boolean
+- MaximumPermissionsAppFrameworkViewApp: boolean
+- MaximumPermissionsAgentforceServiceAgentUser: boolean
+- MaximumPermissionsManageAgentforceServiceAgent: boolean
+- MaximumPermissionsUseTeamsForEmployee: boolean
+- MaximumPermissionsCanTranslateScrt2Conversation: boolean
+- MaximumPermissionsSlackFromTableau: boolean
+- MaximumPermissionsTableauShareSnapshot: boolean
+- MaximumPermissionsDelegatedContactCenterAdmin: boolean
+- MaximumPermissionsUseDeliveryEstimationAPIs: boolean
+- MaximumPermissionsUseAdvancedDeliveryEstimationAPI: boolean
+- MaximumPermissionsAccessBankingServiceAgent: boolean
+- MaximumPermissionsAllowOCIAvailabilityAPIs: boolean
+- MaximumPermissionsManageOCIRecords: boolean
+- MaximumPermissionsTableauMetricCards: boolean
+- MaximumPermissionsPersonalizationDecisioningUser: boolean
+- MaximumPermissionsUsePaymentCreditAPIs: boolean
+- MaximumPermissionsAccessBankingRelationshipAssistance: boolean
+- MaximumPermissionsCanMarketingUserDebugFlow: boolean
+- MaximumPermissionsCanDoActAsUser: boolean
+- MaximumPermissionsViewAllFieldsGlobal: boolean
+- MaximumPermissionsManageHerokuAppLink: boolean
+- MaximumPermissionsMngBenVerfForAssistiveAgnt: boolean
+- MaximumPermissionsCreateModDGTrigNonSetupFlow: boolean
+- MaximumPermissionsAccessPolicyAgent: boolean
+- MaximumPermissionsMCPMetadataApi: boolean
+- MaximumPermissionsAppFrameworkManageTemplate: boolean
+- MaximumPermissionsUseTeamsForItSrvcs: boolean
+- MaximumPermissionsManageJourneys: boolean
+- MaximumPermissionsViewApiNamedQueries: boolean
+- MaximumPermissionsManageApiNamedQueries: boolean
+- MaximumPermissionsOmniAssistiveActionUser: boolean
+- MaximumPermissionsPrismBackofficeUser: boolean
+- MaximumPermissionsDigitalAgentUser: boolean
+- MaximumPermissionsDataCleanRoomSetupAccess: boolean
+- MaximumPermissionsAccessWealthAdvisorAgent: boolean
+- MaximumPermissionsDataCleanRoomReadAccess: boolean
+- MaximumPermissionsDataCleanRoomWriteAccess: boolean
+- MaximumPermissionsDataCleanRoomQueryAccess: boolean
+- MaximumPermissionsCanApproveUninstalledApps: boolean
+- MaximumPermissionsSetupAgentBuilder: boolean
+- MaximumPermissionsSetupAgentUser: boolean
+- MaximumPermissionsHydratePromptTemplateIA: boolean
+- MaximumPermissionsAIWorkbenchUser: boolean
+- MaximumPermissionsUserCanDeployStore: boolean
+- MaximumPermissionsModifyAccessDenyPolicies: boolean
+- MaximumPermissionsManageAccessPolicies: boolean
+- MaximumPermissionsViewAccessPolicies: boolean
+- MaximumPermissionsModifyAccessAllowPolicies: boolean
+- MaximumPermissionsViewOrchestrationsInAutomApp: boolean
+- MaximumPermissionsTerritoryOperations: boolean
+- MaximumPermissionsAccessOrchestrationObjects: boolean
+- MaximumPermissionsViewChangeRequestDshbrd: boolean
+- MaximumPermissionsViewIncidentFulfrDshbrd: boolean
+- MaximumPermissionsViewProblemFulfrDshbrd: boolean
+- MaximumPermissionsViewProblemMgrDshbrd: boolean
+- MaximumPermissionsViewItLeaderAnlytDshbrd: boolean
+- MaximumPermissionsViewIncidentAnlytDshbrd: boolean
+- MaximumPermissionsViewChangeRequestAnlytDshbrd: boolean
+- MaximumPermissionsViewCaseAnlytDshbrd: boolean
+- MaximumPermissionsProposeMajorIncidents: boolean
+- MaximumPermissionsDeleteIncident: boolean
+- MaximumPermissionsAcceptRiskForProblems: boolean
+- MaximumPermissionsReopenProblems: boolean
+- MaximumPermissionsAssocIncAndProb: boolean
+- MaximumPermissionsAssocIncAndChgRqst: boolean
+- MaximumPermissionsDeleteProblem: boolean
+- MaximumPermissionsSalesInsightsUser: boolean
+- MaximumPermissionsDeleteChangeRequest: boolean
+- MaximumPermissionsReadConfigurationItemInformation: boolean
+- MaximumPermissionsViewItsmConsoleHmpg: boolean
+- MaximumPermissionsViewItsmConsoleAsFulfr: boolean
+- MaximumPermissionsViewOmnichnlAnlytDshbrd: boolean
+- MaximumPermissionsViewKnwlgAnlytDshbrd: boolean
+- MaximumPermissionsViewAgtfrceAnlytDshbrd: boolean
+- MaximumPermissionsViewIncidentMgrDshbrd: boolean
+- MaximumPermissionsViewShieldApp: boolean
+- MaximumPermissionsQrCodeGeneratorMobilePublisherPlayground: boolean
+- MaximumPermissionsAssocChgRqstAndProb: boolean
+- MaximumPermissionsAssocRelAndProb: boolean
+- MaximumPermissionsAssocRelAndInc: boolean
+- MaximumPermissionsAssocRelAndChgRqst: boolean
+- MaximumPermissionsResolveIncAssoc: boolean
+- MaximumPermissionsResolveProbAssoc: boolean
+- MaximumPermissionsResolveChgRqstAssoc: boolean
+- MaximumPermissionsRegrelloUser: boolean
+- MaximumPermissionsManageDataAnalyticsGroups: boolean
+- MaximumPermissionsViewLicenseUtilization: boolean
+- MaximumPermissionsUserInteractionInsights: boolean
+- MaximumPermissionsDeleteSalesforceFiles: boolean
+- MaximumPermissionsManageMCEEmails: boolean
+- MaximumPermissionsAITestingUser: boolean
+- MaximumPermissionsUseFulfillmentRoutingAPIs: boolean
+- MaximumPermissionsManageSharedListViews: boolean
+- MaximumPermissionsCdpConnectionManagementUser: boolean
+- MaximumPermissionsManageCustomerDataOptOut: boolean
+- MaximumPermissionsClaimUnclaimNumber: boolean
+- MaximumPermissionsDownloadMaliciousFiles: boolean
+- MaximumPermissionsManageMaliciousFiles: boolean
+- MaximumPermissionsAccessKnowledgeSpace: boolean
+- MaximumPermissionsSCVVoicemailDropUser: boolean
+- MaximumPermissionsUserHasALMSimpleDeployAccess: boolean
+- MaximumPermissionsCanWriteWithAiScrt2Conversation: boolean
+- MaximumPermissionsAccessToComplaintAgent: boolean
+- MaximumPermissionsSCVVoicemailGreetingUser: boolean
+- MaximumPermissionsUseSetupWithAgentforce: boolean
+- MaximumPermissionsUseAnyApiAuth: boolean
+- MaximumPermissionsManageQuickAttributes: boolean
+- MaximumPermissionsAddSendToFlowElmntToNonSetupFlow: boolean
+- MaximumPermissionsGrantOutboundBundling: boolean
+- MaximumPermissionsAcceptInboundBundling: boolean
+- MaximumPermissionsViewHealthAssessments: boolean
+- MaximumPermissionsManageHealthAssessments: boolean
+- MaximumPermissionsIntegrationIntelligenceUser: boolean
+- MaximumPermissionsActivationWrite: boolean
+- MaximumPermissionsUseRestrictedTheme: boolean
+- MaximumPermissionsCanExitFlowViaAPI: boolean
+- MaximumPermissionsCreateModIndRecNonSetupFlow: boolean
+- MaximumPermissionsCreateModListTrigNonSetupFlow: boolean
+- MaximumPermissionsCreateModCampaignMemberTrigNonSetupFlow: boolean
+- MaximumPermissionsCreateModRecordQueryFlow: boolean
+- MaximumPermissionsModifyTransactionSecurityPolicies: boolean
+- MaximumPermissionsSuitesAgentEscalationPerm: boolean
+- MaximumPermissionsIntelligentDocumentProcessing: boolean
+- MaximumPermissionsAccessCommandCenter: boolean
+- MaximumPermissionsCdpPerUserConnectionManagement: boolean
+- MaximumPermissionsManageIntegrationPortals: boolean
+- MaximumPermissionsCanQueryForeignTables: boolean
+- MaximumPermissionsRunMyDayUser: boolean
+- MaximumPermissionsUseOrderSummaryChangeAPIs: boolean
+- MaximumPermissionsUseOMSDROInteropAPIs: boolean
+- MaximumPermissionsSlackbotUi: boolean
+- MaximumPermissionsMeetingEngagementUser: boolean
+- UsedLicenses: int
+- MigratableLicenses: int
+- IsAvailableForIntegrations: boolean
+- LicenseExpirationPolicy: picklist {AllowNamespaceAccess, BlockNamespaceAccess}
+- IsSupplementLicense: boolean
+
+## PermissionSetLicenseDefinition (Custom Permission Set License Definition)
+- Id: id
+- IsDeleted: boolean
+- DeveloperName: string
+- Language: picklist {en_US, de, es, fr, it, ja, sv, ko, zh_TW, zh_CN, pt_BR, nl_NL, da, th, fi, …}
+- MasterLabel: string
+- NamespacePrefix: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- UserLicenseRestrictions: textarea
+- DefaultTrialLicenseCount: int
+- DefaultTrialLengthInDays: int
+- ComponentAccess: picklist {None, Namespace}
+
+## Pricebook2 (Price Book)
+- Id: id
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- IsActive: boolean
+- IsArchived: boolean
+- Description: string
+- IsStandard: boolean
+
+## PricebookEntry (Price Book Entry)
+- Id: id
+- Name: string
+- Pricebook2Id: reference -> Pricebook2 (required)
+- Product2Id: reference -> Product2 (required)
+- UnitPrice: currency (required)
+- IsActive: boolean
+- UseStandardPrice: boolean
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- ProductCode: string
+- IsDeleted: boolean
+- IsArchived: boolean
+
+## PrivacyJobSession (Privacy Job Session)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- JobStatus: picklist {inactive, scheduled, running, running_next, failures, cancelled, suspended, completed, completed_with_errors}
+- StartTime: datetime
+- EndTime: datetime
+- CreationDate: datetime
+- SerializedPolicy: textarea
+- FailureLog: textarea
+- CurrentObject: string
+- PrivacyPolicyDefinitionId: reference -> PrivacyPolicyDefinition
+- ScheduledTime: datetime
+- JobStartType: picklist {manual, scheduled}
+- OptionsTraversalComplete: boolean
+- OptionsTraversalFailed: boolean
+- OptionsProcessingFailed: boolean
+- OptionsPreview: boolean
+- OptionsAcknowledged: boolean
+- OptionsErrorBypassOccurred: boolean
+- OptionsTopLevelErrorBypass: boolean
+- PolicyName: string
+- PolicyDescription: string
+- PolicyType: picklist {datamanagement, herokumigration, datamask, rtbf, archive, datamanagementondatacloud, globalconsentstore}
+- PrivacyRtbfRequestId: reference -> PrivacyRTBFRequest
+- JobManagementType: picklist {Processor, Migration, Preview, Any}
+- JobPolicyName: string
+- IsPreview: boolean
+- PermissionSet: string
+
+## PrivacyPolicy (Privacy Policy)
+- Id: id
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- PrivacyPolicyDefinitionId: reference -> PrivacyPolicyDefinition (required)
+- DefinitionMasterLabel: string
+- DefinitionDeveloperName: string
+- Status: picklist {active, inactive}
+- Description: string
+- RunFrequency: picklist {none, once, daily, weekly, monthly, yearly}
+- Type: picklist {datamanagement, herokumigration, datamask, rtbf, archive, datamanagementondatacloud, globalconsentstore}
+
+## PrivacyRTBFRequest (Privacy RTBF Request)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- JobRecord: string (required)
+- PolicyNameId: reference -> PrivacyPolicyDefinition
+- Status: picklist {error, complete, pending, scheduled, cancelled, submitted}
+- Description: string
+
+## Problem (Problem)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- ProblemNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- Subject: string (required)
+- Description: textarea
+- StatusCode: picklist {Closed, FixInProgress, KnownError, New, Open, PendingChange, Resolved, RootCauseAnalysis, WorkInProgress}
+- Status: picklist {New, Open, Root Case Analysis, Fix In Progress, Resolved, Closed, Pending Change, Known Error, Work In Progress}
+- Impact: picklist {High, Medium, Low}
+- Urgency: picklist {High, Medium, Low}
+- Priority: picklist {Critical, High, Moderate, Low}
+- PriorityOverrideReason: string
+- RootCauseSummary: textarea
+- Category: picklist {Database, Hardware, Inquiry / Help, Network, Software, Security, Telephony, Storage, Email, Access Management}
+- SubCategory: picklist {DB2, MS SQL Server, Oracle, MySQL, PostgreSQL, CPU, Disk, Keyboard, Memory, Monitor, Mouse, Printer, Power Supply, Laptop/Workstation, Antivirus, …}
+- ParentProblemId: reference -> Problem
+- ResolvedById: reference -> User
+- ResolutionDateTime: datetime
+- ResolutionSummary: textarea
+
+## ProblemIncident (Related Problem and Incident)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- IssueId: reference -> Incident|Problem (required)
+- RelatedIssueId: reference -> Incident|Problem (required)
+- RelatedEntityType: picklist {Incident, Problem}
+- RelationshipType: picklist {Caused By, Similar}
+
+## ProblemRelatedItem (Problem Related Item)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- ProblemId: reference -> Problem (required)
+- AssetId: reference -> Asset (required)
+- ImpactType: picklist {Business-Blocking, Partially Business-Blocking, Not Business-Blocking}
+- ImpactLevel: picklist {High, Medium, Low}
+- Comment: textarea
+
+## ProcessException (Process Exception)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- ProcessExceptionNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- AttachedToId: reference -> CreditMemo|FulfillmentOrder|Invoice|Order|OrderItem|Payment|PaymentAuthorization|Refund|ReturnOrder|Subscription_Line__c|Subscription__c|WebCart|WebStore (required)
+- Message: string (required)
+- StatusCategory: picklist {ACTIVE, INACTIVE, RESOLVED}
+- Status: picklist {New, Triaged, Paused, Ignored, Resolved, Voided}
+- Category: picklist {Order Activation, Order Approval, Fulfillment, Payment, Invoicing, Place Order, Order To Asset, Order Item Summary To Asset, Order To Billing Schedule, Catalog Syndication, Subscription Payment, Cancel, Payment Credit, Commerce Delivery Service, Order Summary Orchestration}
+- Severity: picklist {High, Low}
+- Priority: picklist {High, Low}
+- CaseId: reference -> Case
+- ExternalReference: string
+- SeverityCategory: picklist {HIGH, MEDIUM, LOW}
+- Description: textarea
+- AssetId: reference -> Asset
+
+## Product2 (Product)
+- Id: id
+- Name: string (required)
+- ProductCode: string
+- Description: textarea
+- IsActive: boolean
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- Family: picklist {None}
+- ExternalDataSourceId: reference -> ExternalDataSource
+- ExternalId: string
+- DisplayUrl: url
+- QuantityUnitOfMeasure: picklist {Each}
+- IsDeleted: boolean
+- IsArchived: boolean
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- StockKeepingUnit: string
+- Type: picklist {Base, Bundle, Set}
+- ProductClass: picklist {Simple, VariationParent, Variation, Bundle, Set}
+
+## ProductAttribute (Product Attribute)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- ProductId: reference -> Product2 (required)
+- VariantParentId: reference -> Product2
+- Sequence: int
+
+## ProductAttributeSetProduct (Product Attribute Set Product)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- ProductAttributeSetId: reference -> ProductAttributeSet (required)
+- ProductId: reference -> Product2 (required)
+
+## ProductCatalog (Catalog)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- NumberOfCategories: int
+
+## ProductCategory (Category)
+- Id: id
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- CatalogId: reference -> ProductCatalog (required)
+- ParentCategoryId: reference -> ProductCategory
+- Description: textarea
+- NumberOfProducts: int
+- SortOrder: int
+- IsNavigational: boolean
+
+## ProductCategoryProduct (Product Category Product)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- ProductCategoryId: reference -> ProductCategory (required)
+- ProductId: reference -> Product2 (required)
+- IsPrimaryCategory: boolean
+- CatalogId: reference -> ProductCatalog
+- ProductToCategory: string
+
+## ProductConsumptionSchedule (Product Consumption Schedule)
+- Id: id
+- IsDeleted: boolean
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- ProductId: reference -> Product2 (required)
+- ConsumptionScheduleId: reference -> ConsumptionSchedule (required)
+
+## Promotion (Promotion)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- CampaignId: reference -> Campaign
+- Description: textarea
+- Objective: textarea
+- IsActive: boolean
+- DisplayName: string
+- MaximumUsageCount: int
+- PriorityNumber: int
+- IsAutomatic: boolean
+- StartDateTime: datetime
+- EndDateTime: datetime
+- ExclusivityType: picklist {No, Class, Global}
+- IsCommercePromotion: boolean
+- IsTiered: boolean
+- TermsAndConditions: textarea
+- QualifierCriteria: picklist {All, Any}
+- IsQualCriteriaNotRequiredPerApplication: boolean
+
+## PromotionMarketSegment (Promotion Market Segment)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- PromotionId: reference -> Promotion (required)
+- PromotionSegmentId: reference -> PromotionSegment
+
+## PromotionQualifier (Promotion Qualifier)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- PromotionId: reference -> Promotion (required)
+- PromotionTierId: reference -> PromotionTier
+- QualifierType: picklist {Product, ProductCategory, TransactionTotal} (required)
+- QualifierId: reference -> Product2|ProductCategory
+- MinimumQuantity: double
+- MinimumAmount: currency
+- QualifierProductCategoryName: string
+- QualifierProductName: string
+- QualifierProductSku: string
+- QualifierRuleCriteriaType: picklist {All, Any} (required)
+- QualifierOperator: picklist {NONE, EQUAL_TO, NOT_EQUAL_TO} (required)
+- ApproachingDiscountThreshold: currency
+
+## PromotionSegment (Promotion Segment)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+
+## PromotionSegmentBuyerGroup (Promotion Segment Buyer Group)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- PromotionSegmentId: reference -> PromotionSegment (required)
+- BuyerGroupId: reference -> BuyerGroup (required)
+
+## PromotionSegmentSalesStore (Promotion Segment Sales Store)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- PromotionSegmentId: reference -> PromotionSegment (required)
+- SalesStoreId: reference -> WebStore (required)
+
+## PromotionTarget (Promotion Target)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- PromotionId: reference -> Promotion (required)
+- PromotionTierId: reference -> PromotionTier
+- TargetType: picklist {Product, ProductCategory, Transaction, Shipping, StandardShippingRate} (required)
+- TargetId: reference -> Product2|ProductCategory|StandardShippingRate
+- AdjustmentType: picklist {BonusProduct, FixedAmountOffLineItemTotal, FixedAmountOffTransaction, FixedAmountOffUnitPrice, FixedPrice, PercentageDiscount, TotalFixedPrice} (required)
+- AdjustmentPercent: percent
+- AdjustmentAmount: currency
+- RestrictionQuantity: double
+- TargetProductCategoryName: string
+- TargetProductName: string
+- TargetProductSku: string
+- TargetStandardShippingRateName: string
+- TargetRuleCriteriaType: picklist {All, Any} (required)
+- TargetOperator: picklist {NONE, EQUAL_TO, NOT_EQUAL_TO} (required)
+
+## PromotionTier (Promotion Tier)
+- Id: id
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- PromotionId: reference -> Promotion (required)
+- Rank: int
+
+## QuickText (Quick Text)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- Message: textarea (required)
+- Category: picklist {Greetings, FAQ, Closings}
+- Channel: multipicklist {Email, Portal, Phone, Internal, Event, Task, Messaging, CaseComment}
+- IsInsertable: boolean
+- SourceType: picklist {EINSTEIN_GENERATED, USER_GENERATED, USER_EDITED}
+
+## Recommendation (Recommendation)
+- Id: id
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- ActionReference: string (required)
+- Description: string (required)
+- ImageId: reference -> ContentAsset
+- AcceptanceLabel: string (required)
+- RejectionLabel: string (required)
+- IsActionActive: boolean
+- ExternalId: string
+- RecommendationKey: string
+
+## Refund (Refund)
+- Id: id
+- IsDeleted: boolean
+- RefundNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- Type: picklist {Referenced, NonReferenced} (required)
+- PaymentGroupId: reference -> PaymentGroup
+- ImpactAmount: currency
+- ProcessingMode: picklist {Salesforce, External} (required)
+- Amount: currency (required)
+- AccountId: reference -> Account
+- PaymentMethodId: reference -> PaymentMethod
+- Comments: textarea
+- Status: picklist {Draft, Processed, Canceled, Pending, Failed} (required)
+- GatewayRefNumber: string
+- ClientContext: textarea
+- GatewayResultCode: string
+- GatewayResultCodeDescription: string
+- SfResultCode: picklist {Success, PermanentFail, Decline, RequiresReview, Indeterminate, SystemError, ValidationError}
+- GatewayDate: datetime
+- IpAddress: string
+- MacAddress: string
+- Phone: phone
+- Email: email
+- EffectiveDate: datetime
+- Date: datetime
+- CancellationEffectiveDate: datetime
+- CancellationDate: datetime
+- CancellationGatewayRefNumber: string
+- CancellationGatewayResultCode: string
+- CancellationSfResultCode: string
+- CancellationGatewayDate: datetime
+- PaymentGatewayId: reference -> PaymentGateway
+- TotalApplied: currency
+- TotalUnapplied: currency
+- NetApplied: currency
+- Balance: currency
+
+## RefundLinePayment (Refund Line Payment)
+- Id: id
+- IsDeleted: boolean
+- RefundLinePaymentNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- PaymentId: reference -> Payment (required)
+- RefundId: reference -> Refund (required)
+- Amount: currency (required)
+- Type: picklist {Applied} (required)
+- HasBeenUnapplied: picklist {No} (required)
+- Comments: textarea
+- Date: datetime
+- AppliedDate: datetime
+- EffectiveDate: datetime
+- UnappliedDate: datetime
+- AssociatedAccountId: reference -> Account
+- AssociatedRefundLinePaymentId: reference -> RefundLinePayment
+- ImpactAmount: currency
+- EffectiveImpactAmount: currency
+- RefundBalance: currency
+- PaymentBalance: currency
+
+## ResourceAbsence (Resource Absence)
+- Id: id
+- IsDeleted: boolean
+- AbsenceNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- ResourceId: reference -> ServiceResource (required)
+- Type: picklist {Vacation, Meeting, Training, Medical}
+- Description: textarea
+- Start: datetime (required)
+- End: datetime (required)
+- Street: textarea
+- City: string
+- State: string
+- PostalCode: string
+- Country: string
+- StateCode: picklist {AC, AG, AG, 05, 02, AL, AL, AK, AB, AL, AP, AM, AN, AN, AP, …}
+- CountryCode: picklist {AF, AX, AL, DZ, AD, AO, AI, AQ, AG, AR, AM, AW, AU, AT, AZ, …}
+- Latitude: double
+- Longitude: double
+- GeocodeAccuracy: picklist {Address, NearAddress, Block, Street, ExtendedZip, Zip, Neighborhood, City, County, State, Unknown}
+- Address: address
+
+## ResourcePreference (Resource Preference)
+- Id: id
+- IsDeleted: boolean
+- ResourcePreferenceNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- ServiceResourceId: reference -> ServiceResource (required)
+- RelatedRecordId: reference -> Account|Asset|Location|WorkOrder|WorkOrderLineItem (required)
+- PreferenceType: picklist {Preferred, Required, Excluded}
+
+## ReturnOrder (Return Order)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- ReturnOrderNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- AccountId: reference -> Account
+- ContactId: reference -> Contact
+- CaseId: reference -> Case
+- OrderId: reference -> Order
+- SourceLocationId: reference -> Location
+- DestinationLocationId: reference -> Location
+- ShipmentType: picklist {Standard, Rush, Overnight, Next Business Day, Pick Up}
+- ShipFromStreet: textarea
+- ShipFromCity: string
+- ShipFromState: string
+- ShipFromPostalCode: string
+- ShipFromCountry: string
+- ShipFromStateCode: picklist {AC, AG, AG, 05, 02, AL, AL, AK, AB, AL, AP, AM, AN, AN, AP, …}
+- ShipFromCountryCode: picklist {AF, AX, AL, DZ, AD, AO, AI, AQ, AG, AR, AM, AW, AU, AT, AZ, …}
+- ShipFromLatitude: double
+- ShipFromLongitude: double
+- ShipFromGeocodeAccuracy: picklist {Address, NearAddress, Block, Street, ExtendedZip, Zip, Neighborhood, City, County, State, Unknown}
+- ShipFromAddress: address
+- ReturnedById: reference -> User
+- Description: textarea
+- ExpectedArrivalDate: datetime
+- Status: picklist {Draft, Submitted, Approved, Canceled, Closed, Pending Exchange}
+- StatusCategory: picklist {Draft, Activated, Closed, Canceled, Pending}
+- ExpirationDate: datetime
+- TotalProductAmount: currency
+- TotalProductTaxAmount: currency
+- TotalDeliveryAmount: currency
+- TotalDeliveryTaxAmount: currency
+- TotalFeeAmount: currency
+- TotalFeeTaxAmount: currency
+- TotalProductAdjustAmount: currency
+- TotalProductAdjustTaxAmount: currency
+- TotalDeliveryAdjustAmount: currency
+- TotalDeliveryAdjustTaxAmount: currency
+- TotalFeeAdjustAmount: currency
+- TotalFeeAdjustTaxAmount: currency
+- TotalAmount: currency
+- TotalTaxAmount: currency
+- TaxLocaleType: picklist {Net, Gross, Automatic}
+- TotalProductAmtWithTax: currency
+- TotalDeliveryAmtWithTax: currency
+- TotalFeeAmtWithTax: currency
+- TotalProductAdjustAmtWithTax: currency
+- TotalDeliveryAdjustAmtWithTax: currency
+- TotalFeeAdjustAmtWithTax: currency
+- GrandTotalAmount: currency
+- LifeCycleType: picklist {MANAGED, UNMANAGED}
+- RefundInstructionsHint: textarea
+
+## ReturnOrderItemAdjustment (Return Order Item Adjustment)
+- Id: id
+- IsDeleted: boolean
+- ReturnOrderItemAdjustmentNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- ReturnOrderLineItemId: reference -> ReturnOrderLineItem (required)
+- ReturnOrderId: reference -> ReturnOrder (required)
+- Amount: currency (required)
+- TotalTaxAmount: currency
+- TotalAmtWithTax: currency
+- Description: textarea
+
+## ReturnOrderItemTax (Return Order Item Tax)
+- Id: id
+- IsDeleted: boolean
+- ReturnOrderItemTaxNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- ReturnOrderLineItemId: reference -> ReturnOrderLineItem (required)
+- ReturnOrderId: reference -> ReturnOrder (required)
+- ReturnOrderItemAdjustmentId: reference -> ReturnOrderItemAdjustment
+- Type: picklist {Actual, Estimated} (required)
+- Amount: currency (required)
+- Rate: percent
+- TaxEffectiveDate: date
+- Description: textarea
+
+## ReturnOrderLineItem (Return Order Line Item)
+- Id: id
+- IsDeleted: boolean
+- ReturnOrderLineItemNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- ReturnOrderId: reference -> ReturnOrder (required)
+- OrderItemId: reference -> OrderItem
+- Product2Id: reference -> Product2
+- QuantityReturned: double (required)
+- QuantityUnitOfMeasure: picklist {Each}
+- SourceLocationId: reference -> Location
+- DestinationLocationId: reference -> Location
+- AssetId: reference -> Asset
+- Description: textarea
+- ReasonForReturn: picklist {Damaged, Defective, Duplicate Order, Wrong Item, Wrong Quantity, Not Satisfied, Outdated, Other}
+- ProcessingPlan: picklist {Repair, Discard, Salvage, Restock}
+- RepaymentMethod: picklist {Replace, Refund, Credit, Return}
+- ChangeOrderItemId: reference -> OrderItem
+- Type: picklist {Order Product, Delivery Charge, Fee}
+- TypeCode: picklist {Product, Charge}
+- QuantityReceived: double
+- QuantityExpected: double
+- QuantityRejected: double
+- ReasonForRejection: picklist {Damaged Item, Missing Item or Part, Wrong Item, Expired Warranty}
+- UnitPrice: currency
+- GrossUnitPrice: currency
+- TotalLineAmount: currency
+- TotalLineTaxAmount: currency
+- TotalAdjustmentTaxAmount: currency
+- TotalAdjustmentAmount: currency
+- TotalLineAmountWithTax: currency
+- TotalAdjustmentAmountWithTax: currency
+- TotalPrice: currency
+- TotalTaxAmount: currency
+- TotalAmount: currency
+- ReasonForChangeText: string
+
+## Scorecard (Scorecard)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- Description: textarea
+- TargetEntity: picklist {Account}
+
+## ScorecardMetric (Scorecard Metric)
+- Id: id
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- ScorecardId: reference -> Scorecard (required)
+- Description: textarea
+- Category: picklist {Sales, Marketing, Field Enablement, Support, Adoption}
+- ReportId: reference -> Report
+
+## SearchPromotionRule (Search Promotion Rule)
+- Id: id
+- IsDeleted: boolean
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- Query: string (required)
+
+## Seller (Seller)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- PartyId: reference -> Individual
+- SalesAmount: int
+- SellerType: picklist {Reseller, Distributor, Wholesaler, SalesPartner}
+- SellerTier: picklist {Gold, Silver, Bronze}
+- ActiveFromDate: date
+- ActiveToDate: date
+
+## ServiceAppointment (Service Appointment)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- AppointmentNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- ParentRecordId: reference -> Account|Asset|Case|Lead|Opportunity|WorkOrder|WorkOrderLineItem
+- ParentRecordType: string
+- AccountId: reference -> Account
+- WorkTypeId: reference -> WorkType
+- ContactId: reference -> Contact
+- Street: textarea
+- City: string
+- State: string
+- PostalCode: string
+- Country: string
+- StateCode: picklist {AC, AG, AG, 05, 02, AL, AL, AK, AB, AL, AP, AM, AN, AN, AP, …}
+- CountryCode: picklist {AF, AX, AL, DZ, AD, AO, AI, AQ, AG, AR, AM, AW, AU, AT, AZ, …}
+- Latitude: double
+- Longitude: double
+- GeocodeAccuracy: picklist {Address, NearAddress, Block, Street, ExtendedZip, Zip, Neighborhood, City, County, State, Unknown}
+- Address: address
+- Description: textarea
+- EarliestStartTime: datetime (required)
+- DueDate: datetime (required)
+- Duration: double
+- ArrivalWindowStartTime: datetime
+- ArrivalWindowEndTime: datetime
+- Status: picklist {None, Scheduled, Dispatched, In Progress, Cannot Complete, Completed, Canceled}
+- SchedStartTime: datetime
+- SchedEndTime: datetime
+- ActualStartTime: datetime
+- ActualEndTime: datetime
+- ActualDuration: double
+- DurationType: picklist {Hours, Minutes}
+- DurationInMinutes: double
+- ServiceTerritoryId: reference -> ServiceTerritory
+- Subject: string
+- ParentRecordStatusCategory: picklist {New, InProgress, OnHold, Completed, Closed, None, CannotComplete, Canceled}
+- StatusCategory: picklist {None, Scheduled, Dispatched, InProgress, CannotComplete, Completed, Canceled, CheckedIn}
+- ServiceNote: textarea
+- AppointmentType: picklist
+- Email: email
+- Phone: phone
+- CancellationReason: string
+- AdditionalInformation: string
+- Comments: string
+- IsAnonymousBooking: boolean
+- IsOffsiteAppointment: boolean
+- ApptBookingInfoUrl: textarea
+- AppointmentInvitationId: reference -> AppointmentInvitation
+- EngagementChannelTypeId: reference -> EngagementChannelType
+- AppointmentCategoryId: reference -> AppointmentCategory
+- CheckedInTime: datetime
+- AttendeeLimit: int
+- AppointmentMode: picklist {Regular, Group}
+- AttendeeCount: int
+- GroupAppointmentAccessType: picklist {AddedUsers, AddedAndCommunityUsers, AddedAndCommunityAndInvitedUsers}
+- Transaction: string
+- ReceiptOrderId: reference -> Order
+- TimeZone: picklist {Pacific/Kiritimati, Pacific/Apia, Pacific/Fakaofo, Pacific/Kanton, Pacific/Tongatapu, Pacific/Chatham, Antarctica/McMurdo, Asia/Anadyr, Asia/Kamchatka, Pacific/Auckland, Pacific/Fiji, Pacific/Funafuti, Pacific/Kwajalein, Pacific/Majuro, Pacific/Nauru, …}
+
+## ServiceAppointmentAttendee (Service Appointment Attendee)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- AttendeeIdentifier: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- ServiceAppointmentId: reference -> ServiceAppointment (required)
+- Email: email
+- AttendeeId: reference -> Account|Contact|Lead
+
+## ServiceContract (Service Contract)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- AccountId: reference -> Account
+- ContactId: reference -> Contact
+- Term: int
+- StartDate: date
+- EndDate: date
+- ActivationDate: datetime
+- ApprovalStatus: picklist {Draft, In Approval Process, Activated}
+- Description: textarea
+- BillingStreet: textarea
+- BillingCity: string
+- BillingState: string
+- BillingPostalCode: string
+- BillingCountry: string
+- BillingStateCode: picklist {AC, AG, AG, 05, 02, AL, AL, AK, AB, AL, AP, AM, AN, AN, AP, …}
+- BillingCountryCode: picklist {AF, AX, AL, DZ, AD, AO, AI, AQ, AG, AR, AM, AW, AU, AT, AZ, …}
+- BillingLatitude: double
+- BillingLongitude: double
+- BillingGeocodeAccuracy: picklist {Address, NearAddress, Block, Street, ExtendedZip, Zip, Neighborhood, City, County, State, Unknown}
+- BillingAddress: address
+- ShippingStreet: textarea
+- ShippingCity: string
+- ShippingState: string
+- ShippingPostalCode: string
+- ShippingCountry: string
+- ShippingStateCode: picklist {AC, AG, AG, 05, 02, AL, AL, AK, AB, AL, AP, AM, AN, AN, AP, …}
+- ShippingCountryCode: picklist {AF, AX, AL, DZ, AD, AO, AI, AQ, AG, AR, AM, AW, AU, AT, AZ, …}
+- ShippingLatitude: double
+- ShippingLongitude: double
+- ShippingGeocodeAccuracy: picklist {Address, NearAddress, Block, Street, ExtendedZip, Zip, Neighborhood, City, County, State, Unknown}
+- ShippingAddress: address
+- Pricebook2Id: reference -> Pricebook2
+- ShippingHandling: currency
+- Tax: currency
+- Subtotal: currency
+- TotalPrice: currency
+- LineItemCount: int
+- ContractNumber: string
+- SpecialTerms: textarea
+- Discount: percent
+- GrandTotal: currency
+- Status: picklist {Inactive, Active, Expired}
+- ParentServiceContractId: reference -> ServiceContract
+- RootServiceContractId: reference -> ServiceContract
+- AdditionalDiscount: percent
+
+## ServiceResource (Service Resource)
+- Id: id
+- OwnerId: reference -> Group|User
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- RelatedRecordId: reference -> User
+- ResourceType: picklist {T, D, C, A, S, P}
+- Description: textarea
+- IsActive: boolean
+- LocationId: reference -> Location
+- AccountId: reference -> Account
+- IsPrimary: boolean
+
+## ServiceResourceSkill (Service Resource Skill)
+- Id: id
+- IsDeleted: boolean
+- SkillNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- ServiceResourceId: reference -> ServiceResource (required)
+- SkillId: reference -> Skill (required)
+- SkillLevel: double
+- EffectiveStartDate: datetime (required)
+- EffectiveEndDate: datetime
+
+## ServiceTerritory (Service Territory)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- ParentTerritoryId: reference -> ServiceTerritory
+- TopLevelTerritoryId: reference -> ServiceTerritory
+- Description: textarea
+- OperatingHoursId: reference -> OperatingHours (required)
+- Street: textarea
+- City: string
+- State: string
+- PostalCode: string
+- Country: string
+- StateCode: picklist {AC, AG, AG, 05, 02, AL, AL, AK, AB, AL, AP, AM, AN, AN, AP, …}
+- CountryCode: picklist {AF, AX, AL, DZ, AD, AO, AI, AQ, AG, AR, AM, AW, AU, AT, AZ, …}
+- Latitude: double
+- Longitude: double
+- GeocodeAccuracy: picklist {Address, NearAddress, Block, Street, ExtendedZip, Zip, Neighborhood, City, County, State, Unknown}
+- Address: address
+- IsActive: boolean
+- TypicalInTerritoryTravelTime: double
+- SelfCheckInUrl: url
+- ServiceAppointmentLimitType: picklist {Maximum Limit, Achievable Limit}
+- PricebookId: reference -> Pricebook2
+
+## ServiceTerritoryMember (Service Territory Member)
+- Id: id
+- IsDeleted: boolean
+- MemberNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- ServiceTerritoryId: reference -> ServiceTerritory (required)
+- ServiceResourceId: reference -> ServiceResource (required)
+- TerritoryType: picklist {P, S, R}
+- EffectiveStartDate: datetime (required)
+- EffectiveEndDate: datetime
+- Street: textarea
+- City: string
+- State: string
+- PostalCode: string
+- Country: string
+- StateCode: picklist {AC, AG, AG, 05, 02, AL, AL, AK, AB, AL, AP, AM, AN, AN, AP, …}
+- CountryCode: picklist {AF, AX, AL, DZ, AD, AO, AI, AQ, AG, AR, AM, AW, AU, AT, AZ, …}
+- Latitude: double
+- Longitude: double
+- GeocodeAccuracy: picklist {Address, NearAddress, Block, Street, ExtendedZip, Zip, Neighborhood, City, County, State, Unknown}
+- Address: address
+- OperatingHoursId: reference -> OperatingHours
+- Role: picklist
+
+## ServiceTerritoryWorkType (Service Territory Work Type)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- WorkTypeId: reference -> WorkType (required)
+- ServiceTerritoryId: reference -> ServiceTerritory (required)
+
+## SessionPermSetActivation (Session Permission Set Activation)
+- Id: id
+- IsDeleted: boolean
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- AuthSessionId: reference -> AuthSession
+- PermissionSetId: reference -> PermissionSet
+- UserId: reference -> User
+- Description: textarea
+- PermissionSetGroupId: reference -> PermissionSetGroup
+
+## SfdcPartnerSbscrOffer (Partner Subscriber Offer)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- PartnerOrg: string
+- PartnerCompanyName: string
+- CustomerName: string
+- OfferType: picklist {Initial, Add-On}
+- TermsAndConditions: textarea
+- Status: picklist {New, Accepted, Rejected, Expired, Void, Withdraw}
+- ContractTerm: int
+- ServiceStartDate: date
+- ServiceEndDate: date
+- CustBillingStreet: textarea
+- CustBillingCity: string
+- CustBillingState: string
+- CustBillingPostalCode: string
+- CustBillingCountry: string
+- CustBillingStateCode: picklist {AC, AG, AG, 05, 02, AL, AL, AK, AB, AL, AP, AM, AN, AN, AP, …}
+- CustBillingCountryCode: picklist {AF, AX, AL, DZ, AD, AO, AI, AQ, AG, AR, AM, AW, AU, AT, AZ, …}
+- CustBillingLatitude: double
+- CustBillingLongitude: double
+- CustBillingGeocodeAccuracy: picklist {Address, NearAddress, Block, Street, ExtendedZip, Zip, Neighborhood, City, County, State, Unknown}
+- CustBillingAddress: address
+- CustShippingStreet: textarea
+- CustShippingCity: string
+- CustShippingState: string
+- CustShippingPostalCode: string
+- CustShippingCountry: string
+- CustShippingStateCode: picklist {AC, AG, AG, 05, 02, AL, AL, AK, AB, AL, AP, AM, AN, AN, AP, …}
+- CustShippingCountryCode: picklist {AF, AX, AL, DZ, AD, AO, AI, AQ, AG, AR, AM, AW, AU, AT, AZ, …}
+- CustShippingLatitude: double
+- CustShippingLongitude: double
+- CustShippingGeocodeAccuracy: picklist {Address, NearAddress, Block, Street, ExtendedZip, Zip, Neighborhood, City, County, State, Unknown}
+- CustShippingAddress: address
+- CustomerBillingEmailAddress: email
+- SubTotal: currency
+- CustomerPurchaseOrderNumber: string
+- CustomerEmailAddress: email
+- OrderPrebillDays: int
+- BillingFrequency: picklist {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12}
+- PaymentMethod: picklist {ACH}
+- ExpirationDate: date
+- CustomerPaymentTerms: picklist {NET 30}
+- SyncToPboLastUpdate: datetime
+- SyncToPboStatus: picklist {Not ready}
+- PartnerOffer: string
+- RespondingUserId: reference -> User
+- ServiceTerm: double
+- SyncToPboError: string
+
+## SfdcPartnerSbscrOfferItem (Partner Offer Item)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- PartnerSubscriberOfferId: reference -> SfdcPartnerSbscrOffer
+- PartnerProvisionProductName: string
+- Quantity: int
+- CustomerUnitPricePerMonth: currency
+- LineItemPeriodTotal: currency
+- LineItemTotal: currency
+- ServiceStartDate: date
+
+## Shift (Shift)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- ShiftNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- Label: string
+- StartTime: datetime (required)
+- EndTime: datetime (required)
+- ServiceResourceId: reference -> ServiceResource
+- ServiceTerritoryId: reference -> ServiceTerritory
+- StatusCategory: picklist {Tentative, Published, Confirmed}
+- Status: picklist {Tentative, Published, Confirmed}
+- TimeSlotType: picklist {Normal, Extended}
+- WorkTypeId: reference -> WorkType
+- WorkTypeGroupId: reference -> WorkTypeGroup
+- BackgroundColor: string
+- RecurrenceStartDate: date
+- RecurrenceEndDate: date
+- RecurrencePattern: string
+- Type: picklist {Regular, Recurring}
+- AppointmentCategoryId: reference -> AppointmentCategory
+
+## ShiftEngagementChannel (Shift Engagement Channel)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- ShiftId: reference -> Shift (required)
+- EngagementChannelTypeId: reference -> EngagementChannelType
+- AreAllEngmtChnlSupported: boolean
+
+## ShiftWorkTopic (Shift Work Topic)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- ShiftId: reference -> Shift (required)
+- WorkTypeId: reference -> WorkType
+- WorkTypeGroupId: reference -> WorkTypeGroup
+- AreAllTopicsSupported: boolean
+- MaxAppointments: int
+- ServiceAppointmentLimit: int
+- AttendeeLimit: int
+
+## Shipment (Shipment)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- ShipmentNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- SourceLocationId: reference -> Location
+- DestinationLocationId: reference -> Location
+- ShipToName: string (required)
+- TotalItemsQuantity: double
+
+## ShipmentItem (Shipment Item)
+- Id: id
+- IsDeleted: boolean
+- ShipmentItemNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- ShipmentId: reference -> Shipment (required)
+- Description: string
+- Product2Id: reference -> Product2
+- Quantity: double (required)
+- ExpectedDeliveryDate: datetime
+- TrackingNumber: string
+- TrackingUrl: url
+
+## ShippingCarrier (Shipping Carrier)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- ExternalReference: string (required)
+- ShipFromCountry: picklist {AF, AX, AL, DZ, AS, AD, AO, AI, AQ, AG, AR, AM, AW, AU, AT, …}
+- ManagedShippingCarrier: picklist {FEDEX, UPS, USPS, CANADA_POST, ROYAL_MAIL}
+
+## ShippingCarrierMethod (Shipping Carrier Method)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- ShippingCarrierId: reference -> ShippingCarrier
+- ExternalReference: string (required)
+- MinTransitTime: int
+- MaxTransitTime: int (required)
+- TransitTimeUnit: picklist {Hours, Days, Weeks} (required)
+- ShippingScope: picklist {Domestic, DomesticAndInternational, International}
+- ManagedShippingCarrierMethod: picklist {FEDEX_GROUND, FEDEX_FIRST_OVERNIGHT, FEDEX_GROUND_HOME_DELIVERY, FEDEX_SMART_POST, FEDEX_PRIORITY_OVERNIGHT, FEDEX_STANDARD_OVERNIGHT, FEDEX_2_DAY, FEDEX_2_DAY_AM, FEDEX_EXPRESS_SAVER, FEDEX_SAME_DAY, FEDEX_SAME_DAY_CITY, UPS_1DA, UPS_1DAS, UPS_1DM, UPS_1DMS, …}
+- ProcessingTime: int
+- ProcessingTimeUnit: picklist {Hours, Days, Weeks}
+- MondayPickUpTime: time
+- TuesdayPickUpTime: time
+- WednesdayPickUpTime: time
+- ThursdayPickUpTime: time
+- FridayPickUpTime: time
+- SaturdayPickUpTime: time
+- SundayPickUpTime: time
+
+## SkillRequirement (Skill Requirement)
+- Id: id
+- IsDeleted: boolean
+- SkillNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- RelatedRecordId: reference -> PendingServiceRouting|WorkOrder|WorkOrderLineItem|WorkType (required)
+- SkillId: reference -> Skill (required)
+- SkillLevel: double
+
+## SlaProcess (Entitlement Process)
+- Id: id
+- Name: string
+- NameNorm: string
+- Description: textarea
+- IsActive: boolean
+- StartDateField: picklist {Case.ClosedDate, Case.CreatedDate, Case.LastModifiedDate, Case.SlaStartDate, Case.StopStartDate, Incident.CreatedDate, Incident.DetectedDateTime, Incident.EndDateTime, Incident.LastModifiedDate, Incident.ResolutionDateTime, Incident.SlaStartDate, Incident.StartDateTime, Incident.StopStartDate, WorkOrder.CreatedDate, WorkOrder.EndDate, …}
+- SobjectType: picklist {Account, ActivationTarget, ActivationTargetPlatform, ActvTgtPlatformFieldValue, Address, AgentWork, AiEvalCopilotTestCaseRslt, AiEvalPrmptRagTestCsRslt, AiEvalPromptTestCaseRslt, AiEvalTestCaseCritRslt, AiEvalTestCaseResult, AiEvaluation, AiGroundingFileRef, AiGroundingSourceStage, AiGroundingWebRef, …}
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- IsDeleted: boolean
+- BusinessHoursId: reference -> BusinessHours
+- LastViewedDate: datetime
+
+## Solution (Solution)
+- Id: id
+- IsDeleted: boolean
+- SolutionNumber: string
+- SolutionName: string (required)
+- IsPublished: boolean
+- IsPublishedInPublicKb: boolean
+- Status: picklist {Draft, Reviewed, Duplicate}
+- IsReviewed: boolean
+- SolutionNote: textarea
+- OwnerId: reference -> User
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- TimesUsed: int
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- IsHtml: boolean
+
+## SourceCodeRepoProvider (Source Code Repository Provider)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- NamedCredential: string (required)
+- BaseUrl: string (required)
+- Provider: picklist {GITHUB, BITBUCKET, GITLAB}
+
+## SourceCodeRepository (Source Code Repository)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- DefaultBranch: string
+- RepositoryOwner: string
+- ExternalRepositoryName: string
+- Provider: picklist {GITHUB, BITBUCKET, GITLAB}
+- SourceCodeRepoProviderId: reference -> SourceCodeRepoProvider
+- ProviderInfo: textarea
+- ExternalId: string
+
+## SourceCodeRepositoryBranch (Source Code Repository Branch)
+- Id: id
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- SourceCodeRepositoryId: reference -> SourceCodeRepository (required)
+- RemoteReference: string
+- RemoteReferenceDate: datetime
+- ParentRemoteReference: string
+- IgnoreRules: textarea
+- Status: picklist {MERGE_CONFLICT, DEPLOYMENT_ERROR, SWAP_ERROR}
+- ExternalId: string
+
+## StandardShippingRate (Standard Shipping Rate)
+- Id: id
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- ShippingZoneId: reference -> ShippingRateArea (required)
+- Price: currency
+- ConditionFactor: picklist {OrderPriceFactor, OrderWeightFactor}
+- ConditionRangeMin: double
+- ConditionRangeMax: double
+- TransitTimeMin: int
+- TransitTimeMax: int
+- TransitTimeUnit: picklist {Hours, Days, Weeks}
+- ShippingCarrierMethodId: reference -> ShippingCarrierMethod
+- WeightUnit: picklist {Pounds, Kilograms, Ounces, Grams}
+
+## StreamingChannel (Streaming Channel)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- IsDynamic: boolean
+- Description: string
+
+## Subscription_Line__c (Subscription Line) [custom]
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- Subscription__c: reference -> Subscription__c (required)
+- Product__c: reference -> Product2
+- Quantity__c: double (required)
+- Unit_Price__c: currency (required)
+- Account_Name__c: string = Subscription__r.Account__r.Name
+- Line_Total__c: currency = Quantity__c * Unit_Price__c
+
+## Subscription__c (Subscription) [custom]
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastActivityDate: date
+- Account__c: reference -> Account (required)
+- Auto_Renew__c: boolean
+- Cancellation_Reason__c: string
+- End_Date__c: date (required)
+- Health_Score__c: double
+- MRR__c: currency
+- Primary_Contact__c: reference -> Contact
+- Source_Opportunity__c: reference -> Opportunity
+- Start_Date__c: date (required)
+- Status__c: picklist {Draft, Active, Suspended, Cancelled, Renewed}
+- Term_Months__c: double
+- Line_Count__c: double
+- Annual_Value__c: currency = MRR__c * 12
+- Days_To_Renewal__c: double = End_Date__c - TODAY()
+- Total_Line_Value__c: currency
+
+## Task (Task)
+- Id: id
+- WhoId: reference -> Contact|Lead
+- WhatId: reference -> Account|AppointmentCategory|AppointmentInvitation|ApprovalSubmission|ApprovalSubmissionDetail|ApprovalWorkItem|Asset|AssetRelationship|AssignedResource|Campaign|Case|ChangeRequest|CommSubscriptionConsent|ContactRequest|Contract|ContractLineItem|Coupon|CreditMemo|DataQueryWorkspace|DeliveryEstimationSetup|DevopsActivityLog|DevopsEnvDeployment|DevopsEnvDeploymentMbr|DevopsEnvironment|DevopsPipeline|DevopsPipelineEnvironment|DevopsPipelineStage|DevopsPipelnStgProm|DevopsPipelnStgPromWkItem|DevopsProject|DevopsProjectEnvironment|DevopsProjectPipeline|DevopsRequestInfo|Entitlement|FulfillmentOrder|Image|Incident|Invoice|LegalEntity|ListEmail|Location|LocationShippingCarrierMethod|OperatingHoursHoliday|Opportunity|Order|PartyConsent|PrivacyRTBFRequest|Problem|ProcessException|Product2|ProductCatalog|Promotion|PromotionMarketSegment|PromotionQualifier|PromotionSegment|PromotionSegmentBuyerGroup|PromotionSegmentSalesStore|PromotionTarget|PromotionTier|ResourceAbsence|ReturnOrder|ReturnOrderLineItem|ServiceAppointment|ServiceContract|ServiceResource|Shift|Shipment|ShipmentItem|ShippingCarrier|ShippingCarrierMethod|Solution|SourceCodeRepoProvider|SourceCodeRepository|SourceCodeRepositoryBranch|Subscription__c|Waitlist|WaitlistParticipant|WorkItem|WorkItemComponent|WorkItemComponentList|WorkOrder|WorkOrderLineItem|WorkPlan|WorkPlanTemplate|WorkPlanTemplateEntry|WorkStep|WorkStepTemplate
+- Subject: combobox {Call, Email, Send Letter, Send Quote, Other}
+- ActivityDate: date
+- Status: picklist {Not Started, In Progress, Completed, Waiting on someone else, Deferred}
+- Priority: picklist {High, Normal, Low}
+- IsHighPriority: boolean
+- OwnerId: reference -> Group|User
+- Description: textarea
+- IsDeleted: boolean
+- AccountId: reference -> Account
+- IsClosed: boolean
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- IsArchived: boolean
+- CallDurationInSeconds: int
+- CallType: picklist {Internal, Inbound, Outbound}
+- CallDisposition: string
+- CallObject: string
+- ReminderDateTime: datetime
+- IsReminderSet: boolean
+- RecurrenceActivityId: reference -> Task
+- IsRecurrence: boolean
+- RecurrenceStartDateOnly: date
+- RecurrenceEndDateOnly: date
+- RecurrenceTimeZoneSidKey: picklist {Pacific/Kiritimati, Pacific/Apia, Pacific/Fakaofo, Pacific/Kanton, Pacific/Tongatapu, Pacific/Chatham, Antarctica/McMurdo, Asia/Anadyr, Asia/Kamchatka, Pacific/Auckland, Pacific/Fiji, Pacific/Funafuti, Pacific/Kwajalein, Pacific/Majuro, Pacific/Nauru, …}
+- RecurrenceType: picklist {RecursDaily, RecursEveryWeekday, RecursMonthly, RecursMonthlyNth, RecursWeekly, RecursYearly, RecursYearlyNth}
+- RecurrenceInterval: int
+- RecurrenceDayOfWeekMask: int
+- RecurrenceDayOfMonth: int
+- RecurrenceInstance: picklist {First, Second, Third, Fourth, Last}
+- RecurrenceMonthOfYear: picklist {January, February, March, April, May, June, July, August, September, October, November, December}
+- RecurrenceRegeneratedType: picklist {RecurrenceRegenerateAfterDueDate, RecurrenceRegenerateAfterToday, RecurrenceRegenerated}
+- TaskSubtype: picklist {Task, Email, ListEmail, Cadence, Call, LinkedIn}
+- CompletedDateTime: datetime
+
+## TenantConsumptionAlert (Utilization Alert)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- AlertType: string (required)
+- AlertScope: string (required)
+- AlertSubScope1: string
+- AlertSubScope2: string
+- AlertStatus: picklist {Active, Cleared} (required)
+- TriggerValue: int (required)
+- TriggerType: string (required)
+- IsNotificationSent: boolean
+- AlertTimestamp: datetime (required)
+
+## TenantUsageEntitlement (Tenant Usage Entitlement)
+- Id: id
+- IsDeleted: boolean
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- ResourceGroupKey: string
+- Setting: string
+- StartDate: date
+- EndDate: date
+- CurrentAmountAllowed: double
+- Frequency: picklist {Daily, Weekly, Fortnightly, Monthly, Once, Quarterly, Yearly}
+- IsPersistentResource: boolean
+- HasRollover: boolean
+- OverageGrace: percent
+- AmountUsed: double
+- UsageDate: datetime
+- MasterLabel: string
+
+## TimeSlot (Time Slot)
+- Id: id
+- IsDeleted: boolean
+- TimeSlotNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- OperatingHoursId: reference -> OperatingHours (required)
+- DayOfWeek: picklist {Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday}
+- Type: picklist {Normal, Extended}
+- MaxAppointments: int
+- WorkTypeGroupId: reference -> WorkTypeGroup
+- StartTime: time (required)
+- EndTime: time (required)
+
+## Topic (Topic)
+- Id: id
+- Name: string (required)
+- Description: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- TalkingAbout: int
+- ManagedTopicType: string
+- SystemModstamp: datetime
+
+## UnstructuredStorageSpace (UnstructuredStorageSpace)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- SpaceName: string (required)
+- ApplicationName: string (required)
+- StorageReference: string
+- StorageLocation: string
+- FolderId: reference -> Folder|Organization|User (required)
+- Attribute1: string
+- DerivedFolderLocation: string
+- StorageTierType: picklist
+- ExpirationPolicyType: picklist
+- SpaceType: picklist
+
+## User (User)
+- Id: id
+- Username: string (required)
+- LastName: string (required)
+- FirstName: string
+- Name: string
+- CompanyName: string
+- Division: string
+- Department: string
+- Title: string
+- Street: textarea
+- City: string
+- State: string
+- PostalCode: string
+- Country: string
+- StateCode: picklist {AC, AG, AG, 05, 02, AL, AL, AK, AB, AL, AP, AM, AN, AN, AP, …}
+- CountryCode: picklist {AF, AX, AL, DZ, AD, AO, AI, AQ, AG, AR, AM, AW, AU, AT, AZ, …}
+- Latitude: double
+- Longitude: double
+- GeocodeAccuracy: picklist {Address, NearAddress, Block, Street, ExtendedZip, Zip, Neighborhood, City, County, State, Unknown}
+- Address: address
+- Email: email (required)
+- EmailPreferencesAutoBcc: boolean (required)
+- EmailPreferencesAutoBccStayInTouch: boolean (required)
+- EmailPreferencesStayInTouchReminder: boolean (required)
+- SenderEmail: email
+- SenderName: string
+- Signature: textarea
+- StayInTouchSubject: string
+- StayInTouchSignature: textarea
+- StayInTouchNote: string
+- Phone: phone
+- Fax: phone
+- MobilePhone: phone
+- Alias: string (required)
+- CommunityNickname: string (required)
+- BadgeText: string
+- IsActive: boolean
+- TimeZoneSidKey: picklist {Pacific/Kiritimati, Pacific/Apia, Pacific/Fakaofo, Pacific/Kanton, Pacific/Tongatapu, Pacific/Chatham, Antarctica/McMurdo, Asia/Anadyr, Asia/Kamchatka, Pacific/Auckland, Pacific/Fiji, Pacific/Funafuti, Pacific/Kwajalein, Pacific/Majuro, Pacific/Nauru, …} (required)
+- UserRoleId: reference -> UserRole
+- LocaleSidKey: picklist {af_ZA, sq_AL, am_ET, ar_DZ, ar_BH, ar_EG, ar_IQ, ar_JO, ar_KW, ar_LB, ar_LY, ar_MA, ar_OM, ar_QA, ar_SA, …} (required)
+- ReceivesInfoEmails: boolean
+- ReceivesAdminInfoEmails: boolean
+- EmailEncodingKey: picklist {UTF-8, ISO-8859-1, Shift_JIS, ISO-2022-JP, EUC-JP, ks_c_5601-1987, Big5, GB2312, Big5-HKSCS, x-SJIS_0213} (required)
+- ProfileId: reference -> Profile (required)
+- UserType: picklist {Standard, PowerPartner, PowerCustomerSuccess, CustomerSuccess, Guest, CspLitePortal, CsnOnly, SelfService}
+- StartDay: picklist {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, …}
+- EndDay: picklist {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, …}
+- LanguageLocaleKey: picklist {en_US, de, es, fr, it, ja, sv, ko, zh_TW, zh_CN, pt_BR, nl_NL, da, th, fi, …} (required)
+- EmployeeNumber: string
+- DelegatedApproverId: reference -> Group|User
+- ManagerId: reference -> User
+- LastLoginDate: datetime
+- LastPasswordChangeDate: datetime
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- PasswordExpirationDate: datetime
+- NumberOfFailedLogins: int
+- SuAccessExpirationDate: date
+- OfflineTrialExpirationDate: datetime
+- OfflinePdaTrialExpirationDate: datetime
+- UserPermissionsMarketingUser: boolean (required)
+- UserPermissionsOfflineUser: boolean (required)
+- UserPermissionsCallCenterAutoLogin: boolean (required)
+- UserPermissionsSFContentUser: boolean (required)
+- UserPermissionsKnowledgeUser: boolean (required)
+- UserPermissionsInteractionUser: boolean (required)
+- UserPermissionsSupportUser: boolean (required)
+- UserPermissionsJigsawProspectingUser: boolean (required)
+- UserPermissionsSiteforceContributorUser: boolean (required)
+- UserPermissionsSiteforcePublisherUser: boolean (required)
+- UserPermissionsWorkDotComUserFeature: boolean (required)
+- ForecastEnabled: boolean
+- UserPreferencesActivityRemindersPopup: boolean (required)
+- UserPreferencesEventRemindersCheckboxDefault: boolean (required)
+- UserPreferencesTaskRemindersCheckboxDefault: boolean (required)
+- UserPreferencesReminderSoundOff: boolean (required)
+- UserPreferencesDisableAllFeedsEmail: boolean (required)
+- UserPreferencesDisableFollowersEmail: boolean (required)
+- UserPreferencesDisableProfilePostEmail: boolean (required)
+- UserPreferencesDisableChangeCommentEmail: boolean (required)
+- UserPreferencesDisableLaterCommentEmail: boolean (required)
+- UserPreferencesDisProfPostCommentEmail: boolean (required)
+- UserPreferencesContentNoEmail: boolean (required)
+- UserPreferencesContentEmailAsAndWhen: boolean (required)
+- UserPreferencesApexPagesDeveloperMode: boolean (required)
+- UserPreferencesReceiveNoNotificationsAsApprover: boolean (required)
+- UserPreferencesReceiveNotificationsAsDelegatedApprover: boolean (required)
+- UserPreferencesHideCSNGetChatterMobileTask: boolean (required)
+- UserPreferencesDisableMentionsPostEmail: boolean (required)
+- UserPreferencesDisMentionsCommentEmail: boolean (required)
+- UserPreferencesHideCSNDesktopTask: boolean (required)
+- UserPreferencesHideChatterOnboardingSplash: boolean (required)
+- UserPreferencesHideSecondChatterOnboardingSplash: boolean (required)
+- UserPreferencesDisCommentAfterLikeEmail: boolean (required)
+- UserPreferencesDisableLikeEmail: boolean (required)
+- UserPreferencesSortFeedByComment: boolean (required)
+- UserPreferencesDisableMessageEmail: boolean (required)
+- UserPreferencesDismissRecordChannelsSuggestedObjects: boolean (required)
+- UserPreferencesJigsawListUser: boolean (required)
+- UserPreferencesDisableBookmarkEmail: boolean (required)
+- UserPreferencesDisableSharePostEmail: boolean (required)
+- UserPreferencesActionLauncherEinsteinGptConsent: boolean (required)
+- UserPreferencesAssistiveActionsEnabledInActionLauncher: boolean (required)
+- UserPreferencesEnableAutoSubForFeeds: boolean (required)
+- UserPreferencesDisableFileShareNotificationsForApi: boolean (required)
+- UserPreferencesEnableLwrLexPilot: boolean (required)
+- UserPreferencesShowTitleToExternalUsers: boolean (required)
+- UserPreferencesShowManagerToExternalUsers: boolean (required)
+- UserPreferencesShowEmailToExternalUsers: boolean (required)
+- UserPreferencesShowWorkPhoneToExternalUsers: boolean (required)
+- UserPreferencesShowMobilePhoneToExternalUsers: boolean (required)
+- UserPreferencesShowFaxToExternalUsers: boolean (required)
+- UserPreferencesShowStreetAddressToExternalUsers: boolean (required)
+- UserPreferencesShowCityToExternalUsers: boolean (required)
+- UserPreferencesShowStateToExternalUsers: boolean (required)
+- UserPreferencesShowPostalCodeToExternalUsers: boolean (required)
+- UserPreferencesShowCountryToExternalUsers: boolean (required)
+- UserPreferencesShowProfilePicToGuestUsers: boolean (required)
+- UserPreferencesShowTitleToGuestUsers: boolean (required)
+- UserPreferencesShowCityToGuestUsers: boolean (required)
+- UserPreferencesShowStateToGuestUsers: boolean (required)
+- UserPreferencesShowPostalCodeToGuestUsers: boolean (required)
+- UserPreferencesShowCountryToGuestUsers: boolean (required)
+- UserPreferencesShowForecastingChangeSignals: boolean (required)
+- UserPreferencesLiveAgentMiawSetupDeflection: boolean (required)
+- UserPreferencesHideS1BrowserUI: boolean (required)
+- UserPreferencesDisableEndorsementEmail: boolean (required)
+- UserPreferencesPathAssistantCollapsed: boolean (required)
+- UserPreferencesCacheDiagnostics: boolean (required)
+- UserPreferencesShowEmailToGuestUsers: boolean (required)
+- UserPreferencesShowManagerToGuestUsers: boolean (required)
+- UserPreferencesShowWorkPhoneToGuestUsers: boolean (required)
+- UserPreferencesShowMobilePhoneToGuestUsers: boolean (required)
+- UserPreferencesShowFaxToGuestUsers: boolean (required)
+- UserPreferencesShowStreetAddressToGuestUsers: boolean (required)
+- UserPreferencesLightningExperiencePreferred: boolean (required)
+- UserPreferencesPreviewLightning: boolean (required)
+- UserPreferencesHideEndUserOnboardingAssistantModal: boolean (required)
+- UserPreferencesHideLightningMigrationModal: boolean (required)
+- UserPreferencesHideSfxWelcomeMat: boolean (required)
+- UserPreferencesHideBiggerPhotoCallout: boolean (required)
+- UserPreferencesGlobalNavBarWTShown: boolean (required)
+- UserPreferencesGlobalNavGridMenuWTShown: boolean (required)
+- UserPreferencesCreateLEXAppsWTShown: boolean (required)
+- UserPreferencesFavoritesWTShown: boolean (required)
+- UserPreferencesRecordHomeSectionCollapseWTShown: boolean (required)
+- UserPreferencesRecordHomeReservedWTShown: boolean (required)
+- UserPreferencesFavoritesShowTopFavorites: boolean (required)
+- UserPreferencesExcludeMailAppAttachments: boolean (required)
+- UserPreferencesSuppressTaskSFXReminders: boolean (required)
+- UserPreferencesSuppressEventSFXReminders: boolean (required)
+- UserPreferencesPreviewCustomTheme: boolean (required)
+- UserPreferencesHasCelebrationBadge: boolean (required)
+- UserPreferencesUserDebugModePref: boolean (required)
+- UserPreferencesSRHOverrideActivities: boolean (required)
+- UserPreferencesNewLightningReportRunPageEnabled: boolean (required)
+- UserPreferencesReverseOpenActivitiesView: boolean (required)
+- UserPreferencesShowTerritoryTimeZoneShifts: boolean (required)
+- UserPreferencesHasSentWarningEmail: boolean (required)
+- UserPreferencesHasSentWarningEmail238: boolean (required)
+- UserPreferencesHasSentWarningEmail240: boolean (required)
+- UserPreferencesDismissPersonalSpaceLegalMessage: boolean (required)
+- UserPreferencesNativeEmailClient: boolean (required)
+- UserPreferencesDismissReuseUpdateReminderModal: boolean (required)
+- UserPreferencesHideManagedEcaMobilePubModal: boolean (required)
+- UserPreferencesShowForecastingRoundedAmounts: boolean (required)
+- HasUserVerifiedPhone: boolean
+- HasUserVerifiedEmail: boolean
+- ContactId: reference -> Contact
+- AccountId: reference -> Account
+- CallCenterId: reference -> CallCenter
+- Extension: phone
+- FederationIdentifier: string
+- AboutMe: textarea
+- FullPhotoUrl: url
+- SmallPhotoUrl: url
+- IsExtIndicatorVisible: boolean
+- OutOfOfficeMessage: string
+- MediumPhotoUrl: url
+- DigestFrequency: picklist {D, W, N}
+- DefaultGroupNotificationFrequency: picklist {P, D, W, N}
+- JigsawImportLimitOverride: int
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- BannerPhotoUrl: url
+- SmallBannerPhotoUrl: url
+- MediumBannerPhotoUrl: url
+- IsProfilePhotoActive: boolean
+- IndividualId: reference -> Individual
+
+## UserDefinedLabel (Label)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- Color: string (required)
+- Type: picklist {User, Starred, Tag} (required)
+- TotalAssignments: int
+
+## UserProvisioningRequest (User Provisioning Request)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- SalesforceUserId: reference -> User
+- ExternalUserId: string
+- AppName: string
+- State: picklist {New, Requested, Completed, Failed, Collecting, Collected, Analyzing, Analyzed, Committing, Retried, Manually Completed} (required)
+- Operation: picklist {Create, Read, Update, Deactivate, Activate, Freeze, Unfreeze, Reconcile, Linking} (required)
+- ScheduleDate: datetime
+- ConnectedAppId: reference -> ConnectedApplication
+- UserProvConfigId: reference -> UserProvisioningConfig
+- UserProvAccountId: reference -> UserProvAccount
+- ApprovalStatus: picklist {Required, NotRequired, Approved, Denied} (required)
+- ManagerId: reference -> User
+- RetryCount: int
+- ParentId: reference -> UserProvisioningRequest
+
+## UserRole (Role)
+- Id: id
+- Name: string (required)
+- ParentRoleId: reference -> UserRole
+- RollupDescription: string
+- OpportunityAccessForAccountOwner: picklist {None, Read, Edit} (required)
+- CaseAccessForAccountOwner: picklist {None, Read, Edit}
+- ContactAccessForAccountOwner: picklist {None, Read, Edit}
+- ForecastUserId: reference -> User
+- MayForecastManagerShare: boolean
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- DeveloperName: string
+- PortalAccountId: reference -> Account
+- PortalType: picklist {None, CustomerPortal, Partner}
+- PortalAccountOwnerId: reference -> User
+
+## VoiceCall (Voice Call)
+- Name: string
+- Id: id
+- IsDeleted: boolean
+- CreatedById: reference -> User
+- CreatedDate: datetime
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- OwnerId: reference -> Group|User
+- CallStartDateTime: datetime
+- CallEndDateTime: datetime
+- FromPhoneNumber: phone
+- ToPhoneNumber: phone
+- CallDurationInSeconds: int
+- VendorCallKey: string
+- Price: double
+- CurrencyCode: picklist {AED, AFN, ALL, AMD, ANG, AOA, ARS, AUD, AWG, AZN, BAM, BBD, BDT, BGN, BHD, …}
+- CallDisposition: string
+- CallType: picklist {Internal, Inbound, Outbound, Coach, Bridge, Transfer, Callback, InternalCall, Consult}
+- VendorParentCallKey: string
+- UserId: reference -> User
+- RelatedRecordId: reference -> Account|Case|Contact|ContactRequest|Lead|Opportunity|Subscription_Line__c|Subscription__c|WorkOrder
+- VendorType: picklist {Twilio, Custom, TwilioTrial, ContactCenter, RingCentral, DialPad, AmazonConnect, AirCall, VirtualVoiceAgent, NativeVoice}
+- ConferenceKey: string
+- CallRecordingId: reference -> VoiceCallRecording
+- CallerIdType: picklist {VendorLine, CompanyNumber, LocalPresence, CustomCallerId}
+- IsRecorded: boolean
+- CallerId: reference -> ConversationParticipant
+- RecipientId: reference -> ConversationParticipant
+- PreviousCallId: reference -> VoiceCall
+- NextCallId: reference -> VoiceCall
+- CallAcceptDateTime: datetime
+- CallQueuedDateTime: datetime
+- CallCenterId: reference -> CallCenter
+- ConversationId: reference -> Conversation
+- Description: textarea
+- CallResolution: picklist {Resolved}
+- CustomerHoldDuration: int
+- LongestHoldDuration: int
+- NumberOfHolds: int
+- QueueName: string
+- ActivityId: reference -> Task
+- CallConnectDateTime: datetime
+- MediaProviderId: reference -> CallCoachingMediaProvider
+- SourceType: picklist {Sales, Service}
+- EndUserId: reference -> MessagingEndUser
+- QualityScore: double
+- CallOrigin: picklist {Preview, Progressive, Voicemail, Campaign}
+- AgentSentimentScore: double
+- CustomerSentimentScore: double
+- DisconnectReason: string
+- CallSubtype: picklist {PSTN, WebRTC, WhatsAppVoice, SIP}
+- CallStatus: picklist
+
+## Waitlist (Waitlist)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- ServiceTerritoryId: reference -> ServiceTerritory (required)
+- Description: textarea
+- IsActive: boolean
+
+## WaitlistParticipant (Waitlist Participant)
+- Id: id
+- IsDeleted: boolean
+- ParticipantIdentifier: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- WaitlistId: reference -> Waitlist (required)
+- ParticipantId: reference -> Account|Contact|Lead (required)
+- WorkTypeId: reference -> WorkType
+- Description: textarea
+- ServiceAppointmentId: reference -> ServiceAppointment
+- ServiceResourceId: reference -> ServiceResource
+- Status: picklist {Unassigned, Assigned}
+- AcceptanceTime: datetime
+
+## WaitlistServiceResource (Waitlist Service Resource)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- WaitlistId: reference -> Waitlist (required)
+- ServiceResourceId: reference -> ServiceResource (required)
+- AccessLevel: picklist {Default, Enhanced}
+- IsAvailable: boolean
+
+## WaitlistWorkType (Waitlist Work Type)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- WaitlistId: reference -> Waitlist (required)
+- WorkTypeId: reference -> WorkType (required)
+
+## WebCart (Cart)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- WebStoreId: reference -> WebStore (required)
+- OrderOwnerId: reference -> User
+- AccountId: reference -> Account|User
+- PaymentMethodId: reference -> AlternativePaymentMethod|CardPaymentMethod|DigitalWallet
+- PaymentGroupId: reference -> PaymentGroup
+- Status: picklist {Active, Closed, PendingClosed, Processing, Checkout, PendingDelete}
+- Type: picklist {Cart, Template, ReadOnly, PayNowReadOnly, ConsumerSales}
+- IsSecondary: boolean
+- IsRepricingNeeded: boolean
+- LastRepricingDate: datetime
+- PoNumber: string
+- BillingStreet: textarea
+- BillingCity: string
+- BillingState: string
+- BillingPostalCode: string
+- BillingCountry: string
+- BillingStateCode: picklist {AC, AG, AG, 05, 02, AL, AL, AK, AB, AL, AP, AM, AN, AN, AP, …}
+- BillingCountryCode: picklist {AF, AX, AL, DZ, AD, AO, AI, AQ, AG, AR, AM, AW, AU, AT, AZ, …}
+- BillingLatitude: double
+- BillingLongitude: double
+- BillingGeocodeAccuracy: picklist {Address, NearAddress, Block, Street, ExtendedZip, Zip, Neighborhood, City, County, State, Unknown}
+- BillingAddress: address
+- LastOperationJobId: reference -> BackgroundOperation
+- InitialOrderReferenceNumber: string
+- TaxType: picklist {Net, Gross, Automatic}
+- TotalListAmount: currency
+- TotalProductAmount: currency
+- TotalProductListAmount: currency
+- TotalProductTaxAmount: currency
+- TotalProductItemAdjAmount: currency
+- TotalCartLevelAdjAmount: currency
+- TotalChargeAmount: currency
+- TotalChargeItemAdjAmount: currency
+- TotalChargeTaxAmount: currency
+- TotalPromoAdjustmentAmount: currency
+- TotalPromoAdjustmentTaxAmount: currency
+- TotalAdjustmentAmount: currency
+- TotalAmount: currency
+- TotalTaxAmount: currency
+- TotalAmountAfterAllAdjustments: currency
+- GrandTotalAmount: currency
+- TotalProductCount: double
+- UniqueProductCount: int
+- TotalProductLineItemCount: int
+- QuoteLineItemCount: int
+- TotalLineItemsWithErrors: int
+- GuestPhoneNumber: phone
+- GuestEmailAddress: email
+- GuestFirstName: string
+- GuestLastName: string
+- GuestSecondName: string
+- GuestCompanyName: string
+- InventoryReservationIdentifier: string
+- CollaborationStatus: picklist {None, Shared}
+- CollaborationLockedById: reference -> User
+- CollaborationLockedAt: datetime
+
+## WebCartActivityLog (Cart Activity Log)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- WebCartId: reference -> WebCart
+- OperationType: picklist
+- Status: picklist
+- InitiatedById: reference -> User
+- SourceCartId: reference -> WebCart
+- OperationSummary: textarea
+- CartItemId: reference -> CartItem
+- ProductId: reference -> Product2
+
+## WebCartAdjustmentBasis (Cart Adjustment Basis)
+- Id: id
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- WebCartId: reference -> WebCart (required)
+- AdjustmentBasisDetail: string
+- AdjustmentBasisReferenceId: reference -> Coupon
+
+## WebCartAdjustmentGroup (Cart Adjustment Group)
+- Id: id
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- CartId: reference -> WebCart (required)
+- TotalAmount: currency
+- TaxAmount: currency
+- AdjustmentTargetType: picklist {Cart, Item} (required)
+- TotalAmountWithTax: currency
+- AdjustmentSource: picklist {System, Discretionary, Promotion, Rule} (required)
+- AdjustmentValue: double (required)
+- AdjustmentType: picklist {AdjustmentPercentage, AdjustmentAmount, OverrideAmount} (required)
+- Description: textarea
+- Priority: int
+- PriceAdjustmentCauseId: reference -> Promotion
+- AdjustmentBasisReferenceId: reference -> Coupon
+
+## WebCartCollaborator (Cart Collaborator)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- WebCartId: reference -> WebCart (required)
+- CollaboratorId: reference -> User
+- AccessLevel: picklist {View, Edit, Checkout} (required)
+- SharedDate: datetime
+- SharedById: reference -> User
+
+## WebCartCredit (Web Cart Credit)
+- Id: id
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- WebCartId: reference -> WebCart (required)
+- CreditType: picklist {Gift Card}
+- AppliedAmount: currency (required)
+- LastFour: int
+- CreditReference: string
+
+## WebStore (Store)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- Type: picklist {B2B, B2C, B2CE}
+- OptionsGuestBrowsingEnabled: boolean
+- OptionsGuestCartEnabled: boolean
+- OptionsGuestCheckoutEnabled: boolean
+- OptionsCartAsyncProcessingEnabled: boolean
+- OptionsDuplicateCartItemsEnabled: boolean
+- OptionsSkuDetectionEnabled: boolean
+- OptionsPreserveGuestCartEnabled: boolean
+- OptionsSplitShipmentEnabled: boolean
+- DefaultTaxLocaleType: picklist {Net, Gross, Automatic}
+- ExternalReference: textarea
+
+## WebStoreBuyerGroup (Store Buyer Group)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- WebStoreId: reference -> WebStore (required)
+- BuyerGroupId: reference -> BuyerGroup (required)
+
+## WebStoreCatalog (Store Catalog)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- ProductCatalogId: reference -> ProductCatalog (required)
+- SalesStoreId: reference -> WebStore (required)
+
+## WebStoreInventorySource (Web Store Inventory Source)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- WebStoreId: reference -> WebStore (required)
+- IsDefault: boolean
+- LocationSourceId: reference -> Location|LocationGroup (required)
+- IsBopisEnabled: boolean
+- ReservationDurationInSeconds: int (required)
+- LocationSourceExtRef: string
+- InventoryDimension: picklist {OnHand, AvailableToFulfill, AvailableToOrder}
+- InventoryCacheTtl: int
+- IsChkInvOnActiveCartEnabled: boolean
+- DoesAllowGuestInventoryLevel: boolean
+
+## WorkItem (Work Item)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- Description: textarea
+- Subject: string (required)
+- IsDevelopmentApproved: boolean
+- AssignedToId: reference -> User
+- ParentWorkItemId: reference -> WorkItem
+- DevelopmentApprovedById: reference -> User
+- Status: picklist {NEW, IN_PROGRESS, IN_REVIEW, READY_TO_PROMOTE, MERGE_CONFLICT, PROMOTED, CLOSED, NEVERED, COMBINED, MIGRATION_PENDING}
+- DevopsProjectId: reference -> DevopsProject (required)
+- RebaseBranchId: reference -> SourceCodeRepositoryBranch
+- SourceCodeRepositoryBranchId: reference -> SourceCodeRepositoryBranch
+- DevelopmentEnvironmentId: reference -> DevopsEnvironment
+- DevopsPipelineStageId: reference -> DevopsPipelineStage
+- ReviewRemoteReference: string
+- RebaseStatusId: reference -> DevopsRequestInfo
+- LastSyncDate: datetime
+- ExternalId: string
+
+## WorkItemComponent (Work Item Component)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- WorkItemComponentListId: reference -> WorkItemComponentList (required)
+- MemberName: string (required)
+- MemberType: string (required)
+- ChangedBy: string
+- ChangedOn: datetime
+- ChangeType: picklist {NEW, CHANGE, DELETE, MANUAL, DATA}
+- VersionNumber: int
+- NumberOfRecords: int
+
+## WorkItemComponentList (Work Item Component List)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- WorkItemId: reference -> WorkItem (required)
+- CommitReference: string
+- RequestInfoId: reference -> DevopsRequestInfo
+- CommitDate: datetime
+- CommitMessage: textarea
+
+## WorkOrder (Work Order)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- WorkOrderNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- AccountId: reference -> Account
+- ContactId: reference -> Contact
+- CaseId: reference -> Case
+- EntitlementId: reference -> Entitlement
+- ServiceContractId: reference -> ServiceContract
+- AssetId: reference -> Asset
+- Street: textarea
+- City: string
+- State: string
+- PostalCode: string
+- Country: string
+- StateCode: picklist {AC, AG, AG, 05, 02, AL, AL, AK, AB, AL, AP, AM, AN, AN, AP, …}
+- CountryCode: picklist {AF, AX, AL, DZ, AD, AO, AI, AQ, AG, AR, AM, AW, AU, AT, AZ, …}
+- Latitude: double
+- Longitude: double
+- GeocodeAccuracy: picklist {Address, NearAddress, Block, Street, ExtendedZip, Zip, Neighborhood, City, County, State, Unknown}
+- Address: address
+- Description: textarea
+- StartDate: datetime
+- EndDate: datetime
+- Subject: string
+- RootWorkOrderId: reference -> WorkOrder
+- Status: picklist {New, In Progress, On Hold, Completed, Closed, Cannot Complete, Canceled}
+- Priority: picklist {Low, Medium, High, Critical}
+- Tax: currency
+- Subtotal: currency
+- TotalPrice: currency
+- LineItemCount: int
+- Pricebook2Id: reference -> Pricebook2
+- Discount: percent
+- GrandTotal: currency
+- ParentWorkOrderId: reference -> WorkOrder
+- IsClosed: boolean
+- IsStopped: boolean
+- StopStartDate: datetime
+- SlaStartDate: datetime
+- SlaExitDate: datetime
+- BusinessHoursId: reference -> BusinessHours
+- MilestoneStatus: string
+- Duration: double
+- DurationType: picklist {Hours, Minutes}
+- DurationInMinutes: double
+- ServiceAppointmentCount: int
+- WorkTypeId: reference -> WorkType
+- ServiceTerritoryId: reference -> ServiceTerritory
+- StatusCategory: picklist {New, InProgress, OnHold, Completed, Closed, None, CannotComplete, Canceled}
+- LocationId: reference -> Location
+
+## WorkOrderLineItem (Work Order Line Item)
+- Id: id
+- IsDeleted: boolean
+- LineItemNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- WorkOrderId: reference -> WorkOrder (required)
+- ParentWorkOrderLineItemId: reference -> WorkOrderLineItem
+- Product2Id: reference -> Product2
+- AssetId: reference -> Asset
+- OrderId: reference -> Order
+- RootWorkOrderLineItemId: reference -> WorkOrderLineItem
+- Description: textarea
+- StartDate: datetime
+- EndDate: datetime
+- Status: picklist {New, In Progress, On Hold, Completed, Closed, Cannot Complete, Canceled}
+- PricebookEntryId: reference -> PricebookEntry
+- Quantity: double
+- UnitPrice: currency
+- Discount: percent
+- ListPrice: currency
+- Subtotal: currency
+- TotalPrice: currency
+- Duration: double
+- DurationType: picklist {Hours, Minutes}
+- DurationInMinutes: double
+- WorkTypeId: reference -> WorkType
+- Street: textarea
+- City: string
+- State: string
+- PostalCode: string
+- Country: string
+- StateCode: picklist {AC, AG, AG, 05, 02, AL, AL, AK, AB, AL, AP, AM, AN, AN, AP, …}
+- CountryCode: picklist {AF, AX, AL, DZ, AD, AO, AI, AQ, AG, AR, AM, AW, AU, AT, AZ, …}
+- Latitude: double
+- Longitude: double
+- GeocodeAccuracy: picklist {Address, NearAddress, Block, Street, ExtendedZip, Zip, Neighborhood, City, County, State, Unknown}
+- Address: address
+- ServiceTerritoryId: reference -> ServiceTerritory
+- Subject: string
+- StatusCategory: picklist {New, InProgress, OnHold, Completed, Closed, None, CannotComplete, Canceled}
+- IsClosed: boolean
+- Priority: picklist {Low, Medium, High, Critical}
+- ServiceAppointmentCount: int
+- LocationId: reference -> Location
+
+## WorkPlan (Work Plan)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- WorkOrderId: reference -> WorkOrder
+- ExecutionOrder: int
+- Description: textarea
+- WorkOrderLineItemId: reference -> WorkOrderLineItem
+- WorkPlanTemplateId: reference -> WorkPlanTemplate
+- ParentRecordId: reference -> ChangeRequest|WorkOrder|WorkOrderLineItem (required)
+- ParentRecordType: string
+
+## WorkPlanTemplate (Work Plan Template)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- IsActive: boolean
+- Description: textarea
+- RelativeExecutionOrder: int
+
+## WorkPlanTemplateEntry (Work Plan Template Entry)
+- Id: id
+- IsDeleted: boolean
+- WorkPlanTemplateEntryNumber: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- WorkPlanTemplateId: reference -> WorkPlanTemplate (required)
+- WorkStepTemplateId: reference -> WorkStepTemplate (required)
+- ExecutionOrder: int
+
+## WorkStep (Work Step)
+- Id: id
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- WorkPlanId: reference -> WorkPlan (required)
+- WorkOrderId: reference -> WorkOrder
+- WorkOrderLineItemId: reference -> WorkOrderLineItem
+- Description: textarea
+- ExecutionOrder: int
+- WorkPlanExecutionOrder: int
+- StartTime: datetime
+- EndTime: datetime
+- PausedFlowInterviewId: reference -> FlowInterview
+- ActionDefinition: picklist {cms_orch__CMS_NotifyRequester, cms_orch__CMS_ReviewContent, cms_orch__CMS_ReviseContent, cms_orch__CMS_WithdrawReviewRequest, runtime_payments__GeneratePaymentLink, setup_service_experience__Create_Case, setup_service_experience__Reset_Pwd, setup_service_experience__Verify_Cust, sfdc_fieldservice__CreateLeadAndOpp, standard_approvals__CreaDrftAppvl, standard_approvals__EvaluateApproval, standard_approvals__ProcessAppvlSbms, standard_approvals__ReviewAppvlRqst, standard_approvals__RvwFlowForActv, svc_es__CreateEmployee, …}
+- ActionType: picklist {Flow, QuickAction}
+- Status: picklist {New, In Progress, Paused, Completed, Not Applicable}
+- StatusCategory: picklist {New, InProgress, Paused, Completed, NotApplicable}
+- ParentRecordId: reference -> ChangeRequest|WorkOrder|WorkOrderLineItem
+- ParentRecordType: string
+- ProcessType: picklist {DataCaptureFlow, DiscoveryFrameworkFlow, FieldServiceMobileFlow}
+
+## WorkStepTemplate (Work Step Template)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- IsActive: boolean
+- Description: textarea
+- ActionDefinition: picklist {cms_orch__CMS_NotifyRequester, cms_orch__CMS_ReviewContent, cms_orch__CMS_ReviseContent, cms_orch__CMS_WithdrawReviewRequest, runtime_payments__GeneratePaymentLink, setup_service_experience__Create_Case, setup_service_experience__Reset_Pwd, setup_service_experience__Verify_Cust, sfdc_fieldservice__CreateLeadAndOpp, standard_approvals__CreaDrftAppvl, standard_approvals__EvaluateApproval, standard_approvals__ProcessAppvlSbms, standard_approvals__ReviewAppvlRqst, standard_approvals__RvwFlowForActv, svc_es__CreateEmployee, …}
+- ActionType: picklist {Flow, QuickAction}
+
+## WorkType (Work Type)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- Description: textarea
+- EstimatedDuration: double (required)
+- DurationType: picklist {Hours, Minutes}
+- DurationInMinutes: double
+- TimeframeStart: int
+- TimeframeEnd: int
+- BlockTimeBeforeAppointment: int
+- BlockTimeAfterAppointment: int
+- DefaultAppointmentType: picklist
+- TimeFrameStartUnit: picklist {Days, Hours}
+- TimeFrameEndUnit: picklist {Days, Hours}
+- BlockTimeBeforeUnit: picklist {Minutes, Hours}
+- BlockTimeAfterUnit: picklist {Minutes, Hours}
+- OperatingHoursId: reference -> OperatingHours
+- ApptStartTimeIntvlInMin: int
+- AppointmentCategoryId: reference -> AppointmentCategory
+- AttendeeLimit: int
+- ProductId: reference -> Product2
+
+## WorkTypeGroup (Work Type Group)
+- Id: id
+- OwnerId: reference -> Group|User
+- IsDeleted: boolean
+- Name: string (required)
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- Description: textarea
+- GroupType: picklist {Default, Capacity}
+- IsActive: boolean
+- AdditionalInformation: multipicklist
+
+## WorkTypeGroupMember (Work Type Group Member)
+- Id: id
+- IsDeleted: boolean
+- Name: string
+- CreatedDate: datetime
+- CreatedById: reference -> User
+- LastModifiedDate: datetime
+- LastModifiedById: reference -> User
+- SystemModstamp: datetime
+- LastViewedDate: datetime
+- LastReferencedDate: datetime
+- WorkTypeId: reference -> WorkType (required)
+- WorkTypeGroupId: reference -> WorkTypeGroup (required)
+
+## Relationships
+
+- AITrustAttrSetup.CreatedById -> User (Lookup)
+- AITrustAttrSetup.LastModifiedById -> User (Lookup)
+- AITrustAttrSetup.AttributeId -> AITrustAttribute (Lookup)
+- AITrustAttribute.CreatedById -> User (Lookup)
+- AITrustAttribute.LastModifiedById -> User (Lookup)
+- Account.MasterRecordId -> Account (Lookup)
+- Account.ParentId -> Account (Lookup)
+- Account.OwnerId -> User (Lookup)
+- Account.CreatedById -> User (Lookup)
+- Account.LastModifiedById -> User (Lookup)
+- Account.DandbCompanyId -> DandBCompany (Lookup)
+- Account.OperatingHoursId -> OperatingHours (Lookup)
+- AccountPartner.AccountFromId -> Account (Lookup)
+- AccountPartner.AccountToId -> Account (Lookup)
+- AccountPartner.OpportunityId -> Opportunity (Lookup)
+- AccountPartner.CreatedById -> User (Lookup)
+- AccountPartner.LastModifiedById -> User (Lookup)
+- AccountPartner.ReversePartnerId -> AccountPartner (Lookup)
+- ActionLinkGroupTemplate.CreatedById -> User (Lookup)
+- ActionLinkGroupTemplate.LastModifiedById -> User (Lookup)
+- ActionLinkTemplate.CreatedById -> User (Lookup)
+- ActionLinkTemplate.LastModifiedById -> User (Lookup)
+- ActionLinkTemplate.ActionLinkGroupTemplateId -> ActionLinkGroupTemplate (Lookup)
+- ActivationTarget.OwnerId -> Group|User (Lookup)
+- ActivationTarget.CreatedById -> User (Lookup)
+- ActivationTarget.LastModifiedById -> User (Lookup)
+- Address.CreatedById -> User (Lookup)
+- Address.LastModifiedById -> User (Lookup)
+- Address.ParentId -> Location (Lookup)
+- AiSkill.OwnerId -> Group|User (Lookup)
+- AiSkill.CreatedById -> User (Lookup)
+- AiSkill.LastModifiedById -> User (Lookup)
+- AlternativePaymentMethod.OwnerId -> Group|User (Lookup)
+- AlternativePaymentMethod.CreatedById -> User (Lookup)
+- AlternativePaymentMethod.LastModifiedById -> User (Lookup)
+- AlternativePaymentMethod.PaymentGatewayId -> PaymentGateway (Lookup)
+- AlternativePaymentMethod.AccountId -> Account (Lookup)
+- ApexClass.CreatedById -> User (Lookup)
+- ApexClass.LastModifiedById -> User (Lookup)
+- AppUsageAssignment.CreatedById -> User (Lookup)
+- AppUsageAssignment.LastModifiedById -> User (Lookup)
+- AppUsageAssignment.RecordId -> Asset|Contract|Order|WebCart (Lookup)
+- AppointmentAssignmentPolicy.CreatedById -> User (Lookup)
+- AppointmentAssignmentPolicy.LastModifiedById -> User (Lookup)
+- AppointmentCategory.CreatedById -> User (Lookup)
+- AppointmentCategory.LastModifiedById -> User (Lookup)
+- AppointmentInvitation.OwnerId -> Group|User (Lookup)
+- AppointmentInvitation.CreatedById -> User (Lookup)
+- AppointmentInvitation.LastModifiedById -> User (Lookup)
+- AppointmentInvitation.ServiceTerritoryId -> ServiceTerritory (Lookup)
+- AppointmentInvitation.AppointmentTopicId -> WorkType|WorkTypeGroup (Lookup)
+- AppointmentInvitation.EngagementChannelTypeId -> EngagementChannelType (Lookup)
+- AppointmentInvitee.CreatedById -> User (Lookup)
+- AppointmentInvitee.LastModifiedById -> User (Lookup)
+- AppointmentInvitee.AppointmentInvitationId -> AppointmentInvitation (Lookup)
+- AppointmentInvitee.ParticipantServiceResourceId -> ServiceResource (Lookup)
+- AppointmentSchedulingPolicy.CreatedById -> User (Lookup)
+- AppointmentSchedulingPolicy.LastModifiedById -> User (Lookup)
+- AppointmentSchedulingPolicy.ExtCalEventHandlerId -> ApexClass (Lookup)
+- AppointmentTopicTimeSlot.CreatedById -> User (Lookup)
+- AppointmentTopicTimeSlot.LastModifiedById -> User (Lookup)
+- AppointmentTopicTimeSlot.TimeSlotId -> TimeSlot (Lookup)
+- AppointmentTopicTimeSlot.WorkTypeId -> WorkType (Lookup)
+- AppointmentTopicTimeSlot.WorkTypeGroupId -> WorkTypeGroup (Lookup)
+- AppointmentTopicTimeSlot.OperatingHoursId -> OperatingHours (Lookup)
+- ApprovalSubmission.OwnerId -> Group|User (Lookup)
+- ApprovalSubmission.CreatedById -> User (Lookup)
+- ApprovalSubmission.LastModifiedById -> User (Lookup)
+- ApprovalSubmission.RelatedRecordId -> Account|ActivationTarget|ActivationTargetPlatform|ActvTgtPlatformFieldValue|Address|AgentWork|AiJobRun|AiJobRunItem|AnalyticsUserAttrFuncTkn|AppointmentInvitation|AppointmentInvitee|AppointmentScheduleLog|ApprovalSubmission|ApprovalSubmissionDetail|ApprovalWorkItem|Asset|AssetAction|AssetActionSource|AssetRelationship|AssetStatePeriod|AssignedResource|AssociatedLocation|AuthorizationForm|AuthorizationFormConsent|AuthorizationFormDataUse|AuthorizationFormText|BusinessBrand|BuyerGroup|Campaign|CartItem|CartItemPriceAdjustment|CartRelatedItem|CartTax|CartValidationOutput|Case|CaseComment|CaseRelatedIssue|ChangeRequest|ChangeRequestRelatedIssue|ChangeRequestRelatedItem|CollaborationGroup|CommSubscription|CommSubscriptionChannelType|CommSubscriptionConsent|CommSubscriptionTiming|ConsumptionRate|ConsumptionSchedule|Contact|ContactPointAddress|ContactPointConsent|ContactPointEmail|ContactPointPhone|ContactPointTypeConsent|ContactRequest|ContentDocument|ContentVersion|Contract|ContractLineItem|ConvEntryRelatedRecordCopy|ConversationApiLog|ConversationApiLogObjSum|ConversationEntryCopy|Coupon|CouponCodeRedemption|CreditMemo|CreditMemoInvApplication|CreditMemoLine|Customer|DandBCompany|DataAction|DataActionJobSummary|DataActionTarget|DataCleanRoom|DataCommunicationCap|DataGraph|DataGuidance|DataGuidanceStep|DataGuidanceStepGroup|DataKitDeploymentLog|DataKnowledgeRsrchRpt|DataKnowledgeRsrchTmpl|DataKnowledgeSpace|DataKnowledgeSpcJobRun|DataKnowledgeSrcFileRef|DataLakeObjectInstance|DataMaskCustomValueLibrary|DataQueryWorkspace|DataQueryWorkspaceTab|DataSourceBundle|DataStream|DataUseLegalBasis|DataUsePurpose|DeliveryEstimationSetup|DevopsActivityLog|DevopsEnvDeployment|DevopsEnvDeploymentMbr|DevopsEnvironment|DevopsPipeline|DevopsPipelineEnvironment|DevopsPipelineStage|DevopsPipelineStageTrigger|DevopsPipelineTestProvider|DevopsPipelnStgProm|DevopsPipelnStgPromWkItem|DevopsProject|DevopsProjectEnvironment|DevopsProjectPipeline|DevopsQualityGate|DevopsQualityGateResult|DevopsQualityGateRule|DevopsQualityGateRuleResult|DevopsRequestInfo|DevopsTest|DevopsTestExecution|DevopsTestProviderSyncLog|DevopsTestSuite|DevopsTestSuiteExecution|DevopsTestSuiteGroupExec|DevopsTestSuiteStage|DevopsTestSuiteTest|DevopsWkItmTstSteGrpExec|DuplicateRecordItem|DuplicateRecordSet|EmailMessage|EngagementChannelType|EngagementChannelWorkType|Entitlement|EntitlementContact|EntityMilestone|ExpressionFilter|ExpressionFilterCriteria|ExtDataShare|ExtDataShareTarget|ExternalEventMapping|ExtlRecShrStagedRecord|FinanceBalanceSnapshot|FinanceTransaction|FlowOrchestrationInstance|FlowOrchestrationVersion|FulfillmentOrder|FulfillmentOrderItemAdjustment|FulfillmentOrderItemTax|FulfillmentOrderLineItem|GisPrvdCnctrJobObjRun|Idea|IdentityResolution|Image|Incident|IncidentRelatedItem|Individual|InventoryItemReservation|InventoryReservation|Invoice|InvoiceLine|Lead|Location|LocationGroup|LocationGroupAssignment|LocationShippingCarrierMethod|Macro|MacroInstruction|MacroUsage|ManagedContentVariant|MarketSegment|MarketSegmentActivation|MktCalculatedInsight|MktDataTransform|MktMLModel|MktMLPredictionJob|OperatingHours|OperatingHoursHoliday|Opportunity|OpportunityRelatedDeleteLog|Order|OrderItem|OrgMetricScanSummary|Organization|PartyConsent|PaymentCreditLinePayment|PaymentCreditTransaction|PendingServiceRouting|PrivacyJobSession|PrivacyRTBFRequest|Problem|ProblemIncident|ProblemRelatedItem|ProcessException|Product2|ProductCatalog|ProductCategory|ProductCategoryProduct|Promotion|PromotionLineItemRule|PromotionMarketSegment|PromotionQualifier|PromotionSegment|PromotionSegmentBuyerGroup|PromotionSegmentSalesStore|PromotionTarget|PromotionTier|PromptAction|PromptError|QuickText|QuickTextUsage|ReportHierarchyObjectField|ResourceAbsence|ResourcePreference|ReturnOrder|ReturnOrderItemAdjustment|ReturnOrderItemTax|ReturnOrderLineItem|SecurityHealthCheckAlertRecipient|SecurityHealthCheckResult|Seller|ServiceAppointment|ServiceAppointmentAttendee|ServiceContract|ServiceResource|ServiceResourceSkill|ServiceTerritory|ServiceTerritoryMember|ServiceTerritoryWorkType|SfdcPartnerSbscrOffer|SfdcPartnerSbscrOfferItem|Shift|ShiftEngagementChannel|ShiftWorkTopic|Shipment|ShipmentItem|ShippingCarrier|ShippingCarrierMethod|ShippingConfigurationSet|ShippingRateArea|ShippingRateGroup|Site|SkillRequirement|SlackChannelRelatedRecord|Solution|SourceCodeRepoProvider|SourceCodeRepository|SourceCodeRepositoryBranch|StandardShippingRate|StreamingChannel|Subscription_Line__c|Subscription__c|TableauHostMapping|TenantConsumptionAlert|TimeSlot|Topic|UnstructuredStorageSpace|User|UserLicense|UserLocalWebServerIdentity|UserPrioritizedRecord|UserProvisioningRequest|UserServicePresence|Waitlist|WaitlistParticipant|WaitlistServiceResource|WaitlistWorkType|WebCart|WebCartActivityLog|WebCartAdjustmentBasis|WebCartAdjustmentGroup|WebCartCollaborator|WebCartCredit|WebStore|WebStoreBuyerGroup|WebStoreCatalog|WebStoreInventorySource|WorkItem|WorkItemComponent|WorkItemComponentList|WorkOrder|WorkOrderLineItem|WorkPlan|WorkPlanTemplate|WorkPlanTemplateEntry|WorkStep|WorkStepTemplate|WorkType|WorkTypeGroup|WorkTypeGroupMember (Lookup)
+- ApprovalSubmission.FlowOrchestrationInstanceId -> FlowOrchestrationInstance (Lookup)
+- ApprovalSubmission.SubmittedById -> User (Lookup)
+- ApprovalSubmissionDetail.CreatedById -> User (Lookup)
+- ApprovalSubmissionDetail.LastModifiedById -> User (Lookup)
+- ApprovalSubmissionDetail.ApprovalSubmissionId -> ApprovalSubmission (Lookup)
+- ApprovalSubmissionDetail.ApprovalWorkItemId -> ApprovalWorkItem (Lookup)
+- ApprovalSubmissionDetail.ActionPerformedById -> User (Lookup)
+- ApprovalWorkItem.CreatedById -> User (Lookup)
+- ApprovalWorkItem.LastModifiedById -> User (Lookup)
+- ApprovalWorkItem.ApprovalSubmissionId -> ApprovalSubmission (Lookup)
+- ApprovalWorkItem.RelatedRecordId -> Account|ActivationTarget|ActivationTargetPlatform|ActvTgtPlatformFieldValue|Address|AgentWork|AiJobRun|AiJobRunItem|AnalyticsUserAttrFuncTkn|AppointmentInvitation|AppointmentInvitee|AppointmentScheduleLog|ApprovalSubmission|ApprovalSubmissionDetail|ApprovalWorkItem|Asset|AssetAction|AssetActionSource|AssetRelationship|AssetStatePeriod|AssignedResource|AssociatedLocation|AuthorizationForm|AuthorizationFormConsent|AuthorizationFormDataUse|AuthorizationFormText|BusinessBrand|BuyerGroup|Campaign|CartItem|CartItemPriceAdjustment|CartRelatedItem|CartTax|CartValidationOutput|Case|CaseComment|CaseRelatedIssue|ChangeRequest|ChangeRequestRelatedIssue|ChangeRequestRelatedItem|CollaborationGroup|CommSubscription|CommSubscriptionChannelType|CommSubscriptionConsent|CommSubscriptionTiming|ConsumptionRate|ConsumptionSchedule|Contact|ContactPointAddress|ContactPointConsent|ContactPointEmail|ContactPointPhone|ContactPointTypeConsent|ContactRequest|ContentDocument|ContentVersion|Contract|ContractLineItem|ConvEntryRelatedRecordCopy|ConversationApiLog|ConversationApiLogObjSum|ConversationEntryCopy|Coupon|CouponCodeRedemption|CreditMemo|CreditMemoInvApplication|CreditMemoLine|Customer|DandBCompany|DataAction|DataActionJobSummary|DataActionTarget|DataCleanRoom|DataCommunicationCap|DataGraph|DataGuidance|DataGuidanceStep|DataGuidanceStepGroup|DataKitDeploymentLog|DataKnowledgeRsrchRpt|DataKnowledgeRsrchTmpl|DataKnowledgeSpace|DataKnowledgeSpcJobRun|DataKnowledgeSrcFileRef|DataLakeObjectInstance|DataMaskCustomValueLibrary|DataQueryWorkspace|DataQueryWorkspaceTab|DataSourceBundle|DataStream|DataUseLegalBasis|DataUsePurpose|DeliveryEstimationSetup|DevopsActivityLog|DevopsEnvDeployment|DevopsEnvDeploymentMbr|DevopsEnvironment|DevopsPipeline|DevopsPipelineEnvironment|DevopsPipelineStage|DevopsPipelineStageTrigger|DevopsPipelineTestProvider|DevopsPipelnStgProm|DevopsPipelnStgPromWkItem|DevopsProject|DevopsProjectEnvironment|DevopsProjectPipeline|DevopsQualityGate|DevopsQualityGateResult|DevopsQualityGateRule|DevopsQualityGateRuleResult|DevopsRequestInfo|DevopsTest|DevopsTestExecution|DevopsTestProviderSyncLog|DevopsTestSuite|DevopsTestSuiteExecution|DevopsTestSuiteGroupExec|DevopsTestSuiteStage|DevopsTestSuiteTest|DevopsWkItmTstSteGrpExec|DuplicateRecordItem|DuplicateRecordSet|EmailMessage|EngagementChannelType|EngagementChannelWorkType|Entitlement|EntitlementContact|EntityMilestone|ExpressionFilter|ExpressionFilterCriteria|ExtDataShare|ExtDataShareTarget|ExternalEventMapping|ExtlRecShrStagedRecord|FinanceBalanceSnapshot|FinanceTransaction|FlowOrchestrationInstance|FlowOrchestrationVersion|FulfillmentOrder|FulfillmentOrderItemAdjustment|FulfillmentOrderItemTax|FulfillmentOrderLineItem|GisPrvdCnctrJobObjRun|Idea|IdentityResolution|Image|Incident|IncidentRelatedItem|Individual|InventoryItemReservation|InventoryReservation|Invoice|InvoiceLine|Lead|Location|LocationGroup|LocationGroupAssignment|LocationShippingCarrierMethod|Macro|MacroInstruction|MacroUsage|ManagedContentVariant|MarketSegment|MarketSegmentActivation|MktCalculatedInsight|MktDataTransform|MktMLModel|MktMLPredictionJob|OperatingHours|OperatingHoursHoliday|Opportunity|OpportunityRelatedDeleteLog|Order|OrderItem|OrgMetricScanSummary|Organization|PartyConsent|PaymentCreditLinePayment|PaymentCreditTransaction|PendingServiceRouting|PrivacyJobSession|PrivacyRTBFRequest|Problem|ProblemIncident|ProblemRelatedItem|ProcessException|Product2|ProductCatalog|ProductCategory|ProductCategoryProduct|Promotion|PromotionLineItemRule|PromotionMarketSegment|PromotionQualifier|PromotionSegment|PromotionSegmentBuyerGroup|PromotionSegmentSalesStore|PromotionTarget|PromotionTier|PromptAction|PromptError|QuickText|QuickTextUsage|ReportHierarchyObjectField|ResourceAbsence|ResourcePreference|ReturnOrder|ReturnOrderItemAdjustment|ReturnOrderItemTax|ReturnOrderLineItem|SecurityHealthCheckAlertRecipient|SecurityHealthCheckResult|Seller|ServiceAppointment|ServiceAppointmentAttendee|ServiceContract|ServiceResource|ServiceResourceSkill|ServiceTerritory|ServiceTerritoryMember|ServiceTerritoryWorkType|SfdcPartnerSbscrOffer|SfdcPartnerSbscrOfferItem|Shift|ShiftEngagementChannel|ShiftWorkTopic|Shipment|ShipmentItem|ShippingCarrier|ShippingCarrierMethod|ShippingConfigurationSet|ShippingRateArea|ShippingRateGroup|Site|SkillRequirement|SlackChannelRelatedRecord|Solution|SourceCodeRepoProvider|SourceCodeRepository|SourceCodeRepositoryBranch|StandardShippingRate|StreamingChannel|Subscription_Line__c|Subscription__c|TableauHostMapping|TenantConsumptionAlert|TimeSlot|Topic|UnstructuredStorageSpace|User|UserLicense|UserLocalWebServerIdentity|UserPrioritizedRecord|UserProvisioningRequest|UserServicePresence|Waitlist|WaitlistParticipant|WaitlistServiceResource|WaitlistWorkType|WebCart|WebCartActivityLog|WebCartAdjustmentBasis|WebCartAdjustmentGroup|WebCartCollaborator|WebCartCredit|WebStore|WebStoreBuyerGroup|WebStoreCatalog|WebStoreInventorySource|WorkItem|WorkItemComponent|WorkItemComponentList|WorkOrder|WorkOrderLineItem|WorkPlan|WorkPlanTemplate|WorkPlanTemplateEntry|WorkStep|WorkStepTemplate|WorkType|WorkTypeGroup|WorkTypeGroupMember (Lookup)
+- ApprovalWorkItem.FlowOrchestrationWorkItemId -> FlowOrchestrationWorkItem (Lookup)
+- ApprovalWorkItem.AssignedToId -> Group|Group|User (Lookup)
+- ApprovalWorkItem.ReviewedById -> User (Lookup)
+- ApprovalWorkItem.ParentWorkItemId -> ApprovalWorkItem (Lookup)
+- Asset.ContactId -> Contact (Lookup)
+- Asset.AccountId -> Account (Lookup)
+- Asset.ParentId -> Asset (Lookup)
+- Asset.RootAssetId -> Asset (Lookup)
+- Asset.Product2Id -> Product2 (Lookup)
+- Asset.CreatedById -> User (Lookup)
+- Asset.LastModifiedById -> User (Lookup)
+- Asset.OwnerId -> User (Lookup)
+- Asset.AssetProvidedById -> Account (Lookup)
+- Asset.AssetServicedById -> Account (Lookup)
+- AssetAction.CreatedById -> User (Lookup)
+- AssetAction.LastModifiedById -> User (Lookup)
+- AssetAction.AssetId -> Asset (Lookup)
+- AssetActionSource.CreatedById -> User (Lookup)
+- AssetActionSource.LastModifiedById -> User (Lookup)
+- AssetActionSource.AssetActionId -> AssetAction (Lookup)
+- AssetActionSource.ReferenceEntityItemId -> OrderItem|WorkOrderLineItem (Lookup)
+- AssetRelationship.CreatedById -> User (Lookup)
+- AssetRelationship.LastModifiedById -> User (Lookup)
+- AssetRelationship.AssetId -> Asset (Lookup)
+- AssetRelationship.RelatedAssetId -> Asset (Lookup)
+- AssetStatePeriod.CreatedById -> User (Lookup)
+- AssetStatePeriod.LastModifiedById -> User (Lookup)
+- AssetStatePeriod.AssetId -> Asset (Lookup)
+- AssetStatePeriod.LegalEntityId -> LegalEntity (Lookup)
+- AssignedResource.CreatedById -> User (Lookup)
+- AssignedResource.LastModifiedById -> User (Lookup)
+- AssignedResource.ServiceAppointmentId -> ServiceAppointment (Lookup)
+- AssignedResource.ServiceResourceId -> ServiceResource (Lookup)
+- AssignedResource.EventId -> Event (Lookup)
+- AssociatedLocation.CreatedById -> User (Lookup)
+- AssociatedLocation.LastModifiedById -> User (Lookup)
+- AssociatedLocation.ParentRecordId -> Account (Lookup)
+- AssociatedLocation.LocationId -> Location (Lookup)
+- AsyncOperationLog.CreatedById -> User (Lookup)
+- AsyncOperationLog.LastModifiedById -> User (Lookup)
+- AsyncOperationLog.RelatedRecordId -> Asset (Lookup)
+- AuthorizationForm.OwnerId -> Group|User (Lookup)
+- AuthorizationForm.CreatedById -> User (Lookup)
+- AuthorizationForm.LastModifiedById -> User (Lookup)
+- AuthorizationForm.DefaultAuthFormTextId -> AuthorizationFormText (Lookup)
+- AuthorizationFormConsent.OwnerId -> Group|User (Lookup)
+- AuthorizationFormConsent.CreatedById -> User (Lookup)
+- AuthorizationFormConsent.LastModifiedById -> User (Lookup)
+- AuthorizationFormConsent.ConsentGiverId -> Account|Contact|Individual|Lead|User (Lookup)
+- AuthorizationFormConsent.AuthorizationFormTextId -> AuthorizationFormText (Lookup)
+- AuthorizationFormConsent.DocumentVersionId -> ContentVersion (Lookup)
+- AuthorizationFormConsent.RelatedRecordId -> Account (Lookup)
+- AuthorizationFormDataUse.OwnerId -> Group|User (Lookup)
+- AuthorizationFormDataUse.CreatedById -> User (Lookup)
+- AuthorizationFormDataUse.LastModifiedById -> User (Lookup)
+- AuthorizationFormDataUse.AuthorizationFormId -> AuthorizationForm (Lookup)
+- AuthorizationFormDataUse.DataUsePurposeId -> DataUsePurpose (Lookup)
+- AuthorizationFormText.CreatedById -> User (Lookup)
+- AuthorizationFormText.LastModifiedById -> User (Lookup)
+- AuthorizationFormText.AuthorizationFormId -> AuthorizationForm (Lookup)
+- AuthorizationFormText.ContentDocumentId -> ContentDocument (Lookup)
+- BackgroundOperation.CreatedById -> User (Lookup)
+- BackgroundOperation.LastModifiedById -> User (Lookup)
+- BackgroundOperation.GroupLeaderId -> BackgroundOperation (Lookup)
+- BrowserPolicyViolation.CreatedById -> User (Lookup)
+- BrowserPolicyViolation.LastModifiedById -> User (Lookup)
+- BusinessBrand.OwnerId -> Group|User (Lookup)
+- BusinessBrand.CreatedById -> User (Lookup)
+- BusinessBrand.LastModifiedById -> User (Lookup)
+- BusinessBrand.ParentId -> BusinessBrand (Lookup)
+- BusinessHours.CreatedById -> User (Lookup)
+- BusinessHours.LastModifiedById -> User (Lookup)
+- BuyerGroup.OwnerId -> Group|User (Lookup)
+- BuyerGroup.CreatedById -> User (Lookup)
+- BuyerGroup.LastModifiedById -> User (Lookup)
+- Campaign.ParentId -> Campaign (Lookup)
+- Campaign.OwnerId -> User (Lookup)
+- Campaign.CreatedById -> User (Lookup)
+- Campaign.LastModifiedById -> User (Lookup)
+- Campaign.CampaignMemberRecordTypeId -> RecordType (Lookup)
+- CampaignMember.CampaignId -> Campaign (Lookup)
+- CampaignMember.LeadId -> Lead (Lookup)
+- CampaignMember.ContactId -> Contact (Lookup)
+- CampaignMember.CreatedById -> User (Lookup)
+- CampaignMember.LastModifiedById -> User (Lookup)
+- CampaignMember.LeadOrContactId -> Account|Contact|Lead (Lookup)
+- CampaignMember.LeadOrContactOwnerId -> Group|User (Lookup)
+- CampaignMemberStatus.CampaignId -> Campaign (Lookup)
+- CampaignMemberStatus.CreatedById -> User (Lookup)
+- CampaignMemberStatus.LastModifiedById -> User (Lookup)
+- CardPaymentMethod.CreatedById -> User (Lookup)
+- CardPaymentMethod.LastModifiedById -> User (Lookup)
+- CardPaymentMethod.AccountId -> Account (Lookup)
+- CardPaymentMethod.PaymentGatewayId -> PaymentGateway (Lookup)
+- CartDeliveryGroup.CreatedById -> User (Lookup)
+- CartDeliveryGroup.LastModifiedById -> User (Lookup)
+- CartDeliveryGroup.CartId -> WebCart (Lookup)
+- CartDeliveryGroup.SelectedDeliveryMethodId -> CartDeliveryGroupMethod (Lookup)
+- CartDeliveryGroupMethod.CreatedById -> User (Lookup)
+- CartDeliveryGroupMethod.LastModifiedById -> User (Lookup)
+- CartDeliveryGroupMethod.WebCartId -> WebCart (Lookup)
+- CartDeliveryGroupMethod.CartDeliveryGroupId -> CartDeliveryGroup (Lookup)
+- CartDeliveryGroupMethod.CartCheckoutSessionId -> CartCheckoutSession (Lookup)
+- CartDeliveryGroupMethod.ProductId -> Product2 (Lookup)
+- CartItem.CreatedById -> User (Lookup)
+- CartItem.LastModifiedById -> User (Lookup)
+- CartItem.CartId -> WebCart (Lookup)
+- CartItem.CartDeliveryGroupId -> CartDeliveryGroup (Lookup)
+- CartItem.Product2Id -> Product2 (Lookup)
+- CartItem.ParentCartItemId -> CartItem (Lookup)
+- CartItemPriceAdjustment.CreatedById -> User (Lookup)
+- CartItemPriceAdjustment.LastModifiedById -> User (Lookup)
+- CartItemPriceAdjustment.CartItemId -> CartItem (Lookup)
+- CartItemPriceAdjustment.WebCartAdjustmentGroupId -> WebCartAdjustmentGroup (Lookup)
+- CartItemPriceAdjustment.PriceAdjustmentCauseId -> Promotion (Lookup)
+- CartItemPriceAdjustment.AdjustmentBasisReferenceId -> Coupon (Lookup)
+- CartItemPriceAdjustment.CartId -> WebCart (Lookup)
+- CartTax.CreatedById -> User (Lookup)
+- CartTax.LastModifiedById -> User (Lookup)
+- CartTax.CartItemId -> CartItem (Lookup)
+- CartTax.CartId -> WebCart (Lookup)
+- CartTax.CartItemPriceAdjustmentId -> CartItemPriceAdjustment (Lookup)
+- CartValidationOutput.CreatedById -> User (Lookup)
+- CartValidationOutput.LastModifiedById -> User (Lookup)
+- CartValidationOutput.CartId -> WebCart (Lookup)
+- CartValidationOutput.RelatedEntityId -> CartDeliveryGroup|CartItem|CartTax|WebCart (Lookup)
+- CartValidationOutput.BackgroundOperationId -> BackgroundOperation (Lookup)
+- Case.MasterRecordId -> Case (Lookup)
+- Case.ContactId -> Contact (Lookup)
+- Case.AccountId -> Account (Lookup)
+- Case.AssetId -> Asset (Lookup)
+- Case.SourceId -> EmailMessage|MessagingSession (Lookup)
+- Case.ParentId -> Case (Lookup)
+- Case.OwnerId -> Group|User (Lookup)
+- Case.CreatedById -> User (Lookup)
+- Case.LastModifiedById -> User (Lookup)
+- CaseComment.ParentId -> Case (Lookup)
+- CaseComment.CreatedById -> User (Lookup)
+- CaseComment.LastModifiedById -> User (Lookup)
+- CaseContactRole.CasesId -> Case (Lookup)
+- CaseContactRole.ContactId -> Contact (Lookup)
+- CaseContactRole.CreatedById -> User (Lookup)
+- CaseContactRole.LastModifiedById -> User (Lookup)
+- CaseMilestone.CaseId -> Case (Lookup)
+- CaseMilestone.MilestoneTypeId -> MilestoneType (Lookup)
+- CaseMilestone.CreatedById -> User (Lookup)
+- CaseMilestone.LastModifiedById -> User (Lookup)
+- CaseMilestone.BusinessHoursId -> BusinessHours (Lookup)
+- CaseRelatedIssue.CreatedById -> User (Lookup)
+- CaseRelatedIssue.LastModifiedById -> User (Lookup)
+- CaseRelatedIssue.CaseId -> Case (Lookup)
+- CaseRelatedIssue.RelatedIssueId -> Incident|Problem (Lookup)
+- ChangeRequest.OwnerId -> Group|User (Lookup)
+- ChangeRequest.CreatedById -> User (Lookup)
+- ChangeRequest.LastModifiedById -> User (Lookup)
+- ChangeRequest.ReviewerId -> User (Lookup)
+- ChangeRequestRelatedIssue.CreatedById -> User (Lookup)
+- ChangeRequestRelatedIssue.LastModifiedById -> User (Lookup)
+- ChangeRequestRelatedIssue.ChangeRequestId -> ChangeRequest (Lookup)
+- ChangeRequestRelatedIssue.RelatedIssueId -> Case|ChangeRequest|Incident|Problem (Lookup)
+- ChangeRequestRelatedItem.CreatedById -> User (Lookup)
+- ChangeRequestRelatedItem.LastModifiedById -> User (Lookup)
+- ChangeRequestRelatedItem.ChangeRequestId -> ChangeRequest (Lookup)
+- ChangeRequestRelatedItem.AssetId -> Asset (Lookup)
+- CollaborationGroup.OwnerId -> User (Lookup)
+- CollaborationGroup.CreatedById -> User (Lookup)
+- CollaborationGroup.LastModifiedById -> User (Lookup)
+- CollaborationGroup.AnnouncementId -> Announcement (Lookup)
+- CollaborationGroupMember.CollaborationGroupId -> CollaborationGroup (Lookup)
+- CollaborationGroupMember.MemberId -> User (Lookup)
+- CollaborationGroupMember.CreatedById -> User (Lookup)
+- CollaborationGroupMember.LastModifiedById -> User (Lookup)
+- CollaborationGroupRecord.CreatedById -> User (Lookup)
+- CollaborationGroupRecord.LastModifiedById -> User (Lookup)
+- CollaborationGroupRecord.CollaborationGroupId -> CollaborationGroup (Lookup)
+- CollaborationGroupRecord.RecordId -> Account|Campaign|Case|Contact|Contract|Lead|Opportunity|Subscription_Line__c|Subscription__c (Lookup)
+- CommSubscription.OwnerId -> Group|User (Lookup)
+- CommSubscription.CreatedById -> User (Lookup)
+- CommSubscription.LastModifiedById -> User (Lookup)
+- CommSubscriptionChannelType.OwnerId -> Group|User (Lookup)
+- CommSubscriptionChannelType.CreatedById -> User (Lookup)
+- CommSubscriptionChannelType.LastModifiedById -> User (Lookup)
+- CommSubscriptionChannelType.CommunicationSubscriptionId -> CommSubscription (Lookup)
+- CommSubscriptionChannelType.EngagementChannelTypeId -> EngagementChannelType (Lookup)
+- CommSubscriptionChannelType.DataUsePurposeId -> CommSubscription (Lookup)
+- CommSubscriptionChannelType.MessagingChannelId -> MessagingChannel (Lookup)
+- CommSubscriptionChannelType.MessagingChannelUsageId -> MessagingChannelUsage (Lookup)
+- CommSubscriptionConsent.OwnerId -> Group|User (Lookup)
+- CommSubscriptionConsent.CreatedById -> User (Lookup)
+- CommSubscriptionConsent.LastModifiedById -> User (Lookup)
+- CommSubscriptionConsent.ConsentGiverId -> Account|Contact|Individual|User (Lookup)
+- CommSubscriptionConsent.ContactPointId -> ContactPointAddress|ContactPointEmail|ContactPointPhone (Lookup)
+- CommSubscriptionConsent.CommSubscriptionChannelTypeId -> CommSubscriptionChannelType (Lookup)
+- CommSubscriptionConsent.PartyRoleId -> Customer|Seller (Lookup)
+- CommSubscriptionConsent.BusinessBrandId -> BusinessBrand (Lookup)
+- CommSubscriptionConsent.DataUsePurposeId -> DataUsePurpose (Lookup)
+- CommSubscriptionConsent.EngagementChannelTypeId -> EngagementChannelType (Lookup)
+- CommSubscriptionConsent.PartyId -> Individual (Lookup)
+- CommSubscriptionTiming.CreatedById -> User (Lookup)
+- CommSubscriptionTiming.LastModifiedById -> User (Lookup)
+- CommSubscriptionTiming.CommSubscriptionConsentId -> CommSubscriptionConsent (Lookup)
+- ConsumptionRate.CreatedById -> User (Lookup)
+- ConsumptionRate.LastModifiedById -> User (Lookup)
+- ConsumptionRate.ConsumptionScheduleId -> ConsumptionSchedule (Lookup)
+- ConsumptionSchedule.OwnerId -> Group|User (Lookup)
+- ConsumptionSchedule.CreatedById -> User (Lookup)
+- ConsumptionSchedule.LastModifiedById -> User (Lookup)
+- Contact.MasterRecordId -> Contact (Lookup)
+- Contact.AccountId -> Account (Lookup)
+- Contact.ReportsToId -> Contact (Lookup)
+- Contact.OwnerId -> User (Lookup)
+- Contact.CreatedById -> User (Lookup)
+- Contact.LastModifiedById -> User (Lookup)
+- Contact.IndividualId -> Individual (Lookup)
+- ContactPointAddress.OwnerId -> Group|User (Lookup)
+- ContactPointAddress.CreatedById -> User (Lookup)
+- ContactPointAddress.LastModifiedById -> User (Lookup)
+- ContactPointAddress.ParentId -> Account|Individual (Lookup)
+- ContactPointAddress.ContactPointPhoneId -> ContactPointPhone (Lookup)
+- ContactPointConsent.OwnerId -> Group|User (Lookup)
+- ContactPointConsent.CreatedById -> User (Lookup)
+- ContactPointConsent.LastModifiedById -> User (Lookup)
+- ContactPointConsent.ContactPointId -> ContactPointAddress|ContactPointEmail|ContactPointPhone (Lookup)
+- ContactPointConsent.DataUsePurposeId -> DataUsePurpose (Lookup)
+- ContactPointConsent.PartyRoleId -> Customer|Seller (Lookup)
+- ContactPointConsent.BusinessBrandId -> BusinessBrand (Lookup)
+- ContactPointConsent.PartyId -> Individual (Lookup)
+- ContactPointEmail.OwnerId -> Group|User (Lookup)
+- ContactPointEmail.CreatedById -> User (Lookup)
+- ContactPointEmail.LastModifiedById -> User (Lookup)
+- ContactPointEmail.ParentId -> Account|Individual (Lookup)
+- ContactPointPhone.OwnerId -> Group|User (Lookup)
+- ContactPointPhone.CreatedById -> User (Lookup)
+- ContactPointPhone.LastModifiedById -> User (Lookup)
+- ContactPointPhone.ParentId -> Account|Individual (Lookup)
+- ContactPointTypeConsent.OwnerId -> Group|User (Lookup)
+- ContactPointTypeConsent.CreatedById -> User (Lookup)
+- ContactPointTypeConsent.LastModifiedById -> User (Lookup)
+- ContactPointTypeConsent.PartyId -> Individual (Lookup)
+- ContactPointTypeConsent.DataUsePurposeId -> DataUsePurpose (Lookup)
+- ContactPointTypeConsent.PartyRoleId -> Customer|Seller (Lookup)
+- ContactPointTypeConsent.BusinessBrandId -> BusinessBrand (Lookup)
+- ContactRequest.OwnerId -> Group|User (Lookup)
+- ContactRequest.CreatedById -> User (Lookup)
+- ContactRequest.LastModifiedById -> User (Lookup)
+- ContactRequest.WhatId -> Account|Case|Opportunity|Subscription_Line__c|Subscription__c|VoiceCall|WorkOrder (Lookup)
+- ContactRequest.WhoId -> Contact|Lead|User (Lookup)
+- ContentDocument.CreatedById -> User (Lookup)
+- ContentDocument.LastModifiedById -> User (Lookup)
+- ContentDocument.ArchivedById -> User (Lookup)
+- ContentDocument.OwnerId -> User (Lookup)
+- ContentDocument.LatestPublishedVersionId -> ContentVersion (Lookup)
+- ContentDocument.ParentId -> ContentWorkspace (Lookup)
+- ContentDocument.ContentAssetId -> ContentAsset (Lookup)
+- ContentDocumentLink.LinkedEntityId -> Account|ActivationTarget|ActivationTrgtIntOrgAccess|ApiAnomalyEventStore|AppointmentCategory|AppointmentInvitation|AppointmentTopicTimeSlot|ApprovalSubmission|ApprovalSubmissionDetail|ApprovalWorkItem|Asset|AssetRelationship|AssignedResource|AuthorizationFormText|BuyerGroup|Campaign|Case|CaseRelatedIssue|ChangeRequest|ChangeRequestRelatedIssue|ChangeRequestRelatedItem|CollaborationGroup|CommSubscription|CommSubscriptionChannelType|CommSubscriptionConsent|CommSubscriptionTiming|ConsumptionSchedule|Contact|ContentWorkspace|Contract|ContractLineItem|ConversationEntry|Coupon|CredentialStuffingEventStore|CreditMemo|CreditMemoInvApplication|CreditMemoLine|Dashboard|DashboardComponent|DataAction|DataActionJobSummary|DataActionTarget|DataCleanRoom|DataCommunicationCap|DataContentLensSource|DataLakeObjectInstance|DataObjSecondaryIndex|DataQueryWorkspace|DataSemanticSearch|DataStream|DeliveryEstimationSetup|DevopsActivityLog|DevopsEnvDeployment|DevopsEnvDeploymentMbr|DevopsEnvironment|DevopsPipeline|DevopsPipelineEnvironment|DevopsPipelineStage|DevopsPipelnStgProm|DevopsPipelnStgPromWkItem|DevopsProject|DevopsProjectEnvironment|DevopsProjectPipeline|DevopsRequestInfo|EmailMessage|EmailTemplate|EngagementChannelType|EngagementChannelWorkType|EnhancedLetterhead|Entitlement|EntityMilestone|Event|ExtDataShare|ExtDataShareTarget|FulfillmentOrder|FulfillmentOrderItemAdjustment|FulfillmentOrderItemTax|FulfillmentOrderLineItem|GuestUserAnomalyEventStore|IdentityResolution|Image|Incident|IncidentRelatedItem|Invoice|InvoiceLine|Lead|LegalEntity|ListEmail|Location|LocationGroup|LocationShippingCarrierMethod|LoginAnomalyEventStore|MarketSegment|MarketSegmentActivation|MessagingSession|MktCalculatedInsight|MktDataTransform|MktMLModel|MktMLPredictionJob|OperatingHours|OperatingHoursHoliday|Opportunity|Order|OrderItem|Organization|OutgoingEmail|PartyConsent|Payment|PrivacyRTBFRequest|Problem|ProblemIncident|ProblemRelatedItem|Product2|ProductCatalog|ProductCategory|Promotion|PromotionMarketSegment|PromotionQualifier|PromotionSegment|PromotionSegmentBuyerGroup|PromotionSegmentSalesStore|PromotionTarget|PromotionTier|Report|ReportAnomalyEventStore|ResourceAbsence|ResourcePreference|ReturnOrder|ReturnOrderLineItem|ServiceAppointment|ServiceAppointmentAttendee|ServiceContract|ServiceResource|ServiceResourceSkill|ServiceTerritory|ServiceTerritoryMember|ServiceTerritoryWorkType|SessionHijackingEventStore|Shift|ShiftEngagementChannel|ShiftWorkTopic|Shipment|ShipmentItem|ShippingCarrier|ShippingCarrierMethod|Site|SkillRequirement|Solution|SourceCodeRepoProvider|SourceCodeRepository|SourceCodeRepositoryBranch|Subscription_Line__c|Subscription__c|Task|ThreatDetectionFeedback|Topic|UniversalAnomalyEventStore|User|VoiceCall|Waitlist|WaitlistParticipant|WaitlistServiceResource|WaitlistWorkType|WorkItem|WorkItemComponent|WorkItemComponentList|WorkOrder|WorkOrderLineItem|WorkPlan|WorkPlanTemplate|WorkPlanTemplateEntry|WorkStep|WorkStepTemplate|WorkType|WorkTypeGroup|WorkTypeGroupMember (Lookup)
+- ContentDocumentLink.ContentDocumentId -> ContentDocument (Lookup)
+- ContentFolderItem.ParentContentFolderId -> ContentFolder (Lookup)
+- ContentFolderItem.CreatedById -> User (Lookup)
+- ContentFolderItem.LastModifiedById -> User (Lookup)
+- ContentVersion.ContentDocumentId -> ContentDocument (Lookup)
+- ContentVersion.ContentBodyId -> ContentBody (Lookup)
+- ContentVersion.ContentModifiedById -> User (Lookup)
+- ContentVersion.OwnerId -> User (Lookup)
+- ContentVersion.CreatedById -> User (Lookup)
+- ContentVersion.LastModifiedById -> User (Lookup)
+- ContentVersion.FirstPublishLocationId -> Account|ActivationTarget|ActivationTrgtIntOrgAccess|ApiAnomalyEventStore|AppointmentCategory|AppointmentInvitation|AppointmentTopicTimeSlot|ApprovalSubmission|ApprovalSubmissionDetail|ApprovalWorkItem|Asset|AssetRelationship|AssignedResource|AuthorizationFormText|BuyerGroup|Campaign|Case|CaseRelatedIssue|ChangeRequest|ChangeRequestRelatedIssue|ChangeRequestRelatedItem|CollaborationGroup|CommSubscription|CommSubscriptionChannelType|CommSubscriptionConsent|CommSubscriptionTiming|ConsumptionSchedule|Contact|ContentWorkspace|Contract|ContractLineItem|ConversationEntry|Coupon|CredentialStuffingEventStore|CreditMemo|CreditMemoInvApplication|CreditMemoLine|Dashboard|DashboardComponent|DataAction|DataActionJobSummary|DataActionTarget|DataCleanRoom|DataCommunicationCap|DataContentLensSource|DataLakeObjectInstance|DataObjSecondaryIndex|DataQueryWorkspace|DataSemanticSearch|DataStream|DeliveryEstimationSetup|DevopsActivityLog|DevopsEnvDeployment|DevopsEnvDeploymentMbr|DevopsEnvironment|DevopsPipeline|DevopsPipelineEnvironment|DevopsPipelineStage|DevopsPipelnStgProm|DevopsPipelnStgPromWkItem|DevopsProject|DevopsProjectEnvironment|DevopsProjectPipeline|DevopsRequestInfo|EmailMessage|EmailTemplate|EngagementChannelType|EngagementChannelWorkType|EnhancedLetterhead|Entitlement|EntityMilestone|Event|ExtDataShare|ExtDataShareTarget|FulfillmentOrder|FulfillmentOrderItemAdjustment|FulfillmentOrderItemTax|FulfillmentOrderLineItem|GuestUserAnomalyEventStore|IdentityResolution|Image|Incident|IncidentRelatedItem|Invoice|InvoiceLine|Lead|LegalEntity|ListEmail|Location|LocationGroup|LocationShippingCarrierMethod|LoginAnomalyEventStore|MarketSegment|MarketSegmentActivation|MessagingSession|MktCalculatedInsight|MktDataTransform|MktMLModel|MktMLPredictionJob|OperatingHours|OperatingHoursHoliday|Opportunity|Order|OrderItem|Organization|OutgoingEmail|PartyConsent|Payment|PrivacyRTBFRequest|Problem|ProblemIncident|ProblemRelatedItem|Product2|ProductCatalog|ProductCategory|Promotion|PromotionMarketSegment|PromotionQualifier|PromotionSegment|PromotionSegmentBuyerGroup|PromotionSegmentSalesStore|PromotionTarget|PromotionTier|Report|ReportAnomalyEventStore|ResourceAbsence|ResourcePreference|ReturnOrder|ReturnOrderLineItem|ServiceAppointment|ServiceAppointmentAttendee|ServiceContract|ServiceResource|ServiceResourceSkill|ServiceTerritory|ServiceTerritoryMember|ServiceTerritoryWorkType|SessionHijackingEventStore|Shift|ShiftEngagementChannel|ShiftWorkTopic|Shipment|ShipmentItem|ShippingCarrier|ShippingCarrierMethod|Site|SkillRequirement|Solution|SourceCodeRepoProvider|SourceCodeRepository|SourceCodeRepositoryBranch|Subscription_Line__c|Subscription__c|Task|ThreatDetectionFeedback|Topic|UniversalAnomalyEventStore|User|VoiceCall|Waitlist|WaitlistParticipant|WaitlistServiceResource|WaitlistWorkType|WorkItem|WorkItemComponent|WorkItemComponentList|WorkOrder|WorkOrderLineItem|WorkPlan|WorkPlanTemplate|WorkPlanTemplateEntry|WorkStep|WorkStepTemplate|WorkType|WorkTypeGroup|WorkTypeGroupMember (Lookup)
+- ContentVersion.ExternalDataSourceId -> ExternalDataSource (Lookup)
+- ContentWorkspace.CreatedById -> User (Lookup)
+- ContentWorkspace.LastModifiedById -> User (Lookup)
+- ContentWorkspace.DefaultRecordTypeId -> RecordType (Lookup)
+- ContentWorkspace.RootContentFolderId -> ContentFolder (Lookup)
+- ContentWorkspace.WorkspaceImageId -> ContentAsset (Lookup)
+- Contract.AccountId -> Account (Lookup)
+- Contract.Pricebook2Id -> Pricebook2 (Lookup)
+- Contract.OwnerId -> User (Lookup)
+- Contract.CompanySignedId -> User (Lookup)
+- Contract.CustomerSignedId -> Contact (Lookup)
+- Contract.ActivatedById -> User (Lookup)
+- Contract.CreatedById -> User (Lookup)
+- Contract.LastModifiedById -> User (Lookup)
+- ContractContactRole.ContractId -> Contract (Lookup)
+- ContractContactRole.ContactId -> Contact (Lookup)
+- ContractContactRole.CreatedById -> User (Lookup)
+- ContractContactRole.LastModifiedById -> User (Lookup)
+- ContractLineItem.CreatedById -> User (Lookup)
+- ContractLineItem.LastModifiedById -> User (Lookup)
+- ContractLineItem.ServiceContractId -> ServiceContract (Lookup)
+- ContractLineItem.Product2Id -> Product2 (Lookup)
+- ContractLineItem.AssetId -> Asset (Lookup)
+- ContractLineItem.PricebookEntryId -> PricebookEntry (Lookup)
+- ContractLineItem.ParentContractLineItemId -> ContractLineItem (Lookup)
+- ContractLineItem.RootContractLineItemId -> ContractLineItem (Lookup)
+- ContractLineItem.LocationId -> Location (Lookup)
+- ConvEntryRelatedRecordCopy.OwnerId -> Group|User (Lookup)
+- ConvEntryRelatedRecordCopy.CreatedById -> User (Lookup)
+- ConvEntryRelatedRecordCopy.LastModifiedById -> User (Lookup)
+- ConvEntryRelatedRecordCopy.ConversationEntryCopyId -> ConversationEntryCopy (Lookup)
+- ConvEntryRelatedRecordCopy.RelatedRecordId -> ConversationEntry|ConversationEntryCopy|MessagingSession|VoiceCall (Lookup)
+- Conversation.CreatedById -> User (Lookup)
+- Conversation.LastModifiedById -> User (Lookup)
+- Conversation.ConversationChannelId -> CallCenter|MessagingChannel (Lookup)
+- ConversationEntryCopy.OwnerId -> Group|User (Lookup)
+- ConversationEntryCopy.CreatedById -> User (Lookup)
+- ConversationEntryCopy.LastModifiedById -> User (Lookup)
+- ConversationEntryCopy.ConversationId -> Conversation (Lookup)
+- ConversationEntryCopy.ConversationParticipantId -> ConversationParticipant (Lookup)
+- ConversationEntryCopy.ParentConvEntryCopyId -> ConversationEntryCopy (Lookup)
+- Coupon.OwnerId -> Group|User (Lookup)
+- Coupon.CreatedById -> User (Lookup)
+- Coupon.LastModifiedById -> User (Lookup)
+- Coupon.PromotionId -> Promotion (Lookup)
+- CouponCodeRedemption.OwnerId -> Group|User (Lookup)
+- CouponCodeRedemption.CreatedById -> User (Lookup)
+- CouponCodeRedemption.LastModifiedById -> User (Lookup)
+- CouponCodeRedemption.CouponId -> Coupon (Lookup)
+- CreditMemo.OwnerId -> Group|User (Lookup)
+- CreditMemo.CreatedById -> User (Lookup)
+- CreditMemo.LastModifiedById -> User (Lookup)
+- CreditMemo.BillingAccountId -> Account (Lookup)
+- CreditMemo.ReferenceEntityId -> Invoice|Order (Lookup)
+- CreditMemo.BillToContactId -> Contact (Lookup)
+- CreditMemoInvApplication.CreatedById -> User (Lookup)
+- CreditMemoInvApplication.LastModifiedById -> User (Lookup)
+- CreditMemoInvApplication.InvoiceId -> Invoice (Lookup)
+- CreditMemoInvApplication.CreditMemoId -> CreditMemo (Lookup)
+- CreditMemoInvApplication.AssociatedLineId -> CreditMemoInvApplication (Lookup)
+- CreditMemoLine.CreatedById -> User (Lookup)
+- CreditMemoLine.LastModifiedById -> User (Lookup)
+- CreditMemoLine.CreditMemoId -> CreditMemo (Lookup)
+- CreditMemoLine.ReferenceEntityItemId -> InvoiceLine|OrderItem (Lookup)
+- CreditMemoLine.RelatedLineId -> CreditMemoLine (Lookup)
+- CreditMemoLine.Product2Id -> Product2 (Lookup)
+- CspTrustedSite.CreatedById -> User (Lookup)
+- CspTrustedSite.LastModifiedById -> User (Lookup)
+- CustomHttpHeader.CreatedById -> User (Lookup)
+- CustomHttpHeader.LastModifiedById -> User (Lookup)
+- CustomHttpHeader.ParentId -> ExternalDataSource|NamedCredential (Lookup)
+- CustomPermission.CreatedById -> User (Lookup)
+- CustomPermission.LastModifiedById -> User (Lookup)
+- CustomPermission.ExternalClientApplicationId -> ExternalClientApplication (Lookup)
+- CustomPermissionDependency.CreatedById -> User (Lookup)
+- CustomPermissionDependency.LastModifiedById -> User (Lookup)
+- CustomPermissionDependency.CustomPermissionId -> CustomPermission (Lookup)
+- CustomPermissionDependency.RequiredCustomPermissionId -> CustomPermission (Lookup)
+- Customer.OwnerId -> Group|User (Lookup)
+- Customer.CreatedById -> User (Lookup)
+- Customer.LastModifiedById -> User (Lookup)
+- Customer.PartyId -> Individual (Lookup)
+- DandBCompany.CreatedById -> User (Lookup)
+- DandBCompany.LastModifiedById -> User (Lookup)
+- Dashboard.OwnerId -> User (Lookup)
+- Dashboard.FolderId -> Folder|User (Lookup)
+- Dashboard.CreatedById -> User (Lookup)
+- Dashboard.LastModifiedById -> User (Lookup)
+- Dashboard.RunningUserId -> User (Lookup)
+- DataAction.CreatedById -> User (Lookup)
+- DataAction.LastModifiedById -> User (Lookup)
+- DataActionTarget.OwnerId -> Group|User (Lookup)
+- DataActionTarget.CreatedById -> User (Lookup)
+- DataActionTarget.LastModifiedById -> User (Lookup)
+- DataCommunicationCap.OwnerId -> Group|User (Lookup)
+- DataCommunicationCap.CreatedById -> User (Lookup)
+- DataCommunicationCap.LastModifiedById -> User (Lookup)
+- DataGraph.CreatedById -> User (Lookup)
+- DataGraph.LastModifiedById -> User (Lookup)
+- DataKitDeploymentLog.OwnerId -> Group|User (Lookup)
+- DataKitDeploymentLog.CreatedById -> User (Lookup)
+- DataKitDeploymentLog.LastModifiedById -> User (Lookup)
+- DataKitDeploymentLog.ComponentTemplateId -> DataSourceBundle (Lookup)
+- DataKitDeploymentLog.PublisherOrgComponentId -> MktCalculatedInsight|MktDataTransform (Lookup)
+- DataKitDeploymentLog.SubscriberOrgComponentId -> ActivationTarget|AnalyticsDashboard|AnalyticsVisualization|AnalyticsWorkspace|DataAction|DataActionTarget|DataGraph|DataSemanticSearch|DataStream|ExtDataShare|IdentityResolution|MarketSegment|MarketSegmentActivation|MktCalculatedInsight|MktDataTransform (Lookup)
+- DataLakeObjectInstance.CreatedById -> User (Lookup)
+- DataLakeObjectInstance.LastModifiedById -> User (Lookup)
+- DataMaskCustomValueLibrary.OwnerId -> Group|User (Lookup)
+- DataMaskCustomValueLibrary.CreatedById -> User (Lookup)
+- DataMaskCustomValueLibrary.LastModifiedById -> User (Lookup)
+- DataObjSecondaryIndex.CreatedById -> User (Lookup)
+- DataObjSecondaryIndex.LastModifiedById -> User (Lookup)
+- DataQueryWorkspace.OwnerId -> Group|User (Lookup)
+- DataQueryWorkspace.CreatedById -> User (Lookup)
+- DataQueryWorkspace.LastModifiedById -> User (Lookup)
+- DataQueryWorkspace.LandingTabId -> DataQueryWorkspaceTab (Lookup)
+- DataQueryWorkspaceTab.CreatedById -> User (Lookup)
+- DataQueryWorkspaceTab.LastModifiedById -> User (Lookup)
+- DataQueryWorkspaceTab.QueryWorkspaceId -> DataQueryWorkspace (Lookup)
+- DataSemanticSearch.CreatedById -> User (Lookup)
+- DataSemanticSearch.LastModifiedById -> User (Lookup)
+- DataStream.CreatedById -> User (Lookup)
+- DataStream.LastModifiedById -> User (Lookup)
+- DataUseLegalBasis.OwnerId -> Group|User (Lookup)
+- DataUseLegalBasis.CreatedById -> User (Lookup)
+- DataUseLegalBasis.LastModifiedById -> User (Lookup)
+- DataUsePurpose.OwnerId -> Group|User (Lookup)
+- DataUsePurpose.CreatedById -> User (Lookup)
+- DataUsePurpose.LastModifiedById -> User (Lookup)
+- DataUsePurpose.LegalBasisId -> DataUseLegalBasis (Lookup)
+- DeliveryEstimationSetup.OwnerId -> Group|User (Lookup)
+- DeliveryEstimationSetup.CreatedById -> User (Lookup)
+- DeliveryEstimationSetup.LastModifiedById -> User (Lookup)
+- DeliveryEstimationSetup.ChannelId -> WebStore (Lookup)
+- DeliveryEstimationSetup.LocationGroupId -> LocationGroup (Lookup)
+- DeliveryEstimationSetup.DefaultBusinessHoursId -> BusinessHours (Lookup)
+- DeliveryEstimationSetup.LastSyncedById -> User (Lookup)
+- DevopsActivityLog.OwnerId -> Group|User (Lookup)
+- DevopsActivityLog.CreatedById -> User (Lookup)
+- DevopsActivityLog.LastModifiedById -> User (Lookup)
+- DevopsActivityLog.ParentActivityId -> DevopsActivityLog (Lookup)
+- DevopsActivityLog.WorkItemId -> WorkItem (Lookup)
+- DevopsActivityLog.ProjectId -> DevopsProject (Lookup)
+- DevopsActivityLog.PipelineId -> DevopsPipeline (Lookup)
+- DevopsActivityLog.PipelineStageId -> DevopsPipelineStage (Lookup)
+- DevopsActivityLog.PerformedById -> User (Lookup)
+- DevopsActivityLog.DevopsRequestInfoId -> DevopsRequestInfo (Lookup)
+- DevopsActivityLog.TestSuiteGroupExecId -> DevopsTestSuiteGroupExec (Lookup)
+- DevopsEnvDeployment.CreatedById -> User (Lookup)
+- DevopsEnvDeployment.LastModifiedById -> User (Lookup)
+- DevopsEnvDeployment.TargetDeployOrgId -> DevopsEnvironment (Lookup)
+- DevopsEnvDeployment.DevopsPipelnStgPromId -> DevopsPipelnStgProm (Lookup)
+- DevopsEnvDeployment.DeployRequestInfoId -> DevopsRequestInfo (Lookup)
+- DevopsEnvDeployment.CheckDeployRequestInfoId -> DevopsRequestInfo (Lookup)
+- DevopsEnvDeployment.BackSyncStageId -> DevopsPipelineStage (Lookup)
+- DevopsEnvDeployment.SwapStageId -> DevopsPipelineStage (Lookup)
+- DevopsEnvDeploymentMbr.CreatedById -> User (Lookup)
+- DevopsEnvDeploymentMbr.LastModifiedById -> User (Lookup)
+- DevopsEnvDeploymentMbr.DevopsEnvDeploymentId -> DevopsEnvDeployment (Lookup)
+- DevopsEnvDeploymentMbr.ChangedById -> User (Lookup)
+- DevopsEnvironment.OwnerId -> Group|User (Lookup)
+- DevopsEnvironment.CreatedById -> User (Lookup)
+- DevopsEnvironment.LastModifiedById -> User (Lookup)
+- DevopsEnvironment.RefreshSourceId -> DevopsEnvironment (Lookup)
+- DevopsEnvironment.ReplacesId -> DevopsEnvironment (Lookup)
+- DevopsPipeline.OwnerId -> Group|User (Lookup)
+- DevopsPipeline.CreatedById -> User (Lookup)
+- DevopsPipeline.LastModifiedById -> User (Lookup)
+- DevopsPipeline.SourceCodeRepositoryId -> SourceCodeRepository (Lookup)
+- DevopsPipelineEnvironment.CreatedById -> User (Lookup)
+- DevopsPipelineEnvironment.LastModifiedById -> User (Lookup)
+- DevopsPipelineEnvironment.DevopsPipelineId -> DevopsPipeline (Lookup)
+- DevopsPipelineEnvironment.DevopsEnvironmentId -> DevopsEnvironment (Lookup)
+- DevopsPipelineStage.CreatedById -> User (Lookup)
+- DevopsPipelineStage.LastModifiedById -> User (Lookup)
+- DevopsPipelineStage.DevopsPipelineId -> DevopsPipeline (Lookup)
+- DevopsPipelineStage.SourceCodeRepositoryBranchId -> SourceCodeRepositoryBranch (Lookup)
+- DevopsPipelineStage.DevOpsEnvironmentId -> DevopsEnvironment (Lookup)
+- DevopsPipelineStage.NextStageId -> DevopsPipelineStage (Lookup)
+- DevopsPipelineStageTrigger.OwnerId -> Group|User (Lookup)
+- DevopsPipelineStageTrigger.CreatedById -> User (Lookup)
+- DevopsPipelineStageTrigger.LastModifiedById -> User (Lookup)
+- DevopsPipelineStageTrigger.RelatedRecordId -> DevopsPipeline|DevopsPipelineStage (Lookup)
+- DevopsPipelineTestProvider.CreatedById -> User (Lookup)
+- DevopsPipelineTestProvider.LastModifiedById -> User (Lookup)
+- DevopsPipelineTestProvider.DevopsPipelineId -> DevopsPipeline (Lookup)
+- DevopsPipelineTestProvider.DevopsTestProviderId -> DevopsTestProvider (Lookup)
+- DevopsPipelnStgProm.CreatedById -> User (Lookup)
+- DevopsPipelnStgProm.LastModifiedById -> User (Lookup)
+- DevopsPipelnStgProm.PipelineStageId -> DevopsPipelineStage (Lookup)
+- DevopsPipelnStgProm.RequestInfoId -> DevopsRequestInfo (Lookup)
+- DevopsPipelnStgPromWkItem.CreatedById -> User (Lookup)
+- DevopsPipelnStgPromWkItem.LastModifiedById -> User (Lookup)
+- DevopsPipelnStgPromWkItem.DevopsPipelnStgPromId -> DevopsPipelnStgProm (Lookup)
+- DevopsPipelnStgPromWkItem.WorkItemId -> WorkItem (Lookup)
+- DevopsPipelnStgPromWkItem.MergeSourceBranchId -> SourceCodeRepositoryBranch (Lookup)
+- DevopsProject.OwnerId -> Group|User (Lookup)
+- DevopsProject.CreatedById -> User (Lookup)
+- DevopsProject.LastModifiedById -> User (Lookup)
+- DevopsProjectEnvironment.CreatedById -> User (Lookup)
+- DevopsProjectEnvironment.LastModifiedById -> User (Lookup)
+- DevopsProjectEnvironment.DevopsProjectId -> DevopsProject (Lookup)
+- DevopsProjectEnvironment.DevopsEnvironmentId -> DevopsEnvironment (Lookup)
+- DevopsProjectPipeline.CreatedById -> User (Lookup)
+- DevopsProjectPipeline.LastModifiedById -> User (Lookup)
+- DevopsProjectPipeline.DevopsProjectId -> DevopsProject (Lookup)
+- DevopsProjectPipeline.DevopsPipelineId -> DevopsPipeline (Lookup)
+- DevopsQualityGate.OwnerId -> Group|User (Lookup)
+- DevopsQualityGate.CreatedById -> User (Lookup)
+- DevopsQualityGate.LastModifiedById -> User (Lookup)
+- DevopsQualityGateResult.CreatedById -> User (Lookup)
+- DevopsQualityGateResult.LastModifiedById -> User (Lookup)
+- DevopsQualityGateResult.DevopsQualityGateId -> DevopsQualityGate (Lookup)
+- DevopsQualityGateResult.DevopsTestSuiteExecutionId -> DevopsTestSuiteExecution (Lookup)
+- DevopsQualityGateRule.CreatedById -> User (Lookup)
+- DevopsQualityGateRule.LastModifiedById -> User (Lookup)
+- DevopsQualityGateRule.DevopsQualityGateId -> DevopsQualityGate (Lookup)
+- DevopsQualityGateRuleResult.CreatedById -> User (Lookup)
+- DevopsQualityGateRuleResult.LastModifiedById -> User (Lookup)
+- DevopsQualityGateRuleResult.DevopsQualityGateRuleId -> DevopsQualityGateRule (Lookup)
+- DevopsQualityGateRuleResult.DevopsQualityGateResultId -> DevopsQualityGateResult (Lookup)
+- DevopsRequestInfo.OwnerId -> Group|User (Lookup)
+- DevopsRequestInfo.CreatedById -> User (Lookup)
+- DevopsRequestInfo.LastModifiedById -> User (Lookup)
+- DevopsRequestInfo.ParentRequestInfoId -> DevopsRequestInfo (Lookup)
+- DevopsTest.OwnerId -> Group|User (Lookup)
+- DevopsTest.CreatedById -> User (Lookup)
+- DevopsTest.LastModifiedById -> User (Lookup)
+- DevopsTest.DevopsPipelineId -> DevopsPipeline (Lookup)
+- DevopsTest.DevopsTestProviderId -> DevopsTestProvider (Lookup)
+- DevopsTest.EnvironmentId -> DevopsEnvironment (Lookup)
+- DevopsTest.SyncLogId -> DevopsTestProviderSyncLog (Lookup)
+- DevopsTestExecution.OwnerId -> Group|User (Lookup)
+- DevopsTestExecution.CreatedById -> User (Lookup)
+- DevopsTestExecution.LastModifiedById -> User (Lookup)
+- DevopsTestExecution.DevopsTestId -> DevopsTest (Lookup)
+- DevopsTestExecution.DevopsTestSuiteExecutionId -> DevopsTestSuiteExecution (Lookup)
+- DevopsTestProviderSyncLog.OwnerId -> Group|User (Lookup)
+- DevopsTestProviderSyncLog.CreatedById -> User (Lookup)
+- DevopsTestProviderSyncLog.LastModifiedById -> User (Lookup)
+- DevopsTestProviderSyncLog.DevopsTestProviderId -> DevopsTestProvider (Lookup)
+- DevopsTestProviderSyncLog.DevopsPipelineId -> DevopsPipeline (Lookup)
+- DevopsTestSuite.OwnerId -> Group|User (Lookup)
+- DevopsTestSuite.CreatedById -> User (Lookup)
+- DevopsTestSuite.LastModifiedById -> User (Lookup)
+- DevopsTestSuite.DevopsPipelineId -> DevopsPipeline (Lookup)
+- DevopsTestSuite.DevopsTestProviderId -> DevopsTestProvider (Lookup)
+- DevopsTestSuite.SyncLogId -> DevopsTestProviderSyncLog (Lookup)
+- DevopsTestSuite.EnvironmentId -> DevopsEnvironment (Lookup)
+- DevopsTestSuiteExecution.OwnerId -> Group|User (Lookup)
+- DevopsTestSuiteExecution.CreatedById -> User (Lookup)
+- DevopsTestSuiteExecution.LastModifiedById -> User (Lookup)
+- DevopsTestSuiteExecution.DevopsTestSuiteGroupExecId -> DevopsTestSuiteGroupExec (Lookup)
+- DevopsTestSuiteExecution.DevopsTestSuiteStageId -> DevopsTestSuiteStage (Lookup)
+- DevopsTestSuiteExecution.DevopsTestSuiteId -> DevopsTestSuite (Lookup)
+- DevopsTestSuiteGroupExec.OwnerId -> Group|User (Lookup)
+- DevopsTestSuiteGroupExec.CreatedById -> User (Lookup)
+- DevopsTestSuiteGroupExec.LastModifiedById -> User (Lookup)
+- DevopsTestSuiteGroupExec.DevopsPipelineStageTriggerId -> DevopsPipelineStageTrigger (Lookup)
+- DevopsTestSuiteGroupExec.RequestInfoId -> DevopsRequestInfo (Lookup)
+- DevopsTestSuiteStage.OwnerId -> Group|User (Lookup)
+- DevopsTestSuiteStage.CreatedById -> User (Lookup)
+- DevopsTestSuiteStage.LastModifiedById -> User (Lookup)
+- DevopsTestSuiteStage.DevopsPipelineStageTriggerId -> DevopsPipelineStageTrigger (Lookup)
+- DevopsTestSuiteStage.TestSuiteId -> DevopsTestSuite (Lookup)
+- DevopsTestSuiteStage.DevopsQualityGateId -> DevopsQualityGate (Lookup)
+- DevopsTestSuiteTest.CreatedById -> User (Lookup)
+- DevopsTestSuiteTest.LastModifiedById -> User (Lookup)
+- DevopsTestSuiteTest.DevopsTestSuiteId -> DevopsTestSuite (Lookup)
+- DevopsTestSuiteTest.DevopsTestId -> DevopsTest (Lookup)
+- DevopsTestSuiteTest.SyncLogId -> DevopsTestProviderSyncLog (Lookup)
+- DigitalWallet.CreatedById -> User (Lookup)
+- DigitalWallet.LastModifiedById -> User (Lookup)
+- DigitalWallet.PaymentGatewayId -> PaymentGateway (Lookup)
+- DigitalWallet.AccountId -> Account (Lookup)
+- DuplicateRecordItem.CreatedById -> User (Lookup)
+- DuplicateRecordItem.LastModifiedById -> User (Lookup)
+- DuplicateRecordItem.DuplicateRecordSetId -> DuplicateRecordSet (Lookup)
+- DuplicateRecordItem.RecordId -> Account|Address|Case|Contact|Individual|Lead|Subscription_Line__c|Subscription__c (Lookup)
+- DuplicateRecordSet.CreatedById -> User (Lookup)
+- DuplicateRecordSet.LastModifiedById -> User (Lookup)
+- DuplicateRecordSet.DuplicateRuleId -> DuplicateRule (Lookup)
+- DuplicateRule.CreatedById -> User (Lookup)
+- DuplicateRule.LastModifiedById -> User (Lookup)
+- EmailMessage.ParentId -> Case (Lookup)
+- EmailMessage.ActivityId -> Task (Lookup)
+- EmailMessage.CreatedById -> User (Lookup)
+- EmailMessage.LastModifiedById -> User (Lookup)
+- EmailMessage.ReplyToEmailMessageId -> EmailMessage (Lookup)
+- EmailMessage.FromId -> Contact|Lead|User (Lookup)
+- EmailMessage.RelatedToId -> Account|AppointmentCategory|AppointmentInvitation|ApprovalSubmission|ApprovalSubmissionDetail|ApprovalWorkItem|Asset|AssetRelationship|AssignedResource|Campaign|Case|ChangeRequest|CommSubscriptionConsent|ContactRequest|Contract|ContractLineItem|Coupon|CreditMemo|DataQueryWorkspace|DeliveryEstimationSetup|DevopsActivityLog|DevopsEnvDeployment|DevopsEnvDeploymentMbr|DevopsEnvironment|DevopsPipeline|DevopsPipelineEnvironment|DevopsPipelineStage|DevopsPipelnStgProm|DevopsPipelnStgPromWkItem|DevopsProject|DevopsProjectEnvironment|DevopsProjectPipeline|DevopsRequestInfo|Entitlement|FulfillmentOrder|Image|Incident|Invoice|LegalEntity|ListEmail|Location|LocationShippingCarrierMethod|OperatingHoursHoliday|Opportunity|Order|PartyConsent|PrivacyRTBFRequest|Problem|ProcessException|Product2|ProductCatalog|Promotion|PromotionMarketSegment|PromotionQualifier|PromotionSegment|PromotionSegmentBuyerGroup|PromotionSegmentSalesStore|PromotionTarget|PromotionTier|ResourceAbsence|ReturnOrder|ReturnOrderLineItem|ServiceAppointment|ServiceContract|ServiceResource|Shift|Shipment|ShipmentItem|ShippingCarrier|ShippingCarrierMethod|Solution|SourceCodeRepoProvider|SourceCodeRepository|SourceCodeRepositoryBranch|Subscription__c|Waitlist|WaitlistParticipant|WorkItem|WorkItemComponent|WorkItemComponentList|WorkOrder|WorkOrderLineItem|WorkPlan|WorkPlanTemplate|WorkPlanTemplateEntry|WorkStep|WorkStepTemplate (Lookup)
+- EmailMessage.EmailTemplateId -> EmailTemplate (Lookup)
+- EmailTemplate.OwnerId -> User (Lookup)
+- EmailTemplate.FolderId -> Folder|Organization|User (Lookup)
+- EmailTemplate.BrandTemplateId -> BrandTemplate (Lookup)
+- EmailTemplate.EnhancedLetterheadId -> EnhancedLetterhead (Lookup)
+- EmailTemplate.CreatedById -> User (Lookup)
+- EmailTemplate.LastModifiedById -> User (Lookup)
+- EngagementChannelType.OwnerId -> Group|User (Lookup)
+- EngagementChannelType.CreatedById -> User (Lookup)
+- EngagementChannelType.LastModifiedById -> User (Lookup)
+- EngagementChannelWorkType.CreatedById -> User (Lookup)
+- EngagementChannelWorkType.LastModifiedById -> User (Lookup)
+- EngagementChannelWorkType.WorkTypeId -> WorkType (Lookup)
+- EngagementChannelWorkType.EngagementChannelTypeId -> EngagementChannelType (Lookup)
+- EnhancedLetterhead.CreatedById -> User (Lookup)
+- EnhancedLetterhead.LastModifiedById -> User (Lookup)
+- Entitlement.CreatedById -> User (Lookup)
+- Entitlement.LastModifiedById -> User (Lookup)
+- Entitlement.AccountId -> Account (Lookup)
+- Entitlement.ServiceContractId -> ServiceContract (Lookup)
+- Entitlement.ContractLineItemId -> ContractLineItem (Lookup)
+- Entitlement.AssetId -> Asset (Lookup)
+- Entitlement.SlaProcessId -> SlaProcess (Lookup)
+- Entitlement.BusinessHoursId -> BusinessHours (Lookup)
+- Entitlement.SvcApptBookingWindowsId -> OperatingHours (Lookup)
+- Entitlement.LocationId -> Location (Lookup)
+- EntitlementContact.CreatedById -> User (Lookup)
+- EntitlementContact.LastModifiedById -> User (Lookup)
+- EntitlementContact.EntitlementId -> Entitlement (Lookup)
+- EntitlementContact.ContactId -> Contact (Lookup)
+- EntityMilestone.CreatedById -> User (Lookup)
+- EntityMilestone.LastModifiedById -> User (Lookup)
+- EntityMilestone.ParentEntityId -> ChangeRequest|Incident|Problem|WorkOrder (Lookup)
+- EntityMilestone.SlaProcessId -> SlaProcess (Lookup)
+- EntityMilestone.MilestoneTypeId -> MilestoneType (Lookup)
+- EntityMilestone.BusinessHoursId -> BusinessHours (Lookup)
+- Event.WhoId -> Contact|Lead (Lookup)
+- Event.WhatId -> Account|AppointmentCategory|AppointmentInvitation|ApprovalSubmission|ApprovalSubmissionDetail|ApprovalWorkItem|Asset|AssetRelationship|AssignedResource|Campaign|Case|ChangeRequest|CommSubscriptionConsent|ContactRequest|Contract|ContractLineItem|Coupon|CreditMemo|DataQueryWorkspace|DeliveryEstimationSetup|DevopsActivityLog|DevopsEnvDeployment|DevopsEnvDeploymentMbr|DevopsEnvironment|DevopsPipeline|DevopsPipelineEnvironment|DevopsPipelineStage|DevopsPipelnStgProm|DevopsPipelnStgPromWkItem|DevopsProject|DevopsProjectEnvironment|DevopsProjectPipeline|DevopsRequestInfo|Entitlement|FulfillmentOrder|Image|Incident|Invoice|LegalEntity|ListEmail|Location|LocationShippingCarrierMethod|OperatingHoursHoliday|Opportunity|Order|PartyConsent|PrivacyRTBFRequest|Problem|ProcessException|Product2|ProductCatalog|Promotion|PromotionMarketSegment|PromotionQualifier|PromotionSegment|PromotionSegmentBuyerGroup|PromotionSegmentSalesStore|PromotionTarget|PromotionTier|ResourceAbsence|ReturnOrder|ReturnOrderLineItem|ServiceAppointment|ServiceContract|ServiceResource|Shift|Shipment|ShipmentItem|ShippingCarrier|ShippingCarrierMethod|Solution|SourceCodeRepoProvider|SourceCodeRepository|SourceCodeRepositoryBranch|Subscription__c|Waitlist|WaitlistParticipant|WorkItem|WorkItemComponent|WorkItemComponentList|WorkOrder|WorkOrderLineItem|WorkPlan|WorkPlanTemplate|WorkPlanTemplateEntry|WorkStep|WorkStepTemplate (Lookup)
+- Event.AccountId -> Account (Lookup)
+- Event.OwnerId -> Calendar|User (Lookup)
+- Event.CreatedById -> User (Lookup)
+- Event.LastModifiedById -> User (Lookup)
+- Event.RecurrenceActivityId -> Event (Lookup)
+- Event.ServiceAppointmentId -> ServiceAppointment (Lookup)
+- ExtDataShareTarget.OwnerId -> Group|User (Lookup)
+- ExtDataShareTarget.CreatedById -> User (Lookup)
+- ExtDataShareTarget.LastModifiedById -> User (Lookup)
+- ExternalEvent.CreatedById -> User (Lookup)
+- ExternalEvent.LastModifiedById -> User (Lookup)
+- FeedItem.ParentId -> Account|ActivationTarget|ActivationTrgtIntOrgAccess|ApiAnomalyEventStore|AppointmentCategory|AppointmentInvitation|AppointmentTopicTimeSlot|ApprovalSubmission|ApprovalSubmissionDetail|ApprovalWorkItem|Asset|AssetRelationship|AssignedResource|AuthorizationFormText|BuyerGroup|Campaign|Case|CaseRelatedIssue|ChangeRequest|ChangeRequestRelatedIssue|ChangeRequestRelatedItem|CollaborationGroup|CommSubscription|CommSubscriptionChannelType|CommSubscriptionConsent|CommSubscriptionTiming|ConsumptionSchedule|Contact|ContentDocument|Contract|ContractLineItem|Coupon|CredentialStuffingEventStore|CreditMemo|CreditMemoInvApplication|CreditMemoLine|Dashboard|DashboardComponent|DataAction|DataActionJobSummary|DataActionTarget|DataCleanRoom|DataCommunicationCap|DataContentLensSource|DataLakeObjectInstance|DataObjSecondaryIndex|DataQueryWorkspace|DataSemanticSearch|DataStream|DeliveryEstimationSetup|DevopsEnvDeployment|DevopsEnvDeploymentMbr|DevopsEnvironment|DevopsPipeline|DevopsPipelineEnvironment|DevopsPipelineStage|DevopsPipelnStgProm|DevopsPipelnStgPromWkItem|DevopsProject|DevopsProjectEnvironment|DevopsProjectPipeline|DevopsRequestInfo|EngagementChannelType|EngagementChannelWorkType|EnhancedLetterhead|Entitlement|EntityMilestone|Event|ExtDataShare|ExtDataShareTarget|FulfillmentOrder|FulfillmentOrderItemAdjustment|FulfillmentOrderItemTax|FulfillmentOrderLineItem|GuestUserAnomalyEventStore|IdentityResolution|Image|Incident|IncidentRelatedItem|Invoice|InvoiceLine|Lead|LegalEntity|Location|LocationGroup|LocationShippingCarrierMethod|LoginAnomalyEventStore|MarketSegment|MarketSegmentActivation|MessagingSession|MktCalculatedInsight|MktDataTransform|MktMLModel|MktMLPredictionJob|OperatingHours|OperatingHoursHoliday|Opportunity|Order|OrderItem|PartyConsent|Payment|PrivacyRTBFRequest|Problem|ProblemIncident|ProblemRelatedItem|Product2|ProductCatalog|ProductCategory|Promotion|PromotionMarketSegment|PromotionQualifier|PromotionSegment|PromotionSegmentBuyerGroup|PromotionSegmentSalesStore|PromotionTarget|PromotionTier|Report|ReportAnomalyEventStore|ResourceAbsence|ResourcePreference|ReturnOrder|ReturnOrderLineItem|ServiceAppointment|ServiceAppointmentAttendee|ServiceContract|ServiceResource|ServiceResourceSkill|ServiceTerritory|ServiceTerritoryMember|ServiceTerritoryWorkType|SessionHijackingEventStore|Shift|ShiftEngagementChannel|ShiftWorkTopic|Shipment|ShipmentItem|ShippingCarrier|ShippingCarrierMethod|Site|SkillRequirement|Solution|SourceCodeRepoProvider|SourceCodeRepository|SourceCodeRepositoryBranch|Subscription_Line__c|Subscription__c|Task|ThreatDetectionFeedback|Topic|UniversalAnomalyEventStore|User|VoiceCall|Waitlist|WaitlistParticipant|WaitlistServiceResource|WaitlistWorkType|WorkItem|WorkItemComponent|WorkItemComponentList|WorkOrder|WorkOrderLineItem|WorkPlan|WorkPlanTemplate|WorkPlanTemplateEntry|WorkStep|WorkStepTemplate|WorkType|WorkTypeGroup|WorkTypeGroupMember (Lookup)
+- FeedItem.CreatedById -> User (Lookup)
+- FeedItem.LastEditById -> User (Lookup)
+- FeedItem.RelatedRecordId -> ContentVersion (Lookup)
+- FeedItem.InsertedById -> User (Lookup)
+- FeedItem.BestCommentId -> FeedComment (Lookup)
+- FinanceBalanceSnapshot.OwnerId -> Group|User (Lookup)
+- FinanceBalanceSnapshot.CreatedById -> User (Lookup)
+- FinanceBalanceSnapshot.LastModifiedById -> User (Lookup)
+- FinanceBalanceSnapshot.FinanceTransactionId -> FinanceTransaction (Lookup)
+- FinanceBalanceSnapshot.ReferenceEntityId -> CreditMemo|CreditMemoInvApplication|CreditMemoLine|Invoice|InvoiceLine|Payment|PaymentLineInvoice|Refund|RefundLinePayment|Subscription_Line__c|Subscription__c (Lookup)
+- FinanceBalanceSnapshot.AccountId -> Account (Lookup)
+- FinanceBalanceSnapshot.LegalEntityId -> LegalEntity|Subscription_Line__c|Subscription__c (Lookup)
+- FinanceTransaction.OwnerId -> Group|User (Lookup)
+- FinanceTransaction.CreatedById -> User (Lookup)
+- FinanceTransaction.LastModifiedById -> User (Lookup)
+- FinanceTransaction.ReferenceEntityId -> CreditMemo|CreditMemoInvApplication|CreditMemoLine|Invoice|InvoiceLine|Payment|PaymentLineInvoice|Refund|RefundLinePayment|Subscription_Line__c|Subscription__c (Lookup)
+- FinanceTransaction.AccountId -> Account (Lookup)
+- FinanceTransaction.SourceEntityId -> CreditMemo|CreditMemoInvApplication|CreditMemoLine|Invoice|InvoiceLine|Payment|PaymentLineInvoice|Refund|RefundLinePayment|Subscription_Line__c|Subscription__c (Lookup)
+- FinanceTransaction.DestinationEntityId -> CreditMemo|CreditMemoInvApplication|CreditMemoLine|Invoice|InvoiceLine|Payment|PaymentLineInvoice|Refund|RefundLinePayment|Subscription_Line__c|Subscription__c (Lookup)
+- FinanceTransaction.LegalEntityId -> LegalEntity|Subscription_Line__c|Subscription__c (Lookup)
+- FinanceTransaction.ParentReferenceEntityId -> CreditMemo|CreditMemoInvApplication|CreditMemoLine|Invoice|InvoiceLine|Payment|PaymentLineInvoice|Refund|RefundLinePayment|Subscription_Line__c|Subscription__c (Lookup)
+- FlowInterview.OwnerId -> Group|User (Lookup)
+- FlowInterview.CreatedById -> User (Lookup)
+- FlowInterview.LastModifiedById -> User (Lookup)
+- FlowOrchestration.CreatedById -> User (Lookup)
+- FlowOrchestration.LastModifiedById -> User (Lookup)
+- FlowOrchestration.ActiveVersionId -> FlowOrchestrationVersion (Lookup)
+- FlowOrchestration.SourceTemplateId -> FlowOrchestration (Lookup)
+- FlowOrchestration.OverriddenById -> FlowOrchestration (Lookup)
+- FlowOrchestration.OverriddenOrchestrationId -> FlowOrchestration (Lookup)
+- FlowOrchestrationInstance.OwnerId -> Group|User (Lookup)
+- FlowOrchestrationInstance.CreatedById -> User (Lookup)
+- FlowOrchestrationInstance.LastModifiedById -> User (Lookup)
+- FlowOrchestrationInstance.InterviewId -> FlowInterview (Lookup)
+- FlowOrchestrationLog.CreatedById -> User (Lookup)
+- FlowOrchestrationLog.LastModifiedById -> User (Lookup)
+- FlowOrchestrationLog.OrchestrationInstanceId -> FlowOrchestrationInstance (Lookup)
+- FlowOrchestrationStageInstance.OwnerId -> Group|User (Lookup)
+- FlowOrchestrationStageInstance.CreatedById -> User (Lookup)
+- FlowOrchestrationStageInstance.LastModifiedById -> User (Lookup)
+- FlowOrchestrationStageInstance.OrchestrationInstanceId -> FlowOrchestrationInstance (Lookup)
+- FlowOrchestrationStepInstance.OwnerId -> Group|User (Lookup)
+- FlowOrchestrationStepInstance.CreatedById -> User (Lookup)
+- FlowOrchestrationStepInstance.LastModifiedById -> User (Lookup)
+- FlowOrchestrationStepInstance.OrchestrationInstanceId -> FlowOrchestrationInstance (Lookup)
+- FlowOrchestrationStepInstance.StageInstanceId -> FlowOrchestrationStageInstance (Lookup)
+- FlowOrchestrationVersion.CreatedById -> User (Lookup)
+- FlowOrchestrationVersion.LastModifiedById -> User (Lookup)
+- FlowOrchestrationVersion.FlowOrchestrationId -> FlowOrchestration (Lookup)
+- FlowOrchestrationVersion.ActivatedById -> User (Lookup)
+- FlowOrchestrationVersion.SourceTemplateId -> FlowOrchestration (Lookup)
+- FlowOrchestrationVersion.OverriddenById -> FlowOrchestration (Lookup)
+- FlowOrchestrationVersion.OverriddenOrchestrationId -> FlowOrchestration (Lookup)
+- FlowOrchestrationWorkItem.OwnerId -> Group|User (Lookup)
+- FlowOrchestrationWorkItem.CreatedById -> User (Lookup)
+- FlowOrchestrationWorkItem.LastModifiedById -> User (Lookup)
+- FlowOrchestrationWorkItem.StepInstanceId -> FlowOrchestrationStepInstance (Lookup)
+- FlowOrchestrationWorkItem.RelatedRecordId -> Account|ActivationTarget|ActivationTargetPlatform|ActvTgtPlatformFieldValue|Address|AgentWork|AiJobRun|AiJobRunItem|AnalyticsUserAttrFuncTkn|AppointmentInvitation|AppointmentInvitee|AppointmentScheduleLog|ApprovalSubmission|ApprovalSubmissionDetail|ApprovalWorkItem|Asset|AssetAction|AssetActionSource|AssetRelationship|AssetStatePeriod|AssignedResource|AssociatedLocation|AuthorizationForm|AuthorizationFormConsent|AuthorizationFormDataUse|AuthorizationFormText|BusinessBrand|BuyerGroup|Campaign|CartItem|CartItemPriceAdjustment|CartRelatedItem|CartTax|CartValidationOutput|Case|CaseComment|CaseRelatedIssue|ChangeRequest|ChangeRequestRelatedIssue|ChangeRequestRelatedItem|CollaborationGroup|CommSubscription|CommSubscriptionChannelType|CommSubscriptionConsent|CommSubscriptionTiming|ConsumptionRate|ConsumptionSchedule|Contact|ContactPointAddress|ContactPointConsent|ContactPointEmail|ContactPointPhone|ContactPointTypeConsent|ContactRequest|ContentDocument|ContentVersion|Contract|ContractLineItem|ConvEntryRelatedRecordCopy|ConversationApiLog|ConversationApiLogObjSum|ConversationEntryCopy|Coupon|CouponCodeRedemption|CreditMemo|CreditMemoInvApplication|CreditMemoLine|Customer|DandBCompany|DataAction|DataActionJobSummary|DataActionTarget|DataCleanRoom|DataCommunicationCap|DataGraph|DataGuidance|DataGuidanceStep|DataGuidanceStepGroup|DataKitDeploymentLog|DataKnowledgeRsrchRpt|DataKnowledgeRsrchTmpl|DataKnowledgeSpace|DataKnowledgeSpcJobRun|DataKnowledgeSrcFileRef|DataLakeObjectInstance|DataMaskCustomValueLibrary|DataQueryWorkspace|DataQueryWorkspaceTab|DataSourceBundle|DataStream|DataUseLegalBasis|DataUsePurpose|DeliveryEstimationSetup|DevopsActivityLog|DevopsEnvDeployment|DevopsEnvDeploymentMbr|DevopsEnvironment|DevopsPipeline|DevopsPipelineEnvironment|DevopsPipelineStage|DevopsPipelineStageTrigger|DevopsPipelineTestProvider|DevopsPipelnStgProm|DevopsPipelnStgPromWkItem|DevopsProject|DevopsProjectEnvironment|DevopsProjectPipeline|DevopsQualityGate|DevopsQualityGateResult|DevopsQualityGateRule|DevopsQualityGateRuleResult|DevopsRequestInfo|DevopsTest|DevopsTestExecution|DevopsTestProviderSyncLog|DevopsTestSuite|DevopsTestSuiteExecution|DevopsTestSuiteGroupExec|DevopsTestSuiteStage|DevopsTestSuiteTest|DevopsWkItmTstSteGrpExec|DuplicateRecordItem|DuplicateRecordSet|EmailMessage|EngagementChannelType|EngagementChannelWorkType|Entitlement|EntitlementContact|EntityMilestone|ExpressionFilter|ExpressionFilterCriteria|ExtDataShare|ExtDataShareTarget|ExternalEventMapping|ExtlRecShrStagedRecord|FinanceBalanceSnapshot|FinanceTransaction|FlowOrchestrationInstance|FlowOrchestrationVersion|FulfillmentOrder|FulfillmentOrderItemAdjustment|FulfillmentOrderItemTax|FulfillmentOrderLineItem|GisPrvdCnctrJobObjRun|Idea|IdentityResolution|Image|Incident|IncidentRelatedItem|Individual|InventoryItemReservation|InventoryReservation|Invoice|InvoiceLine|Lead|Location|LocationGroup|LocationGroupAssignment|LocationShippingCarrierMethod|Macro|MacroInstruction|MacroUsage|ManagedContentVariant|MarketSegment|MarketSegmentActivation|MktCalculatedInsight|MktDataTransform|MktMLModel|MktMLPredictionJob|OperatingHours|OperatingHoursHoliday|Opportunity|OpportunityRelatedDeleteLog|Order|OrderItem|OrgMetricScanSummary|Organization|PartyConsent|PaymentCreditLinePayment|PaymentCreditTransaction|PendingServiceRouting|PrivacyJobSession|PrivacyRTBFRequest|Problem|ProblemIncident|ProblemRelatedItem|ProcessException|Product2|ProductCatalog|ProductCategory|ProductCategoryProduct|Promotion|PromotionLineItemRule|PromotionMarketSegment|PromotionQualifier|PromotionSegment|PromotionSegmentBuyerGroup|PromotionSegmentSalesStore|PromotionTarget|PromotionTier|PromptAction|PromptError|QuickText|QuickTextUsage|ReportHierarchyObjectField|ResourceAbsence|ResourcePreference|ReturnOrder|ReturnOrderItemAdjustment|ReturnOrderItemTax|ReturnOrderLineItem|SecurityHealthCheckAlertRecipient|SecurityHealthCheckResult|Seller|ServiceAppointment|ServiceAppointmentAttendee|ServiceContract|ServiceResource|ServiceResourceSkill|ServiceTerritory|ServiceTerritoryMember|ServiceTerritoryWorkType|SfdcPartnerSbscrOffer|SfdcPartnerSbscrOfferItem|Shift|ShiftEngagementChannel|ShiftWorkTopic|Shipment|ShipmentItem|ShippingCarrier|ShippingCarrierMethod|ShippingConfigurationSet|ShippingRateArea|ShippingRateGroup|Site|SkillRequirement|SlackChannelRelatedRecord|Solution|SourceCodeRepoProvider|SourceCodeRepository|SourceCodeRepositoryBranch|StandardShippingRate|StreamingChannel|Subscription_Line__c|Subscription__c|TableauHostMapping|TenantConsumptionAlert|TimeSlot|Topic|UnstructuredStorageSpace|User|UserLicense|UserLocalWebServerIdentity|UserPrioritizedRecord|UserProvisioningRequest|UserServicePresence|Waitlist|WaitlistParticipant|WaitlistServiceResource|WaitlistWorkType|WebCart|WebCartActivityLog|WebCartAdjustmentBasis|WebCartAdjustmentGroup|WebCartCollaborator|WebCartCredit|WebStore|WebStoreBuyerGroup|WebStoreCatalog|WebStoreInventorySource|WorkItem|WorkItemComponent|WorkItemComponentList|WorkOrder|WorkOrderLineItem|WorkPlan|WorkPlanTemplate|WorkPlanTemplateEntry|WorkStep|WorkStepTemplate|WorkType|WorkTypeGroup|WorkTypeGroupMember (Lookup)
+- FlowOrchestrationWorkItem.AssigneeId -> Group|Group|User (Lookup)
+- FlowOrchestrationWorkItem.ParentWorkItemId -> FlowOrchestrationWorkItem (Lookup)
+- FlowRecord.OwnerId -> Group|User (Lookup)
+- FlowRecord.CreatedById -> User (Lookup)
+- FlowRecord.LastModifiedById -> User (Lookup)
+- FlowRecord.AssociatedRecordId -> Campaign|FlowRecord (Lookup)
+- FlowRecord.SegmentId -> MarketSegment (Lookup)
+- FlowRecord.ActiveVersionId -> FlowRecordVersion (Lookup)
+- FlowRecord.SourceTemplateId -> FlowRecord (Lookup)
+- FlowRecord.OverriddenById -> FlowRecord (Lookup)
+- FlowRecord.OverriddenFlowId -> FlowRecord (Lookup)
+- FlowRecord.ActivationId -> MarketSegmentActivation (Lookup)
+- FlowRecord.ListId -> Campaign (Lookup)
+- FlowRecordElement.CreatedById -> User (Lookup)
+- FlowRecordElement.LastModifiedById -> User (Lookup)
+- FlowRecordElement.FlowRecordVersionId -> FlowRecordVersion (Lookup)
+- FlowRecordVersion.CreatedById -> User (Lookup)
+- FlowRecordVersion.LastModifiedById -> User (Lookup)
+- FlowRecordVersion.FlowRecordId -> FlowRecord (Lookup)
+- FlowRecordVersion.ActivatedById -> User (Lookup)
+- FlowRecordVersion.PausingUserId -> User (Lookup)
+- FlowRecordVersion.ResumingUserId -> User (Lookup)
+- FlowRecordVersion.SourceTemplateId -> FlowRecord (Lookup)
+- FlowRecordVersion.OverriddenById -> FlowRecord (Lookup)
+- FlowRecordVersion.OverriddenFlowId -> FlowRecord (Lookup)
+- FlowRecordVersionOccurrence.CreatedById -> User (Lookup)
+- FlowRecordVersionOccurrence.LastModifiedById -> User (Lookup)
+- FlowRecordVersionOccurrence.FlowRecordVersionId -> FlowRecordVersion (Lookup)
+- FlowRecordVersionOccurrence.FlowRecordId -> FlowRecord (Lookup)
+- FulfillmentOrder.OwnerId -> Group|User (Lookup)
+- FulfillmentOrder.CreatedById -> User (Lookup)
+- FulfillmentOrder.LastModifiedById -> User (Lookup)
+- FulfillmentOrder.AccountId -> Account (Lookup)
+- FulfillmentOrder.FulfilledFromLocationId -> Location (Lookup)
+- FulfillmentOrder.OrderId -> Order (Lookup)
+- FulfillmentOrder.InvoiceId -> Invoice (Lookup)
+- FulfillmentOrder.BillToContactId -> Contact (Lookup)
+- FulfillmentOrderItemAdjustment.CreatedById -> User (Lookup)
+- FulfillmentOrderItemAdjustment.LastModifiedById -> User (Lookup)
+- FulfillmentOrderItemAdjustment.FulfillmentOrderLineItemId -> FulfillmentOrderLineItem (Lookup)
+- FulfillmentOrderItemAdjustment.FulfillmentOrderId -> FulfillmentOrder (Lookup)
+- FulfillmentOrderItemTax.CreatedById -> User (Lookup)
+- FulfillmentOrderItemTax.LastModifiedById -> User (Lookup)
+- FulfillmentOrderItemTax.FulfillmentOrderLineItemId -> FulfillmentOrderLineItem (Lookup)
+- FulfillmentOrderItemTax.FulfillmentOrderId -> FulfillmentOrder (Lookup)
+- FulfillmentOrderItemTax.FulfillmentOrderItemAdjustId -> FulfillmentOrderItemAdjustment (Lookup)
+- FulfillmentOrderLineItem.CreatedById -> User (Lookup)
+- FulfillmentOrderLineItem.LastModifiedById -> User (Lookup)
+- FulfillmentOrderLineItem.FulfillmentOrderId -> FulfillmentOrder (Lookup)
+- FulfillmentOrderLineItem.OrderItemId -> OrderItem (Lookup)
+- FulfillmentOrderLineItem.Product2Id -> Product2 (Lookup)
+- FulfillmentOrderLineItem.MainFulfillmentOrderLineItemId -> FulfillmentOrderLineItem (Lookup)
+- Holiday.CreatedById -> User (Lookup)
+- Holiday.LastModifiedById -> User (Lookup)
+- IPAddressRange.CreatedById -> User (Lookup)
+- IPAddressRange.LastModifiedById -> User (Lookup)
+- Idea.RecordTypeId -> RecordType (Lookup)
+- Idea.CreatedById -> User (Lookup)
+- Idea.LastModifiedById -> User (Lookup)
+- Idea.CommunityId -> Community (Lookup)
+- Idea.LastCommentId -> IdeaComment (Lookup)
+- Idea.ParentIdeaId -> Idea (Lookup)
+- IdentityResolution.CreatedById -> User (Lookup)
+- IdentityResolution.LastModifiedById -> User (Lookup)
+- IdentityResolution.SourceIrId -> IdentityResolution (Lookup)
+- IframeWhiteListUrl.CreatedById -> User (Lookup)
+- IframeWhiteListUrl.LastModifiedById -> User (Lookup)
+- Image.OwnerId -> Group|User (Lookup)
+- Image.CreatedById -> User (Lookup)
+- Image.LastModifiedById -> User (Lookup)
+- Image.ContentDocumentId -> ContentDocument (Lookup)
+- Incident.OwnerId -> Group|User (Lookup)
+- Incident.CreatedById -> User (Lookup)
+- Incident.LastModifiedById -> User (Lookup)
+- Incident.ParentIncidentId -> Incident (Lookup)
+- Incident.ResolvedById -> User (Lookup)
+- Incident.BusinessHoursId -> BusinessHours (Lookup)
+- Incident.EntitlementId -> Entitlement (Lookup)
+- IncidentRelatedItem.CreatedById -> User (Lookup)
+- IncidentRelatedItem.LastModifiedById -> User (Lookup)
+- IncidentRelatedItem.IncidentId -> Incident (Lookup)
+- IncidentRelatedItem.AssetId -> Asset (Lookup)
+- IncidentRelatedItem.Product2Id -> Product2 (Lookup)
+- Individual.OwnerId -> User (Lookup)
+- Individual.MasterRecordId -> Individual (Lookup)
+- Individual.CreatedById -> User (Lookup)
+- Individual.LastModifiedById -> User (Lookup)
+- InventoryItemReservation.CreatedById -> User (Lookup)
+- InventoryItemReservation.LastModifiedById -> User (Lookup)
+- InventoryItemReservation.InventoryReservationId -> InventoryReservation (Lookup)
+- InventoryItemReservation.ItemReservationSourceId -> CartItem|FulfillmentOrderLineItem|OrderItem|ReturnOrderLineItem|Subscription_Line__c|Subscription__c|WorkOrderLineItem (Lookup)
+- InventoryItemReservation.ProductId -> Product2 (Lookup)
+- InventoryItemReservation.ReservedAtLocationId -> Location|LocationGroup (Lookup)
+- InventoryReservation.OwnerId -> Group|User (Lookup)
+- InventoryReservation.CreatedById -> User (Lookup)
+- InventoryReservation.LastModifiedById -> User (Lookup)
+- InventoryReservation.ReservationSourceId -> FulfillmentOrder|Order|ReturnOrder|Subscription_Line__c|Subscription__c|WebCart|WorkOrder (Lookup)
+- Invoice.OwnerId -> Group|User (Lookup)
+- Invoice.CreatedById -> User (Lookup)
+- Invoice.LastModifiedById -> User (Lookup)
+- Invoice.ReferenceEntityId -> CreditMemo|Opportunity|Order (Lookup)
+- Invoice.BillingAccountId -> Account (Lookup)
+- Invoice.BillToContactId -> Contact (Lookup)
+- InvoiceLine.CreatedById -> User (Lookup)
+- InvoiceLine.LastModifiedById -> User (Lookup)
+- InvoiceLine.InvoiceId -> Invoice (Lookup)
+- InvoiceLine.ReferenceEntityItemId -> OrderItem (Lookup)
+- InvoiceLine.GroupReferenceEntityItemId -> OrderItem (Lookup)
+- InvoiceLine.Product2Id -> Product2 (Lookup)
+- InvoiceLine.RelatedLineId -> InvoiceLine (Lookup)
+- Lead.MasterRecordId -> Lead (Lookup)
+- Lead.OwnerId -> Group|User (Lookup)
+- Lead.ConvertedAccountId -> Account (Lookup)
+- Lead.ConvertedContactId -> Contact (Lookup)
+- Lead.ConvertedOpportunityId -> Opportunity (Lookup)
+- Lead.CreatedById -> User (Lookup)
+- Lead.LastModifiedById -> User (Lookup)
+- Lead.DandbCompanyId -> DandBCompany (Lookup)
+- Lead.IndividualId -> Individual (Lookup)
+- LegalEntity.OwnerId -> Group|User (Lookup)
+- LegalEntity.CreatedById -> User (Lookup)
+- LegalEntity.LastModifiedById -> User (Lookup)
+- ListEmail.OwnerId -> Group|User (Lookup)
+- ListEmail.CreatedById -> User (Lookup)
+- ListEmail.LastModifiedById -> User (Lookup)
+- ListEmail.CampaignId -> Campaign (Lookup)
+- ListEmail.RelatedToId -> AppointmentInvitation|Case|Contact|Incident|Lead|Opportunity|Product2|User (Lookup)
+- Location.OwnerId -> Group|User (Lookup)
+- Location.CreatedById -> User (Lookup)
+- Location.LastModifiedById -> User (Lookup)
+- Location.ParentLocationId -> Location (Lookup)
+- Location.VisitorAddressId -> Address (Lookup)
+- Location.RootLocationId -> Location (Lookup)
+- Location.LogoId -> ContentAsset (Lookup)
+- Location.FulfillingBusinessHoursId -> BusinessHours (Lookup)
+- Location.FulfillingOperationalHoursId -> OperatingHours (Lookup)
+- LocationGroup.OwnerId -> Group|User (Lookup)
+- LocationGroup.CreatedById -> User (Lookup)
+- LocationGroup.LastModifiedById -> User (Lookup)
+- LocationGroupAssignment.CreatedById -> User (Lookup)
+- LocationGroupAssignment.LastModifiedById -> User (Lookup)
+- LocationGroupAssignment.LocationId -> Location (Lookup)
+- LocationGroupAssignment.LocationGroupId -> LocationGroup (Lookup)
+- LocationShippingCarrierMethod.OwnerId -> Group|User (Lookup)
+- LocationShippingCarrierMethod.CreatedById -> User (Lookup)
+- LocationShippingCarrierMethod.LastModifiedById -> User (Lookup)
+- LocationShippingCarrierMethod.LocationSourceId -> Location|LocationGroup (Lookup)
+- LocationShippingCarrierMethod.ShippingCarrierMethodId -> ShippingCarrierMethod (Lookup)
+- Macro.OwnerId -> Group|User (Lookup)
+- Macro.CreatedById -> User (Lookup)
+- Macro.LastModifiedById -> User (Lookup)
+- ManagedContent.CreatedById -> User (Lookup)
+- ManagedContent.LastModifiedById -> User (Lookup)
+- ManagedContent.AuthoredManagedContentSpaceId -> ManagedContentSpace (Lookup)
+- ManagedContentVariant.CreatedById -> User (Lookup)
+- ManagedContentVariant.LastModifiedById -> User (Lookup)
+- ManagedContentVariant.ManagedContentId -> ManagedContent (Lookup)
+- MarketSegment.CreatedById -> User (Lookup)
+- MarketSegment.LastModifiedById -> User (Lookup)
+- MarketSegment.DataGraphId -> DataGraph (Lookup)
+- MarketSegmentActivation.CreatedById -> User (Lookup)
+- MarketSegmentActivation.LastModifiedById -> User (Lookup)
+- MarketSegmentActivation.MarketSegmentId -> MarketSegment (Lookup)
+- MarketSegmentActivation.ActivationTargetId -> ActivationTarget (Lookup)
+- MessagingChannel.CreatedById -> User (Lookup)
+- MessagingChannel.LastModifiedById -> User (Lookup)
+- MessagingChannel.ChannelDefinitionId -> ConversationChannelDefinition (Lookup)
+- MessagingChannel.RoutingConfigurationId -> QueueRoutingConfig (Lookup)
+- MessagingChannel.TargetQueueId -> Group (Lookup)
+- MessagingChannel.SessionHandlerId -> Group|User (Lookup)
+- MessagingChannel.FallbackQueueId -> Group (Lookup)
+- MessagingChannel.BusinessHoursId -> BusinessHours (Lookup)
+- MessagingDeliveryError.CreatedById -> User (Lookup)
+- MessagingDeliveryError.LastModifiedById -> User (Lookup)
+- MessagingDeliveryError.MessagingChannelId -> MessagingChannel (Lookup)
+- MessagingDeliveryError.MessagingTemplateId -> MessagingTemplate (Lookup)
+- MessagingDeliveryError.MessagingEndUserId -> MessagingEndUser (Lookup)
+- MessagingEndUser.OwnerId -> Group|User (Lookup)
+- MessagingEndUser.CreatedById -> User (Lookup)
+- MessagingEndUser.LastModifiedById -> User (Lookup)
+- MessagingEndUser.MessagingChannelId -> MessagingChannel (Lookup)
+- MessagingEndUser.AccountId -> Account (Lookup)
+- MessagingEndUser.ContactId -> Contact (Lookup)
+- MessagingEndUser.LeadId -> Lead (Lookup)
+- MessagingEndUser.AuthenticatedEndUserId -> User (Lookup)
+- MessagingLink.CreatedById -> User (Lookup)
+- MessagingLink.LastModifiedById -> User (Lookup)
+- MessagingLink.MessagingChannelId -> MessagingChannel (Lookup)
+- MessagingLink.RecordTypeId -> RecordType (Lookup)
+- MessagingSession.OwnerId -> Group|User (Lookup)
+- MessagingSession.CreatedById -> User (Lookup)
+- MessagingSession.LastModifiedById -> User (Lookup)
+- MessagingSession.MessagingChannelId -> MessagingChannel (Lookup)
+- MessagingSession.MessagingEndUserId -> MessagingEndUser (Lookup)
+- MessagingSession.CaseId -> Case (Lookup)
+- MessagingSession.LeadId -> Lead (Lookup)
+- MessagingSession.OpportunityId -> Opportunity (Lookup)
+- MessagingSession.CampaignId -> Campaign (Lookup)
+- MessagingSession.TargetUserId -> User (Lookup)
+- MessagingSession.ConversationId -> Conversation (Lookup)
+- MessagingSession.EndUserAccountId -> Account (Lookup)
+- MessagingSession.EndUserContactId -> Contact (Lookup)
+- MessagingTemplate.CreatedById -> User (Lookup)
+- MessagingTemplate.LastModifiedById -> User (Lookup)
+- MktCalculatedInsight.CreatedById -> User (Lookup)
+- MktCalculatedInsight.LastModifiedById -> User (Lookup)
+- MktCalculatedInsight.HistoryCiId -> MktCalculatedInsight (Lookup)
+- MktDataTransform.OwnerId -> Group|User (Lookup)
+- MktDataTransform.CreatedById -> User (Lookup)
+- MktDataTransform.LastModifiedById -> User (Lookup)
+- MktMLModel.OwnerId -> Group|User (Lookup)
+- MktMLModel.CreatedById -> User (Lookup)
+- MktMLModel.LastModifiedById -> User (Lookup)
+- Note.ParentId -> Account|AppointmentCategory|AppointmentInvitation|ApprovalSubmission|ApprovalSubmissionDetail|ApprovalWorkItem|Asset|ChangeRequest|CommSubscription|CommSubscriptionChannelType|CommSubscriptionConsent|CommSubscriptionTiming|Contact|Contract|ContractLineItem|CreditMemo|DataQueryWorkspace|DeliveryEstimationSetup|DevopsActivityLog|DevopsEnvDeployment|DevopsEnvDeploymentMbr|DevopsEnvironment|DevopsPipeline|DevopsPipelineEnvironment|DevopsPipelineStage|DevopsPipelnStgProm|DevopsPipelnStgPromWkItem|DevopsProject|DevopsProjectEnvironment|DevopsProjectPipeline|DevopsRequestInfo|EngagementChannelType|Entitlement|Image|Incident|Invoice|Lead|LegalEntity|Location|LocationShippingCarrierMethod|Opportunity|Order|Problem|Product2|Promotion|ReturnOrder|ReturnOrderLineItem|ServiceAppointment|ServiceContract|ServiceResource|Shift|SourceCodeRepoProvider|SourceCodeRepository|SourceCodeRepositoryBranch|Subscription_Line__c|Subscription__c|Waitlist|WorkItem|WorkItemComponent|WorkItemComponentList|WorkOrder|WorkOrderLineItem|WorkPlan|WorkPlanTemplate|WorkStep|WorkStepTemplate (Lookup)
+- Note.OwnerId -> User (Lookup)
+- Note.CreatedById -> User (Lookup)
+- Note.LastModifiedById -> User (Lookup)
+- OperatingHours.OwnerId -> Group|User (Lookup)
+- OperatingHours.CreatedById -> User (Lookup)
+- OperatingHours.LastModifiedById -> User (Lookup)
+- OperatingHoursHoliday.CreatedById -> User (Lookup)
+- OperatingHoursHoliday.LastModifiedById -> User (Lookup)
+- OperatingHoursHoliday.OperatingHoursId -> OperatingHours (Lookup)
+- OperatingHoursHoliday.HolidayId -> Holiday (Lookup)
+- Opportunity.AccountId -> Account (Lookup)
+- Opportunity.CampaignId -> Campaign (Lookup)
+- Opportunity.Pricebook2Id -> Pricebook2 (Lookup)
+- Opportunity.OwnerId -> User (Lookup)
+- Opportunity.CreatedById -> User (Lookup)
+- Opportunity.LastModifiedById -> User (Lookup)
+- Opportunity.ContactId -> Contact (Lookup)
+- Opportunity.LastAmountChangedHistoryId -> OpportunityHistory (Lookup)
+- Opportunity.LastCloseDateChangedHistoryId -> OpportunityHistory (Lookup)
+- OpportunityContactRole.OpportunityId -> Opportunity (Lookup)
+- OpportunityContactRole.ContactId -> Contact (Lookup)
+- OpportunityContactRole.CreatedById -> User (Lookup)
+- OpportunityContactRole.LastModifiedById -> User (Lookup)
+- OpportunityLineItem.OpportunityId -> Opportunity (Lookup)
+- OpportunityLineItem.PricebookEntryId -> PricebookEntry (Lookup)
+- OpportunityLineItem.Product2Id -> Product2 (Lookup)
+- OpportunityLineItem.CreatedById -> User (Lookup)
+- OpportunityLineItem.LastModifiedById -> User (Lookup)
+- OpportunityPartner.OpportunityId -> Opportunity (Lookup)
+- OpportunityPartner.AccountToId -> Account (Lookup)
+- OpportunityPartner.CreatedById -> User (Lookup)
+- OpportunityPartner.LastModifiedById -> User (Lookup)
+- OpportunityPartner.ReversePartnerId -> OpportunityPartner (Lookup)
+- Order.OwnerId -> Group|User (Lookup)
+- Order.ContractId -> Contract (Lookup)
+- Order.AccountId -> Account (Lookup)
+- Order.Pricebook2Id -> Pricebook2 (Lookup)
+- Order.OriginalOrderId -> Order (Lookup)
+- Order.CustomerAuthorizedById -> Contact (Lookup)
+- Order.CompanyAuthorizedById -> User (Lookup)
+- Order.BillToContactId -> Contact (Lookup)
+- Order.ShipToContactId -> Contact (Lookup)
+- Order.ActivatedById -> User (Lookup)
+- Order.CreatedById -> User (Lookup)
+- Order.LastModifiedById -> User (Lookup)
+- OrderItem.Product2Id -> Product2 (Lookup)
+- OrderItem.OrderId -> Order (Lookup)
+- OrderItem.PricebookEntryId -> PricebookEntry (Lookup)
+- OrderItem.OriginalOrderItemId -> OrderItem (Lookup)
+- OrderItem.CreatedById -> User (Lookup)
+- OrderItem.LastModifiedById -> User (Lookup)
+- PartyConsent.OwnerId -> Group|User (Lookup)
+- PartyConsent.CreatedById -> User (Lookup)
+- PartyConsent.LastModifiedById -> User (Lookup)
+- PartyConsent.PartyId -> Individual (Lookup)
+- PartyConsent.PartyRoleId -> Customer|Seller (Lookup)
+- PartyConsent.BusinessBrandId -> BusinessBrand (Lookup)
+- PartyConsent.DataUsePurposeId -> DataUsePurpose (Lookup)
+- Payment.CreatedById -> User (Lookup)
+- Payment.LastModifiedById -> User (Lookup)
+- Payment.PaymentGroupId -> PaymentGroup (Lookup)
+- Payment.AccountId -> Account (Lookup)
+- Payment.PaymentAuthorizationId -> PaymentAuthorization (Lookup)
+- Payment.PaymentGatewayId -> PaymentGateway (Lookup)
+- Payment.PaymentMethodId -> PaymentMethod (Lookup)
+- PaymentAuthAdjustment.CreatedById -> User (Lookup)
+- PaymentAuthAdjustment.LastModifiedById -> User (Lookup)
+- PaymentAuthAdjustment.PaymentAuthorizationId -> PaymentAuthorization (Lookup)
+- PaymentAuthAdjustment.AccountId -> Account (Lookup)
+- PaymentAuthorization.CreatedById -> User (Lookup)
+- PaymentAuthorization.LastModifiedById -> User (Lookup)
+- PaymentAuthorization.PaymentGroupId -> PaymentGroup (Lookup)
+- PaymentAuthorization.AccountId -> Account (Lookup)
+- PaymentAuthorization.PaymentMethodId -> PaymentMethod (Lookup)
+- PaymentAuthorization.PaymentGatewayId -> PaymentGateway (Lookup)
+- PaymentCredit.CreatedById -> User (Lookup)
+- PaymentCredit.LastModifiedById -> User (Lookup)
+- PaymentCredit.AccountId -> Account (Lookup)
+- PaymentCredit.PaymentId -> Payment (Lookup)
+- PaymentCredit.ReturnOrderId -> ReturnOrder (Lookup)
+- PaymentCredit.CreditMemoId -> CreditMemo (Lookup)
+- PaymentCreditLinePayment.CreatedById -> User (Lookup)
+- PaymentCreditLinePayment.LastModifiedById -> User (Lookup)
+- PaymentCreditLinePayment.PaymentId -> Payment (Lookup)
+- PaymentCreditLinePayment.PaymentCreditId -> PaymentCredit (Lookup)
+- PaymentCreditLinePayment.AssociatedLineId -> PaymentCreditLinePayment (Lookup)
+- PaymentCreditLinePayment.AssociatedAccountId -> Account (Lookup)
+- PaymentCreditTransaction.CreatedById -> User (Lookup)
+- PaymentCreditTransaction.LastModifiedById -> User (Lookup)
+- PaymentCreditTransaction.PaymentCreditId -> PaymentCredit (Lookup)
+- PaymentCreditTransaction.AssociatedAccountId -> Account (Lookup)
+- PaymentGateway.CreatedById -> User (Lookup)
+- PaymentGateway.LastModifiedById -> User (Lookup)
+- PaymentGateway.PaymentGatewayProviderId -> PaymentGatewayProvider (Lookup)
+- PaymentGateway.MerchantCredentialId -> NamedCredential (Lookup)
+- PaymentGatewayLog.CreatedById -> User (Lookup)
+- PaymentGatewayLog.LastModifiedById -> User (Lookup)
+- PaymentGatewayLog.ReferencedEntityId -> AlternativePaymentMethod|CardPaymentMethod|Payment|PaymentAuthAdjustment|PaymentAuthorization|Refund (Lookup)
+- PaymentGatewayLog.PaymentGatewayId -> PaymentGateway (Lookup)
+- PaymentGatewayProvider.CreatedById -> User (Lookup)
+- PaymentGatewayProvider.LastModifiedById -> User (Lookup)
+- PaymentGatewayProvider.ApexAdapterId -> ApexClass (Lookup)
+- PaymentGroup.CreatedById -> User (Lookup)
+- PaymentGroup.LastModifiedById -> User (Lookup)
+- PaymentGroup.SourceObjectId -> Order (Lookup)
+- PaymentLineInvoice.CreatedById -> User (Lookup)
+- PaymentLineInvoice.LastModifiedById -> User (Lookup)
+- PaymentLineInvoice.InvoiceId -> Invoice (Lookup)
+- PaymentLineInvoice.PaymentId -> Payment (Lookup)
+- PaymentLineInvoice.AssociatedAccountId -> Account (Lookup)
+- PaymentLineInvoice.AssociatedPaymentLineId -> PaymentLineInvoice (Lookup)
+- PaymentMethod.AccountId -> Account (Lookup)
+- PaymentMethod.CreatedById -> User (Lookup)
+- PaymentMethod.LastModifiedById -> User (Lookup)
+- PendingOrderSummary.CreatedById -> User (Lookup)
+- PendingOrderSummary.LastModifiedById -> User (Lookup)
+- PendingOrderSummary.AccountId -> Account (Lookup)
+- PendingOrderSummary.BillToContactId -> Contact (Lookup)
+- PendingOrderSummary.SalesStoreId -> WebStore (Lookup)
+- PermissionSetLicense.CreatedById -> User (Lookup)
+- PermissionSetLicense.LastModifiedById -> User (Lookup)
+- PermissionSetLicenseDefinition.CreatedById -> User (Lookup)
+- PermissionSetLicenseDefinition.LastModifiedById -> User (Lookup)
+- Pricebook2.CreatedById -> User (Lookup)
+- Pricebook2.LastModifiedById -> User (Lookup)
+- PricebookEntry.Pricebook2Id -> Pricebook2 (Lookup)
+- PricebookEntry.Product2Id -> Product2 (Lookup)
+- PricebookEntry.CreatedById -> User (Lookup)
+- PricebookEntry.LastModifiedById -> User (Lookup)
+- PrivacyJobSession.OwnerId -> Group|User (Lookup)
+- PrivacyJobSession.CreatedById -> User (Lookup)
+- PrivacyJobSession.LastModifiedById -> User (Lookup)
+- PrivacyJobSession.PrivacyPolicyDefinitionId -> PrivacyPolicyDefinition (Lookup)
+- PrivacyJobSession.PrivacyRtbfRequestId -> PrivacyRTBFRequest (Lookup)
+- PrivacyPolicy.CreatedById -> User (Lookup)
+- PrivacyPolicy.LastModifiedById -> User (Lookup)
+- PrivacyPolicy.PrivacyPolicyDefinitionId -> PrivacyPolicyDefinition (Lookup)
+- PrivacyRTBFRequest.OwnerId -> Group|User (Lookup)
+- PrivacyRTBFRequest.CreatedById -> User (Lookup)
+- PrivacyRTBFRequest.LastModifiedById -> User (Lookup)
+- PrivacyRTBFRequest.PolicyNameId -> PrivacyPolicyDefinition (Lookup)
+- Problem.OwnerId -> Group|User (Lookup)
+- Problem.CreatedById -> User (Lookup)
+- Problem.LastModifiedById -> User (Lookup)
+- Problem.ParentProblemId -> Problem (Lookup)
+- Problem.ResolvedById -> User (Lookup)
+- ProblemIncident.CreatedById -> User (Lookup)
+- ProblemIncident.LastModifiedById -> User (Lookup)
+- ProblemIncident.IssueId -> Incident|Problem (Lookup)
+- ProblemIncident.RelatedIssueId -> Incident|Problem (Lookup)
+- ProblemRelatedItem.CreatedById -> User (Lookup)
+- ProblemRelatedItem.LastModifiedById -> User (Lookup)
+- ProblemRelatedItem.ProblemId -> Problem (Lookup)
+- ProblemRelatedItem.AssetId -> Asset (Lookup)
+- ProcessException.OwnerId -> Group|User (Lookup)
+- ProcessException.CreatedById -> User (Lookup)
+- ProcessException.LastModifiedById -> User (Lookup)
+- ProcessException.AttachedToId -> CreditMemo|FulfillmentOrder|Invoice|Order|OrderItem|Payment|PaymentAuthorization|Refund|ReturnOrder|Subscription_Line__c|Subscription__c|WebCart|WebStore (Lookup)
+- ProcessException.CaseId -> Case (Lookup)
+- ProcessException.AssetId -> Asset (Lookup)
+- Product2.CreatedById -> User (Lookup)
+- Product2.LastModifiedById -> User (Lookup)
+- Product2.ExternalDataSourceId -> ExternalDataSource (Lookup)
+- ProductAttribute.CreatedById -> User (Lookup)
+- ProductAttribute.LastModifiedById -> User (Lookup)
+- ProductAttribute.ProductId -> Product2 (Lookup)
+- ProductAttribute.VariantParentId -> Product2 (Lookup)
+- ProductAttributeSetProduct.CreatedById -> User (Lookup)
+- ProductAttributeSetProduct.LastModifiedById -> User (Lookup)
+- ProductAttributeSetProduct.ProductAttributeSetId -> ProductAttributeSet (Lookup)
+- ProductAttributeSetProduct.ProductId -> Product2 (Lookup)
+- ProductCatalog.OwnerId -> Group|User (Lookup)
+- ProductCatalog.CreatedById -> User (Lookup)
+- ProductCatalog.LastModifiedById -> User (Lookup)
+- ProductCategory.CreatedById -> User (Lookup)
+- ProductCategory.LastModifiedById -> User (Lookup)
+- ProductCategory.CatalogId -> ProductCatalog (Lookup)
+- ProductCategory.ParentCategoryId -> ProductCategory (Lookup)
+- ProductCategoryProduct.CreatedById -> User (Lookup)
+- ProductCategoryProduct.LastModifiedById -> User (Lookup)
+- ProductCategoryProduct.ProductCategoryId -> ProductCategory (Lookup)
+- ProductCategoryProduct.ProductId -> Product2 (Lookup)
+- ProductCategoryProduct.CatalogId -> ProductCatalog (Lookup)
+- ProductConsumptionSchedule.CreatedById -> User (Lookup)
+- ProductConsumptionSchedule.LastModifiedById -> User (Lookup)
+- ProductConsumptionSchedule.ProductId -> Product2 (Lookup)
+- ProductConsumptionSchedule.ConsumptionScheduleId -> ConsumptionSchedule (Lookup)
+- Promotion.OwnerId -> Group|User (Lookup)
+- Promotion.CreatedById -> User (Lookup)
+- Promotion.LastModifiedById -> User (Lookup)
+- Promotion.CampaignId -> Campaign (Lookup)
+- PromotionMarketSegment.CreatedById -> User (Lookup)
+- PromotionMarketSegment.LastModifiedById -> User (Lookup)
+- PromotionMarketSegment.PromotionId -> Promotion (Lookup)
+- PromotionMarketSegment.PromotionSegmentId -> PromotionSegment (Lookup)
+- PromotionQualifier.CreatedById -> User (Lookup)
+- PromotionQualifier.LastModifiedById -> User (Lookup)
+- PromotionQualifier.PromotionId -> Promotion (Lookup)
+- PromotionQualifier.PromotionTierId -> PromotionTier (Lookup)
+- PromotionQualifier.QualifierId -> Product2|ProductCategory (Lookup)
+- PromotionSegment.OwnerId -> Group|User (Lookup)
+- PromotionSegment.CreatedById -> User (Lookup)
+- PromotionSegment.LastModifiedById -> User (Lookup)
+- PromotionSegmentBuyerGroup.CreatedById -> User (Lookup)
+- PromotionSegmentBuyerGroup.LastModifiedById -> User (Lookup)
+- PromotionSegmentBuyerGroup.PromotionSegmentId -> PromotionSegment (Lookup)
+- PromotionSegmentBuyerGroup.BuyerGroupId -> BuyerGroup (Lookup)
+- PromotionSegmentSalesStore.CreatedById -> User (Lookup)
+- PromotionSegmentSalesStore.LastModifiedById -> User (Lookup)
+- PromotionSegmentSalesStore.PromotionSegmentId -> PromotionSegment (Lookup)
+- PromotionSegmentSalesStore.SalesStoreId -> WebStore (Lookup)
+- PromotionTarget.CreatedById -> User (Lookup)
+- PromotionTarget.LastModifiedById -> User (Lookup)
+- PromotionTarget.PromotionId -> Promotion (Lookup)
+- PromotionTarget.PromotionTierId -> PromotionTier (Lookup)
+- PromotionTarget.TargetId -> Product2|ProductCategory|StandardShippingRate (Lookup)
+- PromotionTier.CreatedById -> User (Lookup)
+- PromotionTier.LastModifiedById -> User (Lookup)
+- PromotionTier.PromotionId -> Promotion (Lookup)
+- QuickText.OwnerId -> Group|User (Lookup)
+- QuickText.CreatedById -> User (Lookup)
+- QuickText.LastModifiedById -> User (Lookup)
+- Recommendation.CreatedById -> User (Lookup)
+- Recommendation.LastModifiedById -> User (Lookup)
+- Recommendation.ImageId -> ContentAsset (Lookup)
+- Refund.CreatedById -> User (Lookup)
+- Refund.LastModifiedById -> User (Lookup)
+- Refund.PaymentGroupId -> PaymentGroup (Lookup)
+- Refund.AccountId -> Account (Lookup)
+- Refund.PaymentMethodId -> PaymentMethod (Lookup)
+- Refund.PaymentGatewayId -> PaymentGateway (Lookup)
+- RefundLinePayment.CreatedById -> User (Lookup)
+- RefundLinePayment.LastModifiedById -> User (Lookup)
+- RefundLinePayment.PaymentId -> Payment (Lookup)
+- RefundLinePayment.RefundId -> Refund (Lookup)
+- RefundLinePayment.AssociatedAccountId -> Account (Lookup)
+- RefundLinePayment.AssociatedRefundLinePaymentId -> RefundLinePayment (Lookup)
+- ResourceAbsence.CreatedById -> User (Lookup)
+- ResourceAbsence.LastModifiedById -> User (Lookup)
+- ResourceAbsence.ResourceId -> ServiceResource (Lookup)
+- ResourcePreference.CreatedById -> User (Lookup)
+- ResourcePreference.LastModifiedById -> User (Lookup)
+- ResourcePreference.ServiceResourceId -> ServiceResource (Lookup)
+- ResourcePreference.RelatedRecordId -> Account|Asset|Location|WorkOrder|WorkOrderLineItem (Lookup)
+- ReturnOrder.OwnerId -> Group|User (Lookup)
+- ReturnOrder.CreatedById -> User (Lookup)
+- ReturnOrder.LastModifiedById -> User (Lookup)
+- ReturnOrder.AccountId -> Account (Lookup)
+- ReturnOrder.ContactId -> Contact (Lookup)
+- ReturnOrder.CaseId -> Case (Lookup)
+- ReturnOrder.OrderId -> Order (Lookup)
+- ReturnOrder.SourceLocationId -> Location (Lookup)
+- ReturnOrder.DestinationLocationId -> Location (Lookup)
+- ReturnOrder.ReturnedById -> User (Lookup)
+- ReturnOrderItemAdjustment.CreatedById -> User (Lookup)
+- ReturnOrderItemAdjustment.LastModifiedById -> User (Lookup)
+- ReturnOrderItemAdjustment.ReturnOrderLineItemId -> ReturnOrderLineItem (Lookup)
+- ReturnOrderItemAdjustment.ReturnOrderId -> ReturnOrder (Lookup)
+- ReturnOrderItemTax.CreatedById -> User (Lookup)
+- ReturnOrderItemTax.LastModifiedById -> User (Lookup)
+- ReturnOrderItemTax.ReturnOrderLineItemId -> ReturnOrderLineItem (Lookup)
+- ReturnOrderItemTax.ReturnOrderId -> ReturnOrder (Lookup)
+- ReturnOrderItemTax.ReturnOrderItemAdjustmentId -> ReturnOrderItemAdjustment (Lookup)
+- ReturnOrderLineItem.CreatedById -> User (Lookup)
+- ReturnOrderLineItem.LastModifiedById -> User (Lookup)
+- ReturnOrderLineItem.ReturnOrderId -> ReturnOrder (Lookup)
+- ReturnOrderLineItem.OrderItemId -> OrderItem (Lookup)
+- ReturnOrderLineItem.Product2Id -> Product2 (Lookup)
+- ReturnOrderLineItem.SourceLocationId -> Location (Lookup)
+- ReturnOrderLineItem.DestinationLocationId -> Location (Lookup)
+- ReturnOrderLineItem.AssetId -> Asset (Lookup)
+- ReturnOrderLineItem.ChangeOrderItemId -> OrderItem (Lookup)
+- Scorecard.OwnerId -> Group|User (Lookup)
+- Scorecard.CreatedById -> User (Lookup)
+- Scorecard.LastModifiedById -> User (Lookup)
+- ScorecardMetric.CreatedById -> User (Lookup)
+- ScorecardMetric.LastModifiedById -> User (Lookup)
+- ScorecardMetric.ScorecardId -> Scorecard (Lookup)
+- ScorecardMetric.ReportId -> Report (Lookup)
+- SearchPromotionRule.CreatedById -> User (Lookup)
+- SearchPromotionRule.LastModifiedById -> User (Lookup)
+- Seller.OwnerId -> Group|User (Lookup)
+- Seller.CreatedById -> User (Lookup)
+- Seller.LastModifiedById -> User (Lookup)
+- Seller.PartyId -> Individual (Lookup)
+- ServiceAppointment.OwnerId -> Group|User (Lookup)
+- ServiceAppointment.CreatedById -> User (Lookup)
+- ServiceAppointment.LastModifiedById -> User (Lookup)
+- ServiceAppointment.ParentRecordId -> Account|Asset|Case|Lead|Opportunity|WorkOrder|WorkOrderLineItem (Lookup)
+- ServiceAppointment.AccountId -> Account (Lookup)
+- ServiceAppointment.WorkTypeId -> WorkType (Lookup)
+- ServiceAppointment.ContactId -> Contact (Lookup)
+- ServiceAppointment.ServiceTerritoryId -> ServiceTerritory (Lookup)
+- ServiceAppointment.AppointmentInvitationId -> AppointmentInvitation (Lookup)
+- ServiceAppointment.EngagementChannelTypeId -> EngagementChannelType (Lookup)
+- ServiceAppointment.AppointmentCategoryId -> AppointmentCategory (Lookup)
+- ServiceAppointment.ReceiptOrderId -> Order (Lookup)
+- ServiceAppointmentAttendee.OwnerId -> Group|User (Lookup)
+- ServiceAppointmentAttendee.CreatedById -> User (Lookup)
+- ServiceAppointmentAttendee.LastModifiedById -> User (Lookup)
+- ServiceAppointmentAttendee.ServiceAppointmentId -> ServiceAppointment (Lookup)
+- ServiceAppointmentAttendee.AttendeeId -> Account|Contact|Lead (Lookup)
+- ServiceContract.OwnerId -> Group|User (Lookup)
+- ServiceContract.CreatedById -> User (Lookup)
+- ServiceContract.LastModifiedById -> User (Lookup)
+- ServiceContract.AccountId -> Account (Lookup)
+- ServiceContract.ContactId -> Contact (Lookup)
+- ServiceContract.Pricebook2Id -> Pricebook2 (Lookup)
+- ServiceContract.ParentServiceContractId -> ServiceContract (Lookup)
+- ServiceContract.RootServiceContractId -> ServiceContract (Lookup)
+- ServiceResource.OwnerId -> Group|User (Lookup)
+- ServiceResource.CreatedById -> User (Lookup)
+- ServiceResource.LastModifiedById -> User (Lookup)
+- ServiceResource.RelatedRecordId -> User (Lookup)
+- ServiceResource.LocationId -> Location (Lookup)
+- ServiceResource.AccountId -> Account (Lookup)
+- ServiceResourceSkill.CreatedById -> User (Lookup)
+- ServiceResourceSkill.LastModifiedById -> User (Lookup)
+- ServiceResourceSkill.ServiceResourceId -> ServiceResource (Lookup)
+- ServiceResourceSkill.SkillId -> Skill (Lookup)
+- ServiceTerritory.OwnerId -> Group|User (Lookup)
+- ServiceTerritory.CreatedById -> User (Lookup)
+- ServiceTerritory.LastModifiedById -> User (Lookup)
+- ServiceTerritory.ParentTerritoryId -> ServiceTerritory (Lookup)
+- ServiceTerritory.TopLevelTerritoryId -> ServiceTerritory (Lookup)
+- ServiceTerritory.OperatingHoursId -> OperatingHours (Lookup)
+- ServiceTerritory.PricebookId -> Pricebook2 (Lookup)
+- ServiceTerritoryMember.CreatedById -> User (Lookup)
+- ServiceTerritoryMember.LastModifiedById -> User (Lookup)
+- ServiceTerritoryMember.ServiceTerritoryId -> ServiceTerritory (Lookup)
+- ServiceTerritoryMember.ServiceResourceId -> ServiceResource (Lookup)
+- ServiceTerritoryMember.OperatingHoursId -> OperatingHours (Lookup)
+- ServiceTerritoryWorkType.CreatedById -> User (Lookup)
+- ServiceTerritoryWorkType.LastModifiedById -> User (Lookup)
+- ServiceTerritoryWorkType.WorkTypeId -> WorkType (Lookup)
+- ServiceTerritoryWorkType.ServiceTerritoryId -> ServiceTerritory (Lookup)
+- SessionPermSetActivation.CreatedById -> User (Lookup)
+- SessionPermSetActivation.LastModifiedById -> User (Lookup)
+- SessionPermSetActivation.AuthSessionId -> AuthSession (Lookup)
+- SessionPermSetActivation.PermissionSetId -> PermissionSet (Lookup)
+- SessionPermSetActivation.UserId -> User (Lookup)
+- SessionPermSetActivation.PermissionSetGroupId -> PermissionSetGroup (Lookup)
+- SfdcPartnerSbscrOffer.CreatedById -> User (Lookup)
+- SfdcPartnerSbscrOffer.LastModifiedById -> User (Lookup)
+- SfdcPartnerSbscrOffer.RespondingUserId -> User (Lookup)
+- SfdcPartnerSbscrOfferItem.CreatedById -> User (Lookup)
+- SfdcPartnerSbscrOfferItem.LastModifiedById -> User (Lookup)
+- SfdcPartnerSbscrOfferItem.PartnerSubscriberOfferId -> SfdcPartnerSbscrOffer (Lookup)
+- Shift.OwnerId -> Group|User (Lookup)
+- Shift.CreatedById -> User (Lookup)
+- Shift.LastModifiedById -> User (Lookup)
+- Shift.ServiceResourceId -> ServiceResource (Lookup)
+- Shift.ServiceTerritoryId -> ServiceTerritory (Lookup)
+- Shift.WorkTypeId -> WorkType (Lookup)
+- Shift.WorkTypeGroupId -> WorkTypeGroup (Lookup)
+- Shift.AppointmentCategoryId -> AppointmentCategory (Lookup)
+- ShiftEngagementChannel.CreatedById -> User (Lookup)
+- ShiftEngagementChannel.LastModifiedById -> User (Lookup)
+- ShiftEngagementChannel.ShiftId -> Shift (Lookup)
+- ShiftEngagementChannel.EngagementChannelTypeId -> EngagementChannelType (Lookup)
+- ShiftWorkTopic.CreatedById -> User (Lookup)
+- ShiftWorkTopic.LastModifiedById -> User (Lookup)
+- ShiftWorkTopic.ShiftId -> Shift (Lookup)
+- ShiftWorkTopic.WorkTypeId -> WorkType (Lookup)
+- ShiftWorkTopic.WorkTypeGroupId -> WorkTypeGroup (Lookup)
+- Shipment.OwnerId -> Group|User (Lookup)
+- Shipment.CreatedById -> User (Lookup)
+- Shipment.LastModifiedById -> User (Lookup)
+- Shipment.SourceLocationId -> Location (Lookup)
+- Shipment.DestinationLocationId -> Location (Lookup)
+- ShipmentItem.CreatedById -> User (Lookup)
+- ShipmentItem.LastModifiedById -> User (Lookup)
+- ShipmentItem.ShipmentId -> Shipment (Lookup)
+- ShipmentItem.Product2Id -> Product2 (Lookup)
+- ShippingCarrier.OwnerId -> Group|User (Lookup)
+- ShippingCarrier.CreatedById -> User (Lookup)
+- ShippingCarrier.LastModifiedById -> User (Lookup)
+- ShippingCarrierMethod.OwnerId -> Group|User (Lookup)
+- ShippingCarrierMethod.CreatedById -> User (Lookup)
+- ShippingCarrierMethod.LastModifiedById -> User (Lookup)
+- ShippingCarrierMethod.ShippingCarrierId -> ShippingCarrier (Lookup)
+- SkillRequirement.CreatedById -> User (Lookup)
+- SkillRequirement.LastModifiedById -> User (Lookup)
+- SkillRequirement.RelatedRecordId -> PendingServiceRouting|WorkOrder|WorkOrderLineItem|WorkType (Lookup)
+- SkillRequirement.SkillId -> Skill (Lookup)
+- SlaProcess.CreatedById -> User (Lookup)
+- SlaProcess.LastModifiedById -> User (Lookup)
+- SlaProcess.BusinessHoursId -> BusinessHours (Lookup)
+- Solution.OwnerId -> User (Lookup)
+- Solution.CreatedById -> User (Lookup)
+- Solution.LastModifiedById -> User (Lookup)
+- SourceCodeRepoProvider.OwnerId -> Group|User (Lookup)
+- SourceCodeRepoProvider.CreatedById -> User (Lookup)
+- SourceCodeRepoProvider.LastModifiedById -> User (Lookup)
+- SourceCodeRepository.OwnerId -> Group|User (Lookup)
+- SourceCodeRepository.CreatedById -> User (Lookup)
+- SourceCodeRepository.LastModifiedById -> User (Lookup)
+- SourceCodeRepository.SourceCodeRepoProviderId -> SourceCodeRepoProvider (Lookup)
+- SourceCodeRepositoryBranch.CreatedById -> User (Lookup)
+- SourceCodeRepositoryBranch.LastModifiedById -> User (Lookup)
+- SourceCodeRepositoryBranch.SourceCodeRepositoryId -> SourceCodeRepository (Lookup)
+- StandardShippingRate.CreatedById -> User (Lookup)
+- StandardShippingRate.LastModifiedById -> User (Lookup)
+- StandardShippingRate.ShippingZoneId -> ShippingRateArea (Lookup)
+- StandardShippingRate.ShippingCarrierMethodId -> ShippingCarrierMethod (Lookup)
+- StreamingChannel.OwnerId -> Group|User (Lookup)
+- StreamingChannel.CreatedById -> User (Lookup)
+- StreamingChannel.LastModifiedById -> User (Lookup)
+- Subscription_Line__c.CreatedById -> User (Lookup)
+- Subscription_Line__c.LastModifiedById -> User (Lookup)
+- Subscription_Line__c.Subscription__c -> Subscription__c (MasterDetail)
+- Subscription_Line__c.Product__c -> Product2 (Lookup)
+- Subscription__c.CreatedById -> User (Lookup)
+- Subscription__c.LastModifiedById -> User (Lookup)
+- Subscription__c.Account__c -> Account (MasterDetail)
+- Subscription__c.Primary_Contact__c -> Contact (Lookup)
+- Subscription__c.Source_Opportunity__c -> Opportunity (Lookup)
+- Task.WhoId -> Contact|Lead (Lookup)
+- Task.WhatId -> Account|AppointmentCategory|AppointmentInvitation|ApprovalSubmission|ApprovalSubmissionDetail|ApprovalWorkItem|Asset|AssetRelationship|AssignedResource|Campaign|Case|ChangeRequest|CommSubscriptionConsent|ContactRequest|Contract|ContractLineItem|Coupon|CreditMemo|DataQueryWorkspace|DeliveryEstimationSetup|DevopsActivityLog|DevopsEnvDeployment|DevopsEnvDeploymentMbr|DevopsEnvironment|DevopsPipeline|DevopsPipelineEnvironment|DevopsPipelineStage|DevopsPipelnStgProm|DevopsPipelnStgPromWkItem|DevopsProject|DevopsProjectEnvironment|DevopsProjectPipeline|DevopsRequestInfo|Entitlement|FulfillmentOrder|Image|Incident|Invoice|LegalEntity|ListEmail|Location|LocationShippingCarrierMethod|OperatingHoursHoliday|Opportunity|Order|PartyConsent|PrivacyRTBFRequest|Problem|ProcessException|Product2|ProductCatalog|Promotion|PromotionMarketSegment|PromotionQualifier|PromotionSegment|PromotionSegmentBuyerGroup|PromotionSegmentSalesStore|PromotionTarget|PromotionTier|ResourceAbsence|ReturnOrder|ReturnOrderLineItem|ServiceAppointment|ServiceContract|ServiceResource|Shift|Shipment|ShipmentItem|ShippingCarrier|ShippingCarrierMethod|Solution|SourceCodeRepoProvider|SourceCodeRepository|SourceCodeRepositoryBranch|Subscription__c|Waitlist|WaitlistParticipant|WorkItem|WorkItemComponent|WorkItemComponentList|WorkOrder|WorkOrderLineItem|WorkPlan|WorkPlanTemplate|WorkPlanTemplateEntry|WorkStep|WorkStepTemplate (Lookup)
+- Task.OwnerId -> Group|User (Lookup)
+- Task.AccountId -> Account (Lookup)
+- Task.CreatedById -> User (Lookup)
+- Task.LastModifiedById -> User (Lookup)
+- Task.RecurrenceActivityId -> Task (Lookup)
+- TenantConsumptionAlert.OwnerId -> Group|User (Lookup)
+- TenantConsumptionAlert.CreatedById -> User (Lookup)
+- TenantConsumptionAlert.LastModifiedById -> User (Lookup)
+- TenantUsageEntitlement.CreatedById -> User (Lookup)
+- TenantUsageEntitlement.LastModifiedById -> User (Lookup)
+- TimeSlot.CreatedById -> User (Lookup)
+- TimeSlot.LastModifiedById -> User (Lookup)
+- TimeSlot.OperatingHoursId -> OperatingHours (Lookup)
+- TimeSlot.WorkTypeGroupId -> WorkTypeGroup (Lookup)
+- Topic.CreatedById -> User (Lookup)
+- UnstructuredStorageSpace.OwnerId -> Group|User (Lookup)
+- UnstructuredStorageSpace.CreatedById -> User (Lookup)
+- UnstructuredStorageSpace.LastModifiedById -> User (Lookup)
+- UnstructuredStorageSpace.FolderId -> Folder|Organization|User (Lookup)
+- User.UserRoleId -> UserRole (Lookup)
+- User.ProfileId -> Profile (Lookup)
+- User.DelegatedApproverId -> Group|User (Lookup)
+- User.ManagerId -> User (Lookup)
+- User.CreatedById -> User (Lookup)
+- User.LastModifiedById -> User (Lookup)
+- User.ContactId -> Contact (Lookup)
+- User.AccountId -> Account (Lookup)
+- User.CallCenterId -> CallCenter (Lookup)
+- User.IndividualId -> Individual (Lookup)
+- UserDefinedLabel.OwnerId -> Group|User (Lookup)
+- UserDefinedLabel.CreatedById -> User (Lookup)
+- UserDefinedLabel.LastModifiedById -> User (Lookup)
+- UserProvisioningRequest.OwnerId -> Group|User (Lookup)
+- UserProvisioningRequest.CreatedById -> User (Lookup)
+- UserProvisioningRequest.LastModifiedById -> User (Lookup)
+- UserProvisioningRequest.SalesforceUserId -> User (Lookup)
+- UserProvisioningRequest.ConnectedAppId -> ConnectedApplication (Lookup)
+- UserProvisioningRequest.UserProvConfigId -> UserProvisioningConfig (Lookup)
+- UserProvisioningRequest.UserProvAccountId -> UserProvAccount (Lookup)
+- UserProvisioningRequest.ManagerId -> User (Lookup)
+- UserProvisioningRequest.ParentId -> UserProvisioningRequest (Lookup)
+- UserRole.ParentRoleId -> UserRole (Lookup)
+- UserRole.ForecastUserId -> User (Lookup)
+- UserRole.LastModifiedById -> User (Lookup)
+- UserRole.PortalAccountId -> Account (Lookup)
+- UserRole.PortalAccountOwnerId -> User (Lookup)
+- VoiceCall.CreatedById -> User (Lookup)
+- VoiceCall.LastModifiedById -> User (Lookup)
+- VoiceCall.OwnerId -> Group|User (Lookup)
+- VoiceCall.UserId -> User (Lookup)
+- VoiceCall.RelatedRecordId -> Account|Case|Contact|ContactRequest|Lead|Opportunity|Subscription_Line__c|Subscription__c|WorkOrder (Lookup)
+- VoiceCall.CallRecordingId -> VoiceCallRecording (Lookup)
+- VoiceCall.CallerId -> ConversationParticipant (Lookup)
+- VoiceCall.RecipientId -> ConversationParticipant (Lookup)
+- VoiceCall.PreviousCallId -> VoiceCall (Lookup)
+- VoiceCall.NextCallId -> VoiceCall (Lookup)
+- VoiceCall.CallCenterId -> CallCenter (Lookup)
+- VoiceCall.ConversationId -> Conversation (Lookup)
+- VoiceCall.ActivityId -> Task (Lookup)
+- VoiceCall.MediaProviderId -> CallCoachingMediaProvider (Lookup)
+- VoiceCall.EndUserId -> MessagingEndUser (Lookup)
+- Waitlist.OwnerId -> Group|User (Lookup)
+- Waitlist.CreatedById -> User (Lookup)
+- Waitlist.LastModifiedById -> User (Lookup)
+- Waitlist.ServiceTerritoryId -> ServiceTerritory (Lookup)
+- WaitlistParticipant.CreatedById -> User (Lookup)
+- WaitlistParticipant.LastModifiedById -> User (Lookup)
+- WaitlistParticipant.WaitlistId -> Waitlist (Lookup)
+- WaitlistParticipant.ParticipantId -> Account|Contact|Lead (Lookup)
+- WaitlistParticipant.WorkTypeId -> WorkType (Lookup)
+- WaitlistParticipant.ServiceAppointmentId -> ServiceAppointment (Lookup)
+- WaitlistParticipant.ServiceResourceId -> ServiceResource (Lookup)
+- WaitlistServiceResource.CreatedById -> User (Lookup)
+- WaitlistServiceResource.LastModifiedById -> User (Lookup)
+- WaitlistServiceResource.WaitlistId -> Waitlist (Lookup)
+- WaitlistServiceResource.ServiceResourceId -> ServiceResource (Lookup)
+- WaitlistWorkType.CreatedById -> User (Lookup)
+- WaitlistWorkType.LastModifiedById -> User (Lookup)
+- WaitlistWorkType.WaitlistId -> Waitlist (Lookup)
+- WaitlistWorkType.WorkTypeId -> WorkType (Lookup)
+- WebCart.OwnerId -> Group|User (Lookup)
+- WebCart.CreatedById -> User (Lookup)
+- WebCart.LastModifiedById -> User (Lookup)
+- WebCart.WebStoreId -> WebStore (Lookup)
+- WebCart.OrderOwnerId -> User (Lookup)
+- WebCart.AccountId -> Account|User (Lookup)
+- WebCart.PaymentMethodId -> AlternativePaymentMethod|CardPaymentMethod|DigitalWallet (Lookup)
+- WebCart.PaymentGroupId -> PaymentGroup (Lookup)
+- WebCart.LastOperationJobId -> BackgroundOperation (Lookup)
+- WebCart.CollaborationLockedById -> User (Lookup)
+- WebCartActivityLog.CreatedById -> User (Lookup)
+- WebCartActivityLog.LastModifiedById -> User (Lookup)
+- WebCartActivityLog.WebCartId -> WebCart (Lookup)
+- WebCartActivityLog.InitiatedById -> User (Lookup)
+- WebCartActivityLog.SourceCartId -> WebCart (Lookup)
+- WebCartActivityLog.CartItemId -> CartItem (Lookup)
+- WebCartActivityLog.ProductId -> Product2 (Lookup)
+- WebCartAdjustmentBasis.CreatedById -> User (Lookup)
+- WebCartAdjustmentBasis.LastModifiedById -> User (Lookup)
+- WebCartAdjustmentBasis.WebCartId -> WebCart (Lookup)
+- WebCartAdjustmentBasis.AdjustmentBasisReferenceId -> Coupon (Lookup)
+- WebCartAdjustmentGroup.CreatedById -> User (Lookup)
+- WebCartAdjustmentGroup.LastModifiedById -> User (Lookup)
+- WebCartAdjustmentGroup.CartId -> WebCart (Lookup)
+- WebCartAdjustmentGroup.PriceAdjustmentCauseId -> Promotion (Lookup)
+- WebCartAdjustmentGroup.AdjustmentBasisReferenceId -> Coupon (Lookup)
+- WebCartCollaborator.CreatedById -> User (Lookup)
+- WebCartCollaborator.LastModifiedById -> User (Lookup)
+- WebCartCollaborator.WebCartId -> WebCart (Lookup)
+- WebCartCollaborator.CollaboratorId -> User (Lookup)
+- WebCartCollaborator.SharedById -> User (Lookup)
+- WebCartCredit.CreatedById -> User (Lookup)
+- WebCartCredit.LastModifiedById -> User (Lookup)
+- WebCartCredit.WebCartId -> WebCart (Lookup)
+- WebStore.OwnerId -> Group|User (Lookup)
+- WebStore.CreatedById -> User (Lookup)
+- WebStore.LastModifiedById -> User (Lookup)
+- WebStoreBuyerGroup.CreatedById -> User (Lookup)
+- WebStoreBuyerGroup.LastModifiedById -> User (Lookup)
+- WebStoreBuyerGroup.WebStoreId -> WebStore (Lookup)
+- WebStoreBuyerGroup.BuyerGroupId -> BuyerGroup (Lookup)
+- WebStoreCatalog.CreatedById -> User (Lookup)
+- WebStoreCatalog.LastModifiedById -> User (Lookup)
+- WebStoreCatalog.ProductCatalogId -> ProductCatalog (Lookup)
+- WebStoreCatalog.SalesStoreId -> WebStore (Lookup)
+- WebStoreInventorySource.CreatedById -> User (Lookup)
+- WebStoreInventorySource.LastModifiedById -> User (Lookup)
+- WebStoreInventorySource.WebStoreId -> WebStore (Lookup)
+- WebStoreInventorySource.LocationSourceId -> Location|LocationGroup (Lookup)
+- WorkItem.OwnerId -> Group|User (Lookup)
+- WorkItem.CreatedById -> User (Lookup)
+- WorkItem.LastModifiedById -> User (Lookup)
+- WorkItem.AssignedToId -> User (Lookup)
+- WorkItem.ParentWorkItemId -> WorkItem (Lookup)
+- WorkItem.DevelopmentApprovedById -> User (Lookup)
+- WorkItem.DevopsProjectId -> DevopsProject (Lookup)
+- WorkItem.RebaseBranchId -> SourceCodeRepositoryBranch (Lookup)
+- WorkItem.SourceCodeRepositoryBranchId -> SourceCodeRepositoryBranch (Lookup)
+- WorkItem.DevelopmentEnvironmentId -> DevopsEnvironment (Lookup)
+- WorkItem.DevopsPipelineStageId -> DevopsPipelineStage (Lookup)
+- WorkItem.RebaseStatusId -> DevopsRequestInfo (Lookup)
+- WorkItemComponent.CreatedById -> User (Lookup)
+- WorkItemComponent.LastModifiedById -> User (Lookup)
+- WorkItemComponent.WorkItemComponentListId -> WorkItemComponentList (Lookup)
+- WorkItemComponentList.CreatedById -> User (Lookup)
+- WorkItemComponentList.LastModifiedById -> User (Lookup)
+- WorkItemComponentList.WorkItemId -> WorkItem (Lookup)
+- WorkItemComponentList.RequestInfoId -> DevopsRequestInfo (Lookup)
+- WorkOrder.OwnerId -> Group|User (Lookup)
+- WorkOrder.CreatedById -> User (Lookup)
+- WorkOrder.LastModifiedById -> User (Lookup)
+- WorkOrder.AccountId -> Account (Lookup)
+- WorkOrder.ContactId -> Contact (Lookup)
+- WorkOrder.CaseId -> Case (Lookup)
+- WorkOrder.EntitlementId -> Entitlement (Lookup)
+- WorkOrder.ServiceContractId -> ServiceContract (Lookup)
+- WorkOrder.AssetId -> Asset (Lookup)
+- WorkOrder.RootWorkOrderId -> WorkOrder (Lookup)
+- WorkOrder.Pricebook2Id -> Pricebook2 (Lookup)
+- WorkOrder.ParentWorkOrderId -> WorkOrder (Lookup)
+- WorkOrder.BusinessHoursId -> BusinessHours (Lookup)
+- WorkOrder.WorkTypeId -> WorkType (Lookup)
+- WorkOrder.ServiceTerritoryId -> ServiceTerritory (Lookup)
+- WorkOrder.LocationId -> Location (Lookup)
+- WorkOrderLineItem.CreatedById -> User (Lookup)
+- WorkOrderLineItem.LastModifiedById -> User (Lookup)
+- WorkOrderLineItem.WorkOrderId -> WorkOrder (Lookup)
+- WorkOrderLineItem.ParentWorkOrderLineItemId -> WorkOrderLineItem (Lookup)
+- WorkOrderLineItem.Product2Id -> Product2 (Lookup)
+- WorkOrderLineItem.AssetId -> Asset (Lookup)
+- WorkOrderLineItem.OrderId -> Order (Lookup)
+- WorkOrderLineItem.RootWorkOrderLineItemId -> WorkOrderLineItem (Lookup)
+- WorkOrderLineItem.PricebookEntryId -> PricebookEntry (Lookup)
+- WorkOrderLineItem.WorkTypeId -> WorkType (Lookup)
+- WorkOrderLineItem.ServiceTerritoryId -> ServiceTerritory (Lookup)
+- WorkOrderLineItem.LocationId -> Location (Lookup)
+- WorkPlan.OwnerId -> Group|User (Lookup)
+- WorkPlan.CreatedById -> User (Lookup)
+- WorkPlan.LastModifiedById -> User (Lookup)
+- WorkPlan.WorkOrderId -> WorkOrder (Lookup)
+- WorkPlan.WorkOrderLineItemId -> WorkOrderLineItem (Lookup)
+- WorkPlan.WorkPlanTemplateId -> WorkPlanTemplate (Lookup)
+- WorkPlan.ParentRecordId -> ChangeRequest|WorkOrder|WorkOrderLineItem (Lookup)
+- WorkPlanTemplate.OwnerId -> Group|User (Lookup)
+- WorkPlanTemplate.CreatedById -> User (Lookup)
+- WorkPlanTemplate.LastModifiedById -> User (Lookup)
+- WorkPlanTemplateEntry.CreatedById -> User (Lookup)
+- WorkPlanTemplateEntry.LastModifiedById -> User (Lookup)
+- WorkPlanTemplateEntry.WorkPlanTemplateId -> WorkPlanTemplate (Lookup)
+- WorkPlanTemplateEntry.WorkStepTemplateId -> WorkStepTemplate (Lookup)
+- WorkStep.CreatedById -> User (Lookup)
+- WorkStep.LastModifiedById -> User (Lookup)
+- WorkStep.WorkPlanId -> WorkPlan (Lookup)
+- WorkStep.WorkOrderId -> WorkOrder (Lookup)
+- WorkStep.WorkOrderLineItemId -> WorkOrderLineItem (Lookup)
+- WorkStep.PausedFlowInterviewId -> FlowInterview (Lookup)
+- WorkStep.ParentRecordId -> ChangeRequest|WorkOrder|WorkOrderLineItem (Lookup)
+- WorkStepTemplate.OwnerId -> Group|User (Lookup)
+- WorkStepTemplate.CreatedById -> User (Lookup)
+- WorkStepTemplate.LastModifiedById -> User (Lookup)
+- WorkType.OwnerId -> Group|User (Lookup)
+- WorkType.CreatedById -> User (Lookup)
+- WorkType.LastModifiedById -> User (Lookup)
+- WorkType.OperatingHoursId -> OperatingHours (Lookup)
+- WorkType.AppointmentCategoryId -> AppointmentCategory (Lookup)
+- WorkType.ProductId -> Product2 (Lookup)
+- WorkTypeGroup.OwnerId -> Group|User (Lookup)
+- WorkTypeGroup.CreatedById -> User (Lookup)
+- WorkTypeGroup.LastModifiedById -> User (Lookup)
+- WorkTypeGroupMember.CreatedById -> User (Lookup)
+- WorkTypeGroupMember.LastModifiedById -> User (Lookup)
+- WorkTypeGroupMember.WorkTypeId -> WorkType (Lookup)
+- WorkTypeGroupMember.WorkTypeGroupId -> WorkTypeGroup (Lookup)
+- AccountHistory.AccountId -> Account (Lookup)
+- AccountHistory.CreatedById -> User (Lookup)
+- ActivationTargetHistory.ActivationTargetId -> ActivationTarget (Lookup)
+- ActivationTargetHistory.CreatedById -> User (Lookup)
+- AddressHistory.AddressId -> Address (Lookup)
+- AddressHistory.CreatedById -> User (Lookup)
+- AppointmentCategoryHistory.AppointmentCategoryId -> AppointmentCategory (Lookup)
+- AppointmentCategoryHistory.CreatedById -> User (Lookup)
+- AppointmentInvitationHistory.AppointmentInvitationId -> AppointmentInvitation (Lookup)
+- AppointmentInvitationHistory.CreatedById -> User (Lookup)
+- AppointmentTopicTimeSlotHistory.AppointmentTopicTimeSlotId -> AppointmentTopicTimeSlot (Lookup)
+- AppointmentTopicTimeSlotHistory.CreatedById -> User (Lookup)
+- ApprovalSubmissionDetailHistory.ApprovalSubmissionDetailId -> ApprovalSubmissionDetail (Lookup)
+- ApprovalSubmissionDetailHistory.CreatedById -> User (Lookup)
+- ApprovalSubmissionHistory.ApprovalSubmissionId -> ApprovalSubmission (Lookup)
+- ApprovalSubmissionHistory.CreatedById -> User (Lookup)
+- ApprovalWorkItemHistory.ApprovalWorkItemId -> ApprovalWorkItem (Lookup)
+- ApprovalWorkItemHistory.CreatedById -> User (Lookup)
+- AssetHistory.AssetId -> Asset (Lookup)
+- AssetHistory.CreatedById -> User (Lookup)
+- AssetRelationshipHistory.AssetRelationshipId -> AssetRelationship (Lookup)
+- AssetRelationshipHistory.CreatedById -> User (Lookup)
+- AssignedResourceHistory.AssignedResourceId -> AssignedResource (Lookup)
+- AssignedResourceHistory.CreatedById -> User (Lookup)
+- AssociatedLocationHistory.AssociatedLocationId -> AssociatedLocation (Lookup)
+- AssociatedLocationHistory.CreatedById -> User (Lookup)
+- AuthorizationFormConsentHistory.AuthorizationFormConsentId -> AuthorizationFormConsent (Lookup)
+- AuthorizationFormConsentHistory.CreatedById -> User (Lookup)
+- AuthorizationFormDataUseHistory.AuthorizationFormDataUseId -> AuthorizationFormDataUse (Lookup)
+- AuthorizationFormDataUseHistory.CreatedById -> User (Lookup)
+- AuthorizationFormHistory.AuthorizationFormId -> AuthorizationForm (Lookup)
+- AuthorizationFormHistory.CreatedById -> User (Lookup)
+- AuthorizationFormTextHistory.AuthorizationFormTextId -> AuthorizationFormText (Lookup)
+- AuthorizationFormTextHistory.CreatedById -> User (Lookup)
+- BuyerGroupHistory.BuyerGroupId -> BuyerGroup (Lookup)
+- BuyerGroupHistory.CreatedById -> User (Lookup)
+- CampaignHistory.CampaignId -> Campaign (Lookup)
+- CampaignHistory.CreatedById -> User (Lookup)
+- CaseHistory.CaseId -> Case (Lookup)
+- CaseHistory.CreatedById -> User (Lookup)
+- CaseRelatedIssueHistory.CaseRelatedIssueId -> CaseRelatedIssue (Lookup)
+- CaseRelatedIssueHistory.CreatedById -> User (Lookup)
+- ChangeRequestHistory.ChangeRequestId -> ChangeRequest (Lookup)
+- ChangeRequestHistory.CreatedById -> User (Lookup)
+- ChangeRequestRelatedIssueHistory.ChangeRequestRelatedIssueId -> ChangeRequestRelatedIssue (Lookup)
+- ChangeRequestRelatedIssueHistory.CreatedById -> User (Lookup)
+- ChangeRequestRelatedItemHistory.ChangeRequestRelatedItemId -> ChangeRequestRelatedItem (Lookup)
+- ChangeRequestRelatedItemHistory.CreatedById -> User (Lookup)
+- CommSubscriptionChannelTypeHistory.CommSubscriptionChannelTypeId -> CommSubscriptionChannelType (Lookup)
+- CommSubscriptionChannelTypeHistory.CreatedById -> User (Lookup)
+- CommSubscriptionConsentHistory.CommSubscriptionConsentId -> CommSubscriptionConsent (Lookup)
+- CommSubscriptionConsentHistory.CreatedById -> User (Lookup)
+- CommSubscriptionHistory.CommSubscriptionId -> CommSubscription (Lookup)
+- CommSubscriptionHistory.CreatedById -> User (Lookup)
+- CommSubscriptionTimingHistory.CommSubscriptionTimingId -> CommSubscriptionTiming (Lookup)
+- CommSubscriptionTimingHistory.CreatedById -> User (Lookup)
+- ConsumptionRateHistory.ConsumptionRateId -> ConsumptionRate (Lookup)
+- ConsumptionRateHistory.CreatedById -> User (Lookup)
+- ConsumptionScheduleHistory.ConsumptionScheduleId -> ConsumptionSchedule (Lookup)
+- ConsumptionScheduleHistory.CreatedById -> User (Lookup)
+- ContactHistory.ContactId -> Contact (Lookup)
+- ContactHistory.CreatedById -> User (Lookup)
+- ContactPointAddressHistory.ContactPointAddressId -> ContactPointAddress (Lookup)
+- ContactPointAddressHistory.CreatedById -> User (Lookup)
+- ContactPointConsentHistory.ContactPointConsentId -> ContactPointConsent (Lookup)
+- ContactPointConsentHistory.CreatedById -> User (Lookup)
+- ContactPointEmailHistory.ContactPointEmailId -> ContactPointEmail (Lookup)
+- ContactPointEmailHistory.CreatedById -> User (Lookup)
+- ContactPointPhoneHistory.ContactPointPhoneId -> ContactPointPhone (Lookup)
+- ContactPointPhoneHistory.CreatedById -> User (Lookup)
+- ContactPointTypeConsentHistory.ContactPointTypeConsentId -> ContactPointTypeConsent (Lookup)
+- ContactPointTypeConsentHistory.CreatedById -> User (Lookup)
+- ContentDocumentHistory.ContentDocumentId -> ContentDocument (Lookup)
+- ContentDocumentHistory.CreatedById -> User (Lookup)
+- ContentVersionHistory.ContentVersionId -> ContentVersion (Lookup)
+- ContentVersionHistory.CreatedById -> User (Lookup)
+- ContractHistory.ContractId -> Contract (Lookup)
+- ContractHistory.CreatedById -> User (Lookup)
+- ContractLineItemHistory.ContractLineItemId -> ContractLineItem (Lookup)
+- ContractLineItemHistory.CreatedById -> User (Lookup)
+- CouponHistory.CouponId -> Coupon (Lookup)
+- CouponHistory.CreatedById -> User (Lookup)
+- CreditMemoHistory.CreditMemoId -> CreditMemo (Lookup)
+- CreditMemoHistory.CreatedById -> User (Lookup)
+- CreditMemoLineHistory.CreditMemoLineId -> CreditMemoLine (Lookup)
+- CreditMemoLineHistory.CreatedById -> User (Lookup)
+- DataActionHistory.DataActionId -> DataAction (Lookup)
+- DataActionHistory.CreatedById -> User (Lookup)
+- DataActionTargetHistory.DataActionTargetId -> DataActionTarget (Lookup)
+- DataActionTargetHistory.CreatedById -> User (Lookup)
+- DataCommunicationCapHistory.DataCommunicationCapId -> DataCommunicationCap (Lookup)
+- DataCommunicationCapHistory.CreatedById -> User (Lookup)
+- DataLakeObjectInstanceHistory.DataLakeObjectInstanceId -> DataLakeObjectInstance (Lookup)
+- DataLakeObjectInstanceHistory.CreatedById -> User (Lookup)
+- DataObjSecondaryIndexHistory.DataObjSecondaryIndexId -> DataObjSecondaryIndex (Lookup)
+- DataObjSecondaryIndexHistory.CreatedById -> User (Lookup)
+- DataQueryWorkspaceHistory.DataQueryWorkspaceId -> DataQueryWorkspace (Lookup)
+- DataQueryWorkspaceHistory.CreatedById -> User (Lookup)
+- DataSemanticSearchHistory.DataSemanticSearchId -> DataSemanticSearch (Lookup)
+- DataSemanticSearchHistory.CreatedById -> User (Lookup)
+- DataStreamHistory.DataStreamId -> DataStream (Lookup)
+- DataStreamHistory.CreatedById -> User (Lookup)
+- DataUseLegalBasisHistory.DataUseLegalBasisId -> DataUseLegalBasis (Lookup)
+- DataUseLegalBasisHistory.CreatedById -> User (Lookup)
+- DataUsePurposeHistory.DataUsePurposeId -> DataUsePurpose (Lookup)
+- DataUsePurposeHistory.CreatedById -> User (Lookup)
+- DeliveryEstimationSetupHistory.DeliveryEstimationSetupId -> DeliveryEstimationSetup (Lookup)
+- DeliveryEstimationSetupHistory.CreatedById -> User (Lookup)
+- DevopsEnvDeploymentHistory.DevopsEnvDeploymentId -> DevopsEnvDeployment (Lookup)
+- DevopsEnvDeploymentHistory.CreatedById -> User (Lookup)
+- DevopsEnvDeploymentMbrHistory.DevopsEnvDeploymentMbrId -> DevopsEnvDeploymentMbr (Lookup)
+- DevopsEnvDeploymentMbrHistory.CreatedById -> User (Lookup)
+- DevopsEnvironmentHistory.DevopsEnvironmentId -> DevopsEnvironment (Lookup)
+- DevopsEnvironmentHistory.CreatedById -> User (Lookup)
+- DevopsPipelineEnvironmentHistory.DevopsPipelineEnvironmentId -> DevopsPipelineEnvironment (Lookup)
+- DevopsPipelineEnvironmentHistory.CreatedById -> User (Lookup)
+- DevopsPipelineHistory.DevopsPipelineId -> DevopsPipeline (Lookup)
+- DevopsPipelineHistory.CreatedById -> User (Lookup)
+- DevopsPipelineStageHistory.DevopsPipelineStageId -> DevopsPipelineStage (Lookup)
+- DevopsPipelineStageHistory.CreatedById -> User (Lookup)
+- DevopsPipelnStgPromHistory.DevopsPipelnStgPromId -> DevopsPipelnStgProm (Lookup)
+- DevopsPipelnStgPromHistory.CreatedById -> User (Lookup)
+- DevopsPipelnStgPromWkItemHistory.DevopsPipelnStgPromWkItemId -> DevopsPipelnStgPromWkItem (Lookup)
+- DevopsPipelnStgPromWkItemHistory.CreatedById -> User (Lookup)
+- DevopsProjectEnvironmentHistory.DevopsProjectEnvironmentId -> DevopsProjectEnvironment (Lookup)
+- DevopsProjectEnvironmentHistory.CreatedById -> User (Lookup)
+- DevopsProjectHistory.DevopsProjectId -> DevopsProject (Lookup)
+- DevopsProjectHistory.CreatedById -> User (Lookup)
+- DevopsProjectPipelineHistory.DevopsProjectPipelineId -> DevopsProjectPipeline (Lookup)
+- DevopsProjectPipelineHistory.CreatedById -> User (Lookup)
+- DevopsRequestInfoHistory.DevopsRequestInfoId -> DevopsRequestInfo (Lookup)
+- DevopsRequestInfoHistory.CreatedById -> User (Lookup)
+- EngagementChannelTypeHistory.EngagementChannelTypeId -> EngagementChannelType (Lookup)
+- EngagementChannelTypeHistory.CreatedById -> User (Lookup)
+- EngagementChannelWorkTypeHistory.EngagementChannelWorkTypeId -> EngagementChannelWorkType (Lookup)
+- EngagementChannelWorkTypeHistory.CreatedById -> User (Lookup)
+- EntitlementHistory.EntitlementId -> Entitlement (Lookup)
+- EntitlementHistory.CreatedById -> User (Lookup)
+- EntityMilestoneHistory.EntityMilestoneId -> EntityMilestone (Lookup)
+- EntityMilestoneHistory.CreatedById -> User (Lookup)
+- ExtDataShareTargetHistory.ExtDataShareTargetId -> ExtDataShareTarget (Lookup)
+- ExtDataShareTargetHistory.CreatedById -> User (Lookup)
+- FlowRecordHistory.FlowRecordId -> FlowRecord (Lookup)
+- FlowRecordHistory.CreatedById -> User (Lookup)
+- IdentityResolutionHistory.IdentityResolutionId -> IdentityResolution (Lookup)
+- IdentityResolutionHistory.CreatedById -> User (Lookup)
+- ImageHistory.ImageId -> Image (Lookup)
+- ImageHistory.CreatedById -> User (Lookup)
+- IncidentHistory.IncidentId -> Incident (Lookup)
+- IncidentHistory.CreatedById -> User (Lookup)
+- IncidentRelatedItemHistory.IncidentRelatedItemId -> IncidentRelatedItem (Lookup)
+- IncidentRelatedItemHistory.CreatedById -> User (Lookup)
+- IndividualHistory.IndividualId -> Individual (Lookup)
+- IndividualHistory.CreatedById -> User (Lookup)
+- InvoiceHistory.InvoiceId -> Invoice (Lookup)
+- InvoiceHistory.CreatedById -> User (Lookup)
+- InvoiceLineHistory.InvoiceLineId -> InvoiceLine (Lookup)
+- InvoiceLineHistory.CreatedById -> User (Lookup)
+- LeadHistory.LeadId -> Lead (Lookup)
+- LeadHistory.CreatedById -> User (Lookup)
+- LegalEntityHistory.LegalEntityId -> LegalEntity (Lookup)
+- LegalEntityHistory.CreatedById -> User (Lookup)
+- LocationGroupHistory.LocationGroupId -> LocationGroup (Lookup)
+- LocationGroupHistory.CreatedById -> User (Lookup)
+- LocationHistory.LocationId -> Location (Lookup)
+- LocationHistory.CreatedById -> User (Lookup)
+- LocationShippingCarrierMethodHistory.LocationShippingCarrierMethodId -> LocationShippingCarrierMethod (Lookup)
+- LocationShippingCarrierMethodHistory.CreatedById -> User (Lookup)
+- MacroHistory.MacroId -> Macro (Lookup)
+- MacroHistory.CreatedById -> User (Lookup)
+- MarketSegmentActivationHistory.MarketSegmentActivationId -> MarketSegmentActivation (Lookup)
+- MarketSegmentActivationHistory.CreatedById -> User (Lookup)
+- MarketSegmentHistory.MarketSegmentId -> MarketSegment (Lookup)
+- MarketSegmentHistory.CreatedById -> User (Lookup)
+- MessagingEndUserHistory.MessagingEndUserId -> MessagingEndUser (Lookup)
+- MessagingEndUserHistory.CreatedById -> User (Lookup)
+- MessagingSessionHistory.MessagingSessionId -> MessagingSession (Lookup)
+- MessagingSessionHistory.CreatedById -> User (Lookup)
+- MktCalculatedInsightHistory.MktCalculatedInsightId -> MktCalculatedInsight (Lookup)
+- MktCalculatedInsightHistory.CreatedById -> User (Lookup)
+- MktDataTransformHistory.MktDataTransformId -> MktDataTransform (Lookup)
+- MktDataTransformHistory.CreatedById -> User (Lookup)
+- MktMLModelHistory.MktMLModelId -> MktMLModel (Lookup)
+- MktMLModelHistory.CreatedById -> User (Lookup)
+- OperatingHoursHistory.OperatingHoursId -> OperatingHours (Lookup)
+- OperatingHoursHistory.CreatedById -> User (Lookup)
+- OperatingHoursHolidayHistory.OperatingHoursHolidayId -> OperatingHoursHoliday (Lookup)
+- OperatingHoursHolidayHistory.CreatedById -> User (Lookup)
+- OpportunityFieldHistory.OpportunityId -> Opportunity (Lookup)
+- OpportunityFieldHistory.CreatedById -> User (Lookup)
+- OpportunityHistory.OpportunityId -> Opportunity (Lookup)
+- OpportunityHistory.CreatedById -> User (Lookup)
+- OrderHistory.OrderId -> Order (Lookup)
+- OrderHistory.CreatedById -> User (Lookup)
+- OrderItemHistory.OrderItemId -> OrderItem (Lookup)
+- OrderItemHistory.CreatedById -> User (Lookup)
+- PartyConsentHistory.PartyConsentId -> PartyConsent (Lookup)
+- PartyConsentHistory.CreatedById -> User (Lookup)
+- PaymentLineInvoiceHistory.PaymentLineInvoiceId -> PaymentLineInvoice (Lookup)
+- PaymentLineInvoiceHistory.CreatedById -> User (Lookup)
+- Pricebook2History.Pricebook2Id -> Pricebook2 (Lookup)
+- Pricebook2History.CreatedById -> User (Lookup)
+- PricebookEntryHistory.PricebookEntryId -> PricebookEntry (Lookup)
+- PricebookEntryHistory.CreatedById -> User (Lookup)
+- PrivacyRTBFRequestHistory.PrivacyRTBFRequestId -> PrivacyRTBFRequest (Lookup)
+- PrivacyRTBFRequestHistory.CreatedById -> User (Lookup)
+- ProblemHistory.ProblemId -> Problem (Lookup)
+- ProblemHistory.CreatedById -> User (Lookup)
+- ProblemIncidentHistory.ProblemIncidentId -> ProblemIncident (Lookup)
+- ProblemIncidentHistory.CreatedById -> User (Lookup)
+- ProblemRelatedItemHistory.ProblemRelatedItemId -> ProblemRelatedItem (Lookup)
+- ProblemRelatedItemHistory.CreatedById -> User (Lookup)
+- Product2History.Product2Id -> Product2 (Lookup)
+- Product2History.CreatedById -> User (Lookup)
+- ProductCatalogHistory.ProductCatalogId -> ProductCatalog (Lookup)
+- ProductCatalogHistory.CreatedById -> User (Lookup)
+- ProductCategoryHistory.ProductCategoryId -> ProductCategory (Lookup)
+- ProductCategoryHistory.CreatedById -> User (Lookup)
+- ProductCategoryProductHistory.ProductCategoryProductId -> ProductCategoryProduct (Lookup)
+- ProductCategoryProductHistory.CreatedById -> User (Lookup)
+- PromotionHistory.PromotionId -> Promotion (Lookup)
+- PromotionHistory.CreatedById -> User (Lookup)
+- PromotionMarketSegmentHistory.PromotionMarketSegmentId -> PromotionMarketSegment (Lookup)
+- PromotionMarketSegmentHistory.CreatedById -> User (Lookup)
+- PromotionQualifierHistory.PromotionQualifierId -> PromotionQualifier (Lookup)
+- PromotionQualifierHistory.CreatedById -> User (Lookup)
+- PromotionSegmentBuyerGroupHistory.PromotionSegmentBuyerGroupId -> PromotionSegmentBuyerGroup (Lookup)
+- PromotionSegmentBuyerGroupHistory.CreatedById -> User (Lookup)
+- PromotionSegmentHistory.PromotionSegmentId -> PromotionSegment (Lookup)
+- PromotionSegmentHistory.CreatedById -> User (Lookup)
+- PromotionSegmentSalesStoreHistory.PromotionSegmentSalesStoreId -> PromotionSegmentSalesStore (Lookup)
+- PromotionSegmentSalesStoreHistory.CreatedById -> User (Lookup)
+- PromotionTargetHistory.PromotionTargetId -> PromotionTarget (Lookup)
+- PromotionTargetHistory.CreatedById -> User (Lookup)
+- PromotionTierHistory.PromotionTierId -> PromotionTier (Lookup)
+- PromotionTierHistory.CreatedById -> User (Lookup)
+- QuickTextHistory.QuickTextId -> QuickText (Lookup)
+- QuickTextHistory.CreatedById -> User (Lookup)
+- RefundLinePaymentHistory.RefundLinePaymentId -> RefundLinePayment (Lookup)
+- RefundLinePaymentHistory.CreatedById -> User (Lookup)
+- ResourceAbsenceHistory.ResourceAbsenceId -> ResourceAbsence (Lookup)
+- ResourceAbsenceHistory.CreatedById -> User (Lookup)
+- ResourcePreferenceHistory.ResourcePreferenceId -> ResourcePreference (Lookup)
+- ResourcePreferenceHistory.CreatedById -> User (Lookup)
+- ReturnOrderHistory.ReturnOrderId -> ReturnOrder (Lookup)
+- ReturnOrderHistory.CreatedById -> User (Lookup)
+- ReturnOrderLineItemHistory.ReturnOrderLineItemId -> ReturnOrderLineItem (Lookup)
+- ReturnOrderLineItemHistory.CreatedById -> User (Lookup)
+- SellerHistory.SellerId -> Seller (Lookup)
+- SellerHistory.CreatedById -> User (Lookup)
+- ServiceAppointmentAttendeeHistory.ServiceAppointmentAttendeeId -> ServiceAppointmentAttendee (Lookup)
+- ServiceAppointmentAttendeeHistory.CreatedById -> User (Lookup)
+- ServiceAppointmentHistory.ServiceAppointmentId -> ServiceAppointment (Lookup)
+- ServiceAppointmentHistory.CreatedById -> User (Lookup)
+- ServiceContractHistory.ServiceContractId -> ServiceContract (Lookup)
+- ServiceContractHistory.CreatedById -> User (Lookup)
+- ServiceResourceHistory.ServiceResourceId -> ServiceResource (Lookup)
+- ServiceResourceHistory.CreatedById -> User (Lookup)
+- ServiceResourceSkillHistory.ServiceResourceSkillId -> ServiceResourceSkill (Lookup)
+- ServiceResourceSkillHistory.CreatedById -> User (Lookup)
+- ServiceTerritoryHistory.ServiceTerritoryId -> ServiceTerritory (Lookup)
+- ServiceTerritoryHistory.CreatedById -> User (Lookup)
+- ServiceTerritoryMemberHistory.ServiceTerritoryMemberId -> ServiceTerritoryMember (Lookup)
+- ServiceTerritoryMemberHistory.CreatedById -> User (Lookup)
+- ServiceTerritoryWorkTypeHistory.ServiceTerritoryWorkTypeId -> ServiceTerritoryWorkType (Lookup)
+- ServiceTerritoryWorkTypeHistory.CreatedById -> User (Lookup)
+- SfdcPartnerSbscrOfferHistory.SfdcPartnerSbscrOfferId -> SfdcPartnerSbscrOffer (Lookup)
+- SfdcPartnerSbscrOfferHistory.CreatedById -> User (Lookup)
+- ShiftEngagementChannelHistory.ShiftEngagementChannelId -> ShiftEngagementChannel (Lookup)
+- ShiftEngagementChannelHistory.CreatedById -> User (Lookup)
+- ShiftHistory.ShiftId -> Shift (Lookup)
+- ShiftHistory.CreatedById -> User (Lookup)
+- ShiftWorkTopicHistory.ShiftWorkTopicId -> ShiftWorkTopic (Lookup)
+- ShiftWorkTopicHistory.CreatedById -> User (Lookup)
+- ShipmentHistory.ShipmentId -> Shipment (Lookup)
+- ShipmentHistory.CreatedById -> User (Lookup)
+- ShipmentItemHistory.ShipmentItemId -> ShipmentItem (Lookup)
+- ShipmentItemHistory.CreatedById -> User (Lookup)
+- ShippingCarrierHistory.ShippingCarrierId -> ShippingCarrier (Lookup)
+- ShippingCarrierHistory.CreatedById -> User (Lookup)
+- ShippingCarrierMethodHistory.ShippingCarrierMethodId -> ShippingCarrierMethod (Lookup)
+- ShippingCarrierMethodHistory.CreatedById -> User (Lookup)
+- SkillRequirementHistory.SkillRequirementId -> SkillRequirement (Lookup)
+- SkillRequirementHistory.CreatedById -> User (Lookup)
+- SolutionHistory.SolutionId -> Solution (Lookup)
+- SolutionHistory.CreatedById -> User (Lookup)
+- SourceCodeRepoProviderHistory.SourceCodeRepoProviderId -> SourceCodeRepoProvider (Lookup)
+- SourceCodeRepoProviderHistory.CreatedById -> User (Lookup)
+- SourceCodeRepositoryBranchHistory.SourceCodeRepositoryBranchId -> SourceCodeRepositoryBranch (Lookup)
+- SourceCodeRepositoryBranchHistory.CreatedById -> User (Lookup)
+- SourceCodeRepositoryHistory.SourceCodeRepositoryId -> SourceCodeRepository (Lookup)
+- SourceCodeRepositoryHistory.CreatedById -> User (Lookup)
+- Subscription_Line__History.ParentId -> Subscription_Line__c (Lookup)
+- Subscription_Line__History.CreatedById -> User (Lookup)
+- Subscription__History.ParentId -> Subscription__c (Lookup)
+- Subscription__History.CreatedById -> User (Lookup)
+- TimeSlotHistory.TimeSlotId -> TimeSlot (Lookup)
+- TimeSlotHistory.CreatedById -> User (Lookup)
+- UserHistory.UserId -> User (Lookup)
+- UserHistory.CreatedById -> User (Lookup)
+- VoiceCallHistory.VoiceCallId -> VoiceCall (Lookup)
+- VoiceCallHistory.CreatedById -> User (Lookup)
+- WaitlistHistory.WaitlistId -> Waitlist (Lookup)
+- WaitlistHistory.CreatedById -> User (Lookup)
+- WaitlistParticipantHistory.WaitlistParticipantId -> WaitlistParticipant (Lookup)
+- WaitlistParticipantHistory.CreatedById -> User (Lookup)
+- WaitlistServiceResourceHistory.WaitlistServiceResourceId -> WaitlistServiceResource (Lookup)
+- WaitlistServiceResourceHistory.CreatedById -> User (Lookup)
+- WaitlistWorkTypeHistory.WaitlistWorkTypeId -> WaitlistWorkType (Lookup)
+- WaitlistWorkTypeHistory.CreatedById -> User (Lookup)
+- WebCartCollaboratorHistory.WebCartCollaboratorId -> WebCartCollaborator (Lookup)
+- WebCartCollaboratorHistory.CreatedById -> User (Lookup)
+- WebCartHistory.WebCartId -> WebCart (Lookup)
+- WebCartHistory.CreatedById -> User (Lookup)
+- WebStoreCatalogHistory.WebStoreCatalogId -> WebStoreCatalog (Lookup)
+- WebStoreCatalogHistory.CreatedById -> User (Lookup)
+- WorkItemComponentHistory.WorkItemComponentId -> WorkItemComponent (Lookup)
+- WorkItemComponentHistory.CreatedById -> User (Lookup)
+- WorkItemComponentListHistory.WorkItemComponentListId -> WorkItemComponentList (Lookup)
+- WorkItemComponentListHistory.CreatedById -> User (Lookup)
+- WorkItemHistory.WorkItemId -> WorkItem (Lookup)
+- WorkItemHistory.CreatedById -> User (Lookup)
+- WorkOrderHistory.WorkOrderId -> WorkOrder (Lookup)
+- WorkOrderHistory.CreatedById -> User (Lookup)
+- WorkOrderLineItemHistory.WorkOrderLineItemId -> WorkOrderLineItem (Lookup)
+- WorkOrderLineItemHistory.CreatedById -> User (Lookup)
+- WorkPlanHistory.WorkPlanId -> WorkPlan (Lookup)
+- WorkPlanHistory.CreatedById -> User (Lookup)
+- WorkPlanTemplateEntryHistory.WorkPlanTemplateEntryId -> WorkPlanTemplateEntry (Lookup)
+- WorkPlanTemplateEntryHistory.CreatedById -> User (Lookup)
+- WorkPlanTemplateHistory.WorkPlanTemplateId -> WorkPlanTemplate (Lookup)
+- WorkPlanTemplateHistory.CreatedById -> User (Lookup)
+- WorkStepHistory.WorkStepId -> WorkStep (Lookup)
+- WorkStepHistory.CreatedById -> User (Lookup)
+- WorkStepTemplateHistory.WorkStepTemplateId -> WorkStepTemplate (Lookup)
+- WorkStepTemplateHistory.CreatedById -> User (Lookup)
+- WorkTypeGroupHistory.WorkTypeGroupId -> WorkTypeGroup (Lookup)
+- WorkTypeGroupHistory.CreatedById -> User (Lookup)
+- WorkTypeGroupMemberHistory.WorkTypeGroupMemberId -> WorkTypeGroupMember (Lookup)
+- WorkTypeGroupMemberHistory.CreatedById -> User (Lookup)
+- WorkTypeHistory.WorkTypeId -> WorkType (Lookup)
+- WorkTypeHistory.CreatedById -> User (Lookup)

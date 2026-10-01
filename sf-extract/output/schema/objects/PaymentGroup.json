@@ -1,0 +1,110 @@
+{
+  "name": "PaymentGroup",
+  "label": "Payment Group",
+  "custom": false,
+  "keyPrefix": "9zx",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Payment Group ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "PaymentGroupNumber",
+      "label": "Payment Group Number",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "SourceObjectId",
+      "label": "Order ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Order"
+      ],
+      "relationshipName": "SourceObject"
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "Payment",
+      "field": "PaymentGroupId",
+      "relationshipName": "Payments",
+      "cascadeDelete": false
+    },
+    {
+      "child": "PaymentAuthorization",
+      "field": "PaymentGroupId",
+      "relationshipName": "PaymentAuthorizations",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Refund",
+      "field": "PaymentGroupId",
+      "relationshipName": "Refunds",
+      "cascadeDelete": false
+    }
+  ]
+}

@@ -1,0 +1,262 @@
+{
+  "name": "PromotionQualifier",
+  "label": "Promotion Qualifier",
+  "custom": false,
+  "keyPrefix": "0kU",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Promotion Qualifier ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Promotion Qualifier Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "PromotionId",
+      "label": "Promotion ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "Promotion"
+      ],
+      "relationshipName": "Promotion"
+    },
+    {
+      "name": "PromotionTierId",
+      "label": "Promotion Tier ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "PromotionTier"
+      ],
+      "relationshipName": "PromotionTier"
+    },
+    {
+      "name": "QualifierType",
+      "label": "Qualifier Type",
+      "type": "picklist",
+      "length": 255,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "Product",
+        "ProductCategory",
+        "TransactionTotal"
+      ]
+    },
+    {
+      "name": "QualifierId",
+      "label": "Qualifier ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Product2",
+        "ProductCategory"
+      ],
+      "relationshipName": "Qualifier"
+    },
+    {
+      "name": "MinimumQuantity",
+      "label": "Minimum Quantity",
+      "type": "double",
+      "precision": 18,
+      "scale": 4,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MinimumAmount",
+      "label": "Minimum Amount",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "QualifierProductCategoryName",
+      "label": "Qualifier Category Name",
+      "type": "string",
+      "length": 200,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "QualifierProductName",
+      "label": "Qualifier Product Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "QualifierProductSku",
+      "label": "Qualifier Product SKU",
+      "type": "string",
+      "length": 180,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "QualifierRuleCriteriaType",
+      "label": "Qualifier Rule Criteria Type",
+      "type": "picklist",
+      "length": 255,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "All",
+        "Any"
+      ]
+    },
+    {
+      "name": "QualifierOperator",
+      "label": "Qualifier Operator",
+      "type": "picklist",
+      "length": 255,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "NONE",
+        "EQUAL_TO",
+        "NOT_EQUAL_TO"
+      ]
+    },
+    {
+      "name": "ApproachingDiscountThreshold",
+      "label": "Approaching Discount Threshold",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "EmailMessage",
+      "field": "RelatedToId",
+      "relationshipName": "Emails",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Event",
+      "field": "WhatId",
+      "relationshipName": "Events",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Task",
+      "field": "WhatId",
+      "relationshipName": "Tasks",
+      "cascadeDelete": true
+    }
+  ]
+}

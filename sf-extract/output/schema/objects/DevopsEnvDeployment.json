@@ -1,0 +1,365 @@
+{
+  "name": "DevopsEnvDeployment",
+  "label": "Env Deployment",
+  "custom": false,
+  "keyPrefix": "6Sl",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "DevOps Env Deployment ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TargetDeployOrgId",
+      "label": "TargetDeployOrg ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "DevopsEnvironment"
+      ],
+      "relationshipName": "TargetDeployOrg"
+    },
+    {
+      "name": "DevopsPipelnStgPromId",
+      "label": "DevopsPipelnStgProm ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "DevopsPipelnStgProm"
+      ],
+      "relationshipName": "DevopsPipelnStgProm"
+    },
+    {
+      "name": "DeployRequestInfoId",
+      "label": "DeployRequestInfo ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "DevopsRequestInfo"
+      ],
+      "relationshipName": "DeployRequestInfo"
+    },
+    {
+      "name": "Status",
+      "label": "Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "NEW",
+      "picklistValues": [
+        "NEW",
+        "IN_PROGRESS",
+        "SUCCESS",
+        "ERROR",
+        "CANCELLED",
+        "INTERRUPTED",
+        "FINALIZING"
+      ]
+    },
+    {
+      "name": "DeploymentIdentifier",
+      "label": "Deployment Id",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "unique": true,
+      "custom": false
+    },
+    {
+      "name": "DeploymentDate",
+      "label": "Deployment Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsCheckDeploy",
+      "label": "Is Check Deploy",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CheckDeployDate",
+      "label": "Check Deploy Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TestLevel",
+      "label": "Test Level",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "Default",
+      "picklistValues": [
+        "Default",
+        "NoTestRun",
+        "RunAllTestsInOrg",
+        "RunLocalTests",
+        "RunSpecifiedTests"
+      ]
+    },
+    {
+      "name": "RunTests",
+      "label": "Run Tests",
+      "type": "textarea",
+      "length": 32768,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "DeployStatus",
+      "label": "Deploy Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "NEW",
+      "picklistValues": [
+        "NEW",
+        "IN_PROGRESS",
+        "SUCCESS",
+        "ERROR",
+        "CANCELLED",
+        "INTERRUPTED",
+        "FINALIZING"
+      ]
+    },
+    {
+      "name": "CheckDeployRequestInfoId",
+      "label": "DevOps Request Info ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "DevopsRequestInfo"
+      ],
+      "relationshipName": "CheckDeployRequestInfo"
+    },
+    {
+      "name": "CheckDeployStatus",
+      "label": "Check Deploy Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "NEW",
+      "picklistValues": [
+        "NEW",
+        "IN_PROGRESS",
+        "SUCCESS",
+        "ERROR",
+        "CANCELLED",
+        "INTERRUPTED",
+        "FINALIZING"
+      ]
+    },
+    {
+      "name": "DeployCompletionDate",
+      "label": "Deploy Completion Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CheckDeployCompletionDate",
+      "label": "Check Deploy Completion Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsFullDeploy",
+      "label": "Is Full Deploy",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "StartRevisionCounter",
+      "label": "Start Revision Counter",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "EndRevisionCounter",
+      "label": "End Revision Counter",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "BackSyncStageId",
+      "label": "BackSyncStage ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "DevopsPipelineStage"
+      ],
+      "relationshipName": "BackSyncStage"
+    },
+    {
+      "name": "SwapStageId",
+      "label": "SwapStage ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "DevopsPipelineStage"
+      ],
+      "relationshipName": "SwapStage"
+    },
+    {
+      "name": "SelectedWorkItemIds",
+      "label": "Selected Work Item IDs",
+      "type": "textarea",
+      "length": 32768,
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "EmailMessage",
+      "field": "RelatedToId",
+      "relationshipName": "Emails",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Event",
+      "field": "WhatId",
+      "relationshipName": "Events",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Note",
+      "field": "ParentId",
+      "relationshipName": "Notes",
+      "cascadeDelete": true
+    },
+    {
+      "child": "Task",
+      "field": "WhatId",
+      "relationshipName": "Tasks",
+      "cascadeDelete": true
+    }
+  ]
+}

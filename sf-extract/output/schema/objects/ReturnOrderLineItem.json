@@ -1,0 +1,500 @@
+{
+  "name": "ReturnOrderLineItem",
+  "label": "Return Order Line Item",
+  "custom": false,
+  "keyPrefix": "0Sn",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Return Order Line Item ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ReturnOrderLineItemNumber",
+      "label": "Return Order Line Item Number",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ReturnOrderId",
+      "label": "Return Order ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "ReturnOrder"
+      ],
+      "relationshipName": "ReturnOrder"
+    },
+    {
+      "name": "OrderItemId",
+      "label": "Order Product ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "OrderItem"
+      ],
+      "relationshipName": "OrderItem"
+    },
+    {
+      "name": "Product2Id",
+      "label": "Product ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Product2"
+      ],
+      "relationshipName": "Product2"
+    },
+    {
+      "name": "QuantityReturned",
+      "label": "Quantity Returned",
+      "type": "double",
+      "precision": 18,
+      "scale": 2,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "QuantityUnitOfMeasure",
+      "label": "Quantity Unit Of Measure",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Each"
+      ]
+    },
+    {
+      "name": "SourceLocationId",
+      "label": "Source Location ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Location"
+      ],
+      "relationshipName": "SourceLocation"
+    },
+    {
+      "name": "DestinationLocationId",
+      "label": "Destination Location ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Location"
+      ],
+      "relationshipName": "DestinationLocation"
+    },
+    {
+      "name": "AssetId",
+      "label": "Asset ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Asset"
+      ],
+      "relationshipName": "Asset"
+    },
+    {
+      "name": "Description",
+      "label": "Description",
+      "type": "textarea",
+      "length": 32000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ReasonForReturn",
+      "label": "Reason For Return",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "defaultValue": "Damaged",
+      "picklistValues": [
+        "Damaged",
+        "Defective",
+        "Duplicate Order",
+        "Wrong Item",
+        "Wrong Quantity",
+        "Not Satisfied",
+        "Outdated",
+        "Other"
+      ]
+    },
+    {
+      "name": "ProcessingPlan",
+      "label": "Processing Plan",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "defaultValue": "Repair",
+      "picklistValues": [
+        "Repair",
+        "Discard",
+        "Salvage",
+        "Restock"
+      ]
+    },
+    {
+      "name": "RepaymentMethod",
+      "label": "Repayment Method",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "defaultValue": "Replace",
+      "picklistValues": [
+        "Replace",
+        "Refund",
+        "Credit",
+        "Return"
+      ]
+    },
+    {
+      "name": "ChangeOrderItemId",
+      "label": "Order Product ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "OrderItem"
+      ],
+      "relationshipName": "ChangeOrderItem"
+    },
+    {
+      "name": "Type",
+      "label": "Type",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Order Product",
+        "Delivery Charge",
+        "Fee"
+      ]
+    },
+    {
+      "name": "TypeCode",
+      "label": "Type Code",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Product",
+        "Charge"
+      ]
+    },
+    {
+      "name": "QuantityReceived",
+      "label": "Quantity Received",
+      "type": "double",
+      "precision": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "QuantityExpected",
+      "label": "Quantity Expected",
+      "type": "double",
+      "precision": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "QuantityRejected",
+      "label": "Quantity Rejected",
+      "type": "double",
+      "precision": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ReasonForRejection",
+      "label": "Reason for Rejection",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "defaultValue": "Missing Item or Part",
+      "picklistValues": [
+        "Damaged Item",
+        "Missing Item or Part",
+        "Wrong Item",
+        "Expired Warranty"
+      ]
+    },
+    {
+      "name": "UnitPrice",
+      "label": "Unit Price",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "GrossUnitPrice",
+      "label": "Gross Unit Price",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TotalLineAmount",
+      "label": "Line Subtotal",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TotalLineTaxAmount",
+      "label": "Line Subtotal Tax",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false,
+      "calculated": true
+    },
+    {
+      "name": "TotalAdjustmentTaxAmount",
+      "label": "Adjustments Tax",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false,
+      "calculated": true
+    },
+    {
+      "name": "TotalAdjustmentAmount",
+      "label": "Adjustments",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false,
+      "calculated": true
+    },
+    {
+      "name": "TotalLineAmountWithTax",
+      "label": "Line Subtotal with Tax",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false,
+      "calculated": true
+    },
+    {
+      "name": "TotalAdjustmentAmountWithTax",
+      "label": "Adjustments with Tax",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false,
+      "calculated": true
+    },
+    {
+      "name": "TotalPrice",
+      "label": "Pretax Total",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false,
+      "calculated": true
+    },
+    {
+      "name": "TotalTaxAmount",
+      "label": "Tax",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false,
+      "calculated": true
+    },
+    {
+      "name": "TotalAmount",
+      "label": "Total with Tax",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false,
+      "calculated": true
+    },
+    {
+      "name": "ReasonForChangeText",
+      "label": "Reason for Change Text",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "EmailMessage",
+      "field": "RelatedToId",
+      "relationshipName": "Emails",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Event",
+      "field": "WhatId",
+      "relationshipName": "Events",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "InventoryItemReservation",
+      "field": "ItemReservationSourceId",
+      "relationshipName": "InventoryReservationSources",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Note",
+      "field": "ParentId",
+      "relationshipName": "Notes",
+      "cascadeDelete": true
+    },
+    {
+      "child": "ReturnOrderItemAdjustment",
+      "field": "ReturnOrderLineItemId",
+      "relationshipName": "ReturnOrderItemAdjustments",
+      "cascadeDelete": true
+    },
+    {
+      "child": "ReturnOrderItemTax",
+      "field": "ReturnOrderLineItemId",
+      "relationshipName": "ReturnOrderItemTaxes",
+      "cascadeDelete": true
+    },
+    {
+      "child": "Task",
+      "field": "WhatId",
+      "relationshipName": "Tasks",
+      "cascadeDelete": true
+    }
+  ]
+}

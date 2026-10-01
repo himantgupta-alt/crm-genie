@@ -1,0 +1,128 @@
+{
+  "name": "ContentFolderItem",
+  "label": "Content Folder Item",
+  "custom": false,
+  "keyPrefix": null,
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Content Folder Item ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsFolder",
+      "label": "Is Folder",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ParentContentFolderId",
+      "label": "Parent Content Folder ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "ContentFolder"
+      ],
+      "relationshipName": "ParentContentFolder"
+    },
+    {
+      "name": "Title",
+      "label": "Title",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FileType",
+      "label": "File Type",
+      "type": "string",
+      "length": 20,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ContentSize",
+      "label": "Size",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ContentSizeLong",
+      "label": "Size",
+      "type": "long",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FileExtension",
+      "label": "File Extension",
+      "type": "string",
+      "length": 40,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": []
+}

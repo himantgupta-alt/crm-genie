@@ -1,0 +1,337 @@
+{
+  "name": "PrivacyJobSession",
+  "label": "Privacy Job Session",
+  "custom": false,
+  "keyPrefix": "8sp",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Privacy Job Session ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnerId",
+      "label": "Owner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Group",
+        "User"
+      ],
+      "relationshipName": "Owner"
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "JobStatus",
+      "label": "Job Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "inactive",
+        "scheduled",
+        "running",
+        "running_next",
+        "failures",
+        "cancelled",
+        "suspended",
+        "completed",
+        "completed_with_errors"
+      ]
+    },
+    {
+      "name": "StartTime",
+      "label": "Start Time",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "EndTime",
+      "label": "End Time",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreationDate",
+      "label": "Creation Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "SerializedPolicy",
+      "label": "Serialized Policy",
+      "type": "textarea",
+      "length": 131072,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FailureLog",
+      "label": "Failure Log",
+      "type": "textarea",
+      "length": 131072,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CurrentObject",
+      "label": "Current Object",
+      "type": "string",
+      "length": 128,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "PrivacyPolicyDefinitionId",
+      "label": "Privacy Policy Definition ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "PrivacyPolicyDefinition"
+      ],
+      "relationshipName": "PrivacyPolicyDefinition"
+    },
+    {
+      "name": "ScheduledTime",
+      "label": "Scheduled Time",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "JobStartType",
+      "label": "Job Start Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "manual",
+        "scheduled"
+      ]
+    },
+    {
+      "name": "OptionsTraversalComplete",
+      "label": "TraversalComplete",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OptionsTraversalFailed",
+      "label": "TraversalFailed",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OptionsProcessingFailed",
+      "label": "ProcessingFailed",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OptionsPreview",
+      "label": "Preview",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OptionsAcknowledged",
+      "label": "Acknowledged",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OptionsErrorBypassOccurred",
+      "label": "ErrorBypassOccurred",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OptionsTopLevelErrorBypass",
+      "label": "TopLevelErrorBypass",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "PolicyName",
+      "label": "Policy Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "PolicyDescription",
+      "label": "Policy Description",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "PolicyType",
+      "label": "Policy Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "datamanagement",
+        "herokumigration",
+        "datamask",
+        "rtbf",
+        "archive",
+        "datamanagementondatacloud",
+        "globalconsentstore"
+      ]
+    },
+    {
+      "name": "PrivacyRtbfRequestId",
+      "label": "Privacy RTBF Request ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "PrivacyRTBFRequest"
+      ],
+      "relationshipName": "PrivacyRtbfRequest"
+    },
+    {
+      "name": "JobManagementType",
+      "label": "Job Management Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Processor",
+        "Migration",
+        "Preview",
+        "Any"
+      ]
+    },
+    {
+      "name": "JobPolicyName",
+      "label": "Job Policy Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsPreview",
+      "label": "Preview",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "PermissionSet",
+      "label": "Permission Set",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    }
+  ]
+}

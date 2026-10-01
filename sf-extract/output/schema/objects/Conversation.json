@@ -1,0 +1,120 @@
+{
+  "name": "Conversation",
+  "label": "Conversation",
+  "custom": false,
+  "keyPrefix": "0dw",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Conversation ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Conversation Name",
+      "type": "string",
+      "length": 80,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "ConversationIdentifier",
+      "label": "Conversation Identifier",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "StartTime",
+      "label": "Conversation Start time",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "StartTimeMilliSecs",
+      "label": "Milliseconds portion of Conversation Start time",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "EndTime",
+      "label": "Conversation End time",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "EndTimeMilliSecs",
+      "label": "Milliseconds portion of Conversation End time",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ConversationChannelId",
+      "label": "Conversation Channel ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "CallCenter",
+        "MessagingChannel"
+      ]
+    }
+  ],
+  "childRelationships": []
+}

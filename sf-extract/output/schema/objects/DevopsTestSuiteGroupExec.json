@@ -1,0 +1,212 @@
+{
+  "name": "DevopsTestSuiteGroupExec",
+  "label": "Test Suite Group Execution",
+  "custom": false,
+  "keyPrefix": "9Pw",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Test Suite Group Execution ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnerId",
+      "label": "Owner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Group",
+        "User"
+      ],
+      "relationshipName": "Owner"
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ExecutionEndTime",
+      "label": "Execution End Time",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ExecutionStartTime",
+      "label": "Execution Start Time",
+      "type": "datetime",
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "DevopsPipelineStageTriggerId",
+      "label": "Pipeline Stage Trigger ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "DevopsPipelineStageTrigger"
+      ],
+      "relationshipName": "DevopsPipelineStageTrigger"
+    },
+    {
+      "name": "RequestInfoId",
+      "label": "DevOps Request Info ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "DevopsRequestInfo"
+      ],
+      "relationshipName": "RequestInfo"
+    },
+    {
+      "name": "QualityGateStatus",
+      "label": "Quality Gates Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "Passed",
+      "picklistValues": [
+        "Passed",
+        "Failed",
+        "InProgress",
+        "Error"
+      ]
+    },
+    {
+      "name": "Status",
+      "label": "Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "Passed",
+      "picklistValues": [
+        "Passed",
+        "Failed",
+        "InProgress",
+        "Error"
+      ]
+    },
+    {
+      "name": "PendingExecutionCount",
+      "label": "Pending Execution Count",
+      "type": "int",
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "DevopsActivityLog",
+      "field": "TestSuiteGroupExecId",
+      "relationshipName": "DevopsActivityLogs",
+      "cascadeDelete": false
+    },
+    {
+      "child": "DevopsTestSuiteExecution",
+      "field": "DevopsTestSuiteGroupExecId",
+      "relationshipName": "TestSuiteGroupExec_SuiteExec",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    }
+  ]
+}

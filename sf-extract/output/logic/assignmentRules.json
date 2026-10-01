@@ -1,0 +1,66 @@
+[
+  {
+    "object": "Case",
+    "name": "Standard",
+    "active": true,
+    "entries": [
+      {
+        "criteria": [
+          "Account.BillingCountry equals US,USA,United States,United States of America",
+          "Account.SLA__c equals Gold,Platinum",
+          "Account.Type contains Customer"
+        ],
+        "assignedTo": "epic.1282ddf7d5de@orgfarm.salesforce.com"
+      },
+      {
+        "criteria": [
+          "Account.BillingCountry equals US,USA,United States,United States of America",
+          "Account.SLA__c equals Silver,Bronze",
+          "Account.Type contains Customer"
+        ],
+        "assignedTo": "epic.1282ddf7d5de@orgfarm.salesforce.com"
+      },
+      {
+        "criteria": [
+          "Account.BillingCountry notEqual US,USA,United States,United States of America",
+          "Account.SLA__c equals Gold,Platinum",
+          "Account.Type contains Customer"
+        ],
+        "assignedTo": "epic.1282ddf7d5de@orgfarm.salesforce.com"
+      },
+      {
+        "criteria": [
+          "Account.BillingCountry notEqual US,USA,United States,United States of America",
+          "Account.SLA__c equals Silver,Bronze",
+          "Account.Type contains Customer"
+        ],
+        "assignedTo": "epic.1282ddf7d5de@orgfarm.salesforce.com"
+      },
+      {
+        "criteria": [
+          "Account.Type contains Partner"
+        ],
+        "assignedTo": "epic.1282ddf7d5de@orgfarm.salesforce.com"
+      }
+    ]
+  },
+  {
+    "object": "Lead",
+    "name": "Standard",
+    "active": true,
+    "entries": [
+      {
+        "criteria": [
+          "Lead.Country equals US,USA,United States,United States of America"
+        ],
+        "assignedTo": "epic.1282ddf7d5de@orgfarm.salesforce.com"
+      },
+      {
+        "criteria": [
+          "Lead.Country notEqual US,USA,United States,United States of America"
+        ],
+        "assignedTo": "epic.1282ddf7d5de@orgfarm.salesforce.com"
+      }
+    ]
+  }
+]

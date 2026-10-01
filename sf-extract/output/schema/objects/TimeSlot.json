@@ -1,0 +1,194 @@
+{
+  "name": "TimeSlot",
+  "label": "Time Slot",
+  "custom": false,
+  "keyPrefix": "0Gj",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Time Slot ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TimeSlotNumber",
+      "label": "Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OperatingHoursId",
+      "label": "Operating Hour ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "OperatingHours"
+      ],
+      "relationshipName": "OperatingHours"
+    },
+    {
+      "name": "DayOfWeek",
+      "label": "Day of Week",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "Sunday",
+      "picklistValues": [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ]
+    },
+    {
+      "name": "Type",
+      "label": "Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "Normal",
+      "picklistValues": [
+        "Normal",
+        "Extended"
+      ]
+    },
+    {
+      "name": "MaxAppointments",
+      "label": "Maximum Appointments",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "WorkTypeGroupId",
+      "label": "Work Type Group ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "WorkTypeGroup"
+      ],
+      "relationshipName": "WorkTypeGroup"
+    },
+    {
+      "name": "StartTime",
+      "label": "Start Time",
+      "type": "time",
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "EndTime",
+      "label": "End Time",
+      "type": "time",
+      "required": true,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "AppointmentTopicTimeSlot",
+      "field": "TimeSlotId",
+      "relationshipName": "AppointmentTopicTimeSlots",
+      "cascadeDelete": true
+    },
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    }
+  ]
+}

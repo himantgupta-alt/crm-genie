@@ -1,0 +1,230 @@
+{
+  "name": "WorkStepTemplate",
+  "label": "Work Step Template",
+  "custom": false,
+  "keyPrefix": "4L0",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Work Step Template ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnerId",
+      "label": "Owner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Group",
+        "User"
+      ],
+      "relationshipName": "Owner"
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Name",
+      "type": "string",
+      "length": 255,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsActive",
+      "label": "Active",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Description",
+      "label": "Description",
+      "type": "textarea",
+      "length": 500,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ActionDefinition",
+      "label": "Action Definition",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "cms_orch__CMS_NotifyRequester",
+        "cms_orch__CMS_ReviewContent",
+        "cms_orch__CMS_ReviseContent",
+        "cms_orch__CMS_WithdrawReviewRequest",
+        "runtime_payments__GeneratePaymentLink",
+        "setup_service_experience__Create_Case",
+        "setup_service_experience__Reset_Pwd",
+        "setup_service_experience__Verify_Cust",
+        "sfdc_fieldservice__CreateLeadAndOpp",
+        "standard_approvals__CreaDrftAppvl",
+        "standard_approvals__EvaluateApproval",
+        "standard_approvals__ProcessAppvlSbms",
+        "standard_approvals__ReviewAppvlRqst",
+        "standard_approvals__RvwFlowForActv",
+        "svc_es__CreateEmployee",
+        "svc_es__ReportConfidentialIssue",
+        "svc_es__UpdateEmployee",
+        "svc_es__UserAuthStatusTile",
+        "SendEmail",
+        "LogACall",
+        "NewAccount",
+        "NewCase",
+        "NewContact",
+        "_NewQuipDocument",
+        "NewEvent",
+        "NewGroup",
+        "NewLead",
+        "NewNote",
+        "NewOpportunity",
+        "NewTask",
+        "_SendConversationMessage"
+      ],
+      "inlineHelpText": "Find and select the associated global action, quick action, screen flow, or mobile flow."
+    },
+    {
+      "name": "ActionType",
+      "label": "Action Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Flow",
+        "QuickAction"
+      ]
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "EmailMessage",
+      "field": "RelatedToId",
+      "relationshipName": "Emails",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Event",
+      "field": "WhatId",
+      "relationshipName": "Events",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Note",
+      "field": "ParentId",
+      "relationshipName": "Notes",
+      "cascadeDelete": true
+    },
+    {
+      "child": "Task",
+      "field": "WhatId",
+      "relationshipName": "Tasks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "WorkPlanTemplateEntry",
+      "field": "WorkStepTemplateId",
+      "relationshipName": "WorkPlanTemplates",
+      "cascadeDelete": true
+    }
+  ]
+}

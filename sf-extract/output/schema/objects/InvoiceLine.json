@@ -1,0 +1,478 @@
+{
+  "name": "InvoiceLine",
+  "label": "Invoice Line",
+  "custom": false,
+  "keyPrefix": "5TV",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Invoice Line ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "InvoiceId",
+      "label": "Invoice ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Invoice"
+      ],
+      "relationshipName": "Invoice"
+    },
+    {
+      "name": "ReferenceEntityItemId",
+      "label": "ReferenceEntityItem ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "OrderItem"
+      ],
+      "relationshipName": "ReferenceEntityItem"
+    },
+    {
+      "name": "GroupReferenceEntityItemId",
+      "label": "GroupReferenceEntityItem ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "OrderItem"
+      ],
+      "relationshipName": "GroupReferenceEntityItem"
+    },
+    {
+      "name": "LineAmount",
+      "label": "Line Amount",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false,
+      "calculated": true
+    },
+    {
+      "name": "Quantity",
+      "label": "Quantity",
+      "type": "double",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "UnitPrice",
+      "label": "Unit Price",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ChargeAmount",
+      "label": "Charge Amount",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TaxAmount",
+      "label": "Tax Amount",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "AdjustmentAmount",
+      "label": "Adjustment Amount",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "InvoiceStatus",
+      "label": "Status",
+      "type": "string",
+      "length": 50,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Description",
+      "label": "Description",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "InvoiceLineStartDate",
+      "label": "Invoice Line Start Date",
+      "type": "date",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "InvoiceLineEndDate",
+      "label": "Invoice Line End Date",
+      "type": "date",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ReferenceEntityItemType",
+      "label": "Reference Entity Item Type",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Order Product",
+        "Delivery Charge",
+        "Fee"
+      ]
+    },
+    {
+      "name": "ReferenceEntityItemTypeCode",
+      "label": "Reference Entity Item Type Code",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Product",
+        "Charge"
+      ]
+    },
+    {
+      "name": "Product2Id",
+      "label": "Product ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Product2"
+      ],
+      "relationshipName": "Product2"
+    },
+    {
+      "name": "RelatedLineId",
+      "label": "Invoice Line ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "InvoiceLine"
+      ],
+      "relationshipName": "RelatedLine"
+    },
+    {
+      "name": "Type",
+      "label": "Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Charge",
+        "Tax",
+        "Adjustment"
+      ]
+    },
+    {
+      "name": "TaxName",
+      "label": "Tax Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TaxCode",
+      "label": "Tax Code",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TaxRate",
+      "label": "Tax Rate",
+      "type": "percent",
+      "precision": 5,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TaxEffectiveDate",
+      "label": "Tax Effective Date",
+      "type": "date",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ChargeTaxAmount",
+      "label": "Charge Tax Amount",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ChargeAmountWithTax",
+      "label": "Charge Amount with Tax",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "AdjustmentTaxAmount",
+      "label": "Adjustment Tax Amount",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "AdjustmentAmountWithTax",
+      "label": "Adjustment Amount with Tax",
+      "type": "currency",
+      "precision": 18,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TaxProcessingStatus",
+      "label": "Tax Processing Status",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Pending",
+        "Posted",
+        "Estimated"
+      ]
+    },
+    {
+      "name": "CorporateCurrencyCvsnRate",
+      "label": "Corporate Currency Conversion Rate",
+      "type": "double",
+      "precision": 18,
+      "scale": 10,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CorporateCurrencyCvsnDate",
+      "label": "Corporate Currency Conversion Date",
+      "type": "date",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CorpCurrencyCnvChargeAmt",
+      "label": "Corporate Currency Converted Total Charge Amount",
+      "type": "double",
+      "precision": 18,
+      "scale": 6,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CorpCurrencyCnvTotalTaxAmt",
+      "label": "Corporate Currency Converted Total Tax Amount",
+      "type": "double",
+      "precision": 18,
+      "scale": 6,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FunctionalCurrencyCvsnRate",
+      "label": "Functional Currency Conversion Rate",
+      "type": "double",
+      "precision": 18,
+      "scale": 10,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FunctionalCurrencyCvsnDate",
+      "label": "Functional Currency Conversion Date",
+      "type": "date",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FuncCurrencyCnvChargeAmt",
+      "label": "Functional Currency Converted Charge Amount",
+      "type": "double",
+      "precision": 18,
+      "scale": 6,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FuncCrcyCnvTotalTaxAmt",
+      "label": "Functional Currency Converted Total Tax Amount",
+      "type": "double",
+      "precision": 18,
+      "scale": 6,
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "CreditMemoLine",
+      "field": "ReferenceEntityItemId",
+      "relationshipName": "CreditMemoLines",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FinanceBalanceSnapshot",
+      "field": "ReferenceEntityId",
+      "relationshipName": "FinanceBalanceSnapshots",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FinanceTransaction",
+      "field": "DestinationEntityId",
+      "relationshipName": "DestinationFinanceTransactions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FinanceTransaction",
+      "field": "ParentReferenceEntityId",
+      "relationshipName": "ParentFinanceTransactions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FinanceTransaction",
+      "field": "ReferenceEntityId",
+      "relationshipName": "FinanceTransactions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FinanceTransaction",
+      "field": "SourceEntityId",
+      "relationshipName": "SourceFinanceTransactions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "InvoiceLine",
+      "field": "RelatedLineId",
+      "relationshipName": "InvoiceLines",
+      "cascadeDelete": false
+    }
+  ]
+}

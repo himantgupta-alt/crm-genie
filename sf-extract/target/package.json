@@ -1,0 +1,17 @@
+{
+  "name": "sf-target",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Client-owned stack compiled from the Salesforce blueprint. Generated SQL in db/, the app in app/, parity in parity/, Azure in infra/.",
+  "scripts": {
+    "parity": "node parity/run.js",
+    "smoke": "node parity/app-smoke.mjs"
+  },
+  "dependencies": {
+    "@electric-sql/pglite": "0.5.8"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite-socket": "0.2.11",
+    "ajv": "8.17.1"
+  }
+}

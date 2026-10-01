@@ -1,0 +1,193 @@
+{
+  "name": "CartValidationOutput",
+  "label": "Cart Message",
+  "custom": false,
+  "keyPrefix": "0dP",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Cart Message ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Cart Validation Output",
+      "type": "string",
+      "length": 255,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CartId",
+      "label": "Cart ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "WebCart"
+      ],
+      "relationshipName": "Cart"
+    },
+    {
+      "name": "RelatedEntityId",
+      "label": "Cart Delivery Group ID or Cart Item ID or Web Cart ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "CartDeliveryGroup",
+        "CartItem",
+        "CartTax",
+        "WebCart"
+      ],
+      "relationshipName": "RelatedEntity"
+    },
+    {
+      "name": "BackgroundOperationId",
+      "label": "Background Operation ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "BackgroundOperation"
+      ],
+      "relationshipName": "BackgroundOperation"
+    },
+    {
+      "name": "Type",
+      "label": "Type",
+      "type": "picklist",
+      "length": 255,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "Inventory",
+        "Taxes",
+        "Pricing",
+        "Promotions",
+        "Shipping",
+        "ShippingPromotions",
+        "Entitlement",
+        "CartSave",
+        "SystemError",
+        "Other"
+      ]
+    },
+    {
+      "name": "Level",
+      "label": "Level",
+      "type": "picklist",
+      "length": 255,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "Info",
+        "Error",
+        "Warning"
+      ]
+    },
+    {
+      "name": "Message",
+      "label": "Message",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDismissed",
+      "label": "Is Dismissed",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "RelatedEntityPrefix",
+      "label": "Related Entity Prefix",
+      "type": "string",
+      "length": 3,
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    }
+  ]
+}

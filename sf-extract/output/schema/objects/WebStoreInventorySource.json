@@ -1,0 +1,207 @@
+{
+  "name": "WebStoreInventorySource",
+  "label": "Web Store Inventory Source",
+  "custom": false,
+  "keyPrefix": "10t",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Web Store Inventory Source ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Web Store Inventory Source Name",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "WebStoreId",
+      "label": "Store ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "unique": true,
+      "custom": false,
+      "referenceTo": [
+        "WebStore"
+      ],
+      "relationshipName": "WebStore"
+    },
+    {
+      "name": "IsDefault",
+      "label": "Default",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LocationSourceId",
+      "label": "Location Source ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "Location",
+        "LocationGroup"
+      ],
+      "relationshipName": "LocationSource",
+      "inlineHelpText": "The default location or location group for inventory reservations."
+    },
+    {
+      "name": "IsBopisEnabled",
+      "label": "BOPIS Enabled",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ReservationDurationInSeconds",
+      "label": "Reservation Duration (Seconds)",
+      "type": "int",
+      "required": true,
+      "custom": false,
+      "inlineHelpText": "The reservation time limit must be between 300 and 14,400. The default for a new store is 900."
+    },
+    {
+      "name": "LocationSourceExtRef",
+      "label": "Location Source External Reference",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "InventoryDimension",
+      "label": "Inventory Dimension",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "OnHand",
+        "AvailableToFulfill",
+        "AvailableToOrder"
+      ],
+      "inlineHelpText": "The inventory stock level used to determine product availability. The default for a new store is Available to Order."
+    },
+    {
+      "name": "InventoryCacheTtl",
+      "label": "Inventory Cache Time To Live (Seconds).",
+      "type": "int",
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "The Inventory Cache Time To Live must be between 300 and 14,400. The default for a new store is 1,440."
+    },
+    {
+      "name": "IsChkInvOnActiveCartEnabled",
+      "label": "Check Inventory on Products For an Active Cart.",
+      "type": "boolean",
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "The inventory will be checked whenever an item in the active cart is added or changed."
+    },
+    {
+      "name": "DoesAllowGuestInventoryLevel",
+      "label": "Allows guest user access to inventory level.",
+      "type": "boolean",
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "Allows guest user access to inventory level."
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    }
+  ]
+}

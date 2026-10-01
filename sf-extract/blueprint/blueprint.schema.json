@@ -1,0 +1,319 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ascendion.local/sf-compiler/blueprint/1.0.0",
+  "title": "Salesforce org blueprint (vendor-neutral IR)",
+  "description": "Contract between the normaliser and every generator stage. A breaking change bumps the major version of blueprintVersion.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["blueprintVersion", "contentHash", "source", "warnings", "entities", "relations", "derivations", "constraints", "automations", "services", "tests", "security", "vocabulary"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "blueprintVersion": { "const": "1.0.0" },
+    "contentHash": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["platform", "apiVersion", "inputs"],
+      "properties": {
+        "platform": { "const": "salesforce" },
+        "apiVersion": { "type": "string" },
+        "inputs": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": { "type": "object", "additionalProperties": false, "required": ["where", "msg"], "properties": { "where": { "type": "string" }, "msg": { "type": "string" } } }
+    },
+    "entities": { "type": "array", "items": { "$ref": "#/$defs/entity" } },
+    "relations": { "type": "array", "items": { "$ref": "#/$defs/relation" } },
+    "derivations": { "type": "array", "items": { "$ref": "#/$defs/derivation" } },
+    "constraints": { "type": "array", "items": { "$ref": "#/$defs/constraint" } },
+    "automations": { "type": "array", "items": { "$ref": "#/$defs/automation" } },
+    "services": { "type": "array", "items": { "$ref": "#/$defs/service" } },
+    "tests": { "type": "array", "items": { "$ref": "#/$defs/test" } },
+    "security": { "type": "array", "items": { "$ref": "#/$defs/grant" } },
+    "vocabulary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["entities", "fields"],
+      "properties": {
+        "entities": { "type": "object", "additionalProperties": { "$ref": "#/$defs/sqlName" } },
+        "fields": { "type": "object", "additionalProperties": { "$ref": "#/$defs/sqlName" } }
+      }
+    }
+  },
+  "$defs": {
+    "sqlName": { "type": "string", "pattern": "^[a-z_][a-z0-9_]*$", "maxLength": 63 },
+    "entityId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_]*$" },
+    "fieldId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_]*\\.[A-Za-z][A-Za-z0-9_]*$" },
+    "logicalType": {
+      "enum": ["id", "reference", "text", "longtext", "email", "phone", "url", "boolean", "integer", "decimal", "currency", "percent", "date", "datetime", "time", "picklist", "multipicklist", "binary", "any", "compound"]
+    },
+    "entity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "source", "name", "label", "kind", "primaryKey", "fields"],
+      "properties": {
+        "id": { "$ref": "#/$defs/entityId" },
+        "source": { "type": "string" },
+        "name": { "$ref": "#/$defs/sqlName" },
+        "label": { "type": "string" },
+        "kind": { "enum": ["standard", "custom", "history"] },
+        "historyOf": { "$ref": "#/$defs/entityId" },
+        "keyPrefix": { "type": "string" },
+        "primaryKey": { "$ref": "#/$defs/fieldId" },
+        "recordTypes": { "type": "array", "items": { "type": "string" } },
+        "sharing": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "internal": { "type": "string" },
+            "external": { "type": "string" },
+            "inheritsFrom": { "$ref": "#/$defs/fieldId", "description": "Relation whose parent record decides access (ControlledByParent)." }
+          }
+        },
+        "fieldHistory": { "type": "boolean" },
+        "rowCount": { "type": "integer", "minimum": 0 },
+        "fields": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/field" } }
+      }
+    },
+    "field": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "source", "name", "label", "sourceType", "type"],
+      "properties": {
+        "id": { "$ref": "#/$defs/fieldId" },
+        "source": { "type": "string" },
+        "name": { "$ref": "#/$defs/sqlName" },
+        "label": { "type": "string" },
+        "sourceType": { "type": "string" },
+        "type": { "$ref": "#/$defs/logicalType" },
+        "pg": { "type": "string", "description": "Postgres physical type; absent for compound fields, whose components are stored separately." },
+        "maxLength": { "type": "integer" },
+        "encrypted": { "type": "boolean" },
+        "required": { "type": "boolean" },
+        "unique": { "type": "boolean" },
+        "externalId": { "type": "boolean" },
+        "system": { "type": "boolean" },
+        "default": { "type": ["string", "number", "boolean"] },
+        "autoNumber": { "type": "object", "additionalProperties": false, "required": ["format"], "properties": { "format": { "type": "string" } } },
+        "picklist": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "values": { "type": "array", "items": { "type": "string" } },
+            "restricted": { "type": "boolean" },
+            "globalValueSet": { "type": "string" },
+            "controllingField": { "type": "string" }
+          }
+        },
+        "relation": { "$ref": "#/$defs/fieldId" },
+        "derivation": { "$ref": "#/$defs/fieldId" },
+        "trackHistory": { "type": "boolean" },
+        "compound": { "type": "string" }
+      }
+    },
+    "relation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "from", "to", "kind", "onDelete", "onDeleteSource", "required"],
+      "properties": {
+        "id": { "$ref": "#/$defs/fieldId" },
+        "from": {
+          "type": "object", "additionalProperties": false, "required": ["entity", "field"],
+          "properties": { "entity": { "$ref": "#/$defs/entityId" }, "field": { "$ref": "#/$defs/fieldId" } }
+        },
+        "to": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/entityId" } },
+        "name": { "type": "string" },
+        "kind": { "enum": ["composition", "association", "polymorphic"] },
+        "onDelete": { "enum": ["cascade", "set_null", "restrict", "none"] },
+        "onDeleteSource": { "enum": ["master-detail", "field-history", "metadata", "assumed"] },
+        "reparentable": { "type": "boolean" },
+        "required": { "type": "boolean" },
+        "external": { "type": "boolean", "description": "Target entity is not in this blueprint." }
+      }
+    },
+    "expr": {
+      "type": "object",
+      "required": ["t"],
+      "oneOf": [
+        { "properties": { "t": { "const": "lit" }, "v": { "type": ["string", "number", "boolean", "null"] }, "type": { "enum": ["number", "text", "boolean", "null"] } }, "required": ["v", "type"] },
+        {
+          "properties": {
+            "t": { "const": "ref" },
+            "path": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+            "field": { "$ref": "#/$defs/fieldId" },
+            "type": { "$ref": "#/$defs/logicalType" },
+            "via": { "type": "array", "items": { "$ref": "#/$defs/fieldId" } },
+            "unresolved": { "const": true }
+          },
+          "required": ["path"]
+        },
+        { "properties": { "t": { "const": "global" }, "name": { "type": "string", "pattern": "^\\$" } }, "required": ["name"] },
+        { "properties": { "t": { "const": "op" }, "op": { "enum": ["+", "-", "*", "/", "^", "&", "=", "!=", "<", "<=", ">", ">="] }, "args": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "$ref": "#/$defs/expr" } } }, "required": ["op", "args"] },
+        { "properties": { "t": { "enum": ["and", "or"] }, "args": { "type": "array", "items": { "$ref": "#/$defs/expr" } } }, "required": ["args"] },
+        { "properties": { "t": { "enum": ["not", "neg"] }, "arg": { "$ref": "#/$defs/expr" } }, "required": ["arg"] },
+        { "properties": { "t": { "const": "call" }, "fn": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]*$" }, "args": { "type": "array", "items": { "$ref": "#/$defs/expr" } } }, "required": ["fn", "args"] }
+      ]
+    },
+    "analysis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["refs", "functions", "globals", "crossObject", "usesPrior", "volatile"],
+      "properties": {
+        "refs": { "type": "array", "items": { "type": "string" } },
+        "functions": { "type": "array", "items": { "type": "string" } },
+        "globals": { "type": "array", "items": { "type": "string" } },
+        "crossObject": { "type": "boolean" },
+        "usesPrior": { "type": "boolean" },
+        "volatile": { "type": "boolean" }
+      }
+    },
+    "derivation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "entity", "field", "kind", "resultType", "strategy"],
+      "properties": {
+        "id": { "$ref": "#/$defs/fieldId" },
+        "entity": { "$ref": "#/$defs/entityId" },
+        "field": { "$ref": "#/$defs/fieldId" },
+        "kind": { "enum": ["formula", "rollup", "platform"] },
+        "source": { "type": "string" },
+        "expr": { "$ref": "#/$defs/expr" },
+        "resultType": { "$ref": "#/$defs/logicalType" },
+        "treatBlanksAs": { "enum": ["BlankAsZero", "BlankAsBlank"] },
+        "analysis": { "$ref": "#/$defs/analysis" },
+        "rollup": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["op", "child", "relation"],
+          "properties": {
+            "op": { "enum": ["count", "sum", "min", "max"] },
+            "child": { "$ref": "#/$defs/entityId" },
+            "relation": { "$ref": "#/$defs/fieldId" },
+            "of": { "$ref": "#/$defs/fieldId" },
+            "filter": { "type": "array" }
+          }
+        },
+        "strategy": { "enum": ["generated_column", "compute_on_read", "view_join", "trigger_maintained", "load_as_data", "needs_review"] },
+        "error": { "type": "string" }
+      },
+      "allOf": [
+        { "if": { "properties": { "kind": { "const": "formula" } } }, "then": { "required": ["source", "expr", "analysis", "treatBlanksAs"] } },
+        { "if": { "properties": { "kind": { "const": "rollup" } } }, "then": { "required": ["rollup"] } }
+      ]
+    },
+    "constraint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "entity", "name", "active", "source", "message", "strategy"],
+      "properties": {
+        "id": { "$ref": "#/$defs/fieldId" },
+        "entity": { "$ref": "#/$defs/entityId" },
+        "name": { "type": "string" },
+        "active": { "type": "boolean" },
+        "rejectWhen": { "$ref": "#/$defs/expr", "description": "The row is rejected when this evaluates to TRUE (Salesforce semantics; NULL does not reject)." },
+        "source": { "type": "string" },
+        "message": { "type": "string" },
+        "errorField": { "$ref": "#/$defs/fieldId" },
+        "analysis": { "$ref": "#/$defs/analysis" },
+        "strategy": { "enum": ["check", "write_guard", "needs_review"] },
+        "reason": { "type": "string" },
+        "error": { "type": "string" }
+      }
+    },
+    "sourceRef": {
+      "type": "object",
+      "required": ["kind", "name"],
+      "properties": { "kind": { "type": "string" }, "name": { "type": "string" } }
+    },
+    "automation": {
+      "type": "object",
+      "required": ["id", "source"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-zA-Z-]+:" },
+        "source": { "$ref": "#/$defs/sourceRef" },
+        "description": { "type": "string" },
+        "scope": { "const": "out_of_scope" },
+        "reason": { "type": "string" },
+        "active": { "type": "boolean" },
+        "trigger": {
+          "type": "object",
+          "required": ["entity"],
+          "properties": {
+            "entity": { "$ref": "#/$defs/entityId" },
+            "on": { "type": "array", "items": { "enum": ["insert", "update", "delete", "undelete"] } },
+            "timing": { "enum": ["before", "after"] },
+            "events": { "type": "array", "items": { "type": "object", "required": ["timing", "on"], "properties": { "timing": { "enum": ["before", "after"] }, "on": { "enum": ["insert", "update", "delete", "undelete"] } } } },
+            "condition": { "$ref": "#/$defs/expr" },
+            "conditionText": { "type": "string" },
+            "onlyWhenConditionBecomesTrue": { "type": "boolean" }
+          }
+        },
+        "schedule": { "type": "object" },
+        "actions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["kind"],
+            "properties": {
+              "kind": { "enum": ["create", "update", "delete", "action"] },
+              "entity": { "type": "string" },
+              "set": { "type": "object", "additionalProperties": { "$ref": "#/$defs/expr" } }
+            }
+          }
+        },
+        "strategy": { "enum": ["before_trigger", "in_transaction_hook", "trigger_dispatch", "cron_worker", "service_hook", "outbox_consumer"] },
+        "translation": { "enum": ["structured", "agent"] }
+      },
+      "if": { "required": ["scope"] },
+      "then": { "required": ["reason"] },
+      "else": { "required": ["strategy", "translation"] }
+    },
+    "service": {
+      "type": "object",
+      "required": ["id", "source", "methods", "translation", "calledBy"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^apex-class:" },
+        "source": { "$ref": "#/$defs/sourceRef" },
+        "methods": { "type": "array", "items": { "type": "string" } },
+        "constants": { "type": "object" },
+        "reads": { "type": "array", "items": { "$ref": "#/$defs/entityId" } },
+        "writes": { "type": "array", "items": { "$ref": "#/$defs/entityId" } },
+        "dml": { "type": "array", "items": { "type": "string" } },
+        "translation": { "const": "agent" },
+        "calledBy": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "test": {
+      "type": "object",
+      "required": ["id", "source", "methods", "entities"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^apex-test:" },
+        "source": { "$ref": "#/$defs/sourceRef" },
+        "methods": { "type": "array", "items": { "type": "string" } },
+        "entities": { "type": "array", "items": { "$ref": "#/$defs/entityId" } }
+      }
+    },
+    "grant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "name"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^(profile|permissionSet):" },
+        "kind": { "enum": ["profile", "permissionSet"] },
+        "name": { "type": "string" },
+        "license": { "type": "string" },
+        "objects": { "type": "object", "additionalProperties": { "type": "array", "items": { "enum": ["read", "create", "edit", "delete", "viewAll", "modifyAll"] } } },
+        "fields": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object", "additionalProperties": false, "required": ["edit", "read"],
+            "properties": { "edit": { "type": "array", "items": { "type": "string" } }, "read": { "type": "array", "items": { "type": "string" } } }
+          }
+        },
+        "systemPermissions": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}

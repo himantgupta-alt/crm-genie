@@ -1,0 +1,199 @@
+{
+  "name": "StandardShippingRate",
+  "label": "Standard Shipping Rate",
+  "custom": false,
+  "keyPrefix": "5fy",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Standard Shipping Rate ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Standard Shipping Rate Name",
+      "type": "string",
+      "length": 255,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ShippingZoneId",
+      "label": "Shipping Rate Area ID",
+      "type": "reference",
+      "length": 18,
+      "required": true,
+      "custom": false,
+      "referenceTo": [
+        "ShippingRateArea"
+      ],
+      "relationshipName": "ShippingZone"
+    },
+    {
+      "name": "Price",
+      "label": "Price",
+      "type": "currency",
+      "precision": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ConditionFactor",
+      "label": "Condition Factor",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "OrderPriceFactor",
+        "OrderWeightFactor"
+      ]
+    },
+    {
+      "name": "ConditionRangeMin",
+      "label": "Condition Range Min",
+      "type": "double",
+      "precision": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ConditionRangeMax",
+      "label": "Condition Range Max",
+      "type": "double",
+      "precision": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TransitTimeMin",
+      "label": "Minimum Transit Time",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TransitTimeMax",
+      "label": "Maximum Transit Time",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TransitTimeUnit",
+      "label": "Unit of Transit Time",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Hours",
+        "Days",
+        "Weeks"
+      ]
+    },
+    {
+      "name": "ShippingCarrierMethodId",
+      "label": "Shipping Carrier Method ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "ShippingCarrierMethod"
+      ],
+      "relationshipName": "ShippingCarrierMethod"
+    },
+    {
+      "name": "WeightUnit",
+      "label": "Unit of Weight",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Pounds",
+        "Kilograms",
+        "Ounces",
+        "Grams"
+      ]
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    }
+  ]
+}

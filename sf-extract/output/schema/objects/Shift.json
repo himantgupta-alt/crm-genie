@@ -1,0 +1,333 @@
+{
+  "name": "Shift",
+  "label": "Shift",
+  "custom": false,
+  "keyPrefix": "0a0",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Shift ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnerId",
+      "label": "Owner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Group",
+        "User"
+      ],
+      "relationshipName": "Owner"
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ShiftNumber",
+      "label": "Shift Number",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Label",
+      "label": "Label",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "StartTime",
+      "label": "Start Time",
+      "type": "datetime",
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "EndTime",
+      "label": "End Time",
+      "type": "datetime",
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "ServiceResourceId",
+      "label": "Service Resource ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "ServiceResource"
+      ],
+      "relationshipName": "ServiceResource"
+    },
+    {
+      "name": "ServiceTerritoryId",
+      "label": "Service Territory ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "ServiceTerritory"
+      ],
+      "relationshipName": "ServiceTerritory"
+    },
+    {
+      "name": "StatusCategory",
+      "label": "Status Category",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Tentative",
+        "Published",
+        "Confirmed"
+      ]
+    },
+    {
+      "name": "Status",
+      "label": "Status",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "defaultValue": "Tentative",
+      "picklistValues": [
+        "Tentative",
+        "Published",
+        "Confirmed"
+      ]
+    },
+    {
+      "name": "TimeSlotType",
+      "label": "Time Slot Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "Normal",
+      "picklistValues": [
+        "Normal",
+        "Extended"
+      ]
+    },
+    {
+      "name": "WorkTypeId",
+      "label": "Work Type ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "WorkType"
+      ],
+      "relationshipName": "WorkType"
+    },
+    {
+      "name": "WorkTypeGroupId",
+      "label": "Work Type Group ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "WorkTypeGroup"
+      ],
+      "relationshipName": "WorkTypeGroup"
+    },
+    {
+      "name": "BackgroundColor",
+      "label": "Background Color",
+      "type": "string",
+      "length": 7,
+      "required": false,
+      "custom": false,
+      "inlineHelpText": "Set a background color to highlight shifts in the schedule view."
+    },
+    {
+      "name": "RecurrenceStartDate",
+      "label": "Recurrence Start Date",
+      "type": "date",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "RecurrenceEndDate",
+      "label": "Recurrence End Date",
+      "type": "date",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "RecurrencePattern",
+      "label": "Recurrence Pattern",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Type",
+      "label": "Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "Regular",
+      "picklistValues": [
+        "Regular",
+        "Recurring"
+      ]
+    },
+    {
+      "name": "AppointmentCategoryId",
+      "label": "Appointment Category ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "AppointmentCategory"
+      ],
+      "relationshipName": "AppointmentCategory"
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "EmailMessage",
+      "field": "RelatedToId",
+      "relationshipName": "Emails",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Event",
+      "field": "WhatId",
+      "relationshipName": "Events",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Note",
+      "field": "ParentId",
+      "relationshipName": "Notes",
+      "cascadeDelete": true
+    },
+    {
+      "child": "ShiftEngagementChannel",
+      "field": "ShiftId",
+      "relationshipName": "ShiftEngagementChannels",
+      "cascadeDelete": true
+    },
+    {
+      "child": "ShiftWorkTopic",
+      "field": "ShiftId",
+      "relationshipName": "ShiftTopics",
+      "cascadeDelete": true
+    },
+    {
+      "child": "Task",
+      "field": "WhatId",
+      "relationshipName": "Tasks",
+      "cascadeDelete": true
+    }
+  ]
+}

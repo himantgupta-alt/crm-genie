@@ -1,0 +1,242 @@
+{
+  "name": "CaseMilestone",
+  "label": "Case Milestone",
+  "custom": false,
+  "keyPrefix": "555",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Case Milestone ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CaseId",
+      "label": "Case ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Case"
+      ],
+      "relationshipName": "Case"
+    },
+    {
+      "name": "StartDate",
+      "label": "Start Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TargetDate",
+      "label": "Target Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CompletionDate",
+      "label": "Completion Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "MilestoneTypeId",
+      "label": "Milestone ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "MilestoneType"
+      ],
+      "relationshipName": "MilestoneType"
+    },
+    {
+      "name": "IsCompleted",
+      "label": "Completed",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsViolated",
+      "label": "Violation",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TargetResponseInMins",
+      "label": "Target Response (Mins)",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TargetResponseInHrs",
+      "label": "Target Response (Hours)",
+      "type": "double",
+      "precision": 6,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TargetResponseInDays",
+      "label": "Target Response (Days)",
+      "type": "double",
+      "precision": 6,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TimeRemainingInMins",
+      "label": "Time Remaining (Min:Sec)",
+      "type": "string",
+      "length": 10,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TimeRemainingInHrs",
+      "label": "Time Remaining (Hour:Min)",
+      "type": "string",
+      "length": 10,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TimeRemainingInDays",
+      "label": "Time Remaining (Days)",
+      "type": "double",
+      "precision": 6,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ElapsedTimeInMins",
+      "label": "Elapsed Time (Mins)",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ElapsedTimeInHrs",
+      "label": "Elapsed Time (Hours)",
+      "type": "double",
+      "precision": 6,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ElapsedTimeInDays",
+      "label": "Elapsed Time (Days)",
+      "type": "double",
+      "precision": 6,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TimeSinceTargetInMins",
+      "label": "Time Since Target (Min:Sec)",
+      "type": "string",
+      "length": 10,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TimeSinceTargetInHrs",
+      "label": "Time Since Target (Hour:Min)",
+      "type": "string",
+      "length": 10,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TimeSinceTargetInDays",
+      "label": "Time Since Target (Days)",
+      "type": "double",
+      "precision": 6,
+      "scale": 2,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "BusinessHoursId",
+      "label": "Business Hours ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "BusinessHours"
+      ],
+      "relationshipName": "BusinessHours"
+    }
+  ],
+  "childRelationships": []
+}

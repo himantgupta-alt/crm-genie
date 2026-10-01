@@ -1,0 +1,327 @@
+{
+  "name": "Dashboard",
+  "label": "Dashboard",
+  "custom": false,
+  "keyPrefix": "01Z",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Dashboard ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnerId",
+      "label": "Owner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "Owner"
+    },
+    {
+      "name": "FolderId",
+      "label": "Folder ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Folder",
+        "User"
+      ],
+      "relationshipName": "Folder"
+    },
+    {
+      "name": "FolderName",
+      "label": "Folder Name",
+      "type": "string",
+      "length": 256,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Title",
+      "label": "Title",
+      "type": "string",
+      "length": 80,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "DeveloperName",
+      "label": "Dashboard Unique Name",
+      "type": "string",
+      "length": 80,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "NamespacePrefix",
+      "label": "Namespace Prefix",
+      "type": "string",
+      "length": 15,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Description",
+      "label": "Description",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LeftSize",
+      "label": "Left Size",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Narrow",
+        "Medium",
+        "Wide"
+      ]
+    },
+    {
+      "name": "MiddleSize",
+      "label": "Middle Size",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Narrow",
+        "Medium",
+        "Wide"
+      ]
+    },
+    {
+      "name": "RightSize",
+      "label": "Right Size",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Narrow",
+        "Medium",
+        "Wide"
+      ]
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "RunningUserId",
+      "label": "Running User ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "RunningUser"
+    },
+    {
+      "name": "TitleColor",
+      "label": "Title Color",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TitleSize",
+      "label": "Title Size",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "TextColor",
+      "label": "Text Color",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "BackgroundStart",
+      "label": "Starting Color",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "BackgroundEnd",
+      "label": "Ending Color",
+      "type": "int",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "BackgroundDirection",
+      "label": "Background Fade Direction",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "defaultValue": "Diagonal",
+      "picklistValues": [
+        "TopToBottom",
+        "LeftToRight",
+        "Diagonal"
+      ]
+    },
+    {
+      "name": "Type",
+      "label": "Dashboard Running User",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "defaultValue": "SpecifiedUser",
+      "picklistValues": [
+        "SpecifiedUser",
+        "LoggedInUser",
+        "MyTeamUser"
+      ]
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "DashboardResultRefreshedDate",
+      "label": "Last refreshed for this user",
+      "type": "string",
+      "length": 256,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "DashboardResultRunningUser",
+      "label": "Running as",
+      "type": "string",
+      "length": 256,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ColorPalette",
+      "label": "Color Palette",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Default",
+        "gray",
+        "colorSafe",
+        "unity",
+        "justice",
+        "nightfall",
+        "sunrise",
+        "bluegrass",
+        "tropic",
+        "heat",
+        "dusk",
+        "pond",
+        "watermelon",
+        "fire",
+        "water",
+        "earth",
+        "accessible",
+        "branding"
+      ]
+    },
+    {
+      "name": "ChartTheme",
+      "label": "Chart Background",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "light",
+        "dark"
+      ]
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    }
+  ]
+}

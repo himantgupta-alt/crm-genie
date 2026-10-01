@@ -1,0 +1,387 @@
+{
+  "name": "ChangeRequest",
+  "label": "Change Request",
+  "custom": false,
+  "keyPrefix": "0oW",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Change Request ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnerId",
+      "label": "Owner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Group",
+        "User"
+      ],
+      "relationshipName": "Owner"
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ChangeRequestNumber",
+      "label": "Change Request Number",
+      "type": "string",
+      "length": 255,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created On",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified On",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Subject",
+      "label": "Subject",
+      "type": "string",
+      "length": 255,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "Description",
+      "label": "Description",
+      "type": "textarea",
+      "length": 32000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "StatusCode",
+      "label": "Status Code",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "New",
+      "picklistValues": [
+        "New",
+        "Open",
+        "Planning",
+        "Scheduled",
+        "Implementing",
+        "Reviewed",
+        "Approved",
+        "Closed",
+        "Canceled",
+        "Rejected"
+      ]
+    },
+    {
+      "name": "Status",
+      "label": "Status",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "defaultValue": "New",
+      "picklistValues": [
+        "New",
+        "Open",
+        "Planning",
+        "Scheduled",
+        "Implementing",
+        "Reviewed",
+        "Approved",
+        "Closed",
+        "Canceled",
+        "Rejected"
+      ]
+    },
+    {
+      "name": "Priority",
+      "label": "Priority",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "defaultValue": "Critical",
+      "picklistValues": [
+        "Critical",
+        "High",
+        "Moderate",
+        "Low"
+      ]
+    },
+    {
+      "name": "Impact",
+      "label": "Impact",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "defaultValue": "High",
+      "picklistValues": [
+        "High",
+        "Medium",
+        "Low"
+      ]
+    },
+    {
+      "name": "RiskLevel",
+      "label": "Risk Level",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "defaultValue": "High",
+      "picklistValues": [
+        "High",
+        "Medium",
+        "Low"
+      ]
+    },
+    {
+      "name": "Category",
+      "label": "Category",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "ChangeType",
+      "label": "Type of Change",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Standard",
+        "Normal",
+        "Major",
+        "Emergency"
+      ]
+    },
+    {
+      "name": "ReviewerId",
+      "label": "Reviewer ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "Reviewer"
+    },
+    {
+      "name": "FinalReviewNotes",
+      "label": "Final Review Notes",
+      "type": "textarea",
+      "length": 32000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "FinalReviewDateTime",
+      "label": "Reviewed On",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "BusinessReason",
+      "label": "Business Reason",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "BusinessJustification",
+      "label": "Business Justification",
+      "type": "textarea",
+      "length": 32000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "RiskImpactAnalysis",
+      "label": "Impact Analysis",
+      "type": "textarea",
+      "length": 32000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "RemediationPlan",
+      "label": "Remediation Plan",
+      "type": "textarea",
+      "length": 32000,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "EstimatedStartTime",
+      "label": "Start Time (Estimated)",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "EstimatedEndTime",
+      "label": "End Time (Estimated)",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ChangeRequestRelatedIssue",
+      "field": "ChangeRequestId",
+      "relationshipName": "ChangeRequestRelatedIssues",
+      "cascadeDelete": true
+    },
+    {
+      "child": "ChangeRequestRelatedIssue",
+      "field": "RelatedIssueId",
+      "relationshipName": "ChangeRequestRelatedIssues",
+      "cascadeDelete": true
+    },
+    {
+      "child": "ChangeRequestRelatedItem",
+      "field": "ChangeRequestId",
+      "relationshipName": "ChangeRequestRelatedItems",
+      "cascadeDelete": true
+    },
+    {
+      "child": "ContentDocumentLink",
+      "field": "LinkedEntityId",
+      "relationshipName": "ContentDocumentLinks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "EmailMessage",
+      "field": "RelatedToId",
+      "relationshipName": "Emails",
+      "cascadeDelete": false
+    },
+    {
+      "child": "EntityMilestone",
+      "field": "ParentEntityId",
+      "relationshipName": "EntityMilestones",
+      "cascadeDelete": true
+    },
+    {
+      "child": "Event",
+      "field": "WhatId",
+      "relationshipName": "Events",
+      "cascadeDelete": true
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "Note",
+      "field": "ParentId",
+      "relationshipName": "Notes",
+      "cascadeDelete": true
+    },
+    {
+      "child": "Task",
+      "field": "WhatId",
+      "relationshipName": "Tasks",
+      "cascadeDelete": true
+    },
+    {
+      "child": "WorkPlan",
+      "field": "ParentRecordId",
+      "relationshipName": "NewWorkPlans",
+      "cascadeDelete": true
+    },
+    {
+      "child": "WorkStep",
+      "field": "ParentRecordId",
+      "relationshipName": "NewWorkSteps",
+      "cascadeDelete": true
+    }
+  ]
+}

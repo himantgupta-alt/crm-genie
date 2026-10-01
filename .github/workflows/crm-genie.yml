@@ -1,0 +1,104 @@
+# CRM Genie pipeline: the agent crew's quality gates, then deployment to Azure.
+#
+#   verify  ── formula tests → blueprint rebuild + validation → DDL re-emit → parity harness → app smoke test
+#   deploy  ── package target/app → App Service (crmgenie-app-hg01) → health check     (main branch only)
+#
+# Generated artifacts are committed. The pipeline regenerates them and fails if anything differs, so what
+# reviewers approved in the repo is exactly what gets deployed.
+name: CRM Genie
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: crm-genie-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: '22'
+  APP_NAME: crmgenie-app-hg01
+
+jobs:
+  verify:
+    name: Verify (blueprint, DDL, parity, smoke)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: |
+            sf-extract/target/package-lock.json
+            sf-extract/target/app/package-lock.json
+
+      - name: Install
+        run: |
+          npm ci --prefix sf-extract/target --no-fund --no-audit
+          npm ci --prefix sf-extract/target/app --omit=dev --no-fund --no-audit
+
+      - name: Formula parser tests
+        run: node --test "sf-extract/scripts/test/*.test.js"
+
+      - name: Cartographer · rebuild and validate blueprint
+        run: |
+          node sf-extract/scripts/normalise-blueprint.js
+          node sf-extract/scripts/validate-blueprint.js
+          git diff --exit-code -- sf-extract/blueprint/blueprint.json sf-extract/blueprint/normalise-report.md
+
+      - name: Schema Smith · Logic Translator · Security Compiler · re-emit DDL
+        run: |
+          node sf-extract/scripts/emit-postgres.js
+          git diff --exit-code -- sf-extract/target/db
+
+      - name: Loader · Parity Auditor · parity harness (Postgres 18)
+        working-directory: sf-extract/target
+        run: node parity/run.js
+
+      - name: App smoke test (loader + API + rules + personas)
+        working-directory: sf-extract/target
+        run: node parity/app-smoke.mjs
+
+      - name: Parity report
+        if: always()
+        run: cat sf-extract/target/parity/report.md >> "$GITHUB_STEP_SUMMARY" || true
+
+  deploy:
+    name: Deploy to Azure
+    needs: verify
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    environment:
+      name: azure-dev
+      url: https://crmgenie-app-hg01.azurewebsites.net
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Package
+        run: |
+          cp sf-extract/demo/org-compiler.html sf-extract/target/app/public/compiler.html
+          npm ci --prefix sf-extract/target/app --omit=dev --no-fund --no-audit
+          cd sf-extract/target/app && zip -qr "$GITHUB_WORKSPACE/crmgenie.zip" . -x 'scripts/*'
+
+      - name: Deploy to App Service
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ env.APP_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: crmgenie.zip
+
+      - name: Health check
+        run: |
+          for i in $(seq 1 30); do
+            if curl -fsS https://${{ env.APP_NAME }}.azurewebsites.net/health; then echo; exit 0; fi
+            sleep 10
+          done
+          echo "health check failed" && exit 1

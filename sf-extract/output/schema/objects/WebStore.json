@@ -1,0 +1,253 @@
+{
+  "name": "WebStore",
+  "label": "Store",
+  "custom": false,
+  "keyPrefix": "0ZE",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Store ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OwnerId",
+      "label": "Owner ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Group",
+        "User"
+      ],
+      "relationshipName": "Owner"
+    },
+    {
+      "name": "IsDeleted",
+      "label": "Deleted",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Store Name",
+      "type": "string",
+      "length": 255,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "CreatedDate",
+      "label": "Created Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "CreatedById",
+      "label": "Created By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy"
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastViewedDate",
+      "label": "Last Viewed Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastReferencedDate",
+      "label": "Last Referenced Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Type",
+      "label": "Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "defaultValue": "B2B",
+      "picklistValues": [
+        "B2B",
+        "B2C",
+        "B2CE"
+      ]
+    },
+    {
+      "name": "OptionsGuestBrowsingEnabled",
+      "label": "Guest Browsing Enabled",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OptionsGuestCartEnabled",
+      "label": "Guest Cart Enabled",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OptionsGuestCheckoutEnabled",
+      "label": "Guest Checkout Enabled",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OptionsCartAsyncProcessingEnabled",
+      "label": "Cart Async Processing Enabled",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OptionsDuplicateCartItemsEnabled",
+      "label": "Duplicate Cart Items Enabled",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OptionsSkuDetectionEnabled",
+      "label": "Sku Detection Enabled",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OptionsPreserveGuestCartEnabled",
+      "label": "Preserve Guest Cart Enabled",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OptionsSplitShipmentEnabled",
+      "label": "Split Shipment Enabled",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "DefaultTaxLocaleType",
+      "label": "Tax Type",
+      "type": "picklist",
+      "length": 255,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "Net",
+        "Gross",
+        "Automatic"
+      ],
+      "inlineHelpText": "Choose Net if the product price doesn’t include tax. Choose Gross if the product price includes tax. Changing the tax type will effect any existing carts. We recommend clearing these carts to avoid any discrepancies."
+    },
+    {
+      "name": "ExternalReference",
+      "label": "External Reference ID",
+      "type": "textarea",
+      "length": 32000,
+      "required": false,
+      "custom": false
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "ApprovalSubmission",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalSubmissions",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ApprovalWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "ApprovalWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "FlowOrchestrationWorkItem",
+      "field": "RelatedRecordId",
+      "relationshipName": "FlowOrchestrationWorkItems",
+      "cascadeDelete": false
+    },
+    {
+      "child": "PendingOrderSummary",
+      "field": "SalesStoreId",
+      "relationshipName": "PendingOrderSummaries",
+      "cascadeDelete": false
+    },
+    {
+      "child": "ProcessException",
+      "field": "AttachedToId",
+      "relationshipName": "ProcessExceptions",
+      "cascadeDelete": true
+    },
+    {
+      "child": "PromotionSegmentSalesStore",
+      "field": "SalesStoreId",
+      "relationshipName": "PromotionSegmentSalesStores",
+      "cascadeDelete": true
+    },
+    {
+      "child": "WebStoreBuyerGroup",
+      "field": "WebStoreId",
+      "relationshipName": "WebStoreBuyerGroups",
+      "cascadeDelete": true
+    },
+    {
+      "child": "WebStoreCatalog",
+      "field": "SalesStoreId",
+      "relationshipName": "WebStoreCatalogs",
+      "cascadeDelete": true
+    },
+    {
+      "child": "WebStoreInventorySource",
+      "field": "WebStoreId",
+      "relationshipName": "WebStoreInventorySources",
+      "cascadeDelete": true
+    }
+  ]
+}

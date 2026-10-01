@@ -1,0 +1,180 @@
+{
+  "name": "UserRole",
+  "label": "Role",
+  "custom": false,
+  "keyPrefix": "00E",
+  "isHistory": false,
+  "recordTypes": [],
+  "fields": [
+    {
+      "name": "Id",
+      "label": "Role ID",
+      "type": "id",
+      "length": 18,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "Name",
+      "label": "Name",
+      "type": "string",
+      "length": 80,
+      "required": true,
+      "custom": false
+    },
+    {
+      "name": "ParentRoleId",
+      "label": "Parent Role ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "UserRole"
+      ],
+      "relationshipName": "ParentRole"
+    },
+    {
+      "name": "RollupDescription",
+      "label": "Description",
+      "type": "string",
+      "length": 80,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "OpportunityAccessForAccountOwner",
+      "label": "Opportunity Access Level for Account Owner",
+      "type": "picklist",
+      "length": 40,
+      "required": true,
+      "custom": false,
+      "picklistValues": [
+        "None",
+        "Read",
+        "Edit"
+      ]
+    },
+    {
+      "name": "CaseAccessForAccountOwner",
+      "label": "Case Access Level for Account Owner",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "None",
+        "Read",
+        "Edit"
+      ]
+    },
+    {
+      "name": "ContactAccessForAccountOwner",
+      "label": "Contact Access Level for Account Owner",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "None",
+        "Read",
+        "Edit"
+      ]
+    },
+    {
+      "name": "ForecastUserId",
+      "label": "User ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ]
+    },
+    {
+      "name": "MayForecastManagerShare",
+      "label": "May Forecast Manager Share",
+      "type": "boolean",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedDate",
+      "label": "Last Modified Date",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "LastModifiedById",
+      "label": "Last Modified By ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy"
+    },
+    {
+      "name": "SystemModstamp",
+      "label": "System Modstamp",
+      "type": "datetime",
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "DeveloperName",
+      "label": "Developer Name",
+      "type": "string",
+      "length": 80,
+      "required": false,
+      "custom": false
+    },
+    {
+      "name": "PortalAccountId",
+      "label": "Account ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "Account"
+      ]
+    },
+    {
+      "name": "PortalType",
+      "label": "Portal Type",
+      "type": "picklist",
+      "length": 40,
+      "required": false,
+      "custom": false,
+      "picklistValues": [
+        "None",
+        "CustomerPortal",
+        "Partner"
+      ]
+    },
+    {
+      "name": "PortalAccountOwnerId",
+      "label": "User ID",
+      "type": "reference",
+      "length": 18,
+      "required": false,
+      "custom": false,
+      "referenceTo": [
+        "User"
+      ]
+    }
+  ],
+  "childRelationships": [
+    {
+      "child": "User",
+      "field": "UserRoleId",
+      "relationshipName": "Users",
+      "cascadeDelete": false
+    }
+  ]
+}
