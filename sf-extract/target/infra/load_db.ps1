@@ -16,7 +16,9 @@ param(
   [string]$Server = 'crmgenie-pg-hg01',
   [switch]$Recreate
 )
-$ErrorActionPreference = 'Stop'
+# az writes warnings to stderr, which PowerShell 5.1 turns into terminating errors under 'Stop';
+# exit codes are checked explicitly instead.
+$ErrorActionPreference = 'Continue'
 . "$PSScriptRoot\common.ps1"
 
 az account set --subscription $Subscription | Out-Null

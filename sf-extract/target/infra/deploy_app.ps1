@@ -12,7 +12,9 @@ param(
   [string]$ResourceGroup = 'AZAP-agentic-finance',
   [string]$Site = 'crmgenie-app-hg01'
 )
-$ErrorActionPreference = 'Stop'
+# az writes warnings to stderr, which PowerShell 5.1 turns into terminating errors under 'Stop';
+# exit codes are checked explicitly instead.
+$ErrorActionPreference = 'Continue'
 . "$PSScriptRoot\common.ps1"
 
 $appDir = (Resolve-Path "$PSScriptRoot\..\app").Path

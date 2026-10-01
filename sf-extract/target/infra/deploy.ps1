@@ -17,7 +17,9 @@ param(
   [string]$SfInstanceUrl = 'https://demo-org-dev-ed.develop.my.salesforce.com',
   [switch]$WhatIf
 )
-$ErrorActionPreference = 'Stop'
+# az writes warnings to stderr, which PowerShell 5.1 turns into terminating errors under 'Stop';
+# exit codes are checked explicitly instead.
+$ErrorActionPreference = 'Continue'
 . "$PSScriptRoot\common.ps1"
 
 az account set --subscription $Subscription | Out-Null
