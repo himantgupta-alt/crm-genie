@@ -1,9 +1,13 @@
 [
   {
     "file": "SubscriptionService.applyDefaults.sql",
-    "implements": ["apex-class:SubscriptionService#applyDefaults"],
-    "entities": ["Subscription__c"],
-    "translatedBy": "Claude (logic translator role), 2026-10-01",
+    "implements": [
+      "apex-class:SubscriptionService#applyDefaults"
+    ],
+    "entities": [
+      "Subscription__c"
+    ],
+    "translatedBy": "Logic agent prompt (agents/prompts/logic-agent.md) in an interactive Claude session, 2026-10-01",
     "reviewed": false
   }
 ]

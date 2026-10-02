@@ -45,3 +45,5 @@ sf-extract/output/data/*
 sf-extract/target/parity/report.json
 sf-extract/target/parity/report.md
 sf-extract/target/app/public/compiler.html
+# Agent run records (prompts, responses, decisions) stay local; they can hold org data
+agents/runs/

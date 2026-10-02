@@ -1,0 +1,134 @@
+{
+  "name": "salesforce-to-client-cloud",
+  "description": "Moves a Salesforce application to the client's cloud in six stages, with a review gate after each stage.",
+  "workdir": "sf-extract",
+  "stages": [
+    {
+      "id": "extract",
+      "title": "Extract",
+      "gate": "G1",
+      "agents": [
+        {
+          "id": "extraction",
+          "name": "Extraction agent",
+          "kind": "deterministic",
+          "needs": ["Salesforce CLI login (sf org login web --alias myorg)"],
+          "steps": [
+            "node scripts/extract-schema.js",
+            "sf project retrieve start --manifest manifest/package.xml --target-org myorg",
+            "node scripts/extract-logic.js",
+            "node scripts/export-data.js"
+          ],
+          "produces": ["output/schema/", "output/logic/", "output/data/", "force-app/"],
+          "done_when": "Every business object described, metadata retrieved, data exported with Salesforce IDs"
+        }
+      ]
+    },
+    {
+      "id": "model",
+      "title": "Model",
+      "gate": "G2",
+      "agents": [
+        {
+          "id": "modelling",
+          "name": "Modelling agent",
+          "kind": "deterministic",
+          "steps": ["node scripts/normalise-blueprint.js", "node scripts/validate-blueprint.js"],
+          "produces": ["blueprint/blueprint.json", "blueprint/normalise-report.md"],
+          "done_when": "Blueprint validates against blueprint.schema.json with zero unresolved references"
+        }
+      ]
+    },
+    {
+      "id": "build",
+      "title": "Build",
+      "gate": "G3",
+      "agents": [
+        {
+          "id": "logic",
+          "name": "Logic agent",
+          "kind": "llm",
+          "module": "llm/logic-agent.js",
+          "prompt": "prompts/logic-agent.md",
+          "produces": ["blueprint/translations/*.sql", "blueprint/translations/index.json"],
+          "done_when": "Each pending Apex method is translated, or reported as blocked with a reason"
+        },
+        {
+          "id": "schema",
+          "name": "Schema agent",
+          "kind": "deterministic",
+          "steps": ["node scripts/emit-postgres.js"],
+          "produces": ["target/db/010_tables.sql", "target/db/020_views.sql", "target/db/030_rollups.sql"],
+          "done_when": "DDL generated for the object family; every column traces to a blueprint field",
+          "note": "Schema, Logic (rule compilation) and Security share one generator run: scripts/emit-postgres.js"
+        },
+        {
+          "id": "security",
+          "name": "Security agent",
+          "kind": "deterministic",
+          "steps": [],
+          "produces": ["target/db/060_security.sql"],
+          "done_when": "Each profile and permission set is a role; sharing enforced by row-level security",
+          "note": "Produced by the same emit-postgres.js run as the Schema agent"
+        }
+      ]
+    },
+    {
+      "id": "migrate",
+      "title": "Migrate",
+      "gate": "G4",
+      "agents": [
+        {
+          "id": "data-load",
+          "name": "Data load agent",
+          "kind": "deterministic",
+          "needs": ["PGHOST, PGUSER, PGPASSWORD, PGDATABASE for the target database (skipped when not set)"],
+          "steps": ["node target/app/scripts/load.js --recreate"],
+          "produces": ["target database: schema app, migration.sf_expected"],
+          "done_when": "All rows loaded in dependency order, roll-ups recomputed, auto-numbers resynced"
+        }
+      ]
+    },
+    {
+      "id": "verify",
+      "title": "Verify",
+      "gate": "G5",
+      "agents": [
+        {
+          "id": "verification",
+          "name": "Verification agent",
+          "kind": "deterministic",
+          "steps": ["node target/parity/run.js"],
+          "produces": ["target/parity/report.json", "target/parity/report.md"],
+          "done_when": "Every derived value matches the org; every rule case gives the expected outcome"
+        },
+        {
+          "id": "repair",
+          "name": "Repair agent",
+          "kind": "llm",
+          "runs": "on_failure",
+          "module": "llm/repair-agent.js",
+          "prompt": "prompts/repair-agent.md",
+          "produces": ["agents/runs/<run>/repair.patch", "agents/runs/<run>/repair.md"],
+          "done_when": "Root cause explained and a generator patch proposed for review; never applied without approval"
+        }
+      ]
+    },
+    {
+      "id": "deploy",
+      "title": "Deploy",
+      "gate": "G6",
+      "agents": [
+        {
+          "id": "pipeline",
+          "name": "CI/CD pipeline",
+          "kind": "pipeline",
+          "steps": [],
+          "produces": ["GitHub Actions run: .github/workflows/crm-genie.yml"],
+          "done_when": "Pipeline re-runs all checks and deploys to Azure App Service; /health returns ok",
+          "note": "Triggered by pushing the approved changes to main"
+        }
+      ]
+    }
+  ]
+}
