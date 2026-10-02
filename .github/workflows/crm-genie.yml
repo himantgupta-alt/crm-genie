@@ -1,10 +1,10 @@
-# CRM Genie pipeline: the agent crew's quality gates, then deployment to Azure.
+# Checks, then deployment to Azure App Service.
 #
-#   verify  ── formula tests → blueprint rebuild + validation → DDL re-emit → parity harness → app smoke test
-#   deploy  ── package target/app → App Service (crmgenie-app-hg01) → health check     (main branch only)
+#   verify: unit tests, blueprint and SQL regeneration, comparison with Salesforce data, app smoke test
+#   deploy: package target/app, deploy to crmgenie-app-hg01, health check (main branch only)
 #
-# Generated artifacts are committed. The pipeline regenerates them and fails if anything differs, so what
-# reviewers approved in the repo is exactly what gets deployed.
+# Generated files are committed. The pipeline regenerates them and fails if they differ, so the
+# deployed code is the code that was reviewed.
 name: CRM Genie
 
 on:
@@ -23,7 +23,7 @@ env:
 
 jobs:
   verify:
-    name: Verify (blueprint, DDL, parity, smoke)
+    name: Verify
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -43,25 +43,25 @@ jobs:
           # The migration console ships inside the app; it is copied in, not versioned twice.
           cp sf-extract/demo/org-compiler.html sf-extract/target/app/public/compiler.html
 
-      - name: Formula parser tests
+      - name: Unit tests
         run: node --test "sf-extract/scripts/test/*.test.js"
 
-      - name: Cartographer · rebuild and validate blueprint
+      - name: Rebuild and validate blueprint
         run: |
           node sf-extract/scripts/normalise-blueprint.js
           node sf-extract/scripts/validate-blueprint.js
           git diff --exit-code -- sf-extract/blueprint/blueprint.json sf-extract/blueprint/normalise-report.md
 
-      - name: Schema Smith · Logic Translator · Security Compiler · re-emit DDL
+      - name: Regenerate SQL
         run: |
           node sf-extract/scripts/emit-postgres.js
           git diff --exit-code -- sf-extract/target/db
 
-      - name: Loader · Parity Auditor · parity harness (Postgres 18)
+      - name: Compare with Salesforce data
         working-directory: sf-extract/target
         run: node parity/run.js
 
-      - name: App smoke test (loader + API + rules + personas)
+      - name: App smoke test
         working-directory: sf-extract/target
         run: node parity/app-smoke.mjs
 
@@ -70,7 +70,7 @@ jobs:
         run: cat sf-extract/target/parity/report.md >> "$GITHUB_STEP_SUMMARY" || true
 
   deploy:
-    name: Deploy to Azure
+    name: Deploy
     needs: verify
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
