@@ -1,6 +1,10 @@
 // Phase 2b (first slice): blueprint -> Postgres DDL for one object family.
 //
 //   node scripts/emit-postgres.js [Entity,Entity,...]     default: Subscription__c,Subscription_Line__c
+//   node scripts/emit-postgres.js --parts tables,views   only the listed parts (used by the individual agents)
+//
+// Parts and the agent that owns them: runtime, tables, views, rollups (Schema agent); guards, translations
+// (Logic agent); security (Security agent). Without --parts every part is emitted.
 //
 // Writes target/db/NNN_*.sql plus target/db/manifest.json (pins the blueprint contentHash).
 // Reads only blueprint/blueprint.json and blueprint/translations/ (agent-translated Apex, reviewed as code).
@@ -16,7 +20,10 @@ const OUT = path.join(ROOT, 'target', 'db');
 const S = 'app';
 
 const bp = JSON.parse(fs.readFileSync(path.join(BP_DIR, 'blueprint.json'), 'utf8'));
-const family = (process.argv[2] ?? 'Subscription__c,Subscription_Line__c').split(',');
+const argv = process.argv.slice(2);
+const partsIdx = argv.indexOf('--parts');
+const PARTS = partsIdx >= 0 ? new Set(argv[partsIdx + 1].split(',')) : null;
+const family = (argv.find((a, i) => !a.startsWith('--') && i !== partsIdx + 1) ?? 'Subscription__c,Subscription_Line__c').split(',');
 
 const entities = new Map(bp.entities.map((e) => [e.id, e]));
 const fields = new Map(bp.entities.flatMap((e) => e.fields.map((f) => [f.id, f])));
@@ -419,19 +426,29 @@ function translationsSql() {
 // ---------------------------------------------------------------- main
 
 function main() {
-  fs.rmSync(OUT, { recursive: true, force: true });
+  const all = !PARTS;
+  if (all) fs.rmSync(OUT, { recursive: true, force: true });
   fs.mkdirSync(OUT, { recursive: true });
   const translations = translationsSql();
-  const files = [
-    ['000_runtime.sql', runtimeSql()],
-    ['010_tables.sql', tablesSql()],
-    ['020_views.sql', viewsSql()],
-    ['030_rollups.sql', rollupsSql()],
-    ['040_guards.sql', guardsSql()],
-    ['050_translations.sql', translations.sql],
-    ['060_security.sql', securitySql()],
-  ].filter(([, sql]) => sql);
-  for (const [name, sql] of files) fs.writeFileSync(path.join(OUT, name), sql);
+  const parts = [
+    ['runtime', '000_runtime.sql', runtimeSql],
+    ['tables', '010_tables.sql', tablesSql],
+    ['views', '020_views.sql', viewsSql],
+    ['rollups', '030_rollups.sql', rollupsSql],
+    ['guards', '040_guards.sql', guardsSql],
+    ['translations', '050_translations.sql', () => translations.sql],
+    ['security', '060_security.sql', securitySql],
+  ];
+  if (PARTS) for (const p of PARTS) if (!parts.some(([k]) => k === p)) throw new Error(`unknown part ${p}`);
+  let written = 0;
+  for (const [key, name, build] of parts) {
+    if (!all && !PARTS.has(key)) continue;
+    const sql = build();
+    const file = path.join(OUT, name);
+    if (sql) { fs.writeFileSync(file, sql); written++; } else fs.rmSync(file, { force: true });
+  }
+  // The manifest always lists every part present, so a partial run keeps the others.
+  const files = fs.readdirSync(OUT).filter((f) => /^\d{3}_.*\.sql$/.test(f)).sort().map((n) => [n]);
 
   // What the family's automations need, and which of them this emit covers.
   const covered = new Set(translations.used.flatMap((t) => t.implements));
@@ -454,7 +471,7 @@ function main() {
     },
   };
   fs.writeFileSync(path.join(OUT, 'manifest.json'), JSON.stringify(manifest, null, 2));
-  console.log(`emitted ${files.length} files for ${family.join(', ')} -> target/db (blueprint ${bp.contentHash.slice(0, 12)})`);
+  console.log(`emitted ${all ? files.length : `${written} of ${files.length}`} files${all ? '' : ` (parts: ${[...PARTS].join(', ')})`} for ${family.join(', ')} -> target/db (blueprint ${bp.contentHash.slice(0, 12)})`);
   console.log(`  reference tables: ${manifest.referenceTables.join(', ')}`);
   console.log(`  translations: ${manifest.coverage.translations.map((t) => t.file).join(', ') || '-'}`);
   console.log(`  pending (not in this slice): ${manifest.coverage.pending.join(', ') || '-'}`);

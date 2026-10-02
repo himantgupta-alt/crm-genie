@@ -1,0 +1,15 @@
+{
+  "id": "repair",
+  "name": "Repair agent",
+  "stage": "verify",
+  "kind": "llm",
+  "runs": "on_failure",
+  "role": "When verification fails, finds the root cause and proposes a fix to the generator for a reviewer to approve.",
+  "inputs": ["target/parity/report.json (failed checks)", "target/db/*.sql", "sf-extract/scripts/emit-postgres.js"],
+  "tools": ["Claude (model in AGENT_MODEL, default claude-opus-5-5)", "git apply (after approval)"],
+  "prompt": "agents/repair/prompt.md",
+  "implementation": ["agents/repair/index.js"],
+  "outputs": ["agents/runs/<run>/repair.md", "agents/runs/<run>/repair.patch"],
+  "done_when": "Root cause explained and a generator patch proposed; never applied without approval",
+  "reviewer_checks": ["Root cause", "Patch limited to the generator", "No grant widened for user roles"]
+}

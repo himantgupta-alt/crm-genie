@@ -1,0 +1,23 @@
+{
+  "id": "data-load",
+  "name": "Data load agent",
+  "stage": "migrate",
+  "kind": "deterministic",
+  "role": "Moves the data into the target database in dependency order, keeping Salesforce record IDs, then recomputes roll-ups and records the Salesforce values used by verification.",
+  "inputs": ["sf-extract/output/data/*.csv", "target/db/*.sql", "target database connection (PGHOST, PGUSER, PGPASSWORD, PGDATABASE)"],
+  "tools": ["PostgreSQL client (pg)"],
+  "implementation": ["node target/app/scripts/load.js --recreate"],
+  "outputs": ["Target database: schema app with data", "migration.sf_expected (Salesforce values for verification)", "migration.run (load record)"],
+  "done_when": "All rows loaded with 0 rejected, roll-ups recomputed, auto-number counters resynced",
+  "reviewer_checks": ["Row counts per object match the export", "Rejected rows", "Roll-up recompute count"],
+  "scaling": {
+    "summary": "For large orgs this agent runs as a coordinator with parallel workers, not as a single process.",
+    "coordinator": "Builds the load plan from the blueprint's relations: objects grouped into dependency levels, each object split into partitions (by ID range or date), with a watermark for later deltas.",
+    "workers": "One worker per partition. Workers at the same dependency level run in parallel; each uses PostgreSQL COPY in batches and reports counts and checksums.",
+    "extraction": "Bulk API 2.0 with PK chunking, run in parallel per object within the org's API limits; files staged in cloud storage.",
+    "database": "Load mode defers write-time rules; indexes built after the bulk load; very large tables partitioned.",
+    "delta": "Change Data Capture or SystemModstamp watermarks keep the target in step until cutover; the final delta runs in a short write freeze.",
+    "reconciliation": "Per object and per partition: row counts, ID checksums and sampled field comparisons; derived values checked by the Verification agent.",
+    "files": "Attachments (ContentVersion) move on a separate path to blob storage."
+  }
+}

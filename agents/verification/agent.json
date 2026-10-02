@@ -1,0 +1,14 @@
+{
+  "id": "verification",
+  "name": "Verification agent",
+  "stage": "verify",
+  "kind": "deterministic",
+  "role": "Checks that the target behaves like Salesforce: recomputes every formula and roll-up and compares it with the value Salesforce stored, then replays rule cases.",
+  "inputs": ["target/db/*.sql", "sf-extract/output/data/*.csv", "target/parity/cases.json"],
+  "tools": ["PostgreSQL (in-memory PGlite)", "rule-case runner"],
+  "implementation": ["node target/parity/run.js"],
+  "outputs": ["target/parity/report.json", "target/parity/report.md"],
+  "done_when": "Every derived value matches the org; every rule case gives the expected outcome",
+  "reviewer_checks": ["Matched values per field", "Failed and pending rule cases"],
+  "on_failure": "repair"
+}

@@ -1,11 +1,14 @@
-// Logic agent (LLM part): translates Apex methods called by triggers on the object family into
-// PostgreSQL, using agents/prompts/logic-agent.md. Output goes to blueprint/translations/ with
-// "reviewed": false; the Schema agent's generator includes it, and the Verification agent tests it.
-// Methods the agent cannot translate yet (for example, they write to an object outside the family)
-// are recorded in blueprint/translations/blocked.json with the reason, and skipped on later runs.
+// Logic agent. Two parts:
+//  1. Apex: translates the Apex methods that triggers on the object family call into PostgreSQL with
+//     Claude, using agents/logic/prompt.md. Output goes to blueprint/translations/ with
+//     "reviewed": false. Methods it cannot translate yet (for example, they write to an object outside
+//     the family) are recorded in blueprint/translations/blocked.json with the reason.
+//  2. Rules: compiles validation rules into guards and includes the translations
+//     (emit-postgres.js --parts guards,translations). Row-local rules are CHECK constraints emitted
+//     with the tables by the Schema agent.
 const fs = require('fs');
 const path = require('path');
-const { MODEL, loadPrompt, ask, dryRun, fenced } = require('./claude');
+const { MODEL, loadPrompt, ask, dryRun, fenced } = require('../lib/claude');
 
 const readJson = (f, dflt) => (fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : dflt);
 
@@ -44,7 +47,7 @@ function fieldMapping(bp, family) {
   return lines.join('\n');
 }
 
-async function run({ root, runDir, family, live, log }) {
+async function translateApex({ root, runDir, family, live, log }) {
   const sfx = path.join(root, 'sf-extract');
   const bp = readJson(path.join(sfx, 'blueprint', 'blueprint.json'));
   const apex = readJson(path.join(sfx, 'output', 'logic', 'apex.json'), []);
@@ -62,7 +65,7 @@ async function run({ root, runDir, family, live, log }) {
     const cls = apex.find((a) => a.kind === 'class' && a.name === t.cls);
     const triggers = apex.filter((a) => a.kind === 'trigger' && a.body.includes(`${t.cls}.${t.method}`)).map((a) => a.body).join('\n\n');
     const svc = bp.services.find((s) => s.source.name === t.cls);
-    const prompt = loadPrompt(path.join(__dirname, '..', 'prompts', 'logic-agent.md'), {
+    const prompt = loadPrompt(path.join(__dirname, 'prompt.md'), {
       class: t.cls, method: t.method, apex: cls?.body ?? '', triggers: triggers || '(none)', mapping,
       constants: JSON.stringify(svc?.constants ?? {}), example,
     });
@@ -97,4 +100,17 @@ async function run({ root, runDir, family, live, log }) {
   return result;
 }
 
-module.exports = { run, pendingMethods };
+async function run(ctx) {
+  const apex = await translateApex(ctx);
+  const cmd = `node scripts/emit-postgres.js ${ctx.family.join(',')} --parts guards,translations`;
+  ctx.log(`$ ${cmd}`);
+  if (ctx.sh(cmd) !== 0) return { status: 'failed', summary: 'rule compilation failed', details: apex };
+  const parts = [
+    apex.translated.length && `${apex.translated.length} Apex method(s) translated`,
+    apex.blocked.length && `${apex.blocked.length} blocked`,
+    apex.pending.length && `${apex.pending.length} prompt(s) saved (dry run)`,
+  ].filter(Boolean);
+  return { status: 'ok', summary: `${parts.join(' · ') || 'no pending Apex'} · rules compiled to guards`, details: apex };
+}
+
+module.exports = { spec: require('./agent.json'), run, pendingMethods };

@@ -1,0 +1,18 @@
+{
+  "id": "extraction",
+  "name": "Extraction agent",
+  "stage": "extract",
+  "kind": "deterministic",
+  "role": "Reads everything the migration needs from the Salesforce org: schema, business logic, security and data.",
+  "inputs": ["Salesforce org (CLI alias myorg)"],
+  "tools": ["Salesforce CLI", "describe API", "Metadata API retrieve", "REST and Bulk API 2.0"],
+  "implementation": [
+    "sf-extract/scripts/extract-schema.js",
+    "sf project retrieve start --manifest manifest/package.xml",
+    "sf-extract/scripts/extract-logic.js",
+    "sf-extract/scripts/export-data.js"
+  ],
+  "outputs": ["sf-extract/output/schema/", "sf-extract/output/logic/", "sf-extract/output/data/", "sf-extract/force-app/"],
+  "done_when": "Every business object described, metadata retrieved, data exported with Salesforce IDs",
+  "reviewer_checks": ["Object and row counts look complete", "Objects that could not be exported are expected (system tables)"]
+}
