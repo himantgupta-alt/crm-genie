@@ -32,8 +32,21 @@ function personaOf(req) {
 }
 const httpError = (status, message, extra = {}) => Object.assign(new Error(message), { status, ...extra });
 
+// Retry a failed connection a few times: covers brief network drops to Azure Postgres (and the
+// single-connection test database used by the smoke test).
+async function connect() {
+  for (let attempt = 1; ; attempt++) {
+    try {
+      return await pool.connect();
+    } catch (e) {
+      if (attempt >= 4 || !['ECONNRESET', 'ECONNREFUSED', 'ETIMEDOUT', '57P01'].includes(e.code)) throw e;
+      await new Promise((r) => setTimeout(r, 250 * attempt));
+    }
+  }
+}
+
 async function tx(role, fn) {
-  const client = await pool.connect();
+  const client = await connect();
   let broken = false;
   try {
     await client.query('BEGIN');
