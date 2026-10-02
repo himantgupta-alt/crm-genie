@@ -25,6 +25,13 @@ az account set --subscription $Subscription | Out-Null
 $fqdn = az postgres flexible-server show -g $ResourceGroup -n $Server --query fullyQualifiedDomainName -o tsv
 if (-not $fqdn) { throw "server $Server not found" }
 
+# This machine's public IP changes between networks; keep the 'deployer' firewall rule current.
+$myIp = (Invoke-RestMethod 'https://api.ipify.org?format=json' -UseBasicParsing).ip
+az postgres flexible-server firewall-rule create -g $ResourceGroup --server-name $Server --name deployer `
+  --start-ip-address $myIp --end-ip-address $myIp --only-show-errors -o none
+if ($LASTEXITCODE -ne 0) { throw "could not open the firewall for $myIp" }
+Write-Host "firewall open for $myIp"
+
 $env:PGHOST = $fqdn
 $env:PGDATABASE = 'crm'
 $env:PGUSER = 'crmadmin'

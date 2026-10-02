@@ -1,7 +1,7 @@
 {
   "$schema": "./blueprint.schema.json",
   "blueprintVersion": "1.0.0",
-  "contentHash": "3824fb7c460f37f9226bb05aa1956f158d7e8ef61851e98f9e4bdea26eb920c1",
+  "contentHash": "fc71a1458dceae904eb2ffbe051a88a4c15e00ea72cbd8d5c673ec7891f63370",
   "source": {
     "platform": "salesforce",
     "apiVersion": "67.0",
@@ -381,7 +381,7 @@
         "internal": "ReadWrite",
         "external": "Private"
       },
-      "rowCount": 14,
+      "rowCount": 22,
       "fields": [
         {
           "id": "Account.Id",
@@ -134766,7 +134766,7 @@
       "historyOf": "Subscription_Line__c",
       "primaryKey": "Subscription_Line__History.Id",
       "sharing": {},
-      "rowCount": 69,
+      "rowCount": 219,
       "fields": [
         {
           "id": "Subscription_Line__History.Id",
@@ -134938,7 +134938,7 @@
         "inheritsFrom": "Subscription_Line__c.Subscription__c"
       },
       "fieldHistory": true,
-      "rowCount": 69,
+      "rowCount": 219,
       "fields": [
         {
           "id": "Subscription_Line__c.Id",
@@ -135097,7 +135097,7 @@
       "historyOf": "Subscription__c",
       "primaryKey": "Subscription__History.Id",
       "sharing": {},
-      "rowCount": 53,
+      "rowCount": 137,
       "fields": [
         {
           "id": "Subscription__History.Id",
@@ -135276,7 +135276,7 @@
         "inheritsFrom": "Subscription__c.Account__c"
       },
       "fieldHistory": true,
-      "rowCount": 47,
+      "rowCount": 107,
       "fields": [
         {
           "id": "Subscription__c.Id",
@@ -135548,7 +135548,7 @@
       "sharing": {
         "internal": "Private"
       },
-      "rowCount": 17,
+      "rowCount": 49,
       "fields": [
         {
           "id": "Task.Id",

@@ -5,7 +5,11 @@ document.getElementById('f').addEventListener('submit', async (e) => {
   const res = await fetch('/auth/login', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ username: document.getElementById('u').value, password: document.getElementById('p').value }),
+    body: JSON.stringify({
+      username: document.getElementById('u').value,
+      password: document.getElementById('p').value,
+      remember: document.getElementById('r').checked,
+    }),
   });
   if (res.ok) {
     const next = new URLSearchParams(location.search).get('next');

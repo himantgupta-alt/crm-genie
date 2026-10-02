@@ -9,6 +9,7 @@ const crypto = require('crypto');
 
 const COOKIE = 'cg_session';
 const TTL_MS = 12 * 60 * 60 * 1000;
+const REMEMBER_MS = 30 * 24 * 60 * 60 * 1000; // "Keep me signed in"
 const PUBLIC = new Set(['/health', '/login', '/auth/login', '/app.css', '/login.js']);
 
 function loadUsers() {
@@ -35,8 +36,8 @@ function verifyPassword(password, stored) {
 
 const b64url = (b) => Buffer.from(b).toString('base64url');
 const sign = (data) => crypto.createHmac('sha256', SECRET).update(data).digest('base64url');
-function issue(username, name) {
-  const body = b64url(JSON.stringify({ u: username, n: name, exp: Date.now() + TTL_MS }));
+function issue(username, name, ttl) {
+  const body = b64url(JSON.stringify({ u: username, n: name, exp: Date.now() + ttl }));
   return `${body}.${sign(body)}`;
 }
 function read(req) {
@@ -76,7 +77,8 @@ function install(app, pub) {
       return res.status(401).json({ error: { message: 'Your login attempt has failed. Make sure the username and password are correct.' } });
     }
     failures.delete(ip);
-    res.set('Set-Cookie', cookie(issue(username, user.name), TTL_MS / 1000));
+    const ttl = req.body?.remember ? REMEMBER_MS : TTL_MS;
+    res.set('Set-Cookie', cookie(issue(username, user.name, ttl), ttl / 1000));
     res.json({ ok: true });
   });
 

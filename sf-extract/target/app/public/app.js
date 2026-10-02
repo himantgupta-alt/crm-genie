@@ -391,7 +391,7 @@
     const total = d.fields.reduce((a, f) => a + f.total, 0);
     const matched = d.fields.reduce((a, f) => a + f.matched, 0);
     main.innerHTML = `
-      <div class="phead"><span class="picon">=</span><span class="kind">Parity</span><span class="acts"></span><h1>Salesforce vs CRM Genie</h1>
+      <div class="phead"><span class="picon">=</span><span class="kind">Verification</span><span class="acts"></span><h1>Salesforce vs CRM Genie</h1>
         <div class="highlights">
           <div><span class="k">Values matched</span><span class="v">${matched} / ${total}</span></div>
           <div><span class="k">Loaded</span><span class="v">${d.run ? dt(d.run.loaded_at) : '—'}</span></div>

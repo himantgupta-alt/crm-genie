@@ -11,6 +11,14 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const appDir = path.resolve(here, '..', 'app');
 const PGPORT = 54329;
 const PORT = 8091;
+// Expected sizes come from the org export, so the test follows the data as the org grows.
+import fs from 'node:fs';
+const csvRows = (name) => fs.readFileSync(path.resolve(here, '..', '..', 'output', 'data', `${name}.csv`), 'utf8')
+  .split('\n').slice(1).filter((l) => /^[a-zA-Z0-9]{18},/.test(l)).length;
+const SUBS = csvRows('Subscription__c');
+const LINES = csvRows('Subscription_Line__c');
+const DERIVED = SUBS * 4 + LINES * 2; // 4 derived fields on a subscription, 2 on a line
+
 const env = { ...process.env, PGHOST: '127.0.0.1', PGPORT: String(PGPORT), PGUSER: 'postgres', PGDATABASE: 'postgres', PGSSLMODE: 'disable', PG_POOL_MAX: '1', PORT: String(PORT), SF_INSTANCE_URL: 'https://example.invalid' };
 
 const run = (args, opts = {}) => new Promise((resolve, reject) => {
@@ -56,9 +64,9 @@ try {
   check('meta (permset) MRR editable, Line Count read-only', metaP.data.subscription.fls.monthly_recurring_revenue.edit && !metaP.data.subscription.fls.line_count.edit && metaP.data.subscription.fls.line_count.read);
 
   const home = await call('GET', '/api/home');
-  check('home KPIs', home.status === 200 && home.data.kpi.total === 47, `active MRR ${home.data.kpi.active_mrr}, active ${home.data.kpi.active}`);
+  check('home KPIs', home.status === 200 && home.data.kpi.total === SUBS, `${SUBS} subscriptions · active MRR ${home.data.kpi.active_mrr}, active ${home.data.kpi.active}`);
   const list = await call('GET', '/api/subscriptions');
-  check('list 47 subscriptions', list.data.rows.length === 47);
+  check(`list ${SUBS} subscriptions`, list.data.rows.length === SUBS);
   const active = list.data.rows.find((r) => r.status === 'Active');
   const cancelled = list.data.rows.find((r) => r.status === 'Cancelled');
   const rec = await call('GET', `/api/subscriptions/${active.id}`);
@@ -95,7 +103,8 @@ try {
   const tot = par.data.fields.reduce((a, f) => a + f.total, 0);
   const m = par.data.fields.reduce((a, f) => a + f.matched, 0);
   // Two values changed above (MRR edit → annual value; added line → line count and total), so allow for them.
-  check('parity endpoint', par.status === 200 && tot === 326 && m >= 322, `${m}/${tot} after test edits · export day ${par.data.asOf}`);
+  // The edits above change up to 3 derived values (annual value, line count, total line value).
+  check('parity endpoint', par.status === 200 && tot === DERIVED && m >= DERIVED - 4, `${m}/${tot} after test edits · export day ${par.data.asOf}`);
 
   // Production mode: sign-in required everywhere except /health and the login page.
   // PGlite's socket server serves one connection; restart it so the new server process can connect.
