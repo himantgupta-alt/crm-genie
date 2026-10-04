@@ -341,6 +341,10 @@ app.use((req, res, next) => {
   next();
 });
 app.get('/compiler', (_req, res) => res.sendFile(path.join(pub, 'compiler.html')));
+// Plain deep links (for slides and emails, where #fragments are often dropped).
+for (const page of ['home', 'accounts', 'subscriptions', 'parity']) {
+  app.get(`/${page}`, (_req, res) => res.redirect(`/#/${page}`));
+}
 app.use(express.static(pub));
 app.get('*', (_req, res) => res.sendFile(path.join(pub, 'index.html')));
 
