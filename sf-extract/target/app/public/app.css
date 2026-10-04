@@ -138,6 +138,7 @@ tbody tr:last-child td { border-bottom: 0; }
 .formactions { display: flex; gap: 8px; justify-content: center; padding: 12px; border-top: 1px solid var(--line); background: var(--sunk); border-radius: 0 0 10px 10px; position: sticky; bottom: 0; }
 .related td .btn { margin-left: 4px; }
 .addline { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.7fr) minmax(0, 0.8fr) auto; gap: 8px; align-items: end; padding: 12px 16px; border-top: 1px solid var(--line); }
+.addline[hidden] { display: none; }
 .addline label { display: grid; gap: 2px; font-size: 12px; color: var(--muted); }
 .addline input, .addline select { border: 1px solid var(--line-strong); border-radius: 6px; padding: 5px 8px; background: var(--surface); min-width: 0; width: 100%; }
 .enf { font: 11.5px var(--mono); color: var(--faint); }

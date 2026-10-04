@@ -169,8 +169,9 @@
   const pageHead = (icon, kind, title, acts, sfid) => `<div class="phead"><span class="picon">${icon}</span><span class="kind">${esc(kind)}</span><span class="acts">${acts}</span><h1>${esc(title)}</h1>${sfid ? `<p class="sfid">Salesforce Id <span class="mono">${esc(sfid)}</span></p>` : ''}</div>`;
   const staticField = (label, valueHtml) => `<div class="field"><span class="lbl">${esc(label)}</span><div class="val">${valueHtml}</div></div>`;
   const laterWave = (obj, what) => `<p class="note">${esc(obj)} is a reference record in the Subscription domain. ${esc(what)} belong to domains migrated in a later wave; open the record in Salesforce to see them.</p>`;
-  // Related | Details tabs. The last tab chosen is kept while moving between records, as Salesforce does.
-  let lastTab = 'related';
+  // Related | Details tabs. Opens on Details, as the org's record pages do; the last tab chosen is kept
+  // while moving between records.
+  let lastTab = 'details';
   function tabbed(panels, want = lastTab) {
     const cur = panels.some((p) => p.key === want) ? want : panels[0].key;
     return `<div class="rtabs" role="tablist">${panels.map((p) => `<button type="button" role="tab" id="tab-${p.key}" aria-controls="panel-${p.key}" aria-selected="${p.key === cur}" data-rtab="${p.key}">${esc(p.label)}</button>`).join('')}</div>
@@ -336,13 +337,13 @@
     const canAdd = fl.quantity.create && fl.unit_price.create;
     const canEdit = fl.quantity.edit;
     return `<section class="card related" aria-label="Subscription Lines">
-      <div class="card-head"><h2>Subscription Lines (${d.lines.length})</h2></div>
+      <div class="card-head"><h2>Subscription Lines (${d.lines.length})</h2>${canAdd ? '<button class="btn sm" type="button" id="l-new" aria-expanded="false" aria-controls="l-form">New</button>' : ''}</div>
       <div id="lerr" style="padding:0 16px"></div>
       <div class="tablewrap"><table><thead><tr>${cols.map((f) => `<th class="${['currency', 'number'].includes(f.type) ? 'num' : ''}">${esc(f.label)}</th>`).join('')}<th></th></tr></thead><tbody>
       ${d.lines.map((l) => `<tr>${cols.map((f) => `<td class="${['currency', 'number'].includes(f.type) ? 'num' : ''}">${!fl[f.col].read ? locked : f.col === 'line_number' ? `<a href="#/lines/${esc(l.id)}">${show(f, l)}</a>` : show(f, l)}</td>`).join('')}
         <td class="num">${canEdit ? `<button class="btn sm" type="button" data-inc="${esc(l.id)}" data-q="${esc(l.quantity)}" aria-label="Add one to quantity of ${esc(l.line_number)}">+1</button>` : ''}<button class="btn sm danger" type="button" data-ldel="${esc(l.id)}" aria-label="Delete ${esc(l.line_number)}">Delete</button></td></tr>`).join('') || `<tr><td colspan="${cols.length + 1}" class="count">No lines</td></tr>`}
       </tbody></table></div>
-      ${canAdd ? `<div class="addline">
+      ${canAdd ? `<div class="addline" id="l-form" hidden>
         <label>Product<select id="l-product"><option value="">--None--</option>${(lk.product2 || []).map((p) => `<option value="${esc(p.id)}">${esc(p.name)}</option>`).join('')}</select></label>
         <label>Quantity<input id="l-qty" type="number" step="1" value="1"></label>
         <label>Unit Price<input id="l-price" type="number" step="0.01" value="100"></label>
@@ -351,6 +352,12 @@
   }
   function wireLines(id, d) {
     const fail = (e) => { $('#lerr').innerHTML = errBox(e); };
+    $('#l-new')?.addEventListener('click', (e) => {
+      const form = $('#l-form');
+      form.hidden = !form.hidden;
+      e.currentTarget.setAttribute('aria-expanded', String(!form.hidden));
+      if (!form.hidden) $('#l-product').focus();
+    });
     $('#l-add')?.addEventListener('click', async () => {
       try {
         await api(`/api/subscriptions/${encodeURIComponent(id)}/lines`, { method: 'POST', body: { product_id: $('#l-product').value, quantity: $('#l-qty').value, unit_price: $('#l-price').value } });
