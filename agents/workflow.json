@@ -1,16 +1,16 @@
 {
   "name": "salesforce-to-client-cloud",
-  "description": "Moves a Salesforce application to the client's cloud in six stages, with a review gate after each stage. Each agent lives in its own folder (agent.json + index.js).",
+  "description": "Moves a Salesforce application to the client's cloud in six transformation phases (Discover, Design, Build, Migrate, Validate, Go-live), with a review gate after each phase. Each agent lives in its own folder (agent.json + index.js).",
   "workdir": "sf-extract",
-  "stages": [
-    { "id": "extract", "title": "Extract", "gate": "G1", "agents": ["extraction"] },
-    { "id": "model", "title": "Model", "gate": "G2", "agents": ["modelling"] },
+  "phases": [
+    { "id": "discover", "title": "Discover", "gate": "G1", "agents": ["extraction"] },
+    { "id": "design", "title": "Design", "gate": "G2", "agents": ["modelling"] },
     { "id": "build", "title": "Build", "gate": "G3", "agents": ["schema", "logic", "security"] },
     { "id": "migrate", "title": "Migrate", "gate": "G4", "agents": ["data-load"] },
-    { "id": "verify", "title": "Verify", "gate": "G5", "agents": ["verification"], "on_failure": "repair" },
+    { "id": "validate", "title": "Validate", "gate": "G5", "agents": ["verification"], "on_failure": "repair" },
     {
-      "id": "deploy",
-      "title": "Deploy",
+      "id": "go-live",
+      "title": "Go-live",
       "gate": "G6",
       "agents": [],
       "pipeline": ".github/workflows/crm-genie.yml",

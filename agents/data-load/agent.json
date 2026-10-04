@@ -1,7 +1,7 @@
 {
   "id": "data-load",
   "name": "Data load agent",
-  "stage": "migrate",
+  "phase": "migrate",
   "kind": "deterministic",
   "role": "Moves the data into the target database in dependency order, keeping Salesforce record IDs, then recomputes roll-ups and records the Salesforce values used by verification.",
   "inputs": ["sf-extract/output/data/*.csv", "target/db/*.sql", "target database connection (PGHOST, PGUSER, PGPASSWORD, PGDATABASE)"],

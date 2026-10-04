@@ -1,7 +1,7 @@
 {
   "id": "modelling",
   "name": "Modelling agent",
-  "stage": "model",
+  "phase": "design",
   "kind": "deterministic",
   "role": "Builds one platform-independent model of the org: entities, fields, relations, formulas and rules as expression trees, security, and the client's naming.",
   "inputs": ["sf-extract/output/", "sf-extract/blueprint/vocabulary.overrides.json"],

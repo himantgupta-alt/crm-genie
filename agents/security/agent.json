@@ -1,7 +1,7 @@
 {
   "id": "security",
   "name": "Security agent",
-  "stage": "build",
+  "phase": "build",
   "kind": "deterministic",
   "role": "Turns profiles, permission sets and sharing into database roles, column-level grants and row-level security.",
   "inputs": ["sf-extract/blueprint/blueprint.json (security grants, sharing models)"],

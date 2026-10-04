@@ -1,11 +1,12 @@
 # Agents
 
-The migration runs as a workflow of eight agents in six stages, with a review gate after each stage.
+The migration runs as a workflow of eight agents in six standard transformation phases (Discover, Design, Build, Migrate,
+Validate, Go-live), with a review gate after each phase.
 Each agent is a folder with a spec and an entry point:
 
 ```
 agents/
-  workflow.json          stages, agents per stage, review gates
+  workflow.json          phases, agents per phase, review gates
   run.js                 runs the workflow (node agents/run.js --list shows every agent)
   lib/claude.js          Claude client shared by the LLM agents
   extraction/            agent.json + index.js
@@ -21,17 +22,17 @@ agents/
 `agent.json` states the agent's role, inputs, tools, outputs, completion check and what the reviewer
 checks at the gate. `index.js` runs the agent and returns its status and a summary for the gate.
 
-| Stage | Agent | Type | Calls | Produces |
+| Phase | Agent | Type | Calls | Produces |
 |---|---|---|---|---|
-| 1 Extract | Extraction | Deterministic | `sf-extract/scripts/extract-schema.js`, `extract-logic.js`, `export-data.js`, Salesforce CLI | `output/schema`, `output/logic`, `output/data` |
-| 2 Model | Modelling | Deterministic | `normalise-blueprint.js`, `validate-blueprint.js`, `formula.js` | `blueprint/blueprint.json` |
+| 1 Discover | Extraction | Deterministic | `sf-extract/scripts/extract-schema.js`, `extract-logic.js`, `export-data.js`, Salesforce CLI | `output/schema`, `output/logic`, `output/data` |
+| 2 Design | Modelling | Deterministic | `normalise-blueprint.js`, `validate-blueprint.js`, `formula.js` | `blueprint/blueprint.json` |
 | 3 Build | Schema | Deterministic | `emit-postgres.js --parts runtime,tables,views,rollups` | `target/db/000–030` |
 | 3 Build | Logic | Claude for Apex, deterministic for rules | `logic/prompt.md`; `emit-postgres.js --parts guards,translations` | `blueprint/translations/`, `target/db/040–050` |
 | 3 Build | Security | Deterministic | `emit-postgres.js --parts security` | `target/db/060_security.sql` |
 | 4 Migrate | Data load | Deterministic | `target/app/scripts/load.js` | Loaded target database |
-| 5 Verify | Verification | Deterministic | `target/parity/run.js` + `cases.json` | `target/parity/report.json` |
-| 5 Verify | Repair (on failure) | Claude | `repair/prompt.md` | Proposed generator patch |
-| 6 Deploy | CI/CD pipeline | Pipeline | `.github/workflows/crm-genie.yml` | App deployed to Azure App Service |
+| 5 Validate | Verification | Deterministic | `target/parity/run.js` + `cases.json` | `target/parity/report.json` |
+| 5 Validate | Repair (on failure) | Claude | `repair/prompt.md` | Proposed generator patch |
+| 6 Go-live | CI/CD pipeline | Pipeline | `.github/workflows/crm-genie.yml` | App deployed to Azure App Service |
 
 The deterministic agents do most of the work: the same input gives the same output, so results are
 repeatable and reviewable. Claude is used where code must be understood and rewritten (Apex) and where a
@@ -43,9 +44,9 @@ change is then tested by the Verification agent and the pipeline.
 ```
 cd agents && npm install
 node run.js --list          # agents and what they do
-node run.js                 # Model → Deploy, asks for approval at each gate
-node run.js --from extract  # include extraction (needs: sf org login web --alias myorg)
-node run.js --to verify     # stop after a stage
+node run.js                 # Design → Go-live, asks for approval at each gate
+node run.js --from discover # include extraction (needs: sf org login web --alias myorg)
+node run.js --to validate   # stop after a phase
 node run.js --yes           # approve every gate automatically (CI)
 node run.js --dry-run       # LLM agents save their prompts without calling Claude
 ```
@@ -59,7 +60,7 @@ responses of the LLM agents.
 
 ## Review gates
 
-At each gate the reviewer approves, rejects with a comment (the stage re-runs), or stops the run. Logic
+At each gate the reviewer approves, rejects with a comment (the phase re-runs), or stops the run. Logic
 agent translations are written with `"reviewed": false` until approved. A Repair agent patch is applied
 with `git apply` only after approval, and only to the generator (`sf-extract/scripts/`).
 

@@ -1,7 +1,7 @@
 {
   "id": "repair",
   "name": "Repair agent",
-  "stage": "verify",
+  "phase": "validate",
   "kind": "llm",
   "runs": "on_failure",
   "role": "When verification fails, finds the root cause and proposes a fix to the generator for a reviewer to approve.",

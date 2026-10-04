@@ -1,10 +1,10 @@
 #!/usr/bin/env node
-// Runs the migration workflow (agents/workflow.json): six stages, a review gate after each.
+// Runs the migration workflow (agents/workflow.json): six transformation phases, a review gate after each.
 // Each agent is a folder under agents/ with agent.json (spec) and index.js (run).
 //
-//   node agents/run.js                       model -> deploy, asks for approval at every gate
-//   node agents/run.js --from extract        include extraction (needs `sf org login web --alias myorg`)
-//   node agents/run.js --to verify           stop after a stage
+//   node agents/run.js                       design -> go-live, asks for approval at every gate
+//   node agents/run.js --from discover       include extraction (needs `sf org login web --alias myorg`)
+//   node agents/run.js --to validate         stop after a phase
 //   node agents/run.js --yes                 approve every gate automatically (CI)
 //   node agents/run.js --dry-run             LLM agents save their prompts but do not call Claude
 //   node agents/run.js --list                print the agents and what they do
@@ -27,10 +27,10 @@ const agent = (id) => require(path.join(__dirname, id));
 const args = process.argv.slice(2);
 const opt = (name, dflt) => { const i = args.indexOf(name); return i >= 0 ? args[i + 1] : dflt; };
 const flag = (name) => args.includes(name);
-const ids = wf.stages.map((s) => s.id);
+const ids = wf.phases.map((s) => s.id);
 
 if (flag('--list')) {
-  for (const s of wf.stages) {
+  for (const s of wf.phases) {
     console.log(`${s.gate}  ${s.title}`);
     for (const id of [...s.agents, ...(s.on_failure ? [s.on_failure] : [])]) {
       const a = agent(id).spec;
@@ -41,14 +41,14 @@ if (flag('--list')) {
   process.exit(0);
 }
 
-const from = opt('--from', 'model');
-const to = opt('--to', 'deploy');
+const from = opt('--from', 'design');
+const to = opt('--to', 'go-live');
 const family = opt('--family', 'Subscription__c,Subscription_Line__c').split(',');
 const autoApprove = flag('--yes');
 const hasCreds = !!(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN || process.env.ANTHROPIC_PROFILE
   || fs.existsSync(path.join(os.homedir(), '.config', 'anthropic')));
 const live = !flag('--dry-run') && hasCreds;
-if (!ids.includes(from) || !ids.includes(to)) { console.error(`stages are: ${ids.join(', ')}`); process.exit(2); }
+if (!ids.includes(from) || !ids.includes(to)) { console.error(`phases are: ${ids.join(', ')}`); process.exit(2); }
 
 const reviewer = process.env.REVIEWER || os.userInfo().username;
 const runId = new Date().toISOString().replace(/[-:]/g, '').replace(/\..+/, '').replace('T', '-');
@@ -101,8 +101,8 @@ async function runAgent(id, stageRec) {
 
 // ---------------------------------------------------------------- main
 (async () => {
-  console.log(`Run ${runId} · ${wf.name} · stages ${from} → ${to} · reviewer ${reviewer} · LLM agents ${live ? 'live' : 'dry run'}`);
-  const active = wf.stages.slice(ids.indexOf(from), ids.indexOf(to) + 1);
+  console.log(`Run ${runId} · ${wf.name} · phases ${from} → ${to} · reviewer ${reviewer} · LLM agents ${live ? 'live' : 'dry run'}`);
+  const active = wf.phases.slice(ids.indexOf(from), ids.indexOf(to) + 1);
 
   for (const stage of active) {
     console.log(`\n━━ ${stage.title} (${stage.gate}) ━━`);

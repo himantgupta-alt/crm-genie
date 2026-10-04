@@ -1,7 +1,7 @@
 {
   "id": "logic",
   "name": "Logic agent",
-  "stage": "build",
+  "phase": "build",
   "kind": "llm",
   "role": "Turns business logic into database logic: compiles validation rules into constraints and guards, and translates Apex that triggers call into PostgreSQL with Claude.",
   "inputs": ["sf-extract/blueprint/blueprint.json", "sf-extract/output/logic/apex.json", "sf-extract/blueprint/translations/ (approved examples)"],

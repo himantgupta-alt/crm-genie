@@ -134,6 +134,7 @@ main { padding: 18px 22px 40px; display: grid; gap: 16px; align-content: start; 
 .node .top { display: flex; align-items: center; gap: 8px; }
 .node .ic { width: 26px; height: 26px; border-radius: 6px; background: var(--sunk); border: 1px solid var(--line); display: grid; place-items: center; font: 600 10.5px var(--mono); color: var(--muted); flex: none; }
 .node .nm { font-weight: 600; font-size: 13.5px; line-height: 1.2; }
+.node .ph { font-size: 10px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
 .node .rl { font-size: 11.5px; color: var(--muted); line-height: 1.3; }
 .node .ft { display: flex; justify-content: space-between; align-items: center; gap: 6px; margin-top: auto; }
 .node .mt { font: 500 11px var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; text-align: right; }
@@ -813,7 +814,7 @@ Blueprint fc71a1458dce. **` + (st.parityPassed ? 'PARITY OK' : 'PARITY FAILED') 
   // ------------------------------------------------------------ agents and their artifacts
   const AGENTS = [
     {
-      key: 'EX', name: 'Extraction', role: 'Reads schema, metadata and data from the org', metric: '505 objects',
+      key: 'EX', phase: 'Discover', name: 'Extraction', role: 'Reads schema, metadata and data from the org', metric: '505 objects',
       mode: 'Deterministic', tools: ['sf CLI', 'describe API', 'metadata retrieve', 'Bulk API 2.0'],
       done: 'Every business object described, metadata retrieved, data exported with Ids intact',
       input: { path: 'connection · myorg', lang: 'sh', code: R`sf project retrieve start --manifest manifest/package.xml --target-org myorg
@@ -947,7 +948,7 @@ node scripts/export-data.js` },
       summary: [['505', 'objects'], ['8', 'validation rules'], ['6', 'formulas and roll-ups'], ['1,322', 'rows exported']],
     },
     {
-      key: 'MO', name: 'Modelling', role: 'Builds the vendor-neutral blueprint and vocabulary', metric: '9,857 fields',
+      key: 'MO', phase: 'Design', name: 'Modelling', role: 'Builds the vendor-neutral blueprint and vocabulary', metric: '9,857 fields',
       mode: 'Deterministic', tools: ['formula parser', 'JSON Schema 2020-12', 'integrity checks'],
       done: 'Blueprint validates against the schema with zero unresolved references',
       input: { path: 'output/ from Extraction', lang: 'text', code: R`output/schema/objects/*.json          505 objects
@@ -1041,7 +1042,7 @@ ${VOCAB_DEFAULT.filter(([k]) => k.includes('.')).map(([k]) => `      "${k}": "${
       summary: [['505', 'entities'], ['9,857', 'fields'], ['1,933', 'relations'], ['0', 'warnings']],
     },
     {
-      key: 'SH', name: 'Schema', role: 'Generates tables, keys, formulas and roll-ups', metric: '6 tables',
+      key: 'SH', phase: 'Build', name: 'Schema', role: 'Generates tables, keys, formulas and roll-ups', metric: '6 tables',
       mode: 'Deterministic', tools: ['emit-postgres', 'formula → SQL compiler'],
       done: 'DDL applies on Postgres 18 and every column traces to a blueprint field',
       input: { path: 'blueprint fields (excerpt)', lang: 'text', code: R`Subscription__c.MRR__c              currency  numeric(16,2)
@@ -1070,7 +1071,7 @@ Subscription_Line__c.Account_Name__c formula  Subscription__r.Account__r.Name  v
       summary: [['2', 'family tables'], ['4', 'reference tables'], ['4', 'CHECK constraints'], ['2', 'views']],
     },
     {
-      key: 'LG', name: 'Logic', role: 'Compiles validation rules and translates Apex', metric: '6 rules · 1 Apex',
+      key: 'LG', phase: 'Build', name: 'Logic', role: 'Compiles validation rules and translates Apex', metric: '6 rules · 1 Apex',
       mode: 'Deterministic + LLM (Apex)', tools: ['formula → SQL compiler', 'Claude', 'translation registry'],
       done: 'Every family rule enforced; Apex translations registered with provenance',
       input: { path: 'apex-class:SubscriptionService#applyDefaults', lang: 'apex', code: R`public static void applyDefaults(List<Subscription__c> subs) {
@@ -1111,7 +1112,7 @@ Subscription_Line__c.Account_Name__c formula  Subscription__r.Account__r.Name  v
       summary: [['4', 'CHECK constraints'], ['2', 'write guards'], ['1', 'Apex method'], ['4', 'deferred']],
     },
     {
-      key: 'SE', name: 'Security', role: 'Maps profiles, permission sets and sharing', metric: '3 roles · 12 policies',
+      key: 'SE', phase: 'Build', name: 'Security', role: 'Maps profiles, permission sets and sharing', metric: '3 roles · 12 policies',
       mode: 'Deterministic', tools: ['emit-postgres (security)', 'column grants', 'row-level security'],
       done: 'Each profile and permission set is a role; sharing is enforced by policies',
       input: { path: 'permissionsets/Subscription_Management (excerpt)', lang: 'xml', code: R`<fieldPermissions>
@@ -1144,7 +1145,7 @@ Subscription_Line__c.Account_Name__c formula  Subscription__r.Account__r.Name  v
       summary: [['3', 'roles'], ['12', 'policies'], ['11', 'editable columns'], ['3', 'read-only columns']],
     },
     {
-      key: 'DL', name: 'Data load', role: 'Loads org data in dependency order', metric: '416 rows',
+      key: 'DL', phase: 'Migrate', name: 'Data load', role: 'Loads org data in dependency order', metric: '416 rows',
       mode: 'Deterministic', tools: ['PostgreSQL 18.3', 'CSV export', 'load mode'],
       done: 'All rows loaded, roll-ups recomputed, auto-number counters resynced',
       input: { path: 'output/data (6 files)', lang: 'text', code: R`Account.csv               22 rows
@@ -1166,7 +1167,7 @@ Subscription_Line__c.csv  219 rows` },
       summary: [['416', 'rows loaded'], ['0', 'rejected'], ['95', 'roll-ups recomputed'], ['6', 'tables']],
     },
     {
-      key: 'VE', name: 'Verification', role: 'Compares target behaviour with the org', metric: '866/866',
+      key: 'VE', phase: 'Validate', name: 'Verification', role: 'Compares target behaviour with the org', metric: '866/866',
       mode: 'Deterministic', tools: ['parity harness', 'rule cases', 'PostgreSQL 18.3'],
       done: 'Every derived value matches the org; every rule case gives the expected outcome',
       input: { path: 'target/db + output/data', lang: 'text', code: R`database   rebuilt from target/db/000–060 on PostgreSQL 18.3
@@ -1224,7 +1225,7 @@ replay     19 rule cases from target/parity/cases.json` },
       summary: () => [['866/866', 'values matched'], [st.parityPassed ? '17' : '16', 'cases pass'], [st.parityPassed ? '0' : '1', 'cases fail'], ['2', 'pending']],
     },
     {
-      key: 'RE', name: 'Repair', role: 'Diagnoses parity failures and proposes generator fixes', metric: '1 fix',
+      key: 'RE', phase: 'Validate', name: 'Repair', role: 'Diagnoses parity failures and proposes generator fixes', metric: '1 fix',
       mode: 'LLM', tools: ['Claude', 'generator source', 'parity harness'], branch: true,
       done: 'Root cause identified; fix proposed in the generator; approved fix re-verified',
       input: { path: 'failing case', lang: 'text', code: R`FAIL security.permsetEditsAllowedFields
@@ -1324,6 +1325,7 @@ Verify    Re-emit target/db, rebuild, re-run all 19 cases.` },
     const cls = { idle: '', queued: '', running: 'running', done: 'done', failed: 'failed', passed: 'passed' }[s];
     const g = st.gate[i] === 'pending' ? '<span class="pill review">Review</span>' : `<span class="pill ${cls}">${label}</span>`;
     return `<button type="button" class="node ${extra}" style="${style}" data-node="${i}" data-s="${s}" aria-current="${st.selected === i}">
+      <span class="ph">${a.phase}</span>
       <span class="top"><span class="ic">${a.key}</span><span class="nm">${a.name}</span></span>
       <span class="rl">${a.role}</span>
       <span class="ft">${g}<span class="mt">${produced(i) ? a.metric : ''}</span></span>
@@ -1381,7 +1383,7 @@ Verify    Re-emit target/db, rebuild, re-run all 19 cases.` },
     const i = st.selected;
     const a = AGENTS[i];
     $('#step-name').textContent = a.name;
-    $('#step-role').textContent = a.role;
+    $('#step-role').textContent = `${a.phase} phase · ${a.role}`;
     const s = st.status[i];
     const g = st.gate[i];
     const [cls, label] = g === 'pending' ? ['review', 'Awaiting review']

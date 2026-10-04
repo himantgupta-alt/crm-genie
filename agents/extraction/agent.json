@@ -1,7 +1,7 @@
 {
   "id": "extraction",
   "name": "Extraction agent",
-  "stage": "extract",
+  "phase": "discover",
   "kind": "deterministic",
   "role": "Reads everything the migration needs from the Salesforce org: schema, business logic, security and data.",
   "inputs": ["Salesforce org (CLI alias myorg)"],

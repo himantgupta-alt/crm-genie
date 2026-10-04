@@ -1,7 +1,7 @@
 {
   "id": "schema",
   "name": "Schema agent",
-  "stage": "build",
+  "phase": "build",
   "kind": "deterministic",
   "role": "Generates the database structure: tables, keys, required fields, picklists, formulas as generated columns or views, and roll-ups.",
   "inputs": ["sf-extract/blueprint/blueprint.json"],
