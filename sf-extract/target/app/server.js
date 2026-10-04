@@ -13,6 +13,12 @@ const pool = new Pool({
   ssl: process.env.PGSSLMODE === 'disable' ? false : { rejectUnauthorized: process.env.PGSSL_INSECURE !== '1' },
 });
 const SF_URL = process.env.SF_INSTANCE_URL || '';
+// Salesforce evaluates TODAY() and shows date-times in the user's time zone (TimeZoneSidKey of the org
+// user in the export). Each connection uses it, so current_date, and Days To Renewal, agree with the org.
+const TIME_ZONE = process.env.SF_TIME_ZONE || 'America/Los_Angeles';
+pool.on('connect', (client) => {
+  client.query(`SET TIME ZONE '${TIME_ZONE.replace(/'/g, "''")}'`).catch((e) => console.error('set time zone', e.message));
+});
 const pub = path.join(__dirname, 'public');
 const app = express();
 app.set('trust proxy', 1); // App Service front end; req.ip is the client for sign-in rate limiting
@@ -173,7 +179,7 @@ app.get('/health', async (_req, res) => { // public: used by App Service and the
 app.get('/api/meta', route(async (req, res) => {
   const persona = personaOf(req);
   res.json({
-    user: userOf(req), persona: persona.key, personas: PERSONAS, sfInstanceUrl: SF_URL,
+    user: userOf(req), persona: persona.key, personas: PERSONAS, sfInstanceUrl: SF_URL, timeZone: TIME_ZONE,
     subscription: { ...SUBSCRIPTION, fls: await access(persona, SUBSCRIPTION) },
     line: { ...LINE, fls: await access(persona, LINE) },
   });

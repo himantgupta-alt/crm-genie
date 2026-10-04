@@ -72,6 +72,11 @@ try {
   const rec = await call('GET', `/api/subscriptions/${active.id}`);
   check('record with lines and names', rec.status === 200 && Array.isArray(rec.data.lines) && rec.data.record._names.account_id, `${rec.data.record.subscription_number} · ${rec.data.lines.length} lines`);
 
+  // TODAY() in the org user's time zone, as Salesforce evaluates it.
+  const laToday = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Los_Angeles' });
+  const expectDays = Math.round((Date.parse(rec.data.record.end_date) - Date.parse(laToday)) / 864e5);
+  check('Days To Renewal uses the org time zone', meta.data.timeZone === 'America/Los_Angeles' && Number(rec.data.record.days_to_renewal) === expectDays, `${rec.data.record.days_to_renewal} (LA today ${laToday})`);
+
   // Traversal used by the record pages: line record, reference records and their related lists.
   const line = rec.data.lines[0];
   if (line) {

@@ -26,7 +26,8 @@
   const money = (v) => (v === null || v === undefined || v === '' ? '' : Number(v).toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
   const num = (v) => (v === null || v === undefined || v === '' ? '' : Number(v).toLocaleString('en-US', { maximumFractionDigits: 2 }));
   const date = (v) => { if (!v) return ''; const [y, m, d] = String(v).slice(0, 10).split('-'); return `${Number(m)}/${Number(d)}/${y}`; };
-  const dt = (v) => (v ? new Date(v).toLocaleString('en-US', { dateStyle: 'short', timeStyle: 'short' }) : '');
+  // Date-times as Salesforce shows them: the org user's time zone, "10/2/2026, 10:49 AM".
+  const dt = (v) => (v ? new Date(v).toLocaleString('en-US', { timeZone: META?.timeZone, year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: '2-digit' }) : '');
   // Every lookup opens the referenced record, as in Lightning.
   const REF_ROUTE = { account: 'accounts', contact: 'contacts', opportunity: 'opportunities', product2: 'products', subscription: 'subscriptions' };
   function show(f, row) {
