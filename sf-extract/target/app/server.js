@@ -39,7 +39,9 @@ async function connect() {
     try {
       return await pool.connect();
     } catch (e) {
-      if (attempt >= 4 || !['ECONNRESET', 'ECONNREFUSED', 'ETIMEDOUT', '57P01'].includes(e.code)) throw e;
+      const transient = ['ECONNRESET', 'ECONNREFUSED', 'ETIMEDOUT', '57P01'].includes(e.code)
+        || /Connection terminated/.test(e.message);
+      if (attempt >= 4 || !transient) throw e;
       await new Promise((r) => setTimeout(r, 250 * attempt));
     }
   }
