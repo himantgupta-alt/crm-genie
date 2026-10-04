@@ -72,6 +72,29 @@ try {
   const rec = await call('GET', `/api/subscriptions/${active.id}`);
   check('record with lines and names', rec.status === 200 && Array.isArray(rec.data.lines) && rec.data.record._names.account_id, `${rec.data.record.subscription_number} · ${rec.data.lines.length} lines`);
 
+  // Traversal used by the record pages: line record, reference records and their related lists.
+  const line = rec.data.lines[0];
+  if (line) {
+    const lr = await call('GET', `/api/lines/${line.id}`);
+    check('line record with parent name', lr.status === 200 && lr.data.record._names.subscription_id === rec.data.record.subscription_number, `${lr.data.record?.line_number} → ${lr.data.record?._names?.subscription_id}`);
+    if (line.product_id) {
+      const pl = await call('GET', `/api/lines?product=${line.product_id}`);
+      check('product related lines', pl.status === 200 && pl.data.rows.some((x) => x.id === line.id), `${pl.data.rows?.length} lines`);
+    }
+  }
+  const withContact = list.data.rows.find((x) => x.primary_contact_id);
+  if (withContact) {
+    const c = await call('GET', `/api/ref/contact/${withContact.primary_contact_id}`);
+    const cs = await call('GET', `/api/subscriptions?contact=${withContact.primary_contact_id}`);
+    check('contact page and related subscriptions', c.status === 200 && c.data.record.name && cs.data.rows.some((x) => x.id === withContact.id), c.data.record?.name);
+  }
+  const withOpp = list.data.rows.find((x) => x.source_opportunity_id);
+  if (withOpp) {
+    const os = await call('GET', `/api/subscriptions?opportunity=${withOpp.source_opportunity_id}`);
+    check('opportunity related subscriptions', os.status === 200 && os.data.rows.every((x) => x.source_opportunity_id === withOpp.source_opportunity_id) && os.data.rows.length > 0);
+  }
+  check('unknown reference kind → 404', (await call('GET', '/api/ref/user/005000000000000AAA')).status === 404);
+
   let r = await call('PATCH', `/api/subscriptions/${active.id}`, { status: 'Cancelled', cancellation_reason: '' });
   check('cancel without reason rejected (CHECK)', r.status === 400 && r.data.error.rule === 'Subscription__c.Cancellation_Reason_Required', r.data.error?.message);
   r = await call('PATCH', `/api/subscriptions/${cancelled.id}`, { status: 'Active' });

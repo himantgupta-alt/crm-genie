@@ -93,13 +93,19 @@ main { padding: 18px; display: grid; gap: 16px; max-width: 1400px; margin: 0 aut
 .highlights .k { font-size: 11.5px; color: var(--muted); }
 .highlights .v { font-weight: 600; font-variant-numeric: tabular-nums; }
 
-/* path (status steps) */
-.path { display: flex; gap: 3px; overflow-x: auto; }
-.path span { flex: 1; min-width: 92px; text-align: center; padding: 8px 10px; background: var(--sunk); border: 1px solid var(--line); font-size: 12.5px; color: var(--muted); clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%, 10px 50%); }
-.path span:first-child { clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%); border-radius: 6px 0 0 6px; }
-.path span.done { background: var(--ok-soft); color: var(--ok); border-color: transparent; }
-.path span.cur { background: var(--brand); color: var(--brand-ink); border-color: transparent; font-weight: 600; }
-.path span.cur.bad { background: var(--bad); }
+.phead .sfid { grid-column: 2 / -1; font-size: 12px; color: var(--muted); }
+
+/* record page: Related | Details tabs, as on a Lightning record page */
+.rtabs { display: flex; gap: 4px; padding: 0 16px; border-bottom: 1px solid var(--line); overflow-x: auto; }
+.rtabs button { border: 0; background: none; padding: 11px 12px 8px; margin-bottom: -1px; color: var(--muted); font-weight: 500; border-bottom: 3px solid transparent; }
+.rtabs button:hover { color: var(--ink); }
+.rtabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--brand); }
+.rpanel { padding: 16px; display: grid; gap: 16px; }
+.rpanel[hidden] { display: none; }
+.lsec { display: grid; gap: 4px; }
+.lsec-h { font-size: 14px; font-weight: 600; padding: 6px 10px; background: var(--sunk); border-radius: 6px; }
+.lcol { display: grid; align-content: start; min-width: 0; }
+.note { font-size: 12.5px; background: var(--info-soft); color: var(--info); padding: 10px 14px; border-radius: 8px; }
 
 /* list view */
 .toolbar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; padding: 10px 16px; border-bottom: 1px solid var(--line); }
@@ -117,7 +123,6 @@ tbody tr:last-child td { border-bottom: 0; }
 .count { font-size: 12.5px; color: var(--muted); }
 
 /* record layout */
-.rec { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 16px; align-items: start; }
 .fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 24px; }
 .field { display: grid; gap: 2px; padding: 8px 0; border-bottom: 1px solid var(--line); min-width: 0; }
 .field .lbl { font-size: 12px; color: var(--muted); display: flex; gap: 6px; align-items: center; }
@@ -131,7 +136,6 @@ tbody tr:last-child td { border-bottom: 0; }
 .errbox { background: var(--bad-soft); border: 1px solid var(--bad); color: var(--bad); border-radius: 8px; padding: 10px 14px; display: grid; gap: 2px; }
 .errbox b { font-weight: 600; }
 .formactions { display: flex; gap: 8px; justify-content: center; padding: 12px; border-top: 1px solid var(--line); background: var(--sunk); border-radius: 0 0 10px 10px; position: sticky; bottom: 0; }
-.side { display: grid; gap: 16px; }
 .related td .btn { margin-left: 4px; }
 .addline { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.7fr) minmax(0, 0.8fr) auto; gap: 8px; align-items: end; padding: 12px 16px; border-top: 1px solid var(--line); }
 .addline label { display: grid; gap: 2px; font-size: 12px; color: var(--muted); }
@@ -158,7 +162,6 @@ tbody tr:last-child td { border-bottom: 0; }
 .toast { position: fixed; bottom: calc(env(safe-area-inset-bottom, 0px) + 18px); left: 50%; transform: translateX(-50%); background: var(--ink); color: var(--surface); padding: 10px 16px; border-radius: 8px; font-size: 13px; z-index: 20; box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
 
 @media (max-width: 1050px) {
-  .rec { grid-template-columns: minmax(0, 1fr); }
   .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .grid2 { grid-template-columns: minmax(0, 1fr); }
 }

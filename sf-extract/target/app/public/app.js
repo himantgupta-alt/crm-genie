@@ -27,6 +27,8 @@
   const num = (v) => (v === null || v === undefined || v === '' ? '' : Number(v).toLocaleString('en-US', { maximumFractionDigits: 2 }));
   const date = (v) => { if (!v) return ''; const [y, m, d] = String(v).slice(0, 10).split('-'); return `${Number(m)}/${Number(d)}/${y}`; };
   const dt = (v) => (v ? new Date(v).toLocaleString('en-US', { dateStyle: 'short', timeStyle: 'short' }) : '');
+  // Every lookup opens the referenced record, as in Lightning.
+  const REF_ROUTE = { account: 'accounts', contact: 'contacts', opportunity: 'opportunities', product2: 'products', subscription: 'subscriptions' };
   function show(f, row) {
     const v = row[f.col];
     if (f.type === 'currency') return esc(money(v));
@@ -38,8 +40,7 @@
     if (f.type === 'lookup') {
       const name = row._names?.[f.col];
       if (!v) return '';
-      if (f.ref === 'account') return `<a href="#/accounts/${esc(v)}">${esc(name || v)}</a>`;
-      return esc(name || v);
+      return REF_ROUTE[f.ref] ? `<a href="#/${REF_ROUTE[f.ref]}/${esc(v)}">${esc(name || v)}</a>` : esc(name || v);
     }
     return esc(v);
   }
@@ -104,6 +105,8 @@
       if (a === 'subscriptions' && b === 'new') { setTab('subscriptions'); return await newSubscription(); }
       if (a === 'subscriptions' && b) { setTab('subscriptions'); return await record(b); }
       if (a === 'subscriptions') { setTab('subscriptions'); return await list(); }
+      if (a === 'lines' && b) { setTab('subscriptions'); return await linePage(b); }
+      if (REF_PAGES[a] && b) { setTab(''); return await refPage(a, b); }
       if (a === 'parity') { setTab('parity'); return await parity(); }
       location.hash = '#/home';
     } catch (e) {
@@ -150,20 +153,46 @@
   }
   async function account(id) {
     const [a, subs] = await Promise.all([api(`/api/accounts/${encodeURIComponent(id)}`), api(`/api/subscriptions?account=${encodeURIComponent(id)}`)]);
-    const sfLink = META.sfInstanceUrl ? `<a class="btn" href="${esc(META.sfInstanceUrl)}/lightning/r/Account/${esc(id)}/view" target="_blank" rel="noopener">Open in Salesforce ↗</a>` : '';
     main.innerHTML = `
       <p class="crumbs"><a href="#/accounts">Accounts</a><span>›</span><span>${esc(a.record.name)}</span></p>
-      <div class="phead"><span class="picon">ACC</span><span class="kind">Account</span><span class="acts">${sfLink}</span><h1>${esc(a.record.name)}</h1>
-        <div class="highlights"><div><span class="k">Salesforce Id</span><span class="v mono">${esc(id)}</span></div><div><span class="k">Subscriptions</span><span class="v">${subs.rows.length}</span></div></div></div>
-      ${subsTable(subs, `Subscriptions (${subs.rows.length})`, `#/subscriptions/new?account=${encodeURIComponent(id)}`)}`;
+      ${pageHead('ACC', 'Account', a.record.name, sfLink('Account', id), id)}
+      <section class="card rcard">${tabbed([
+        { key: 'related', label: 'Related', html: subsTable(subs, `Subscriptions (${subs.rows.length})`, `#/subscriptions/new?account=${encodeURIComponent(id)}`) + laterWave('Account', 'Contacts, Opportunities and Cases') },
+        { key: 'details', label: 'Details', html: `<section class="lsec"><h3 class="lsec-h">Account Information</h3><div class="fields"><div class="lcol">${staticField('Account Name', esc(a.record.name))}</div><div class="lcol">${staticField('Salesforce Id', `<span class="mono">${esc(id)}</span>`)}</div></div></section>${laterWave('Account', 'The remaining Account fields')}` },
+      ])}</section>`;
+    wireTabs();
   }
+
+  // ---------------------------------------------------------------- record page building blocks (Lightning-style)
+  const sfLink = (sobject, id) => (META.sfInstanceUrl ? `<a class="btn" href="${esc(META.sfInstanceUrl)}/lightning/r/${sobject}/${esc(id)}/view" target="_blank" rel="noopener">Open in Salesforce ↗</a>` : '');
+  const pageHead = (icon, kind, title, acts, sfid) => `<div class="phead"><span class="picon">${icon}</span><span class="kind">${esc(kind)}</span><span class="acts">${acts}</span><h1>${esc(title)}</h1>${sfid ? `<p class="sfid">Salesforce Id <span class="mono">${esc(sfid)}</span></p>` : ''}</div>`;
+  const staticField = (label, valueHtml) => `<div class="field"><span class="lbl">${esc(label)}</span><div class="val">${valueHtml}</div></div>`;
+  const laterWave = (obj, what) => `<p class="note">${esc(obj)} is a reference record in the Subscription domain. ${esc(what)} belong to domains migrated in a later wave; open the record in Salesforce to see them.</p>`;
+  // Related | Details tabs. The last tab chosen is kept while moving between records, as Salesforce does.
+  let lastTab = 'related';
+  function tabbed(panels, want = lastTab) {
+    const cur = panels.some((p) => p.key === want) ? want : panels[0].key;
+    return `<div class="rtabs" role="tablist">${panels.map((p) => `<button type="button" role="tab" id="tab-${p.key}" aria-controls="panel-${p.key}" aria-selected="${p.key === cur}" data-rtab="${p.key}">${esc(p.label)}</button>`).join('')}</div>
+      ${panels.map((p) => `<div class="rpanel" role="tabpanel" id="panel-${p.key}" aria-labelledby="tab-${p.key}" ${p.key === cur ? '' : 'hidden'}>${p.html}</div>`).join('')}`;
+  }
+  function wireTabs() {
+    const tabs = main.querySelectorAll('[data-rtab]');
+    tabs.forEach((b) => b.addEventListener('click', () => {
+      lastTab = b.dataset.rtab;
+      tabs.forEach((x) => x.setAttribute('aria-selected', String(x === b)));
+      main.querySelectorAll('.rpanel').forEach((p) => { p.hidden = p.id !== `panel-${lastTab}`; });
+    }));
+  }
+  // Page-layout sections: each column is listed top to bottom, as in TwoColumnsTopToBottom.
+  const sectionsHtml = (sections, render) => sections.map((s) => `<section class="lsec"><h3 class="lsec-h">${esc(s.label)}</h3>
+    <div class="fields">${s.cols.map((col) => `<div class="lcol">${col.map(render).join('')}</div>`).join('')}</div></section>`).join('');
 
   // ---------------------------------------------------------------- subscriptions list
   const LIST_COLS = ['subscription_number', 'account_id', 'status', 'monthly_recurring_revenue', 'annual_value', 'days_to_renewal', 'line_count', 'total_line_value'];
   function subsTable(d, title, newHref = '#/subscriptions/new') {
     const fields = LIST_COLS.map((c) => META.subscription.fields.find((f) => f.col === c));
     const numeric = (f) => ['currency', 'number'].includes(f.type);
-    return `<section class="card"><div class="card-head"><h2>${esc(title)}</h2><a class="btn sm" href="${newHref}">New</a></div>
+    return `<section class="card"><div class="card-head"><h2>${esc(title)}</h2>${newHref ? `<a class="btn sm" href="${newHref}">New</a>` : ''}</div>
       <div class="tablewrap"><table><thead><tr>${fields.map((f) => `<th class="${numeric(f) ? 'num' : ''}">${esc(f.label)}</th>`).join('')}</tr></thead><tbody>
       ${d.rows.map((r) => `<tr>${fields.map((f, k) => {
         const cell = d.fls[f.col].read ? (k === 0 ? `<a href="#/subscriptions/${esc(r.id)}">${show(f, r)}</a>` : show(f, r)) : locked;
@@ -179,7 +208,7 @@
     const d = await api(`/api/subscriptions?${qs}`);
     const statuses = META.subscription.fields.find((f) => f.col === 'status').values;
     main.innerHTML = `
-      <div class="phead"><span class="picon">SUB</span><span class="kind">Subscriptions</span><span class="acts"><a class="btn primary" href="#/subscriptions/new">New</a></span><h1>${listState.status ? `${esc(listState.status)} Subscriptions` : 'All Subscriptions'}</h1></div>
+      <div class="phead"><span class="picon">SUB</span><span class="kind">Subscriptions</span><span class="acts"><a class="btn primary" href="#/subscriptions/new">New</a></span><h1>Demo - All</h1></div>
       <section class="card">
         <div class="toolbar">
           <div class="chips" role="group" aria-label="Filter by status">
@@ -187,7 +216,7 @@
             ${statuses.map((s) => `<button type="button" data-st="${esc(s)}" aria-pressed="${listState.status === s}">${esc(s)}</button>`).join('')}
           </div>
           <input type="search" id="q" placeholder="Search number or account" value="${esc(listState.q)}" aria-label="Search subscriptions">
-          <span class="count">${d.rows.length} items</span>
+          <span class="count">${d.rows.length} items · Sorted by Subscription Number${listState.status ? ` · Filtered by Status = ${esc(listState.status)}` : ''}</span>
         </div>
       </section>
       ${subsTable(d, 'Subscriptions')}`;
@@ -197,9 +226,17 @@
   }
 
   // ---------------------------------------------------------------- record page
-  const DETAIL_ORDER = ['subscription_number', 'account_id', 'status', 'monthly_recurring_revenue', 'annual_value', 'start_date', 'end_date',
-    'term_months', 'days_to_renewal', 'health_score', 'auto_renew', 'cancellation_reason', 'primary_contact_id', 'source_opportunity_id',
-    'line_count', 'total_line_value', 'created_date', 'last_modified_date'];
+  // Sections and column order of the org's "Subscription Layout" and "Subscription Line Layout".
+  const SUB_SECTIONS = [
+    { label: 'Information', cols: [
+      ['subscription_number', 'account_id', 'status', 'monthly_recurring_revenue', 'annual_value', 'health_score', 'cancellation_reason'],
+      ['start_date', 'end_date', 'term_months', 'days_to_renewal', 'auto_renew', 'primary_contact_id', 'source_opportunity_id']] },
+    { label: 'Lines Summary', cols: [['line_count'], ['total_line_value']] },
+    { label: 'System Information', cols: [['created_date'], ['last_modified_date']] },
+  ];
+  const LINE_SECTIONS = [
+    { label: 'Information', cols: [['line_number', 'subscription_id', 'account_name', 'product_id'], ['quantity', 'unit_price', 'line_total']] },
+  ];
 
   function input(f, value, lk) {
     const id = `f-${f.col}`;
@@ -231,34 +268,19 @@
     const F = (c) => META.subscription.fields.find((f) => f.col === c);
     const editing = !!opts.editing;
     const canEdit = Object.values(d.fls).some((x) => x.edit);
-    const sfLink = META.sfInstanceUrl ? `<a class="btn" href="${esc(META.sfInstanceUrl)}/lightning/r/Subscription__c/${esc(r.id)}/view" target="_blank" rel="noopener">Open in Salesforce ↗</a>` : '';
-    const statuses = F('status').values;
-    const cur = r.status;
-    const hl = (c) => (d.fls[c].read ? show(F(c), r) : locked);
+    if (editing) lastTab = 'details';
+    const acts = `${sfLink('Subscription__c', r.id)}${canEdit && !editing ? '<button class="btn" type="button" id="edit">Edit</button>' : ''}<button class="btn danger" type="button" id="del">Delete</button>`;
+    const details = `${sectionsHtml(SUB_SECTIONS, (c) => fieldHtml(F(c), r, d.fls, editing, lk, opts.errField))}
+      ${editing ? '<div class="formactions"><button class="btn" type="button" id="cancel">Cancel</button><button class="btn primary" type="button" id="save">Save</button></div>' : ''}`;
     main.innerHTML = `
       <p class="crumbs"><a href="#/subscriptions">Subscriptions</a><span>›</span><span>${esc(r.subscription_number ?? r.id)}</span></p>
-      <div class="phead"><span class="picon">SUB</span><span class="kind">Subscription</span>
-        <span class="acts">${sfLink}${canEdit && !editing ? '<button class="btn" type="button" id="edit">Edit</button>' : ''}<button class="btn danger" type="button" id="del">Delete</button></span>
-        <h1>${esc(r.subscription_number ?? r.id)}</h1>
-        <div class="highlights">
-          <div><span class="k">Account</span><span class="v">${hl('account_id')}</span></div>
-          <div><span class="k">Status</span><span class="v">${hl('status')}</span></div>
-          <div><span class="k">MRR</span><span class="v">${hl('monthly_recurring_revenue')}</span></div>
-          <div><span class="k">Annual Value</span><span class="v">${hl('annual_value')}</span></div>
-          <div><span class="k">Days To Renewal</span><span class="v">${hl('days_to_renewal')}</span></div>
-          <div><span class="k">Salesforce Id</span><span class="v mono">${esc(r.id)}</span></div>
-        </div>
-      </div>
-      ${d.fls.status.read ? `<div class="path" aria-label="Status path">${statuses.map((s) => `<span class="${s === cur ? `cur ${s === 'Cancelled' ? 'bad' : ''}` : ''}">${esc(s)}</span>`).join('')}</div>` : ''}
+      ${pageHead('SUB', 'Subscription', r.subscription_number ?? r.id, acts, r.id)}
       <div id="err"></div>
-      <div class="rec">
-        <section class="card" aria-label="Details">
-          <div class="card-head"><h2>Details</h2>${editing ? '<span class="count">Editing</span>' : ''}</div>
-          <div class="card-body"><div class="fields">${DETAIL_ORDER.map((c) => fieldHtml(F(c), r, d.fls, editing, lk, opts.errField)).join('')}</div></div>
-          ${editing ? '<div class="formactions"><button class="btn" type="button" id="cancel">Cancel</button><button class="btn primary" type="button" id="save">Save</button></div>' : ''}
-        </section>
-        <div class="side">${linesCard(d, lk)}</div>
-      </div>`;
+      <section class="card rcard">${tabbed([
+        { key: 'related', label: 'Related', html: linesCard(d, lk) },
+        { key: 'details', label: 'Details', html: details },
+      ])}</section>`;
+    wireTabs();
     if (opts.error) {
       $('#err').innerHTML = errBox(opts.error);
       const m = $('#field-msg');
@@ -316,7 +338,7 @@
       <div class="card-head"><h2>Subscription Lines (${d.lines.length})</h2></div>
       <div id="lerr" style="padding:0 16px"></div>
       <div class="tablewrap"><table><thead><tr>${cols.map((f) => `<th class="${['currency', 'number'].includes(f.type) ? 'num' : ''}">${esc(f.label)}</th>`).join('')}<th></th></tr></thead><tbody>
-      ${d.lines.map((l) => `<tr>${cols.map((f) => `<td class="${['currency', 'number'].includes(f.type) ? 'num' : ''}">${fl[f.col].read ? show(f, l) : locked}</td>`).join('')}
+      ${d.lines.map((l) => `<tr>${cols.map((f) => `<td class="${['currency', 'number'].includes(f.type) ? 'num' : ''}">${!fl[f.col].read ? locked : f.col === 'line_number' ? `<a href="#/lines/${esc(l.id)}">${show(f, l)}</a>` : show(f, l)}</td>`).join('')}
         <td class="num">${canEdit ? `<button class="btn sm" type="button" data-inc="${esc(l.id)}" data-q="${esc(l.quantity)}" aria-label="Add one to quantity of ${esc(l.line_number)}">+1</button>` : ''}<button class="btn sm danger" type="button" data-ldel="${esc(l.id)}" aria-label="Delete ${esc(l.line_number)}">Delete</button></td></tr>`).join('') || `<tr><td colspan="${cols.length + 1}" class="count">No lines</td></tr>`}
       </tbody></table></div>
       ${canAdd ? `<div class="addline">
@@ -350,6 +372,53 @@
         record(id);
       } catch (e) { fail(e); }
     }));
+  }
+
+  // ---------------------------------------------------------------- subscription line record page
+  async function linePage(id) {
+    const d = await api(`/api/lines/${encodeURIComponent(id)}`);
+    const r = d.record;
+    const F = (c) => META.line.fields.find((f) => f.col === c);
+    main.innerHTML = `
+      <p class="crumbs"><a href="#/subscriptions">Subscriptions</a><span>›</span>${r.subscription_id ? `<a href="#/subscriptions/${esc(r.subscription_id)}">${esc(r._names?.subscription_id || r.subscription_id)}</a><span>›</span>` : ''}<span>${esc(r.line_number ?? r.id)}</span></p>
+      ${pageHead('SL', 'Subscription Line', r.line_number ?? r.id, sfLink('Subscription_Line__c', r.id), r.id)}
+      <section class="card rcard">${tabbed([
+        { key: 'details', label: 'Details', html: sectionsHtml(LINE_SECTIONS, (c) => fieldHtml(F(c), r, d.fls, false, {}, null)) },
+      ])}</section>`;
+    wireTabs();
+  }
+
+  // ---------------------------------------------------------------- reference records (contact, opportunity, product)
+  const REF_PAGES = {
+    contacts: { kind: 'contact', label: 'Contact', icon: 'CON', sobject: 'Contact', filter: 'contact' },
+    opportunities: { kind: 'opportunity', label: 'Opportunity', icon: 'OPP', sobject: 'Opportunity', filter: 'opportunity' },
+    products: { kind: 'product2', label: 'Product', icon: 'PRD', sobject: 'Product2' },
+  };
+  async function refPage(routeKey, id) {
+    const p = REF_PAGES[routeKey];
+    const q = encodeURIComponent(id);
+    const [a, rel] = await Promise.all([
+      api(`/api/ref/${p.kind}/${q}`),
+      p.filter ? api(`/api/subscriptions?${p.filter}=${q}`) : api(`/api/lines?product=${q}`),
+    ]);
+    let related;
+    if (p.filter) related = subsTable(rel, `Subscriptions (${rel.rows.length})`, null);
+    else {
+      const cols = ['line_number', 'subscription_id', 'quantity', 'unit_price', 'line_total'].map((c) => META.line.fields.find((f) => f.col === c));
+      const numeric = (f) => ['currency', 'number'].includes(f.type);
+      related = `<section class="card"><div class="card-head"><h2>Subscription Lines (${rel.rows.length})</h2></div>
+        <div class="tablewrap"><table><thead><tr>${cols.map((f) => `<th class="${numeric(f) ? 'num' : ''}">${esc(f.label)}</th>`).join('')}</tr></thead><tbody>
+        ${rel.rows.map((l) => `<tr>${cols.map((f) => `<td class="${numeric(f) ? 'num' : ''}">${!rel.fls[f.col].read ? locked : f.col === 'line_number' ? `<a href="#/lines/${esc(l.id)}">${show(f, l)}</a>` : show(f, l)}</td>`).join('')}</tr>`).join('') || `<tr><td colspan="${cols.length}" class="count">No records</td></tr>`}
+        </tbody></table></div></section>`;
+    }
+    const details = `<section class="lsec"><h3 class="lsec-h">${esc(p.label)} Information</h3><div class="fields"><div class="lcol">${staticField(`${p.label} Name`, esc(a.record.name))}</div><div class="lcol">${staticField('Salesforce Id', `<span class="mono">${esc(id)}</span>`)}</div></div></section>`;
+    main.innerHTML = `
+      ${pageHead(p.icon, p.label, a.record.name, sfLink(p.sobject, id), id)}
+      <section class="card rcard">${tabbed([
+        { key: 'related', label: 'Related', html: related + laterWave(p.label, `Its other fields and related lists`) },
+        { key: 'details', label: 'Details', html: details },
+      ])}</section>`;
+    wireTabs();
   }
 
   // ---------------------------------------------------------------- new subscription

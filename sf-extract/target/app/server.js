@@ -146,15 +146,20 @@ function values(obj, body, mode) {
   return out;
 }
 const selectList = (obj, fls) => ['id', ...obj.fields.filter((f) => fls[f.col].read).map((f) => f.col)].join(', ');
+// Lookup targets: table and the column Salesforce shows as the record name.
+const REFS = {
+  account: ['app.account', 'name'], contact: ['app.contact', 'name'], opportunity: ['app.opportunity', 'name'],
+  product2: ['app.product2', 'name'], subscription: ['app.subscription', 'subscription_number'],
+};
 async function names(kind, ids) {
-  const table = { account: 'app.account', contact: 'app.contact', opportunity: 'app.opportunity', product2: 'app.product2' }[kind];
+  const [table, col] = REFS[kind] || [];
   const list = [...new Set(ids.filter(Boolean))];
   if (!table || !list.length) return {};
-  const r = await owner(`SELECT id, name FROM ${table} WHERE id = ANY($1)`, [list]);
+  const r = await owner(`SELECT id, ${col} AS name FROM ${table} WHERE id = ANY($1)`, [list]);
   return Object.fromEntries(r.rows.map((x) => [x.id, x.name]));
 }
 async function decorate(obj, rows) {
-  const lookups = obj.fields.filter((f) => f.type === 'lookup' && f.ref !== 'subscription');
+  const lookups = obj.fields.filter((f) => f.type === 'lookup');
   const maps = Object.fromEntries(await Promise.all(lookups.map(async (f) => [f.col, await names(f.ref, rows.map((r) => r[f.col]))])));
   return rows.map((r) => ({ ...r, _names: Object.fromEntries(lookups.map((f) => [f.col, maps[f.col][r[f.col]] ?? null])) }));
 }
@@ -205,6 +210,8 @@ app.get('/api/subscriptions', route(async (req, res) => {
   const params = [];
   if (req.query.status) { params.push(req.query.status); where.push(`status = $${params.length}`); }
   if (req.query.account) { params.push(req.query.account); where.push(`account_id = $${params.length}`); }
+  if (req.query.contact) { params.push(req.query.contact); where.push(`primary_contact_id = $${params.length}`); }
+  if (req.query.opportunity) { params.push(req.query.opportunity); where.push(`source_opportunity_id = $${params.length}`); }
   if (req.query.q) {
     params.push(`%${req.query.q}%`);
     where.push(`(subscription_number ILIKE $${params.length} OR account_id IN (SELECT id FROM app.account WHERE name ILIKE $${params.length}))`);
@@ -267,6 +274,25 @@ app.post('/api/subscriptions/:id/lines', route(async (req, res) => {
   res.status(201).json({ id });
 }));
 
+app.get('/api/lines', route(async (req, res) => {
+  const persona = personaOf(req);
+  const fls = await access(persona, LINE);
+  if (!req.query.product) throw httpError(400, 'product is required');
+  const rows = await tx(persona.role, async (c) => (await c.query(
+    `SELECT ${selectList(LINE, fls)} FROM ${LINE.view} WHERE product_id = $1 ORDER BY line_number`, [req.query.product])).rows);
+  res.json({ rows: await decorate(LINE, rows), fls });
+}));
+
+app.get('/api/lines/:id', route(async (req, res) => {
+  const persona = personaOf(req);
+  const fls = await access(persona, LINE);
+  const row = await tx(persona.role, async (c) => (await c.query(
+    `SELECT ${selectList(LINE, fls)} FROM ${LINE.view} WHERE id = $1`, [req.params.id])).rows[0]);
+  if (!row) throw httpError(404, 'Record not found');
+  const [record] = await decorate(LINE, [row]);
+  res.json({ record, fls });
+}));
+
 app.patch('/api/lines/:id', route(async (req, res) => {
   const persona = personaOf(req);
   const v = values(LINE, req.body, 'update');
@@ -302,6 +328,15 @@ app.get('/api/accounts/:id', route(async (req, res) => {
   const a = (await owner('SELECT id, name FROM app.account WHERE id = $1', [req.params.id])).rows[0];
   if (!a) throw httpError(404, 'Record not found');
   res.json({ record: a });
+}));
+
+// Contacts, opportunities and products are reference records here (owned by domains not yet migrated).
+app.get('/api/ref/:kind/:id', route(async (req, res) => {
+  const kind = req.params.kind;
+  if (!['contact', 'opportunity', 'product2'].includes(kind)) throw httpError(404, 'Not found');
+  const r = (await owner(`SELECT id, name FROM ${REFS[kind][0]} WHERE id = $1`, [req.params.id])).rows[0];
+  if (!r) throw httpError(404, 'Record not found');
+  res.json({ record: r });
 }));
 
 app.get('/api/rules', route(async (_req, res) => {
