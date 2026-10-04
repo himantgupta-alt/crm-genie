@@ -70,6 +70,10 @@ try {
   const active = list.data.rows.find((r) => r.status === 'Active');
   const cancelled = list.data.rows.find((r) => r.status === 'Cancelled');
   const rec = await call('GET', `/api/subscriptions/${active.id}`);
+  const sfRow = fs.readFileSync(path.resolve(here, '..', '..', 'output', 'data', 'Subscription__c.csv'), 'utf8').split('\n').find((l) => l.startsWith(`${active.id},`));
+  const sfHeader = fs.readFileSync(path.resolve(here, '..', '..', 'output', 'data', 'Subscription__c.csv'), 'utf8').split('\n')[0].split(',');
+  const sfModified = sfRow.split(',')[sfHeader.indexOf('LastModifiedDate')];
+  check('load keeps Salesforce LastModifiedDate', Date.parse(sfModified.replace(/\+0000$/, 'Z')) === Date.parse(active.last_modified_date), `${active.last_modified_date} vs ${sfModified}`);
   check('record with lines and names', rec.status === 200 && Array.isArray(rec.data.lines) && rec.data.record._names.account_id, `${rec.data.record.subscription_number} · ${rec.data.lines.length} lines`);
 
   // TODAY() in the org user's time zone, as Salesforce evaluates it.

@@ -88,8 +88,9 @@ async function main() {
     loaded[id] = rows.length;
     console.log(`loaded ${id}: ${rows.length}`);
   }
-  await db.query('COMMIT');
+  // Still in load mode: the recompute must not stamp LastModifiedDate with the load time.
   const recomputed = (await db.query('SELECT app.recompute_all_rollups() AS n')).rows[0].n;
+  await db.query('COMMIT');
   for (const id of manifest.family) {
     const name = entities.get(id).fields.find((f) => f.autoNumber);
     if (!name) continue;
