@@ -37,7 +37,13 @@ const httpError = (status, message, extra = {}) => Object.assign(new Error(messa
 async function connect() {
   for (let attempt = 1; ; attempt++) {
     try {
-      return await pool.connect();
+      const client = await pool.connect();
+      // A checked-out client that errors must not crash the process; tx() then releases it as broken.
+      if (!client.cgOnError) {
+        client.cgOnError = (err) => console.error('client error', err.message);
+        client.on('error', client.cgOnError);
+      }
+      return client;
     } catch (e) {
       const transient = ['ECONNRESET', 'ECONNREFUSED', 'ETIMEDOUT', '57P01'].includes(e.code)
         || /Connection terminated/.test(e.message);
