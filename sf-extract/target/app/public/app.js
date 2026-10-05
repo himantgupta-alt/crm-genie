@@ -158,8 +158,8 @@
       <p class="crumbs"><a href="#/accounts">Accounts</a><span>›</span><span>${esc(a.record.name)}</span></p>
       ${pageHead('ACC', 'Account', a.record.name, sfLink('Account', id), id)}
       <section class="card rcard">${tabbed([
-        { key: 'related', label: 'Related', html: subsTable(subs, `Subscriptions (${subs.rows.length})`, `#/subscriptions/new?account=${encodeURIComponent(id)}`) + laterWave('Account', 'Contacts, Opportunities and Cases') },
-        { key: 'details', label: 'Details', html: `<section class="lsec"><h3 class="lsec-h">Account Information</h3><div class="fields"><div class="lcol">${staticField('Account Name', esc(a.record.name))}</div><div class="lcol">${staticField('Salesforce Id', `<span class="mono">${esc(id)}</span>`)}</div></div></section>${laterWave('Account', 'The remaining Account fields')}` },
+        { key: 'related', label: 'Related', html: subsTable(subs, `Subscriptions (${subs.rows.length})`, `#/subscriptions/new?account=${encodeURIComponent(id)}`) },
+        { key: 'details', label: 'Details', html: `<section class="lsec"><h3 class="lsec-h">Account Information</h3><div class="fields"><div class="lcol">${staticField('Account Name', esc(a.record.name))}</div><div class="lcol">${staticField('Salesforce Id', `<span class="mono">${esc(id)}</span>`)}</div></div></section>` },
       ])}</section>`;
     wireTabs();
   }
@@ -168,7 +168,6 @@
   const sfLink = (sobject, id) => (META.sfInstanceUrl ? `<a class="btn" href="${esc(META.sfInstanceUrl)}/lightning/r/${sobject}/${esc(id)}/view" target="_blank" rel="noopener">Open in Salesforce ↗</a>` : '');
   const pageHead = (icon, kind, title, acts, sfid) => `<div class="phead"><span class="picon">${icon}</span><span class="kind">${esc(kind)}</span><span class="acts">${acts}</span><h1>${esc(title)}</h1>${sfid ? `<p class="sfid">Salesforce Id <span class="mono">${esc(sfid)}</span></p>` : ''}</div>`;
   const staticField = (label, valueHtml) => `<div class="field"><span class="lbl">${esc(label)}</span><div class="val">${valueHtml}</div></div>`;
-  const laterWave = (obj, what) => `<p class="note">${esc(obj)} is a reference record in the Subscription domain. ${esc(what)} belong to domains migrated in a later wave; open the record in Salesforce to see them.</p>`;
   // Related | Details tabs. Opens on Details, as the org's record pages do; the last tab chosen is kept
   // while moving between records.
   let lastTab = 'details';
@@ -423,7 +422,7 @@
     main.innerHTML = `
       ${pageHead(p.icon, p.label, a.record.name, sfLink(p.sobject, id), id)}
       <section class="card rcard">${tabbed([
-        { key: 'related', label: 'Related', html: related + laterWave(p.label, `Its other fields and related lists`) },
+        { key: 'related', label: 'Related', html: related },
         { key: 'details', label: 'Details', html: details },
       ])}</section>`;
     wireTabs();
