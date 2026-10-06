@@ -33,6 +33,7 @@ async function main() {
 
   // 2. Managed packages: their code is not retrievable, so we list them and export their configuration as data.
   inv.packages = await soql('SELECT SubscriberPackage.Name, SubscriberPackage.NamespacePrefix, SubscriberPackageVersion.Name, SubscriberPackageVersion.MajorVersion, SubscriberPackageVersion.MinorVersion FROM InstalledSubscriberPackage', true);
+  inv.packageContents = await packageContents(conn, soql, inv.packages);
 
   // 3. Integrations. Outbound endpoints are in metadata; inbound callers only show up in login history.
   inv.namedCredentials = await soql('SELECT DeveloperName, MasterLabel, Endpoint, PrincipalType FROM NamedCredential');
@@ -75,6 +76,63 @@ async function main() {
   fs.writeFileSync(path.join(DIR, 'gap-register.md'), gapRegister(inv));
   const unavailable = Object.entries(inv).filter(([, v]) => v && v.ok === false).map(([k]) => k);
   console.log(`inventory: ${Object.keys(inv).length} sections -> output/inventory${unavailable.length ? ` (not offered by this org: ${unavailable.join(', ')})` : ''}`);
+}
+
+// Per package: its objects with row counts, its settings records (small objects and custom metadata),
+// the hidden Apex it ships, and, for packages we know, the outputs it wrote, so its behaviour can be
+// rebuilt and tested without its code. Settings go to output/inventory/packages/<namespace>/.
+const SETTINGS_MAX_ROWS = 2000;
+const SKIP = /(__Share|__ChangeEvent|__e|__History|__Feed)$/;
+async function packageContents(conn, soql, packages) {
+  if (!packages.ok) return packages;
+  const global = await conn.describeGlobal();
+  const out = [];
+  for (const p of packages.records) {
+    const ns = p.SubscriberPackage?.NamespacePrefix;
+    if (!ns) continue;
+    const objects = [];
+    for (const g of global.sobjects.filter((o) => o.name.startsWith(`${ns}__`) && !SKIP.test(o.name) && o.queryable)) {
+      let rows = null;
+      try { rows = (await conn.query(`SELECT COUNT() FROM ${g.name}`)).totalSize; } catch { /* not countable */ }
+      objects.push({ name: g.name, label: g.label, kind: g.name.endsWith('__mdt') ? 'custom metadata' : g.customSetting ? 'custom setting' : 'object', rows });
+    }
+    const settings = [];
+    for (const o of objects.filter((x) => x.rows > 0 && x.rows <= SETTINGS_MAX_ROWS)) {
+      try {
+        const d = await conn.describe(o.name);
+        const fields = d.fields.filter((f) => !['IsDeleted', 'SystemModstamp', 'LastViewedDate', 'LastReferencedDate'].includes(f.name) && f.type !== 'address' && f.type !== 'location').map((f) => f.name);
+        const r = await soql(`SELECT ${fields.join(', ')} FROM ${o.name}`);
+        if (r.ok) { writeJson(path.join(DIR, 'packages', ns, `${o.name}.json`), r.records); settings.push({ object: o.name, rows: r.records.length }); }
+      } catch { /* skip unreadable object */ }
+    }
+    let apexClasses = null;
+    try { apexClasses = (await conn.tooling.query(`SELECT COUNT() FROM ApexClass WHERE NamespacePrefix = '${ns}'`)).totalSize; } catch { /* tooling unavailable */ }
+    const entry = { namespace: ns, name: p.SubscriberPackage?.Name, version: p.SubscriberPackageVersion?.Name, objects, settings, apexClasses, apexSource: 'hidden by the vendor' };
+    if (ns === 'dlrs') entry.capturedOutputs = await captureRollups(soql, ns);
+    out.push(entry);
+  }
+  return { ok: true, records: out };
+}
+
+// DLRS stores each rollup as a record: parent, child, relationship, operation, criteria, result field.
+// We save the child rows it reads and the parent values it wrote, so a rebuilt version can be compared.
+async function captureRollups(soql, ns) {
+  const defs = await soql(`SELECT ${ns}__UniqueName__c, ${ns}__ParentObject__c, ${ns}__ChildObject__c, ${ns}__RelationshipField__c, ${ns}__FieldToAggregate__c, ${ns}__AggregateOperation__c, ${ns}__AggregateResultField__c, ${ns}__RelationshipCriteria__c, ${ns}__RelationshipCriteriaFields__c FROM ${ns}__LookupRollupSummary__c WHERE ${ns}__Active__c = true`);
+  if (!defs.ok) return defs;
+  const cases = [];
+  for (const d of defs.records) {
+    const P = d[`${ns}__ParentObject__c`], C = d[`${ns}__ChildObject__c`], rel = d[`${ns}__RelationshipField__c`];
+    const agg = d[`${ns}__FieldToAggregate__c`], res = d[`${ns}__AggregateResultField__c`];
+    const crit = (d[`${ns}__RelationshipCriteriaFields__c`] || '').split(/[\s,]+/).filter(Boolean);
+    const childFields = [...new Set(['Id', rel, agg, ...crit])];
+    const children = await soql(`SELECT ${childFields.join(', ')} FROM ${C} WHERE ${rel} != null`);
+    const parents = await soql(`SELECT Id, ${res} FROM ${P}`);
+    if (!children.ok || !parents.ok) continue;
+    const file = path.join(DIR, 'packages', ns, `capture-${d[`${ns}__UniqueName__c`]}.json`);
+    writeJson(file, { definition: d, children: children.records, parentValues: parents.records });
+    cases.push({ rollup: d[`${ns}__UniqueName__c`], children: children.records.length, parents: parents.records.length, file: path.relative(DIR, file).replace(/\\/g, '/') });
+  }
+  return cases;
 }
 
 function strip(r) {
@@ -179,12 +237,12 @@ function gapRegister(inv) {
   const lines = [
     '# Gap register',
     '',
-    `Generated ${new Date().toISOString().slice(0, 10)} by \`scripts/extract-inventory.js\` for ${org.Name || 'the org'} (${org.OrganizationType || 'edition unknown'}, time zone ${org.TimeZoneSidKey || 'unknown'}).`,
+    `Prepared ${new Date().toISOString().slice(0, 10)} from ${org.Name || 'your'} org (${org.OrganizationType || 'edition unknown'}, time zone ${org.TimeZoneSidKey || 'unknown'}).`,
     '',
-    'Everything below is either collected automatically or has an agreed way to be handled. Items marked',
-    '**client input** are confirmed with the client during the assessment.',
+    'This is our list of everything Salesforce does not hand over, and how we will handle each item. Items marked',
+    '**client input** are the ones we will confirm with you in the assessment workshop.',
     '',
-    '## 1. Collected automatically',
+    '## 1. What we have already collected',
     '',
     '| Area | Count | Where |',
     '|---|---|---|',
@@ -202,31 +260,31 @@ function gapRegister(inv) {
     `| Field history tables | ${inv.fieldHistory.historyObjects} | \`fieldHistory.json\` |`,
     `| Encrypted fields | ${inv.encryptedFields.count} | \`encryptedFields.json\` |`,
     '',
-    '## 2. Not exported by Salesforce, and how each is handled',
+    '## 2. What Salesforce keeps, and how we will handle it',
     '',
     '| Item | In this org | How we handle it | Owner |',
     '|---|---|---|---|',
-    `| Managed package source code | ${pkgs.length ? pkgs.join('; ') : shown(inv.packages)} | Configuration exported as data; behaviour captured as tests from the outside; rebuild or replace decided per package | Assessment, **client input** |`,
-    `| Passwords, tokens, secrets, private keys | ${shown(inv.namedCredentials)} credentials, ${shown(inv.connectedApps)} connected apps | Users move to SSO or reset at go-live; integration owners issue new credentials, tracked on the cutover checklist | Client IT |`,
-    `| Who calls Salesforce from outside | ${apps.length} login sources in ${Math.min(DAYS, 180)} days | Login history per application and integration user, confirmed in interviews; the compatibility layer keeps callers working during migration | Assessment, **client input** |`,
-    `| History older than Salesforce keeps | audit trail from ${inv.retention.setupAuditTrail.oldest?.slice(0, 10) || '—'}, logins from ${inv.retention.loginHistory.oldest?.slice(0, 10) || '—'} | Archived from day one of the engagement; retention agreed with compliance | **client input** |`,
-    '| Built-in platform behaviour (lead conversion, owner-change cascades, order of execution) | not configuration | Written once into the translation playbook; checked by the parity harness | Our team |',
-    `| Work in flight at cutover | ${shown(inv.pendingApprovals)} pending approvals, ${shown(inv.pausedFlows)} paused flows, ${shown(inv.scheduledJobs)} scheduled jobs | Drained before the freeze or carried over, decided per item | Cutover plan |`,
-    `| Encryption keys | ${inv.encryptedFields.count} encrypted fields | Data read decrypted by an authorised user; re-encrypted in the target with client-held keys | Client security |`,
+    `| Managed package source code | ${pkgs.length ? pkgs.join('; ') : shown(inv.packages)} | We export the package settings as data, record what the package does as test cases, and agree with you whether to rebuild, replace or keep it | Assessment, **client input** |`,
+    `| Passwords, tokens, secrets, private keys | ${shown(inv.namedCredentials)} credentials, ${shown(inv.connectedApps)} connected apps | Your users sign in through single sign-on (or set a new password on day one); each integration owner issues a new credential, tracked on our cutover checklist | Client IT |`,
+    `| Who calls Salesforce from outside | ${apps.length} login sources in ${Math.min(DAYS, 180)} days | We identify each caller from login history and confirm it with you; a Salesforce-compatible connection keeps them working while they move | Assessment, **client input** |`,
+    `| History older than Salesforce keeps | audit trail from ${inv.retention.setupAuditTrail.oldest?.slice(0, 10) || '—'}, logins from ${inv.retention.loginHistory.oldest?.slice(0, 10) || '—'} | We start archiving in week one and agree retention with your compliance team | **client input** |`,
+    '| Built-in platform behaviour (lead conversion, owner-change cascades, order of execution) | not configuration | We build this behaviour into the platform once and test it against your org | Our team |',
+    `| Work in flight at cutover | ${shown(inv.pendingApprovals)} pending approvals, ${shown(inv.pausedFlows)} paused flows, ${shown(inv.scheduledJobs)} scheduled jobs | We finish each item before the freeze or carry it over in the same state | Cutover plan |`,
+    `| Encryption keys | ${inv.encryptedFields.count} encrypted fields | We read the data through an authorised user and encrypt it again in the new system with keys you hold | Client security |`,
     ...(inv.coverage.ok && Object.entries(inv.coverage.foldered).some(([t, c]) => got(t) < c)
-      ? [`| Folder items listed but not retrieved | ${Object.entries(inv.coverage.foldered).filter(([t, c]) => got(t) < c).map(([t, c]) => `${t} ${c - got(t)} of ${c}`).join(', ')} | Usually Salesforce-managed or private folders; confirmed with the client whether they are in use, then retrieved by the folder owner | Assessment |`]
+      ? [`| Folder items listed but not retrieved | ${Object.entries(inv.coverage.foldered).filter(([t, c]) => got(t) < c).map(([t, c]) => `${t} ${c - got(t)} of ${c}`).join(', ')} | Usually Salesforce-managed or private folders; we check with you whether they are used, then the folder owner shares them | Assessment |`]
       : []),
-    ...(noAccess ? [`| Items the extraction user could not read | ${noAccess} | Re-run with a user who has View All Data and Manage Reports/Dashboards, or ask the folder owner to share | Client admin |`] : []),
-    '| Email captured by Einstein Activity Capture | ask | Re-synced from the mail server into the target | **client input** |',
-    '| Separate products (Marketing Cloud, Account Engagement, CRM Analytics, Tableau) | ask | Scoped separately in the assessment if used | **client input** |',
+    ...(noAccess ? [`| Items the extraction user could not read | ${noAccess} | We run again with a user who has View All Data, or the folder owner shares them | Client admin |`] : []),
+    '| Email captured by Einstein Activity Capture | ask | We sync email history again from your mail server | **client input** |',
+    '| Separate products (Marketing Cloud, Account Engagement, CRM Analytics, Tableau) | ask | If you use them, we scope them separately in the assessment | **client input** |',
     '',
-    '## 3. Ways we keep the remaining gap small',
+    '## 3. How we keep this list short',
     '',
-    `- **Coverage check.** The org lists ${inv.coverage.ok ? inv.coverage.notRequested.length : '—'} further metadata types that are not requested today (\`coverage.json\`). Each is reviewed once and added to the manifest or marked not relevant.`,
-    `- **Usage evidence.** ${stale(inv.reports, 'LastRunDate') ?? '—'} reports and ${stale(inv.emailTemplates, 'LastUsedDate') ?? '—'} email templates have not been used in 180 days. Confirming these with the client reduces what needs rebuilding.`,
-    '- **Shadow run.** Salesforce and the target run side by side; differences in outbound calls and results are recorded and turned into tests.',
-    '- **Archive early.** Audit trail, login history and field history are exported on a schedule from the first week, so nothing expires during the project.',
-    '- **Assessment questionnaire.** The **client input** items above are asked in one workshop, with this register as the agenda.',
+    `- **Coverage check.** The org lists ${inv.coverage.ok ? inv.coverage.notRequested.length : '—'} further metadata types that are not requested today (\`coverage.json\`). We review each one once and either add it or mark it as not relevant.`,
+    `- **Usage evidence.** ${stale(inv.reports, 'LastRunDate') ?? '—'} reports and ${stale(inv.emailTemplates, 'LastUsedDate') ?? '—'} email templates have not been used in 180 days. Retiring the ones you no longer need reduces what we rebuild.`,
+    '- **Side-by-side run.** We run Salesforce and the new system in parallel; any difference becomes a new test.',
+    '- **Archive early.** We save audit trail, login history and field history on a schedule from week one, so nothing expires during the project.',
+    '- **One workshop.** We go through the **client input** items with you in one session, using this list as the agenda.',
     '',
     '## Top login sources',
     '',

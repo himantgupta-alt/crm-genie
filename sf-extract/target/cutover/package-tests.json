@@ -1,0 +1,20 @@
+[
+  {
+    "namespace": "dlrs",
+    "rollup": "Account_Won_Opportunity_Count",
+    "parent": "Account",
+    "total": 22,
+    "matched": 22,
+    "sql": "-- Account_Won_Opportunity_Count: Account.Won_Opportunity_Count__c = Count of Opportunity.Id where StageName = 'Closed Won'\nUPDATE Account p SET Won_Opportunity_Count__c = COALESCE((\n  SELECT COUNT(Id) FROM Opportunity c\n  WHERE c.AccountId = p.Id AND c.StageName = 'Closed Won'\n), 0);",
+    "mismatches": []
+  },
+  {
+    "namespace": "dlrs",
+    "rollup": "Account_Won_Opportunity_Amount",
+    "parent": "Account",
+    "total": 22,
+    "matched": 22,
+    "sql": "-- Account_Won_Opportunity_Amount: Account.Won_Opportunity_Amount__c = Sum of Opportunity.Amount where StageName = 'Closed Won'\nUPDATE Account p SET Won_Opportunity_Amount__c = COALESCE((\n  SELECT SUM(Amount) FROM Opportunity c\n  WHERE c.AccountId = p.Id AND c.StageName = 'Closed Won'\n), 0);",
+    "mismatches": []
+  }
+]

@@ -1,0 +1,291 @@
+{
+  "definition": {
+    "dlrs__UniqueName__c": "Account_Won_Opportunity_Amount",
+    "dlrs__ParentObject__c": "Account",
+    "dlrs__ChildObject__c": "Opportunity",
+    "dlrs__RelationshipField__c": "AccountId",
+    "dlrs__FieldToAggregate__c": "Amount",
+    "dlrs__AggregateOperation__c": "Sum",
+    "dlrs__AggregateResultField__c": "Won_Opportunity_Amount__c",
+    "dlrs__RelationshipCriteria__c": "StageName = 'Closed Won'",
+    "dlrs__RelationshipCriteriaFields__c": "StageName"
+  },
+  "children": [
+    {
+      "Id": "006g8000007lKk1AAE",
+      "AccountId": "001g800000nRMt6AAG",
+      "Amount": 15000,
+      "StageName": "Closed Won"
+    },
+    {
+      "Id": "006g8000007lKk2AAE",
+      "AccountId": "001g800000nRMt8AAG",
+      "Amount": 125000,
+      "StageName": "Closed Lost"
+    },
+    {
+      "Id": "006g8000007lKk3AAE",
+      "AccountId": "001g800000nRMt9AAG",
+      "Amount": 220000,
+      "StageName": "Closed Won"
+    },
+    {
+      "Id": "006g8000007lKk4AAE",
+      "AccountId": "001g800000nRMtDAAW",
+      "Amount": 85000,
+      "StageName": "Closed Won"
+    },
+    {
+      "Id": "006g8000007lKk5AAE",
+      "AccountId": "001g800000nRMt7AAG",
+      "Amount": 15000,
+      "StageName": "Id. Decision Makers"
+    },
+    {
+      "Id": "006g8000007lKk6AAE",
+      "AccountId": "001g800000nRMt8AAG",
+      "Amount": 270000,
+      "StageName": "Proposal/Price Quote"
+    },
+    {
+      "Id": "006g8000007lKk7AAE",
+      "AccountId": "001g800000nRMt8AAG",
+      "Amount": 120000,
+      "StageName": "Closed Won"
+    },
+    {
+      "Id": "006g8000007lKk8AAE",
+      "AccountId": "001g800000nRMt7AAG",
+      "Amount": 250000,
+      "StageName": "Closed Won"
+    },
+    {
+      "Id": "006g8000007lKk9AAE",
+      "AccountId": "001g800000nRMt3AAG",
+      "Amount": 75000,
+      "StageName": "Closed Won"
+    },
+    {
+      "Id": "006g8000007lKkAAAU",
+      "AccountId": "001g800000nRMtAAAW",
+      "Amount": 50000,
+      "StageName": "Closed Won"
+    },
+    {
+      "Id": "006g8000007lKkBAAU",
+      "AccountId": "001g800000nRMt5AAG",
+      "Amount": 100000,
+      "StageName": "Closed Lost"
+    },
+    {
+      "Id": "006g8000007lKkCAAU",
+      "AccountId": "001g800000nRMt9AAG",
+      "Amount": 80000,
+      "StageName": "Value Proposition"
+    },
+    {
+      "Id": "006g8000007lKkDAAU",
+      "AccountId": "001g800000nRMtDAAW",
+      "Amount": 60000,
+      "StageName": "Closed Won"
+    },
+    {
+      "Id": "006g8000007lKkEAAU",
+      "AccountId": "001g800000nRMtDAAW",
+      "Amount": 30000,
+      "StageName": "Closed Won"
+    },
+    {
+      "Id": "006g8000007lKkFAAU",
+      "AccountId": "001g800000nRMt8AAG",
+      "Amount": 270000,
+      "StageName": "Closed Lost"
+    },
+    {
+      "Id": "006g8000007lKkGAAU",
+      "AccountId": "001g800000nRMt3AAG",
+      "Amount": 50000,
+      "StageName": "Closed Won"
+    },
+    {
+      "Id": "006g8000007lKkHAAU",
+      "AccountId": "001g800000nRMt3AAG",
+      "Amount": 60000,
+      "StageName": "Closed Won"
+    },
+    {
+      "Id": "006g8000007lKkIAAU",
+      "AccountId": "001g800000nRMt7AAG",
+      "Amount": 350000,
+      "StageName": "Closed Won"
+    },
+    {
+      "Id": "006g8000007lKkJAAU",
+      "AccountId": "001g800000nRMt8AAG",
+      "Amount": 270000,
+      "StageName": "Closed Won"
+    },
+    {
+      "Id": "006g8000007lKkKAAU",
+      "AccountId": "001g800000nRMt8AAG",
+      "Amount": 915000,
+      "StageName": "Closed Won"
+    },
+    {
+      "Id": "006g8000007lKkLAAU",
+      "AccountId": "001g800000nRMt4AAG",
+      "Amount": 235000,
+      "StageName": "Closed Won"
+    },
+    {
+      "Id": "006g8000007lKkMAAU",
+      "AccountId": "001g800000nRMtAAAW",
+      "Amount": 100000,
+      "StageName": "Closed Won"
+    },
+    {
+      "Id": "006g8000007lKkNAAU",
+      "AccountId": "001g800000nRMt9AAG",
+      "Amount": 120000,
+      "StageName": "Perception Analysis"
+    },
+    {
+      "Id": "006g8000007lKkOAAU",
+      "AccountId": "001g800000nRMtAAAW",
+      "Amount": 90000,
+      "StageName": "Closed Won"
+    },
+    {
+      "Id": "006g8000007lKkPAAU",
+      "AccountId": "001g800000nRMt8AAG",
+      "Amount": 235000,
+      "StageName": "Closed Won"
+    },
+    {
+      "Id": "006g8000007lKkQAAU",
+      "AccountId": "001g800000nRMt8AAG",
+      "Amount": 440000,
+      "StageName": "Closed Won"
+    },
+    {
+      "Id": "006g8000007lKkRAAU",
+      "AccountId": "001g800000nRMt7AAG",
+      "Amount": 90000,
+      "StageName": "Closed Won"
+    },
+    {
+      "Id": "006g8000007lKkSAAU",
+      "AccountId": "001g800000nRMt8AAG",
+      "Amount": 120000,
+      "StageName": "Closed Won"
+    },
+    {
+      "Id": "006g8000007lKkTAAU",
+      "AccountId": "001g800000nRMt7AAG",
+      "Amount": 210000,
+      "StageName": "Closed Won"
+    },
+    {
+      "Id": "006g8000007lKkUAAU",
+      "AccountId": "001g800000nRMt8AAG",
+      "Amount": 675000,
+      "StageName": "Closed Won"
+    },
+    {
+      "Id": "006g8000007lKkVAAU",
+      "AccountId": "001g800000nRMt3AAG",
+      "Amount": 35000,
+      "StageName": "Closed Lost"
+    }
+  ],
+  "parentValues": [
+    {
+      "Id": "001g800000nRMt3AAG",
+      "Won_Opportunity_Amount__c": 185000
+    },
+    {
+      "Id": "001g800000nRMt4AAG",
+      "Won_Opportunity_Amount__c": 235000
+    },
+    {
+      "Id": "001g800000nRMt5AAG",
+      "Won_Opportunity_Amount__c": 0
+    },
+    {
+      "Id": "001g800000nRMt6AAG",
+      "Won_Opportunity_Amount__c": 15000
+    },
+    {
+      "Id": "001g800000nRMt7AAG",
+      "Won_Opportunity_Amount__c": 900000
+    },
+    {
+      "Id": "001g800000nRMt8AAG",
+      "Won_Opportunity_Amount__c": 2775000
+    },
+    {
+      "Id": "001g800000nRMt9AAG",
+      "Won_Opportunity_Amount__c": 220000
+    },
+    {
+      "Id": "001g800000nRMtAAAW",
+      "Won_Opportunity_Amount__c": 240000
+    },
+    {
+      "Id": "001g800000nRMtBAAW",
+      "Won_Opportunity_Amount__c": 0
+    },
+    {
+      "Id": "001g800000nRMtCAAW",
+      "Won_Opportunity_Amount__c": 0
+    },
+    {
+      "Id": "001g800000nRMtDAAW",
+      "Won_Opportunity_Amount__c": 175000
+    },
+    {
+      "Id": "001g800000nRMtEAAW",
+      "Won_Opportunity_Amount__c": 0
+    },
+    {
+      "Id": "001g800000nRMtFAAW",
+      "Won_Opportunity_Amount__c": 0
+    },
+    {
+      "Id": "001g800000pfWViAAM",
+      "Won_Opportunity_Amount__c": 0
+    },
+    {
+      "Id": "001g800000wp7KcAAI",
+      "Won_Opportunity_Amount__c": 0
+    },
+    {
+      "Id": "001g800000wp7KdAAI",
+      "Won_Opportunity_Amount__c": 0
+    },
+    {
+      "Id": "001g800000wp7KeAAI",
+      "Won_Opportunity_Amount__c": 0
+    },
+    {
+      "Id": "001g800000wp7KfAAI",
+      "Won_Opportunity_Amount__c": 0
+    },
+    {
+      "Id": "001g800000wp7KgAAI",
+      "Won_Opportunity_Amount__c": 0
+    },
+    {
+      "Id": "001g800000wp7KhAAI",
+      "Won_Opportunity_Amount__c": 0
+    },
+    {
+      "Id": "001g800000wp7KiAAI",
+      "Won_Opportunity_Amount__c": 0
+    },
+    {
+      "Id": "001g800000wp7KjAAI",
+      "Won_Opportunity_Amount__c": 0
+    }
+  ]
+}

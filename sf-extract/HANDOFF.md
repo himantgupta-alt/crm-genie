@@ -193,6 +193,16 @@ The target state runs in Azure: **https://crmgenie-app-hg01.azurewebsites.net** 
   `packages.md` (Modelling), `credentials.md` (Security), `work-in-progress.md` + `history-archive.md`
   (Data load), `platform-behaviour.md` (Verification: 7 of 12 behaviours tested). Each agent writes its file
   when it runs; listed in its `agent.json` outputs and shown in the demo at that agent's gate.
+- **Vendor package demo (DLRS)**: installed Declarative Lookup Rollup Summaries 2.25 (`04tKA000000cCA1YAM`,
+  namespace `dlrs`, admins only) into the dev org. Two rollups stored as `dlrs__LookupRollupSummary__c`
+  records (Developer mode, run with `dlrs.RollupService.runJobToCalculate`): Opportunity → new Account fields
+  `Won_Opportunity_Count__c` / `Won_Opportunity_Amount__c` (permission set `DLRS_Rollup_Fields`). Inventory
+  saves package objects, settings and captured outputs (`output/inventory/packages/dlrs/`);
+  `emit-cutover.js --parts packages` rebuilds each rollup from its settings and compares: 44/44 match.
+  These Account fields are not yet in `output/schema` (no full re-extract, see drift note below).
+- **Deck slide 2**: click-by-click walkthrough (ring + panel per agent, 10 clicks). Pre-change copy in
+  `presentations/backup/`.
+- **Voice**: gap register, working documents and demo text are written as our team ("we", "you").
 - **Org drift**: a full describe on 6 Oct found 512 objects / 1,964 relations (was 505 / 1,933) — new standard
   objects from a Salesforce release. Not committed, so the blueprint and CI baseline stay unchanged; a
   re-extract plus blueprint/DDL regeneration is its own change.

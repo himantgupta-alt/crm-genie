@@ -1,11 +1,11 @@
 # Gap register
 
-Generated 2026-10-06 by `scripts/extract-inventory.js` for Ascendion (Developer Edition, time zone America/Los_Angeles).
+Prepared 2026-10-06 from Ascendion org (Developer Edition, time zone America/Los_Angeles).
 
-Everything below is either collected automatically or has an agreed way to be handled. Items marked
-**client input** are confirmed with the client during the assessment.
+This is our list of everything Salesforce does not hand over, and how we will handle each item. Items marked
+**client input** are the ones we will confirm with you in the assessment workshop.
 
-## 1. Collected automatically
+## 1. What we have already collected
 
 | Area | Count | Where |
 |---|---|---|
@@ -21,40 +21,40 @@ Everything below is either collected automatically or has an agreed way to be ha
 | Named credentials (endpoints) | 0 | `namedCredentials.json` |
 | Remote sites (endpoints) | 1 | `remoteSites.json` |
 | Connected apps | 0 | `connectedApps.json` |
-| Installed packages | 1 | `packages.json` |
+| Installed packages | 2 | `packages.json` |
 | Currencies | not offered by this org | `currencies.json` |
 | Field history tables | 171 | `fieldHistory.json` |
 | Encrypted fields | 0 | `encryptedFields.json` |
 
-## 2. Not exported by Salesforce, and how each is handled
+## 2. What Salesforce keeps, and how we will handle it
 
 | Item | In this org | How we handle it | Owner |
 |---|---|---|---|
-| Managed package source code | Developer Edition (devedapp) | Configuration exported as data; behaviour captured as tests from the outside; rebuild or replace decided per package | Assessment, **client input** |
-| Passwords, tokens, secrets, private keys | 0 credentials, 0 connected apps | Users move to SSO or reset at go-live; integration owners issue new credentials, tracked on the cutover checklist | Client IT |
-| Who calls Salesforce from outside | 4 login sources in 90 days | Login history per application and integration user, confirmed in interviews; the compatibility layer keeps callers working during migration | Assessment, **client input** |
-| History older than Salesforce keeps | audit trail from 2026-09-13, logins from 2026-09-13 | Archived from day one of the engagement; retention agreed with compliance | **client input** |
-| Built-in platform behaviour (lead conversion, owner-change cascades, order of execution) | not configuration | Written once into the translation playbook; checked by the parity harness | Our team |
-| Work in flight at cutover | 0 pending approvals, 0 paused flows, 3 scheduled jobs | Drained before the freeze or carried over, decided per item | Cutover plan |
-| Encryption keys | 0 encrypted fields | Data read decrypted by an authorised user; re-encrypted in the target with client-held keys | Client security |
-| Folder items listed but not retrieved | Report 24 of 30, Dashboard 2 of 2 | Usually Salesforce-managed or private folders; confirmed with the client whether they are in use, then retrieved by the folder owner | Assessment |
-| Items the extraction user could not read | Dashboard (2), Layout (2) | Re-run with a user who has View All Data and Manage Reports/Dashboards, or ask the folder owner to share | Client admin |
-| Email captured by Einstein Activity Capture | ask | Re-synced from the mail server into the target | **client input** |
-| Separate products (Marketing Cloud, Account Engagement, CRM Analytics, Tableau) | ask | Scoped separately in the assessment if used | **client input** |
+| Managed package source code | Developer Edition (devedapp); Declarative Lookup Rollup Summaries Tool (dlrs) | We export the package settings as data, record what the package does as test cases, and agree with you whether to rebuild, replace or keep it | Assessment, **client input** |
+| Passwords, tokens, secrets, private keys | 0 credentials, 0 connected apps | Your users sign in through single sign-on (or set a new password on day one); each integration owner issues a new credential, tracked on our cutover checklist | Client IT |
+| Who calls Salesforce from outside | 4 login sources in 90 days | We identify each caller from login history and confirm it with you; a Salesforce-compatible connection keeps them working while they move | Assessment, **client input** |
+| History older than Salesforce keeps | audit trail from 2026-09-13, logins from 2026-09-13 | We start archiving in week one and agree retention with your compliance team | **client input** |
+| Built-in platform behaviour (lead conversion, owner-change cascades, order of execution) | not configuration | We build this behaviour into the platform once and test it against your org | Our team |
+| Work in flight at cutover | 0 pending approvals, 0 paused flows, 3 scheduled jobs | We finish each item before the freeze or carry it over in the same state | Cutover plan |
+| Encryption keys | 0 encrypted fields | We read the data through an authorised user and encrypt it again in the new system with keys you hold | Client security |
+| Folder items listed but not retrieved | Report 24 of 30, Dashboard 2 of 2 | Usually Salesforce-managed or private folders; we check with you whether they are used, then the folder owner shares them | Assessment |
+| Items the extraction user could not read | Dashboard (2), Layout (2) | We run again with a user who has View All Data, or the folder owner shares them | Client admin |
+| Email captured by Einstein Activity Capture | ask | We sync email history again from your mail server | **client input** |
+| Separate products (Marketing Cloud, Account Engagement, CRM Analytics, Tableau) | ask | If you use them, we scope them separately in the assessment | **client input** |
 
-## 3. Ways we keep the remaining gap small
+## 3. How we keep this list short
 
-- **Coverage check.** The org lists 187 further metadata types that are not requested today (`coverage.json`). Each is reviewed once and added to the manifest or marked not relevant.
-- **Usage evidence.** 30 reports and 28 email templates have not been used in 180 days. Confirming these with the client reduces what needs rebuilding.
-- **Shadow run.** Salesforce and the target run side by side; differences in outbound calls and results are recorded and turned into tests.
-- **Archive early.** Audit trail, login history and field history are exported on a schedule from the first week, so nothing expires during the project.
-- **Assessment questionnaire.** The **client input** items above are asked in one workshop, with this register as the agenda.
+- **Coverage check.** The org lists 187 further metadata types that are not requested today (`coverage.json`). We review each one once and either add it or mark it as not relevant.
+- **Usage evidence.** 30 reports and 28 email templates have not been used in 180 days. Retiring the ones you no longer need reduces what we rebuild.
+- **Side-by-side run.** We run Salesforce and the new system in parallel; any difference becomes a new test.
+- **Archive early.** We save audit trail, login history and field history on a schedule from week one, so nothing expires during the project.
+- **One workshop.** We go through the **client input** items with you in one session, using this list as the agenda.
 
 ## Top login sources
 
 | Application | Login type | Logins | Users | Last login |
 |---|---|---|---|---|
 | Browser | Application | 8 | 1 | 2026-10-05 |
-| Salesforce CLI | Remote Access 2.0 | 5 | 1 | 2026-10-06 |
+| Salesforce CLI | Remote Access 2.0 | 6 | 1 | 2026-10-06 |
 | orgfarm_app_1 | Remote Access 2.0 | 3 | 1 | 2026-09-22 |
 | Browser | Remote Access Client | 3 | 1 | 2026-10-01 |

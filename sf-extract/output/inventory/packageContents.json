@@ -1,0 +1,91 @@
+{
+  "ok": true,
+  "records": [
+    {
+      "namespace": "devedapp",
+      "name": "Developer Edition",
+      "version": "v0.9",
+      "objects": [],
+      "settings": [],
+      "apexClasses": 4,
+      "apexSource": "hidden by the vendor"
+    },
+    {
+      "namespace": "dlrs",
+      "name": "Declarative Lookup Rollup Summaries Tool",
+      "version": "Release",
+      "objects": [
+        {
+          "name": "dlrs__DeclarativeLookupRollupSummaries__c",
+          "label": "Declarative Lookup Rollup Summaries",
+          "kind": "custom setting",
+          "rows": 0
+        },
+        {
+          "name": "dlrs__LookupChild__c",
+          "label": "Lookup Child",
+          "kind": "object",
+          "rows": 0
+        },
+        {
+          "name": "dlrs__LookupParent__c",
+          "label": "Lookup Parent",
+          "kind": "object",
+          "rows": 0
+        },
+        {
+          "name": "dlrs__LookupRollupCalculateJob__c",
+          "label": "Lookup Rollup Calculate Job",
+          "kind": "object",
+          "rows": 0
+        },
+        {
+          "name": "dlrs__LookupRollupSummary2__mdt",
+          "label": "Lookup Rollup Summary",
+          "kind": "custom metadata",
+          "rows": 0
+        },
+        {
+          "name": "dlrs__LookupRollupSummaryLog__c",
+          "label": "Lookup Rollup Summary Log",
+          "kind": "object",
+          "rows": 0
+        },
+        {
+          "name": "dlrs__LookupRollupSummaryScheduleItems__c",
+          "label": "Lookup Rollup Summary Schedule Item",
+          "kind": "object",
+          "rows": 0
+        },
+        {
+          "name": "dlrs__LookupRollupSummary__c",
+          "label": "Lookup Rollup Summary",
+          "kind": "object",
+          "rows": 2
+        }
+      ],
+      "settings": [
+        {
+          "object": "dlrs__LookupRollupSummary__c",
+          "rows": 2
+        }
+      ],
+      "apexClasses": 134,
+      "apexSource": "hidden by the vendor",
+      "capturedOutputs": [
+        {
+          "rollup": "Account_Won_Opportunity_Count",
+          "children": 31,
+          "parents": 22,
+          "file": "packages/dlrs/capture-Account_Won_Opportunity_Count.json"
+        },
+        {
+          "rollup": "Account_Won_Opportunity_Amount",
+          "children": 31,
+          "parents": 22,
+          "file": "packages/dlrs/capture-Account_Won_Opportunity_Amount.json"
+        }
+      ]
+    }
+  ]
+}

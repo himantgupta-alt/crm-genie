@@ -11,6 +11,17 @@
         "MajorVersion": 0,
         "MinorVersion": 9
       }
+    },
+    {
+      "SubscriberPackage": {
+        "Name": "Declarative Lookup Rollup Summaries Tool",
+        "NamespacePrefix": "dlrs"
+      },
+      "SubscriberPackageVersion": {
+        "Name": "Release",
+        "MajorVersion": 2,
+        "MinorVersion": 25
+      }
     }
   ]
 }

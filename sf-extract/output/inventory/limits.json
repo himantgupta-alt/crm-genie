@@ -11,7 +11,7 @@
     },
     "DailyApiRequests": {
       "Max": 15000,
-      "Remaining": 14586
+      "Remaining": 14881
     },
     "DailyBulkV2QueryJobs": {
       "Max": 10000,

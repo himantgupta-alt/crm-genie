@@ -8,8 +8,8 @@
       },
       "CronExpression": "0 59 6,11,16,23 ? * *",
       "State": "WAITING",
-      "NextFireTime": "2026-10-06T13:59:00.000+0000",
-      "PreviousFireTime": "2026-10-06T07:11:52.299+0000"
+      "NextFireTime": "2026-10-06T23:59:00.000+0000",
+      "PreviousFireTime": "2026-10-06T19:09:28.319+0000"
     },
     {
       "CronJobDetail": {
@@ -28,8 +28,8 @@
       },
       "CronExpression": "0 54 10 ? * 1,2,3,4,5,6,7",
       "State": "WAITING",
-      "NextFireTime": "2026-10-06T17:54:00.000+0000",
-      "PreviousFireTime": "2026-10-05T18:04:25.204+0000"
+      "NextFireTime": "2026-10-07T17:54:00.000+0000",
+      "PreviousFireTime": "2026-10-06T18:02:12.724+0000"
     }
   ]
 }

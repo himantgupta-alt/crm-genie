@@ -826,40 +826,47 @@ node scripts/extract-inventory.js` },
       files: [
         { path: 'output/inventory/gap-register.md', lang: 'text', code: R`# Gap register · myorg (Developer Edition)
 
-Everything here is either collected automatically or has a planned route.
-Items marked [client input] are confirmed in the assessment workshop.
+This is our list of everything Salesforce does not hand over, and how we will
+handle each item. Items marked [client input] are the ones we will confirm with
+you in the assessment workshop.
 
-## Collected beyond the metadata retrieve
+## What we have already collected
 Reports 30 listed, 6 retrieved · dashboards 2 listed · email templates 28
-(folders listed one by one; the rest sit in Salesforce-managed folders)
+(the rest sit in Salesforce-managed folders; we check with you if they are used)
 Report and template usage dates          reports.json, emailTemplates.json
-Scheduled jobs 3 · remote sites 1 · installed packages 1
-Field history tables 174 · encrypted fields 0
+Scheduled jobs 3 · remote sites 1 · installed packages 2 (incl. DLRS)
+Field history tables 171 · encrypted fields 0
 Login sources (90 days) 4                loginsByApplication.json
 
-## Stays in Salesforce, and how we cover it
-1 Vendor package code     settings exported as data; behaviour captured as tests;
-                          rebuild or replace agreed per package       [client input]
-2 Passwords and secrets   single sign-on for users; integration owners issue new
-                          credentials from the cutover checklist
-3 Systems that call in    login history per application; Salesforce-compatible
-                          API keeps callers running during the move  [client input]
-4 History with limits     audit trail kept from 2026-09-13; archived from week one,
-                          retention agreed with compliance           [client input]
-5 Platform behaviour      captured once in the translation playbook; compared with
-                          the org during validation
+## What Salesforce keeps, and how we will handle it
+1 Vendor package code     DLRS: 2 rollups stored as settings; we rebuilt them from the
+                          settings alone and 44 of 44 values match the package output.
+                          For each package we agree with you: rebuild, replace or keep
+                                                                      [client input]
+2 Passwords and secrets   your users sign in through single sign-on; each
+                          integration owner issues a new credential, on our checklist
+3 Systems that call in    we find each caller from login history; a Salesforce-
+                          compatible connection keeps them working while they move
+                                                                      [client input]
+4 History with limits     audit trail available from 2026-09-13; we archive from
+                          week one and agree retention with your compliance team
+                                                                      [client input]
+5 Platform behaviour      we build it into the platform once and test it against
+                          your org
 6 Work in progress        0 pending approvals · 0 paused flows · 3 scheduled jobs;
-                          completed before the freeze or carried over
-Also noted                24 reports and 2 dashboards in managed folders, confirmed
-                          with the client and retrieved by the folder owner if in use
+                          we finish each before the freeze or carry it over
+Also noted                24 reports and 2 dashboards in managed folders; we check
+                          with you, and the folder owner shares them if in use
 
-## Keeping the gap small
-Coverage check     187 further metadata types offered by the org, reviewed once
-Usage evidence     reports and templates unused for 180 days, confirmed with the client
-Side-by-side run   differences between the two systems become new tests
-One workshop       open questions answered with the client, using this register` },
+## How we keep this list short
+Coverage check     187 further metadata types offered by the org; we review each once
+Usage evidence     reports and templates unused for 180 days; you decide what to retire
+Side-by-side run   both systems run in parallel; any difference becomes a new test
+One workshop       we go through the open questions with you, using this list` },
         { path: 'output/inventory/ (25 files)', lang: 'text', code: R`gap-register.md            the list above, regenerated on every run
-packages.json              1 package (namespace devedapp)            vendor packages
+packages.json              2 packages (devedapp, dlrs)               vendor packages
+packageContents.json       DLRS: 8 objects, 134 hidden classes, 2 settings records
+packages/dlrs/             settings records + captured outputs (31 inputs, 22 results)
 namedCredentials.json      0 · remoteSites.json 1 · connectedApps.json 0 secrets and integrations
 apiOnlyUsers.json          2 integration accounts (git-ignored)
 loginsByApplication.json   4 login sources in 90 days                systems that call in
@@ -992,7 +999,7 @@ org.json · limits.json · currencies.json · files.json · attachments.json` },
         'profiles and permission sets: 47 · object settings: 271',
         'export: 1,322 rows across 41 objects',
         ['4 system tables are read through describe only (ContentDocumentLink, ContentFolderItem, PendingOrderSummary, PermissionSetLicense)', 'warn'],
-        'inventory: packages 1 · scheduled jobs 3 · remote sites 1 · login sources 4',
+        'inventory: packages 2 (DLRS: 134 hidden classes, 2 settings) · scheduled jobs 3 · remote sites 1 · login sources 4',
         'usage: report run dates and email template use recorded',
         'gap register: 6 items that stay in Salesforce, each with a planned route',
         ['complete', 'good'],
@@ -1080,7 +1087,7 @@ ${VOCAB_DEFAULT.filter(([k]) => k.includes('.')).map(([k]) => `      "${k}": "${
 | Subscription__c.No_Reactivation_After_Cancel   | write_guard | needs the prior row  |
 
 ## Warnings (0)` },
-        { path: 'target/cutover/packages.md', lang: 'text', code: "# Vendor packages\n\nGenerated by `scripts/emit-cutover.js` from `output/inventory/`. Owner: **Modelling agent**, reviewed at that agent's gate.\n\nManaged-package code is compiled and hidden by Salesforce. What we can take: the package's objects and fields (in the blueprint), its data and its configuration records (in the data export). Behaviour is captured as input → output test cases, then each package is rebuilt, replaced or kept on Salesforce by agreement.\n\n## Developer Edition (`devedapp`, version v0.9)\n\n| What | Count | Taken by |\n|---|---|---|\n| Package objects in the blueprint | 0 | Extraction (describe) |\n| Package fields on other objects | 0 | Extraction (describe) |\n| Objects holding records (configuration or data) | 0 | Data export |\n| Package Apex source | hidden by Salesforce | — |\n\n| Decision | Value |\n|---|---|\n| Business owner | _to confirm_ |\n| In use? (records created in the last 90 days) | _to confirm_ |\n| Route: rebuild / replace with vendor or SaaS / keep on Salesforce | _to decide in assessment_ |\n| Test capture: historical records as input → output cases, plus sandbox runs | _planned per package_ |" },
+        { path: 'target/cutover/packages.md', lang: 'text', code: "# Vendor packages\n\nPrepared by our team from the org inventory. Owner: **Modelling agent**; we review it with you at that phase's gate.\n\nThe vendor hides the code of each installed package. We still take everything around it: its objects, its data and its settings. We record what the package does as input → output test cases, then agree with you whether to rebuild it, replace it, or keep it on Salesforce for now.\n\n## Developer Edition (`devedapp`, version v0.9)\n\n| What | Count | How we take it |\n|---|---|---|\n| Package objects | 0 | describe |\n| Objects holding records | 0 | data export |\n| Settings records saved | 0 | `output/inventory/packages/devedapp/` |\n| Apex classes | 4 | source hidden by the vendor |\n\n| Decision | Value |\n|---|---|\n| Business owner | _to confirm with you_ |\n| In use? | no records found |\n| Our proposed route | not needed: installed but holds no records |\n| Test cases from your data | _planned_ |\n\n## Declarative Lookup Rollup Summaries Tool (`dlrs`, version Release)\n\n| What | Count | How we take it |\n|---|---|---|\n| Package objects | 8 | describe |\n| Objects holding records | 1 | data export |\n| Settings records saved | 2 | `output/inventory/packages/dlrs/` |\n| Apex classes | 134 | source hidden by the vendor |\n\nObjects with records:\n\n- `dlrs__LookupRollupSummary__c` (object) — 2 rows\n\n### Rebuilt from its settings: Account_Won_Opportunity_Count\n\nThe package stores this rollup as a settings record. We read it and rebuilt the behaviour without the package code:\n\n```sql\n-- Account_Won_Opportunity_Count: Account.Won_Opportunity_Count__c = Count of Opportunity.Id where StageName = 'Closed Won'\nUPDATE Account p SET Won_Opportunity_Count__c = COALESCE((\n  SELECT COUNT(Id) FROM Opportunity c\n  WHERE c.AccountId = p.Id AND c.StageName = 'Closed Won'\n), 0);\n```\n\nCompared with the values the package wrote: **22 of 22 Account records match**. Records with no matching child count as zero on both sides.\n\n### Rebuilt from its settings: Account_Won_Opportunity_Amount\n\nThe package stores this rollup as a settings record. We read it and rebuilt the behaviour without the package code:\n\n```sql\n-- Account_Won_Opportunity_Amount: Account.Won_Opportunity_Amount__c = Sum of Opportunity.Amount where StageName = 'Closed Won'\nUPDATE Account p SET Won_Opportunity_Amount__c = COALESCE((\n  SELECT SUM(Amount) FROM Opportunity c\n  WHERE c.AccountId = p.Id AND c.StageName = 'Closed Won'\n), 0);\n```\n\nCompared with the values the package wrote: **22 of 22 Account records match**. Records with no matching child count as zero on both sides.\n\n| Decision | Value |\n|---|---|\n| Business owner | _to confirm with you_ |\n| In use? | yes: 2 Lookup Rollup Summary |\n| Our proposed route | rebuild: the behaviour is fully described by its settings and matches the package output |\n| Test cases from your data | 44 (one per parent record per rollup) |" },
       ],
       log: [
         'read 505 objects · 9,857 fields · 1,933 relations',
@@ -1090,10 +1097,10 @@ ${VOCAB_DEFAULT.filter(([k]) => k.includes('.')).map(([k]) => `      "${k}": "${
         ['2 identifiers exceed 63 characters → shortened with hash suffix', 'warn'],
         'strategies: 6 CHECK · 2 guard · 2 generated · 1 view join · 1 on read · 2 roll-up',
         'schema validation passed · referential integrity passed',
-        'vendor packages: 1 listed (devedapp), 0 objects, route to be agreed → target/cutover/packages.md',
+        'vendor packages: 2 listed · DLRS rebuilt from its settings, 44/44 values match → target/cutover/packages.md',
         ['contentHash fc71a1458dce', 'good'],
       ],
-      checks: [['pass', 'Blueprint matches blueprint.schema.json'], ['pass', '0 unresolved references'], ['pass', '13/13 formulas parsed and round-tripped'], ['pass', 'Identical hash on re-run'], ['warn', '2 identifiers shortened to fit 63 characters']],
+      checks: [['pass', 'Blueprint matches blueprint.schema.json'], ['pass', 'DLRS package rebuilt from its settings: 44/44 values match'], ['pass', '0 unresolved references'], ['pass', '13/13 formulas parsed and round-tripped'], ['pass', 'Identical hash on re-run'], ['warn', '2 identifiers shortened to fit 63 characters']],
       summary: [['505', 'entities'], ['9,857', 'fields'], ['1,933', 'relations'], ['0', 'warnings']],
     },
     {
@@ -1187,7 +1194,7 @@ Subscription_Line__c.Account_Name__c formula  Subscription__r.Account__r.Name  v
     <allowRead>true</allowRead>
     <object>Subscription__c</object>
 </objectPermissions>` },
-      files: [{ path: 'target/db/060_security.sql', lang: 'sql', code: security }, { path: 'target/cutover/credentials.md', lang: 'text', code: "# Credentials and integrations checklist\n\nGenerated by `scripts/emit-cutover.js` from `output/inventory/`. Owner: **Security agent**, reviewed at that agent's gate.\n\nPasswords, tokens and keys are never exported by Salesforce. Users move to single sign-on (identity provider over SAML or OpenID Connect; users matched by Federation ID) or reset at go-live. Every integration gets a new credential from its owner, stored in Azure Key Vault, tested, then switched on a fixed date. Systems that call into Salesforce are found from login history and kept running through a Salesforce-compatible API until they move.\n\n## Outbound: named credentials\n\n_None in this org._\n\n## Outbound: remote sites\n\n| Site | Endpoint | Active | Owner | New credential | Tested | Switch date |\n|---|---|---|---|---|---|---|\n| ApexDevNet | http://www.apexdevnet.com | true | | | | |\n\n## Connected apps (OAuth clients)\n\n_None in this org._\n\n## Inbound: who calls Salesforce (login history)\n\n| Application | Login type | Logins | Users | Last login | Owner | New credential | Tested | Switch date |\n|---|---|---|---|---|---|---|---|---|\n| Salesforce CLI | Remote Access 2.0 | 5 | 1 | 2026-10-06 | | | | |\n| orgfarm_app_1 | Remote Access 2.0 | 3 | 1 | 2026-09-22 | | | | |\n| Browser | Remote Access Client | 3 | 1 | 2026-10-01 | | | | |\n\n## API-only users (integration accounts)\n\n| User | Profile | Last login | Active | Owner | New credential | Tested | Switch date |\n|---|---|---|---|---|---|---|---|\n| i…@00d000000000001eaf | Analytics Cloud Integration User | — | true | | | | |\n| i…@00d000000000001eaf | Analytics Cloud Security User | — | true | | | | |" }],
+      files: [{ path: 'target/db/060_security.sql', lang: 'sql', code: security }, { path: 'target/cutover/credentials.md', lang: 'text', code: "# Credentials and integrations checklist\n\nPrepared by our team from the org inventory. Owner: **Security agent**; we review it with you at that phase's gate.\n\nSalesforce never exports passwords, tokens or keys. Your users will sign in through your company login (single sign-on, matched by Federation ID), or set a new password on day one. For every integration, the owner issues a new credential; we store it in Azure Key Vault, test it, and switch on an agreed date. We find the systems that call into Salesforce from login history and keep them running through a Salesforce-compatible connection until each one moves.\n\n## Outbound: named credentials\n\n_None in this org._\n\n## Outbound: remote sites\n\n| Site | Endpoint | Active | Owner | New credential | Tested | Switch date |\n|---|---|---|---|---|---|---|\n| ApexDevNet | http://www.apexdevnet.com | true | | | | |\n\n## Connected apps (OAuth clients)\n\n_None in this org._\n\n## Inbound: who calls Salesforce (login history)\n\n| Application | Login type | Logins | Users | Last login | Owner | New credential | Tested | Switch date |\n|---|---|---|---|---|---|---|---|---|\n| Salesforce CLI | Remote Access 2.0 | 6 | 1 | 2026-10-06 | | | | |\n| orgfarm_app_1 | Remote Access 2.0 | 3 | 1 | 2026-09-22 | | | | |\n| Browser | Remote Access Client | 3 | 1 | 2026-10-01 | | | | |\n\n## API-only users (integration accounts)\n\n| User | Profile | Last login | Active | Owner | New credential | Tested | Switch date |\n|---|---|---|---|---|---|---|---|\n| i…@00d000000000001eaf | Analytics Cloud Integration User | — | true | | | | |\n| i…@00d000000000001eaf | Analytics Cloud Security User | — | true | | | | |" }],
       log: [
         'Subscription__c, Subscription_Line__c: ControlledByParent → Account',
         'Account OWD ReadWrite → can_access_account()',
@@ -1210,7 +1217,7 @@ Opportunity.csv           31 rows
 Product2.csv              17 rows
 Subscription__c.csv       107 rows
 Subscription_Line__c.csv  219 rows` },
-      files: [{ path: 'target/load/load-report.txt', lang: 'text', code: loadReport }, { path: 'target/cutover/work-in-progress.md', lang: 'text', code: "# Work in progress at go-live\n\nGenerated by `scripts/emit-cutover.js` from `output/inventory/`. Owner: **Data load agent**, reviewed at that agent's gate.\n\nHalf-finished processes live inside Salesforce's engine, not in records. Each item below is either drained (finished before the write freeze) or carried over (recreated in the target in the same state). Scheduled jobs are switched in one step: off in Salesforce and on in the target together, so nothing runs twice or not at all.\n\n## Pending approvals (0)\n\n_None open today. Re-run in the week before the freeze._\n\n## Paused flows (0)\n\n_None paused today._\n\n## Scheduled jobs (3)\n\n| Job | Schedule (cron) | Next run | Route |\n|---|---|---|---|\n| Program Milestone Computation Cron Job | `0 59 6,11,16,23 ? * *` | 2026-10-06 | Salesforce internal job, not migrated |\n| Program Status Update Cron Job | `0 0 5,20 ? * *` | 2026-10-07 | Salesforce internal job, not migrated |\n| Metalytics Data Loader Job for Org : 00D000000000001 | `0 54 10 ? * 1,2,3,4,5,6,7` | 2026-10-06 | Salesforce internal job, not migrated |\n\n## Recent batch and queued Apex (0)\n\n_None in the last 7 days._" }, { path: 'target/cutover/history-archive.md', lang: 'text', code: "# History archive plan\n\nGenerated by `scripts/emit-cutover.js` from `output/inventory/`. Owner: **Data load agent**, reviewed at that agent's gate.\n\nSalesforce deletes some history after a fixed time. From week one of the engagement a scheduled job exports each source incrementally (only rows newer than the last run) into an append-only archive, so nothing expires during the project. At go-live the archive loads into the target's history tables, which keep history without a time limit.\n\n| Source | Salesforce keeps | Reaches back to today | Archive |\n|---|---|---|---|\n| Field history (171 history tables) | 18 months in the UI, 24 via API; longer only with Field Audit Trail | per table | weekly, by `CreatedDate` watermark |\n| Setup Audit Trail (configuration changes) | 180 days | 2026-09-13 | weekly |\n| Login history | 6 months | 2026-09-13 | weekly |\n| Recycle bin (deleted records) | 15 days | — | daily, `queryAll` where `IsDeleted = true` |\n| Event Monitoring logs | 1 day, or 30 with Shield | — | daily, if licensed |\n\n| Decision | Value |\n|---|---|\n| Retention required by compliance (years, per source) | _to confirm with the client_ |\n| History older than today's reach: accepted as not available | _to confirm with the client_ |\n| Fields never tracked: changes were not recorded and cannot be recovered | noted |" }],
+      files: [{ path: 'target/load/load-report.txt', lang: 'text', code: loadReport }, { path: 'target/cutover/work-in-progress.md', lang: 'text', code: "# Work in progress at go-live\n\nPrepared by our team from the org inventory. Owner: **Data load agent**; we review it with you at that phase's gate.\n\nProcesses that are halfway through on the day we switch live inside Salesforce, not in your records. We either finish each one before the freeze, or carry it over into the new system in the same state. We switch scheduled jobs in one step, off in Salesforce and on in the new system together, so nothing runs twice or is missed.\n\n## Pending approvals (0)\n\n_None open today. Re-run in the week before the freeze._\n\n## Paused flows (0)\n\n_None paused today._\n\n## Scheduled jobs (3)\n\n| Job | Schedule (cron) | Next run | Route |\n|---|---|---|---|\n| Program Milestone Computation Cron Job | `0 59 6,11,16,23 ? * *` | 2026-10-06 | Salesforce internal job, not migrated |\n| Program Status Update Cron Job | `0 0 5,20 ? * *` | 2026-10-07 | Salesforce internal job, not migrated |\n| Metalytics Data Loader Job for Org : 00D000000000001 | `0 54 10 ? * 1,2,3,4,5,6,7` | 2026-10-07 | Salesforce internal job, not migrated |\n\n## Recent batch and queued Apex (0)\n\n_None in the last 7 days._" }, { path: 'target/cutover/history-archive.md', lang: 'text', code: "# History archive plan\n\nPrepared by our team from the org inventory. Owner: **Data load agent**; we review it with you at that phase's gate.\n\nSalesforce deletes some history after a fixed time. From week one we save each source on a schedule, adding only what is new since the last run, so nothing expires while the project runs. At go-live we load the archive into the new system, which keeps history with no time limit.\n\n| Source | Salesforce keeps | Reaches back to today | Archive |\n|---|---|---|---|\n| Field history (171 history tables) | 18 months in the UI, 24 via API; longer only with Field Audit Trail | per table | weekly, by `CreatedDate` watermark |\n| Setup Audit Trail (configuration changes) | 180 days | 2026-09-13 | weekly |\n| Login history | 6 months | 2026-09-13 | weekly |\n| Recycle bin (deleted records) | 15 days | — | daily, `queryAll` where `IsDeleted = true` |\n| Event Monitoring logs | 1 day, or 30 with Shield | — | daily, if licensed |\n\n| Decision | Value |\n|---|---|\n| Retention required by compliance (years, per source) | _to confirm with the client_ |\n| History older than today's reach: accepted as not available | _to confirm with the client_ |\n| Fields never tracked: changes were not recorded and cannot be recovered | noted |" }],
       log: [
         'load mode on',
         'account 22 · contact 20 · opportunity 31 · product2 17',
@@ -1234,7 +1241,7 @@ compare    6 derived fields × every row against the value Salesforce stored
 replay     19 rule cases from target/parity/cases.json` },
       files: [
         { path: 'target/parity/report.md', lang: 'text', code: parityReport },
-        { path: 'target/cutover/platform-behaviour.md', lang: 'text', code: "# Built-in platform behaviour\n\nGenerated by `scripts/emit-cutover.js` from `output/inventory/`. Owner: **Verification agent**, reviewed at that agent's gate.\n\nThese behaviours are how Salesforce itself works, so no metadata describes them. Each is implemented once in the platform and reused for every client, and each gets a parity case that runs the same operation in Salesforce and in the target and compares the result.\n\n| Behaviour | How the target does it | Status |\n|---|---|---|\n| Restricted picklists reject unknown values | lookup table + foreign key | tested (`platform.restrictedPicklist`) |\n| Master-detail delete removes the children | ON DELETE CASCADE | tested (`platform.masterDetailCascade`) |\n| Blank numbers count as zero in formulas | COALESCE in the compiled expression | tested (formula values) |\n| Roll-up summaries stay current | trigger-maintained column + recompute backstop | tested (roll-up values) |\n| TODAY() in the org's time zone | app.today() evaluated in the org time zone | tested (Days_To_Renewal) |\n| Field-level security | column grants per role | tested (`security.readOnlyFieldsNotWritable`) |\n| Sharing inherited from the parent record | row-level security policy | tested (`security.permsetEditsAllowedFields`) |\n| Order of execution on save | save pipeline calling generated hooks in Salesforce order, one transaction | planned |\n| Lead conversion | service using the retrieved LeadConvertSettings field mapping | planned |\n| Owner change moves open opportunities and cases | service rule on owner change | planned |\n| Duplicate and matching rules | check before insert, using retrieved rule definitions | planned |\n| Assignment and escalation rules | ordered rule engine + scheduler | planned (rules already extracted) |\n\n7 of 12 behaviours tested today; the rest are on the playbook backlog." },
+        { path: 'target/cutover/platform-behaviour.md', lang: 'text', code: "# Built-in platform behaviour\n\nPrepared by our team from the org inventory. Owner: **Verification agent**; we review it with you at that phase's gate.\n\nThese behaviours are how Salesforce itself works, so no configuration describes them. We build each one into our platform once and reuse it for every client. For each, we run the same operation in Salesforce and in the new system and compare the result.\n\n| Behaviour | How the target does it | Status |\n|---|---|---|\n| Restricted picklists reject unknown values | lookup table + foreign key | tested (`platform.restrictedPicklist`) |\n| Master-detail delete removes the children | ON DELETE CASCADE | tested (`platform.masterDetailCascade`) |\n| Blank numbers count as zero in formulas | COALESCE in the compiled expression | tested (formula values) |\n| Roll-up summaries stay current | trigger-maintained column + recompute backstop | tested (roll-up values) |\n| TODAY() in the org's time zone | app.today() evaluated in the org time zone | tested (Days_To_Renewal) |\n| Field-level security | column grants per role | tested (`security.readOnlyFieldsNotWritable`) |\n| Sharing inherited from the parent record | row-level security policy | tested (`security.permsetEditsAllowedFields`) |\n| Order of execution on save | save pipeline calling generated hooks in Salesforce order, one transaction | planned |\n| Lead conversion | service using the retrieved LeadConvertSettings field mapping | planned |\n| Owner change moves open opportunities and cases | service rule on owner change | planned |\n| Duplicate and matching rules | check before insert, using retrieved rule definitions | planned |\n| Assignment and escalation rules | ordered rule engine + scheduler | planned (rules already extracted) |\n\n7 of 12 behaviours tested today; the rest are on the playbook backlog." },
         { path: 'target/parity/cases.json', lang: 'json', code: R`{
   "cases": [
     {
