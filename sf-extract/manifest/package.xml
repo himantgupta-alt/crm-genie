@@ -70,6 +70,7 @@
         <members>ContactPointAddress</members>
         <members>ContactPointConsent</members>
         <members>ContactPointEmail</members>
+        <members>ContactPointOttSvc</members>
         <members>ContactPointPhone</members>
         <members>ContactPointTypeConsent</members>
         <members>ContactRequest</members>
@@ -159,6 +160,7 @@
         <members>FlowInterview</members>
         <members>FlowOrchestration</members>
         <members>FlowOrchestrationInstance</members>
+        <members>FlowOrchestrationInstanceLink</members>
         <members>FlowOrchestrationLog</members>
         <members>FlowOrchestrationStageInstance</members>
         <members>FlowOrchestrationStepInstance</members>
@@ -215,6 +217,8 @@
         <members>OpportunityPartner</members>
         <members>Order</members>
         <members>OrderItem</members>
+        <members>OutboundEngagementTemplate</members>
+        <members>OutboundEngmtContentRsrc</members>
         <members>PartyConsent</members>
         <members>Payment</members>
         <members>PaymentAuthAdjustment</members>
@@ -272,6 +276,7 @@
         <members>ServiceAppointment</members>
         <members>ServiceAppointmentAttendee</members>
         <members>ServiceContract</members>
+        <members>ServiceRequestRelatedRecord</members>
         <members>ServiceResource</members>
         <members>ServiceResourceSkill</members>
         <members>ServiceTerritory</members>
@@ -392,6 +397,22 @@
     </types>
     <types>
         <members>*</members>
+        <name>EntitlementProcess</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>MilestoneType</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>PlatformEventChannel</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>CustomNotificationType</name>
+    </types>
+    <types>
+        <members>*</members>
         <name>Profile</name>
     </types>
     <types>
@@ -424,6 +445,10 @@
     </types>
     <types>
         <members>*</members>
+        <name>SharingSet</name>
+    </types>
+    <types>
+        <members>*</members>
         <name>Layout</name>
     </types>
     <types>
@@ -441,6 +466,22 @@
     <types>
         <members>*</members>
         <name>QuickAction</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>PathAssistant</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>StaticResource</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>Letterhead</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>CustomSite</name>
     </types>
     <types>
         <members>*</members>
@@ -473,6 +514,264 @@
     <types>
         <members>*</members>
         <name>CustomField</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>Settings</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>Translations</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>CustomObjectTranslation</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>ReportType</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>NamedCredential</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>ExternalCredential</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>RemoteSiteSetting</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>CspTrustedSite</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>CorsWhitelistOrigin</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>ConnectedApp</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>ExternalDataSource</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>AuthProvider</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>Certificate</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>ExternalServiceRegistration</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>ExternalClientApplication</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>SamlSsoConfig</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>EmailServicesFunction</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>LightningMessageChannel</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>RestrictionRule</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>FieldRestrictionRule</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>TransactionSecurityPolicy</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>MutingPermissionSet</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>ProfilePasswordPolicy</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>ProfileSessionSetting</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>LeadConvertSettings</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>DataCategoryGroup</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>PlatformCachePartition</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>CallCenter</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>ServiceChannel</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>QueueRoutingConfig</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>ServicePresenceStatus</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>PresenceUserConfig</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>Skill</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>MessagingChannel</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>EmbeddedServiceConfig</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>GenAiPromptTemplate</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>GenAiPlugin</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>GenAiFunction</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>GenAiPlannerBundle</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>RecommendationStrategy</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>AnalyticSnapshot</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>ApexTestSuite</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>BrandingSet</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>LightningExperienceTheme</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>DigitalExperienceBundle</name>
+    </types>
+    <types>
+        <members>EBotR_v3</members>
+        <members>EBotR_v4</members>
+        <members>EBotR_v5</members>
+        <members>EinsteinBotReports</members>
+        <members>EinsteinBotReports_v2</members>
+        <members>EnablementDashboardReports_sfdcSESv60</members>
+        <members>EnablementDashboardReports_sfdcSESv60/Exercise_Completion_Status_by_Section_sfdcSESv60</members>
+        <members>EnablementDashboardReports_sfdcSESv60/Exercise_Completion_Status_sfdcSESv60</members>
+        <members>EnablementDashboardReports_sfdcSESv60/Exercise_Completion_by_Days_to_Complete_sfdcSESv60</members>
+        <members>EnablementDashboardReports_sfdcSESv60/Exercise_Completion_by_User_sfdcSESv60</members>
+        <members>EnablementDashboardReports_sfdcSESv60/Milestone_Completion_Status_sfdcSESv60</members>
+        <members>EnablementDashboardReports_sfdcSESv60/Milestone_Progress_by_User_sfdcSESv60</members>
+        <members>EnablementDashboardReports_sfdcSESv60/Milestone_Progress_sfdcSESv60</members>
+        <members>EnablementDashboardReports_sfdcSESv60/Outcome_Progress_by_User_sfdcSESv60</members>
+        <members>EnablementDashboardReports_sfdcSESv60/Outcome_Progress_sfdcSESv60</members>
+        <members>EnablementDashboardReports_sfdcSESv60/Program_Exercises_sfdcSESv60</members>
+        <members>EnablementDashboardReports_sfdcSESv60/Program_Milestones_sfdcSESv60</members>
+        <members>EnablementDashboardReports_sfdcSESv60/Program_Overview_by_User_sfdcSESv60</members>
+        <members>EnablementDashboardReports_sfdcSESv61</members>
+        <members>EnablementDashboardReports_sfdcSESv61/Exercise_Completion_Status_by_Section_sfdcSESv61</members>
+        <members>EnablementDashboardReports_sfdcSESv61/Exercise_Completion_Status_sfdcSESv61</members>
+        <members>EnablementDashboardReports_sfdcSESv61/Exercise_Completion_by_Days_to_Complete_sfdcSESv61</members>
+        <members>EnablementDashboardReports_sfdcSESv61/Exercise_Completion_by_User_sfdcSESv61</members>
+        <members>EnablementDashboardReports_sfdcSESv61/Milestone_Completion_Status_sfdcSESv61</members>
+        <members>EnablementDashboardReports_sfdcSESv61/Milestone_Progress_by_User_sfdcSESv61</members>
+        <members>EnablementDashboardReports_sfdcSESv61/Milestone_Progress_sfdcSESv61</members>
+        <members>EnablementDashboardReports_sfdcSESv61/Outcome_Progress_by_User_sfdcSESv61</members>
+        <members>EnablementDashboardReports_sfdcSESv61/Outcome_Progress_sfdcSESv61</members>
+        <members>EnablementDashboardReports_sfdcSESv61/Program_Exercises_sfdcSESv61</members>
+        <members>EnablementDashboardReports_sfdcSESv61/Program_Milestones_sfdcSESv61</members>
+        <members>EnablementDashboardReports_sfdcSESv61/Program_Overview_by_User_sfdcSESv61</members>
+        <members>unfiled$public/flow_orchestration_log_ootb_report_two_four_eight</members>
+        <members>unfiled$public/flow_orchestration_run_ootb_report_two_four_eight</members>
+        <members>unfiled$public/flow_orchestration_stage_run_ootb_report_two_four_eight</members>
+        <members>unfiled$public/flow_orchestration_step_run_ootb_report_two_four_eight</members>
+        <members>unfiled$public/flow_orchestration_work_item_ootb_report_two_four_eight</members>
+        <members>unfiled$public/flow_screen_prebuilt_report</members>
+        <name>Report</name>
+    </types>
+    <types>
+        <members>Enablement_sfdcSESv60</members>
+        <members>Enablement_sfdcSESv60/Program_Dashboard_sfdcSESv60</members>
+        <members>Enablement_sfdcSESv61</members>
+        <members>Enablement_sfdcSESv61/Program_Dashboard_sfdcSESv61</members>
+        <name>Dashboard</name>
+    </types>
+    <types>
+        <members>unfiled$public/CommerceReorderPortalInvitation</members>
+        <members>unfiled$public/MarketingProductInquiryResponse</members>
+        <members>unfiled$public/ModifyAppointmentEmailTemplateWithPaymentInfo</members>
+        <members>unfiled$public/ModifyAppointmentEmailTemplateWithPaymentInfoForGuest</members>
+        <members>unfiled$public/SUPPORTSelfServiceNewCommentNotificationSAMPLE</members>
+        <members>unfiled$public/SUPPORTSelfServiceNewUserLoginInformationSAMPLE</members>
+        <members>unfiled$public/SUPPORTSelfServiceResetPasswordSAMPLE</members>
+        <members>unfiled$public/SalesNewCustomerEmail</members>
+        <members>unfiled$public/SalesforceSchedulerCancelApptEmailTemplate</members>
+        <members>unfiled$public/SalesforceSchedulerCreateApptEmailTemplate</members>
+        <members>unfiled$public/SalesforceSchedulerGroupApptEmailTemplate</members>
+        <members>unfiled$public/SalesforceSchedulerModifyApptEmailTemplate</members>
+        <members>unfiled$public/SchedulerPaymentApptCancellationEmailTemplate</members>
+        <members>unfiled$public/SchedulerPaymentApptConfirmationEmailTemplate</members>
+        <members>unfiled$public/SchedulerPaymentApptConfirmationEmailTemplateForGuest</members>
+        <members>unfiled$public/SchedulerPaymentReminderEmailTemplate</members>
+        <members>unfiled$public/SchedulerUnauthenticatedUserAppointmentTypeEmailTemplateForAmazonChime</members>
+        <members>unfiled$public/SchedulerUnauthenticatedUserAppointmentTypeEmailTemplateForThirdParty</members>
+        <members>unfiled$public/SchedulerUnauthenticatedUserEngagementChannelEmailTemplateForAmazonChime</members>
+        <members>unfiled$public/SchedulerUnauthenticatedUserEngagementChannelEmailTemplateForThirdParty</members>
+        <members>unfiled$public/SupportCaseAssignmentNotification</members>
+        <members>unfiled$public/SupportCaseCreatedPhoneInquiries</members>
+        <members>unfiled$public/SupportCaseCreatedWebInquiries</members>
+        <members>unfiled$public/SupportCaseResponse</members>
+        <members>unfiled$public/SupportEscalatedCaseNotification</members>
+        <members>unfiled$public/SupportEscalatedCaseReassignment</members>
+        <members>unfiled$public/SupportSelfServiceNewLoginandPassword</members>
+        <members>unfiled$public/SupportSelfServiceResetPassword</members>
+        <name>EmailTemplate</name>
     </types>
     <version>67.0</version>
 </Package>

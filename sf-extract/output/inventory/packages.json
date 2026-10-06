@@ -1,0 +1,16 @@
+{
+  "ok": true,
+  "records": [
+    {
+      "SubscriberPackage": {
+        "Name": "Developer Edition",
+        "NamespacePrefix": "devedapp"
+      },
+      "SubscriberPackageVersion": {
+        "Name": "v0.9",
+        "MajorVersion": 0,
+        "MinorVersion": 9
+      }
+    }
+  ]
+}

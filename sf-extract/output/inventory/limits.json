@@ -1,0 +1,25 @@
+{
+  "ok": true,
+  "records": {
+    "DataStorageMB": {
+      "Max": 5,
+      "Remaining": 4
+    },
+    "FileStorageMB": {
+      "Max": 20,
+      "Remaining": 20
+    },
+    "DailyApiRequests": {
+      "Max": 15000,
+      "Remaining": 14586
+    },
+    "DailyBulkV2QueryJobs": {
+      "Max": 10000,
+      "Remaining": 10000
+    },
+    "DailyBulkV2QueryFileStorageMB": {
+      "Max": 976562,
+      "Remaining": 976562
+    }
+  }
+}

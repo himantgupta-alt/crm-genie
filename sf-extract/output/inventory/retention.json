@@ -1,0 +1,10 @@
+{
+  "setupAuditTrail": {
+    "ok": true,
+    "oldest": "2026-09-13T11:59:07.000+0000"
+  },
+  "loginHistory": {
+    "ok": true,
+    "oldest": "2026-09-13T12:07:48.000+0000"
+  }
+}

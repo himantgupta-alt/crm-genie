@@ -41,6 +41,9 @@ sf-extract/output/data/*
 !sf-extract/output/data/Product2.csv
 !sf-extract/output/data/Subscription__c.csv
 !sf-extract/output/data/Subscription_Line__c.csv
+# Inventory files that list individual users
+sf-extract/output/inventory/activeUsers.json
+sf-extract/output/inventory/apiOnlyUsers.json
 # Produced at run time
 sf-extract/target/parity/report.json
 sf-extract/target/parity/report.md

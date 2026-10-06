@@ -44,7 +44,8 @@ scripts/
   extract-schema.js    describeGlobal + describe → output/schema/**, also writes manifest/package.xml
   extract-logic.js     parses force-app/ → output/logic/** (rules, flows, apex, permissions)
   export-data.js       per-object CSV export; REST under 50k rows, Bulk API above
-  run-all.sh           all four stages in order
+  extract-inventory.js what metadata cannot carry → output/inventory/** + gap-register.md
+  run-all.sh           all five stages in order
   seed-metadata.js     POC seeding: writes the Subscription domain metadata into force-app/
   seed-data.apex       POC seeding: creates records through the real triggers/flows/rules
 manifest/package.xml   generated: all business objects + 34 wildcard metadata types
@@ -166,6 +167,31 @@ The target state runs in Azure: **https://crmgenie-app-hg01.azurewebsites.net** 
 - **Gotchas**: Windows PowerShell adds a BOM to text piped into native tools (broke password hashing once);
   PS 5.1 + `$ErrorActionPreference='Stop'` turns az stderr warnings into failures (scripts check exit codes);
   app settings change → restart the site and allow ~30 s before testing.
+
+## Session 6 Oct 2026 — wider extraction and the gap register
+
+- **Manifest** (`extract-schema.js`): 88 wildcard types (was 34) — integrations (named/external credentials,
+  remote sites, connected apps, External Services), Service Cloud (entitlements, Omni-Channel), security
+  policies, translations, report types, Agentforce prompt templates, settings. Types the org does not offer
+  are dropped via describeMetadata instead of failing the retrieve. **Reports, dashboards, email templates
+  and documents are folder-based** and a `*` returns none of them, so each folder is listed first
+  (this org: 30 reports, 2 dashboards, 28 templates listed; 6 reports and 28 templates retrieved — the rest
+  sit in Salesforce-managed Enablement folders the user cannot read, recorded in the register).
+  `--manifest-only` rewrites only the manifest. Retrieve brought 18 new folders into `force-app/`
+  (settings, translations, report types, entitlements, Omni-Channel, security policies, email, reports).
+  PowerShell `>` adds a BOM to `retrieve-result.json`; the inventory reader strips it.
+- **Inventory** (`extract-inventory.js`, read-only, stage 5 of `run-all.sh`) → `output/inventory/`: org facts,
+  limits, installed packages, named credentials, remote sites, connected apps, login sources (inbound
+  callers), scheduled jobs, pending approvals, paused flows, report/dashboard/template usage dates,
+  retention reach, encrypted fields, file volume, and `coverage.json` (metadata types the org offers that
+  are not requested — 187 today, mostly Data Cloud/AI). Writes **`gap-register.md`**, the assessment agenda.
+  Each query is optional; anything the edition lacks is marked "not offered by this org".
+  `activeUsers.json` / `apiOnlyUsers.json` hold usernames and are git-ignored.
+- **Deck**: new slide 4 "What stays in Salesforce, and how we cover it" (six items + four ways to keep the gap
+  small). Demo Extraction step shows the inventory and the gap register as an artifact.
+- **Org drift**: a full describe on 6 Oct found 512 objects / 1,964 relations (was 505 / 1,933) — new standard
+  objects from a Salesforce release. Not committed, so the blueprint and CI baseline stay unchanged; a
+  re-extract plus blueprint/DDL regeneration is its own change.
 
 ## Next step (was Phase 2a — steps 1–3 below are now done for the Subscription family)
 

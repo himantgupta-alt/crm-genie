@@ -1,0 +1,285 @@
+{
+  "ok": true,
+  "records": [
+    {
+      "Id": "00Xg8000005vqjlEAA",
+      "Name": "SUPPORT:  Self-Service New Comment Notification (SAMPLE)",
+      "DeveloperName": "SUPPORTSelfServiceNewCommentNotificationSAMPLE",
+      "FolderName": "Unfiled Public Classic Email Templates",
+      "TemplateType": "text",
+      "IsActive": true,
+      "LastUsedDate": null,
+      "TimesUsed": null
+    },
+    {
+      "Id": "00Xg8000005vqjmEAA",
+      "Name": "Support: Self-Service Reset Password",
+      "DeveloperName": "SupportSelfServiceResetPassword",
+      "FolderName": "Unfiled Public Classic Email Templates",
+      "TemplateType": "text",
+      "IsActive": true,
+      "LastUsedDate": null,
+      "TimesUsed": null
+    },
+    {
+      "Id": "00Xg8000005vqjnEAA",
+      "Name": "Support: Self-Service New Login and Password",
+      "DeveloperName": "SupportSelfServiceNewLoginandPassword",
+      "FolderName": "Unfiled Public Classic Email Templates",
+      "TemplateType": "text",
+      "IsActive": true,
+      "LastUsedDate": null,
+      "TimesUsed": null
+    },
+    {
+      "Id": "00Xg8000005vqjoEAA",
+      "Name": "Support: Case Assignment Notification",
+      "DeveloperName": "SupportCaseAssignmentNotification",
+      "FolderName": "Unfiled Public Classic Email Templates",
+      "TemplateType": "text",
+      "IsActive": true,
+      "LastUsedDate": null,
+      "TimesUsed": null
+    },
+    {
+      "Id": "00Xg8000005vqjpEAA",
+      "Name": "Support: Case Created (Phone Inquiries)",
+      "DeveloperName": "SupportCaseCreatedPhoneInquiries",
+      "FolderName": "Unfiled Public Classic Email Templates",
+      "TemplateType": "text",
+      "IsActive": true,
+      "LastUsedDate": null,
+      "TimesUsed": null
+    },
+    {
+      "Id": "00Xg8000005vqjqEAA",
+      "Name": "Support: Case Created (Web Inquiries)",
+      "DeveloperName": "SupportCaseCreatedWebInquiries",
+      "FolderName": "Unfiled Public Classic Email Templates",
+      "TemplateType": "text",
+      "IsActive": true,
+      "LastUsedDate": null,
+      "TimesUsed": null
+    },
+    {
+      "Id": "00Xg8000005vqjrEAA",
+      "Name": "Appointment for Unauthenticated User using Appointment Types - For Amazon Chime.",
+      "DeveloperName": "SchedulerUnauthenticatedUserAppointmentTypeEmailTemplateForAmazonChime",
+      "FolderName": "Unfiled Public Classic Email Templates",
+      "TemplateType": "custom",
+      "IsActive": true,
+      "LastUsedDate": null,
+      "TimesUsed": null
+    },
+    {
+      "Id": "00Xg8000005vqjsEAA",
+      "Name": "Appointment for Unauthenticated User using Engagement Channels-For Amazon Chime.",
+      "DeveloperName": "SchedulerUnauthenticatedUserEngagementChannelEmailTemplateForAmazonChime",
+      "FolderName": "Unfiled Public Classic Email Templates",
+      "TemplateType": "custom",
+      "IsActive": true,
+      "LastUsedDate": null,
+      "TimesUsed": null
+    },
+    {
+      "Id": "00Xg8000005vqjtEAA",
+      "Name": "Appointment for Unauthenticated User using Appointment Types - For third party.",
+      "DeveloperName": "SchedulerUnauthenticatedUserAppointmentTypeEmailTemplateForThirdParty",
+      "FolderName": "Unfiled Public Classic Email Templates",
+      "TemplateType": "custom",
+      "IsActive": true,
+      "LastUsedDate": null,
+      "TimesUsed": null
+    },
+    {
+      "Id": "00Xg8000005vqjuEAA",
+      "Name": "Appointment for Unauthenticated User using Engagement Channels-For third party.",
+      "DeveloperName": "SchedulerUnauthenticatedUserEngagementChannelEmailTemplateForThirdParty",
+      "FolderName": "Unfiled Public Classic Email Templates",
+      "TemplateType": "custom",
+      "IsActive": true,
+      "LastUsedDate": null,
+      "TimesUsed": null
+    },
+    {
+      "Id": "00Xg8000005vqjvEAA",
+      "Name": "Scheduled Service Appointment Confirmation Email",
+      "DeveloperName": "SalesforceSchedulerCreateApptEmailTemplate",
+      "FolderName": "Unfiled Public Classic Email Templates",
+      "TemplateType": "custom",
+      "IsActive": true,
+      "LastUsedDate": null,
+      "TimesUsed": null
+    },
+    {
+      "Id": "00Xg8000005vqjwEAA",
+      "Name": "Rescheduled Service Appointment Confirmation Email",
+      "DeveloperName": "SalesforceSchedulerModifyApptEmailTemplate",
+      "FolderName": "Unfiled Public Classic Email Templates",
+      "TemplateType": "custom",
+      "IsActive": true,
+      "LastUsedDate": null,
+      "TimesUsed": null
+    },
+    {
+      "Id": "00Xg8000005vqjxEAA",
+      "Name": "Canceled Service Appointment Confirmation Email",
+      "DeveloperName": "SalesforceSchedulerCancelApptEmailTemplate",
+      "FolderName": "Unfiled Public Classic Email Templates",
+      "TemplateType": "custom",
+      "IsActive": true,
+      "LastUsedDate": null,
+      "TimesUsed": null
+    },
+    {
+      "Id": "00Xg8000005vqjyEAA",
+      "Name": "Group Service Appointments Enrollment Confirmation Email",
+      "DeveloperName": "SalesforceSchedulerGroupApptEmailTemplate",
+      "FolderName": "Unfiled Public Classic Email Templates",
+      "TemplateType": "custom",
+      "IsActive": true,
+      "LastUsedDate": null,
+      "TimesUsed": null
+    },
+    {
+      "Id": "00Xg8000005vqjzEAA",
+      "Name": "Scheduler Payments: Service Appointment Confirmation Email",
+      "DeveloperName": "SchedulerPaymentApptConfirmationEmailTemplate",
+      "FolderName": "Unfiled Public Classic Email Templates",
+      "TemplateType": "custom",
+      "IsActive": false,
+      "LastUsedDate": null,
+      "TimesUsed": null
+    },
+    {
+      "Id": "00Xg8000005vqk0EAA",
+      "Name": "Scheduler Payments: Service Appointment Confirmation Email for Guest Users",
+      "DeveloperName": "SchedulerPaymentApptConfirmationEmailTemplateForGuest",
+      "FolderName": "Unfiled Public Classic Email Templates",
+      "TemplateType": "custom",
+      "IsActive": false,
+      "LastUsedDate": null,
+      "TimesUsed": null
+    },
+    {
+      "Id": "00Xg8000005vqk1EAA",
+      "Name": "Scheduler Payments: Payment Reminder for Service Appointment Email",
+      "DeveloperName": "SchedulerPaymentReminderEmailTemplate",
+      "FolderName": "Unfiled Public Classic Email Templates",
+      "TemplateType": "custom",
+      "IsActive": true,
+      "LastUsedDate": null,
+      "TimesUsed": null
+    },
+    {
+      "Id": "00Xg8000005vqk2EAA",
+      "Name": "Scheduler Payments: Service Appointment Cancellation Email",
+      "DeveloperName": "SchedulerPaymentApptCancellationEmailTemplate",
+      "FolderName": "Unfiled Public Classic Email Templates",
+      "TemplateType": "custom",
+      "IsActive": true,
+      "LastUsedDate": null,
+      "TimesUsed": null
+    },
+    {
+      "Id": "00Xg8000005vqk3EAA",
+      "Name": "Scheduler Payments: Service Appointment Rescheduled Email - Authenticated Users",
+      "DeveloperName": "ModifyAppointmentEmailTemplateWithPaymentInfo",
+      "FolderName": "Unfiled Public Classic Email Templates",
+      "TemplateType": "custom",
+      "IsActive": true,
+      "LastUsedDate": null,
+      "TimesUsed": null
+    },
+    {
+      "Id": "00Xg8000005vqk4EAA",
+      "Name": "Scheduler Payments: Service Appointment Rescheduled Email - Guest Users",
+      "DeveloperName": "ModifyAppointmentEmailTemplateWithPaymentInfoForGuest",
+      "FolderName": "Unfiled Public Classic Email Templates",
+      "TemplateType": "custom",
+      "IsActive": true,
+      "LastUsedDate": null,
+      "TimesUsed": null
+    },
+    {
+      "Id": "00Xg8000005vqk5EAA",
+      "Name": "Support: Case Response",
+      "DeveloperName": "SupportCaseResponse",
+      "FolderName": "Unfiled Public Classic Email Templates",
+      "TemplateType": "text",
+      "IsActive": true,
+      "LastUsedDate": null,
+      "TimesUsed": null
+    },
+    {
+      "Id": "00Xg8000005vqk6EAA",
+      "Name": "Sales: New Customer Email",
+      "DeveloperName": "SalesNewCustomerEmail",
+      "FolderName": "Unfiled Public Classic Email Templates",
+      "TemplateType": "text",
+      "IsActive": true,
+      "LastUsedDate": null,
+      "TimesUsed": null
+    },
+    {
+      "Id": "00Xg8000005vqk7EAA",
+      "Name": "Support: Escalated Case Notification",
+      "DeveloperName": "SupportEscalatedCaseNotification",
+      "FolderName": "Unfiled Public Classic Email Templates",
+      "TemplateType": "text",
+      "IsActive": true,
+      "LastUsedDate": null,
+      "TimesUsed": null
+    },
+    {
+      "Id": "00Xg8000005vqk8EAA",
+      "Name": "Commerce Reorder Portal: Invitation",
+      "DeveloperName": "CommerceReorderPortalInvitation",
+      "FolderName": "Unfiled Public Classic Email Templates",
+      "TemplateType": "custom",
+      "IsActive": true,
+      "LastUsedDate": null,
+      "TimesUsed": null
+    },
+    {
+      "Id": "00Xg8000005vqk9EAA",
+      "Name": "Support: Escalated Case Reassignment",
+      "DeveloperName": "SupportEscalatedCaseReassignment",
+      "FolderName": "Unfiled Public Classic Email Templates",
+      "TemplateType": "text",
+      "IsActive": true,
+      "LastUsedDate": null,
+      "TimesUsed": null
+    },
+    {
+      "Id": "00Xg8000005vqkAEAQ",
+      "Name": "Marketing: Product Inquiry Response",
+      "DeveloperName": "MarketingProductInquiryResponse",
+      "FolderName": "Unfiled Public Classic Email Templates",
+      "TemplateType": "text",
+      "IsActive": true,
+      "LastUsedDate": null,
+      "TimesUsed": null
+    },
+    {
+      "Id": "00Xg8000005vqkBEAQ",
+      "Name": "SUPPORT:  Self-Service New User Login Information (SAMPLE)",
+      "DeveloperName": "SUPPORTSelfServiceNewUserLoginInformationSAMPLE",
+      "FolderName": "Unfiled Public Classic Email Templates",
+      "TemplateType": "text",
+      "IsActive": true,
+      "LastUsedDate": null,
+      "TimesUsed": null
+    },
+    {
+      "Id": "00Xg8000005vqkCEAQ",
+      "Name": "SUPPORT:  Self-Service Reset Password  (SAMPLE)",
+      "DeveloperName": "SUPPORTSelfServiceResetPasswordSAMPLE",
+      "FolderName": "Unfiled Public Classic Email Templates",
+      "TemplateType": "text",
+      "IsActive": true,
+      "LastUsedDate": null,
+      "TimesUsed": null
+    }
+  ]
+}

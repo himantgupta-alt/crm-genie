@@ -1,0 +1,16 @@
+{
+  "ok": true,
+  "records": [
+    {
+      "Id": "00D000000000001EAF",
+      "Name": "Ascendion",
+      "OrganizationType": "Developer Edition",
+      "InstanceName": "USA1142",
+      "IsSandbox": false,
+      "TimeZoneSidKey": "America/Los_Angeles",
+      "DefaultLocaleSidKey": "en_US",
+      "LanguageLocaleKey": "en_US",
+      "CreatedDate": "2026-09-13T11:54:33.000+0000"
+    }
+  ]
+}

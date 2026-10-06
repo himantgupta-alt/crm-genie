@@ -3,16 +3,22 @@
   "name": "Extraction agent",
   "phase": "discover",
   "kind": "deterministic",
-  "role": "Reads everything the migration needs from the Salesforce org: schema, business logic, security and data.",
+  "role": "Reads everything the migration needs from the Salesforce org: schema, business logic, security, reports, data, and an inventory of what stays in Salesforce.",
   "inputs": ["Salesforce org (CLI alias myorg)"],
-  "tools": ["Salesforce CLI", "describe API", "Metadata API retrieve", "REST and Bulk API 2.0"],
+  "tools": ["Salesforce CLI", "describe API", "Metadata API retrieve", "Tooling API", "REST and Bulk API 2.0"],
   "implementation": [
     "sf-extract/scripts/extract-schema.js",
     "sf project retrieve start --manifest manifest/package.xml",
     "sf-extract/scripts/extract-logic.js",
-    "sf-extract/scripts/export-data.js"
+    "sf-extract/scripts/export-data.js",
+    "sf-extract/scripts/extract-inventory.js"
   ],
-  "outputs": ["sf-extract/output/schema/", "sf-extract/output/logic/", "sf-extract/output/data/", "sf-extract/force-app/"],
-  "done_when": "Every business object described, metadata retrieved, data exported with Salesforce IDs",
-  "reviewer_checks": ["Object and row counts look complete", "Objects that could not be exported are expected (system tables)"]
+  "outputs": ["sf-extract/output/schema/", "sf-extract/output/logic/", "sf-extract/output/data/", "sf-extract/output/inventory/", "sf-extract/force-app/"],
+  "done_when": "Every business object described, metadata and folder-based items retrieved, data exported with Salesforce IDs, gap register written",
+  "reviewer_checks": [
+    "Object and row counts look complete",
+    "Objects that could not be exported are expected (system tables)",
+    "Gap register: each item has a route and an owner; client-input items are on the workshop agenda",
+    "Metadata types the org offers but the manifest does not request are reviewed (coverage.json)"
+  ]
 }

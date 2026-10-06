@@ -1,0 +1,10 @@
+{
+  "ok": true,
+  "records": [
+    {
+      "SiteName": "ApexDevNet",
+      "EndpointUrl": "http://www.apexdevnet.com",
+      "IsActive": true
+    }
+  ]
+}

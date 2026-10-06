@@ -76,7 +76,9 @@ clicks to pull requests remain the largest risks.
 ### Track B — each client
 
 1. **Assess (2 weeks)** — Phase 1 run, managed-package inventory, report count, renewal date.
-   Go / walk-away decision.
+   `output/inventory/gap-register.md` is the workshop agenda: what stays in Salesforce (package code,
+   secrets, inbound callers, expiring history, platform behaviour, work in progress) and the route for
+   each. Start the history archive in week one. Go / walk-away decision.
 2. **Build and prove (2–4 months)** — generate, review, load, hit parity thresholds.
 3. **Shadow (1–2 months)** — Salesforce remains system of record; daily divergence reports.
 4. **Move reporting first** — dashboards repoint to Postgres so the business trusts the numbers

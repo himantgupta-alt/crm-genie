@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "records": [
+    {
+      "Id": "01Zg8000003Hm6XEAS",
+      "Title": "Enablement Dashboard",
+      "DeveloperName": "Program_Dashboard_sfdcSESv60",
+      "FolderName": "Enablement Dashboard Spring '24",
+      "LastViewedDate": "2026-10-01T11:52:26.000+0000",
+      "LastModifiedDate": "2026-09-13T11:54:33.000+0000"
+    },
+    {
+      "Id": "01Zg8000003Hm6YEAS",
+      "Title": "Enablement Dashboard",
+      "DeveloperName": "Program_Dashboard_sfdcSESv61",
+      "FolderName": "Enablement Dashboard Summer '24",
+      "LastViewedDate": null,
+      "LastModifiedDate": "2026-09-13T12:30:55.000+0000"
+    }
+  ]
+}

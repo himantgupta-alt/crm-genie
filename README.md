@@ -9,6 +9,7 @@ Proof of concept: the Subscription module from our Salesforce Developer org, mov
 | `agents/` | Workflow definition, agent catalog, prompts for the LLM agents, and the runner (`agents/README.md`) |
 | `sf-extract/scripts/` | Extraction from Salesforce, blueprint builder, SQL generator |
 | `sf-extract/output/` | Extracted schema, rules and the data used for testing |
+| `sf-extract/output/inventory/` | What metadata cannot carry (packages, integrations, jobs, usage, retention) and `gap-register.md` |
 | `sf-extract/blueprint/` | Intermediate model of the org (generated) |
 | `sf-extract/target/db/` | Generated PostgreSQL schema (generated) |
 | `sf-extract/target/app/` | Web app (Express + pg) |

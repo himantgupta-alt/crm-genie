@@ -24,7 +24,7 @@ checks at the gate. `index.js` runs the agent and returns its status and a summa
 
 | Phase | Agent | Type | Calls | Produces |
 |---|---|---|---|---|
-| 1 Discover | Extraction | Deterministic | `sf-extract/scripts/extract-schema.js`, `extract-logic.js`, `export-data.js`, Salesforce CLI | `output/schema`, `output/logic`, `output/data` |
+| 1 Discover | Extraction | Deterministic | `sf-extract/scripts/extract-schema.js`, `extract-logic.js`, `export-data.js`, `extract-inventory.js`, Salesforce CLI | `output/schema`, `output/logic`, `output/data`, `output/inventory` (gap register) |
 | 2 Design | Modelling | Deterministic | `normalise-blueprint.js`, `validate-blueprint.js`, `formula.js` | `blueprint/blueprint.json` |
 | 3 Build | Schema | Deterministic | `emit-postgres.js --parts runtime,tables,views,rollups` | `target/db/000–030` |
 | 3 Build | Logic | Claude for Apex, deterministic for rules | `logic/prompt.md`; `emit-postgres.js --parts guards,translations` | `blueprint/translations/`, `target/db/040–050` |
@@ -80,6 +80,25 @@ coordinator with parallel workers (details in `data-load/agent.json`, `scaling`)
 - **Reconcile**: row counts, ID checksums and sampled field comparisons per object and partition; derived
   values checked by the Verification agent.
 - **Files**: attachments (ContentVersion) move separately to blob storage.
+
+## What stays in Salesforce
+
+A few things cannot be extracted through any Salesforce API, by design. The Extraction agent lists them
+in `sf-extract/output/inventory/gap-register.md`, with counts from the org and a planned route for each
+(the same six items as slide 4 of the deck):
+
+| Item | How it is covered |
+|---|---|
+| Vendor (managed package) code | Package settings exported as data; behaviour captured as tests; rebuild or replace agreed per package |
+| Passwords, tokens, private keys | Users move to single sign-on; integration owners issue new credentials from the cutover checklist |
+| Systems that call into Salesforce | Login history per application and integration user; Salesforce-compatible API during the move |
+| History with retention limits | Audit trail, login and field history archived from week one; retention agreed with compliance |
+| Built-in platform behaviour | Captured once in the translation playbook; compared with the org by the Verification agent |
+| Work in progress at go-live | Pending approvals, paused flows and scheduled jobs listed; completed before the freeze or carried over |
+
+To keep this list short: `coverage.json` compares every metadata type the org offers with the manifest;
+report, template and login usage show what is still in use; the shadow run turns any differences into
+tests; the remaining client-input items are covered in one assessment workshop.
 
 ## Status for the Subscription domain
 
