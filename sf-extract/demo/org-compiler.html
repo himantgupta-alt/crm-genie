@@ -471,6 +471,7 @@ dialog.rv::backdrop { background: var(--scrim); }
             <dt>Automations</dt><dd>2 Apex triggers · 3 Apex classes · 1 record-triggered flow</dd>
             <dt>Security</dt><dd>47 profiles and permission sets · sharing ControlledByParent → Account</dd>
             <dt>Data</dt><dd>107 subscriptions · 219 lines · 90 reference rows</dd>
+            <dt>Outside the metadata</dt><dd>Gap register · vendor packages, secrets, inbound callers, history limits, platform behaviour and work in progress, each with a planned route</dd>
           </dl>
         </div>
       </div>
@@ -815,13 +816,48 @@ Blueprint fc71a1458dce. **` + (st.parityPassed ? 'PARITY OK' : 'PARITY FAILED') 
   const AGENTS = [
     {
       key: 'EX', phase: 'Discover', name: 'Extraction', role: 'Reads schema, metadata and data from the org', metric: '505 objects',
-      mode: 'Deterministic', tools: ['sf CLI', 'describe API', 'metadata retrieve', 'Bulk API 2.0'],
-      done: 'Every business object described, metadata retrieved, data exported with Ids intact',
-      input: { path: 'connection · myorg', lang: 'sh', code: R`sf project retrieve start --manifest manifest/package.xml --target-org myorg
-node scripts/extract-schema.js
+      mode: 'Deterministic', tools: ['sf CLI', 'describe API', 'metadata retrieve', 'Tooling API', 'Bulk API 2.0'],
+      done: 'Every business object described, metadata retrieved, data exported with Ids intact, gap register written',
+      input: { path: 'connection · myorg', lang: 'sh', code: R`node scripts/extract-schema.js
+sf project retrieve start --manifest manifest/package.xml --target-org myorg
 node scripts/extract-logic.js
-node scripts/export-data.js` },
+node scripts/export-data.js
+node scripts/extract-inventory.js` },
       files: [
+        { path: 'output/inventory/gap-register.md', lang: 'text', code: R`# Gap register · myorg (Developer Edition)
+
+Everything here is either collected automatically or has a planned route.
+Items marked [client input] are confirmed in the assessment workshop.
+
+## Collected beyond the metadata retrieve
+Reports 30 listed, 6 retrieved · dashboards 2 listed · email templates 28
+(folders listed one by one; the rest sit in Salesforce-managed folders)
+Report and template usage dates          reports.json, emailTemplates.json
+Scheduled jobs 3 · remote sites 1 · installed packages 1
+Field history tables 174 · encrypted fields 0
+Login sources (90 days) 4                loginsByApplication.json
+
+## Stays in Salesforce, and how we cover it
+1 Vendor package code     settings exported as data; behaviour captured as tests;
+                          rebuild or replace agreed per package       [client input]
+2 Passwords and secrets   single sign-on for users; integration owners issue new
+                          credentials from the cutover checklist
+3 Systems that call in    login history per application; Salesforce-compatible
+                          API keeps callers running during the move  [client input]
+4 History with limits     audit trail kept from 2026-09-13; archived from week one,
+                          retention agreed with compliance           [client input]
+5 Platform behaviour      captured once in the translation playbook; compared with
+                          the org during validation
+6 Work in progress        0 pending approvals · 0 paused flows · 3 scheduled jobs;
+                          completed before the freeze or carried over
+Also noted                24 reports and 2 dashboards in managed folders, confirmed
+                          with the client and retrieved by the folder owner if in use
+
+## Keeping the gap small
+Coverage check     187 further metadata types offered by the org, reviewed once
+Usage evidence     reports and templates unused for 180 days, confirmed with the client
+Side-by-side run   differences between the two systems become new tests
+One workshop       open questions answered with the client, using this register` },
         { path: 'output/logic/validationRules.json', lang: 'json', code: R`[
   {
     "object": "Opportunity",
@@ -936,16 +972,21 @@ node scripts/export-data.js` },
       log: [
         'connect myorg (Developer Edition, API 67.0)',
         'describeGlobal: 505 business and history objects',
-        'retrieve: 34 metadata types + all objects → force-app/ (4,229 files)',
+        'retrieve: 88 metadata types + all objects → force-app/',
+        'folders listed: 30 reports · 2 dashboards · 28 email templates',
+        ['24 reports and 2 dashboards sit in Salesforce-managed folders, noted in the gap register', 'warn'],
         'validation rules: 8 · formula and roll-up fields: 6',
         'flows: 2 (1 record-triggered) · apex: 2 triggers, 3 classes, 1 test class',
         'profiles and permission sets: 47 · object settings: 271',
         'export: 1,322 rows across 41 objects',
-        ['4 system tables refused bulk export (ContentDocumentLink, ContentFolderItem, PendingOrderSummary, PermissionSetLicense)', 'warn'],
+        ['4 system tables are read through describe only (ContentDocumentLink, ContentFolderItem, PendingOrderSummary, PermissionSetLicense)', 'warn'],
+        'inventory: packages 1 · scheduled jobs 3 · remote sites 1 · login sources 4',
+        'usage: report run dates and email template use recorded',
+        'gap register: 6 items that stay in Salesforce, each with a planned route',
         ['complete', 'good'],
       ],
-      checks: [['pass', '505 objects described'], ['pass', '34 metadata types retrieved'], ['pass', '1,322 rows exported with Salesforce Ids'], ['warn', '4 system tables not exportable (not in scope)']],
-      summary: [['505', 'objects'], ['8', 'validation rules'], ['6', 'formulas and roll-ups'], ['1,322', 'rows exported']],
+      checks: [['pass', '505 objects described'], ['pass', '88 metadata types requested; report, dashboard and template folders listed one by one'], ['pass', '1,322 rows exported with Salesforce Ids'], ['pass', 'Gap register written, every item has a route'], ['warn', '4 system tables read through describe only (not in scope)']],
+      summary: [['505', 'objects'], ['88', 'metadata types'], ['34', 'reports and templates'], ['1,322', 'rows exported']],
     },
     {
       key: 'MO', phase: 'Design', name: 'Modelling', role: 'Builds the vendor-neutral blueprint and vocabulary', metric: '9,857 fields',
