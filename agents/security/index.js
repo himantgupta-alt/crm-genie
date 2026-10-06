@@ -6,6 +6,8 @@ async function run({ workdir, sh, log, family }) {
   const cmd = `node scripts/emit-postgres.js ${family.join(',')} --parts security`;
   log(`$ ${cmd}`);
   if (sh(cmd) !== 0) return { status: 'failed', summary: 'generator failed' };
+  log('$ node scripts/emit-cutover.js --parts credentials');
+  if (sh('node scripts/emit-cutover.js --parts credentials') !== 0) return { status: 'failed', summary: 'credentials checklist failed' };
   const sql = fs.readFileSync(path.join(workdir, 'target', 'db', '060_security.sql'), 'utf8');
   const roles = (sql.match(/^CREATE ROLE /gm) || []).length;
   const policies = (sql.match(/^CREATE POLICY /gm) || []).length;

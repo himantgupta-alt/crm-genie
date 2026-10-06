@@ -8,6 +8,8 @@ async function run({ workdir, sh, log }) {
   const file = path.join(workdir, 'target', 'parity', 'report.json');
   if (!fs.existsSync(file)) return { status: 'failed', summary: 'no report produced' };
   const r = JSON.parse(fs.readFileSync(file, 'utf8'));
+  log('$ node scripts/emit-cutover.js --parts platform');
+  sh('node scripts/emit-cutover.js --parts platform');
   return {
     status: code === 0 && r.summary.ok ? 'ok' : 'failed',
     summary: `${r.summary.derivedValues}; cases ${r.summary.cases}`,

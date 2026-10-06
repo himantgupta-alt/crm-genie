@@ -189,6 +189,10 @@ The target state runs in Azure: **https://crmgenie-app-hg01.azurewebsites.net** 
   `activeUsers.json` / `apiOnlyUsers.json` hold usernames and are git-ignored.
 - **Deck**: new slide 4 "What stays in Salesforce, and how we cover it" (six items + four ways to keep the gap
   small). Demo Extraction step shows the inventory and the gap register as an artifact.
+- **Working documents per gap** (`scripts/emit-cutover.js`, local files only) → `target/cutover/`:
+  `packages.md` (Modelling), `credentials.md` (Security), `work-in-progress.md` + `history-archive.md`
+  (Data load), `platform-behaviour.md` (Verification: 7 of 12 behaviours tested). Each agent writes its file
+  when it runs; listed in its `agent.json` outputs and shown in the demo at that agent's gate.
 - **Org drift**: a full describe on 6 Oct found 512 objects / 1,964 relations (was 505 / 1,933) — new standard
   objects from a Salesforce release. Not committed, so the blueprint and CI baseline stay unchanged; a
   re-extract plus blueprint/DDL regeneration is its own change.

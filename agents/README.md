@@ -87,14 +87,18 @@ A few things cannot be extracted through any Salesforce API, by design. The Extr
 in `sf-extract/output/inventory/gap-register.md`, with counts from the org and a planned route for each
 (the same six items as slide 4 of the deck):
 
-| Item | How it is covered |
-|---|---|
-| Vendor (managed package) code | Package settings exported as data; behaviour captured as tests; rebuild or replace agreed per package |
-| Passwords, tokens, private keys | Users move to single sign-on; integration owners issue new credentials from the cutover checklist |
-| Systems that call into Salesforce | Login history per application and integration user; Salesforce-compatible API during the move |
-| History with retention limits | Audit trail, login and field history archived from week one; retention agreed with compliance |
-| Built-in platform behaviour | Captured once in the translation playbook; compared with the org by the Verification agent |
-| Work in progress at go-live | Pending approvals, paused flows and scheduled jobs listed; completed before the freeze or carried over |
+| Item | How it is covered | Evidence (Extraction) | Working document · owner |
+|---|---|---|---|
+| Vendor (managed package) code | Package settings exported as data; behaviour captured as tests; rebuild or replace agreed per package | `packages.json` | `target/cutover/packages.md` · Modelling |
+| Passwords, tokens, private keys | Users move to single sign-on; integration owners issue new credentials from the cutover checklist | `namedCredentials.json`, `remoteSites.json`, `connectedApps.json`, `apiOnlyUsers.json` | `target/cutover/credentials.md` · Security |
+| Systems that call into Salesforce | Login history per application and integration user; Salesforce-compatible API during the move | `loginsByApplication.json` | `target/cutover/credentials.md` · Security |
+| History with retention limits | Audit trail, login and field history archived from week one; retention agreed with compliance | `retention.json`, `fieldHistory.json` | `target/cutover/history-archive.md` · Data load |
+| Built-in platform behaviour | Captured once in the translation playbook; compared with the org by the Verification agent | `target/parity/cases.json` | `target/cutover/platform-behaviour.md` · Verification |
+| Work in progress at go-live | Pending approvals, paused flows and scheduled jobs listed; completed before the freeze or carried over | `pendingApprovals.json`, `pausedFlows.json`, `scheduledJobs.json`, `asyncJobs.json` | `target/cutover/work-in-progress.md` · Data load |
+
+Evidence files are in `sf-extract/output/inventory/`. The working documents are written by
+`sf-extract/scripts/emit-cutover.js` (no org connection needed) when the owning agent runs, and are
+reviewed at that agent's gate.
 
 To keep this list short: `coverage.json` compares every metadata type the org offers with the manifest;
 report, template and login usage show what is still in use; the shadow run turns any differences into

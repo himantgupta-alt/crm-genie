@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 async function run({ workdir, sh, log }) {
-  for (const step of ['node scripts/normalise-blueprint.js', 'node scripts/validate-blueprint.js']) {
+  for (const step of ['node scripts/normalise-blueprint.js', 'node scripts/validate-blueprint.js', 'node scripts/emit-cutover.js --parts packages']) {
     log(`$ ${step}`);
     if (sh(step) !== 0) return { status: 'failed', summary: `step failed: ${step}` };
   }

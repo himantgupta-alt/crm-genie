@@ -3,12 +3,31 @@
   "name": "Verification agent",
   "phase": "validate",
   "kind": "deterministic",
-  "role": "Checks that the target behaves like Salesforce: recomputes every formula and roll-up and compares it with the value Salesforce stored, then replays rule cases.",
-  "inputs": ["target/db/*.sql", "sf-extract/output/data/*.csv", "target/parity/cases.json"],
-  "tools": ["PostgreSQL (in-memory PGlite)", "rule-case runner"],
-  "implementation": ["node target/parity/run.js"],
-  "outputs": ["target/parity/report.json", "target/parity/report.md"],
+  "role": "Checks that the target behaves like Salesforce: recomputes every formula and roll-up and compares it with the value Salesforce stored, then replays rule cases. Also tracks built-in platform behaviour: which behaviours are implemented and covered by a parity case.",
+  "inputs": [
+    "target/db/*.sql",
+    "sf-extract/output/data/*.csv",
+    "target/parity/cases.json",
+    "sf-extract/target/parity/cases.json (platform.* and security.* cases)"
+  ],
+  "tools": [
+    "PostgreSQL (in-memory PGlite)",
+    "rule-case runner"
+  ],
+  "implementation": [
+    "node target/parity/run.js",
+    "node scripts/emit-cutover.js --parts platform"
+  ],
+  "outputs": [
+    "target/parity/report.json",
+    "target/parity/report.md",
+    "sf-extract/target/cutover/platform-behaviour.md"
+  ],
   "done_when": "Every derived value matches the org; every rule case gives the expected outcome",
-  "reviewer_checks": ["Matched values per field", "Failed and pending rule cases"],
+  "reviewer_checks": [
+    "Matched values per field",
+    "Failed and pending rule cases",
+    "Planned platform behaviours have an owner and a target date"
+  ],
   "on_failure": "repair"
 }

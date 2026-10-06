@@ -3,11 +3,27 @@
   "name": "Security agent",
   "phase": "build",
   "kind": "deterministic",
-  "role": "Turns profiles, permission sets and sharing into database roles, column-level grants and row-level security.",
-  "inputs": ["sf-extract/blueprint/blueprint.json (security grants, sharing models)"],
-  "tools": ["SQL generator (sf-extract/scripts/emit-postgres.js, security part)"],
-  "implementation": ["node scripts/emit-postgres.js --parts security"],
-  "outputs": ["target/db/060_security.sql"],
+  "role": "Turns profiles, permission sets and sharing into database roles, column-level grants and row-level security. Also produces the credentials and integrations checklist: what must be re-issued and which systems call in.",
+  "inputs": [
+    "sf-extract/blueprint/blueprint.json (security grants, sharing models)",
+    "sf-extract/output/inventory/namedCredentials.json, remoteSites.json, connectedApps.json, apiOnlyUsers.json, loginsByApplication.json"
+  ],
+  "tools": [
+    "SQL generator (sf-extract/scripts/emit-postgres.js, security part)"
+  ],
+  "implementation": [
+    "node scripts/emit-postgres.js --parts security",
+    "node scripts/emit-cutover.js --parts credentials"
+  ],
+  "outputs": [
+    "target/db/060_security.sql",
+    "sf-extract/target/cutover/credentials.md"
+  ],
   "done_when": "Each profile and permission set is a role; field access is a column grant; sharing is a row-level policy",
-  "reviewer_checks": ["Roles created", "Read-only fields have no update grant", "Sharing inherited from the parent where Salesforce does"]
+  "reviewer_checks": [
+    "Roles created",
+    "Read-only fields have no update grant",
+    "Sharing inherited from the parent where Salesforce does",
+    "Every integration and inbound caller has an owner, a new credential and a switch date"
+  ]
 }
