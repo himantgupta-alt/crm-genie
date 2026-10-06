@@ -1,6 +1,6 @@
 # Built-in platform behaviour
 
-Prepared by our team from the org inventory. Owner: **Verification agent**; we review it with you at that phase's gate.
+Prepared by our team from the org inventory. Owner: **Verification agent**; we review it at that phase's gate.
 
 These behaviours are how Salesforce itself works, so no configuration describes them. We build each one into our platform once and reuse it for every client. For each, we run the same operation in Salesforce and in the new system and compare the result.
 

@@ -1,8 +1,8 @@
 # Credentials and integrations checklist
 
-Prepared by our team from the org inventory. Owner: **Security agent**; we review it with you at that phase's gate.
+Prepared by our team from the org inventory. Owner: **Security agent**; we review it at that phase's gate.
 
-Salesforce never exports passwords, tokens or keys. Your users will sign in through your company login (single sign-on, matched by Federation ID), or set a new password on day one. For every integration, the owner issues a new credential; we store it in Azure Key Vault, test it, and switch on an agreed date. We find the systems that call into Salesforce from login history and keep them running through a Salesforce-compatible connection until each one moves.
+Salesforce never exports passwords, tokens or keys. We move users to the company login (single sign-on, matched by Federation ID), or a new password on day one. For every integration, the owner issues a new credential; we store it in Azure Key Vault, test it, and switch on an agreed date. We find the systems that call into Salesforce from login history and keep them running through a Salesforce-compatible connection until each one moves.
 
 ## Outbound: named credentials
 

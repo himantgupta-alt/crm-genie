@@ -1,8 +1,8 @@
 # Work in progress at go-live
 
-Prepared by our team from the org inventory. Owner: **Data load agent**; we review it with you at that phase's gate.
+Prepared by our team from the org inventory. Owner: **Data load agent**; we review it at that phase's gate.
 
-Processes that are halfway through on the day we switch live inside Salesforce, not in your records. We either finish each one before the freeze, or carry it over into the new system in the same state. We switch scheduled jobs in one step, off in Salesforce and on in the new system together, so nothing runs twice or is missed.
+Processes that are halfway through on the day we switch live inside Salesforce, not in the records. We either finish each one before the freeze, or carry it over into the new system in the same state. We switch scheduled jobs in one step, off in Salesforce and on in the new system together, so nothing runs twice or is missed.
 
 ## Pending approvals (0)
 

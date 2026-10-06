@@ -1,6 +1,6 @@
 # History archive plan
 
-Prepared by our team from the org inventory. Owner: **Data load agent**; we review it with you at that phase's gate.
+Prepared by our team from the org inventory. Owner: **Data load agent**; we review it at that phase's gate.
 
 Salesforce deletes some history after a fixed time. From week one we save each source on a schedule, adding only what is new since the last run, so nothing expires while the project runs. At go-live we load the archive into the new system, which keeps history with no time limit.
 
@@ -14,6 +14,6 @@ Salesforce deletes some history after a fixed time. From week one we save each s
 
 | Decision | Value |
 |---|---|
-| Retention required by compliance (years, per source) | _to confirm with the client_ |
-| History older than today's reach: accepted as not available | _to confirm with the client_ |
+| Retention required by compliance (years, per source) | _to confirm_ |
+| History older than today's reach: accepted as not available | _to confirm_ |
 | Fields never tracked: changes were not recorded and cannot be recovered | noted |

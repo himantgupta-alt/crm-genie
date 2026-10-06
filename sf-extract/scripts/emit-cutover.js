@@ -32,7 +32,7 @@ const cell = (s) => String(s ?? '—').replace(/\|/g, '\\|');
 const maskUser = (u) => (u ? `${u[0]}…@${u.split('@')[1]?.split('.')[0] || '…'}` : '—');
 const head = (title, owner, why) => [
   `# ${title}`, '',
-  `Prepared by our team from the org inventory. Owner: **${owner}**; we review it with you at that phase's gate.`, '',
+  `Prepared by our team from the org inventory. Owner: **${owner}**; we review it at that phase's gate.`, '',
   why, '',
 ];
 
@@ -40,7 +40,7 @@ const writers = {
   packages() {
     const pc = read('packageContents.json');
     const lines = head('Vendor packages', 'Modelling agent',
-      'The vendor hides the code of each installed package. We still take everything around it: its objects, its data and its settings. We record what the package does as input → output test cases, then agree with you whether to rebuild it, replace it, or keep it on Salesforce for now.');
+      'The vendor hides the code of each installed package. We still take everything around it: its objects, its data and its settings. We record what the package does as input → output test cases, then rebuild it, replace it, or keep it on Salesforce for now.');
     if (status(pc)) lines.push(status(pc), '');
     const tests = [];
     for (const p of rows(pc)) {
@@ -67,10 +67,10 @@ const writers = {
       const covered = (p.capturedOutputs || []).length;
       lines.push(
         '| Decision | Value |', '|---|---|',
-        '| Business owner | _to confirm with you_ |',
+        '| Business owner | _to confirm_ |',
         `| In use? | ${withRows.length ? `yes: ${withRows.map((o) => `${o.rows} ${o.label || o.name}`).join(', ')}` : 'no records found'} |`,
         `| Our proposed route | ${covered ? 'rebuild: the behaviour is fully described by its settings and matches the package output' : withRows.length ? 'to decide in assessment' : 'not needed: installed but holds no records'} |`,
-        `| Test cases from your data | ${covered ? tests.filter((t) => t.namespace === p.namespace).reduce((a, t) => a + t.total, 0) + ' (one per parent record per rollup)' : '_planned_'} |`, '',
+        `| Test cases from the org's data | ${covered ? tests.filter((t) => t.namespace === p.namespace).reduce((a, t) => a + t.total, 0) + ' (one per parent record per rollup)' : '_planned_'} |`, '',
       );
     }
     fs.writeFileSync(path.join(OUT, 'package-tests.json'), JSON.stringify(tests.map(({ mismatches, ...t }) => ({ ...t, mismatches: mismatches.slice(0, 20) })), null, 2));
@@ -82,7 +82,7 @@ const writers = {
     const api = read('apiOnlyUsers.json'), lg = read('loginsByApplication.json');
     const callers = rows(lg).filter((a) => a.loginType !== 'Application'); // browser logins are people
     const lines = head('Credentials and integrations checklist', 'Security agent',
-      'Salesforce never exports passwords, tokens or keys. Your users will sign in through your company login (single sign-on, matched by Federation ID), or set a new password on day one. For every integration, the owner issues a new credential; we store it in Azure Key Vault, test it, and switch on an agreed date. We find the systems that call into Salesforce from login history and keep them running through a Salesforce-compatible connection until each one moves.');
+      'Salesforce never exports passwords, tokens or keys. We move users to the company login (single sign-on, matched by Federation ID), or a new password on day one. For every integration, the owner issues a new credential; we store it in Azure Key Vault, test it, and switch on an agreed date. We find the systems that call into Salesforce from login history and keep them running through a Salesforce-compatible connection until each one moves.');
     const table = (title, cols, data, map, missing) => {
       lines.push(`## ${title}`, '');
       if (missing) { lines.push(missing, ''); return; }
@@ -102,7 +102,7 @@ const writers = {
   work() {
     const ap = read('pendingApprovals.json'), fl = read('pausedFlows.json'), sj = read('scheduledJobs.json'), aj = read('asyncJobs.json');
     const lines = head('Work in progress at go-live', 'Data load agent',
-      'Processes that are halfway through on the day we switch live inside Salesforce, not in your records. We either finish each one before the freeze, or carry it over into the new system in the same state. We switch scheduled jobs in one step, off in Salesforce and on in the new system together, so nothing runs twice or is missed.');
+      'Processes that are halfway through on the day we switch live inside Salesforce, not in the records. We either finish each one before the freeze, or carry it over into the new system in the same state. We switch scheduled jobs in one step, off in Salesforce and on in the new system together, so nothing runs twice or is missed.');
     const sys = (n) => /Program Milestone|Program Status|Metalytics|Salesforce|sfdc/i.test(n || '');
     lines.push(`## Pending approvals (${rows(ap).length})`, '');
     if (status(ap)) lines.push(status(ap), '');
@@ -130,8 +130,8 @@ const writers = {
       '| Recycle bin (deleted records) | 15 days | — | daily, `queryAll` where `IsDeleted = true` |',
       '| Event Monitoring logs | 1 day, or 30 with Shield | — | daily, if licensed |', '',
       '| Decision | Value |', '|---|---|',
-      '| Retention required by compliance (years, per source) | _to confirm with the client_ |',
-      '| History older than today\'s reach: accepted as not available | _to confirm with the client_ |',
+      '| Retention required by compliance (years, per source) | _to confirm_ |',
+      '| History older than today\'s reach: accepted as not available | _to confirm_ |',
       '| Fields never tracked: changes were not recorded and cannot be recovered | noted |', '');
     return lines;
   },

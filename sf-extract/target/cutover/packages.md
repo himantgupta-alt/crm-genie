@@ -1,8 +1,8 @@
 # Vendor packages
 
-Prepared by our team from the org inventory. Owner: **Modelling agent**; we review it with you at that phase's gate.
+Prepared by our team from the org inventory. Owner: **Modelling agent**; we review it at that phase's gate.
 
-The vendor hides the code of each installed package. We still take everything around it: its objects, its data and its settings. We record what the package does as input → output test cases, then agree with you whether to rebuild it, replace it, or keep it on Salesforce for now.
+The vendor hides the code of each installed package. We still take everything around it: its objects, its data and its settings. We record what the package does as input → output test cases, then rebuild it, replace it, or keep it on Salesforce for now.
 
 ## Developer Edition (`devedapp`, version v0.9)
 
@@ -15,10 +15,10 @@ The vendor hides the code of each installed package. We still take everything ar
 
 | Decision | Value |
 |---|---|
-| Business owner | _to confirm with you_ |
+| Business owner | _to confirm_ |
 | In use? | no records found |
 | Our proposed route | not needed: installed but holds no records |
-| Test cases from your data | _planned_ |
+| Test cases from the org's data | _planned_ |
 
 ## Declarative Lookup Rollup Summaries Tool (`dlrs`, version Release)
 
@@ -63,7 +63,7 @@ Compared with the values the package wrote: **22 of 22 Account records match**. 
 
 | Decision | Value |
 |---|---|
-| Business owner | _to confirm with you_ |
+| Business owner | _to confirm_ |
 | In use? | yes: 2 Lookup Rollup Summary |
 | Our proposed route | rebuild: the behaviour is fully described by its settings and matches the package output |
-| Test cases from your data | 44 (one per parent record per rollup) |
+| Test cases from the org's data | 44 (one per parent record per rollup) |
