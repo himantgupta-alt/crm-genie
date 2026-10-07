@@ -1,0 +1,9 @@
+sequenceDiagram
+  autonumber
+  actor U as User or integration
+  participant SF as Subscription Line
+  U->>SF: add or change a subscription line
+  SF->>SF: validation rules (2)
+  Note right of SF: Parent Not Cancelled<br/>Quantity Must Be Positive
+  SF->>SF: recalculate Line Count, Total Line Value on Subscription
+  SF-->>U: saved, or the first failing rule’s message

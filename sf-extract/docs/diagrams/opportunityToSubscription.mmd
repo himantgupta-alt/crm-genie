@@ -1,0 +1,15 @@
+sequenceDiagram
+  autonumber
+  actor Rep as Sales rep
+  participant O as Opportunity
+  participant S as OpportunityService
+  participant Sub as Subscription
+  Rep->>O: set stage to Closed Won
+  O->>S: after update: createSubscriptionsForWonDeals()
+  S->>Sub: any subscription already created for this deal?
+  alt none yet
+  S->>Sub: insert subscription (term 12 months)
+  else already exists
+    S-->>O: skip (no duplicates)
+  end
+  Sub-->>Rep: subscription visible on the account

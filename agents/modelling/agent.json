@@ -3,7 +3,7 @@
   "name": "Modelling agent",
   "phase": "design",
   "kind": "deterministic",
-  "role": "Builds one platform-independent model of the org: entities, fields, relations, formulas and rules as expression trees, security, and the client's naming. Also lists each vendor package with its objects, fields and configuration records.",
+  "role": "Builds one platform-independent model of the org: entities, fields, relations, formulas and rules as expression trees, security, and the client's naming. Also lists each vendor package with its objects, fields and configuration records. Writes the high-level and low-level design documents, with diagrams generated from the blueprint.",
   "inputs": [
     "sf-extract/output/",
     "sf-extract/blueprint/vocabulary.overrides.json",
@@ -16,18 +16,23 @@
   "implementation": [
     "sf-extract/scripts/normalise-blueprint.js",
     "sf-extract/scripts/validate-blueprint.js",
-    "sf-extract/scripts/emit-cutover.js --parts packages"
+    "sf-extract/scripts/emit-cutover.js --parts packages",
+    "sf-extract/scripts/emit-docs.js"
   ],
   "outputs": [
     "sf-extract/blueprint/blueprint.json",
     "sf-extract/blueprint/normalise-report.md",
-    "sf-extract/target/cutover/packages.md"
+    "sf-extract/target/cutover/packages.md",
+    "sf-extract/docs/HLD.md",
+    "sf-extract/docs/LLD.md",
+    "sf-extract/docs/diagrams/*.mmd"
   ],
   "done_when": "Blueprint validates against blueprint.schema.json with zero unresolved references",
   "reviewer_checks": [
     "Target names in the vocabulary",
     "Strategy chosen for each formula and validation rule",
     "Warnings",
-    "Each vendor package has an owner and a route (rebuild, replace, keep)"
+    "Each vendor package has an owner and a route (rebuild, replace, keep)",
+    "Business process diagrams match how the business describes the process"
   ]
 }

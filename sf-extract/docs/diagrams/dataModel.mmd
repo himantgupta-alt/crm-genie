@@ -1,0 +1,64 @@
+erDiagram
+  Account {
+    varchar id PK
+    varchar name
+    text type
+    varchar billing_country
+    text customer_priority
+    text sla
+    text active
+    numeric numberof_locations
+    text upsell_opportunity
+    varchar sla_serial_number
+  }
+  Contact {
+    varchar id PK
+    varchar name
+    text level
+    varchar languages
+  }
+  Opportunity {
+    varchar id PK
+    varchar name
+    text stage_name
+    numeric amount
+    text delivery_installation_status
+    varchar tracking_number
+    varchar order_number
+    varchar current_generators
+    varchar main_competitors
+    text loss_reason
+  }
+  Product {
+    varchar id PK
+    varchar name
+  }
+  Subscription {
+    varchar id PK
+    varchar subscription_number
+    varchar account_id FK
+    boolean auto_renew
+    varchar cancellation_reason
+    date end_date
+    numeric health_score
+    numeric monthly_recurring_revenue
+    date start_date
+    text status
+  }
+  SubscriptionLine {
+    varchar id PK
+    varchar line_number
+    varchar subscription_id FK
+    numeric quantity
+    numeric unit_price
+    varchar account_name
+    numeric line_total
+  }
+  Account |o--o{ Contact : "Account ID"
+  Account |o--o{ Opportunity : "Account ID"
+  Contact |o--o{ Opportunity : "Contact ID"
+  Subscription ||--|{ SubscriptionLine : "Subscription"
+  Product |o--o{ SubscriptionLine : "Product"
+  Account ||--|{ Subscription : "Account"
+  Contact |o--o{ Subscription : "Primary Contact"
+  Opportunity |o--o{ Subscription : "Source Opportunity"

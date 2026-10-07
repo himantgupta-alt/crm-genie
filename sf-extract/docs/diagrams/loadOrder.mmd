@@ -1,0 +1,21 @@
+flowchart LR
+  subgraph L0["Level 1"]
+    Account["Account<br/><small>22 rows</small>"]
+    Product2["Product<br/><small>17 rows</small>"]
+  end
+  subgraph L1["Level 2"]
+    Contact["Contact<br/><small>20 rows</small>"]
+  end
+  subgraph L2["Level 3"]
+    Opportunity["Opportunity<br/><small>31 rows</small>"]
+  end
+  subgraph L3["Level 4"]
+    Subscription__c["Subscription<br/><small>107 rows</small>"]
+  end
+  subgraph L4["Level 5"]
+    Subscription_Line__c["Subscription Line<br/><small>219 rows</small>"]
+  end
+  L0 --> L1
+  L1 --> L2
+  L2 --> L3
+  L3 --> L4

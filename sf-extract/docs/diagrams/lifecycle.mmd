@@ -1,0 +1,17 @@
+stateDiagram-v2
+  [*] --> Draft
+  Draft --> Active
+  Active --> Suspended
+  Suspended --> Active
+  Active --> Renewed
+  Renewed --> [*]
+  Draft --> Cancelled
+  Active --> Cancelled
+  Suspended --> Cancelled
+  Cancelled --> [*]
+  note right of Active
+    needs MRR above zero
+  end note
+  note right of Cancelled
+    needs a cancellation reason<br/>cannot be reactivated
+  end note

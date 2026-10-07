@@ -1,0 +1,18 @@
+flowchart LR
+  SF[("Salesforce org<br/>metadata and data")]
+  P0["1 Discover<br/><small>Extraction</small>"]
+  SF --> P0
+  P1["2 Design<br/><small>Modelling</small>"]
+  P0 --> P1
+  P2["3 Build<br/><small>Schema<br/>Logic<br/>Security</small>"]
+  P1 --> P2
+  P3["4 Migrate<br/><small>Data load</small>"]
+  P2 --> P3
+  P4["5 Validate<br/><small>Verification</small>"]
+  P3 --> P4
+  P5["6 Go-live<br/><small>CI/CD pipeline</small>"]
+  P4 --> P5
+  P5 --> AZ[("Azure<br/>PostgreSQL + App Service")]
+  P4 -. "fails" .-> R["Repair agent"] -. "fix, after approval" .-> P2
+  classDef phase fill:#F3F1FC,stroke:#6666CC,color:#1F1F2E;
+  class P0,P1,P2,P3,P4,P5 phase;

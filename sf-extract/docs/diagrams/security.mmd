@@ -1,0 +1,22 @@
+flowchart LR
+  subgraph SFS["Salesforce"]
+    profile_Admin["Profile: Admin"]
+    profile_Analytics_Cloud_Integration_User["Profile: Analytics Cloud Integration User"]
+    permissionSet_Subscription_Management["Permission set: Subscription_Management"]
+    OWD["Account sharing<br/>(org-wide default)"]
+  end
+  subgraph PG["PostgreSQL"]
+    PG_profile_Admin["role admin"]
+    PG_profile_Analytics_Cloud_Integration_User["role analytics cloud integration user"]
+    PG_permissionSet_Subscription_Management["role subscription_management"]
+    RLS["row-level security<br/>can_access_account()"]
+    COL["column grants<br/>(field-level security)"]
+  end
+  profile_Admin --> PG_profile_Admin
+  PG_profile_Admin --> COL
+  profile_Analytics_Cloud_Integration_User --> PG_profile_Analytics_Cloud_Integration_User
+  PG_profile_Analytics_Cloud_Integration_User --> COL
+  permissionSet_Subscription_Management --> PG_permissionSet_Subscription_Management
+  PG_permissionSet_Subscription_Management --> COL
+  OWD --> RLS
+  SUB["Subscription and lines<br/>inherit access from the account"] --> RLS

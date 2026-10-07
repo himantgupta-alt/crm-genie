@@ -1,0 +1,9 @@
+flowchart TD
+  S(["New lead"])
+  C0{{"Country = US"}}
+  S --> C0
+  C0 -- "yes" --> R0["assign to assigned user"]
+  C1{{"Country ≠ US"}}
+  C0 -- "no" --> C1
+  C1 -- "yes" --> R1["assign to assigned user"]
+  C1 -- "no" --> N(["no change"])

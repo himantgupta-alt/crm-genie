@@ -1,0 +1,18 @@
+flowchart TD
+  S(["New case"])
+  C0{{"BillingCountry = US<br/>SLA = Gold, Platinum<br/>Type contains Customer"}}
+  S --> C0
+  C0 -- "yes" --> R0["assign to assigned user"]
+  C1{{"BillingCountry = US<br/>SLA = Silver, Bronze<br/>Type contains Customer"}}
+  C0 -- "no" --> C1
+  C1 -- "yes" --> R1["assign to assigned user"]
+  C2{{"BillingCountry ≠ US<br/>SLA = Gold, Platinum<br/>Type contains Customer"}}
+  C1 -- "no" --> C2
+  C2 -- "yes" --> R2["assign to assigned user"]
+  C3{{"BillingCountry ≠ US<br/>SLA = Silver, Bronze<br/>Type contains Customer"}}
+  C2 -- "no" --> C3
+  C3 -- "yes" --> R3["assign to assigned user"]
+  C4{{"Type contains Partner"}}
+  C3 -- "no" --> C4
+  C4 -- "yes" --> R4["assign to assigned user"]
+  C4 -- "no" --> N(["no change"])

@@ -1,0 +1,16 @@
+sequenceDiagram
+  autonumber
+  actor U as User or integration
+  participant SF as Subscription
+  participant SubscriptionService as SubscriptionService
+  U->>SF: create or update a subscription
+  SF->>SubscriptionService: before save: applyDefaults()
+  SF->>SF: validation rules (4)
+  Note right of SF: Active Requires MRR<br/>Cancellation Reason Required<br/>End Date After Start Date<br/>No Reactivation After Cancel
+  SF->>SubscriptionService: after save: handleStatusChange()
+  SubscriptionService-->>SF: insert Task
+  participant Flow as Flow
+  SF->>Flow: Subscription At Risk Alert
+  Note right of Flow: when AND( Health_Score__c #lt; 50, Status__c = Active )
+  Flow-->>SF: create Task
+  SF-->>U: saved, or the first failing rule’s message

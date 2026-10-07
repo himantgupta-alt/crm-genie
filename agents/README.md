@@ -25,7 +25,7 @@ checks at the gate. `index.js` runs the agent and returns its status and a summa
 | Phase | Agent | Type | Calls | Produces |
 |---|---|---|---|---|
 | 1 Discover | Extraction | Deterministic | `sf-extract/scripts/extract-schema.js`, `extract-logic.js`, `export-data.js`, `extract-inventory.js`, Salesforce CLI | `output/schema`, `output/logic`, `output/data`, `output/inventory` (gap register) |
-| 2 Design | Modelling | Deterministic | `normalise-blueprint.js`, `validate-blueprint.js`, `formula.js` | `blueprint/blueprint.json` |
+| 2 Design | Modelling | Deterministic | `normalise-blueprint.js`, `validate-blueprint.js`, `formula.js`, `emit-docs.js` | `blueprint/blueprint.json`, `docs/HLD.md`, `docs/LLD.md` (with diagrams) |
 | 3 Build | Schema | Deterministic | `emit-postgres.js --parts runtime,tables,views,rollups` | `target/db/000–030` |
 | 3 Build | Logic | Claude for Apex, deterministic for rules | `logic/prompt.md`; `emit-postgres.js --parts guards,translations` | `blueprint/translations/`, `target/db/040–050` |
 | 3 Build | Security | Deterministic | `emit-postgres.js --parts security` | `target/db/060_security.sql` |

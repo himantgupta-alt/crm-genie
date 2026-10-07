@@ -1,0 +1,8 @@
+flowchart TD
+  START(["Subscription created or updated<br/>after save"])
+  FILTER{{"AND( Health Score #lt; 50, Status = Active )"}}
+  START --> FILTER
+  FILTER -- "no" --> SKIP(["no action"])
+  Create_Health_Check_Task["create Task<br/><small>Create Health Check Task</small>"]
+  FILTER -- "yes" --> Create_Health_Check_Task
+  classDef el fill:#F3F1FC,stroke:#6666CC,color:#1F1F2E;

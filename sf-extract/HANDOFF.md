@@ -203,6 +203,13 @@ The target state runs in Azure: **https://crmgenie-app-hg01.azurewebsites.net** 
 - **Deck slide 2**: click-by-click walkthrough (ring + panel per agent, 10 clicks). Pre-change copy in
   `presentations/backup/`.
 - **Voice**: gap register, working documents and demo text are written as our team ("we", "you").
+- **Design documents** (`scripts/emit-docs.js`, local files only; run by the Modelling agent): `docs/HLD.md`,
+  `docs/LLD.md`, 12 Mermaid diagrams in `docs/diagrams/` (architecture from `agents/workflow.json`; lifecycle
+  from the Status picklist + rules; won-deal and save sequences from triggers/services; flow charts parsed
+  from flow XML; case/lead routing from assignment rules with user emails masked; ER, security, load order
+  from the blueprint). It also refreshes the copy embedded in the console (`/*DOCS-START*/…/*DOCS-END*/`).
+  Org Compiler has a **Design documents** view (HLD · LLD · All diagrams) rendered with marked + mermaid
+  from CDNs; diagrams are rendered one at a time (batch `mermaid.run` overlapped them in the console).
 - **Org drift**: a full describe on 6 Oct found 512 objects / 1,964 relations (was 505 / 1,933) — new standard
   objects from a Salesforce release. Not committed, so the blueprint and CI baseline stay unchanged; a
   re-extract plus blueprint/DDL regeneration is its own change.

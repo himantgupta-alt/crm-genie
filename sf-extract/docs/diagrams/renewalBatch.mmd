@@ -1,0 +1,8 @@
+flowchart TD
+  A(["Nightly schedule"]) --> B["Find active subscriptions<br/>ending within 30 days"]
+  B --> C{"Any found?"}
+  C -- "yes" --> D["Create a renewal task<br/>for each owner"]
+  C -- "no" --> E(["Done"])
+  D --> E
+  classDef job fill:#EAFBF5,stroke:#2CDCAA,color:#1F1F2E;
+  class A,B,D job;
