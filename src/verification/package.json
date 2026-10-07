@@ -12,6 +12,7 @@
   },
   "devDependencies": {
     "@electric-sql/pglite-socket": "0.2.11",
-    "ajv": "8.17.1"
+    "ajv": "8.17.1",
+    "fast-xml-parser": "^5.11.1"
   }
 }

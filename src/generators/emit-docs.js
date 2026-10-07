@@ -18,8 +18,12 @@ const apex = JSON.parse(fs.readFileSync(path.join(P.LOGIC, 'apex.json'), 'utf8')
 const workflow = JSON.parse(fs.readFileSync(path.join(P.AGENTS, 'workflow.json'), 'utf8'));
 const readJson = (p, d) => { try { return JSON.parse(fs.readFileSync(path.join(ROOT, p), 'utf8')); } catch { return d; } };
 const cases = readJson(P.rel(P.PARITY_CASES), { cases: [] });
-const globalRoot = execSync('npm root -g').toString().trim();
-const { XMLParser } = require(path.join(globalRoot, '@salesforce/cli/node_modules/fast-xml-parser'));
+// fast-xml-parser is a declared dependency of src/verification (installed in CI); locally the Salesforce CLI's copy also works.
+const { XMLParser } = require((() => {
+  try { return require.resolve('fast-xml-parser', { paths: [path.join(P.SRC, 'verification')] }); } catch {
+    return path.join(execSync('npm root -g').toString().trim(), '@salesforce/cli/node_modules/fast-xml-parser');
+  }
+})());
 
 const FAMILY = ['Account', 'Contact', 'Opportunity', 'Product2', 'Subscription__c', 'Subscription_Line__c'];
 const CORE = ['Subscription__c', 'Subscription_Line__c'];
