@@ -282,6 +282,7 @@ dialog.rv::backdrop { background: var(--scrim); }
 .rv-viewbar .path { font: 500 12.5px var(--mono); overflow-wrap: anywhere; flex: 1; min-width: 160px; }
 .rv-content { overflow: auto; padding: 14px; min-height: 0; display: grid; gap: 10px; align-content: start; }
 .rv-content pre { max-height: none; }
+.rv-content .doc { max-width: none; border: 0; padding: 4px 6px; }
 .rv-side { border-left: 1px solid var(--line); overflow-y: auto; padding: 14px; display: grid; gap: 16px; align-content: start; }
 
 /* half screen: vertical pipeline beside the inspector */
@@ -543,6 +544,17 @@ dialog.rv::backdrop { background: var(--scrim); }
 <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js" defer></script>
 <script>
 // ---------------------------------------------------------------- design documents view
+window.renderMarkdownInto = async (el, md) => {
+  if (!window.marked || !window.mermaid) { el.innerHTML = '<p class="sub">Loading the document viewer…</p>'; setTimeout(() => window.renderMarkdownInto(el, md), 300); return; }
+  if (!window.__mmdReady) { window.mermaid.initialize({ startOnLoad: false, theme: 'base', securityLevel: 'loose', themeVariables: { primaryColor: '#E6ECFC', primaryBorderColor: '#2450D6', primaryTextColor: '#18212F', lineColor: '#5F6B7C', fontFamily: 'IBM Plex Sans, Segoe UI, sans-serif', fontSize: '13px' } }); window.__mmdReady = true; }
+  el.innerHTML = '<article class="doc"></article>';
+  const art = el.firstChild;
+  art.innerHTML = window.marked.parse(md);
+  art.querySelectorAll('code.language-mermaid').forEach((c) => { const d = document.createElement('div'); d.className = 'mermaid'; d.textContent = c.textContent; c.parentElement.replaceWith(d); });
+  let n = 0;
+  for (const d of art.querySelectorAll('.mermaid')) { try { const { svg } = await window.mermaid.render(`md${Date.now().toString(36)}${n++}`, d.textContent); d.innerHTML = svg; } catch (e) { d.textContent = 'Diagram could not be drawn: ' + e.message; } }
+  return art;
+};
 window.designDoc = (k) => { try { const raw = document.getElementById('design-docs').textContent.replace('/*DOCS-START*/', '').replace('/*DOCS-END*/', ''); return JSON.parse(raw)[k] || ''; } catch { return ''; } };
 (() => {
   const TITLES = { architecture: 'How we move it', lifecycle: 'Subscription lifecycle', opportunityToSubscription: 'Won deal becomes a subscription', subscriptionSave: 'Saving a subscription', lineSave: 'Saving a subscription line', renewalBatch: 'Renewal reminders', caseRouting: 'Case routing', caseEscalation: 'Case escalation', leadRouting: 'Lead routing', dataModel: 'Data model', security: 'Security model', loadOrder: 'Data load order' };
@@ -1701,6 +1713,7 @@ Verify    Re-emit target/db, rebuild, re-run all 19 cases.` },
       <span class="path">${esc(f.path)}</span>
       ${isEdited(f) ? `<span class="pill edited">${versionOf(owner, f)} · edited by ${REVIEWER}</span>` : `<span class="pill">${versionOf(owner, f)} · ${AGENTS[owner].name}</span>`}
       ${st.edits[f.path] !== undefined && !rv.editing ? `<button class="btn sm" type="button" data-act="diff" aria-pressed="${rv.diff}">${rv.diff ? 'Show file' : 'Show changes'}</button>` : ''}
+      ${/\.md$/.test(f.path) && !rv.editing && !rv.diff ? `<button class="btn sm" type="button" data-act="mdsource" aria-pressed="${!!rv.mdSource}">${rv.mdSource ? 'Show rendered' : 'Show source'}</button>` : ''}
       ${canEdit && !rv.editing ? '<button class="btn sm" type="button" data-act="edit">Edit</button>' : ''}`;
 
     const c = $('#rv-content');
@@ -1714,6 +1727,8 @@ Verify    Re-emit target/db, rebuild, re-run all 19 cases.` },
       $('#rv-edit').focus();
     } else if (rv.diff && st.edits[f.path] !== undefined) {
       c.innerHTML = diffHtml(original, st.edits[f.path]);
+    } else if (/\.md$/.test(f.path) && !rv.mdSource) {
+      window.renderMarkdownInto(c, fileText(f));
     } else {
       c.innerHTML = codeHtml(fileText(f), f.lang);
     }
@@ -1781,6 +1796,7 @@ Verify    Re-emit target/db, rebuild, re-run all 19 cases.` },
 
   dlg.addEventListener('click', (e) => {
     const p = e.target.closest('[data-path]');
+    if (e.target.closest('[data-act="mdsource"]')) { rv.mdSource = !rv.mdSource; return renderReviewer(); }
     if (p) { rv.path = p.dataset.path; rv.editing = false; rv.diff = false; return renderReviewer(); }
     const nav = e.target.closest('[data-nav]');
     if (nav) {
