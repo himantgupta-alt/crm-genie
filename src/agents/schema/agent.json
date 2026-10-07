@@ -1,0 +1,30 @@
+{
+  "id": "schema",
+  "name": "Schema agent",
+  "phase": "build",
+  "outputDir": "adlc/3-build/schema",
+  "kind": "deterministic",
+  "role": "Generates the database structure: tables, keys, required fields, picklists, formulas as generated columns or views, and roll-ups.",
+  "inputs": [
+    "adlc/2-design/modelling/blueprint/blueprint.json"
+  ],
+  "tools": [
+    "SQL generator (src/generators/emit-postgres.js)",
+    "formula-to-SQL compiler (src/generators/sql-expr.js)"
+  ],
+  "implementation": [
+    "node src/generators/emit-postgres.js --parts runtime,tables,views,rollups"
+  ],
+  "outputs": [
+    "adlc/3-build/schema/sql/000_runtime.sql",
+    "adlc/3-build/schema/sql/010_tables.sql",
+    "adlc/3-build/schema/sql/020_views.sql",
+    "adlc/3-build/schema/sql/030_rollups.sql"
+  ],
+  "done_when": "DDL generated for the object family; every column traces to a blueprint field",
+  "reviewer_checks": [
+    "Column names and types",
+    "Delete behaviour of each relationship",
+    "How each formula and roll-up is stored"
+  ]
+}

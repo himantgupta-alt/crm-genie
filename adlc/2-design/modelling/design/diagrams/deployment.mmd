@@ -1,0 +1,13 @@
+flowchart TB
+  subgraph AZ["Azure resource group (adlc/6-go-live/infra/main.bicep)"]
+    pg["pg<br/><small>flexibleServers</small>"]
+    db["db<br/><small>flexibleServers/databases</small>"]
+    fwAzure["fwAzure<br/><small>flexibleServers/firewallRules</small>"]
+    fwDeployer["fwDeployer<br/><small>flexibleServers/firewallRules</small>"]
+    plan["plan<br/><small>serverfarms</small>"]
+    site["site<br/><small>sites</small>"]
+    scmPolicy["scmPolicy<br/><small>sites/basicPublishingCredentialsPolicies</small>"]
+  end
+  GH["GitHub Actions"] -- "zip deploy" --> site
+  site -- "TLS, pg" --> pg
+  DEV["Engineer workstation<br/><small>sf CLI, extraction</small>"] -- "load_db.ps1" --> pg

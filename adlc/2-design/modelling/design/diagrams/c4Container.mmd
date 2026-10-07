@@ -1,0 +1,22 @@
+flowchart LR
+  subgraph ORG["Org Compiler (build time)"]
+    AG["Agents runtime<br/><small>Node.js, src/agents</small>"]
+    GEN["Generators<br/><small>Node.js, src/generators</small>"]
+    CON["Review console<br/><small>HTML, src/console</small>"]
+    REPO[("ADLC outputs<br/><small>git, adlc/</small>")]
+  end
+  subgraph RUN["Client-owned CRM (run time)"]
+    APP["Web app and API<br/><small>Node.js Express, src/app</small>"]
+    DB[("PostgreSQL<br/><small>schema app, RLS, roles</small>")]
+  end
+  CI["CI/CD<br/><small>GitHub Actions</small>"]
+  LLM["Claude<br/><small>Apex translation, repair proposals</small>"]
+  AG --> GEN
+  GEN --> REPO
+  AG -. "translate, diagnose" .-> LLM
+  CON -- "approve, edit, return" --> AG
+  REPO --> CI
+  CI -- "verify, deploy" --> APP
+  APP -- "SET LOCAL ROLE per user" --> DB
+  classDef run fill:#EAFBF5,stroke:#157048,color:#18212F;
+  class APP,DB run;

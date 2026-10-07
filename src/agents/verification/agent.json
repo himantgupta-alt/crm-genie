@@ -1,0 +1,34 @@
+{
+  "id": "verification",
+  "name": "Verification agent",
+  "phase": "validate",
+  "outputDir": "adlc/5-validate/verification",
+  "kind": "deterministic",
+  "role": "Checks that the target behaves like Salesforce: recomputes every formula and roll-up and compares it with the value Salesforce stored, then replays rule cases. Also tracks built-in platform behaviour: which behaviours are implemented and covered by a parity case.",
+  "inputs": [
+    "adlc/3-build/*/sql/*.sql",
+    "adlc/1-discover/extraction/data/*.csv",
+    "adlc/5-validate/verification/cases.json",
+    "adlc/5-validate/verification/cases.json (platform.* and security.* cases)"
+  ],
+  "tools": [
+    "PostgreSQL (in-memory PGlite)",
+    "rule-case runner"
+  ],
+  "implementation": [
+    "node src/verification/run.js",
+    "node src/generators/emit-cutover.js --parts platform"
+  ],
+  "outputs": [
+    "adlc/5-validate/verification/report.json",
+    "adlc/5-validate/verification/report.md",
+    "adlc/5-validate/verification/platform-behaviour.md"
+  ],
+  "done_when": "Every derived value matches the org; every rule case gives the expected outcome",
+  "reviewer_checks": [
+    "Matched values per field",
+    "Failed and pending rule cases",
+    "Planned platform behaviours have an owner and a target date"
+  ],
+  "on_failure": "repair"
+}

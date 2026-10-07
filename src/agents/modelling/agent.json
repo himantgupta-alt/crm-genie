@@ -1,0 +1,42 @@
+{
+  "id": "modelling",
+  "name": "Modelling agent",
+  "phase": "design",
+  "outputDir": "adlc/2-design/modelling",
+  "kind": "deterministic",
+  "role": "Builds one platform-independent model of the org: entities, fields, relations, formulas and rules as expression trees, security, and the client's naming. Also lists each vendor package with its objects, fields and configuration records. Writes the high-level and low-level design documents, with diagrams generated from the blueprint.",
+  "inputs": [
+    "adlc/1-discover/extraction/",
+    "adlc/2-design/modelling/blueprint/vocabulary.overrides.json",
+    "adlc/1-discover/extraction/inventory/packages.json"
+  ],
+  "tools": [
+    "Salesforce formula parser (src/generators/formula.js)",
+    "JSON Schema validator"
+  ],
+  "implementation": [
+    "src/generators/normalise-blueprint.js",
+    "src/generators/validate-blueprint.js",
+    "src/generators/emit-cutover.js --parts packages",
+    "src/generators/emit-docs.js",
+    "src/generators/emit-adlc-index.js"
+  ],
+  "outputs": [
+    "adlc/2-design/modelling/blueprint/blueprint.json",
+    "adlc/2-design/modelling/blueprint/normalise-report.md",
+    "adlc/2-design/modelling/packages.md",
+    "adlc/2-design/modelling/design/HLD.md",
+    "adlc/2-design/modelling/design/LLD.md",
+    "adlc/2-design/modelling/design/adr/",
+    "adlc/2-design/modelling/design/diagrams/",
+    "adlc/README.md (ADLC index)"
+  ],
+  "done_when": "Blueprint validates against blueprint.schema.json with zero unresolved references",
+  "reviewer_checks": [
+    "Target names in the vocabulary",
+    "Strategy chosen for each formula and validation rule",
+    "Warnings",
+    "Each vendor package has an owner and a route (rebuild, replace, keep)",
+    "Business process diagrams match how the business describes the process"
+  ]
+}

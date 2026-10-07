@@ -20,7 +20,6 @@ __pycache__/
 .pytest_cache/
 dist/
 build/
-target/
 .ipynb_checkpoints/
 # OS / editor / tool-local
 Thumbs.db
@@ -30,23 +29,47 @@ desktop.ini
 .claude/settings.local.json
 # Portable toolchain (Node, Git, sf CLI) - reinstall per machine
 tools/
-# The compiled, client-owned stack is source here, not build output
-!sf-extract/target/
 # Org data export: only what the pipeline needs is versioned. The rest holds real user names and emails.
-sf-extract/output/data/*
-!sf-extract/output/data/_export-report.json
-!sf-extract/output/data/Account.csv
-!sf-extract/output/data/Contact.csv
-!sf-extract/output/data/Opportunity.csv
-!sf-extract/output/data/Product2.csv
-!sf-extract/output/data/Subscription__c.csv
-!sf-extract/output/data/Subscription_Line__c.csv
+adlc/1-discover/extraction/data/*
+!adlc/1-discover/extraction/data/_export-report.json
+!adlc/1-discover/extraction/data/Account.csv
+!adlc/1-discover/extraction/data/Contact.csv
+!adlc/1-discover/extraction/data/Opportunity.csv
+!adlc/1-discover/extraction/data/Product2.csv
+!adlc/1-discover/extraction/data/Subscription__c.csv
+!adlc/1-discover/extraction/data/Subscription_Line__c.csv
 # Inventory files that list individual users
-sf-extract/output/inventory/activeUsers.json
-sf-extract/output/inventory/apiOnlyUsers.json
+adlc/1-discover/extraction/inventory/activeUsers.json
+adlc/1-discover/extraction/inventory/apiOnlyUsers.json
 # Produced at run time
-sf-extract/target/parity/report.json
-sf-extract/target/parity/report.md
-sf-extract/target/app/public/compiler.html
+adlc/5-validate/verification/report.json
+adlc/5-validate/verification/report.md
+adlc/4-migrate/data-load/load-report.txt
+src/app/public/compiler.html
 # Agent run records (prompts, responses, decisions) stay local; they can hold org data
-agents/runs/
+src/agents/runs/
+
+# ---- Salesforce project (from the former sf-extract/.gitignore) ----
+.sf/
+.sfdx/
+.localdevserver/
+deploy-options.json
+**/lwc/jsconfig.json
+coverage/
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+node_modules/
+.pmdCache
+.eslintcache
+.DS_Store
+Thumbs.db
+ehthumbs.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
+.env
+**/__pycache__/
+**/.venv/
+**/venv/

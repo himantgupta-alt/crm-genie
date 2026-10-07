@@ -1,0 +1,12 @@
+{
+  "packageDirectories": [
+    {
+      "path": "adlc/1-discover/extraction/metadata/force-app",
+      "default": true
+    }
+  ],
+  "name": "crm-genie",
+  "namespace": "",
+  "sfdcLoginUrl": "https://login.salesforce.com",
+  "sourceApiVersion": "67.0"
+}

@@ -1,0 +1,33 @@
+{
+  "id": "logic",
+  "name": "Logic agent",
+  "phase": "build",
+  "outputDir": "adlc/3-build/logic",
+  "kind": "llm",
+  "role": "Turns business logic into database logic: compiles validation rules into constraints and guards, and translates Apex that triggers call into PostgreSQL with Claude.",
+  "inputs": [
+    "adlc/2-design/modelling/blueprint/blueprint.json",
+    "adlc/1-discover/extraction/logic/apex.json",
+    "adlc/3-build/logic/translations/ (approved examples)"
+  ],
+  "tools": [
+    "Claude (model in AGENT_MODEL, default claude-opus-5-5)",
+    "rule compiler (src/generators/sql-expr.js)"
+  ],
+  "prompt": "agents/logic/prompt.md",
+  "implementation": [
+    "agents/logic/index.js",
+    "node src/generators/emit-postgres.js --parts guards,translations"
+  ],
+  "outputs": [
+    "adlc/3-build/logic/translations/*.sql (reviewed: false)",
+    "adlc/3-build/logic/translations/blocked.json (only when a method is blocked)",
+    "adlc/3-build/logic/sql/040_guards.sql",
+    "adlc/3-build/logic/sql/050_translations.sql"
+  ],
+  "done_when": "Each pending Apex method is translated or reported as blocked with a reason; every validation rule is a constraint or guard",
+  "reviewer_checks": [
+    "Each translation against the Apex source",
+    "Reasons for blocked methods"
+  ]
+}

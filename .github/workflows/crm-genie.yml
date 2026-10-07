@@ -1,6 +1,6 @@
 # Checks, then deployment to Azure App Service.
 #
-#   verify: unit tests, blueprint and SQL regeneration, comparison with Salesforce data, app smoke test
+#   verify: unit tests, blueprint, SQL and document regeneration, conventions, comparison with Salesforce data, app smoke test
 #   deploy: package target/app, deploy to crmgenie-app-hg01, health check (main branch only)
 #
 # Generated files are committed. The pipeline regenerates them and fails if they differ, so the
@@ -33,41 +33,51 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm
           cache-dependency-path: |
-            sf-extract/target/package-lock.json
-            sf-extract/target/app/package-lock.json
+            src/verification/package-lock.json
+            src/app/package-lock.json
 
       - name: Install
         run: |
-          npm ci --prefix sf-extract/target --no-fund --no-audit
-          npm ci --prefix sf-extract/target/app --omit=dev --no-fund --no-audit
+          npm ci --prefix src/verification --no-fund --no-audit
+          npm ci --prefix src/app --omit=dev --no-fund --no-audit
           # The migration console ships inside the app; it is copied in, not versioned twice.
-          cp sf-extract/demo/org-compiler.html sf-extract/target/app/public/compiler.html
+          cp src/console/org-compiler.html src/app/public/compiler.html
 
       - name: Unit tests
-        run: node --test "sf-extract/scripts/test/*.test.js"
+        run: node --test "src/generators/test/*.test.js"
 
       - name: Rebuild and validate blueprint
         run: |
-          node sf-extract/scripts/normalise-blueprint.js
-          node sf-extract/scripts/validate-blueprint.js
-          git diff --exit-code -- sf-extract/blueprint/blueprint.json sf-extract/blueprint/normalise-report.md
+          node src/generators/normalise-blueprint.js
+          node src/generators/validate-blueprint.js
+          git diff --exit-code -- adlc/2-design/modelling/blueprint
 
       - name: Regenerate SQL
         run: |
-          node sf-extract/scripts/emit-postgres.js
-          git diff --exit-code -- sf-extract/target/db
+          node src/generators/emit-postgres.js
+          git diff --exit-code -- adlc/3-build
+
+      - name: Regenerate documents and ADLC index
+        run: |
+          node src/generators/emit-cutover.js
+          node src/generators/emit-docs.js
+          node src/generators/emit-adlc-index.js
+          git diff --exit-code -- adlc src/console
+
+      - name: Conventions
+        run: node src/generators/check-conventions.js
 
       - name: Compare with Salesforce data
-        working-directory: sf-extract/target
-        run: node parity/run.js
+        working-directory: src/verification
+        run: node run.js
 
       - name: App smoke test
-        working-directory: sf-extract/target
-        run: node parity/app-smoke.mjs
+        working-directory: src/verification
+        run: node app-smoke.mjs
 
       - name: Parity report
         if: always()
-        run: cat sf-extract/target/parity/report.md >> "$GITHUB_STEP_SUMMARY" || true
+        run: cat adlc/5-validate/verification/report.md >> "$GITHUB_STEP_SUMMARY" || true
 
   deploy:
     name: Deploy
@@ -86,9 +96,9 @@ jobs:
 
       - name: Package
         run: |
-          cp sf-extract/demo/org-compiler.html sf-extract/target/app/public/compiler.html
-          npm ci --prefix sf-extract/target/app --omit=dev --no-fund --no-audit
-          cd sf-extract/target/app && zip -qr "$GITHUB_WORKSPACE/crmgenie.zip" . -x 'scripts/*'
+          cp src/console/org-compiler.html src/app/public/compiler.html
+          npm ci --prefix src/app --omit=dev --no-fund --no-audit
+          cd src/app && zip -qr "$GITHUB_WORKSPACE/crmgenie.zip" . -x 'scripts/*'
 
       - name: Deploy to App Service
         uses: azure/webapps-deploy@v3

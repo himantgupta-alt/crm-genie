@@ -1,0 +1,30 @@
+{
+  "id": "security",
+  "name": "Security agent",
+  "phase": "build",
+  "outputDir": "adlc/3-build/security",
+  "kind": "deterministic",
+  "role": "Turns profiles, permission sets and sharing into database roles, column-level grants and row-level security. Also produces the credentials and integrations checklist: what must be re-issued and which systems call in.",
+  "inputs": [
+    "adlc/2-design/modelling/blueprint/blueprint.json (security grants, sharing models)",
+    "adlc/1-discover/extraction/inventory/namedCredentials.json, remoteSites.json, connectedApps.json, apiOnlyUsers.json, loginsByApplication.json"
+  ],
+  "tools": [
+    "SQL generator (src/generators/emit-postgres.js, security part)"
+  ],
+  "implementation": [
+    "node src/generators/emit-postgres.js --parts security",
+    "node src/generators/emit-cutover.js --parts credentials"
+  ],
+  "outputs": [
+    "adlc/3-build/security/sql/060_security.sql",
+    "adlc/3-build/security/credentials.md"
+  ],
+  "done_when": "Each profile and permission set is a role; field access is a column grant; sharing is a row-level policy",
+  "reviewer_checks": [
+    "Roles created",
+    "Read-only fields have no update grant",
+    "Sharing inherited from the parent where Salesforce does",
+    "Every integration and inbound caller has an owner, a new credential and a switch date"
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "blueprintVersion": "1.0.0",
+  "blueprintHash": "fc71a1458dceae904eb2ffbe051a88a4c15e00ea72cbd8d5c673ec7891f63370",
+  "family": [
+    "Subscription__c",
+    "Subscription_Line__c"
+  ],
+  "referenceTables": [
+    "Account",
+    "Contact",
+    "Opportunity",
+    "Product2"
+  ],
+  "files": [
+    "adlc/3-build/schema/sql/000_runtime.sql",
+    "adlc/3-build/schema/sql/010_tables.sql",
+    "adlc/3-build/schema/sql/020_views.sql",
+    "adlc/3-build/schema/sql/030_rollups.sql",
+    "adlc/3-build/logic/sql/040_guards.sql",
+    "adlc/3-build/logic/sql/050_translations.sql",
+    "adlc/3-build/security/sql/060_security.sql"
+  ],
+  "coverage": {
+    "derivations": [
+      {
+        "id": "Subscription_Line__c.Account_Name__c",
+        "strategy": "view_join"
+      },
+      {
+        "id": "Subscription_Line__c.Line_Total__c",
+        "strategy": "generated_column"
+      },
+      {
+        "id": "Subscription__c.Line_Count__c",
+        "strategy": "trigger_maintained"
+      },
+      {
+        "id": "Subscription__c.Annual_Value__c",
+        "strategy": "generated_column"
+      },
+      {
+        "id": "Subscription__c.Days_To_Renewal__c",
+        "strategy": "compute_on_read"
+      },
+      {
+        "id": "Subscription__c.Total_Line_Value__c",
+        "strategy": "trigger_maintained"
+      }
+    ],
+    "constraints": [
+      {
+        "id": "Subscription_Line__c.Parent_Not_Cancelled",
+        "strategy": "write_guard"
+      },
+      {
+        "id": "Subscription_Line__c.Quantity_Must_Be_Positive",
+        "strategy": "check"
+      },
+      {
+        "id": "Subscription__c.Active_Requires_MRR",
+        "strategy": "check"
+      },
+      {
+        "id": "Subscription__c.Cancellation_Reason_Required",
+        "strategy": "check"
+      },
+      {
+        "id": "Subscription__c.End_Date_After_Start_Date",
+        "strategy": "check"
+      },
+      {
+        "id": "Subscription__c.No_Reactivation_After_Cancel",
+        "strategy": "write_guard"
+      }
+    ],
+    "translations": [
+      {
+        "file": "SubscriptionService.applyDefaults.sql",
+        "implements": [
+          "apex-class:SubscriptionService#applyDefaults"
+        ],
+        "reviewed": false
+      }
+    ],
+    "pending": [
+      "flow:Subscription_At_Risk_Alert",
+      "apex-trigger:SubscriptionTrigger",
+      "apex-job:SubscriptionRenewalBatch",
+      "apex-class:OpportunityService#createSubscriptionsForWonDeals",
+      "apex-class:SubscriptionService#handleStatusChange",
+      "apex-class:SubscriptionService#totalActiveMrr"
+    ]
+  }
+}
