@@ -42,3 +42,10 @@ Generator source, `src/generators/emit-postgres.js`:
 ```js
 {{generator}}
 ```
+
+
+## Standards you must follow
+
+These are our engineering standards and guardrails. Follow them; a reviewer checks your output against them.
+
+{{standards}}

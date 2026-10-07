@@ -1,0 +1,114 @@
+Test case,Parity case,Area,Title,Priority,Comes from,Steps,Expected,Automation
+TC-001,apex.appliesDefaultHealthScoreAndEndDate,Business logic (Apex),Applies Default Health Score And End Date,P2,apex-test:SubscriptionServiceTest#appliesDefaultHealthScoreAndEndDate,"1. create an Account with Account Name = ""Parity Test Account"" (call it a)
+2. create a Subscription with Account = the a record, Start Date = today, End Date = today + 12m, Term (Months) = 12, Status = ""Active"", MRR = 1000 (call it s)
+3. open s","Step 1: succeeds
+Step 2: succeeds
+Step 3: Health Score = 70, Annual Value = 12000",automated
+TC-002,apex.blocksReactivationOfCancelledSubscription,Business logic (Apex),Blocks Reactivation Of Cancelled Subscription,P2,apex-test:SubscriptionServiceTest#blocksReactivationOfCancelledSubscription,"1. create an Account with Account Name = ""Parity Test Account"" (call it a)
+2. create a Subscription with Account = the a record, Start Date = today, End Date = today + 12m, Status = ""Active"", MRR = 500 (call it s)
+3. change s: Status = ""Cancelled"", Cancellation Reason = ""Budget cut""
+4. change s: Status = ""Active""","Step 1: succeeds
+Step 2: succeeds
+Step 3: succeeds
+Step 4: rejected with ""A cancelled subscription cannot be reactivated. Create a new subscription instead.""",automated
+TC-003,apex.rollsUpLineTotals,Business logic (Apex),Rolls Up Line Totals,P2,apex-test:SubscriptionServiceTest#rollsUpLineTotals,"1. create an Account with Account Name = ""Parity Test Account"" (call it a)
+2. create a Subscription with Account = the a record, Start Date = today, End Date = today + 12m, Status = ""Active"", MRR = 900 (call it s)
+3. create a Subscription Line with Subscription = the s record, Quantity = 2, Unit Price = 250 (call it l1)
+4. create a Subscription Line with Subscription = the s record, Quantity = 1, Unit Price = 400 (call it l2)
+5. open s","Step 1: succeeds
+Step 2: succeeds
+Step 3: succeeds
+Step 4: succeeds
+Step 5: Total Line Value = 900, Line Count = 2",automated
+TC-004,apex.createsSubscriptionWhenOpportunityIsWon,Business logic (Apex),Creates Subscription When Opportunity Is Won,P2,apex-test:SubscriptionServiceTest#createsSubscriptionWhenOpportunityIsWon,,,pending: needs the Opportunity family and the OpportunityService outbox consumer
+TC-005,apex.renewalBatchRaisesTasks,Business logic (Apex),Renewal Batch Raises Tasks,P2,apex-test:SubscriptionServiceTest#renewalBatchRaisesTasks,,,pending: needs the Task entity and the SubscriptionRenewalBatch cron worker
+TC-006,rule.Active_Requires_MRR.blank,Validation rules,Active Requires MRR blank,P1,rule,"1. create an Account with Account Name = ""Rules"" (call it a)
+2. create a Subscription with Account = the a record, Start Date = today, End Date = today + 12m, Status = ""Active""","Step 1: succeeds
+Step 2: rejected with ""An active subscription must have an MRR greater than zero.""",automated
+TC-007,rule.Active_Requires_MRR.zero,Validation rules,Active Requires MRR zero,P1,rule,"1. create an Account with Account Name = ""Rules"" (call it a)
+2. create a Subscription with Account = the a record, Start Date = today, End Date = today + 12m, Status = ""Active"", MRR = 0","Step 1: succeeds
+Step 2: rejected with ""An active subscription must have an MRR greater than zero.""",automated
+TC-008,rule.Active_Requires_MRR.draftWithoutMrrAllowed,Validation rules,Active Requires MRR draft Without Mrr Allowed,P1,rule,"1. create an Account with Account Name = ""Rules"" (call it a)
+2. create a Subscription with Account = the a record, Start Date = today, End Date = today + 12m (call it s)
+3. open s","Step 1: succeeds
+Step 2: succeeds
+Step 3: Status = ""Draft"", Annual Value = 0, Auto Renew = false",automated
+TC-009,rule.Cancellation_Reason_Required,Validation rules,Cancellation Reason Required,P1,rule,"1. create an Account with Account Name = ""Rules"" (call it a)
+2. create a Subscription with Account = the a record, Start Date = today, End Date = today + 12m, Status = ""Active"", MRR = 10 (call it s)
+3. change s: Status = ""Cancelled""
+4. change s: Status = ""Cancelled"", Cancellation Reason = ""Moved provider""","Step 1: succeeds
+Step 2: succeeds
+Step 3: rejected with ""Cancellation Reason is required when Status is Cancelled.""
+Step 4: succeeds",automated
+TC-010,rule.End_Date_After_Start_Date,Validation rules,End Date After Start Date,P1,rule,"1. create an Account with Account Name = ""Rules"" (call it a)
+2. create a Subscription with Account = the a record, Start Date = today, End Date = today
+3. create a Subscription with Account = the a record, Start Date = today, End Date = today + 10d","Step 1: succeeds
+Step 2: rejected with ""End Date must be after Start Date.""
+Step 3: succeeds",automated
+TC-011,rule.No_Reactivation_After_Cancel.toSuspended,Validation rules,No Reactivation After Cancel to Suspended,P1,rule,"1. create an Account with Account Name = ""Rules"" (call it a)
+2. create a Subscription with Account = the a record, Start Date = today, End Date = today + 12m, Status = ""Cancelled"", Cancellation Reason = ""Never started"" (call it s)
+3. change s: Status = ""Suspended""
+4. change s: Health Score = 10","Step 1: succeeds
+Step 2: succeeds
+Step 3: rejected with ""A cancelled subscription cannot be reactivated. Create a new subscription instead.""
+Step 4: succeeds",automated
+TC-012,rule.Parent_Not_Cancelled,Validation rules,Parent Not Cancelled,P1,rule,"1. create an Account with Account Name = ""Rules"" (call it a)
+2. create a Subscription with Account = the a record, Start Date = today, End Date = today + 12m, Status = ""Active"", MRR = 10 (call it s)
+3. create a Subscription Line with Subscription = the s record, Quantity = 1, Unit Price = 10 (call it l)
+4. change s: Status = ""Cancelled"", Cancellation Reason = ""Closed""
+5. create a Subscription Line with Subscription = the s record, Quantity = 1, Unit Price = 10
+6. change l: Quantity = 3
+7. delete l
+8. open s","Step 1: succeeds
+Step 2: succeeds
+Step 3: succeeds
+Step 4: succeeds
+Step 5: rejected with ""You cannot add or change lines on a cancelled subscription.""
+Step 6: rejected with ""You cannot add or change lines on a cancelled subscription.""
+Step 7: succeeds
+Step 8: Line Count = 0, Total Line Value = 0",automated
+TC-013,rule.Quantity_Must_Be_Positive,Validation rules,Quantity Must Be Positive,P1,rule,"1. create an Account with Account Name = ""Rules"" (call it a)
+2. create a Subscription with Account = the a record, Start Date = today, End Date = today + 12m, Status = ""Active"", MRR = 10 (call it s)
+3. create a Subscription Line with Subscription = the s record, Quantity = 0, Unit Price = 10
+4. create a Subscription Line with Subscription = the s record, Quantity = -2, Unit Price = 10","Step 1: succeeds
+Step 2: succeeds
+Step 3: rejected with ""Quantity must be greater than zero.""
+Step 4: rejected with ""Quantity must be greater than zero.""",automated
+TC-014,platform.restrictedPicklist,Platform behaviour,Restricted Picklist,P2,rule,"1. create an Account with Account Name = ""Rules"" (call it a)
+2. create a Subscription with Account = the a record, Start Date = today, End Date = today + 12m, Status = ""Expired""","Step 1: succeeds
+Step 2: rejected (restricted picklist)",automated
+TC-015,platform.masterDetailCascade,Platform behaviour,Master Detail Cascade,P2,rule,"1. create an Account with Account Name = ""Rules"" (call it a)
+2. create a Subscription with Account = the a record, Start Date = today, End Date = today + 12m, Status = ""Active"", MRR = 10 (call it s)
+3. create a Subscription Line with Subscription = the s record, Quantity = 1, Unit Price = 10 (call it l)
+4. delete a
+5. count Subscription Line records where Subscription = the s record","Step 1: succeeds
+Step 2: succeeds
+Step 3: succeeds
+Step 4: succeeds
+Step 5: result is 0",automated
+TC-016,apex.applyDefaults.termFromDates,Business logic (Apex),Apply Defaults term From Dates,P2,rule,"1. create an Account with Account Name = ""Rules"" (call it a)
+2. create a Subscription with Account = the a record, Start Date = ""2026-01-31"", End Date = ""2027-03-01"" (call it s)
+3. open s","Step 1: succeeds
+Step 2: succeeds
+Step 3: Term (Months) = 14, Health Score = 70",automated
+TC-017,security.permsetEditsAllowedFields,Security,Permset Edits Allowed Fields,P1,rule,"1. create an Account with Account Name = ""Security"" (call it a)
+2. create a Subscription with Account = the a record, Start Date = today, End Date = today + 12m, Status = ""Active"", MRR = 10 (call it s)
+3. As permission set Subscription_Management, change s: MRR = 20, Health Score = 40
+4. As permission set Subscription_Management, open s
+5. As permission set Subscription_Management, create a Subscription Line with Subscription = the s record, Quantity = 1, Unit Price = 5","Step 1: succeeds
+Step 2: succeeds
+Step 3: succeeds
+Step 4: Annual Value = 240
+Step 5: succeeds",automated
+TC-018,security.readOnlyFieldsNotWritable,Security,Read Only Fields Not Writable,P1,rule,"1. create an Account with Account Name = ""Security"" (call it a)
+2. create a Subscription with Account = the a record, Start Date = today, End Date = today + 12m, Status = ""Active"", MRR = 10 (call it s)
+3. As permission set Subscription_Management, change s: Line Count = 99","Step 1: succeeds
+Step 2: succeeds
+Step 3: rejected (insufficient access)",automated
+TC-019,security.readOnlyProfileCannotEdit,Security,Read Only Profile Cannot Edit,P1,rule,"1. create an Account with Account Name = ""Security"" (call it a)
+2. create a Subscription with Account = the a record, Start Date = today, End Date = today + 12m, Status = ""Active"", MRR = 10 (call it s)
+3. As profile Analytics Cloud Integration User, count Subscription records where Record ID = the s record
+4. As profile Analytics Cloud Integration User, change s: Status = ""Suspended""","Step 1: succeeds
+Step 2: succeeds
+Step 3: result is 1
+Step 4: rejected (insufficient access)",automated

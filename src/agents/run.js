@@ -83,12 +83,23 @@ async function gate(stage, summary) {
   return g;
 }
 
+// Guardrail: an agent may change files only inside its own outputDir (guardrails/guardrails.json).
+const GUARD = JSON.parse(fs.readFileSync(path.join(ROOT, 'guardrails', 'guardrails.json'), 'utf8'));
+const changed = () => new Set(spawnSync('git', ['status', '--porcelain', '--untracked-files=all'], { cwd: ROOT }).stdout.toString().split('\n').filter(Boolean).map((l) => l.slice(3).replace(/^"|"$/g, '')));
+const ALWAYS_ALLOWED = [/^adlc\/README\.md$/, /\/README\.md$/, /^src\/console\/org-compiler\.html$/, /^src\/agents\/runs\//, /^adlc\/5-validate\/verification\/report\./];
+
 async function runAgent(id, stageRec) {
   const a = agent(id);
   console.log(`\n▶ ${a.spec.name}`);
   const r = { agent: id, name: a.spec.name, kind: a.spec.kind, started: new Date().toISOString(), outputs: a.spec.outputs };
   try {
+    const before = changed();
     Object.assign(r, await a.run(ctx));
+    const scope = a.spec.outputDir;
+    const shared = id === 'modelling' ? [/^adlc\/2-design\//] : id === 'schema' || id === 'logic' || id === 'security' ? [/^adlc\/3-build\/manifest\.json$/] : id === 'verification' ? [/^evals\//] : [];
+    const outside = [...changed()].filter((f) => !before.has(f) && scope && !f.startsWith(scope + '/') && !ALWAYS_ALLOWED.some((re) => re.test(f)) && !shared.some((re) => re.test(f)));
+    if (outside.length) { r.status = 'failed'; r.summary = `guardrail: wrote outside ${scope}: ${outside.slice(0, 5).join(', ')}`; }
+    r.writeScope = { outputDir: scope, outside };
   } catch (e) {
     Object.assign(r, { status: 'failed', summary: e.message });
   }
@@ -113,7 +124,7 @@ async function runAgent(id, stageRec) {
       stageRec.pipeline = stage.pipeline;
     }
 
-    for (let attempt = 1; attempt <= 3; attempt++) {
+    for (let attempt = 1; attempt <= GUARD.agents.maxRepairAttempts; attempt++) {
       for (const id of stage.agents) await runAgent(id, stageRec);
       let failed = stageRec.agents.filter((a) => a.status === 'failed');
 
@@ -141,7 +152,7 @@ async function runAgent(id, stageRec) {
       if (g.decision === 'stopped' || failed.length) { record.status = `stopped at ${stage.gate}`; save(); rl?.close(); process.exit(1); }
       log(`re-running ${stage.title} (attempt ${attempt + 1}) with reviewer comment: ${g.comment}`);
       stageRec.agents.length = 0;
-      if (attempt === 3) { record.status = `stopped: ${stage.title} not approved after 3 attempts`; save(); process.exit(1); }
+      if (attempt === GUARD.agents.maxRepairAttempts) { record.status = `stopped: ${stage.title} not approved after ${attempt} attempts`; save(); process.exit(1); }
     }
   }
 

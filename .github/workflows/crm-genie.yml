@@ -57,12 +57,13 @@ jobs:
           node src/generators/emit-postgres.js
           git diff --exit-code -- adlc/3-build
 
-      - name: Regenerate documents and ADLC index
+      - name: Regenerate documents, evals and ADLC index
         run: |
           node src/generators/emit-cutover.js
           node src/generators/emit-docs.js
+          node src/generators/emit-evals.js
           node src/generators/emit-adlc-index.js
-          git diff --exit-code -- adlc src/console
+          git diff --exit-code -- adlc evals src/console
 
       - name: Conventions
         run: node src/generators/check-conventions.js

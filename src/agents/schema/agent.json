@@ -3,6 +3,12 @@
   "name": "Schema agent",
   "phase": "build",
   "outputDir": "adlc/3-build/schema",
+  "kb": [
+    "kb/postgres-standards.md",
+    "kb/salesforce-translation-playbook.md",
+    "kb/engineering-principles.md"
+  ],
+  "guardrails": "guardrails/guardrails.json",
   "kind": "deterministic",
   "role": "Generates the database structure: tables, keys, required fields, picklists, formulas as generated columns or views, and roll-ups.",
   "inputs": [

@@ -1,0 +1,20 @@
+Element kind,Blueprint ID,Tests,Coverage
+validation rule,Subscription_Line__c.Parent_Not_Cancelled,TC-012,covered
+validation rule,Subscription_Line__c.Quantity_Must_Be_Positive,TC-013,covered
+validation rule,Subscription__c.Active_Requires_MRR,TC-006 TC-007 TC-008,covered
+validation rule,Subscription__c.Cancellation_Reason_Required,TC-009,covered
+validation rule,Subscription__c.End_Date_After_Start_Date,TC-010,covered
+validation rule,Subscription__c.No_Reactivation_After_Cancel,TC-011,covered
+formula,Subscription_Line__c.Account_Name__c,DR-VALUE-007,covered
+formula,Subscription_Line__c.Line_Total__c,DR-VALUE-008,covered
+rollup,Subscription__c.Line_Count__c,DR-VALUE-009,covered
+formula,Subscription__c.Annual_Value__c,DR-VALUE-010,covered
+formula,Subscription__c.Days_To_Renewal__c,DR-VALUE-011,covered
+rollup,Subscription__c.Total_Line_Value__c,DR-VALUE-012,covered
+apex method,apex-class:OpportunityService#createSubscriptionsForWonDeals,,gap
+apex method,apex-class:SubscriptionService#applyDefaults,TC-016,covered
+apex method,apex-class:SubscriptionService#handleStatusChange,,gap
+apex method,apex-class:SubscriptionService#totalActiveMrr,,gap
+profile,profile:Admin,TC-017 TC-018 TC-019,covered
+profile,profile:Analytics Cloud Integration User,TC-017 TC-018 TC-019,covered
+permissionSet,permissionSet:Subscription_Management,TC-017 TC-018 TC-019,covered

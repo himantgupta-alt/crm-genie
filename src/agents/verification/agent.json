@@ -3,6 +3,11 @@
   "name": "Verification agent",
   "phase": "validate",
   "outputDir": "adlc/5-validate/verification",
+  "kb": [
+    "kb/testing-standards.md",
+    "kb/engineering-principles.md"
+  ],
+  "guardrails": "guardrails/guardrails.json",
   "kind": "deterministic",
   "role": "Checks that the target behaves like Salesforce: recomputes every formula and roll-up and compares it with the value Salesforce stored, then replays rule cases. Also tracks built-in platform behaviour: which behaviours are implemented and covered by a parity case.",
   "inputs": [
@@ -17,18 +22,26 @@
   ],
   "implementation": [
     "node src/verification/run.js",
-    "node src/generators/emit-cutover.js --parts platform"
+    "node src/generators/emit-cutover.js --parts platform",
+    "node src/generators/emit-evals.js"
   ],
   "outputs": [
     "adlc/5-validate/verification/report.json",
     "adlc/5-validate/verification/report.md",
-    "adlc/5-validate/verification/platform-behaviour.md"
+    "adlc/5-validate/verification/platform-behaviour.md",
+    "evals/functional/test-cases.md (and .csv)",
+    "evals/data-reconciliation/checks.md",
+    "evals/security/access-matrix.csv",
+    "evals/uat/scenarios.md",
+    "evals/agent-evals/",
+    "evals/coverage.md"
   ],
   "done_when": "Every derived value matches the org; every rule case gives the expected outcome",
   "reviewer_checks": [
     "Matched values per field",
     "Failed and pending rule cases",
-    "Planned platform behaviours have an owner and a target date"
+    "Planned platform behaviours have an owner and a target date",
+    "Coverage gaps in evals/coverage.md are known and accepted"
   ],
   "on_failure": "repair"
 }

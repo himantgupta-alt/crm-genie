@@ -65,7 +65,9 @@ async function translateApex({ root, runDir, family, live, log }) {
     const cls = apex.find((a) => a.kind === 'class' && a.name === t.cls);
     const triggers = apex.filter((a) => a.kind === 'trigger' && a.body.includes(`${t.cls}.${t.method}`)).map((a) => a.body).join('\n\n');
     const svc = bp.services.find((s) => s.source.name === t.cls);
+    const kbText = (require('./agent.json').kb || []).map((k) => fs.readFileSync(path.join(require('../../paths').ROOT, k), 'utf8')).join('\n\n---\n\n');
     const prompt = loadPrompt(path.join(__dirname, 'prompt.md'), {
+      standards: kbText,
       class: t.cls, method: t.method, apex: cls?.body ?? '', triggers: triggers || '(none)', mapping,
       constants: JSON.stringify(svc?.constants ?? {}), example,
     });

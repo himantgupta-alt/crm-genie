@@ -3,6 +3,12 @@
   "name": "Security agent",
   "phase": "build",
   "outputDir": "adlc/3-build/security",
+  "kb": [
+    "kb/postgres-standards.md",
+    "kb/secure-coding.md",
+    "kb/salesforce-translation-playbook.md"
+  ],
+  "guardrails": "guardrails/guardrails.json",
   "kind": "deterministic",
   "role": "Turns profiles, permission sets and sharing into database roles, column-level grants and row-level security. Also produces the credentials and integrations checklist: what must be re-issued and which systems call in.",
   "inputs": [

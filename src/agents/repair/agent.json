@@ -3,6 +3,13 @@
   "name": "Repair agent",
   "phase": "validate",
   "outputDir": "adlc/5-validate/repair",
+  "kb": [
+    "kb/testing-standards.md",
+    "kb/secure-coding.md",
+    "kb/engineering-principles.md",
+    "kb/salesforce-translation-playbook.md"
+  ],
+  "guardrails": "guardrails/guardrails.json",
   "kind": "llm",
   "runs": "on_failure",
   "role": "When verification fails, finds the root cause and proposes a fix to the generator for a reviewer to approve.",

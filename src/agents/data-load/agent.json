@@ -3,6 +3,11 @@
   "name": "Data load agent",
   "phase": "migrate",
   "outputDir": "adlc/4-migrate/data-load",
+  "kb": [
+    "kb/postgres-standards.md",
+    "kb/engineering-principles.md"
+  ],
+  "guardrails": "guardrails/guardrails.json",
   "kind": "deterministic",
   "role": "Moves the data into the target database in dependency order, keeping Salesforce record IDs, then recomputes roll-ups and records the Salesforce values used by verification. Also plans the history archive and the work in progress at go-live.",
   "inputs": [

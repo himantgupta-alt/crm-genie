@@ -11,6 +11,8 @@ async function run({ workdir, sh, log }) {
   const r = JSON.parse(fs.readFileSync(file, 'utf8'));
   log('$ node src/generators/emit-cutover.js --parts platform');
   sh('node src/generators/emit-cutover.js --parts platform');
+  log('$ node src/generators/emit-evals.js');
+  sh('node src/generators/emit-evals.js');
   return {
     status: code === 0 && r.summary.ok ? 'ok' : 'failed',
     summary: `${r.summary.derivedValues}; cases ${r.summary.cases}`,

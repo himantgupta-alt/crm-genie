@@ -1,0 +1,33 @@
+{
+  "$comment": "Machine-readable guardrails. Enforced by src/agents/run.js (write scope, retries, gates) and src/generators/check-conventions.js (secrets, personal data). Human-readable: guardrails/README.md.",
+  "agents": {
+    "writeScope": "Each agent may change files only under its outputDir (src/agents/<agent>/agent.json). The Repair agent may propose changes to src/generators/ only, applied after approval.",
+    "maxRepairAttempts": 3,
+    "requireGateApproval": true,
+    "llmAgents": ["logic", "repair"],
+    "llmOutputsMarkedForReview": true
+  },
+  "salesforce": {
+    "access": "read-only",
+    "allowedWriteScripts": ["src/salesforce-seed/"]
+  },
+  "llm": {
+    "orgTextIsData": true,
+    "noSecretsInPrompts": true,
+    "modelEnv": "AGENT_MODEL"
+  },
+  "secretPatterns": [
+    { "name": "private key", "regex": "-----BEGIN [A-Z ]*PRIVATE KEY-----" },
+    { "name": "AWS access key", "regex": "AKIA[0-9A-Z]{16}" },
+    { "name": "Anthropic API key", "regex": "sk-ant-[A-Za-z0-9_-]{20,}" },
+    { "name": "GitHub token", "regex": "gh[pousr]_[A-Za-z0-9]{36,}" },
+    { "name": "Azure storage key", "regex": "AccountKey=[A-Za-z0-9+/=]{40,}" },
+    { "name": "Salesforce session id", "regex": "00D[A-Za-z0-9]{12,15}![A-Za-z0-9._]{40,}" },
+    { "name": "inline password", "regex": "(?i)(password|passwd|pwd)\\s*[:=]\\s*['\"][^'\"\\s]{8,}['\"]" }
+  ],
+  "secretScanSkip": ["node_modules", "adlc/1-discover/extraction/metadata", "src/agents/runs", ".git", "package-lock.json"],
+  "personalData": {
+    "gitIgnored": ["adlc/1-discover/extraction/inventory/activeUsers.json", "adlc/1-discover/extraction/inventory/apiOnlyUsers.json", "adlc/1-discover/extraction/data/*"],
+    "versionedOutputsMaskUsernames": true
+  }
+}

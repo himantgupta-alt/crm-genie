@@ -3,6 +3,12 @@
   "name": "Modelling agent",
   "phase": "design",
   "outputDir": "adlc/2-design/modelling",
+  "kb": [
+    "kb/engineering-principles.md",
+    "kb/documentation-standards.md",
+    "kb/salesforce-translation-playbook.md"
+  ],
+  "guardrails": "guardrails/guardrails.json",
   "kind": "deterministic",
   "role": "Builds one platform-independent model of the org: entities, fields, relations, formulas and rules as expression trees, security, and the client's naming. Also lists each vendor package with its objects, fields and configuration records. Writes the high-level and low-level design documents, with diagrams generated from the blueprint.",
   "inputs": [

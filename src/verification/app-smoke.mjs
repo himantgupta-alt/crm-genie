@@ -154,9 +154,9 @@ try {
   check('auth: /health stays public', hr.status === 200, `status ${hr.status}`);
   check('auth: API without session → 401', (await fetch(`${base}/api/home`)).status === 401);
   check('auth: page without session → login', (await fetch(`${base}/`, { redirect: 'manual' })).headers.get('location')?.startsWith('/login'));
-  const bad = await fetch(`${base}/auth/login`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username: 'tester', password: 'wrong-password-123' }) });
+  const bad = await fetch(`${base}/auth/login`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username: 'tester', password: 'wrong-password-123' }) }); // guardrails:allow test-fixture (local test user, not a real credential)
   check('auth: wrong password → 401', bad.status === 401);
-  const good = await fetch(`${base}/auth/login`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username: 'tester', password: 'correct-horse-battery' }) });
+  const good = await fetch(`${base}/auth/login`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username: 'tester', password: 'correct-horse-battery' }) }); // guardrails:allow test-fixture (local test user, not a real credential)
   const cookie = good.headers.get('set-cookie')?.split(';')[0];
   check('auth: right password → HttpOnly session cookie', good.status === 200 && /HttpOnly/.test(good.headers.get('set-cookie') || ''));
   const me = await fetch(`${base}/api/meta`, { headers: { cookie } }).then((r) => r.json());

@@ -3,6 +3,12 @@
   "name": "Extraction agent",
   "phase": "discover",
   "outputDir": "adlc/1-discover/extraction",
+  "kb": [
+    "kb/engineering-principles.md",
+    "kb/secure-coding.md",
+    "kb/nodejs-standards.md"
+  ],
+  "guardrails": "guardrails/guardrails.json",
   "kind": "deterministic",
   "role": "Reads everything the migration needs from the Salesforce org: schema, business logic, security, reports, data, and an inventory of what stays in Salesforce.",
   "inputs": [

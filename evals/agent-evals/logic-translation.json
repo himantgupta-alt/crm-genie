@@ -1,0 +1,41 @@
+{
+  "agent": "logic",
+  "purpose": "Golden set for Apex translation: each method, the cases its translation must pass, and its review status.",
+  "passCriteria": [
+    "every listed parity case passes",
+    "reviewer rubric score >= 4 of 5 on each criterion",
+    "no grant widened, no dynamic SQL from input"
+  ],
+  "items": [
+    {
+      "method": "OpportunityService.createSubscriptionsForWonDeals",
+      "translation": null,
+      "reviewed": false,
+      "mustPass": [],
+      "status": "pending"
+    },
+    {
+      "method": "SubscriptionService.applyDefaults",
+      "translation": "adlc/3-build/logic/translations/SubscriptionService.applyDefaults.sql",
+      "reviewed": false,
+      "mustPass": [
+        "apex.applyDefaults.termFromDates"
+      ],
+      "status": "translated"
+    },
+    {
+      "method": "SubscriptionService.handleStatusChange",
+      "translation": null,
+      "reviewed": false,
+      "mustPass": [],
+      "status": "pending"
+    },
+    {
+      "method": "SubscriptionService.totalActiveMrr",
+      "translation": null,
+      "reviewed": false,
+      "mustPass": [],
+      "status": "pending"
+    }
+  ]
+}

@@ -19,7 +19,9 @@ async function run({ root, runDir, live, log }) {
   if (!f.derived.length && !f.cases.length) { log('nothing to repair'); return { status: 'ok', summary: 'nothing to repair' }; }
   const generated = P.sqlFiles()
     .map((x) => `-- ===== ${P.rel(x)}\n${fs.readFileSync(x, 'utf8')}`).join('\n');
-  const prompt = loadPrompt(path.join(__dirname, 'prompt.md'), {
+  const kbText = (require('./agent.json').kb || []).map((k) => fs.readFileSync(path.join(require('../../paths').ROOT, k), 'utf8')).join('\n\n---\n\n');
+    const prompt = loadPrompt(path.join(__dirname, 'prompt.md'), {
+      standards: kbText,
     failures: JSON.stringify(f, null, 2),
     generated,
     generator: fs.readFileSync(path.join(P.GENERATORS, 'emit-postgres.js'), 'utf8'),

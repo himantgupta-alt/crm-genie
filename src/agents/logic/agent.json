@@ -3,6 +3,13 @@
   "name": "Logic agent",
   "phase": "build",
   "outputDir": "adlc/3-build/logic",
+  "kb": [
+    "kb/postgres-standards.md",
+    "kb/salesforce-translation-playbook.md",
+    "kb/secure-coding.md",
+    "kb/engineering-principles.md"
+  ],
+  "guardrails": "guardrails/guardrails.json",
   "kind": "llm",
   "role": "Turns business logic into database logic: compiles validation rules into constraints and guards, and translates Apex that triggers call into PostgreSQL with Claude.",
   "inputs": [

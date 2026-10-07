@@ -62,3 +62,10 @@ An approved translation from the same project, for conventions:
 ```sql
 {{example}}
 ```
+
+
+## Standards you must follow
+
+These are our engineering standards and guardrails. Follow them; a reviewer checks your output against them.
+
+{{standards}}

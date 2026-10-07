@@ -1,0 +1,36 @@
+{
+  "agent": "repair",
+  "purpose": "Seeded faults: break the generator in a known way and check the Repair agent finds the root cause and proposes a fix to the generator only.",
+  "passCriteria": [
+    "diagnosis names the seeded root cause",
+    "patch touches src/generators/ only",
+    "all parity cases pass after the patch",
+    "no grant widened"
+  ],
+  "items": [
+    {
+      "id": "RF-01",
+      "seed": "drop the column-level UPDATE grant for one permission set in the security emitter",
+      "expectFailingCase": "security.permsetEditsAllowedFields",
+      "expectRootCause": "missing column grant"
+    },
+    {
+      "id": "RF-02",
+      "seed": "treat blank as blank instead of zero in generated formula columns",
+      "expectFailingCase": "derived values: Subscription__c.Annual_Value__c",
+      "expectRootCause": "blank-as-zero not applied"
+    },
+    {
+      "id": "RF-03",
+      "seed": "compile a PRIORVALUE rule as a CHECK constraint",
+      "expectFailingCase": "rule.No_Reactivation_After_Cancel.toSuspended",
+      "expectRootCause": "rule needs the previous row; must be a guard trigger"
+    },
+    {
+      "id": "RF-04",
+      "seed": "remove the roll-up recompute after load",
+      "expectFailingCase": "derived values: Subscription__c.Total_Line_Value__c",
+      "expectRootCause": "roll-ups not recomputed in load mode"
+    }
+  ]
+}

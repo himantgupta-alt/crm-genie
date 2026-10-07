@@ -60,5 +60,25 @@ for (const d of fs.readdirSync(P.AGENTS, { withFileTypes: true }).filter((x) => 
   }
 }
 
+// 7. Guardrails: no secrets anywhere in the repository (patterns in guardrails/guardrails.json)
+const G = JSON.parse(fs.readFileSync(path.join(P.ROOT, 'guardrails', 'guardrails.json'), 'utf8'));
+const pats = G.secretPatterns.map((s) => ({ name: s.name, re: new RegExp(s.regex.replace(/^\(\?i\)/, ''), s.regex.startsWith('(?i)') ? 'i' : '') }));
+const skip = new RegExp(G.secretScanSkip.map((s) => s.replace(/[.*+?^${}()|[\]\\/]/g, '\\if (problems.length) {')).join('|'));
+const tracked = execFileSync('git', ['ls-files', '-z'], { cwd: P.ROOT }).toString().split('\0').filter(Boolean).filter((f) => !skip.test(f) && !/\.(pptx|png|jpe?g|zip)$/i.test(f));
+for (const f of tracked) {
+  const abs = path.join(P.ROOT, f); if (!fs.existsSync(abs)) continue;
+  const t = fs.readFileSync(abs, 'utf8');
+  // a line may opt out with a reviewed marker, e.g. throwaway test fixtures: `guardrails:allow test-fixture`
+  const lines = t.split('\n').filter((l) => !/guardrails:allow/.test(l)).join('\n');
+  for (const p of pats) if (p.re.test(lines)) problems.push(`secret: ${f} matches "${p.name}"`);
+}
+// 8. Knowledge base and guardrails exist, and every agent follows at least one KB page that exists
+for (const f of ['kb/README.md', 'guardrails/README.md', 'guardrails/guardrails.json']) if (!fs.existsSync(path.join(P.ROOT, f))) problems.push(`standards: ${f} missing`);
+for (const d of fs.readdirSync(P.AGENTS, { withFileTypes: true }).filter((x) => x.isDirectory() && fs.existsSync(path.join(P.AGENTS, x.name, 'agent.json')))) {
+  const s = JSON.parse(fs.readFileSync(path.join(P.AGENTS, d.name, 'agent.json'), 'utf8'));
+  if (!(s.kb || []).length) problems.push(`kb: ${d.name} lists no knowledge-base pages`);
+  for (const k of s.kb || []) if (!fs.existsSync(path.join(P.ROOT, k))) problems.push(`kb: ${d.name} refers to missing ${k}`);
+}
+
 if (problems.length) { console.error(`conventions: ${problems.length} problem(s)\n${problems.map((p) => `  - ${p}`).join('\n')}`); process.exit(1); }
 console.log(`conventions: OK (${walk(P.SRC, (p) => /\.(js|mjs)$/.test(p)).length} source files, ${P.sqlFiles().length} migrations, ${walk(P.ADLC, (p) => p.endsWith('.md')).length} documents checked)`);

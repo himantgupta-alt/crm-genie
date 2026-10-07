@@ -17,12 +17,19 @@ Checks that the target behaves like Salesforce: recomputes every formula and rol
 
 - node src/verification/run.js
 - node src/generators/emit-cutover.js --parts platform
+- node src/generators/emit-evals.js
 
 ## Outputs
 
 - `adlc/5-validate/verification/report.json`
 - `adlc/5-validate/verification/report.md`
 - `adlc/5-validate/verification/platform-behaviour.md`
+- evals/functional/test-cases.md (and .csv)
+- evals/data-reconciliation/checks.md
+- evals/security/access-matrix.csv
+- evals/uat/scenarios.md
+- evals/agent-evals/
+- evals/coverage.md
 
 ## Done when
 
@@ -33,6 +40,7 @@ Every derived value matches the org; every rule case gives the expected outcome
 - Matched values per field
 - Failed and pending rule cases
 - Planned platform behaviours have an owner and a target date
+- Coverage gaps in evals/coverage.md are known and accepted
 
 ## In this folder
 

@@ -333,6 +333,14 @@ dialog.rv::backdrop { background: var(--scrim); }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+/* GitHub links */
+a.gh { color: var(--accent); text-decoration: none; font-weight: 500; white-space: nowrap; }
+a.gh:hover { text-decoration: underline; }
+a.gh::after { content: " \2197"; font-size: 0.85em; }
+.nav a.navlink { display: flex; justify-content: space-between; align-items: center; padding: 7px 10px; border-radius: 7px; color: var(--ink); text-decoration: none; font-size: 13.5px; }
+.nav a.navlink:hover { background: var(--sunk); }
+.nav a.navlink::after { content: "\2197"; color: var(--faint); font-size: 12px; }
+.ghrow { display: flex; flex-wrap: wrap; gap: 6px 14px; }
 /* Design documents view */
 .docs-head { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: flex-end; justify-content: space-between; margin-bottom: 14px; }
 .docs-tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); margin-bottom: 16px; }
@@ -379,6 +387,13 @@ dialog.rv::backdrop { background: var(--scrim); }
     <button type="button" data-view="approvals"><span>Approvals</span><span class="badge" id="nav-badge" hidden>1</span></button>
     <button type="button" data-view="artifacts"><span>Artifacts</span><span class="badge n" id="nav-art" hidden>0</span></button>
     <button type="button" data-view="audit"><span>Audit log</span></button>
+    <p class="grp">Repository</p>
+    <a class="navlink" data-gh="adlc/README.md" target="_blank" rel="noopener">Agent outputs (ADLC)</a>
+    <a class="navlink" data-gh="adlc/2-design/modelling/design/HLD.md" target="_blank" rel="noopener">HLD · LLD · ADRs</a>
+    <a class="navlink" data-gh="kb/README.md" target="_blank" rel="noopener">Knowledge base</a>
+    <a class="navlink" data-gh="guardrails/README.md" target="_blank" rel="noopener">Guardrails</a>
+    <a class="navlink" data-gh="evals/README.md" target="_blank" rel="noopener">Evals and test cases</a>
+    <a class="navlink" data-gh="" target="_blank" rel="noopener">Source code</a>
     <p class="grp">Project</p>
     <button type="button" data-view="docs"><span>Design documents</span><span class="badge n">HLD · LLD</span></button>
     <button type="button" data-view="scope"><span>Scope</span></button>
@@ -556,6 +571,20 @@ window.renderMarkdownInto = async (el, md) => {
   for (const d of art.querySelectorAll('.mermaid')) { try { const { svg } = await window.mermaid.render(`md${Date.now().toString(36)}${n++}`, d.textContent); d.innerHTML = svg; } catch (e) { d.textContent = 'Diagram could not be drawn: ' + e.message; } }
   return art;
 };
+// ---- links to the real files on GitHub
+const GH_REPO = 'https://github.com/himantgupta-alt/crm-genie';
+const GH_TREE = GH_REPO + '/tree/main/';
+const GH_BLOB = GH_REPO + '/blob/main/';
+const AGENT_DIR = { EX: 'extraction', MO: 'modelling', SH: 'schema', LG: 'logic', SE: 'security', DL: 'data-load', VE: 'verification', RE: 'repair' };
+const OUT_DIR = { EX: 'adlc/1-discover/extraction', MO: 'adlc/2-design/modelling', SH: 'adlc/3-build/schema', LG: 'adlc/3-build/logic', SE: 'adlc/3-build/security', DL: 'adlc/4-migrate/data-load', VE: 'adlc/5-validate/verification', RE: 'adlc/5-validate/repair' };
+const KB = { EX: ['engineering-principles', 'secure-coding'], MO: ['documentation-standards', 'salesforce-translation-playbook'], SH: ['postgres-standards', 'salesforce-translation-playbook'], LG: ['postgres-standards', 'secure-coding'], SE: ['postgres-standards', 'secure-coding'], DL: ['postgres-standards'], VE: ['testing-standards'], RE: ['testing-standards', 'secure-coding'] };
+// Artifact paths in the demo map to files in the repository; runtime-only files fall back to their folder.
+const RUNTIME_ONLY = { 'adlc/4-migrate/data-load/load-report.txt': 'adlc/4-migrate/data-load', 'adlc/5-validate/verification/report.md': 'adlc/5-validate/verification', 'adlc/5-validate/repair/diagnosis.md': 'adlc/5-validate/repair', 'adlc/5-validate/repair/patch.diff': 'adlc/5-validate/repair', 'src/generators/emit-postgres.js.patch': 'adlc/5-validate/repair' };
+const ghUrl = (p) => { if (p == null) return null; p = String(p).replace(/\s*\(.*\)$/, '').trim(); if (RUNTIME_ONLY[p]) return GH_TREE + RUNTIME_ONLY[p]; return (!p || p.endsWith('/') || !/\.[a-z0-9]+$/i.test(p) ? GH_TREE : GH_BLOB) + p.replace(/\/$/, ''); };
+const ghEsc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+const ghLink = (p, text) => { const u = ghUrl(p); return u && /^(adlc|src|kb|guardrails|evals|docs)\/|^$/.test(String(p).replace(/\s*\(.*\)$/, '')) ? `<a class="gh" href="${u}" target="_blank" rel="noopener" title="Open in GitHub">${ghEsc(text)}</a>` : (text ? `<code>${ghEsc(text)}</code>` : ''); };
+window.ghLink = ghLink;
+document.addEventListener('DOMContentLoaded', () => document.querySelectorAll('a[data-gh]').forEach((a) => { a.href = a.dataset.gh ? ghUrl(a.dataset.gh) : GH_REPO; }));
 window.designDoc = (k) => { try { const raw = document.getElementById('design-docs').textContent.replace('/*DOCS-START*/', '').replace('/*DOCS-END*/', ''); return JSON.parse(raw)[k] || ''; } catch { return ''; } };
 (() => {
   const TITLES = { architecture: 'How we move it', lifecycle: 'Subscription lifecycle', opportunityToSubscription: 'Won deal becomes a subscription', subscriptionSave: 'Saving a subscription', lineSave: 'Saving a subscription line', renewalBatch: 'Renewal reminders', caseRouting: 'Case routing', caseEscalation: 'Case escalation', leadRouting: 'Lead routing', dataModel: 'Data model', security: 'Security model', loadOrder: 'Data load order' };
@@ -1575,7 +1604,7 @@ Verify    Re-emit adlc/3-build, rebuild, re-run all 19 cases.` },
       const fi = Math.min(st.file, a.files.length - 1);
       const f = a.files[fi];
       body.innerHTML = `<div class="files" role="group" aria-label="Artifacts of ${a.name}">${a.files.map((x, k) => `<button type="button" data-file="${k}" aria-pressed="${k === fi}">${esc(x.path.split('/').pop())}${isEdited(x) ? ' ·v2' : ''}</button>`).join('')}</div>
-        <div class="filebar"><span class="path">${esc(f.path)}</span><span style="display:flex;gap:8px;align-items:center">${isEdited(f) ? `<span class="pill edited">${versionOf(i, f)} · edited by ${REVIEWER}</span>` : `<span class="pill">${versionOf(i, f)} · ${a.name}</span>`}<button class="btn sm" type="button" data-open="${esc(f.path)}">Open in reviewer</button></span></div>
+        <div class="filebar"><span class="path">${esc(f.path)}</span><span style="display:flex;gap:8px;align-items:center">${isEdited(f) ? `<span class="pill edited">${versionOf(i, f)} · edited by ${REVIEWER}</span>` : `<span class="pill">${versionOf(i, f)} · ${a.name}</span>`}<button class="btn sm" type="button" data-open="${esc(f.path)}">Open in reviewer</button>${ghLink(f.path, 'GitHub')}</span></div>
         ${codeHtml(fileText(f), f.lang)}`;
     } else if (st.tab === 'log') {
       body.innerHTML = `<div class="console" id="console" role="log"></div>`;
@@ -1594,7 +1623,8 @@ Verify    Re-emit adlc/3-build, rebuild, re-run all 19 cases.` },
         <dt>Execution</dt><dd>${a.mode}</dd>
         <dt>Tools</dt><dd><div class="chips">${a.tools.map((t) => `<span class="chip">${esc(t)}</span>`).join('')}</div></dd>
         <dt>Completion criteria</dt><dd>${esc(a.done)}</dd>
-        <dt>Produces</dt><dd>${a.files.map((f) => `<code>${esc(f.path)}</code>`).join('<br>')}</dd>
+        <dt>Produces</dt><dd>${a.files.map((f) => ghLink(f.path, f.path)).join('<br>')}</dd>
+        <dt>In the repository</dt><dd><div class="ghrow">${ghLink(AGENT_DIR[a.key] && `src/agents/${AGENT_DIR[a.key]}/agent.json`, 'Agent spec')}${ghLink(OUT_DIR[a.key] && `${OUT_DIR[a.key]}/README.md`, 'All outputs')}${(KB[a.key] || []).map((k) => ghLink(`kb/${k}.md`, k.replace(/-/g, ' '))).join('')}${ghLink('guardrails/README.md', 'Guardrails')}</div></dd>
         <dt>Review gate</dt><dd>${gateNo(i)} · approval required · reviewer ${REVIEWER}</dd>
         <dt>Attempts</dt><dd>${st.attempts[i]} of 3</dd>
       </dl>`;
@@ -1711,7 +1741,7 @@ Verify    Re-emit adlc/3-build, rebuild, re-run all 19 cases.` },
     $('#rv-viewbar').innerHTML = `
       <button class="btn sm" type="button" data-nav="-1" ${pos <= 0 ? 'disabled' : ''} aria-label="Previous artifact">←</button>
       <button class="btn sm" type="button" data-nav="1" ${pos >= flat.length - 1 ? 'disabled' : ''} aria-label="Next artifact">→</button>
-      <span class="path">${esc(f.path)}</span>
+      <span class="path">${esc(f.path)}</span>${ghLink(f.path, 'Open in GitHub')}
       ${isEdited(f) ? `<span class="pill edited">${versionOf(owner, f)} · edited by ${REVIEWER}</span>` : `<span class="pill">${versionOf(owner, f)} · ${AGENTS[owner].name}</span>`}
       ${st.edits[f.path] !== undefined && !rv.editing ? `<button class="btn sm" type="button" data-act="diff" aria-pressed="${rv.diff}">${rv.diff ? 'Show file' : 'Show changes'}</button>` : ''}
       ${/\.md$/.test(f.path) && !rv.editing && !rv.diff ? `<button class="btn sm" type="button" data-act="mdsource" aria-pressed="${!!rv.mdSource}">${rv.mdSource ? 'Show rendered' : 'Show source'}</button>` : ''}

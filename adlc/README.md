@@ -12,7 +12,7 @@ Every output of the migration lives here, in the folder of the agent that produc
 | 3 Build | Logic agent | [`adlc/3-build/logic/`](3-build/logic/README.md) | 4 |
 | 3 Build | Security agent | [`adlc/3-build/security/`](3-build/security/README.md) | 2 |
 | 4 Migrate | Data load agent | [`adlc/4-migrate/data-load/`](4-migrate/data-load/README.md) | 5 |
-| 5 Validate | Verification agent | [`adlc/5-validate/verification/`](5-validate/verification/README.md) | 3 |
+| 5 Validate | Verification agent | [`adlc/5-validate/verification/`](5-validate/verification/README.md) | 9 |
 | 5 Validate | Repair agent | [`adlc/5-validate/repair/`](5-validate/repair/README.md) | 3 |
 | 6 Go-live | CI/CD pipeline | [`adlc/6-go-live/`](6-go-live/README.md) | — |
 

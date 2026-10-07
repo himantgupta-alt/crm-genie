@@ -1,0 +1,7 @@
+Kind,Role,Object,Can read,Can create,Can edit,Can delete
+profile,Admin,Subscription,allowed,allowed,allowed,allowed
+profile,Admin,Subscription Line,allowed,allowed,allowed,allowed
+profile,Analytics Cloud Integration User,Subscription,allowed,denied,denied,denied
+profile,Analytics Cloud Integration User,Subscription Line,allowed,denied,denied,denied
+permissionSet,Subscription_Management,Subscription,allowed,allowed,allowed,allowed
+permissionSet,Subscription_Management,Subscription Line,allowed,allowed,allowed,allowed
