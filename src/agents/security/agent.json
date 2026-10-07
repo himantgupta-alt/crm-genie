@@ -7,7 +7,7 @@
   "role": "Turns profiles, permission sets and sharing into database roles, column-level grants and row-level security. Also produces the credentials and integrations checklist: what must be re-issued and which systems call in.",
   "inputs": [
     "adlc/2-design/modelling/blueprint/blueprint.json (security grants, sharing models)",
-    "adlc/1-discover/extraction/inventory/namedCredentials.json, remoteSites.json, connectedApps.json, apiOnlyUsers.json, loginsByApplication.json"
+    "adlc/1-discover/extraction/inventory/namedCredentials.json, remoteSites.json, connectedApps.json, integrationAccounts.json, loginsByApplication.json"
   ],
   "tools": [
     "SQL generator (src/generators/emit-postgres.js, security part)"

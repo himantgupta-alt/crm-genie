@@ -42,6 +42,8 @@ async function main() {
   const logins = await soql(`SELECT Application, LoginType, UserId, Status, LoginTime FROM LoginHistory WHERE LoginTime = LAST_N_DAYS:${Math.min(DAYS, 180)}`);
   inv.loginsByApplication = logins.ok ? { ok: true, records: groupLogins(logins.records) } : logins;
   inv.apiOnlyUsers = await soql('SELECT Id, Username, Profile.Name, LastLoginDate, IsActive FROM User WHERE Profile.PermissionsApiUserOnly = true');
+  // Versioned, privacy-safe copy (apiOnlyUsers.json itself is git-ignored): first letter and org domain only.
+  inv.integrationAccounts = inv.apiOnlyUsers.ok ? { ok: true, records: inv.apiOnlyUsers.records.map((u) => ({ user: maskUser(u.Username), profile: u.Profile?.Name, lastLogin: u.LastLoginDate, active: u.IsActive })) } : inv.apiOnlyUsers;
 
   // 4. Jobs and work in flight at cutover.
   inv.scheduledJobs = await soql('SELECT CronJobDetail.Name, CronJobDetail.JobType, CronExpression, State, NextFireTime, PreviousFireTime FROM CronTrigger');
@@ -134,6 +136,8 @@ async function captureRollups(soql, ns) {
   }
   return cases;
 }
+
+function maskUser(u) { return u ? `${u[0]}\u2026@${(u.split('@')[1] || '').split('.')[0] || '\u2026'}` : null; }
 
 function strip(r) {
   if (r == null || typeof r !== 'object') return r;

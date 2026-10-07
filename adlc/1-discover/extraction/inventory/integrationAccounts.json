@@ -1,0 +1,17 @@
+{
+  "ok": true,
+  "records": [
+    {
+      "user": "i…@00d000000000001eaf",
+      "profile": "Analytics Cloud Integration User",
+      "lastLogin": null,
+      "active": true
+    },
+    {
+      "user": "i…@00d000000000001eaf",
+      "profile": "Analytics Cloud Security User",
+      "lastLogin": null,
+      "active": true
+    }
+  ]
+}

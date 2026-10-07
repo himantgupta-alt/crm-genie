@@ -79,7 +79,7 @@ const writers = {
 
   credentials() {
     const nc = read('namedCredentials.json'), rs = read('remoteSites.json'), ca = read('connectedApps.json');
-    const api = read('apiOnlyUsers.json'), lg = read('loginsByApplication.json');
+    const api = read('integrationAccounts.json'), lg = read('loginsByApplication.json');
     const callers = rows(lg).filter((a) => a.loginType !== 'Application'); // browser logins are people
     const lines = head('Credentials and integrations checklist', 'Security agent',
       'Salesforce never exports passwords, tokens or keys. We move users to the company login (single sign-on, matched by Federation ID), or a new password on day one. For every integration, the owner issues a new credential; we store it in Azure Key Vault, test it, and switch on an agreed date. We find the systems that call into Salesforce from login history and keep them running through a Salesforce-compatible connection until each one moves.');
@@ -95,7 +95,7 @@ const writers = {
     table('Outbound: remote sites', ['Site', 'Endpoint', 'Active'], rows(rs), (d) => [d.SiteName, d.EndpointUrl, d.IsActive], status(rs));
     table('Connected apps (OAuth clients)', ['App', 'Created'], rows(ca), (d) => [d.Name, date(d.CreatedDate)], status(ca));
     table('Inbound: who calls Salesforce (login history)', ['Application', 'Login type', 'Logins', 'Users', 'Last login'], callers, (d) => [d.application, d.loginType, d.logins, d.users, date(d.lastLogin)], status(lg));
-    table('API-only users (integration accounts)', ['User', 'Profile', 'Last login', 'Active'], rows(api), (d) => [maskUser(d.Username), d.Profile?.Name, date(d.LastLoginDate), d.IsActive], status(api));
+    table('API-only users (integration accounts)', ['User', 'Profile', 'Last login', 'Active'], rows(api), (d) => [d.user, d.profile, date(d.lastLogin), d.active], status(api));
     return lines;
   },
 

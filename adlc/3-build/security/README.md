@@ -9,7 +9,7 @@ Turns profiles, permission sets and sharing into database roles, column-level gr
 ## Inputs
 
 - `adlc/2-design/modelling/blueprint/blueprint.json` (security grants, sharing models)
-- `adlc/1-discover/extraction/inventory/namedCredentials.json`, remoteSites.json, connectedApps.json, apiOnlyUsers.json, loginsByApplication.json
+- `adlc/1-discover/extraction/inventory/namedCredentials.json`, remoteSites.json, connectedApps.json, integrationAccounts.json, loginsByApplication.json
 
 ## Runs
 

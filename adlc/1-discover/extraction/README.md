@@ -26,7 +26,7 @@ Reads everything the migration needs from the Salesforce org: schema, business l
 - `adlc/1-discover/extraction/metadata/force-app/`
 - `adlc/1-discover/extraction/inventory/gap-register.md`
 - `adlc/1-discover/extraction/inventory/packages.json` (vendor packages)
-- `adlc/1-discover/extraction/inventory/namedCredentials.json`, remoteSites.json, connectedApps.json, apiOnlyUsers.json (secrets and integrations)
+- `adlc/1-discover/extraction/inventory/namedCredentials.json`, remoteSites.json, connectedApps.json, integrationAccounts.json (masked; apiOnlyUsers.json stays local) (secrets and integrations)
 - `adlc/1-discover/extraction/inventory/loginsByApplication.json` (systems that call in)
 - `adlc/1-discover/extraction/inventory/retention.json`, fieldHistory.json, encryptedFields.json (history and encryption)
 - `adlc/1-discover/extraction/inventory/pendingApprovals.json`, pausedFlows.json, scheduledJobs.json, asyncJobs.json (work in progress)
@@ -47,8 +47,8 @@ Every business object described, metadata and folder-based items retrieved, data
 
 ## In this folder
 
-- `data/` (42 files)
-- `inventory/` (31 files)
+- `data/` (7 files)
+- `inventory/` (30 files)
 - `logic/` (12 files)
 - `metadata/` (4528 files)
 - `schema/` (508 files)
