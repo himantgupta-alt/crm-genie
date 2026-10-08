@@ -1,6 +1,6 @@
 # ADR-001: A vendor-neutral blueprint is the contract between extraction and generation
 
-Status: Accepted · Owner: Modelling agent · Blueprint `fc71a1458dce`
+Status: Accepted · Owner: Modelling agent · Blueprint `49f2c22e6c8f`
 
 ## Context
 

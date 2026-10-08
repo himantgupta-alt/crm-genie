@@ -1,7 +1,7 @@
 {
   "$schema": "./blueprint.schema.json",
   "blueprintVersion": "1.0.0",
-  "contentHash": "fc71a1458dceae904eb2ffbe051a88a4c15e00ea72cbd8d5c673ec7891f63370",
+  "contentHash": "49f2c22e6c8f6407218bd5c7f8a8d3e75886cc5d9f7cef6e11f16d4332a8f6a2",
   "source": {
     "platform": "salesforce",
     "apiVersion": "67.0",

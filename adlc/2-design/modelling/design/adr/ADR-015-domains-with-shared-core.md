@@ -1,6 +1,6 @@
 # ADR-015: The platform is split into business domains around a shared core customer domain
 
-Status: Accepted · Owner: Modelling agent · Blueprint `fc71a1458dce`
+Status: Accepted · Owner: Modelling agent · Blueprint `49f2c22e6c8f`
 
 ## Context
 

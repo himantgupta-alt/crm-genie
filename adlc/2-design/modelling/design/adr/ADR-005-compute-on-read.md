@@ -1,6 +1,6 @@
 # ADR-005: Date-dependent formulas are computed when read
 
-Status: Accepted · Owner: Modelling agent · Blueprint `fc71a1458dce`
+Status: Accepted · Owner: Modelling agent · Blueprint `49f2c22e6c8f`
 
 ## Context
 

@@ -1,6 +1,6 @@
 # ADR-012: Host on Azure Container Apps and Azure Database for PostgreSQL
 
-Status: Accepted · Owner: Modelling agent · Blueprint `fc71a1458dce`
+Status: Accepted · Owner: Modelling agent · Blueprint `49f2c22e6c8f`
 
 ## Context
 

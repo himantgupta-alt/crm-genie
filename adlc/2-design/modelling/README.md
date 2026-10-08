@@ -46,7 +46,7 @@ Blueprint validates against blueprint.schema.json with zero unresolved reference
 ## In this folder
 
 - `blueprint/` (4 files)
-- `design/` (30 files)
+- `design/` (43 files)
 - `package-tests.json`
 - `packages.md`
 

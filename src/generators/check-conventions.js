@@ -63,7 +63,7 @@ for (const d of fs.readdirSync(P.AGENTS, { withFileTypes: true }).filter((x) => 
 // 7. Guardrails: no secrets anywhere in the repository (patterns in guardrails/guardrails.json)
 const G = JSON.parse(fs.readFileSync(path.join(P.ROOT, 'guardrails', 'guardrails.json'), 'utf8'));
 const pats = G.secretPatterns.map((s) => ({ name: s.name, re: new RegExp(s.regex.replace(/^\(\?i\)/, ''), s.regex.startsWith('(?i)') ? 'i' : '') }));
-const skip = new RegExp(G.secretScanSkip.map((s) => s.replace(/[.*+?^${}()|[\]\\/]/g, '\\if (problems.length) {')).join('|'));
+const skip = new RegExp(G.secretScanSkip.map((s) => s.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&')).join('|'));
 const tracked = execFileSync('git', ['ls-files', '-z'], { cwd: P.ROOT }).toString().split('\0').filter(Boolean).filter((f) => !skip.test(f) && !/\.(pptx|png|jpe?g|zip)$/i.test(f));
 for (const f of tracked) {
   const abs = path.join(P.ROOT, f); if (!fs.existsSync(abs)) continue;
@@ -71,6 +71,18 @@ for (const f of tracked) {
   // a line may opt out with a reviewed marker, e.g. throwaway test fixtures: `guardrails:allow test-fixture`
   const lines = t.split('\n').filter((l) => !/guardrails:allow/.test(l)).join('\n');
   for (const p of pats) if (p.re.test(lines)) problems.push(`secret: ${f} matches "${p.name}"`);
+}
+// 7b. Private identifiers (org username, instance, org ID, people's names) never reach the public repository.
+// The values live in a git-ignored file, so the check itself publishes nothing; one literal per line.
+const PRIVATE = path.join(P.ROOT, '.secrets', 'private-identifiers.txt');
+if (fs.existsSync(PRIVATE)) {
+  const ids = fs.readFileSync(PRIVATE, 'utf8').split(/\r?\n/).map((s) => s.trim()).filter((s) => s && !s.startsWith('#')).map((s) => s.toLowerCase());
+  const all = execFileSync('git', ['ls-files', '-z'], { cwd: P.ROOT }).toString().split('\0').filter((f) => f && !/\.(pptx|pdf|png|jpe?g|zip)$/i.test(f));
+  for (const f of all) {
+    const abs = path.join(P.ROOT, f); if (!fs.existsSync(abs)) continue;
+    const t = fs.readFileSync(abs, 'utf8').toLowerCase();
+    if (ids.some((id) => t.includes(id))) problems.push(`private: ${f} contains a value listed in .secrets/private-identifiers.txt`);
+  }
 }
 // 8. Knowledge base and guardrails exist, and every agent follows at least one KB page that exists
 for (const f of ['kb/README.md', 'guardrails/README.md', 'guardrails/guardrails.json']) if (!fs.existsSync(path.join(P.ROOT, f))) problems.push(`standards: ${f} missing`);

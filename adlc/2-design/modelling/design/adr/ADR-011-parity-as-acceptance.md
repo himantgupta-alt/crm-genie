@@ -1,6 +1,6 @@
 # ADR-011: Behaviour is accepted only when it matches Salesforce’s own values
 
-Status: Accepted · Owner: Modelling agent · Blueprint `fc71a1458dce`
+Status: Accepted · Owner: Modelling agent · Blueprint `49f2c22e6c8f`
 
 ## Context
 

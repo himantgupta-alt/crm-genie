@@ -1,6 +1,6 @@
 # ADR-019: One access model for every domain, enforced by row-level security
 
-Status: Accepted · Owner: Modelling agent · Blueprint `fc71a1458dce`
+Status: Accepted · Owner: Modelling agent · Blueprint `49f2c22e6c8f`
 
 ## Context
 

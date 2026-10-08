@@ -1,6 +1,6 @@
 # ADR-014: Data services are reachable only on private endpoints; the edge is Front Door with WAF
 
-Status: Accepted · Owner: Modelling agent · Blueprint `fc71a1458dce`
+Status: Accepted · Owner: Modelling agent · Blueprint `49f2c22e6c8f`
 
 ## Context
 
