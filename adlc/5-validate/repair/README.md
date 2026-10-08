@@ -34,6 +34,6 @@ Root cause explained and a generator patch proposed; never applied without appro
 
 ## In this folder
 
-_empty_
+- `example-autonumber/` (5 files)
 
 Spec: `src/agents/repair/agent.json`

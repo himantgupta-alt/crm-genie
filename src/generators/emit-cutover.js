@@ -50,7 +50,7 @@ const writers = {
         '| What | Count | How we take it |', '|---|---|---|',
         `| Package objects | ${p.objects.length} | describe |`,
         `| Objects holding records | ${withRows.length} | data export |`,
-        `| Settings records saved | ${p.settings.reduce((a, s) => a + s.rows, 0)} | \`adlc/1-discover/extraction/inventory/packages/${p.namespace}/\` |`,
+        `| Settings records saved | ${p.settings.reduce((a, s) => a + s.rows, 0)} | ${fs.existsSync(path.join(P.INVENTORY, 'packages', p.namespace)) ? `\`adlc/1-discover/extraction/inventory/packages/${p.namespace}/\`` : 'nothing to save'} |`,
         `| Apex classes | ${p.apexClasses ?? '—'} | source hidden by the vendor |`, '',
       );
       if (withRows.length) lines.push('Objects with records:', '', ...withRows.map((o) => `- \`${o.name}\` (${o.kind}) — ${o.rows} rows`), '');

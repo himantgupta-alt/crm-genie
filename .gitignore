@@ -41,10 +41,8 @@ adlc/1-discover/extraction/data/*
 # Inventory files that list individual users
 adlc/1-discover/extraction/inventory/activeUsers.json
 adlc/1-discover/extraction/inventory/apiOnlyUsers.json
-# Produced at run time
-adlc/5-validate/verification/report.json
-adlc/5-validate/verification/report.md
-adlc/4-migrate/data-load/load-report.txt
+# Produced at run time. The parity and load reports are committed from a reference run so the console and the
+# team can open the real files; CI produces them again on every run.
 src/app/public/compiler.html
 # Agent run records (prompts, responses, decisions) stay local; they can hold org data
 src/agents/runs/

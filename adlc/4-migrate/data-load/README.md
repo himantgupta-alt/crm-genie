@@ -41,6 +41,7 @@ All rows loaded with 0 rejected, roll-ups recomputed, auto-number counters resyn
 ## In this folder
 
 - `history-archive.md`
+- `load-report.txt`
 - `work-in-progress.md`
 
 Spec: `src/agents/data-load/agent.json`

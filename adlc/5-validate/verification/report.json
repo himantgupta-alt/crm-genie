@@ -1,0 +1,597 @@
+{
+  "blueprintHash": "49f2c22e6c8f6407218bd5c7f8a8d3e75886cc5d9f7cef6e11f16d4332a8f6a2",
+  "family": [
+    "Subscription__c",
+    "Subscription_Line__c"
+  ],
+  "ranAt": "2026-10-08T11:22:03.751Z",
+  "load": {
+    "loaded": {
+      "Account": 22,
+      "Contact": 20,
+      "Opportunity": 31,
+      "Product2": 17,
+      "Subscription__c": 107,
+      "Subscription_Line__c": 219
+    },
+    "recomputed": 95
+  },
+  "derived": [
+    {
+      "derivation": "Subscription__c.Line_Count__c",
+      "strategy": "trigger_maintained",
+      "rows": 107,
+      "matched": 107,
+      "asOf": null,
+      "mismatches": []
+    },
+    {
+      "derivation": "Subscription__c.Annual_Value__c",
+      "strategy": "generated_column",
+      "rows": 107,
+      "matched": 107,
+      "asOf": null,
+      "mismatches": []
+    },
+    {
+      "derivation": "Subscription__c.Days_To_Renewal__c",
+      "strategy": "compute_on_read",
+      "rows": 107,
+      "matched": 107,
+      "asOf": "2026-10-02",
+      "mismatches": []
+    },
+    {
+      "derivation": "Subscription__c.Total_Line_Value__c",
+      "strategy": "trigger_maintained",
+      "rows": 107,
+      "matched": 107,
+      "asOf": null,
+      "mismatches": []
+    },
+    {
+      "derivation": "Subscription_Line__c.Account_Name__c",
+      "strategy": "view_join",
+      "rows": 219,
+      "matched": 219,
+      "asOf": null,
+      "mismatches": []
+    },
+    {
+      "derivation": "Subscription_Line__c.Line_Total__c",
+      "strategy": "generated_column",
+      "rows": 219,
+      "matched": 219,
+      "asOf": null,
+      "mismatches": []
+    }
+  ],
+  "cases": [
+    {
+      "id": "apex.appliesDefaultHealthScoreAndEndDate",
+      "origin": "apex-test:SubscriptionServiceTest#appliesDefaultHealthScoreAndEndDate",
+      "status": "pass",
+      "steps": [
+        {
+          "step": 1,
+          "action": "insert",
+          "outcome": "ok",
+          "detail": null
+        },
+        {
+          "step": 2,
+          "action": "insert",
+          "outcome": "ok",
+          "detail": null
+        },
+        {
+          "step": 3,
+          "action": "read",
+          "outcome": "ok",
+          "detail": null
+        }
+      ]
+    },
+    {
+      "id": "apex.blocksReactivationOfCancelledSubscription",
+      "origin": "apex-test:SubscriptionServiceTest#blocksReactivationOfCancelledSubscription",
+      "status": "pass",
+      "steps": [
+        {
+          "step": 1,
+          "action": "insert",
+          "outcome": "ok",
+          "detail": null
+        },
+        {
+          "step": 2,
+          "action": "insert",
+          "outcome": "ok",
+          "detail": null
+        },
+        {
+          "step": 3,
+          "action": "update",
+          "outcome": "ok",
+          "detail": null
+        },
+        {
+          "step": 4,
+          "action": "update",
+          "outcome": "rejected-as-expected",
+          "detail": null
+        }
+      ]
+    },
+    {
+      "id": "apex.rollsUpLineTotals",
+      "origin": "apex-test:SubscriptionServiceTest#rollsUpLineTotals",
+      "status": "pass",
+      "steps": [
+        {
+          "step": 1,
+          "action": "insert",
+          "outcome": "ok",
+          "detail": null
+        },
+        {
+          "step": 2,
+          "action": "insert",
+          "outcome": "ok",
+          "detail": null
+        },
+        {
+          "step": 3,
+          "action": "insert",
+          "outcome": "ok",
+          "detail": null
+        },
+        {
+          "step": 4,
+          "action": "insert",
+          "outcome": "ok",
+          "detail": null
+        },
+        {
+          "step": 5,
+          "action": "read",
+          "outcome": "ok",
+          "detail": null
+        }
+      ]
+    },
+    {
+      "id": "apex.createsSubscriptionWhenOpportunityIsWon",
+      "origin": "apex-test:SubscriptionServiceTest#createsSubscriptionWhenOpportunityIsWon",
+      "status": "pending",
+      "reason": "needs the Opportunity family and the OpportunityService outbox consumer"
+    },
+    {
+      "id": "apex.renewalBatchRaisesTasks",
+      "origin": "apex-test:SubscriptionServiceTest#renewalBatchRaisesTasks",
+      "status": "pending",
+      "reason": "needs the Task entity and the SubscriptionRenewalBatch cron worker"
+    },
+    {
+      "id": "rule.Active_Requires_MRR.blank",
+      "origin": "rule",
+      "status": "pass",
+      "steps": [
+        {
+          "step": 1,
+          "action": "insert",
+          "outcome": "ok",
+          "detail": null
+        },
+        {
+          "step": 2,
+          "action": "insert",
+          "outcome": "rejected-as-expected",
+          "detail": null
+        }
+      ]
+    },
+    {
+      "id": "rule.Active_Requires_MRR.zero",
+      "origin": "rule",
+      "status": "pass",
+      "steps": [
+        {
+          "step": 1,
+          "action": "insert",
+          "outcome": "ok",
+          "detail": null
+        },
+        {
+          "step": 2,
+          "action": "insert",
+          "outcome": "rejected-as-expected",
+          "detail": null
+        }
+      ]
+    },
+    {
+      "id": "rule.Active_Requires_MRR.draftWithoutMrrAllowed",
+      "origin": "rule",
+      "status": "pass",
+      "steps": [
+        {
+          "step": 1,
+          "action": "insert",
+          "outcome": "ok",
+          "detail": null
+        },
+        {
+          "step": 2,
+          "action": "insert",
+          "outcome": "ok",
+          "detail": null
+        },
+        {
+          "step": 3,
+          "action": "read",
+          "outcome": "ok",
+          "detail": null
+        }
+      ]
+    },
+    {
+      "id": "rule.Cancellation_Reason_Required",
+      "origin": "rule",
+      "status": "pass",
+      "steps": [
+        {
+          "step": 1,
+          "action": "insert",
+          "outcome": "ok",
+          "detail": null
+        },
+        {
+          "step": 2,
+          "action": "insert",
+          "outcome": "ok",
+          "detail": null
+        },
+        {
+          "step": 3,
+          "action": "update",
+          "outcome": "rejected-as-expected",
+          "detail": null
+        },
+        {
+          "step": 4,
+          "action": "update",
+          "outcome": "ok",
+          "detail": null
+        }
+      ]
+    },
+    {
+      "id": "rule.End_Date_After_Start_Date",
+      "origin": "rule",
+      "status": "pass",
+      "steps": [
+        {
+          "step": 1,
+          "action": "insert",
+          "outcome": "ok",
+          "detail": null
+        },
+        {
+          "step": 2,
+          "action": "insert",
+          "outcome": "rejected-as-expected",
+          "detail": null
+        },
+        {
+          "step": 3,
+          "action": "insert",
+          "outcome": "ok",
+          "detail": null
+        }
+      ]
+    },
+    {
+      "id": "rule.No_Reactivation_After_Cancel.toSuspended",
+      "origin": "rule",
+      "status": "pass",
+      "steps": [
+        {
+          "step": 1,
+          "action": "insert",
+          "outcome": "ok",
+          "detail": null
+        },
+        {
+          "step": 2,
+          "action": "insert",
+          "outcome": "ok",
+          "detail": null
+        },
+        {
+          "step": 3,
+          "action": "update",
+          "outcome": "rejected-as-expected",
+          "detail": null
+        },
+        {
+          "step": 4,
+          "action": "update",
+          "outcome": "ok",
+          "detail": null
+        }
+      ]
+    },
+    {
+      "id": "rule.Parent_Not_Cancelled",
+      "origin": "rule",
+      "status": "pass",
+      "steps": [
+        {
+          "step": 1,
+          "action": "insert",
+          "outcome": "ok",
+          "detail": null
+        },
+        {
+          "step": 2,
+          "action": "insert",
+          "outcome": "ok",
+          "detail": null
+        },
+        {
+          "step": 3,
+          "action": "insert",
+          "outcome": "ok",
+          "detail": null
+        },
+        {
+          "step": 4,
+          "action": "update",
+          "outcome": "ok",
+          "detail": null
+        },
+        {
+          "step": 5,
+          "action": "insert",
+          "outcome": "rejected-as-expected",
+          "detail": null
+        },
+        {
+          "step": 6,
+          "action": "update",
+          "outcome": "rejected-as-expected",
+          "detail": null
+        },
+        {
+          "step": 7,
+          "action": "delete",
+          "outcome": "ok",
+          "detail": null
+        },
+        {
+          "step": 8,
+          "action": "read",
+          "outcome": "ok",
+          "detail": null
+        }
+      ]
+    },
+    {
+      "id": "rule.Quantity_Must_Be_Positive",
+      "origin": "rule",
+      "status": "pass",
+      "steps": [
+        {
+          "step": 1,
+          "action": "insert",
+          "outcome": "ok",
+          "detail": null
+        },
+        {
+          "step": 2,
+          "action": "insert",
+          "outcome": "ok",
+          "detail": null
+        },
+        {
+          "step": 3,
+          "action": "insert",
+          "outcome": "rejected-as-expected",
+          "detail": null
+        },
+        {
+          "step": 4,
+          "action": "insert",
+          "outcome": "rejected-as-expected",
+          "detail": null
+        }
+      ]
+    },
+    {
+      "id": "platform.restrictedPicklist",
+      "origin": "rule",
+      "status": "pass",
+      "steps": [
+        {
+          "step": 1,
+          "action": "insert",
+          "outcome": "ok",
+          "detail": null
+        },
+        {
+          "step": 2,
+          "action": "insert",
+          "outcome": "rejected-as-expected",
+          "detail": null
+        }
+      ]
+    },
+    {
+      "id": "platform.masterDetailCascade",
+      "origin": "rule",
+      "status": "pass",
+      "steps": [
+        {
+          "step": 1,
+          "action": "insert",
+          "outcome": "ok",
+          "detail": null
+        },
+        {
+          "step": 2,
+          "action": "insert",
+          "outcome": "ok",
+          "detail": null
+        },
+        {
+          "step": 3,
+          "action": "insert",
+          "outcome": "ok",
+          "detail": null
+        },
+        {
+          "step": 4,
+          "action": "delete",
+          "outcome": "ok",
+          "detail": null
+        },
+        {
+          "step": 5,
+          "action": "count",
+          "outcome": "ok",
+          "detail": null
+        }
+      ]
+    },
+    {
+      "id": "apex.applyDefaults.termFromDates",
+      "origin": "rule",
+      "status": "pass",
+      "steps": [
+        {
+          "step": 1,
+          "action": "insert",
+          "outcome": "ok",
+          "detail": null
+        },
+        {
+          "step": 2,
+          "action": "insert",
+          "outcome": "ok",
+          "detail": null
+        },
+        {
+          "step": 3,
+          "action": "read",
+          "outcome": "ok",
+          "detail": null
+        }
+      ]
+    },
+    {
+      "id": "security.permsetEditsAllowedFields",
+      "origin": "rule",
+      "status": "pass",
+      "steps": [
+        {
+          "step": 1,
+          "action": "insert",
+          "outcome": "ok",
+          "detail": null
+        },
+        {
+          "step": 2,
+          "action": "insert",
+          "outcome": "ok",
+          "detail": null
+        },
+        {
+          "step": 3,
+          "action": "update",
+          "role": "permissionSet:Subscription_Management",
+          "outcome": "ok",
+          "detail": null
+        },
+        {
+          "step": 4,
+          "action": "read",
+          "role": "permissionSet:Subscription_Management",
+          "outcome": "ok",
+          "detail": null
+        },
+        {
+          "step": 5,
+          "action": "insert",
+          "role": "permissionSet:Subscription_Management",
+          "outcome": "ok",
+          "detail": null
+        }
+      ]
+    },
+    {
+      "id": "security.readOnlyFieldsNotWritable",
+      "origin": "rule",
+      "status": "pass",
+      "steps": [
+        {
+          "step": 1,
+          "action": "insert",
+          "outcome": "ok",
+          "detail": null
+        },
+        {
+          "step": 2,
+          "action": "insert",
+          "outcome": "ok",
+          "detail": null
+        },
+        {
+          "step": 3,
+          "action": "update",
+          "role": "permissionSet:Subscription_Management",
+          "outcome": "rejected-as-expected",
+          "detail": null
+        }
+      ]
+    },
+    {
+      "id": "security.readOnlyProfileCannotEdit",
+      "origin": "rule",
+      "status": "pass",
+      "steps": [
+        {
+          "step": 1,
+          "action": "insert",
+          "outcome": "ok",
+          "detail": null
+        },
+        {
+          "step": 2,
+          "action": "insert",
+          "outcome": "ok",
+          "detail": null
+        },
+        {
+          "step": 3,
+          "action": "count",
+          "role": "profile:Analytics Cloud Integration User",
+          "outcome": "ok",
+          "detail": null
+        },
+        {
+          "step": 4,
+          "action": "update",
+          "role": "profile:Analytics Cloud Integration User",
+          "outcome": "rejected-as-expected",
+          "detail": null
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "derivedValues": "866/866 rows matched across 6 derived fields",
+    "cases": "17 pass, 0 fail, 2 pending",
+    "ok": true
+  }
+}

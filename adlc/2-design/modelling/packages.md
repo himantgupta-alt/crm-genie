@@ -12,7 +12,7 @@ The vendor hides the code of each installed package. We still take everything ar
 |---|---|---|
 | Package objects | 0 | describe |
 | Objects holding records | 0 | data export |
-| Settings records saved | 0 | `adlc/1-discover/extraction/inventory/packages/devedapp/` |
+| Settings records saved | 0 | nothing to save |
 | Apex classes | 4 | source hidden by the vendor |
 
 | Decision | Value |

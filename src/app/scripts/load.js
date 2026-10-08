@@ -130,6 +130,32 @@ async function main() {
   await db.query('INSERT INTO migration.run (blueprint_hash, export_day, loaded) VALUES ($1, $2, $3)', [bp.contentHash, exportDay, loaded]);
   const n = (await db.query('SELECT count(*)::int AS n FROM migration.sf_expected')).rows[0].n;
   console.log(`recorded ${n} Salesforce values for parity (export day ${exportDay})`);
+
+  // Load report: what moved and whether it reconciles with Salesforce. No host names or times, so a re-run on the
+  // same export gives the same report.
+  const counts = {};
+  for (const id of Object.keys(loaded)) counts[id] = (await db.query(`SELECT count(*)::int AS n FROM ${T(id)}`)).rows[0].n;
+  const ok = Object.keys(loaded).every((id) => counts[id] === loaded[id] && loaded[id] === (entities.get(id).rowCount ?? loaded[id]));
+  const pad = (s, w) => String(s).padEnd(w);
+  const report = [
+    '# Load report', '',
+    'Owner: Data load agent · written by src/app/scripts/load.js on every load', '',
+    `blueprint    ${bp.contentHash.slice(0, 12)}`,
+    `target       ${me.v.split(',')[0]}`,
+    `order        ${Object.keys(loaded).map((id) => entities.get(id).name).join(' → ')}`,
+    `mode         load mode on (rules and roll-up triggers deferred), one transaction`, '',
+    `${pad('object', 22)}${pad('in Salesforce', 15)}${pad('loaded', 9)}${pad('in table', 10)}result`,
+    ...Object.keys(loaded).map((id) => { const sf = entities.get(id).rowCount ?? loaded[id]; return `${pad(id, 22)}${pad(sf, 15)}${pad(loaded[id], 9)}${pad(counts[id], 10)}${counts[id] === sf ? 'match' : 'MISMATCH'}`; }),
+    '',
+    `roll-ups     recomputed: ${recomputed}`,
+    `auto-numbers resynced from the loaded names`,
+    `parity       ${n} Salesforce values recorded for comparison (export day ${exportDay})`,
+    `record IDs   kept: every row keeps its 18-character Salesforce ID`,
+    `result       ${ok ? 'RECONCILED' : 'NOT RECONCILED'}: ${Object.values(loaded).reduce((a, b) => a + b, 0)} rows across ${Object.keys(loaded).length} objects`, '',
+  ].join('\n');
+  fs.mkdirSync(P.DATA_LOAD, { recursive: true });
+  fs.writeFileSync(path.join(P.DATA_LOAD, 'load-report.txt'), report);
+  console.log(`load report -> ${P.rel(path.join(P.DATA_LOAD, 'load-report.txt'))}`);
   await db.end();
 }
 

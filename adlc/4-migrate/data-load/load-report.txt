@@ -1,0 +1,22 @@
+# Load report
+
+Owner: Data load agent · written by src/app/scripts/load.js on every load
+
+blueprint    49f2c22e6c8f
+target       PostgreSQL 18.3 (PGlite 0.5.8) on wasm32-unknown-emscripten
+order        account → contact → opportunity → product2 → subscription → subscription_line
+mode         load mode on (rules and roll-up triggers deferred), one transaction
+
+object                in Salesforce  loaded   in table  result
+Account               22             22       22        match
+Contact               20             20       20        match
+Opportunity           31             31       31        match
+Product2              17             17       17        match
+Subscription__c       107            107      107       match
+Subscription_Line__c  219            219      219       match
+
+roll-ups     recomputed: 95
+auto-numbers resynced from the loaded names
+parity       866 Salesforce values recorded for comparison (export day 2026-10-02)
+record IDs   kept: every row keeps its 18-character Salesforce ID
+result       RECONCILED: 416 rows across 6 objects

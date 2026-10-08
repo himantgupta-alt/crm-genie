@@ -1,0 +1,27 @@
+  Subscription__c.Line_Count__c              107/107
+  Subscription__c.Annual_Value__c            107/107
+  Subscription__c.Days_To_Renewal__c         107/107 (as of 2026-10-02)
+  Subscription__c.Total_Line_Value__c        107/107
+  Subscription_Line__c.Account_Name__c       219/219
+  Subscription_Line__c.Line_Total__c         219/219
+  PASS     apex.appliesDefaultHealthScoreAndEndDate
+  PASS     apex.blocksReactivationOfCancelledSubscription
+  PASS     apex.rollsUpLineTotals
+  PENDING  apex.createsSubscriptionWhenOpportunityIsWon - needs the Opportunity family and the OpportunityService outbox consumer
+  PENDING  apex.renewalBatchRaisesTasks - needs the Task entity and the SubscriptionRenewalBatch cron worker
+  PASS     rule.Active_Requires_MRR.blank
+  PASS     rule.Active_Requires_MRR.zero
+  PASS     rule.Active_Requires_MRR.draftWithoutMrrAllowed
+  PASS     rule.Cancellation_Reason_Required
+  PASS     rule.End_Date_After_Start_Date
+  PASS     rule.No_Reactivation_After_Cancel.toSuspended
+  PASS     rule.Parent_Not_Cancelled
+  PASS     rule.Quantity_Must_Be_Positive
+  PASS     platform.restrictedPicklist
+  PASS     platform.masterDetailCascade
+  PASS     apex.applyDefaults.termFromDates
+  FAIL     security.permsetEditsAllowedFields
+           step 5 insert: {"expected":"accepted","got":"system:insufficient_access"}
+  PASS     security.readOnlyFieldsNotWritable
+  PASS     security.readOnlyProfileCannotEdit
+PARITY FAILED: 866/866 rows matched across 6 derived fields; cases 16 pass, 1 fail, 2 pending

@@ -63,6 +63,7 @@ jobs:
           node src/generators/emit-docs.js
           node src/generators/emit-evals.js
           node src/generators/emit-adlc-index.js
+          node src/generators/emit-console.js
           git diff --exit-code -- adlc evals src/console
 
       - name: Conventions

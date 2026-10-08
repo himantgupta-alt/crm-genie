@@ -46,5 +46,7 @@ Every derived value matches the org; every rule case gives the expected outcome
 
 - `cases.json`
 - `platform-behaviour.md`
+- `report.json`
+- `report.md`
 
 Spec: `src/agents/verification/agent.json`

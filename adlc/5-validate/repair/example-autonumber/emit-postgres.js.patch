@@ -1,0 +1,14 @@
+diff --git a/src/generators/emit-postgres.js b/src/generators/emit-postgres.js
+index 5e78110..8d96d23 100644
+--- a/src/generators/emit-postgres.js
++++ b/src/generators/emit-postgres.js
+@@ -143,7 +143,8 @@ END $$;
+ -- Auto-number fields (Name = SUB-{0000}): one counter per entity, resynced after a data load.
+ -- Numbering is a platform operation, independent of the caller's access: runs as the owner.
+ CREATE TABLE ${S}.autonumber (entity text PRIMARY KEY, last_value bigint NOT NULL DEFAULT 0);
+-CREATE FUNCTION ${S}.next_autonumber(p_entity text, p_format text) RETURNS text LANGUAGE plpgsql VOLATILE AS $$
++CREATE FUNCTION ${S}.next_autonumber(p_entity text, p_format text) RETURNS text LANGUAGE plpgsql VOLATILE
++  SECURITY DEFINER SET search_path = ${S}, pg_temp AS $$
+ DECLARE n bigint; width int; prefix text;
+ BEGIN
+   INSERT INTO ${S}.autonumber AS a (entity, last_value) VALUES (p_entity, 1)
