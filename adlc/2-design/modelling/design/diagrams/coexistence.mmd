@@ -1,0 +1,17 @@
+sequenceDiagram
+  autonumber
+  actor SU as Sales user
+  participant SF as Salesforce
+  participant EH as Event Hubs
+  participant SY as Sync
+  participant DB as PostgreSQL
+  participant APP as Domain services
+  actor AU as Subscriptions user
+  SU->>SF: edit opportunity
+  SF-->>EH: change event
+  EH->>SY: in order per record
+  SY->>DB: update read copy
+  AU->>APP: edit subscription
+  APP->>DB: save + outbox row
+  APP-->>SY: domain event
+  SY-->>SF: write back if still read

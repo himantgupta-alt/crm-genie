@@ -1,0 +1,1 @@
+{"name":"sf-generators","private":true,"version":"0.1.0","description":"Generators for the ADLC outputs and the client pack","devDependencies":{"marked":"^15.0.12","mermaid":"^11.17.2"}}

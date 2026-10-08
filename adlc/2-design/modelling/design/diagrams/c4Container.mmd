@@ -1,22 +1,27 @@
-flowchart LR
-  subgraph ORG["Org Compiler (build time)"]
-    AG["Agents runtime<br/><small>Node.js, src/agents</small>"]
-    GEN["Generators<br/><small>Node.js, src/generators</small>"]
-    CON["Review console<br/><small>HTML, src/console</small>"]
-    REPO[("ADLC outputs<br/><small>git, adlc/</small>")]
+flowchart TB
+  U(["Users<br/><small>browser</small>"])
+  EXT(["Integrated systems"])
+  SF[("Salesforce<br/><small>until each domain cuts over</small>")]
+  subgraph SYS["CRM platform on Azure"]
+    EDGE["Edge<br/><small>Azure Front Door + WAF</small>"]
+    GW["Integration gateway<br/><small>Azure API Management</small>"]
+    APP["Domain services<br/><small>one deployable, one module per domain; Azure Container Apps</small>"]
+    JOBS["Jobs and event handlers<br/><small>Container Apps jobs</small>"]
+    SYNC["Salesforce sync<br/><small>Container Apps</small>"]
+    BUS["Event bus<br/><small>Service Bus (domain events), Event Hubs (change feed)</small>"]
+    DB[("Operational database<br/><small>Azure Database for PostgreSQL: one schema per domain, shared access schema</small>")]
+    KV["Secrets<br/><small>Azure Key Vault</small>"]
+    MON["Monitoring<br/><small>Application Insights + Log Analytics</small>"]
   end
-  subgraph RUN["Client-owned CRM (run time)"]
-    APP["Web app and API<br/><small>Node.js Express, src/app</small>"]
-    DB[("PostgreSQL<br/><small>schema app, RLS, roles</small>")]
-  end
-  CI["CI/CD<br/><small>GitHub Actions</small>"]
-  LLM["Claude<br/><small>Apex translation, repair proposals</small>"]
-  AG --> GEN
-  GEN --> REPO
-  AG -. "translate, diagnose" .-> LLM
-  CON -- "approve, edit, return" --> AG
-  REPO --> CI
-  CI -- "verify, deploy" --> APP
-  APP -- "SET LOCAL ROLE per user" --> DB
+  IDP["Microsoft Entra ID<br/><small>staff; External ID for portal users</small>"]
+  U -- "HTTPS" --> EDGE --> APP
+  EXT -- "REST, OAuth 2.0" --> GW --> APP
+  SF -- "Pub/Sub API change events" --> BUS --> SYNC --> DB
+  SYNC -. "write-back while needed" .-> SF
+  APP -- "SQL over TLS, role per user" --> DB
+  APP -- "outbox" --> BUS --> JOBS --> DB
+  APP -. "managed identity" .-> KV
+  APP -. "sign-in" .-> IDP
+  APP --> MON
   classDef run fill:#EAFBF5,stroke:#157048,color:#18212F;
-  class APP,DB run;
+  class APP,JOBS,DB run;

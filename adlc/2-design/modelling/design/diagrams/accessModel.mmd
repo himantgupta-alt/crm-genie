@@ -1,0 +1,9 @@
+flowchart LR
+  STAFF(["Staff"]) --> ENTRA["Entra ID<br/><small>app roles, groups, MFA</small>"]
+  PORTAL(["Portal users"]) --> EXTID["Entra External ID"]
+  ENTRA --> APP["Domain services<br/><small>set role and user per request</small>"]
+  EXTID --> APP
+  APP --> RLS["Row-level security policies<br/><small>in every domain schema</small>"]
+  RLS --> ACC[("Access schema<br/><small>role hierarchy, groups, teams, territories, share tables</small>")]
+  APP --> COL["Column grants<br/><small>field-level security</small>"]
+  SFSEC["Salesforce profiles, permission sets, roles, sharing rules"] -. "migrated once, then managed here" .-> ACC

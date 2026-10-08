@@ -1,13 +1,26 @@
 flowchart TB
-  subgraph AZ["Azure resource group (adlc/6-go-live/infra/main.bicep)"]
-    pg["pg<br/><small>flexibleServers</small>"]
-    db["db<br/><small>flexibleServers/databases</small>"]
-    fwAzure["fwAzure<br/><small>flexibleServers/firewallRules</small>"]
-    fwDeployer["fwDeployer<br/><small>flexibleServers/firewallRules</small>"]
-    plan["plan<br/><small>serverfarms</small>"]
-    site["site<br/><small>sites</small>"]
-    scmPolicy["scmPolicy<br/><small>sites/basicPublishingCredentialsPolicies</small>"]
+  U(["Users and integrated systems"]) --> FD["Azure Front Door Premium + WAF<br/><small>global</small>"]
+  subgraph REG["Primary Azure region, three availability zones"]
+    APIM["API Management<br/><small>Salesforce-compatible API</small>"]
+    subgraph VNET["Virtual network (spoke)"]
+      subgraph SN1["Container Apps subnet"]
+        ACA["Container Apps environment<br/><small>zone redundant: domain services, jobs, Salesforce sync</small>"]
+      end
+      subgraph SN2["Private endpoint subnet"]
+        PG[("PostgreSQL Flexible Server<br/><small>zone-redundant HA, schema per domain</small>")]
+        SB["Service Bus Premium<br/>+ Event Hubs"]
+        KV["Key Vault"]
+      end
+    end
+    LA["Application Insights + Log Analytics"]
   end
-  GH["GitHub Actions"] -- "zip deploy" --> site
-  site -- "TLS, pg" --> pg
-  DEV["Engineer workstation<br/><small>sf CLI, extraction</small>"] -- "load_db.ps1" --> pg
+  subgraph PAIR["Paired region"]
+    BK[("Geo-redundant backups")]
+  end
+  FD --> ACA
+  FD --> APIM --> ACA
+  ACA --> PG
+  ACA --> SB
+  ACA -.-> KV
+  ACA --> LA
+  PG --> BK

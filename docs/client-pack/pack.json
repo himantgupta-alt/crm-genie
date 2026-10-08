@@ -1,0 +1,105 @@
+{
+  "module": "Subscription Management",
+  "blueprint": "fc71a1458dce",
+  "documents": [
+    {
+      "key": "00-overview",
+      "generator": "src/generators/emit-client-pack.js",
+      "pdf": "00 - Overview",
+      "title": "Moving Subscription Management off Salesforce",
+      "subtitle": "Overview of the six phases",
+      "owner": "All agents",
+      "source": "docs/client-pack/00-overview.md"
+    },
+    {
+      "key": "01-discover",
+      "generator": "src/generators/emit-client-pack.js",
+      "pdf": "Agent 01 - Discover",
+      "title": "Discover: what is in the org?",
+      "subtitle": "Agent 01 · Extraction",
+      "owner": "Extraction agent",
+      "source": "docs/client-pack/01-discover.md"
+    },
+    {
+      "key": "02-design",
+      "generator": "src/generators/emit-client-pack.js",
+      "pdf": "Agent 02 - Design",
+      "title": "Design: what does it mean?",
+      "subtitle": "Agent 02 · Modelling",
+      "owner": "Modelling agent",
+      "source": "docs/client-pack/02-design.md"
+    },
+    {
+      "key": "02a-hld",
+      "pdf": "Agent 02 - High-Level Design",
+      "title": "High-level design",
+      "subtitle": "Agent 02 · Modelling · arc42 with C4 views",
+      "source": "adlc/2-design/modelling/design/HLD.md",
+      "owner": "Modelling agent",
+      "generator": "src/generators/emit-docs.js"
+    },
+    {
+      "key": "02b-lld",
+      "pdf": "Agent 02 - Low-Level Design",
+      "title": "Low-level design",
+      "subtitle": "Agent 02 · Modelling · tables, rules, automations, security",
+      "source": "adlc/2-design/modelling/design/LLD.md",
+      "owner": "Modelling agent",
+      "generator": "src/generators/emit-docs.js"
+    },
+    {
+      "key": "03-build",
+      "generator": "src/generators/emit-client-pack.js",
+      "pdf": "Agent 03 - Build",
+      "title": "Build: what replaces it?",
+      "subtitle": "Agent 03 · Schema, Logic and Security",
+      "owner": "Schema, Logic and Security agents",
+      "source": "docs/client-pack/03-build.md"
+    },
+    {
+      "key": "04-migrate",
+      "generator": "src/generators/emit-client-pack.js",
+      "pdf": "Agent 04 - Migrate",
+      "title": "Migrate: how does the data move?",
+      "subtitle": "Agent 04 · Data load",
+      "owner": "Data load agent",
+      "source": "docs/client-pack/04-migrate.md"
+    },
+    {
+      "key": "05-validate",
+      "generator": "src/generators/emit-client-pack.js",
+      "pdf": "Agent 05 - Validate",
+      "title": "Validate: does it behave the same?",
+      "subtitle": "Agent 05 · Verification and Repair",
+      "owner": "Verification and Repair agents",
+      "source": "docs/client-pack/05-validate.md"
+    },
+    {
+      "key": "06-go-live",
+      "generator": "src/generators/emit-client-pack.js",
+      "pdf": "Agent 06 - Go-live",
+      "title": "Go-live: how does it go live?",
+      "subtitle": "Agent 06 · CI/CD pipeline",
+      "owner": "CI/CD pipeline",
+      "source": "docs/client-pack/06-go-live.md"
+    },
+    {
+      "key": "07-best-practices",
+      "generator": "src/generators/emit-client-pack.js",
+      "pdf": "KB 01 - Best Practices",
+      "title": "Engineering best practices",
+      "subtitle": "Knowledge base 01 · Standards and guardrails we follow",
+      "owner": "Engineering team",
+      "source": "docs/client-pack/07-best-practices.md"
+    },
+    {
+      "key": "08-architecture",
+      "generator": "src/generators/emit-client-pack.js",
+      "pdf": "KB 02 - Architecture",
+      "title": "Architecture best practices",
+      "subtitle": "Knowledge base 02 · Practices, patterns and standards",
+      "owner": "Engineering team",
+      "source": "docs/client-pack/08-architecture.md"
+    }
+  ]
+}

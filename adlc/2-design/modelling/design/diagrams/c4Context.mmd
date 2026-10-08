@@ -1,16 +1,16 @@
-flowchart LR
-  AM(["Account managers<br/><small>[person]</small>"])
-  SA(["Service and operations users<br/><small>[person]</small>"])
-  AD(["Administrators and reviewers<br/><small>[person]</small>"])
-  SF[("Salesforce org<br/><small>[existing system] source of metadata and data</small>")]
-  MIG["Org Compiler<br/><small>[system] agents that extract, design, build, migrate and validate</small>"]
-  TGT["Client-owned CRM<br/><small>[system] PostgreSQL + services + app on Azure</small>"]
-  EXT(["Integrated systems<br/><small>[external] callers found in login history</small>"])
-  SF -- "metadata and data (CLI, REST, Bulk)" --> MIG
-  MIG -- "generated schema, rules, data" --> TGT
-  AD -- "reviews each gate" --> MIG
-  AM -- "sell, renew" --> TGT
-  SA -- "serve" --> TGT
-  EXT -. "Salesforce-compatible API (planned)" .-> TGT
-  classDef sys fill:#E6ECFC,stroke:#2450D6,color:#18212F;
-  class MIG,TGT sys;
+flowchart TB
+  AM(["Account managers<br/><small>[person] sell and renew</small>"])
+  SA(["Service and operations users<br/><small>[person] serve customers</small>"])
+  AD(["Administrators<br/><small>[person] users, roles, reference data</small>"])
+  TGT["Subscription Management<br/><small>[software system] web app, API and database on Azure</small>"]
+  IDP["Microsoft Entra ID<br/><small>[external system] single sign-on</small>"]
+  EXT(["Integrated systems<br/><small>[external systems] finance, billing, reporting</small>"])
+  SF[("Salesforce<br/><small>[existing system] until cutover only</small>")]
+  AM -- "HTTPS" --> TGT
+  SA -- "HTTPS" --> TGT
+  AD -- "HTTPS" --> TGT
+  TGT -- "OpenID Connect" --> IDP
+  EXT -- "REST API, OAuth 2.0" --> TGT
+  SF -. "change feed until cutover" .-> TGT
+  classDef sys fill:#E6ECFC,stroke:#2450D6,stroke-width:3px,color:#18212F;
+  class TGT sys;

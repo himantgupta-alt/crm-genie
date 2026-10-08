@@ -1,0 +1,16 @@
+flowchart TB
+  core["<b>Core customer</b><br/><small>shared by every cloud · 6 objects in use</small>"]
+  sales["<b>Sales</b><br/><small>Sales Cloud · 3 objects in use</small>"]
+  service["<b>Service</b><br/><small>Service Cloud · 2 objects in use</small>"]
+  subs["<b>Subscriptions</b><br/><small>custom module · 2 objects in use</small>"]
+  activity["<b>Activities</b><br/><small>shared by Sales and Service · 1 object in use</small>"]
+  sales -->|"49 links"| core
+  service -->|"20 links"| core
+  activity -->|"14 links"| core
+  activity -->|"10 links"| sales
+  activity -->|"8 links"| service
+  activity -->|"2 links"| subs
+  subs -->|"7 links"| core
+  subs -->|"1 link"| sales
+  classDef pilot fill:#EAFBF5,stroke:#157048,stroke-width:3px;
+  class subs pilot;

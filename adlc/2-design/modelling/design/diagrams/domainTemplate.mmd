@@ -1,0 +1,7 @@
+flowchart LR
+  API["Domain API<br/><small>OpenAPI 3, versioned</small>"] --> LOGIC["Domain logic<br/><small>services, translated automations</small>"]
+  JOBS["Domain jobs<br/><small>schedules, event handlers</small>"] --> LOGIC
+  LOGIC --> SCHEMA[("Domain schema<br/><small>tables, rules, calculations, row-level security</small>")]
+  LOGIC --> OUT["Outbox<br/><small>same transaction</small>"] --> BUS["Event bus<br/><small>CloudEvents</small>"]
+  SCHEMA --> VIEWS["Published read views<br/><small>the only way other domains read it</small>"]
+  TESTS["Parity and security tests"] -.-> SCHEMA
