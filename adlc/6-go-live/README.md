@@ -12,4 +12,4 @@ Approved changes are pushed to `main`; the pipeline re-runs every check and depl
 
 ## In this folder
 
-- `infra/` (6 files)
+- `infra/` (7 files)
