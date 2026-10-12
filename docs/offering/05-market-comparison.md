@@ -44,7 +44,7 @@ Stated factually, with the limits noted.
 | Area | This offering | Limit or caveat |
 |---|---|---|
 | Multi-org from the start | Discovery reads every agreed org with the same scripts and compares them capability by capability | Requires read-only access to every org, set up in week 0 |
-| Discovery as the initial offer | A fixed-price Discovery of 3 / 4 / 6 weeks (S / M / L) with 13 documents per org, an interactive explorer and a fit-gap, comparable in length to the published health checks but covering every org | Week 0 access depends on the client; workshop time is not reduced by the agents |
+| Discovery as the initial offer | A fixed-price Discovery of 3 / 4 / 6 weeks (S / M / L) with one Discovery Report (appendix per org), an interactive explorer and a fit-gap, comparable in length to the published health checks but covering every org | Week 0 access depends on the client; workshop time is not reduced by the agents |
 | Client keeps the artifacts | Approved outputs are pushed to the client's git and removed from Ascendion's side with a dated deletion certificate | Hosting-provider backups expire on the provider's schedule, stated on the certificate |
 | Decision per component | Every custom component gets a verdict (adopt standard, replace with configuration, keep and harmonise, retire, review) with a reason, rather than a score | Verdicts are proposals; regional leads confirm them in workshops |
 | One fact base end to end | The inventory and model from Discovery feed Design, Build and Migrate directly, instead of a report that is re-analysed later | Depends on the client choosing to continue after gate A0 |

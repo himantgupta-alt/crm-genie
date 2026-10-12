@@ -12,9 +12,14 @@ async function run({ sh, log }) {
     const step = `node src/generators/assess-org.js ${o.region} "${o.label}"`;
     log(`$ SF_ALIAS=${o.alias} ${step}`);
     if (sh(step, { env: { SF_ALIAS: o.alias } }) !== 0) return { status: 'failed', summary: `as-is extraction failed for ${o.label}` };
+    const disc = `node src/generators/discover-org.js ${o.region} "${o.label}"`;
+    log(`$ SF_ALIAS=${o.alias} ${disc}`);
+    if (sh(disc, { env: { SF_ALIAS: o.alias } }) !== 0) return { status: 'failed', summary: `discovery extraction failed for ${o.label}` };
   }
-  log('$ node src/generators/emit-assessment.js');
-  if (sh('node src/generators/emit-assessment.js') !== 0) return { status: 'failed', summary: 'fit-gap generation failed' };
+  for (const g of ['emit-assessment', 'emit-discovery']) {
+    log(`$ node src/generators/${g}.js`);
+    if (sh(`node src/generators/${g}.js`) !== 0) return { status: 'failed', summary: `${g} failed` };
+  }
   const fg = JSON.parse(fs.readFileSync(path.join(P.ASSESSMENT, 'fit-gap.json'), 'utf8'));
   const counts = Object.keys(fg.verdicts).map((v) => `${fg.items.filter((i) => i.verdict === v).length} ${fg.verdicts[v].toLowerCase()}`).join(' · ');
   return {

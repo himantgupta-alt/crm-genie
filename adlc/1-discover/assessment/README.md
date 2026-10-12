@@ -14,10 +14,14 @@ Reads what each regional org has built on top of standard Salesforce (read-only)
 ## Runs
 
 - `src/generators/assess-org.js` (once per org)
+- `src/generators/discover-org.js` (once per org)
 - `src/generators/emit-assessment.js`
+- `src/generators/emit-discovery.js`
 
 ## Outputs
 
+- `adlc/1-discover/assessment/discovery-report.md` (one Discovery Report for all orgs: executive summary, findings with risk and priority, landscape, data model, fit-gap, roadmap, appendix per org)
+- `adlc/1-discover/assessment/discovery/` (complete discovery per org as data, behind the report and the Discovery explorer)
 - `adlc/1-discover/assessment/orgs/` (as-is per org: components, counts, fill rates, markets; no record contents)
 - `adlc/1-discover/assessment/fit-gap.json` (every component with capability and verdict, cross-org matrix)
 - `adlc/1-discover/assessment/assessment-report.md` (summary, as-is, comparison, fit-gap, workshop list)
@@ -39,6 +43,8 @@ Every connected org extracted, every custom component classified with a verdict 
 
 - `architecture.md`
 - `assessment-report.md`
+- `discovery/` (1 files)
+- `discovery-report.md`
 - `fit-gap.json`
 - `orgs/` (1 files)
 

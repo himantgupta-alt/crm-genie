@@ -44,26 +44,41 @@ with 3 regional orgs (Europe, APAC, Americas and LATAM) serving 37 markets.
 
 ## 2. Deliverables
 
-### 2.1 Per org
+### 2.1 One Discovery Report
 
-The agents write one folder per org: `adlc/1-discover/assessment/discovery/<org>/` (for the example, `eu`, `apac`
-and `amer`). Each file is regenerated on every run.
+The main deliverable is **one Discovery Report for all orgs**, `adlc/1-discover/assessment/discovery-report.md`,
+regenerated on every run and reviewed at the Discover gate. One report rather than a set of documents is
+common practice for assessments: readers get one executive summary, findings tied to risk and business impact,
+and one prioritised roadmap, with the detail in appendices. The report contains:
 
-| File | What it contains | What the client validates in it |
+1. Executive summary: headline counts per org, the fit-gap totals, key findings, decisions needed from the client
+2. Scope and method
+3. System landscape (current), as a diagram
+4. Findings by area (architecture and data model, automation, code, security, integrations, technical debt), each with risk level, business impact, evidence, recommendation and priority
+5. Customised versus standard, per org
+6. Data model diagrams (standard and custom objects distinguished)
+7. Fit-gap and cross-org comparison
+8. Prioritised roadmap: quick wins, immediate, medium term, strategic
+9. Target direction
+10. Appendix per org with the twelve detail sections below
+
+The complete data behind the report is kept per org in `adlc/1-discover/assessment/discovery/<org>/discovery.json`
+and is browsable in the Discovery explorer.
+
+| Appendix section (per org) | What it contains | What the client validates in it |
 |---|---|---|
-| `00-discovery-summary.md` | One-page summary of the org: headline counts, top findings, open questions for the workshop | The headline numbers look right to the org owner; the open questions are the right ones |
-| `01-org-profile.md` | Edition, licences by type (used and available), active users, org limits, data and file storage | Edition and licence counts match the client's contract; user counts match expectations |
-| `02-customisation-vs-standard.md` | Custom against standard per object and per component type (fields, rules, flows, Apex, layouts, record types) | Nothing known to be custom is shown as standard, and the reverse |
-| `03-data-model.md` | Objects, fields, relationships and an entity diagram, with record counts and field fill rates | The diagram reflects how the business understands its data; key objects are present |
-| `04-validation-rules.md` | Every validation rule with object, formula, error message and active state | Rules still apply; inactive rules can be retired; messages are understood by users |
-| `05-business-processes.md` | Flows (with diagrams), approval processes, workflow rules, Apex triggers, and the order of execution per object | Processes match how each market works today; the order of execution explains known behaviour |
-| `06-code-inventory.md` | Apex classes and triggers with API versions and size, Lightning components (Aura and Lightning Web Components), Visualforce pages and components | Code owners are known; nothing important is missing |
-| `07-installed-packages.md` | Installed packages with namespace, version, publisher, licences assigned, and components that depend on them | Each package is still used and has a business owner and a contract renewal date |
-| `08-security-model.md` | Profiles, permission sets, roles, org-wide defaults and sharing rules | The access model matches the client's policy; no unexpected broad access |
-| `09-integrations.md` | Named credentials, remote site settings, connected apps, Apex callouts, and inbound login sources by application (masked user names) | Every integration is known, with an owner on the client side; unknown callers are investigated |
-| `10-user-interface.md` | Apps, Lightning pages, page layouts and record types, with assignment per profile | The apps and layouts in use per market are the ones listed |
-| `11-reports-and-usage.md` | Reports and dashboards with last-run dates, report folders, subscriptions, and usage indicators | Reports still in use are flagged; unused ones can be retired |
-| `12-technical-debt.md` | Unused fields (low or zero fill rate), inactive automation, old API versions, objects without records | The retire candidates are confirmed unused by the business owner |
+| Org profile | Edition, licences by type (used and available), active users, org limits, data and file storage | Edition and licence counts match the client's contract; user counts match expectations |
+| Customised versus standard | Custom against standard per object and per component type (fields, rules, flows, Apex, layouts, record types) | Nothing known to be custom is shown as standard, and the reverse |
+| Data model | Objects, fields, relationships and an entity diagram, with record counts and field fill rates | The diagram reflects how the business understands its data; key objects are present |
+| Validation rules | Every validation rule with object, formula, error message and active state | Rules still apply; inactive rules can be retired; messages are understood by users |
+| Business processes and automation | Flows (with diagrams), approval processes, workflow rules, Apex triggers, and the order of execution per object | Processes match how each market works today; the order of execution explains known behaviour |
+| Code inventory | Apex classes and triggers with API versions and size, Lightning components (Aura and Lightning Web Components), Visualforce pages and components | Code owners are known; nothing important is missing |
+| Installed packages | Installed packages with namespace, version, publisher, licences assigned, and components that depend on them | Each package is still used and has a business owner and a contract renewal date |
+| Security model | Profiles, permission sets, roles, org-wide defaults and sharing rules | The access model matches the client's policy; no unexpected broad access |
+| Integrations | Named credentials, remote site settings, connected apps, Apex callouts, and inbound login sources by application (masked user names) | Every integration is known, with an owner on the client side; unknown callers are investigated |
+| User interface | Apps, Lightning pages, page layouts and record types, with assignment per profile | The apps and layouts in use per market are the ones listed |
+| Reports and usage | Reports and dashboards with last-run dates, report folders, subscriptions, and usage indicators | Reports still in use are flagged; unused ones can be retired |
+| Technical debt | Unused fields (low or zero fill rate), inactive automation, old API versions, objects without records | The retire candidates are confirmed unused by the business owner |
 
 ### 2.2 Across the orgs
 
@@ -149,7 +164,7 @@ Where the agents save time:
 
 - **Inventory.** Counting and listing every object, field, rule, flow, class, package and permission takes hours
   per org instead of one to two weeks.
-- **Documentation.** The 13 documents per org are written from the inventory in the same run, in the same format
+- **Documentation.** The Discovery Report and its appendices are written from the inventory in the same run, in the same format
   for every org, with diagrams.
 - **Cross-org comparison.** Because every org is read by the same scripts, the comparison is a join, not a
   spreadsheet exercise.
@@ -358,7 +373,7 @@ the first days of week 1, before the other orgs are run. The pilot proves that:
 
 - Access works as set up in week 0: integration user, permission set, OAuth app, network rules, vault.
 - A full run completes within the planned time and API budget.
-- The 13 documents and the explorer are complete and correct for an enterprise org.
+- The Discovery Report and the explorer are complete and correct for an enterprise org.
 - The coverage report lists every metadata type the org offers, and the gaps are understood.
 - The review and handover steps work with the client's git and security process.
 
@@ -408,7 +423,7 @@ Discovery is offered at a fixed price per the Ascendion rate card. No prices are
   the client's.
 - Payment may be tied to the readout: [x]% on start, the rest on acceptance.
 
-Discovery is accepted when every agreed org has been extracted or its absence explained, the 13 documents per org
+Discovery is accepted when every agreed org has been extracted or its absence explained, the Discovery Report with an appendix per org
 and the cross-org deliverables have passed the review gate, the workshops are held and the workshop list is closed
 or owned, the readout is presented with a re-baselined estimate, and the handover and deletion steps in section 6
 are complete.

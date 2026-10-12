@@ -1,6 +1,6 @@
 # Parity report: Subscription__c, Subscription_Line__c
 
-Blueprint 49f2c22e6c8f, run 2026-10-12T14:33:19.364Z. **PARITY OK**
+Blueprint 49f2c22e6c8f, run 2026-10-12T15:09:58.234Z. **PARITY OK**
 
 - Loaded from the org export: Account 22, Contact 20, Opportunity 31, Product2 17, Subscription__c 107, Subscription_Line__c 219
 - Derived values: 866/866 rows matched across 6 derived fields
