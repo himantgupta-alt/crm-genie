@@ -29,9 +29,13 @@ the orgs have drifted apart:
 
 ## 3. Scope
 
+The initial offer is Discovery only (the first two items below), at a fixed price; its scope, deliverables and
+timeline are in [06-discovery-offer.md](06-discovery-offer.md). The remaining items are proposed after the
+Discovery readout.
+
 **In scope**
 
-- Read-only assessment of all agreed Salesforce orgs (production plus one full sandbox each)
+- Read-only Discovery and assessment of all agreed Salesforce orgs (production plus one full sandbox each)
 - Fit-gap of custom build against standard Salesforce and Consumer Goods Cloud features the client is licensed for
 - Cross-org comparison, capability by capability, and target design
 - For modules marked to move: rebuild on the client's cloud (database, business rules, security, services),
@@ -55,16 +59,19 @@ Automation does the repetitive reading and generation; people make every decisio
   output is marked unreviewed until a named person approves it, and it is then re-tested.
 - **Review gates.** Each phase ends with a gate. The reviewer approves, rejects with a comment (the phase
   re-runs), or stops. Every decision is recorded with reviewer, time and comment.
+- **Handover and removal.** Approved artifacts are pushed to the client's git, and removed from Ascendion's side
+  with a dated deletion certificate (see [06-discovery-offer.md](06-discovery-offer.md), section 6).
 
 The automation has been proven on a reference module in a demonstration org (see `docs/client-pack/`). It has
-not yet been run against a full enterprise org, so the first client's assessment also calibrates the estimates.
+not yet been run against a full enterprise org, so the first client's Discovery, starting with a pilot on one
+org, also calibrates the estimates.
 
 ## 5. Phases, deliverables and gates
 
 | Phase | Question | Main deliverables | Gate |
 |---|---|---|---|
-| 0 Assess | What do the orgs contain, and what should happen to each part? | As-is report per org; fit-gap register; cross-org comparison; workshop list; target direction; re-baselined estimate | A0 Assessment sign-off (go / re-scope / stop) |
-| 1 Discover | What exactly is in scope for this wave? | Full inventory per org; gap register (what Salesforce does not hand over) with owner and route; managed-package list | G1 Inventory complete, every gap item owned |
+| 1a Discover: Discovery and assessment (initial offer) | What do the orgs contain, and what should happen to each part? | 13 discovery documents per org; Discovery explorer; assessment report with cross-org comparison; fit-gap register; workshop list; target direction; re-baselined estimate | A0 Discovery sign-off (go / re-scope / stop) |
+| 1b Discover: wave discovery | What exactly is in scope for this wave? | Inventory detail for the wave; gap register (what Salesforce does not hand over) with owner and route; managed-package decisions for the wave | G1 Inventory complete, every gap item owned |
 | 2 Design | What does it mean, and what replaces it? | Platform-independent model; HLD and LLD; decisions (ADRs); package decisions; wave and cutover plan | G2 Design approved by architecture and business |
 | 3 Build | Build the replacement | Database schema, business rules, translated Apex (reviewed), security and access, services; integration credentials checklist | G3 Generated and translated code reviewed, tests pass |
 | 4 Migrate | How does the data move? | Load plan in dependency order; history archive; loaded target with Salesforce IDs kept; reconciliation report | G4 Counts and checksums reconcile per object |
@@ -72,14 +79,14 @@ not yet been run against a full enterprise org, so the first client's assessment
 | 6 Go-live | How does it go live? | CI/CD release; shadow run; reporting first; module switch per domain; rehearsed rollback; cutover checklist | G6 Cutover checklist signed per domain |
 | Hypercare | Is it stable? | Incident log and fixes; run-book handover; decommission and licence reduction plan | Exit: agreed stability criteria met |
 
-Phases 1 to 6 repeat per wave (one business domain or group of domains per wave). Migrate runs alongside Build
+Phase 1a runs once for all orgs. Phases 1b to 6 repeat per wave (one business domain or group of domains per wave). Migrate runs alongside Build
 and Validate; Go-live proceeds domain by domain, with Salesforce kept read-only for a domain until it has moved.
 
 ## 6. What the client reviews at each gate
 
 | Gate | Client reviewer | Typical checks |
 |---|---|---|
-| A0 | Product owner, regional business leads, IT | Every org extracted or its absence explained; markets match the agreed list; adopt-standard verdicts name a licensed feature; retire candidates confirmed unused; review items on the workshop agenda |
+| A0 | Product owner, regional business leads, IT | Discovery documents per org reviewed; every org extracted or its absence explained; markets match the agreed list; adopt-standard verdicts name a licensed feature; retire candidates confirmed unused; review items on the workshop agenda |
 | G1 | Product owner, IT security | Inventory complete for the wave; packages in use and owners named; integrations listed; retention rules agreed |
 | G2 | Architecture board, ERP owner | Target design, data residency, package and integration decisions |
 | G3 | IT security, client developers | Access model, credentials checklist, code review outcomes |

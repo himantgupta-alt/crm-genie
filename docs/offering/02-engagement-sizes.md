@@ -2,9 +2,14 @@
 
 Owner: Ascendion engagement team · Status: draft for discussion · illustrative figures
 
-Three engagement models. The size is proposed from the questionnaire in section 4 before the assessment, and
-confirmed or changed at gate A0 using the measured inventory and the share of components the automation could
-handle without manual rework. Figures are illustrative and not a quotation.
+Three engagement models. The size is proposed from the questionnaire in section 4 before Discovery, and
+confirmed or changed at gate A0 (Discovery sign-off) using the measured inventory and the share of components the
+automation could handle without manual rework. Figures are illustrative and not a quotation.
+
+The initial offer is Discovery only (phase 1a below), described in
+[06-discovery-offer.md](06-discovery-offer.md). The assessment is part of Discover: phase 1a covers the as-is
+picture, fit-gap and cross-org comparison of every org; phase 1b is the shorter discovery repeated at the start of
+each delivery wave.
 
 ## 1. Size parameters
 
@@ -23,12 +28,14 @@ handle without manual rework. Figures are illustrative and not a quotation.
 ## 2. Duration in weeks per phase
 
 Migrate overlaps Build and Validate, so it does not add to the elapsed total. Go-live includes the shadow run
-and the domain-by-domain cutover.
+and the domain-by-domain cutover. Elapsed weeks count from Discovery week 1; week 0 (access and setup, 1-2 / 2-3 /
+3-4 weeks depending on the client) comes before it. The breakdown of phase 1a, with and without the agents, is in
+[06-discovery-offer.md](06-discovery-offer.md), section 3.
 
 | Phase | Small | Medium | Large |
 |---|---|---|---|
-| 0 Assess (fixed price) | 3 | 4 | 6 |
-| 1 Discover | 2 | 3 | 4 |
+| 1a Discover: Discovery and assessment (initial offer, fixed price) | 3 | 4 | 6 |
+| 1b Discover: wave discovery (per wave) | 2 | 3 | 4 |
 | 2 Design | 3 | 5 | 8 |
 | 3 Build | 6 | 10 | 16 |
 | 4 Migrate (overlapping) | 4 | 8 | 14 |
@@ -39,21 +46,22 @@ and the domain-by-domain cutover.
 
 ## 3. Team shape and effort
 
-Effort is average Ascendion FTE in the phase multiplied by its weeks. Client effort is not included.
+Effort is average Ascendion FTE in the phase multiplied by its weeks. Client effort is not included. Phase 1a
+adds the week 0 setup support (1 / 1 / 2 person-weeks).
 
 | Phase | Small: FTE x weeks = person-weeks | Medium: FTE x weeks = person-weeks | Large: FTE x weeks = person-weeks |
 |---|---|---|---|
-| 0 Assess | 4 x 3 = 12 | 6 x 4 = 24 | 9 x 6 = 54 |
-| 1 Discover | 5 x 2 = 10 | 8 x 3 = 24 | 12 x 4 = 48 |
+| 1a Discovery and assessment | 4 x 3 + 1 = 13 | 6 x 4 + 1 = 25 | 9 x 6 + 2 = 56 |
+| 1b Wave discovery | 5 x 2 = 10 | 8 x 3 = 24 | 12 x 4 = 48 |
 | 2 Design | 6 x 3 = 18 | 10 x 5 = 50 | 16 x 8 = 128 |
 | 3 Build | 9 x 6 = 54 | 16 x 10 = 160 | 26 x 16 = 416 |
 | 4 Migrate (additional data team) | 2 x 4 = 8 | 4 x 8 = 32 | 7 x 14 = 98 |
 | 5 Validate | 7 x 3 = 21 | 13 x 6 = 78 | 22 x 10 = 220 |
 | 6 Go-live | 7 x 2 = 14 | 11 x 6 = 66 | 18 x 12 = 216 |
 | Hypercare | 3 x 4 = 12 | 5 x 6 = 30 | 8 x 8 = 64 |
-| **Total effort** | **149 person-weeks** | **464 person-weeks** | **1,244 person-weeks** |
+| **Total effort** | **150 person-weeks** | **465 person-weeks** | **1,246 person-weeks** |
 | Peak team (Build plus Migrate) | 11 | 20 | 33 |
-| Of which assessment (fixed price) | 12 | 24 | 54 |
+| Of which Discovery, the initial offer (fixed price) | 13 | 25 | 56 |
 
 Role-by-role allocation per size is in [03-team-and-roles.md](03-team-and-roles.md), section 2.
 
@@ -83,9 +91,13 @@ Override rules:
 - Any single parameter at 3 points moves a Small to at least Medium.
 - Shield Platform Encryption, regulated personal data across borders, or more than one ERP instance adds one
   size step to Design and Migrate only.
-- If the client cannot answer questions 4, 5 or 8, propose the Assess phase alone and size the rest at gate A0.
+- If the client cannot answer questions 4, 5 or 8, propose Discovery alone (the default initial offer) and size
+  the rest at gate A0.
 
-## 5. What changes the estimate at gate A0
+Example: Brightwell Consumer Goods (illustrative) has 3 orgs (1 point) but 37 markets (3 points), so it is sized
+at least Medium.
+
+## 5. What changes the estimate at gate A0 (Discovery sign-off)
 
 - Share of validation rules and flows that the automation translates without manual rework (the reference plan
   targets at least 90% of validation rules and 60% of flows).

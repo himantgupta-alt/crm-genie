@@ -4,7 +4,7 @@ Owner: Ascendion engagement team · Status: draft for discussion · illustrative
 
 ## 1. Ascendion roles
 
-Phases: A = Assess, D = Discover, Ds = Design, B = Build, M = Migrate, V = Validate, G = Go-live, H = Hypercare.
+Phases: A = Discovery and assessment (phase 1a, the initial offer), D = wave discovery (phase 1b), Ds = Design, B = Build, M = Migrate, V = Validate, G = Go-live, H = Hypercare.
 
 | Role | Responsibilities | Phases |
 |---|---|---|
@@ -43,9 +43,11 @@ Values are FTE. Where a role has more than one person, the number is headcount x
 | Data engineers | 0.5 | 2 x 1.0 | 3 x 1.0 |
 | **Peak team (FTE)** | **11** | **20** | **33** |
 
-Assessment team (phase 0): engagement lead, solution architect, Salesforce technical architect, Consumer Goods
-Cloud functional consultant and agent operations engineer, with data migration and integration leads part-time
-in Medium and Large.
+Discovery team (phase 1a, the initial offer): engagement lead, solution architect, Salesforce technical
+architect, Consumer Goods Cloud functional consultant and agent operations engineer, with data migration and
+integration leads part-time in Medium and Large. Average FTE is 4 / 6 / 9 for Small / Medium / Large, plus week 0
+setup support of 1 / 1 / 2 person-weeks, giving 13 / 25 / 56 person-weeks. The FTE per role is in
+[06-discovery-offer.md](06-discovery-offer.md), section 3.2.
 
 ## 3. Onshore / offshore split
 
@@ -73,8 +75,8 @@ data residency or client policy requires work on client data to stay in region.
 | Client role | Responsibilities | Indicative time |
 |---|---|---|
 | Product owner | Owns scope and priorities; approves gates A0 to G6; resolves cross-region conflicts | 50-100% |
-| Regional business leads (one per market or region) | Confirm how each region works today; decide harmonise or keep; confirm retire candidates; UAT sign-off | 10-20%, higher in Assess and Validate |
-| IT security | Read-only access to orgs; data protection and residency decisions; access model and credentials review | 10-20% |
+| Regional business leads (one per market or region) | Confirm how each region works today; decide harmonise or keep; confirm retire candidates; UAT sign-off | 10-20%, higher in Discovery workshops and Validate |
+| IT security | Read-only access to orgs (integration user, OAuth app, network rules, vault); data classification; countersigns the Discovery deletion certificate; data protection and residency decisions; access model and credentials review | 10-20%, higher in Discovery week 0 |
 | ERP owner | ERP interface contracts, test environments, cutover coordination for orders and master data | 10-30% |
 | Enterprise / cloud architect | Target landing zone, standards, network and identity integration | 10-20% |
 | Salesforce administrators (per org) | Org knowledge, sandbox refreshes, transition to the new release process | 20-50% |

@@ -9,7 +9,7 @@ No rates or prices are stated in this document. Effort is in person-weeks (see
 
 | Stage | Model | Basis | Notes |
 |---|---|---|---|
-| 0 Assess | Fixed price | S 12 / M 24 / L 54 person-weeks x [blended rate] | Fixed deliverables and duration; ends at gate A0 with a re-baselined estimate |
+| 1a Discover: Discovery and assessment (initial offer) | Fixed price | S 13 / M 25 / L 56 person-weeks x [blended rate] | Fixed deliverables and duration (see [06-discovery-offer.md](06-discovery-offer.md)); ends at gate A0 with a re-baselined estimate |
 | Delivery, option 1 | Time and materials | Actual effort x [role rate] per Ascendion rate card | Suits uncertain scope; capped per phase with change control |
 | Delivery, option 2 | Capacity-based | Agreed team (pod) per quarter x [pod rate] | Suits multi-wave programmes; backlog prioritised by the product owner |
 | Delivery, optional | Milestone holdback | [x]% of each phase's fees released at its gate | Ties payment to gate acceptance |
@@ -19,14 +19,15 @@ Expenses, travel and third-party licences are charged as [per agreement].
 
 ## 2. Assumptions
 
-- The client provides read-only access to each org (production and a full sandbox) through an integration user
-  within one week of start.
+- The client provides read-only access to each org (production and a full sandbox) through an integration user,
+  OAuth app, network rules and runner during week 0, before Discovery week 1 (checklist in
+  [06-discovery-offer.md](06-discovery-offer.md), section 4.4).
 - Salesforce API limits allow extraction within the planned windows; additional limits are purchased if needed.
 - One target cloud and one landing zone, provided or approved by the client before Build.
 - The client's licences for the standard features named in adopt-standard verdicts are in place or on the
   workshop agenda.
 - Gate reviews happen within five working days of the request.
-- Regional business leads are available for assessment workshops and UAT as planned.
+- Regional business leads are available for Discovery workshops and UAT as planned.
 - Test data and environments for each integrated system, including the ERP, are available in Build.
 - Durations assume the size bands in [02-engagement-sizes.md](02-engagement-sizes.md); a different measured size at
   gate A0 triggers re-estimation.
@@ -35,12 +36,13 @@ Expenses, travel and third-party licences are charged as [per agreement].
 
 | Dependency | Owner | Needed by |
 |---|---|---|
-| Org access and integration user | IT security | Assess, week 1 |
-| Market list and capability priorities | Product owner | Assess, week 1 |
-| Licence and package contracts, renewal dates | Procurement | Assess |
+| Org access, integration user, OAuth app, runner | IT security | Discovery, week 0 |
+| Market list and capability priorities | Product owner | Discovery, week 0 |
+| Licence and package contracts, renewal dates | Procurement | Discovery, week 2 |
 | Target landing zone, network, identity | Enterprise / cloud architect | Design |
 | ERP and middleware test environments | ERP owner | Build |
-| Data retention and residency decisions | Data owners, legal | Discover |
+| Client git repository, vault and data classification of Discovery outputs | IT security, engineering | Discovery, week 0 |
+| Data retention and residency decisions | Data owners, legal | Wave discovery (1b) |
 | Freeze windows per domain | Product owner, regional leads | Go-live planning |
 
 ## 4. Risks and mitigations
@@ -48,14 +50,15 @@ Expenses, travel and third-party licences are charged as [per agreement].
 | Risk | Impact | Mitigation |
 |---|---|---|
 | Managed-package source cannot be retrieved | Rebuild effort higher than estimated | Package settings exported as data; behaviour captured as tests; rebuild, replace or retain decided per package at G2 |
-| Translation rate below plan for Apex and flows | Build effort rises | Measured in Assess; estimate re-baselined at A0; repeat patterns added to generator rules |
+| Translation rate below plan for Apex and flows | Build effort rises | Measured in Discovery; estimate re-baselined at A0; repeat patterns added to generator rules |
 | Large data volume and API limits | Migrate overruns | Bulk extraction in partitions; change capture to stay in sync; history archive started in week one |
 | Dirty or inconsistent historical data | Reconciliation failures | Loader flags, not drops, failing rows; data owners decide at G4 |
 | Systems calling Salesforce not all known | Outage at cutover | Login history per application and integration user; transition interface until each caller moves |
 | Regions disagree on a harmonised process | Design delays | Decision rights agreed at kickoff; product owner arbitrates; open items tracked on the workshop list |
-| Admin and user adoption | Benefits not realised | Change and training lead from Assess; reporting moved first so numbers are trusted |
+| Admin and user adoption | Benefits not realised | Change and training lead from Discovery; reporting moved first so numbers are trusted |
 | Licence renewal falls mid-programme | Paying for both platforms | Wave plan aligned to renewal dates; reduce seats per domain |
-| Automation unproven at full enterprise scale | Estimates less certain | Fixed-price assessment on the client's own sandbox calibrates them before delivery is committed |
+| Automation unproven at full enterprise scale | Estimates less certain | Fixed-price Discovery, starting with a pilot on one client sandbox, calibrates them before delivery is committed |
+| Access lead time, API limits, metadata not exposed | Discovery starts late or is incomplete | See [06-discovery-offer.md](06-discovery-offer.md), section 7.3 |
 
 ## 5. Change control
 
@@ -78,8 +81,8 @@ approved by the product owner and engagement lead before work starts.
 
 | Phase | Accepted when |
 |---|---|
-| 0 Assess | Every agreed org extracted or its absence explained; every custom component has a verdict and a reason; markets match the agreed list; workshop list closed or owned; re-baselined estimate presented |
-| 1 Discover | Inventory complete for the wave; every gap-register item has an owner and a route |
+| 1a Discovery and assessment | Every agreed org extracted or its absence explained; the 13 discovery documents per org and the explorer passed the review gate; every custom component has a verdict and a reason; markets match the agreed list; workshop list closed or owned; re-baselined estimate presented; handover and deletion certificate complete |
+| 1b Wave discovery | Inventory complete for the wave; every gap-register item has an owner and a route |
 | 2 Design | HLD, LLD and decisions approved by the architecture board; package and integration routes agreed; wave plan signed |
 | 3 Build | All generated and translated code reviewed; unit and conventions checks pass; access model approved by IT security |
 | 4 Migrate | Row counts and ID checksums reconcile per object; sampled field comparisons pass; history archive loaded |

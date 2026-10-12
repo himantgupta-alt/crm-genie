@@ -43,13 +43,15 @@ Stated factually, with the limits noted.
 
 | Area | This offering | Limit or caveat |
 |---|---|---|
-| Multi-org from the start | The assessment reads every agreed org with the same scripts and compares them capability by capability | Requires read-only access to every org in week one |
+| Multi-org from the start | Discovery reads every agreed org with the same scripts and compares them capability by capability | Requires read-only access to every org, set up in week 0 |
+| Discovery as the initial offer | A fixed-price Discovery of 3 / 4 / 6 weeks (S / M / L) with 13 documents per org, an interactive explorer and a fit-gap, comparable in length to the published health checks but covering every org | Week 0 access depends on the client; workshop time is not reduced by the agents |
+| Client keeps the artifacts | Approved outputs are pushed to the client's git and removed from Ascendion's side with a dated deletion certificate | Hosting-provider backups expire on the provider's schedule, stated on the certificate |
 | Decision per component | Every custom component gets a verdict (adopt standard, replace with configuration, keep and harmonise, retire, review) with a reason, rather than a score | Verdicts are proposals; regional leads confirm them in workshops |
-| One fact base end to end | The inventory and model from the assessment feed Design, Build and Migrate directly, instead of a report that is re-analysed later | Depends on the client choosing to continue after gate A0 |
+| One fact base end to end | The inventory and model from Discovery feed Design, Build and Migrate directly, instead of a report that is re-analysed later | Depends on the client choosing to continue after gate A0 |
 | Target can be the client's own cloud | Custom modules can be rebuilt on the client's cloud with Salesforce record IDs kept, not only moved to another packaged product | Standard capabilities are better served by adopting standard features; the offering recommends that where it fits |
 | Evidence before switch-over | A parity check compares calculated values and rule outcomes with Salesforce before each domain moves | Parity covers what is captured as test cases; built-in platform behaviour is listed and tested explicitly |
 | Human gates with an audit record | Each phase ends with a recorded approve / reject / stop decision; generated proposals stay unreviewed until approved | Gate turnaround depends on client reviewers |
-| Repeatable runs | Most generation is deterministic, so a phase can be re-run after a change and the output compared | Proven on a reference module in a demonstration org; not yet run on a full enterprise org, which the fixed-price assessment is designed to test |
+| Repeatable runs | Most generation is deterministic, so a phase can be re-run after a change and the output compared | Proven on a reference module in a demonstration org; not yet run on a full enterprise org, which the pilot at the start of the fixed-price Discovery is designed to test |
 
 What it does not do differently: the delivery still needs experienced architects, functional consultants, data and
 integration specialists, UAT and change management. Most elapsed time goes to review, data movement, integration
