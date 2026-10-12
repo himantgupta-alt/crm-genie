@@ -33,6 +33,7 @@ All sizes, durations and efforts are illustrative and are re-baselined from the 
 | [03-team-and-roles.md](03-team-and-roles.md) | Ascendion roles, phases, allocation per size, onshore/offshore split, client-side roles |
 | [04-commercials-and-assumptions.md](04-commercials-and-assumptions.md) | Commercial models, assumptions, dependencies, risks, exclusions, acceptance criteria |
 | [05-market-comparison.md](05-market-comparison.md) | How comparable offerings are packaged, and what this offering does differently |
+| [07-team-email-discovery-pointers.txt](07-team-email-discovery-pointers.txt) | Plain-text email for the team: what we need from the client to connect, and what Discovery delivers (ready to paste) |
 
 ## Related material in this repository
 

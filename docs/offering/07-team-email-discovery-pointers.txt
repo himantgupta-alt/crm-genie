@@ -1,0 +1,59 @@
+Subject: Discovery offer: what we need from the client, and what we deliver
+
+Hi team,
+
+We are leading with a fixed-scope Discovery as the first offer. Below are the pointers to prepare the proposal. The full detail is in docs/offering/06-discovery-offer.md in our private repository, and a working demo is in the Org Compiler.
+
+1. What Discovery is
+- A read-only discovery of each of the client's regional Salesforce orgs (our example has 3 orgs and 37 markets), done by our agents and reviewed by our architects.
+- It covers what is built on top of standard Salesforce and what is standard, installed packages, business processes and rules, code, security, integrations, usage and technical debt.
+- It compares the orgs capability by capability, proposes a fit-gap per component (adopt a standard feature, replace with configuration, keep and harmonise, retire, review in workshop) and a prioritised roadmap.
+- Out of scope: design, build and data migration. These follow as separate phases.
+- Discovery uses no language model. The agents read Salesforce through its standard APIs, so the results are repeatable and can be re-run after any change.
+
+2. What we need from the client to connect (week 0, before the timeline starts)
+For each org:
+- The agreed list of orgs (production, plus a full sandbox where available) and the list of markets.
+- A read-only integration user with a dedicated permission set: API Enabled, View Setup and Configuration, and read access to the objects in scope. No edit rights and no Modify Metadata.
+- Access for our agents, one of two ways. Quickest: an admin approves our connected app and the integration user signs in once with "Connect with Salesforce". We never see the password; only a revocable token is kept, encrypted. For unattended runs inside the client's environment: an External Client App or Connected App with the JWT bearer flow, with the certificate in the client's vault.
+- Login IP ranges opened for the runner, if the org restricts sign-in by IP.
+- API capacity: a run uses about 2,000 to 6,000 API calls per org (planned at under 10,000), which is well within the daily allowance of an Enterprise or Unlimited org.
+For the environment:
+- Where the agents run: preferably a VM or container in the client's cloud (Node.js and the Salesforce CLI, outbound HTTPS only). Our own secured environment only with the client's written agreement.
+- A git repository for the deliverables, preferably client-hosted.
+- Secrets kept in the client's vault, and MFA-protected access for the named Ascendion team members.
+- Agreement on data classification: the outputs hold metadata names, configuration and counts, never record contents.
+
+3. What we deliver
+- One Discovery Report covering all orgs. It contains an executive summary; scope and method; a current system landscape diagram; findings by area, each with risk level, business impact, evidence, recommendation and priority; customised versus standard per org; data model diagrams; the fit-gap and cross-org comparison; a prioritised roadmap (quick wins, immediate, medium term, strategic); the target direction; and an appendix per org.
+- The appendix for each org has twelve sections: org profile; customised versus standard; data model; validation rules; business processes and automation (process maps and flow diagrams); code inventory; installed packages; security model; integrations; user interface; reports and usage; technical debt.
+- Fit-gap data: every custom component with its capability, proposed verdict and reason. After the workshops it becomes the record of the decisions.
+- Architecture and principles: the principles we apply, how the Discovery runs, how a verdict is reached, and the target direction.
+- The Discovery explorer, an interactive page in the Org Compiler. The client clicks through each org's business processes, validation rules, flows, objects and fields, custom versus standard, packages, security and integrations, in a business view with the raw data one click away.
+- A readout session and a workshop agenda covering review items, licence questions and retirement candidates.
+
+4. Timeline and effort, agent-assisted (week 0 depends on the client and comes first)
+- Small: week 0 of 1 to 2 weeks, then 3 weeks, 13 person-weeks.
+- Medium: week 0 of 2 to 3 weeks, then 4 weeks, 25 person-weeks.
+- Large: week 0 of 3 to 4 weeks, then 6 weeks, 56 person-weeks.
+- A typical manual discovery for comparison: about 6 to 7, 9 to 10 and 14 to 15 weeks, and about 32, 70 and 150 person-weeks.
+- The agents save time on inventory, documentation, the cross-org comparison and re-runs. They do not shorten workshops, business interviews or the client's access lead time.
+- Commercials: a fixed price per size, calculated as person-weeks times the blended rate from the Ascendion rate card. All figures are illustrative until the pilot calibrates them.
+
+5. Handover, and removal from our side
+- We generate everything into a private engagement repository, open only to the named team.
+- After review, we push the approved artifacts to the client's git and verify them by commit hash.
+- Once the client confirms receipt, we delete our copy (repository, forks, clones and runner workspaces), revoke the integration user's tokens, rotate the secrets, and send a dated deletion confirmation.
+- Ascendion keeps only the reusable agent code and templates, never client data.
+
+6. What to prepare
+- The proposal: scope, deliverables and timeline as above, sized Small, Medium or Large with the questionnaire in docs/offering/02-engagement-sizes.md.
+- The client readiness checklist (point 2), to send with the proposal.
+- The demo flow in the Org Compiler: Connections, then Run discovery, then the Discovery explorer and the Discovery Report. The demo login is prefilled on the sign-in page.
+- Open points to confirm with the client: Metadata API permissions (to be checked in the pilot), licence fit for Consumer Goods Cloud and Trade Promotion Management, and their market list.
+
+Demo: https://crmgenie-app-hg01.azurewebsites.net/compiler
+The repository is private; ask me for access.
+
+Thanks,
+Himant
