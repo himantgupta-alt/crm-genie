@@ -76,6 +76,8 @@ async function tx(role, fn) {
   }
 }
 const owner = (sql, params) => pool.query(sql, params);
+// Org connections and real discovery runs for the Org Compiler (behind sign-in like everything else).
+require('./connections').install(app, owner);
 
 // Column privileges per role, read from Postgres itself (what the Security Compiler granted).
 const privCache = new Map();

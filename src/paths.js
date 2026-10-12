@@ -7,7 +7,8 @@ const path = require('path');
 const fs = require('fs');
 
 const ROOT = path.resolve(__dirname, '..');
-const ADLC = path.join(ROOT, 'adlc');
+// ADLC_DIR redirects outputs to a writable folder (the Org Compiler server runs agents from a read-only package).
+const ADLC = process.env.ADLC_DIR || path.join(ROOT, 'adlc');
 const at = (...p) => path.join(ADLC, ...p);
 
 const P = {

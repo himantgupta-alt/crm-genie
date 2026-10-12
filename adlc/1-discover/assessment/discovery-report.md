@@ -919,6 +919,19 @@ For each object with automation, the steps run in this order (Salesforce order o
 
 ##### Account
 
+```mermaid
+flowchart TD
+  u(["A user saves an Account"]):::start
+  s2{"Validation rules: VAT_Format"}
+  u --> s2
+  s2 -->|"a rule fails"| x2(["Save is blocked; the user sees the message"]):::stop
+  s3[("Saved")]
+  s2 --> s3
+  s3 --> done(["Done"]):::start
+  classDef start fill:#2450D6,color:#fff,stroke:#2450D6
+  classDef stop fill:#FDE7E5,color:#B42318,stroke:#B42318
+```
+
 | Step | What runs |
 | --- | --- |
 | Before-save flows | — |
@@ -931,6 +944,21 @@ For each object with automation, the steps run in this order (Salesforce order o
 | Roll-up summaries to parent | — |
 
 ##### Opportunity
+
+```mermaid
+flowchart TD
+  u(["A user saves an Opportunity"]):::start
+  s2{"Validation rules: Closed_Won_Requires_Amount, Loss_Reason_Required_When_Lost"}
+  u --> s2
+  s2 -->|"a rule fails"| x2(["Save is blocked; the user sees the message"]):::stop
+  s3[("Saved")]
+  s2 --> s3
+  s4["After triggers: OpportunityTrigger"]
+  s3 --> s4
+  s4 --> done(["Done"]):::start
+  classDef start fill:#2450D6,color:#fff,stroke:#2450D6
+  classDef stop fill:#FDE7E5,color:#B42318,stroke:#B42318
+```
 
 | Step | What runs |
 | --- | --- |
@@ -945,6 +973,18 @@ For each object with automation, the steps run in this order (Salesforce order o
 
 ##### Shelf Check
 
+```mermaid
+flowchart TD
+  u(["A user saves a Shelf Check"]):::start
+  s3[("Saved")]
+  u --> s3
+  s7["Roll-up summaries to parent: Store_Visit__c.Shelf_Checks__c"]
+  s3 --> s7
+  s7 --> done(["Done"]):::start
+  classDef start fill:#2450D6,color:#fff,stroke:#2450D6
+  classDef stop fill:#FDE7E5,color:#B42318,stroke:#B42318
+```
+
 | Step | What runs |
 | --- | --- |
 | Before-save flows | — |
@@ -957,6 +997,21 @@ For each object with automation, the steps run in this order (Salesforce order o
 | Roll-up summaries to parent | Store_Visit__c.Shelf_Checks__c |
 
 ##### Subscription Line
+
+```mermaid
+flowchart TD
+  u(["A user saves a Subscription Line"]):::start
+  s2{"Validation rules: Parent_Not_Cancelled, Quantity_Must_Be_Positive"}
+  u --> s2
+  s2 -->|"a rule fails"| x2(["Save is blocked; the user sees the message"]):::stop
+  s3[("Saved")]
+  s2 --> s3
+  s7["Roll-up summaries to parent: Subscription__c.Line_Count__c, Subscription__c.Total_Line_Value__c"]
+  s3 --> s7
+  s7 --> done(["Done"]):::start
+  classDef start fill:#2450D6,color:#fff,stroke:#2450D6
+  classDef stop fill:#FDE7E5,color:#B42318,stroke:#B42318
+```
 
 | Step | What runs |
 | --- | --- |
@@ -971,6 +1026,25 @@ For each object with automation, the steps run in this order (Salesforce order o
 
 ##### Subscription
 
+```mermaid
+flowchart TD
+  u(["A user saves a Subscription"]):::start
+  s1["Before triggers: SubscriptionTrigger"]
+  u --> s1
+  s2{"Validation rules: Active_Requires_MRR, Cancellation_Reason_Required, End_Date_After_Start_Date, No_Reactivation_After_Cancel"}
+  s1 --> s2
+  s2 -->|"a rule fails"| x2(["Save is blocked; the user sees the message"]):::stop
+  s3[("Saved")]
+  s2 --> s3
+  s4["After triggers: SubscriptionTrigger"]
+  s3 --> s4
+  s6["After-save flows: Subscription At Risk Alert"]
+  s4 --> s6
+  s6 --> done(["Done"]):::start
+  classDef start fill:#2450D6,color:#fff,stroke:#2450D6
+  classDef stop fill:#FDE7E5,color:#B42318,stroke:#B42318
+```
+
 | Step | What runs |
 | --- | --- |
 | Before-save flows | — |
@@ -983,6 +1057,21 @@ For each object with automation, the steps run in this order (Salesforce order o
 | Roll-up summaries to parent | — |
 
 ##### Trade Promotion
+
+```mermaid
+flowchart TD
+  u(["A user saves a Trade Promotion"]):::start
+  s1["Before triggers: TradePromotionTrigger"]
+  u --> s1
+  s2{"Validation rules: Budget_Required_To_Submit, End_After_Start"}
+  s1 --> s2
+  s2 -->|"a rule fails"| x2(["Save is blocked; the user sees the message"]):::stop
+  s3[("Saved")]
+  s2 --> s3
+  s3 --> done(["Done"]):::start
+  classDef start fill:#2450D6,color:#fff,stroke:#2450D6
+  classDef stop fill:#FDE7E5,color:#B42318,stroke:#B42318
+```
 
 | Step | What runs |
 | --- | --- |
@@ -1007,9 +1096,14 @@ Starts when: `AND( {!$Record.Health_Score__c} < 50, ISPICKVAL({!$Record.Status__
 
 ```mermaid
 flowchart TD
-  __start(["RecordAfterSave · CreateAndUpdate · Subscription__c"])
-  Create_Health_Check_Task["Create records: Create Health Check Task"]
-  __start --> Create_Health_Check_Task
+  __start(["After a Subscription is created or updated"]):::start
+  __only{"Only if Health Score 50 and Status = Active"}
+  __start --> __only
+  __only -->|"no"| __stop(["Nothing happens"]):::stop
+  __only -->|"yes"| Create_Health_Check_Task
+  Create_Health_Check_Task["Create Task: Create Health Check Task"]
+  classDef start fill:#2450D6,color:#fff,stroke:#2450D6
+  classDef stop fill:#F7F8FA,color:#5F6B7C,stroke:#C6CEDA
 ```
 
 #### Approval processes

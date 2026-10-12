@@ -20,6 +20,13 @@ $ErrorActionPreference = 'Continue'
 $appDir = (Resolve-Path "$PSScriptRoot\..\..\..\src\app").Path
 $demo = Join-Path (Resolve-Path "$PSScriptRoot\..\..\..").Path 'src\console\org-compiler.html'
 Copy-Item $demo (Join-Path $appDir 'public\compiler.html') -Force
+# The Assessment agent ships with the app (same files as the pipeline's Package step).
+$src = (Resolve-Path "$PSScriptRoot\..\..\..\src").Path
+$rt = Join-Path $appDir 'runtime\src'
+New-Item -ItemType Directory -Force "$rt\generators", "$rt\agents\assessment" | Out-Null
+Copy-Item "$src\paths.js" $rt -Force
+foreach ($g in 'lib', 'assess-org', 'discover-org', 'emit-assessment', 'emit-discovery') { Copy-Item "$src\generators\$g.js" "$rt\generators" -Force }
+Copy-Item "$src\agents\assessment\*.json" "$rt\agents\assessment" -Force
 
 Push-Location $appDir
 try { npm ci --omit=dev --no-fund --no-audit --loglevel=error; if ($LASTEXITCODE -ne 0) { throw 'npm ci failed' } } finally { Pop-Location }

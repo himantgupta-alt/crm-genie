@@ -29,6 +29,9 @@ $sessionSecret = Get-OrCreateSecret 'crmgenie-session-secret'
 $appUsers = Get-AppUsersJson
 # The demo account's credentials are filled into the sign-in form (CRM Genie and Org Compiler share it).
 $loginPrefill = @{ username = 'demo'; password = (Get-SecretIfExists 'crmgenie-user-demo') } | ConvertTo-Json -Compress
+# Org Compiler connections: encryption key (generated once) and the connected app's consumer key.
+$connectionKey = Get-OrCreateSecret 'orgcompiler-connection-key'
+$oauthClientId = Get-SecretIfExists 'orgcompiler-oauth-client-id'
 $myIp = (Invoke-RestMethod 'https://api.ipify.org?format=json' -UseBasicParsing).ip
 Write-Host "deployer IP: $myIp"
 
@@ -42,6 +45,8 @@ $paramFile = New-TemporaryFile
     appUsers = @{ value = $appUsers }
     sessionSecret = @{ value = $sessionSecret }
     loginPrefill = @{ value = $loginPrefill }
+    connectionKey = @{ value = $connectionKey }
+    oauthClientId = @{ value = $oauthClientId }
     sfInstanceUrl = @{ value = $SfInstanceUrl }
     deployerIp = @{ value = $myIp }
   }

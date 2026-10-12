@@ -46,6 +46,13 @@ param sessionSecret string
 @description('Optional JSON { username, password } filled into the sign-in form for demo reviewers. Built by deploy.ps1.')
 param loginPrefill string = ''
 
+@secure()
+@description('Key that encrypts stored org connections (refresh tokens) for the Org Compiler. 32+ characters.')
+param connectionKey string = ''
+
+@description('Consumer key of the "Org Compiler" connected app used by Connect with Salesforce. Empty disables it.')
+param oauthClientId string = ''
+
 param tags object = {
   owner: 'Demo User'
   project: 'CRM Genie'
@@ -153,6 +160,10 @@ var baseSettings = [
   { name: 'CRMGENIE_USERS', value: appUsers }
   { name: 'SESSION_SECRET', value: sessionSecret }
   { name: 'LOGIN_PREFILL', value: loginPrefill }
+  { name: 'CONNECTION_KEY', value: connectionKey }
+  { name: 'ORGC_OAUTH_CLIENT_ID', value: oauthClientId }
+  // Discovery runs write here; /home survives restarts and deploys on App Service.
+  { name: 'RUNTIME_DATA_DIR', value: '/home/data/orgcompiler' }
 ]
 // Bicep replaces all app settings on every deploy, so the auth secret is passed back in each time.
 var authSettings = empty(authClientSecret) ? [] : [

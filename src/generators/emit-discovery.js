@@ -10,7 +10,7 @@ const fs = require('fs');
 const path = require('path');
 const P = require('../paths');
 
-const eng = JSON.parse(fs.readFileSync(path.join(P.AGENTS, 'assessment', 'engagement.json'), 'utf8'));
+const eng = JSON.parse(fs.readFileSync(process.env.ENGAGEMENT_FILE || path.join(P.AGENTS, 'assessment', 'engagement.json'), 'utf8'));
 const DIR = path.join(P.ASSESSMENT, 'discovery');
 const orgs = eng.orgs.map((o) => {
   const f = path.join(DIR, o.region, 'discovery.json');
@@ -85,13 +85,53 @@ function erDiagram(d, x) {
   return ['erDiagram', ...[...keep].sort().map((k) => `  ${mid(k)} { string ${d.objects.find((o) => o.name === k)?.origin === 'custom' ? 'custom' : 'standard'} }`), ...[...new Set(lines)].sort()].join('\n');
 }
 
-function flowDiagram(f) {
+// Flow conditions and steps in business wording: "Health Score < 50 and Status = Active", "Create Task".
+const plainCondition = (s) => String(s || '').replace(/\{!\$Record\.(\w+?)(__c)?\}/g, (_, f) => f.replace(/_/g, ' ')).replace(/ISPICKVAL\(\s*([^,]+?)\s*,\s*"([^"]*)"\s*\)/g, '$1 = $2')
+  .replace(/ISBLANK\(\s*([^)]+?)\s*\)/g, '$1 is empty').replace(/^\s*AND\(\s*([\s\S]*)\)\s*$/, (_, x) => x.split(/,\s*(?![^(]*\))/).join(' and ')).replace(/\s+/g, ' ').trim();
+const startText = (f, objLabel) => {
+  const when = { Create: 'created', Update: 'updated', CreateAndUpdate: 'created or updated', Delete: 'deleted' }[f.recordTrigger] || 'saved';
+  if (f.trigger === 'RecordBeforeSave') return `Before a ${objLabel} is ${when}`;
+  if (f.trigger === 'RecordAfterSave') return `After a ${objLabel} is ${when}`;
+  if (f.trigger === 'Scheduled') return 'On a schedule';
+  if (f.trigger === 'PlatformEvent') return 'When an event arrives';
+  return f.kind === 'Flow' ? 'When a user starts it' : 'When called by another process';
+};
+const VERB = { 'Create records': 'Create', 'Update records': 'Update', 'Get records': 'Look up', 'Delete records': 'Delete', Action: 'Run', Assignment: 'Set', Subflow: 'Run sub-process', Screen: 'Show screen', 'Custom error': 'Stop with error' };
+function flowDiagram(f, objLabel = f.object || 'record') {
   if (!f.logic?.nodes?.length) return null;
+  const [start, ...rest] = f.logic.nodes;
   const shape = (nd) => {
-    const t = mm(nd.kind === 'Start' ? nd.label : `${nd.kind}: ${nd.label}`);
-    return nd.kind === 'Start' ? `(["${t}"])` : nd.kind === 'Decision' ? `{"${t}"}` : nd.kind === 'Loop' ? `[["${t}"]]` : `["${t}"]`;
+    const what = nd.object ? `${VERB[nd.kind] || nd.kind} ${nd.object}` : VERB[nd.kind] || nd.kind;
+    const t = mm(nd.kind === 'Decision' ? `${nd.label}?` : `${what}: ${nd.label}`);
+    return nd.kind === 'Decision' ? `{"${t}"}` : nd.kind === 'Loop' ? `[["${t}"]]` : `["${t}"]`;
   };
-  return ['flowchart TD', ...f.logic.nodes.map((nd) => `  ${mid(nd.id)}${shape(nd)}`), ...f.logic.edges.map((e) => `  ${mid(e.from)} -->${e.label ? `|"${mm(e.label)}"|` : ''} ${mid(e.to)}`)].join('\n');
+  const lines = ['flowchart TD', `  __start(["${mm(startText(f, objLabel))}"]):::start`];
+  const firstEdge = f.logic.edges.find((e) => e.from === '__start');
+  if (start.filter) {
+    lines.push(`  __only{"${mm(`Only if ${plainCondition(start.filter)}`)}"}`, '  __start --> __only', '  __only -->|"no"| __stop(["Nothing happens"]):::stop');
+    if (firstEdge) lines.push(`  __only -->|"yes"| ${mid(firstEdge.to)}`);
+  } else if (firstEdge) lines.push(`  __start --> ${mid(firstEdge.to)}`);
+  lines.push(...rest.map((nd) => `  ${mid(nd.id)}${shape(nd)}`), ...f.logic.edges.filter((e) => e.from !== '__start').map((e) => `  ${mid(e.from)} -->${e.label ? `|"${mm(e.label)}"|` : ''} ${mid(e.to)}`));
+  lines.push('  classDef start fill:#2450D6,color:#fff,stroke:#2450D6', '  classDef stop fill:#F7F8FA,color:#5F6B7C,stroke:#C6CEDA');
+  return lines.join('\n');
+}
+
+const article = (w) => (/^[aeiou]/i.test(w) ? 'an' : 'a');
+// What happens when a record is saved, as one business process map per object.
+function processMap(label, steps) {
+  const L = ['flowchart TD', `  u(["A user saves ${article(label)} ${mm(label)}"]):::start`];
+  let prev = 'u';
+  steps.forEach(([k, xs], i) => {
+    if (k.startsWith('Record saved')) { L.push(`  s${i}[("Saved")]`); L.push(`  ${prev} --> s${i}`); prev = `s${i}`; return; }
+    if (!xs.length) return;
+    const isRule = k === 'Validation rules';
+    L.push(`  s${i}${isRule ? '{' : '['}"${mm(k)}: ${xs.map(mm).join(', ').slice(0, 120)}"${isRule ? '}' : ']'}`);
+    L.push(`  ${prev} --> s${i}`);
+    if (isRule) L.push(`  s${i} -->|"a rule fails"| x${i}(["Save is blocked; the user sees the message"]):::stop`);
+    prev = `s${i}`;
+  });
+  L.push(`  ${prev} --> done(["Done"]):::start`, '  classDef start fill:#2450D6,color:#fff,stroke:#2450D6', '  classDef stop fill:#FDE7E5,color:#B42318,stroke:#B42318');
+  return L.join('\n');
 }
 
 /* ---------------------------------------------------------------- documents */
@@ -148,7 +188,7 @@ function documents(o) {
   const objectsWithAutomation = d.objects.map((ob) => [ob, x.saveOrder(ob.name)]).filter(([, s]) => s);
   docs['05-business-processes.md'] = [...head(o, 'business processes and automation'),
     '## What runs when a record is saved', '', 'For each object with automation, the steps run in this order (Salesforce order of execution, configurable steps only).', '',
-    ...objectsWithAutomation.map(([ob, steps]) => [`### ${ob.label}`, '', table(['Step', 'What runs'], steps.map(([k, xs]) => [k, xs.join(', ') || '—'])), ''].join('\n')),
+    ...objectsWithAutomation.map(([ob, steps]) => [`### ${ob.label}`, '', '```mermaid', processMap(ob.label, steps), '```', '', table(['Step', 'What runs'], steps.map(([k, xs]) => [k, xs.join(', ') || '—'])), ''].join('\n')),
     '## Flows built in this org', '',
     ...x.ownFlows.map((f) => { const dg = flowDiagram(f); return [`### ${f.label} (\`${f.name}\`)`, '', `${f.kind}${f.trigger ? ` · ${f.trigger}` : ''}${f.object ? ` on ${f.object}` : ''} · ${f.active ? 'active' : 'inactive'}`, f.description ? `\n${f.description}` : '', f.logic?.nodes?.[0]?.filter ? `\nStarts when: \`${f.logic.nodes[0].filter}\`` : '', dg ? `\n\`\`\`mermaid\n${dg}\n\`\`\`` : '', ''].join('\n'); }),
     '## Approval processes', '', table(['Name', 'Object', 'Active'], d.approvals.map((a) => [a.name, a.object, a.active ? 'yes' : 'no'])), '',
@@ -297,6 +337,7 @@ const report = [
   'The same detail is interactive in the Discovery explorer (Org Compiler) and machine-readable in `discovery/<org>/discovery.json`.', '',
   ...built.flatMap(({ o, docs }, k) => [`## Appendix ${String.fromCharCode(65 + k)}: ${o.label}`, '', ...SECTIONS.flatMap(([f, title], j) => [`### ${String.fromCharCode(65 + k)}.${j + 1} ${title}`, '', demote(body(docs[f]), 2), ''])]),
 ].join('\n').replace(/\n{3,}/g, '\n\n');
+fs.mkdirSync(P.ASSESSMENT, { recursive: true });
 fs.writeFileSync(path.join(P.ASSESSMENT, 'discovery-report.md'), report);
 // The single report replaces per-org section files.
 for (const o of orgs) for (const [f] of [['00-discovery-summary.md'], ...SECTIONS]) fs.rmSync(path.join(DIR, o.region, f), { force: true });
@@ -311,11 +352,13 @@ for (const o of orgs) {
   bundle.orgs.push({
     region: o.region, label: o.label, extracted: true,
     data: { ...d, objects, flows: d.flows.map((f) => (f.origin === 'custom' ? { ...f, diagram: flowDiagram(f) } : { name: f.name, label: f.label, kind: f.kind, active: f.active, origin: f.origin, object: f.object, trigger: f.trigger })) },
-    derived: { components: x.components, debt: x.debt, er, saveOrder: Object.fromEntries(d.objects.map((ob) => [ob.name, x.saveOrder(ob.name)]).filter(([, s]) => s)) },
+    derived: { components: x.components, debt: x.debt, er, saveOrder: Object.fromEntries(d.objects.map((ob) => [ob.name, x.saveOrder(ob.name)]).filter(([, s]) => s)),
+      processMaps: Object.fromEntries(d.objects.map((ob) => [ob.name, x.saveOrder(ob.name)]).filter(([, s]) => s).map(([k, s]) => [k, processMap(d.objects.find((ob) => ob.name === k).label, s)])) },
     docs: Object.fromEntries(SECTIONS.map(([f, title]) => [title, docs[f].replace(/\n{3,}/g, '\n\n')])),
   });
 }
-if (fs.existsSync(P.CONSOLE)) {
+if (process.env.BUNDLE_DIR) fs.writeFileSync(path.join(process.env.BUNDLE_DIR, 'discovery-bundle.json'), JSON.stringify(bundle));
+else if (fs.existsSync(P.CONSOLE)) {
   let html = fs.readFileSync(P.CONSOLE, 'utf8');
   const a = html.indexOf('/*DISCOVERY-START*/'), b = html.indexOf('/*DISCOVERY-END*/');
   if (a >= 0 && b > a) { html = html.slice(0, a + 19) + JSON.stringify(bundle).replace(/<\//g, '<\\/') + html.slice(b); fs.writeFileSync(P.CONSOLE, html); }

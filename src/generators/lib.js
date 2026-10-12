@@ -1,10 +1,10 @@
-// Shared helpers: reuse the Salesforce CLI's own auth (no tokens stored in scripts).
+// Shared helpers. Two ways to reach an org, neither stores tokens in scripts:
+//  - Salesforce CLI auth (SF_ALIAS, default myorg): on a laptop or runner where `sf org login` was done.
+//  - OAuth refresh token (SF_REFRESH_TOKEN + SF_INSTANCE_URL + SF_CLIENT_ID, optional SF_LOGIN_URL): used by the
+//    Org Compiler server after "Connect with Salesforce"; the token comes from its encrypted store.
 const path = require('path');
 const fs = require('fs');
 const { execSync } = require('child_process');
-
-const globalRoot = execSync('npm root -g').toString().trim();
-const { Org } = require(path.join(globalRoot, '@salesforce/cli/node_modules/@salesforce/core'));
 
 const P = require('../paths');
 const ROOT = P.ROOT;
@@ -12,6 +12,17 @@ const OUT = P.EXTRACTION; // schema/, logic/, data/, inventory/ live under the E
 const ALIAS = process.env.SF_ALIAS || 'myorg';
 
 async function connect() {
+  if (process.env.SF_REFRESH_TOKEN) {
+    const jsforce = require('jsforce');
+    const conn = new jsforce.Connection({
+      oauth2: { clientId: process.env.SF_CLIENT_ID, loginUrl: process.env.SF_LOGIN_URL || 'https://login.salesforce.com', redirectUri: process.env.SF_REDIRECT_URI || 'http://localhost:1717/OauthRedirect' },
+      instanceUrl: process.env.SF_INSTANCE_URL, refreshToken: process.env.SF_REFRESH_TOKEN, version: '67.0',
+    });
+    await conn.oauth2.refreshToken(process.env.SF_REFRESH_TOKEN).then((r) => { conn.accessToken = r.access_token; conn.instanceUrl = r.instance_url || conn.instanceUrl; });
+    return conn;
+  }
+  const globalRoot = execSync('npm root -g').toString().trim();
+  const { Org } = require(path.join(globalRoot, '@salesforce/cli/node_modules/@salesforce/core'));
   const org = await Org.create({ aliasOrUsername: ALIAS });
   const conn = org.getConnection();
   await conn.identity(); // refreshes the access token if needed

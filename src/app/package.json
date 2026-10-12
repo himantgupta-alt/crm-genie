@@ -4,13 +4,16 @@
   "version": "0.1.0",
   "description": "CRM Genie: the Subscription domain compiled out of Salesforce, running on Azure Postgres.",
   "main": "server.js",
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "start": "node server.js",
     "load": "node scripts/load.js"
   },
   "dependencies": {
     "express": "4.21.2",
+    "jsforce": "3.10.29",
     "pg": "8.13.1"
   }
 }

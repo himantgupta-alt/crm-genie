@@ -13,7 +13,7 @@ const P = require('../paths');
 
 const DIR = P.ASSESSMENT;
 const SPEC = path.join(P.AGENTS, 'assessment');
-const eng = JSON.parse(fs.readFileSync(path.join(SPEC, 'engagement.json'), 'utf8'));
+const eng = JSON.parse(fs.readFileSync(process.env.ENGAGEMENT_FILE || path.join(SPEC, 'engagement.json'), 'utf8'));
 const cat = JSON.parse(fs.readFileSync(path.join(SPEC, 'capabilities.json'), 'utf8'));
 const V = cat.verdicts;
 const VERDICTS = Object.keys(V);
@@ -260,11 +260,13 @@ fs.writeFileSync(path.join(DIR, 'fit-gap.json'), `${JSON.stringify(fitGap, null,
 fs.writeFileSync(path.join(DIR, 'assessment-report.md'), report);
 fs.writeFileSync(path.join(DIR, 'architecture.md'), architecture);
 
-if (fs.existsSync(P.CONSOLE)) {
+const bundle = { ...fitGap, report, architecture };
+// On the Org Compiler server the bundle is a file served to the console; in the repository it is embedded in it.
+if (process.env.BUNDLE_DIR) fs.writeFileSync(path.join(process.env.BUNDLE_DIR, 'assessment-bundle.json'), JSON.stringify(bundle));
+else if (fs.existsSync(P.CONSOLE)) {
   let html = fs.readFileSync(P.CONSOLE, 'utf8');
   const a = html.indexOf('/*ASSESS-START*/'), b = html.indexOf('/*ASSESS-END*/');
   if (a >= 0 && b > a) {
-    const bundle = { ...fitGap, report, architecture };
     html = html.slice(0, a + 16) + JSON.stringify(bundle).replace(/<\//g, '<\\/') + html.slice(b);
     fs.writeFileSync(P.CONSOLE, html);
   }
