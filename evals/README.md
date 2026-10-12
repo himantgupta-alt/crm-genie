@@ -10,7 +10,7 @@ engagement. Most files here are generated from the blueprint and parity cases by
 | [data-reconciliation/](data-reconciliation/checks.md) | Row counts, Salesforce IDs and every calculated field checked against the org | Data and QA teams |
 | [security/](security/README.md) | Expected access per role and object, from the org's profiles and permission sets | Security testers |
 | [uat/](uat/scenarios.md) | Business scenarios in Given/When/Then with a sign-off line | Business users |
-| [agent-evals/](agent-evals/README.md) | Golden sets and seeded faults that measure the AI agents themselves, with a reviewer rubric | AI/platform team |
+| [agent-evals/](agent-evals/README.md) | Golden sets and seeded faults that measure the Logic and Repair agents themselves, with a reviewer rubric | Platform team |
 | [traceability.csv](traceability.csv), [coverage.md](coverage.md) | Each Salesforce element linked to its tests; what has no test yet | Test managers |
 
 ## How tests run

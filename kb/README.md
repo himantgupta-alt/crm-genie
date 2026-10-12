@@ -3,7 +3,7 @@
 Owner: Engineering standards · reusable for every client; not specific to one org.
 
 The standards our agents and engineers follow. Each agent spec (`src/agents/<agent>/agent.json`) lists the
-pages it follows under `kb`; the AI agents (Logic, Repair) receive those pages in their prompts, and reviewers
+pages it follows under `kb`; the two agents that use a language model (Logic, Repair) receive those pages in their prompts, and reviewers
 use [review-checklists.md](review-checklists.md) at every gate. The guardrails that bound what agents may do
 are in [`../guardrails/`](../guardrails/README.md).
 

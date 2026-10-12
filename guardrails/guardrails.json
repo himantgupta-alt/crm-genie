@@ -19,7 +19,7 @@
   "secretPatterns": [
     { "name": "private key", "regex": "-----BEGIN [A-Z ]*PRIVATE KEY-----" },
     { "name": "AWS access key", "regex": "AKIA[0-9A-Z]{16}" },
-    { "name": "Anthropic API key", "regex": "sk-ant-[A-Za-z0-9_-]{20,}" },
+    { "name": "LLM API key (sk-ant- prefix)", "regex": "sk-ant-[A-Za-z0-9_-]{20,}" },
     { "name": "GitHub token", "regex": "gh[pousr]_[A-Za-z0-9]{36,}" },
     { "name": "Azure storage key", "regex": "AccountKey=[A-Za-z0-9+/=]{40,}" },
     { "name": "Salesforce session id", "regex": "00D[A-Za-z0-9]{12,15}![A-Za-z0-9._]{40,}" },

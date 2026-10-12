@@ -1,0 +1,1341 @@
+{
+  "region": "eu",
+  "label": "Europe",
+  "org": {
+    "edition": "Developer Edition",
+    "locale": "en_US",
+    "timeZone": "America/Los_Angeles"
+  },
+  "markets": [
+    {
+      "name": "United Kingdom",
+      "customers": 4
+    },
+    {
+      "name": "Ireland",
+      "customers": 4
+    },
+    {
+      "name": "France",
+      "customers": 4
+    },
+    {
+      "name": "Germany",
+      "customers": 4
+    },
+    {
+      "name": "Netherlands",
+      "customers": 4
+    },
+    {
+      "name": "Belgium",
+      "customers": 4
+    },
+    {
+      "name": "Spain",
+      "customers": 4
+    },
+    {
+      "name": "Portugal",
+      "customers": 4
+    },
+    {
+      "name": "Italy",
+      "customers": 4
+    },
+    {
+      "name": "Poland",
+      "customers": 4
+    },
+    {
+      "name": "Sweden",
+      "customers": 4
+    },
+    {
+      "name": "Denmark",
+      "customers": 4
+    },
+    {
+      "name": "Switzerland",
+      "customers": 4
+    },
+    {
+      "name": "Austria",
+      "customers": 4
+    }
+  ],
+  "objects": [
+    {
+      "name": "Promotion_Product__c",
+      "label": "Promotion Product",
+      "records": 56,
+      "fields": [
+        {
+          "name": "Discount_Pct__c",
+          "label": "Discount",
+          "type": "percent",
+          "fill": 100
+        },
+        {
+          "name": "Product__c",
+          "label": "Product",
+          "type": "Lookup",
+          "references": [
+            "Product2"
+          ],
+          "fill": 100
+        },
+        {
+          "name": "Trade_Promotion__c",
+          "label": "Trade Promotion",
+          "type": "Master-detail",
+          "references": [
+            "Trade_Promotion__c"
+          ],
+          "fill": 100
+        }
+      ]
+    },
+    {
+      "name": "Sales_Target__c",
+      "label": "Sales Target",
+      "records": 28,
+      "fields": [
+        {
+          "name": "Account__c",
+          "label": "Customer",
+          "type": "Lookup",
+          "references": [
+            "Account"
+          ],
+          "fill": 100
+        },
+        {
+          "name": "Category__c",
+          "label": "Category",
+          "type": "picklist",
+          "fill": 100
+        },
+        {
+          "name": "Period_Start__c",
+          "label": "Period Start",
+          "type": "date",
+          "fill": 100
+        },
+        {
+          "name": "Target_Amount__c",
+          "label": "Target Amount",
+          "type": "currency",
+          "fill": 100
+        }
+      ]
+    },
+    {
+      "name": "Shelf_Check__c",
+      "label": "Shelf Check",
+      "records": 378,
+      "fields": [
+        {
+          "name": "Facings__c",
+          "label": "Facings",
+          "type": "double",
+          "fill": 100
+        },
+        {
+          "name": "On_Shelf__c",
+          "label": "On Shelf",
+          "type": "boolean",
+          "fill": 86
+        },
+        {
+          "name": "Product__c",
+          "label": "Product",
+          "type": "Lookup",
+          "references": [
+            "Product2"
+          ],
+          "fill": 100
+        },
+        {
+          "name": "Shelf_Price__c",
+          "label": "Shelf Price",
+          "type": "currency",
+          "fill": 100
+        },
+        {
+          "name": "Store_Visit__c",
+          "label": "Store Visit",
+          "type": "Master-detail",
+          "references": [
+            "Store_Visit__c"
+          ],
+          "fill": 100
+        }
+      ]
+    },
+    {
+      "name": "Store_Assortment__c",
+      "label": "Store Assortment",
+      "records": 168,
+      "fields": [
+        {
+          "name": "Account__c",
+          "label": "Store",
+          "type": "Lookup",
+          "references": [
+            "Account"
+          ],
+          "fill": 100
+        },
+        {
+          "name": "Must_Stock__c",
+          "label": "Must Stock",
+          "type": "boolean",
+          "fill": 50
+        },
+        {
+          "name": "Product__c",
+          "label": "Product",
+          "type": "Lookup",
+          "references": [
+            "Product2"
+          ],
+          "fill": 100
+        }
+      ]
+    },
+    {
+      "name": "Store_Visit__c",
+      "label": "Store Visit",
+      "records": 210,
+      "fields": [
+        {
+          "name": "Account__c",
+          "label": "Store",
+          "type": "Lookup",
+          "references": [
+            "Account"
+          ],
+          "fill": 100
+        },
+        {
+          "name": "Notes__c",
+          "label": "Notes",
+          "type": "textarea",
+          "fill": null
+        },
+        {
+          "name": "Shelf_Checks__c",
+          "label": "Shelf Checks",
+          "type": "Roll-up",
+          "fill": null
+        },
+        {
+          "name": "Status__c",
+          "label": "Status",
+          "type": "picklist",
+          "fill": 100
+        },
+        {
+          "name": "Visit_Date__c",
+          "label": "Visit Date",
+          "type": "date",
+          "fill": 100
+        },
+        {
+          "name": "Visit_Type__c",
+          "label": "Visit Type",
+          "type": "picklist",
+          "fill": 100
+        }
+      ]
+    },
+    {
+      "name": "Subscription_Line__c",
+      "label": "Subscription Line",
+      "records": 219,
+      "fields": [
+        {
+          "name": "Account_Name__c",
+          "label": "Account Name",
+          "type": "Formula",
+          "fill": null
+        },
+        {
+          "name": "Line_Total__c",
+          "label": "Line Total",
+          "type": "Formula",
+          "fill": null
+        },
+        {
+          "name": "Product__c",
+          "label": "Product",
+          "type": "Lookup",
+          "references": [
+            "Product2"
+          ],
+          "fill": 100
+        },
+        {
+          "name": "Quantity__c",
+          "label": "Quantity",
+          "type": "double",
+          "fill": 100
+        },
+        {
+          "name": "Subscription__c",
+          "label": "Subscription",
+          "type": "Master-detail",
+          "references": [
+            "Subscription__c"
+          ],
+          "fill": 100
+        },
+        {
+          "name": "Unit_Price__c",
+          "label": "Unit Price",
+          "type": "currency",
+          "fill": 100
+        }
+      ]
+    },
+    {
+      "name": "Subscription__c",
+      "label": "Subscription",
+      "records": 107,
+      "fields": [
+        {
+          "name": "Account__c",
+          "label": "Account",
+          "type": "Master-detail",
+          "references": [
+            "Account"
+          ],
+          "fill": 100
+        },
+        {
+          "name": "Annual_Value__c",
+          "label": "Annual Value",
+          "type": "Formula",
+          "fill": null
+        },
+        {
+          "name": "Auto_Renew__c",
+          "label": "Auto Renew",
+          "type": "boolean",
+          "fill": 52
+        },
+        {
+          "name": "Cancellation_Reason__c",
+          "label": "Cancellation Reason",
+          "type": "string",
+          "fill": 21
+        },
+        {
+          "name": "Days_To_Renewal__c",
+          "label": "Days To Renewal",
+          "type": "Formula",
+          "fill": null
+        },
+        {
+          "name": "End_Date__c",
+          "label": "End Date",
+          "type": "date",
+          "fill": 100
+        },
+        {
+          "name": "Health_Score__c",
+          "label": "Health Score",
+          "type": "double",
+          "fill": 100
+        },
+        {
+          "name": "Line_Count__c",
+          "label": "Line Count",
+          "type": "Roll-up",
+          "fill": null
+        },
+        {
+          "name": "MRR__c",
+          "label": "MRR",
+          "type": "currency",
+          "fill": 93
+        },
+        {
+          "name": "Primary_Contact__c",
+          "label": "Primary Contact",
+          "type": "Lookup",
+          "references": [
+            "Contact"
+          ],
+          "fill": 34
+        },
+        {
+          "name": "Source_Opportunity__c",
+          "label": "Source Opportunity",
+          "type": "Lookup",
+          "references": [
+            "Opportunity"
+          ],
+          "fill": 5
+        },
+        {
+          "name": "Start_Date__c",
+          "label": "Start Date",
+          "type": "date",
+          "fill": 100
+        },
+        {
+          "name": "Status__c",
+          "label": "Status",
+          "type": "picklist",
+          "fill": 100
+        },
+        {
+          "name": "Term_Months__c",
+          "label": "Term (Months)",
+          "type": "double",
+          "fill": 100
+        },
+        {
+          "name": "Total_Line_Value__c",
+          "label": "Total Line Value",
+          "type": "Roll-up",
+          "fill": null
+        }
+      ]
+    },
+    {
+      "name": "Trade_Promotion__c",
+      "label": "Trade Promotion",
+      "records": 28,
+      "fields": [
+        {
+          "name": "Account__c",
+          "label": "Customer",
+          "type": "Lookup",
+          "references": [
+            "Account"
+          ],
+          "fill": 100
+        },
+        {
+          "name": "Budget__c",
+          "label": "Budget",
+          "type": "currency",
+          "fill": 100
+        },
+        {
+          "name": "End_Date__c",
+          "label": "End Date",
+          "type": "date",
+          "fill": 100
+        },
+        {
+          "name": "Mechanic__c",
+          "label": "Mechanic",
+          "type": "picklist",
+          "fill": 100
+        },
+        {
+          "name": "Start_Date__c",
+          "label": "Start Date",
+          "type": "date",
+          "fill": 100
+        },
+        {
+          "name": "Status__c",
+          "label": "Status",
+          "type": "picklist",
+          "fill": 100
+        },
+        {
+          "name": "Uplift_Pct__c",
+          "label": "Expected Uplift",
+          "type": "percent",
+          "fill": 100
+        }
+      ]
+    }
+  ],
+  "extended": [
+    {
+      "name": "Account",
+      "records": 78,
+      "fields": [
+        {
+          "name": "Active__c",
+          "label": "Active",
+          "type": "picklist",
+          "fill": 13
+        },
+        {
+          "name": "CustomerPriority__c",
+          "label": "Customer Priority",
+          "type": "picklist",
+          "fill": 12
+        },
+        {
+          "name": "Customer_Channel__c",
+          "label": "Customer Channel",
+          "type": "picklist",
+          "fill": 72
+        },
+        {
+          "name": "Customer_Tier__c",
+          "label": "Customer Tier",
+          "type": "picklist",
+          "fill": 72
+        },
+        {
+          "name": "Legacy_ERP_Code__c",
+          "label": "Legacy ERP Code",
+          "type": "string",
+          "fill": 44
+        },
+        {
+          "name": "Market__c",
+          "label": "Market",
+          "type": "picklist",
+          "fill": 72
+        },
+        {
+          "name": "NumberofLocations__c",
+          "label": "Number of Locations",
+          "type": "double",
+          "fill": 14
+        },
+        {
+          "name": "Old_Segment__c",
+          "label": "Old Segment (unused)",
+          "type": "string",
+          "fill": 0
+        },
+        {
+          "name": "SLAExpirationDate__c",
+          "label": "SLA Expiration Date",
+          "type": "date",
+          "fill": 14
+        },
+        {
+          "name": "SLASerialNumber__c",
+          "label": "SLA Serial Number",
+          "type": "string",
+          "fill": 14
+        },
+        {
+          "name": "SLA__c",
+          "label": "SLA",
+          "type": "picklist",
+          "fill": 14
+        },
+        {
+          "name": "Store_Format__c",
+          "label": "Store Format",
+          "type": "picklist",
+          "fill": 54
+        },
+        {
+          "name": "UpsellOpportunity__c",
+          "label": "Upsell Opportunity",
+          "type": "picklist",
+          "fill": 14
+        },
+        {
+          "name": "VAT_Number__c",
+          "label": "VAT Number",
+          "type": "string",
+          "fill": 36
+        },
+        {
+          "name": "Won_Opportunity_Amount__c",
+          "label": "Won Opportunity Amount",
+          "type": "currency",
+          "fill": 28
+        },
+        {
+          "name": "Won_Opportunity_Count__c",
+          "label": "Won Opportunity Count",
+          "type": "double",
+          "fill": 28
+        }
+      ]
+    },
+    {
+      "name": "Contact",
+      "records": 20,
+      "fields": [
+        {
+          "name": "Consent_Date__c",
+          "label": "Consent Date",
+          "type": "date",
+          "fill": 0
+        },
+        {
+          "name": "GDPR_Consent__c",
+          "label": "GDPR Consent",
+          "type": "boolean",
+          "fill": 0
+        },
+        {
+          "name": "Languages__c",
+          "label": "Languages",
+          "type": "string",
+          "fill": 85
+        },
+        {
+          "name": "Level__c",
+          "label": "Level",
+          "type": "picklist",
+          "fill": 85
+        }
+      ]
+    },
+    {
+      "name": "Lead",
+      "records": 22,
+      "fields": [
+        {
+          "name": "CurrentGenerators__c",
+          "label": "Current Generator(s)",
+          "type": "string",
+          "fill": 100
+        },
+        {
+          "name": "NumberofLocations__c",
+          "label": "Number of Locations",
+          "type": "double",
+          "fill": 100
+        },
+        {
+          "name": "Primary__c",
+          "label": "Primary",
+          "type": "picklist",
+          "fill": 100
+        },
+        {
+          "name": "ProductInterest__c",
+          "label": "Product Interest",
+          "type": "picklist",
+          "fill": 100
+        },
+        {
+          "name": "SICCode__c",
+          "label": "SIC Code",
+          "type": "string",
+          "fill": 100
+        }
+      ]
+    },
+    {
+      "name": "Opportunity",
+      "records": 31,
+      "fields": [
+        {
+          "name": "CurrentGenerators__c",
+          "label": "Current Generator(s)",
+          "type": "string",
+          "fill": 52
+        },
+        {
+          "name": "DeliveryInstallationStatus__c",
+          "label": "Delivery/Installation Status",
+          "type": "picklist",
+          "fill": 74
+        },
+        {
+          "name": "Loss_Reason__c",
+          "label": "Loss Reason",
+          "type": "picklist",
+          "fill": 13
+        },
+        {
+          "name": "MainCompetitors__c",
+          "label": "Main Competitor(s)",
+          "type": "string",
+          "fill": 58
+        },
+        {
+          "name": "OrderNumber__c",
+          "label": "Order Number",
+          "type": "string",
+          "fill": 58
+        },
+        {
+          "name": "TrackingNumber__c",
+          "label": "Tracking Number",
+          "type": "string",
+          "fill": 29
+        }
+      ]
+    },
+    {
+      "name": "Product2",
+      "records": 27,
+      "fields": [
+        {
+          "name": "Brand__c",
+          "label": "Brand",
+          "type": "picklist",
+          "fill": 37
+        },
+        {
+          "name": "Case_Size__c",
+          "label": "Case Size",
+          "type": "double",
+          "fill": 37
+        },
+        {
+          "name": "Category__c",
+          "label": "Category",
+          "type": "picklist",
+          "fill": 37
+        },
+        {
+          "name": "EAN__c",
+          "label": "EAN",
+          "type": "string",
+          "fill": 37
+        }
+      ]
+    },
+    {
+      "name": "Case",
+      "records": 26,
+      "fields": [
+        {
+          "name": "EngineeringReqNumber__c",
+          "label": "Engineering Req Number",
+          "type": "string",
+          "fill": 85
+        },
+        {
+          "name": "PotentialLiability__c",
+          "label": "Potential Liability",
+          "type": "picklist",
+          "fill": 100
+        },
+        {
+          "name": "Product__c",
+          "label": "Product",
+          "type": "picklist",
+          "fill": 100
+        },
+        {
+          "name": "SLAViolation__c",
+          "label": "SLA Violation",
+          "type": "picklist",
+          "fill": 96
+        }
+      ]
+    }
+  ],
+  "automation": {
+    "classes": [
+      {
+        "name": "OpportunityService",
+        "lines": 50,
+        "test": false,
+        "callout": false,
+        "objects": [
+          "Subscription__c"
+        ]
+      },
+      {
+        "name": "SubscriptionRenewalBatch",
+        "lines": 41,
+        "test": false,
+        "callout": false,
+        "objects": [
+          "Subscription__c"
+        ]
+      },
+      {
+        "name": "SubscriptionService",
+        "lines": 70,
+        "test": false,
+        "callout": false,
+        "objects": [
+          "Subscription__c"
+        ]
+      },
+      {
+        "name": "SubscriptionServiceTest",
+        "lines": 104,
+        "test": true,
+        "callout": false,
+        "objects": [
+          "Subscription_Line__c",
+          "Subscription__c"
+        ]
+      },
+      {
+        "name": "TradePromotionApproval",
+        "lines": 10,
+        "test": false,
+        "callout": false,
+        "objects": [
+          "Trade_Promotion__c"
+        ]
+      },
+      {
+        "name": "TradePromotionApprovalTest",
+        "lines": 33,
+        "test": true,
+        "callout": false,
+        "objects": [
+          "Trade_Promotion__c"
+        ]
+      }
+    ],
+    "triggers": [
+      {
+        "name": "OpportunityTrigger",
+        "object": "Opportunity",
+        "active": true,
+        "lines": 3
+      },
+      {
+        "name": "SubscriptionTrigger",
+        "object": "Subscription__c",
+        "active": true,
+        "lines": 7
+      },
+      {
+        "name": "TradePromotionTrigger",
+        "object": "Trade_Promotion__c",
+        "active": true,
+        "lines": 3
+      }
+    ],
+    "flows": [
+      {
+        "name": "Subscription_At_Risk_Alert",
+        "label": "Subscription At Risk Alert",
+        "kind": "AutoLaunchedFlow",
+        "trigger": "RecordAfterSave",
+        "object": "Subscription",
+        "active": true
+      }
+    ],
+    "validationRules": [
+      {
+        "name": "VAT_Format",
+        "object": "Account",
+        "active": true
+      },
+      {
+        "name": "Closed_Won_Requires_Amount",
+        "object": "Opportunity",
+        "active": true
+      },
+      {
+        "name": "Loss_Reason_Required_When_Lost",
+        "object": "Opportunity",
+        "active": true
+      },
+      {
+        "name": "Active_Requires_MRR",
+        "object": "Subscription__c",
+        "active": true
+      },
+      {
+        "name": "Cancellation_Reason_Required",
+        "object": "Subscription__c",
+        "active": true
+      },
+      {
+        "name": "End_Date_After_Start_Date",
+        "object": "Subscription__c",
+        "active": true
+      },
+      {
+        "name": "No_Reactivation_After_Cancel",
+        "object": "Subscription__c",
+        "active": true
+      },
+      {
+        "name": "Parent_Not_Cancelled",
+        "object": "Subscription_Line__c",
+        "active": true
+      },
+      {
+        "name": "Quantity_Must_Be_Positive",
+        "object": "Subscription_Line__c",
+        "active": true
+      },
+      {
+        "name": "Budget_Required_To_Submit",
+        "object": "Trade_Promotion__c",
+        "active": true
+      },
+      {
+        "name": "End_After_Start",
+        "object": "Trade_Promotion__c",
+        "active": true
+      }
+    ],
+    "workflowRules": [],
+    "approvals": []
+  },
+  "packages": [
+    {
+      "name": "Declarative Lookup Rollup Summaries Tool",
+      "namespace": "dlrs"
+    },
+    {
+      "name": "Developer Edition",
+      "namespace": "devedapp"
+    }
+  ],
+  "licences": [
+    {
+      "name": "Analytics Cloud Integration User",
+      "total": 2,
+      "used": 2
+    },
+    {
+      "name": "Chatter External",
+      "total": 500,
+      "used": 0
+    },
+    {
+      "name": "Chatter Free",
+      "total": 5000,
+      "used": 1
+    },
+    {
+      "name": "Cloud Integration User",
+      "total": 1,
+      "used": 0
+    },
+    {
+      "name": "Customer Community",
+      "total": 5,
+      "used": 0
+    },
+    {
+      "name": "Customer Community Login",
+      "total": 5,
+      "used": 0
+    },
+    {
+      "name": "Customer Community Plus",
+      "total": 5,
+      "used": 0
+    },
+    {
+      "name": "Customer Community Plus Login",
+      "total": 5,
+      "used": 0
+    },
+    {
+      "name": "Customer Portal Manager Custom",
+      "total": 10,
+      "used": 0
+    },
+    {
+      "name": "Customer Portal Manager Standard",
+      "total": 10,
+      "used": 0
+    },
+    {
+      "name": "Einstein Agent",
+      "total": 201,
+      "used": 0
+    },
+    {
+      "name": "External Apps Login",
+      "total": 40,
+      "used": 0
+    },
+    {
+      "name": "External Einstein Agent",
+      "total": 201,
+      "used": 0
+    },
+    {
+      "name": "External Identity",
+      "total": 9,
+      "used": 0
+    },
+    {
+      "name": "Force.com - App Subscription",
+      "total": 2,
+      "used": 0
+    },
+    {
+      "name": "Force.com - Free",
+      "total": 4,
+      "used": 0
+    },
+    {
+      "name": "Gold Partner",
+      "total": 6,
+      "used": 0
+    },
+    {
+      "name": "High Volume Customer Portal",
+      "total": 20,
+      "used": 0
+    },
+    {
+      "name": "Identity",
+      "total": 110,
+      "used": 0
+    },
+    {
+      "name": "Partner App Subscription",
+      "total": 2,
+      "used": 0
+    },
+    {
+      "name": "Partner Community",
+      "total": 5,
+      "used": 0
+    },
+    {
+      "name": "Partner Community Login",
+      "total": 5,
+      "used": 0
+    },
+    {
+      "name": "Salesforce",
+      "total": 4,
+      "used": 2
+    },
+    {
+      "name": "Salesforce Integration",
+      "total": 1,
+      "used": 0
+    },
+    {
+      "name": "Salesforce Platform",
+      "total": 6,
+      "used": 0
+    },
+    {
+      "name": "Silver Partner",
+      "total": 4,
+      "used": 0
+    },
+    {
+      "name": "Work.com Only",
+      "total": 3,
+      "used": 0
+    }
+  ],
+  "featureLicences": [
+    {
+      "name": "1Commerce Order Management User",
+      "total": 50000,
+      "used": 0
+    },
+    {
+      "name": "Agent platform builder",
+      "total": 5,
+      "used": 0
+    },
+    {
+      "name": "Agentforce (Default)",
+      "total": 5,
+      "used": 1
+    },
+    {
+      "name": "Agentforce Service Agent Builder",
+      "total": 10000,
+      "used": 1
+    },
+    {
+      "name": "Agentforce Service Agent User",
+      "total": 200,
+      "used": 0
+    },
+    {
+      "name": "Analytics View Only Embedded App",
+      "total": 3,
+      "used": 0
+    },
+    {
+      "name": "B2B Buyer Manager Permission Set One Seat",
+      "total": 40,
+      "used": 0
+    },
+    {
+      "name": "B2B Buyer Permission Set One Seat",
+      "total": 40,
+      "used": 0
+    },
+    {
+      "name": "B2B Commerce",
+      "total": 50,
+      "used": 0
+    },
+    {
+      "name": "CRM User",
+      "total": 1,
+      "used": 0
+    },
+    {
+      "name": "Command Center",
+      "total": 12,
+      "used": 0
+    },
+    {
+      "name": "Commerce Admin Permission Set License Seat",
+      "total": 1040,
+      "used": 0
+    },
+    {
+      "name": "Commerce Merchandiser User Permission Set License Seat",
+      "total": 1040,
+      "used": 0
+    },
+    {
+      "name": "Commerce Partner Community Permission Set License Seats",
+      "total": 10000,
+      "used": 0
+    },
+    {
+      "name": "Commerce Session Permission Set License Seats",
+      "total": 1000,
+      "used": 0
+    },
+    {
+      "name": "Commerce User",
+      "total": 1000040,
+      "used": 0
+    },
+    {
+      "name": "Cross Org Data Proxy",
+      "total": 2,
+      "used": 0
+    },
+    {
+      "name": "Customer Data Cloud for Marketing",
+      "total": 200000,
+      "used": 0
+    },
+    {
+      "name": "D2C Commerce Shopper License Seats",
+      "total": 1000000,
+      "used": 0
+    },
+    {
+      "name": "Data Cloud",
+      "total": 200000,
+      "used": 2
+    },
+    {
+      "name": "Einstein AI Skills",
+      "total": 1000,
+      "used": 0
+    },
+    {
+      "name": "Einstein AI Skills Manager",
+      "total": 5000,
+      "used": 0
+    },
+    {
+      "name": "Einstein Prompt Templates",
+      "total": 5000,
+      "used": 1
+    },
+    {
+      "name": "Enablement",
+      "total": 6,
+      "used": 0
+    },
+    {
+      "name": "Enablement Lite",
+      "total": 15,
+      "used": 0
+    },
+    {
+      "name": "Enablement Resources",
+      "total": 5,
+      "used": 0
+    },
+    {
+      "name": "Enhanced Chat User",
+      "total": 11,
+      "used": 1
+    },
+    {
+      "name": "Facility Manager",
+      "total": 10,
+      "used": 0
+    },
+    {
+      "name": "Field Service Dispatcher",
+      "total": 2,
+      "used": 0
+    },
+    {
+      "name": "Field Service Mobile",
+      "total": 2,
+      "used": 0
+    },
+    {
+      "name": "Field Service Scheduling",
+      "total": 2,
+      "used": 0
+    },
+    {
+      "name": "Field Service Standard",
+      "total": 10,
+      "used": 0
+    },
+    {
+      "name": "Identity Connect",
+      "total": 10,
+      "used": 0
+    },
+    {
+      "name": "Lightning Order Management User",
+      "total": 5000000,
+      "used": 0
+    },
+    {
+      "name": "Messaging User",
+      "total": 6,
+      "used": 0
+    },
+    {
+      "name": "Order Management Community User",
+      "total": 5000000,
+      "used": 0
+    },
+    {
+      "name": "Orders Platform",
+      "total": 2,
+      "used": 0
+    },
+    {
+      "name": "Partner Messaging User",
+      "total": 5,
+      "used": 0
+    },
+    {
+      "name": "Queue Manager",
+      "total": 90,
+      "used": 0
+    },
+    {
+      "name": "Sales Console User",
+      "total": 4,
+      "used": 0
+    },
+    {
+      "name": "Sales Engagement Basic",
+      "total": 100,
+      "used": 0
+    },
+    {
+      "name": "Sales User",
+      "total": 2,
+      "used": 0
+    },
+    {
+      "name": "Salesforce API Integration",
+      "total": 1,
+      "used": 0
+    },
+    {
+      "name": "Salesforce CPQ AA License",
+      "total": 4,
+      "used": 0
+    },
+    {
+      "name": "Salesforce CPQ License",
+      "total": 4,
+      "used": 0
+    },
+    {
+      "name": "Salesforce Payments External",
+      "total": 10,
+      "used": 0
+    },
+    {
+      "name": "Salesforce Payments Internal",
+      "total": 4,
+      "used": 0
+    },
+    {
+      "name": "Salesforce Scheduler",
+      "total": 5,
+      "used": 0
+    },
+    {
+      "name": "Salesforce Scheduler Greeter",
+      "total": 250,
+      "used": 0
+    },
+    {
+      "name": "Salesforce Voice User (Partner Telephony)",
+      "total": 5,
+      "used": 0
+    },
+    {
+      "name": "Salesforce Voice with Amazon User",
+      "total": 2,
+      "used": 0
+    },
+    {
+      "name": "SegmentIntelligencePsl",
+      "total": 1005,
+      "used": 0
+    },
+    {
+      "name": "Service User",
+      "total": 2,
+      "used": 1
+    },
+    {
+      "name": "Slack Service User",
+      "total": 1,
+      "used": 0
+    },
+    {
+      "name": "Standard Einstein Activity Capture User",
+      "total": 100,
+      "used": 0
+    },
+    {
+      "name": "StandardEinsteinActivityCapture2Psl",
+      "total": 1,
+      "used": 0
+    },
+    {
+      "name": "Subscription Management Experience Cloud User",
+      "total": 10000,
+      "used": 0
+    },
+    {
+      "name": "Subscription Management Partner User",
+      "total": 10000,
+      "used": 0
+    },
+    {
+      "name": "Subscription Management User",
+      "total": 10000,
+      "used": 0
+    },
+    {
+      "name": "Tableau Next Limited Consumer",
+      "total": 10,
+      "used": 0
+    }
+  ],
+  "integrations": {
+    "namedCredentials": [],
+    "remoteSites": [
+      "ApexDevNet"
+    ],
+    "calloutClasses": []
+  },
+  "usage": {
+    "activeUsers": 4,
+    "reports": 30
+  }
+}

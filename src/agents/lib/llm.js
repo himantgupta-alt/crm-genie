@@ -1,10 +1,26 @@
-// Shared Claude client for the LLM agents. Prompts live in agents/prompts/*.md with "## System" and
-// "## Task" sections and {{placeholders}}; every prompt and response is saved under the run directory.
+// Shared language-model client for the Logic and Repair agents. Prompts live in agents/<agent>/prompt.md
+// with "## System" and "## Task" sections and {{placeholders}}; every prompt and response is saved under
+// the run directory for review.
+//
+// Configuration: LLM_API_KEY (API key passed to the SDK client; if unset, the SDK's own default
+// environment variables are used) and AGENT_MODEL (model id).
 const fs = require('fs');
 const path = require('path');
-const { Anthropic } = require('@anthropic-ai/sdk');
+const { Anthropic: SdkClient } = require('@anthropic-ai/sdk');
 
 const MODEL = process.env.AGENT_MODEL || 'claude-opus-5-5';
+
+// LLM_API_KEY wins; otherwise the SDK reads its default environment variables.
+function newClient() {
+  return new SdkClient(process.env.LLM_API_KEY ? { apiKey: process.env.LLM_API_KEY } : {});
+}
+
+// True when an API key or token is configured, so the agents can call the model instead of a dry run.
+function hasCredentials() {
+  if (process.env.LLM_API_KEY) return true;
+  const c = newClient();
+  return !!(c.apiKey || c.authToken);
+}
 
 function loadPrompt(file, vars) {
   const raw = fs.readFileSync(file, 'utf8');
@@ -22,7 +38,7 @@ function loadPrompt(file, vars) {
 async function ask({ system, task, saveAs }) {
   fs.mkdirSync(path.dirname(saveAs), { recursive: true });
   fs.writeFileSync(`${saveAs}.prompt.md`, `# System\n\n${system}\n\n# Task\n\n${task}\n`);
-  const client = new Anthropic(); // ANTHROPIC_API_KEY, or an `ant auth login` profile
+  const client = newClient();
   const stream = client.beta.messages.stream({
     model: MODEL,
     max_tokens: 32000,
@@ -52,4 +68,4 @@ function fenced(text, lang) {
   return m ? m[1].trim() : null;
 }
 
-module.exports = { MODEL, loadPrompt, ask, dryRun, fenced };
+module.exports = { MODEL, hasCredentials, loadPrompt, ask, dryRun, fenced };

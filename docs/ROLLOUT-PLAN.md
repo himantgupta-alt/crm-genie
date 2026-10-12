@@ -1,13 +1,13 @@
 # Rollout plan, timeline and risks
 
 Written 24 Sep 2026. Companion to `HANDOFF.md` and the approach deck
-(https://claude.ai/code/artifact/d9d1466a-4d52-47b0-9db5-2cc8c2f48cf2). All durations below are
+(in `presentations/`). All durations below are
 **estimates, not measurements** — the POC has not yet run against a real enterprise org. The real
 per-client number comes from a Phase 1 run on that client's sandbox (automatable vs assisted ratio).
 
 ## 1. Model training — not needed
 
-Claude is used off the shelf through the agent crew; nothing is fine-tuned.
+A general-purpose language model is used off the shelf by the Logic and Repair agents; nothing is fine-tuned.
 
 - **The knowledge lives in the client's org.** Each agent receives its slice of the extracted
   blueprint (one object, one rule, one Apex class). Every org differs, so a model trained on one

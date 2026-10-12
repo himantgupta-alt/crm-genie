@@ -39,12 +39,12 @@ The engineering practices every engineer and agent follows on a Salesforce exit,
 - Tests are code, versioned with what they test, and run in CI on every change
 - Security has its own tests: each role tries what it may and may not do
 
-## 6. AI-assisted engineering
+## 6. Model-drafted code and review
 
 | Guardrail | How we enforce it |
 |---|---|
-| AI output is a proposal | An engineer reviews and approves it before it merges |
-| The model is never in the runtime path | AI writes code at build time; the running system has no AI dependency |
+| Model output is a proposal | An engineer reviews and approves it before it merges |
+| The model is never in the runtime path | A language model is used only at build time; the running system does not depend on one |
 | Each agent stays in its lane | Each agent may only write to its own folder |
 | Human approval at every phase | Approve, edit or return at each gate, fully audited |
 | No secrets or personal data in prompts | Inputs are masked and scanned automatically |

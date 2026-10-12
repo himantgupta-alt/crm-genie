@@ -1,0 +1,249 @@
+{
+  "description": "Business capabilities the Assessment agent recognises in a consumer-goods sales org, the standard Salesforce feature that covers each one, and the default verdict. A component (custom object, custom field on a standard object, Apex class or trigger, installed package) belongs to the first capability whose pattern matches its name; Apex code that matches no name pattern belongs to the capability of the objects it reads or writes. Anything left over goes to the workshop list. Verdicts: adopt (a standard feature covers it), configure (standard configuration replaces the code), keep (no standard equivalent; keep and harmonise across orgs), retire (unused), review (not recognised; confirm in the workshop).",
+  "verdicts": {
+    "adopt": "Adopt standard",
+    "configure": "Replace with configuration",
+    "keep": "Keep and harmonise",
+    "retire": "Retire",
+    "review": "Review in workshop"
+  },
+  "capabilities": [
+    {
+      "id": "store-visits",
+      "area": "Retail execution",
+      "capability": "Store visits",
+      "match": {
+        "objects": "^(Store|Outlet|Field|Retail)_?Visit__c$"
+      },
+      "verdict": "adopt",
+      "standard": "Consumer Goods Cloud: Visit and Retail Store, with visit tasks on the mobile app",
+      "licence": "Consumer Goods Cloud",
+      "reference": "Salesforce Help: Consumer Goods Cloud, Retail Execution"
+    },
+    {
+      "id": "in-store-audit",
+      "area": "Retail execution",
+      "capability": "Shelf checks and in-store audits",
+      "match": {
+        "objects": "^(Shelf_Check|Outlet_Audit|Store_Audit|Store_Check)__c$"
+      },
+      "verdict": "adopt",
+      "standard": "Consumer Goods Cloud: assessment tasks and retail store KPIs recorded during a visit",
+      "licence": "Consumer Goods Cloud",
+      "reference": "Salesforce Help: Consumer Goods Cloud, Retail Execution (assessment tasks, KPIs)"
+    },
+    {
+      "id": "visit-planning",
+      "area": "Retail execution",
+      "capability": "Visit planning and routes",
+      "match": {
+        "objects": "^(Beat_Plan|Beat_Plan_Outlet|Route_Plan|Journey_Plan)(_\\w+)?__c$"
+      },
+      "verdict": "adopt",
+      "standard": "Consumer Goods Cloud: visit planning with retail store groups and action plan templates",
+      "licence": "Consumer Goods Cloud",
+      "reference": "Salesforce Help: Consumer Goods Cloud, visit planning"
+    },
+    {
+      "id": "assortment",
+      "area": "Retail execution",
+      "capability": "Store assortment and must-stock lists",
+      "match": {
+        "objects": "^(Store_Assortment|Must_Stock_List|Assortment\\w*)__c$"
+      },
+      "verdict": "adopt",
+      "standard": "Consumer Goods Cloud: product assortments assigned to retail store groups",
+      "licence": "Consumer Goods Cloud",
+      "reference": "Salesforce Help: Consumer Goods Cloud, product assortments"
+    },
+    {
+      "id": "trade-promotions",
+      "area": "Revenue growth",
+      "capability": "Trade promotions and deals",
+      "match": {
+        "objects": "^(Trade_Promotion|Trade_Deal|Promotion_Product|Promotion_Line)__c$"
+      },
+      "verdict": "adopt",
+      "standard": "Consumer Goods Cloud Trade Promotion Management: promotion planning, funds and post-event analysis",
+      "licence": "Trade Promotion Management (add-on)",
+      "reference": "Salesforce Help: Consumer Goods Cloud, Trade Promotion Management"
+    },
+    {
+      "id": "claims",
+      "area": "Revenue growth",
+      "capability": "Distributor and customer claims",
+      "match": {
+        "objects": "^(Distributor_Claim|Customer_Claim|Claim)__c$"
+      },
+      "verdict": "adopt",
+      "standard": "Trade Promotion Management: claims and payments checked against promotion funds",
+      "licence": "Trade Promotion Management (add-on)",
+      "reference": "Salesforce Help: Trade Promotion Management, claims"
+    },
+    {
+      "id": "promotion-approval",
+      "area": "Revenue growth",
+      "capability": "Promotion approval",
+      "match": {
+        "classes": "^TradePromotionApproval$",
+        "triggers": "^TradePromotionTrigger$"
+      },
+      "verdict": "configure",
+      "standard": "Approval processes or Flow approval orchestration, with the threshold held as configuration",
+      "licence": "Sales Cloud",
+      "reference": "Salesforce Help: Approval processes; Flow approval orchestration"
+    },
+    {
+      "id": "orders",
+      "area": "Order to cash",
+      "capability": "Order capture",
+      "match": {
+        "objects": "^Order_Request(_Line)?__c$"
+      },
+      "verdict": "adopt",
+      "standard": "Standard Order and Order Product, with order totals kept by the platform",
+      "licence": "Sales Cloud",
+      "reference": "Salesforce Help: Orders"
+    },
+    {
+      "id": "order-totals",
+      "area": "Order to cash",
+      "capability": "Order totals",
+      "match": {
+        "classes": "^OrderRequestService$",
+        "triggers": "^OrderRequestLineTrigger$"
+      },
+      "verdict": "configure",
+      "standard": "Roll-up summary field (or the standard Order total) instead of trigger code",
+      "licence": "Sales Cloud",
+      "reference": "Salesforce Help: Roll-up summary fields"
+    },
+    {
+      "id": "credit-check",
+      "area": "Order to cash",
+      "capability": "Credit check with the ERP",
+      "match": {
+        "classes": "^ErpCredit\\w*$",
+        "fields": "^Account\\.(Credit_Limit|Credit_Status)__c$"
+      },
+      "verdict": "keep",
+      "standard": "No standard equivalent: keep one integration, called through the integration layer with a named credential",
+      "licence": "",
+      "reference": "Salesforce Help: Named credentials"
+    },
+    {
+      "id": "distributor-stock",
+      "area": "Order to cash",
+      "capability": "Distributor stock reporting",
+      "match": {
+        "objects": "^Distributor_Stock__c$"
+      },
+      "verdict": "keep",
+      "standard": "No standard equivalent in Consumer Goods Cloud: keep one global object and load it from distributor feeds",
+      "licence": "",
+      "reference": ""
+    },
+    {
+      "id": "targets",
+      "area": "Sales performance",
+      "capability": "Sales targets",
+      "match": {
+        "objects": "^(Sales_Target|Target|Quota)__c$"
+      },
+      "verdict": "configure",
+      "standard": "Collaborative Forecasts with quotas by user, territory or product family",
+      "licence": "Sales Cloud",
+      "reference": "Salesforce Help: Collaborative Forecasts, quotas"
+    },
+    {
+      "id": "market",
+      "area": "Customer master",
+      "capability": "Market and channel segmentation",
+      "match": {
+        "fields": "^Account\\.(Market|Customer_Channel|Customer_Tier|Store_Format)__c$"
+      },
+      "verdict": "configure",
+      "standard": "Global value sets shared by all orgs, with Enterprise Territory Management for market ownership",
+      "licence": "Sales Cloud",
+      "reference": "Salesforce Help: Global value sets; Enterprise Territory Management"
+    },
+    {
+      "id": "tax-id",
+      "area": "Customer master",
+      "capability": "Customer tax registration",
+      "match": {
+        "fields": "^Account\\.(VAT_Number|GST_Number|Tax_ID|Tax_Number)__c$"
+      },
+      "verdict": "keep",
+      "standard": "No standard tax ID field on Account: keep one global field with per-market format rules",
+      "licence": "",
+      "reference": ""
+    },
+    {
+      "id": "erp-key",
+      "area": "Customer master",
+      "capability": "ERP customer key",
+      "match": {
+        "fields": "^Account\\.(Legacy_ERP_Code|ERP_Code|ERP_Id)__c$"
+      },
+      "verdict": "keep",
+      "standard": "Keep as an external ID field so integrations can upsert by the ERP key",
+      "licence": "",
+      "reference": "Salesforce Help: External ID fields"
+    },
+    {
+      "id": "consent",
+      "area": "Customer master",
+      "capability": "Contact consent",
+      "match": {
+        "fields": "^Contact\\.(GDPR_Consent|Consent_Date|Marketing_Consent)__c$"
+      },
+      "verdict": "adopt",
+      "standard": "Individual and contact point consent objects with data use purposes",
+      "licence": "Sales Cloud",
+      "reference": "Salesforce Help: Consent management (Individual, contact point consent)"
+    },
+    {
+      "id": "product-master",
+      "area": "Product master",
+      "capability": "Product attributes",
+      "match": {
+        "fields": "^Product2\\.(Brand|Category|EAN|Case_Size)__c$"
+      },
+      "verdict": "keep",
+      "standard": "Keep as fields on Product, owned by the product master (one definition for all orgs)",
+      "licence": "",
+      "reference": ""
+    },
+    {
+      "id": "subscriptions",
+      "area": "Other",
+      "capability": "Subscriptions",
+      "match": {
+        "objects": "^Subscription(_Line)?__c$",
+        "classes": "^(Subscription|Opportunity)\\w*$",
+        "triggers": "^(Subscription|Opportunity)\\w*$"
+      },
+      "verdict": "adopt",
+      "standard": "Revenue Cloud subscription management",
+      "licence": "Revenue Cloud",
+      "reference": "Salesforce Help: Revenue Cloud"
+    },
+    {
+      "id": "rollup-tool",
+      "area": "Platform",
+      "capability": "Roll-ups between related records",
+      "match": {
+        "packages": "^Declarative Lookup Rollup Summaries"
+      },
+      "verdict": "configure",
+      "standard": "Roll-up summary fields where the relationship is master-detail, record-triggered flows elsewhere",
+      "licence": "",
+      "reference": "Salesforce Help: Roll-up summary fields; record-triggered flows"
+    }
+  ],
+  "rules": {
+    "retireWhenFillBelow": 1,
+    "retireObjectsWithoutRecords": true
+  }
+}

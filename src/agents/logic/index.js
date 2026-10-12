@@ -1,14 +1,14 @@
 // Logic agent. Two parts:
 //  1. Apex: translates the Apex methods that triggers on the object family call into PostgreSQL with
-//     Claude, using agents/logic/prompt.md. Output goes to blueprint/translations/ with
-//     "reviewed": false. Methods it cannot translate yet (for example, they write to an object outside
+//     a language model, using agents/logic/prompt.md. Output goes to blueprint/translations/ with
+//     "reviewed": false, as a proposal for review. Methods it cannot translate yet (for example, they write to an object outside
 //     the family) are recorded in blueprint/translations/blocked.json with the reason.
 //  2. Rules: compiles validation rules into guards and includes the translations
 //     (emit-postgres.js --parts guards,translations). Row-local rules are CHECK constraints emitted
 //     with the tables by the Schema agent.
 const fs = require('fs');
 const path = require('path');
-const { MODEL, loadPrompt, ask, dryRun, fenced } = require('../lib/claude');
+const { MODEL, loadPrompt, ask, dryRun, fenced } = require('../lib/llm');
 
 const readJson = (f, dflt) => (fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : dflt);
 

@@ -1,4 +1,4 @@
-# ADR-010: Apex is translated by an AI agent and merged only after review
+# ADR-010: Apex translations are proposed by the Logic agent and merged only after review
 
 Status: Accepted · Owner: Modelling agent · Blueprint `49f2c22e6c8f`
 

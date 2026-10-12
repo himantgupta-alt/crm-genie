@@ -3,6 +3,8 @@
 //
 //   CRMGENIE_USERS   JSON: { "<username>": { "name": "<display name>", "hash": "scrypt$<salt b64>$<hash b64>" } }
 //   SESSION_SECRET   32+ random characters; signs the session cookie
+//   LOGIN_PREFILL    optional JSON { "username": "...", "password": "..." }; filled into the sign-in form so
+//                    demo reviewers only click Log In. Anyone who can open /login can read it.
 //
 // Without CRMGENIE_USERS the app runs open only outside production (local development and the smoke test).
 const crypto = require('crypto');
@@ -10,13 +12,18 @@ const crypto = require('crypto');
 const COOKIE = 'cg_session';
 const TTL_MS = 12 * 60 * 60 * 1000;
 const REMEMBER_MS = 30 * 24 * 60 * 60 * 1000; // "Keep me signed in"
-const PUBLIC = new Set(['/health', '/login', '/auth/login', '/app.css', '/login.js']);
+const PUBLIC = new Set(['/health', '/login', '/auth/login', '/auth/prefill', '/app.css', '/login.js']);
 
 function loadUsers() {
   if (!process.env.CRMGENIE_USERS) return null;
   try { return JSON.parse(process.env.CRMGENIE_USERS); } catch { throw new Error('CRMGENIE_USERS is not valid JSON'); }
 }
 const USERS = loadUsers();
+function loadPrefill() {
+  if (!process.env.LOGIN_PREFILL) return {};
+  try { return JSON.parse(process.env.LOGIN_PREFILL); } catch { throw new Error('LOGIN_PREFILL is not valid JSON'); }
+}
+const PREFILL = loadPrefill();
 const SECRET = process.env.SESSION_SECRET || '';
 const PROD = process.env.NODE_ENV === 'production';
 const enabled = !!USERS;
@@ -65,6 +72,10 @@ function limited(ip) {
 function install(app, pub) {
   const path = require('path');
   app.get('/login', (_req, res) => res.sendFile(path.join(pub, 'login.html')));
+  app.get('/auth/prefill', (_req, res) => {
+    res.set('Cache-Control', 'no-store');
+    res.json({ username: PREFILL.username || '', password: PREFILL.password || '' });
+  });
 
   app.post('/auth/login', (req, res) => {
     const ip = req.ip;

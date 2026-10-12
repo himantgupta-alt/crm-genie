@@ -11,14 +11,14 @@
   ],
   "guardrails": "guardrails/guardrails.json",
   "kind": "llm",
-  "role": "Turns business logic into database logic: compiles validation rules into constraints and guards, and translates Apex that triggers call into PostgreSQL with Claude.",
+  "role": "Turns business logic into database logic: compiles validation rules into constraints and guards, and proposes PostgreSQL translations of the Apex that triggers call, using a language model, for a reviewer to approve.",
   "inputs": [
     "adlc/2-design/modelling/blueprint/blueprint.json",
     "adlc/1-discover/extraction/logic/apex.json",
     "adlc/3-build/logic/translations/ (approved examples)"
   ],
   "tools": [
-    "Claude (model in AGENT_MODEL, default claude-opus-5-5)",
+    "language model (model id in AGENT_MODEL, key in LLM_API_KEY)",
     "rule compiler (src/generators/sql-expr.js)"
   ],
   "prompt": "agents/logic/prompt.md",

@@ -19,7 +19,7 @@ const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replac
 const today = new Date().toISOString().slice(0, 10);
 const longDate = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
 
-// Ascendion footer mark, from the slide layout in presentations/Salesforce-Exit-Agentic-Approach.pptx.
+// Ascendion footer mark, from the slide layout in presentations/Salesforce-Exit-Approach.pptx.
 const svgUrl = (s) => `url("data:image/svg+xml,${encodeURIComponent(s)}")`;
 const LOGO = svgUrl('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 78.1 82.45"><path d="M39.05 0 22.34 3.55 0 82.45 19.11 78.38 25.8 54.11 39.05 51.29 39.05 34.79 30.71 36.54 39.05 6.4Z"/><path d="M39.05 0 39.05 6.4 47.4 36.54 39.05 34.79 39.05 51.29 52.3 54.11 58.99 78.38 78.1 82.45 55.76 3.55Z" fill="#616161"/></svg>');
 const LINE = '<svg class="asc-line" viewBox="0 0 12190038 170257" preserveAspectRatio="none"><path d="M12190038 161210L12188267 170195L11819153 169815L11088330 11895L10337133 170258L0 170131L1772 161147L10322201 161337L11091304 0L11831048 160894Z"/></svg>';

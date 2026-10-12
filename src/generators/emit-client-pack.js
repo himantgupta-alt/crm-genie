@@ -72,13 +72,13 @@ const simpleModel = (() => {
   return lines.join('\n');
 })();
 
-// The agents, in the words of slide 2 of presentations/Salesforce-Exit-Agentic-Approach.pptx. The slide's third
+// The agents, in the words of slide 2 of presentations/Salesforce-Exit-Approach.pptx. The slide's third
 // box (what Salesforce keeps, packages, credentials, history...) lives in the one section that owns that topic.
 const AGENTS = {
   extraction: { name: 'Extraction agent', does: 'Reads the whole org through the Salesforce CLI and APIs: objects, fields, rules, flows, code, security, 88 kinds of configuration and every record.', produces: ['Schema, rules and data files', 'Full metadata copy (force-app)', '`gap-register.md`, with evidence from the org'] },
   modelling: { name: 'Modelling agent', does: 'Turns the extract into one platform-independent model of the org, with business-friendly names for every object and field.', produces: ['`blueprint.json` (the model)', '`normalise-report.md`', '`packages.md`', `High-level design, low-level design and ${adrCount} decision records`] },
   schema: { name: 'Schema agent', does: 'Generates the database: tables, keys, required fields, drop-down values, formulas and roll-up totals.', produces: ['Tables (`010_tables.sql`)', 'Calculated views (`020_views.sql`)', 'Roll-up totals (`030_rollups.sql`)'] },
-  logic: { name: 'Logic agent', does: 'Turns validation rules into database checks, and translates custom code (Apex) with AI for an engineer to approve.', produces: ['Rule checks (`040_guards.sql`)', 'Translated code (`050_translations.sql`)'] },
+  logic: { name: 'Logic agent', does: 'Turns validation rules into database checks, and proposes translations of custom code (Apex), drafted with a language model, for an engineer to approve.', produces: ['Rule checks (`040_guards.sql`)', 'Translated code (`050_translations.sql`)'] },
   security: { name: 'Security agent', does: 'Turns profiles, permission sets and sharing into database roles, field-level access and row-level security.', produces: ['Roles and access (`060_security.sql`)', '`credentials.md`'] },
   dataLoad: { name: 'Data load agent', does: 'Loads every record in dependency order, keeps the Salesforce record IDs, then recomputes totals.', produces: ['Loaded database and load report', '`history-archive.md`', '`work-in-progress.md`'] },
   verification: { name: 'Verification agent', does: 'Recomputes every calculated value and compares it with what Salesforce stored, then replays the business rule cases.', produces: ['Parity report', '`platform-behaviour.md`'] },
@@ -113,7 +113,7 @@ doc('00-overview', { pdf: '00 - Overview', title: 'Moving Subscription Managemen
     ['5 Validate', 'Does it behave the same?', 'Verification, Repair', 'Calculated values and rule outcomes checked against the org'],
     ['6 Go-live', 'How does it go live?', 'CI/CD pipeline', 'Released to the cloud through CI/CD, one domain at a time'],
   ]), '',
-  fig(D.architecture, 'The agentic workflow: one or more agents per phase, with a repair loop when a check fails'),
+  fig(D.architecture, 'The agent workflow: one or more agents per phase, with a repair loop when a check fails'),
   '## 3. Where we are today', '',
   table(['Phase', 'Status', 'Results in'], [
     ['1 Discover', 'Complete', 'Agent 01 - Discover, section 4'],
@@ -288,7 +288,7 @@ doc('05-validate', { pdf: 'Agent 05 - Validate', title: 'Validate: does it behav
   GEN --> CMP`, 'Every check compares the two systems; a failure goes through the repair loop'),
   'We apply a fix only after a reviewer approves it, then run every check again. The fix goes into the generator, never into the output.', '',
   '## 6. What we test', '',
-  table(['Level', 'What it proves'], [['Functional', 'Each rule and automation gives Salesforce’s outcome'], ['Data', 'Every record and calculated value matches'], ['Security', 'Each role can do exactly what it can do today'], ['User acceptance', 'Business users sign off business scenarios'], ['Agents', 'The AI agents’ work meets our quality bar']]), '',
+  table(['Level', 'What it proves'], [['Functional', 'Each rule and automation gives Salesforce’s outcome'], ['Data', 'Every record and calculated value matches'], ['Security', 'Each role can do exactly what it can do today'], ['User acceptance', 'Business users sign off business scenarios'], ['Agents', 'Each agent’s output meets our quality bar']]), '',
   '## 7. Built-in platform behaviour', '',
   'These behaviours are how Salesforce itself works, so no configuration describes them. We build each one into the platform once, and test it by running the same operation in both systems.', '',
   firstTable(PLATFORM), '',
@@ -354,10 +354,10 @@ doc('07-best-practices', { pdf: 'KB 01 - Best Practices', title: 'Engineering be
   list(['Schema changes are numbered scripts, applied in order, each with one owner, rebuildable from the model', 'Business rules as constraints, so every client of the data gets the same rule', 'Names come from the business vocabulary, in one consistent case style', 'Every change is backward compatible during a migration window (expand, then contract)']), '',
   '## 5. Testing', '',
   list(['The source system is the reference: expected values come from it (golden-master testing)', 'Every behaviour has a test; nothing is released with a failing test', 'Tests are code, versioned with what they test, and run in CI on every change', 'Security has its own tests: each role tries what it may and may not do']), '',
-  '## 6. AI-assisted engineering', '',
+  '## 6. Model-drafted code and review', '',
   table(['Guardrail', 'How we enforce it'], [
-    ['AI output is a proposal', 'An engineer reviews and approves it before it merges'],
-    ['The model is never in the runtime path', 'AI writes code at build time; the running system has no AI dependency'],
+    ['Model output is a proposal', 'An engineer reviews and approves it before it merges'],
+    ['The model is never in the runtime path', 'A language model is used only at build time; the running system does not depend on one'],
     ['Each agent stays in its lane', 'Each agent may only write to its own folder'],
     ['Human approval at every phase', 'Approve, edit or return at each gate, fully audited'],
     ['No secrets or personal data in prompts', 'Inputs are masked and scanned automatically'],

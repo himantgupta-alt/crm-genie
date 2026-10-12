@@ -7,6 +7,7 @@ Every output of the migration lives here, in the folder of the agent that produc
 | Phase | Agent | Outputs | Declared outputs |
 | --- | --- | --- | --- |
 | 1 Discover | Extraction agent | [`adlc/1-discover/extraction/`](1-discover/extraction/README.md) | 13 |
+| 1 Discover | Assessment agent | [`adlc/1-discover/assessment/`](1-discover/assessment/README.md) | 4 |
 | 2 Design | Modelling agent | [`adlc/2-design/modelling/`](2-design/modelling/README.md) | 8 |
 | 3 Build | Schema agent | [`adlc/3-build/schema/`](3-build/schema/README.md) | 4 |
 | 3 Build | Logic agent | [`adlc/3-build/logic/`](3-build/logic/README.md) | 4 |

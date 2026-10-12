@@ -28,7 +28,7 @@ Generates the database: tables, keys, required fields, drop-down values, formula
 
 **What it does**
 
-Turns validation rules into database checks, and translates custom code (Apex) with AI for an engineer to approve.
+Turns validation rules into database checks, and proposes translations of custom code (Apex), drafted with a language model, for an engineer to approve.
 
 **What it produces**
 

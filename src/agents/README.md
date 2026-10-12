@@ -8,7 +8,7 @@ Each agent is a folder with a spec and an entry point:
 agents/
   workflow.json          phases, agents per phase, review gates
   run.js                 runs the workflow (node agents/run.js --list shows every agent)
-  lib/claude.js          Claude client shared by the LLM agents
+  lib/llm.js             language-model client shared by the Logic and Repair agents
   extraction/            agent.json + index.js
   modelling/             agent.json + index.js
   schema/                agent.json + index.js
@@ -27,16 +27,16 @@ checks at the gate. `index.js` runs the agent and returns its status and a summa
 | 1 Discover | Extraction | Deterministic | `src/generators/extract-schema.js`, `extract-logic.js`, `export-data.js`, `extract-inventory.js`, Salesforce CLI | `output/schema`, `output/logic`, `output/data`, `output/inventory` (gap register) |
 | 2 Design | Modelling | Deterministic | `normalise-blueprint.js`, `validate-blueprint.js`, `formula.js`, `emit-docs.js` | `adlc/2-design/modelling/blueprint/blueprint.json`, `docs/HLD.md`, `docs/LLD.md` (with diagrams) |
 | 3 Build | Schema | Deterministic | `emit-postgres.js --parts runtime,tables,views,rollups` | `adlc/3-build/000–030` |
-| 3 Build | Logic | Claude for Apex, deterministic for rules | `logic/prompt.md`; `emit-postgres.js --parts guards,translations` | `adlc/3-build/logic/translations/`, `adlc/3-build/040–050` |
+| 3 Build | Logic | Language model proposes Apex translations (reviewed); deterministic for rules | `logic/prompt.md`; `emit-postgres.js --parts guards,translations` | `adlc/3-build/logic/translations/`, `adlc/3-build/040–050` |
 | 3 Build | Security | Deterministic | `emit-postgres.js --parts security` | `adlc/3-build/060_security.sql` |
 | 4 Migrate | Data load | Deterministic | `src/app/scripts/load.js` | Loaded target database |
 | 5 Validate | Verification | Deterministic | `src/verification/run.js` + `cases.json` | `src/verification/report.json` |
-| 5 Validate | Repair (on failure) | Claude | `repair/prompt.md` | Proposed generator patch |
+| 5 Validate | Repair (on failure) | Language model proposes a patch (reviewed) | `repair/prompt.md` | Proposed generator patch |
 | 6 Go-live | CI/CD pipeline | Pipeline | `.github/workflows/crm-genie.yml` | App deployed to Azure App Service |
 
 The deterministic agents do most of the work: the same input gives the same output, so results are
-repeatable and reviewable. Claude is used where code must be understood and rewritten (Apex) and where a
-failed check must be diagnosed. LLM output is never applied without a reviewer's approval, and every
+repeatable and reviewable. A language model step is used in two places: the Logic agent proposes
+translations of Apex, and the Repair agent proposes a generator fix when a check fails. These proposals are never applied without a reviewer's approval, and every
 change is then tested by the Verification agent and the pipeline.
 
 ## Running the workflow
@@ -48,11 +48,11 @@ node run.js                 # Design → Go-live, asks for approval at each gate
 node run.js --from discover # include extraction (needs: sf org login web --alias myorg)
 node run.js --to validate   # stop after a phase
 node run.js --yes           # approve every gate automatically (CI)
-node run.js --dry-run       # LLM agents save their prompts without calling Claude
+node run.js --dry-run       # LLM agents save their prompts without calling the model
 ```
 
-LLM agents use `ANTHROPIC_API_KEY` (or an `ant auth login` profile) and the model in `AGENT_MODEL`
-(default `claude-opus-5-5`). Without credentials they run as a dry run.
+The Logic and Repair agents read the API key from `LLM_API_KEY` (the SDK's default key variable also works)
+and the model id from `AGENT_MODEL` (default set in `lib/llm.js`). Without credentials they run as a dry run.
 
 Each run writes `src/agents/runs/<run-id>/` (git-ignored, because it can contain org data): `run.json` with
 every agent's result and every gate decision (reviewer, time, comment), and the exact prompts and
@@ -106,8 +106,8 @@ tests; the remaining client-input items are covered in one assessment workshop.
 
 ## Status for the Subscription domain
 
-- Translated: `SubscriptionService.applyDefaults` (produced with `logic/prompt.md` in an interactive Claude
-  session on 2026-10-01, before the runner existed).
+- Translated: `SubscriptionService.applyDefaults` (produced with `logic/prompt.md` in an interactive session
+  on 2026-10-01, before the runner existed).
 - Pending: `SubscriptionService.handleStatusChange` and `OpportunityService.createSubscriptionsForWonDeals`.
   Both write to objects outside the migrated family (Task, and Subscription from Opportunity), so the
   Logic agent is expected to report them as blocked until those objects are in scope.

@@ -26,6 +26,9 @@ const P = {
   DATA: at('1-discover', 'extraction', 'data'),
   INVENTORY: at('1-discover', 'extraction', 'inventory'),
 
+  // 1 Discover · Assessment agent (multi-org as-is and fit-gap)
+  ASSESSMENT: at('1-discover', 'assessment'),
+
   // 2 Design · Modelling agent
   MODELLING: at('2-design', 'modelling'),
   BLUEPRINT_DIR: at('2-design', 'modelling', 'blueprint'),

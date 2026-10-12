@@ -1,0 +1,1086 @@
+{
+  "owner": "Assessment agent",
+  "generatedBy": "src/generators/emit-assessment.js",
+  "client": "Brightwell Consumer Goods",
+  "sampleData": true,
+  "note": "Fictional company and sample markets, built in three Developer Edition orgs for the demo.",
+  "marketsExpected": 37,
+  "verdicts": {
+    "adopt": "Adopt standard",
+    "configure": "Replace with configuration",
+    "keep": "Keep and harmonise",
+    "retire": "Retire",
+    "review": "Review in workshop"
+  },
+  "findings": [
+    "1 of 3 orgs extracted; 14 of 37 markets found in the extracted orgs.",
+    "68 custom components classified: 34% adopt standard, 12% replace with configuration, 10% keep and harmonise, 1% retire, 43% review in workshop.",
+    "Cross-org comparison starts once a second org is extracted.",
+    "1 component is unused and can be retired before any move.",
+    "29 components are not matched to a known capability and go on the workshop agenda."
+  ],
+  "orgs": [
+    {
+      "region": "eu",
+      "label": "Europe",
+      "extracted": true,
+      "edition": "Developer Edition",
+      "markets": [
+        {
+          "name": "United Kingdom",
+          "customers": 4
+        },
+        {
+          "name": "Ireland",
+          "customers": 4
+        },
+        {
+          "name": "France",
+          "customers": 4
+        },
+        {
+          "name": "Germany",
+          "customers": 4
+        },
+        {
+          "name": "Netherlands",
+          "customers": 4
+        },
+        {
+          "name": "Belgium",
+          "customers": 4
+        },
+        {
+          "name": "Spain",
+          "customers": 4
+        },
+        {
+          "name": "Portugal",
+          "customers": 4
+        },
+        {
+          "name": "Italy",
+          "customers": 4
+        },
+        {
+          "name": "Poland",
+          "customers": 4
+        },
+        {
+          "name": "Sweden",
+          "customers": 4
+        },
+        {
+          "name": "Denmark",
+          "customers": 4
+        },
+        {
+          "name": "Switzerland",
+          "customers": 4
+        },
+        {
+          "name": "Austria",
+          "customers": 4
+        }
+      ],
+      "counts": {
+        "customObjects": 8,
+        "customFields": 88,
+        "fieldsOnStandard": 39,
+        "apexClasses": 4,
+        "apexTests": 2,
+        "apexLines": 184,
+        "triggers": 3,
+        "flows": 1,
+        "validationRules": 11,
+        "packages": 2,
+        "customRecords": 1194,
+        "activeUsers": 4,
+        "reports": 30
+      },
+      "integrations": {
+        "namedCredentials": [],
+        "remoteSites": [
+          "ApexDevNet"
+        ],
+        "calloutClasses": []
+      },
+      "objects": [
+        {
+          "name": "Promotion_Product__c",
+          "label": "Promotion Product",
+          "records": 56,
+          "fields": 3
+        },
+        {
+          "name": "Sales_Target__c",
+          "label": "Sales Target",
+          "records": 28,
+          "fields": 4
+        },
+        {
+          "name": "Shelf_Check__c",
+          "label": "Shelf Check",
+          "records": 378,
+          "fields": 5
+        },
+        {
+          "name": "Store_Assortment__c",
+          "label": "Store Assortment",
+          "records": 168,
+          "fields": 3
+        },
+        {
+          "name": "Store_Visit__c",
+          "label": "Store Visit",
+          "records": 210,
+          "fields": 6
+        },
+        {
+          "name": "Subscription_Line__c",
+          "label": "Subscription Line",
+          "records": 219,
+          "fields": 6
+        },
+        {
+          "name": "Subscription__c",
+          "label": "Subscription",
+          "records": 107,
+          "fields": 15
+        },
+        {
+          "name": "Trade_Promotion__c",
+          "label": "Trade Promotion",
+          "records": 28,
+          "fields": 7
+        }
+      ],
+      "verdicts": {
+        "adopt": 23,
+        "configure": 8,
+        "keep": 7,
+        "retire": 1,
+        "review": 29
+      }
+    },
+    {
+      "region": "apac",
+      "label": "APAC",
+      "extracted": false
+    },
+    {
+      "region": "amer",
+      "label": "Americas & LATAM",
+      "extracted": false
+    }
+  ],
+  "capabilities": [
+    {
+      "id": "store-visits",
+      "area": "Retail execution",
+      "capability": "Store visits",
+      "verdict": "adopt",
+      "standard": "Consumer Goods Cloud: Visit and Retail Store, with visit tasks on the mobile app",
+      "licence": "Consumer Goods Cloud",
+      "reference": "Salesforce Help: Consumer Goods Cloud, Retail Execution",
+      "perOrg": {
+        "eu": [
+          "Store_Visit__c"
+        ]
+      },
+      "inOrgs": 1,
+      "builtDifferently": false
+    },
+    {
+      "id": "in-store-audit",
+      "area": "Retail execution",
+      "capability": "Shelf checks and in-store audits",
+      "verdict": "adopt",
+      "standard": "Consumer Goods Cloud: assessment tasks and retail store KPIs recorded during a visit",
+      "licence": "Consumer Goods Cloud",
+      "reference": "Salesforce Help: Consumer Goods Cloud, Retail Execution (assessment tasks, KPIs)",
+      "perOrg": {
+        "eu": [
+          "Shelf_Check__c"
+        ]
+      },
+      "inOrgs": 1,
+      "builtDifferently": false
+    },
+    {
+      "id": "assortment",
+      "area": "Retail execution",
+      "capability": "Store assortment and must-stock lists",
+      "verdict": "adopt",
+      "standard": "Consumer Goods Cloud: product assortments assigned to retail store groups",
+      "licence": "Consumer Goods Cloud",
+      "reference": "Salesforce Help: Consumer Goods Cloud, product assortments",
+      "perOrg": {
+        "eu": [
+          "Store_Assortment__c"
+        ]
+      },
+      "inOrgs": 1,
+      "builtDifferently": false
+    },
+    {
+      "id": "trade-promotions",
+      "area": "Revenue growth",
+      "capability": "Trade promotions and deals",
+      "verdict": "adopt",
+      "standard": "Consumer Goods Cloud Trade Promotion Management: promotion planning, funds and post-event analysis",
+      "licence": "Trade Promotion Management (add-on)",
+      "reference": "Salesforce Help: Consumer Goods Cloud, Trade Promotion Management",
+      "perOrg": {
+        "eu": [
+          "Promotion_Product__c",
+          "Trade_Promotion__c",
+          "Trade_Promotion__c.Budget_Required_To_Submit",
+          "Trade_Promotion__c.End_After_Start"
+        ]
+      },
+      "inOrgs": 1,
+      "builtDifferently": false
+    },
+    {
+      "id": "promotion-approval",
+      "area": "Revenue growth",
+      "capability": "Promotion approval",
+      "verdict": "configure",
+      "standard": "Approval processes or Flow approval orchestration, with the threshold held as configuration",
+      "licence": "Sales Cloud",
+      "reference": "Salesforce Help: Approval processes; Flow approval orchestration",
+      "perOrg": {
+        "eu": [
+          "TradePromotionApproval",
+          "TradePromotionTrigger"
+        ]
+      },
+      "inOrgs": 1,
+      "builtDifferently": false
+    },
+    {
+      "id": "targets",
+      "area": "Sales performance",
+      "capability": "Sales targets",
+      "verdict": "configure",
+      "standard": "Collaborative Forecasts with quotas by user, territory or product family",
+      "licence": "Sales Cloud",
+      "reference": "Salesforce Help: Collaborative Forecasts, quotas",
+      "perOrg": {
+        "eu": [
+          "Sales_Target__c"
+        ]
+      },
+      "inOrgs": 1,
+      "builtDifferently": false
+    },
+    {
+      "id": "market",
+      "area": "Customer master",
+      "capability": "Market and channel segmentation",
+      "verdict": "configure",
+      "standard": "Global value sets shared by all orgs, with Enterprise Territory Management for market ownership",
+      "licence": "Sales Cloud",
+      "reference": "Salesforce Help: Global value sets; Enterprise Territory Management",
+      "perOrg": {
+        "eu": [
+          "Account.Customer_Channel__c",
+          "Account.Customer_Tier__c",
+          "Account.Market__c",
+          "Account.Store_Format__c"
+        ]
+      },
+      "inOrgs": 1,
+      "builtDifferently": false
+    },
+    {
+      "id": "tax-id",
+      "area": "Customer master",
+      "capability": "Customer tax registration",
+      "verdict": "keep",
+      "standard": "No standard tax ID field on Account: keep one global field with per-market format rules",
+      "licence": "",
+      "reference": "",
+      "perOrg": {
+        "eu": [
+          "Account.VAT_Number__c",
+          "Account.VAT_Format"
+        ]
+      },
+      "inOrgs": 1,
+      "builtDifferently": false
+    },
+    {
+      "id": "erp-key",
+      "area": "Customer master",
+      "capability": "ERP customer key",
+      "verdict": "keep",
+      "standard": "Keep as an external ID field so integrations can upsert by the ERP key",
+      "licence": "",
+      "reference": "Salesforce Help: External ID fields",
+      "perOrg": {
+        "eu": [
+          "Account.Legacy_ERP_Code__c"
+        ]
+      },
+      "inOrgs": 1,
+      "builtDifferently": false
+    },
+    {
+      "id": "consent",
+      "area": "Customer master",
+      "capability": "Contact consent",
+      "verdict": "adopt",
+      "standard": "Individual and contact point consent objects with data use purposes",
+      "licence": "Sales Cloud",
+      "reference": "Salesforce Help: Consent management (Individual, contact point consent)",
+      "perOrg": {
+        "eu": [
+          "Contact.Consent_Date__c",
+          "Contact.GDPR_Consent__c"
+        ]
+      },
+      "inOrgs": 1,
+      "builtDifferently": false
+    },
+    {
+      "id": "product-master",
+      "area": "Product master",
+      "capability": "Product attributes",
+      "verdict": "keep",
+      "standard": "Keep as fields on Product, owned by the product master (one definition for all orgs)",
+      "licence": "",
+      "reference": "",
+      "perOrg": {
+        "eu": [
+          "Product2.Brand__c",
+          "Product2.Case_Size__c",
+          "Product2.Category__c",
+          "Product2.EAN__c"
+        ]
+      },
+      "inOrgs": 1,
+      "builtDifferently": false
+    },
+    {
+      "id": "subscriptions",
+      "area": "Other",
+      "capability": "Subscriptions",
+      "verdict": "adopt",
+      "standard": "Revenue Cloud subscription management",
+      "licence": "Revenue Cloud",
+      "reference": "Salesforce Help: Revenue Cloud",
+      "perOrg": {
+        "eu": [
+          "Subscription_Line__c",
+          "Subscription__c",
+          "OpportunityService",
+          "SubscriptionRenewalBatch",
+          "SubscriptionService",
+          "OpportunityTrigger",
+          "SubscriptionTrigger",
+          "Subscription_At_Risk_Alert",
+          "Subscription__c.Active_Requires_MRR",
+          "Subscription__c.Cancellation_Reason_Required",
+          "Subscription__c.End_Date_After_Start_Date",
+          "Subscription__c.No_Reactivation_After_Cancel",
+          "Subscription_Line__c.Parent_Not_Cancelled",
+          "Subscription_Line__c.Quantity_Must_Be_Positive"
+        ]
+      },
+      "inOrgs": 1,
+      "builtDifferently": false
+    },
+    {
+      "id": "rollup-tool",
+      "area": "Platform",
+      "capability": "Roll-ups between related records",
+      "verdict": "configure",
+      "standard": "Roll-up summary fields where the relationship is master-detail, record-triggered flows elsewhere",
+      "licence": "",
+      "reference": "Salesforce Help: Roll-up summary fields; record-triggered flows",
+      "perOrg": {
+        "eu": [
+          "Declarative Lookup Rollup Summaries Tool"
+        ]
+      },
+      "inOrgs": 1,
+      "builtDifferently": false
+    }
+  ],
+  "items": [
+    {
+      "org": "eu",
+      "kind": "Apex class",
+      "name": "OpportunityService",
+      "capability": "subscriptions",
+      "verdict": "adopt",
+      "reason": "Revenue Cloud subscription management",
+      "lines": 50,
+      "objects": [
+        "Subscription__c"
+      ]
+    },
+    {
+      "org": "eu",
+      "kind": "Apex class",
+      "name": "SubscriptionRenewalBatch",
+      "capability": "subscriptions",
+      "verdict": "adopt",
+      "reason": "Revenue Cloud subscription management",
+      "lines": 41,
+      "objects": [
+        "Subscription__c"
+      ]
+    },
+    {
+      "org": "eu",
+      "kind": "Apex class",
+      "name": "SubscriptionService",
+      "capability": "subscriptions",
+      "verdict": "adopt",
+      "reason": "Revenue Cloud subscription management",
+      "lines": 70,
+      "objects": [
+        "Subscription__c"
+      ]
+    },
+    {
+      "org": "eu",
+      "kind": "Apex class",
+      "name": "TradePromotionApproval",
+      "capability": "promotion-approval",
+      "verdict": "configure",
+      "reason": "Approval processes or Flow approval orchestration, with the threshold held as configuration",
+      "lines": 10,
+      "objects": [
+        "Trade_Promotion__c"
+      ]
+    },
+    {
+      "org": "eu",
+      "kind": "Apex trigger",
+      "name": "OpportunityTrigger",
+      "capability": "subscriptions",
+      "verdict": "adopt",
+      "reason": "Revenue Cloud subscription management",
+      "object": "Opportunity",
+      "lines": 3
+    },
+    {
+      "org": "eu",
+      "kind": "Apex trigger",
+      "name": "SubscriptionTrigger",
+      "capability": "subscriptions",
+      "verdict": "adopt",
+      "reason": "Revenue Cloud subscription management",
+      "object": "Subscription__c",
+      "lines": 7
+    },
+    {
+      "org": "eu",
+      "kind": "Apex trigger",
+      "name": "TradePromotionTrigger",
+      "capability": "promotion-approval",
+      "verdict": "configure",
+      "reason": "Approval processes or Flow approval orchestration, with the threshold held as configuration",
+      "object": "Trade_Promotion__c",
+      "lines": 3
+    },
+    {
+      "org": "eu",
+      "kind": "Custom field",
+      "name": "Account.Active__c",
+      "capability": null,
+      "verdict": "review",
+      "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "fill": 13,
+      "type": "picklist"
+    },
+    {
+      "org": "eu",
+      "kind": "Custom field",
+      "name": "Account.Customer_Channel__c",
+      "capability": "market",
+      "verdict": "configure",
+      "reason": "Global value sets shared by all orgs, with Enterprise Territory Management for market ownership",
+      "fill": 72,
+      "type": "picklist"
+    },
+    {
+      "org": "eu",
+      "kind": "Custom field",
+      "name": "Account.Customer_Tier__c",
+      "capability": "market",
+      "verdict": "configure",
+      "reason": "Global value sets shared by all orgs, with Enterprise Territory Management for market ownership",
+      "fill": 72,
+      "type": "picklist"
+    },
+    {
+      "org": "eu",
+      "kind": "Custom field",
+      "name": "Account.CustomerPriority__c",
+      "capability": null,
+      "verdict": "review",
+      "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "fill": 12,
+      "type": "picklist"
+    },
+    {
+      "org": "eu",
+      "kind": "Custom field",
+      "name": "Account.Legacy_ERP_Code__c",
+      "capability": "erp-key",
+      "verdict": "keep",
+      "reason": "Keep as an external ID field so integrations can upsert by the ERP key",
+      "fill": 44,
+      "type": "string"
+    },
+    {
+      "org": "eu",
+      "kind": "Custom field",
+      "name": "Account.Market__c",
+      "capability": "market",
+      "verdict": "configure",
+      "reason": "Global value sets shared by all orgs, with Enterprise Territory Management for market ownership",
+      "fill": 72,
+      "type": "picklist"
+    },
+    {
+      "org": "eu",
+      "kind": "Custom field",
+      "name": "Account.NumberofLocations__c",
+      "capability": null,
+      "verdict": "review",
+      "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "fill": 14,
+      "type": "double"
+    },
+    {
+      "org": "eu",
+      "kind": "Custom field",
+      "name": "Account.Old_Segment__c",
+      "capability": null,
+      "verdict": "retire",
+      "reason": "Filled on 0% of 78 records.",
+      "fill": 0,
+      "type": "string"
+    },
+    {
+      "org": "eu",
+      "kind": "Custom field",
+      "name": "Account.SLA__c",
+      "capability": null,
+      "verdict": "review",
+      "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "fill": 14,
+      "type": "picklist"
+    },
+    {
+      "org": "eu",
+      "kind": "Custom field",
+      "name": "Account.SLAExpirationDate__c",
+      "capability": null,
+      "verdict": "review",
+      "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "fill": 14,
+      "type": "date"
+    },
+    {
+      "org": "eu",
+      "kind": "Custom field",
+      "name": "Account.SLASerialNumber__c",
+      "capability": null,
+      "verdict": "review",
+      "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "fill": 14,
+      "type": "string"
+    },
+    {
+      "org": "eu",
+      "kind": "Custom field",
+      "name": "Account.Store_Format__c",
+      "capability": "market",
+      "verdict": "configure",
+      "reason": "Global value sets shared by all orgs, with Enterprise Territory Management for market ownership",
+      "fill": 54,
+      "type": "picklist"
+    },
+    {
+      "org": "eu",
+      "kind": "Custom field",
+      "name": "Account.UpsellOpportunity__c",
+      "capability": null,
+      "verdict": "review",
+      "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "fill": 14,
+      "type": "picklist"
+    },
+    {
+      "org": "eu",
+      "kind": "Custom field",
+      "name": "Account.VAT_Number__c",
+      "capability": "tax-id",
+      "verdict": "keep",
+      "reason": "No standard tax ID field on Account: keep one global field with per-market format rules",
+      "fill": 36,
+      "type": "string"
+    },
+    {
+      "org": "eu",
+      "kind": "Custom field",
+      "name": "Account.Won_Opportunity_Amount__c",
+      "capability": null,
+      "verdict": "review",
+      "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "fill": 28,
+      "type": "currency"
+    },
+    {
+      "org": "eu",
+      "kind": "Custom field",
+      "name": "Account.Won_Opportunity_Count__c",
+      "capability": null,
+      "verdict": "review",
+      "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "fill": 28,
+      "type": "double"
+    },
+    {
+      "org": "eu",
+      "kind": "Custom field",
+      "name": "Case.EngineeringReqNumber__c",
+      "capability": null,
+      "verdict": "review",
+      "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "fill": 85,
+      "type": "string"
+    },
+    {
+      "org": "eu",
+      "kind": "Custom field",
+      "name": "Case.PotentialLiability__c",
+      "capability": null,
+      "verdict": "review",
+      "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "fill": 100,
+      "type": "picklist"
+    },
+    {
+      "org": "eu",
+      "kind": "Custom field",
+      "name": "Case.Product__c",
+      "capability": null,
+      "verdict": "review",
+      "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "fill": 100,
+      "type": "picklist"
+    },
+    {
+      "org": "eu",
+      "kind": "Custom field",
+      "name": "Case.SLAViolation__c",
+      "capability": null,
+      "verdict": "review",
+      "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "fill": 96,
+      "type": "picklist"
+    },
+    {
+      "org": "eu",
+      "kind": "Custom field",
+      "name": "Contact.Consent_Date__c",
+      "capability": "consent",
+      "verdict": "adopt",
+      "reason": "Individual and contact point consent objects with data use purposes. Note: filled on 0% of 20 records.",
+      "fill": 0,
+      "type": "date"
+    },
+    {
+      "org": "eu",
+      "kind": "Custom field",
+      "name": "Contact.GDPR_Consent__c",
+      "capability": "consent",
+      "verdict": "adopt",
+      "reason": "Individual and contact point consent objects with data use purposes. Note: filled on 0% of 20 records.",
+      "fill": 0,
+      "type": "boolean"
+    },
+    {
+      "org": "eu",
+      "kind": "Custom field",
+      "name": "Contact.Languages__c",
+      "capability": null,
+      "verdict": "review",
+      "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "fill": 85,
+      "type": "string"
+    },
+    {
+      "org": "eu",
+      "kind": "Custom field",
+      "name": "Contact.Level__c",
+      "capability": null,
+      "verdict": "review",
+      "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "fill": 85,
+      "type": "picklist"
+    },
+    {
+      "org": "eu",
+      "kind": "Custom field",
+      "name": "Lead.CurrentGenerators__c",
+      "capability": null,
+      "verdict": "review",
+      "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "fill": 100,
+      "type": "string"
+    },
+    {
+      "org": "eu",
+      "kind": "Custom field",
+      "name": "Lead.NumberofLocations__c",
+      "capability": null,
+      "verdict": "review",
+      "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "fill": 100,
+      "type": "double"
+    },
+    {
+      "org": "eu",
+      "kind": "Custom field",
+      "name": "Lead.Primary__c",
+      "capability": null,
+      "verdict": "review",
+      "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "fill": 100,
+      "type": "picklist"
+    },
+    {
+      "org": "eu",
+      "kind": "Custom field",
+      "name": "Lead.ProductInterest__c",
+      "capability": null,
+      "verdict": "review",
+      "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "fill": 100,
+      "type": "picklist"
+    },
+    {
+      "org": "eu",
+      "kind": "Custom field",
+      "name": "Lead.SICCode__c",
+      "capability": null,
+      "verdict": "review",
+      "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "fill": 100,
+      "type": "string"
+    },
+    {
+      "org": "eu",
+      "kind": "Custom field",
+      "name": "Opportunity.CurrentGenerators__c",
+      "capability": null,
+      "verdict": "review",
+      "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "fill": 52,
+      "type": "string"
+    },
+    {
+      "org": "eu",
+      "kind": "Custom field",
+      "name": "Opportunity.DeliveryInstallationStatus__c",
+      "capability": null,
+      "verdict": "review",
+      "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "fill": 74,
+      "type": "picklist"
+    },
+    {
+      "org": "eu",
+      "kind": "Custom field",
+      "name": "Opportunity.Loss_Reason__c",
+      "capability": null,
+      "verdict": "review",
+      "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "fill": 13,
+      "type": "picklist"
+    },
+    {
+      "org": "eu",
+      "kind": "Custom field",
+      "name": "Opportunity.MainCompetitors__c",
+      "capability": null,
+      "verdict": "review",
+      "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "fill": 58,
+      "type": "string"
+    },
+    {
+      "org": "eu",
+      "kind": "Custom field",
+      "name": "Opportunity.OrderNumber__c",
+      "capability": null,
+      "verdict": "review",
+      "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "fill": 58,
+      "type": "string"
+    },
+    {
+      "org": "eu",
+      "kind": "Custom field",
+      "name": "Opportunity.TrackingNumber__c",
+      "capability": null,
+      "verdict": "review",
+      "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "fill": 29,
+      "type": "string"
+    },
+    {
+      "org": "eu",
+      "kind": "Custom field",
+      "name": "Product2.Brand__c",
+      "capability": "product-master",
+      "verdict": "keep",
+      "reason": "Keep as fields on Product, owned by the product master (one definition for all orgs)",
+      "fill": 37,
+      "type": "picklist"
+    },
+    {
+      "org": "eu",
+      "kind": "Custom field",
+      "name": "Product2.Case_Size__c",
+      "capability": "product-master",
+      "verdict": "keep",
+      "reason": "Keep as fields on Product, owned by the product master (one definition for all orgs)",
+      "fill": 37,
+      "type": "double"
+    },
+    {
+      "org": "eu",
+      "kind": "Custom field",
+      "name": "Product2.Category__c",
+      "capability": "product-master",
+      "verdict": "keep",
+      "reason": "Keep as fields on Product, owned by the product master (one definition for all orgs)",
+      "fill": 37,
+      "type": "picklist"
+    },
+    {
+      "org": "eu",
+      "kind": "Custom field",
+      "name": "Product2.EAN__c",
+      "capability": "product-master",
+      "verdict": "keep",
+      "reason": "Keep as fields on Product, owned by the product master (one definition for all orgs)",
+      "fill": 37,
+      "type": "string"
+    },
+    {
+      "org": "eu",
+      "kind": "Custom object",
+      "name": "Promotion_Product__c",
+      "capability": "trade-promotions",
+      "verdict": "adopt",
+      "reason": "Consumer Goods Cloud Trade Promotion Management: promotion planning, funds and post-event analysis",
+      "records": 56,
+      "fields": 3
+    },
+    {
+      "org": "eu",
+      "kind": "Custom object",
+      "name": "Sales_Target__c",
+      "capability": "targets",
+      "verdict": "configure",
+      "reason": "Collaborative Forecasts with quotas by user, territory or product family",
+      "records": 28,
+      "fields": 4
+    },
+    {
+      "org": "eu",
+      "kind": "Custom object",
+      "name": "Shelf_Check__c",
+      "capability": "in-store-audit",
+      "verdict": "adopt",
+      "reason": "Consumer Goods Cloud: assessment tasks and retail store KPIs recorded during a visit",
+      "records": 378,
+      "fields": 5
+    },
+    {
+      "org": "eu",
+      "kind": "Custom object",
+      "name": "Store_Assortment__c",
+      "capability": "assortment",
+      "verdict": "adopt",
+      "reason": "Consumer Goods Cloud: product assortments assigned to retail store groups",
+      "records": 168,
+      "fields": 3
+    },
+    {
+      "org": "eu",
+      "kind": "Custom object",
+      "name": "Store_Visit__c",
+      "capability": "store-visits",
+      "verdict": "adopt",
+      "reason": "Consumer Goods Cloud: Visit and Retail Store, with visit tasks on the mobile app",
+      "records": 210,
+      "fields": 6
+    },
+    {
+      "org": "eu",
+      "kind": "Custom object",
+      "name": "Subscription__c",
+      "capability": "subscriptions",
+      "verdict": "adopt",
+      "reason": "Revenue Cloud subscription management",
+      "records": 107,
+      "fields": 15
+    },
+    {
+      "org": "eu",
+      "kind": "Custom object",
+      "name": "Subscription_Line__c",
+      "capability": "subscriptions",
+      "verdict": "adopt",
+      "reason": "Revenue Cloud subscription management",
+      "records": 219,
+      "fields": 6
+    },
+    {
+      "org": "eu",
+      "kind": "Custom object",
+      "name": "Trade_Promotion__c",
+      "capability": "trade-promotions",
+      "verdict": "adopt",
+      "reason": "Consumer Goods Cloud Trade Promotion Management: promotion planning, funds and post-event analysis",
+      "records": 28,
+      "fields": 7
+    },
+    {
+      "org": "eu",
+      "kind": "Flow",
+      "name": "Subscription_At_Risk_Alert",
+      "capability": "subscriptions",
+      "verdict": "adopt",
+      "reason": "Revenue Cloud subscription management",
+      "object": "Subscription"
+    },
+    {
+      "org": "eu",
+      "kind": "Installed package",
+      "name": "Declarative Lookup Rollup Summaries Tool",
+      "capability": "rollup-tool",
+      "verdict": "configure",
+      "reason": "Roll-up summary fields where the relationship is master-detail, record-triggered flows elsewhere"
+    },
+    {
+      "org": "eu",
+      "kind": "Installed package",
+      "name": "Developer Edition",
+      "capability": null,
+      "verdict": "review",
+      "reason": "Not matched to a known capability; confirm owner and purpose in the workshop."
+    },
+    {
+      "org": "eu",
+      "kind": "Validation rule",
+      "name": "Account.VAT_Format",
+      "capability": "tax-id",
+      "verdict": "keep",
+      "reason": "No standard tax ID field on Account: keep one global field with per-market format rules",
+      "object": "Account"
+    },
+    {
+      "org": "eu",
+      "kind": "Validation rule",
+      "name": "Opportunity.Closed_Won_Requires_Amount",
+      "capability": null,
+      "verdict": "review",
+      "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "object": "Opportunity"
+    },
+    {
+      "org": "eu",
+      "kind": "Validation rule",
+      "name": "Opportunity.Loss_Reason_Required_When_Lost",
+      "capability": null,
+      "verdict": "review",
+      "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "object": "Opportunity"
+    },
+    {
+      "org": "eu",
+      "kind": "Validation rule",
+      "name": "Subscription__c.Active_Requires_MRR",
+      "capability": "subscriptions",
+      "verdict": "adopt",
+      "reason": "Revenue Cloud subscription management",
+      "object": "Subscription__c"
+    },
+    {
+      "org": "eu",
+      "kind": "Validation rule",
+      "name": "Subscription__c.Cancellation_Reason_Required",
+      "capability": "subscriptions",
+      "verdict": "adopt",
+      "reason": "Revenue Cloud subscription management",
+      "object": "Subscription__c"
+    },
+    {
+      "org": "eu",
+      "kind": "Validation rule",
+      "name": "Subscription__c.End_Date_After_Start_Date",
+      "capability": "subscriptions",
+      "verdict": "adopt",
+      "reason": "Revenue Cloud subscription management",
+      "object": "Subscription__c"
+    },
+    {
+      "org": "eu",
+      "kind": "Validation rule",
+      "name": "Subscription__c.No_Reactivation_After_Cancel",
+      "capability": "subscriptions",
+      "verdict": "adopt",
+      "reason": "Revenue Cloud subscription management",
+      "object": "Subscription__c"
+    },
+    {
+      "org": "eu",
+      "kind": "Validation rule",
+      "name": "Subscription_Line__c.Parent_Not_Cancelled",
+      "capability": "subscriptions",
+      "verdict": "adopt",
+      "reason": "Revenue Cloud subscription management",
+      "object": "Subscription_Line__c"
+    },
+    {
+      "org": "eu",
+      "kind": "Validation rule",
+      "name": "Subscription_Line__c.Quantity_Must_Be_Positive",
+      "capability": "subscriptions",
+      "verdict": "adopt",
+      "reason": "Revenue Cloud subscription management",
+      "object": "Subscription_Line__c"
+    },
+    {
+      "org": "eu",
+      "kind": "Validation rule",
+      "name": "Trade_Promotion__c.Budget_Required_To_Submit",
+      "capability": "trade-promotions",
+      "verdict": "adopt",
+      "reason": "Consumer Goods Cloud Trade Promotion Management: promotion planning, funds and post-event analysis",
+      "object": "Trade_Promotion__c"
+    },
+    {
+      "org": "eu",
+      "kind": "Validation rule",
+      "name": "Trade_Promotion__c.End_After_Start",
+      "capability": "trade-promotions",
+      "verdict": "adopt",
+      "reason": "Consumer Goods Cloud Trade Promotion Management: promotion planning, funds and post-event analysis",
+      "object": "Trade_Promotion__c"
+    }
+  ]
+}

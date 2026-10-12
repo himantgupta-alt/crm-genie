@@ -19,7 +19,7 @@
     "src/generators/emit-postgres.js"
   ],
   "tools": [
-    "Claude (model in AGENT_MODEL, default claude-opus-5-5)",
+    "language model (model id in AGENT_MODEL, key in LLM_API_KEY)",
     "git apply (after approval)"
   ],
   "prompt": "agents/repair/prompt.md",

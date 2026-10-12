@@ -42,7 +42,7 @@ flowchart LR
   class P0,P1,P2,P3,P4,P5 phase;
 ```
 
-Figure: The agentic workflow: one or more agents per phase, with a repair loop when a check fails
+Figure: The agent workflow: one or more agents per phase, with a repair loop when a check fails
 
 ## 3. Where we are today
 

@@ -1,0 +1,11 @@
+{
+  "client": "Brightwell Consumer Goods",
+  "sampleData": true,
+  "note": "Fictional company and sample markets, built in three Developer Edition orgs for the demo.",
+  "marketsExpected": 37,
+  "orgs": [
+    { "region": "eu", "label": "Europe", "alias": "myorg" },
+    { "region": "apac", "label": "APAC", "alias": "apac" },
+    { "region": "amer", "label": "Americas & LATAM", "alias": "amer" }
+  ]
+}

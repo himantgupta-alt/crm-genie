@@ -1,3 +1,11 @@
+fetch('/auth/prefill').then((r) => r.json()).then(({ username, password }) => {
+  const u = document.getElementById('u');
+  const p = document.getElementById('p');
+  if (username && !u.value) u.value = username;
+  if (password && !p.value) p.value = password;
+  if (username && password) document.querySelector('button[type=submit]').focus();
+}).catch(() => {});
+
 document.getElementById('f').addEventListener('submit', async (e) => {
   e.preventDefault();
   const err = document.getElementById('err');

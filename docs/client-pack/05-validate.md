@@ -87,7 +87,7 @@ We apply a fix only after a reviewer approves it, then run every check again. Th
 | Data | Every record and calculated value matches |
 | Security | Each role can do exactly what it can do today |
 | User acceptance | Business users sign off business scenarios |
-| Agents | The AI agents’ work meets our quality bar |
+| Agents | Each agent’s output meets our quality bar |
 
 ## 7. Built-in platform behaviour
 

@@ -1,9 +1,9 @@
 // Repair agent: runs only when verification fails. Sends the failed checks, the generated SQL and the
-// generator source to Claude with agents/repair/prompt.md, and saves the proposed patch for a
+// generator source to a language model with agents/repair/prompt.md, and saves the proposed patch for a
 // reviewer. The runner applies it only after approval.
 const fs = require('fs');
 const path = require('path');
-const { MODEL, loadPrompt, ask, dryRun, fenced } = require('../lib/claude');
+const { MODEL, loadPrompt, ask, dryRun, fenced } = require('../lib/llm');
 
 function failures(report) {
   const derived = (report.derived ?? []).filter((d) => d.note || (d.rows !== undefined && d.matched !== d.rows));

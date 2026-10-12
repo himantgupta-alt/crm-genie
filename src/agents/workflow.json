@@ -3,7 +3,7 @@
   "description": "Moves a Salesforce application to the client's cloud in six transformation phases (Discover, Design, Build, Migrate, Validate, Go-live), with a review gate after each phase. Each agent lives in src/agents/<agent>/ (agent.json + index.js) and writes its outputs to adlc/<phase>/<agent>/.",
   "workdir": ".",
   "phases": [
-    { "id": "discover", "title": "Discover", "gate": "G1", "agents": ["extraction"] },
+    { "id": "discover", "title": "Discover", "gate": "G1", "agents": ["extraction", "assessment"] },
     { "id": "design", "title": "Design", "gate": "G2", "agents": ["modelling"] },
     { "id": "build", "title": "Build", "gate": "G3", "agents": ["schema", "logic", "security"] },
     { "id": "migrate", "title": "Migrate", "gate": "G4", "agents": ["data-load"] },

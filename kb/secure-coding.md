@@ -24,4 +24,4 @@ Owner: Engineering standards · OWASP Top 10 (2021) mapped to this stack. Applie
 ## Generated code
 
 - Generated SQL and services follow the same rules as hand-written code; reviewers apply this page at the gate.
-- AI-generated code is marked for review and cannot merge without approval.
+- Model-drafted code (Logic and Repair agent proposals) is marked for review and cannot merge without approval.

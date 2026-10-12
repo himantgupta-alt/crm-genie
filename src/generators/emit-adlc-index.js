@@ -37,7 +37,7 @@ for (const [id, s] of Object.entries(specs)) {
   const dir = path.join(P.ROOT, s.outputDir);
   fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(path.join(dir, 'README.md'), [
-    `# ${s.name}`, '', `Owner: ${s.name} · phase: ${s.phase} · ${s.kind === 'llm' ? 'uses Claude, under review' : 'deterministic'}`, '', stamp, '',
+    `# ${s.name}`, '', `Owner: ${s.name} · phase: ${s.phase} · ${s.kind === 'llm' ? 'language model proposals, reviewed before merge' : 'deterministic'}`, '', stamp, '',
     s.role, '',
     '## Inputs', '', list(s.inputs), '',
     '## Runs', '', list(s.implementation || [s.prompt].filter(Boolean)), '',

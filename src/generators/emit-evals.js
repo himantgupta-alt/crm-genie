@@ -7,7 +7,7 @@
 //   evals/data-reconciliation/checks.md|csv   one check per object (row counts) and per calculated field
 //   evals/security/access-matrix.csv          expected object access per role (from Salesforce)
 //   evals/uat/scenarios.md                    business scenarios in Given/When/Then
-//   evals/agent-evals/*.json                  golden sets and seeded faults for the AI agents
+//   evals/agent-evals/*.json                  golden sets and seeded faults for the Logic and Repair agents
 //   evals/traceability.csv, evals/coverage.md  Salesforce element -> test cases; what is not yet covered
 const fs = require('fs');
 const path = require('path');
@@ -102,7 +102,7 @@ write('uat/scenarios.md', ['# User acceptance scenarios', '', stamp('the bluepri
   ...uat.flatMap((u, i) => [`## UAT-${String(i + 1).padStart(2, '0')} ${u.t}`, '', `- **Given** ${u.g}`, `- **When** ${u.w}`, `- **Then** ${u.th}`, '', 'Result: ☐ pass ☐ fail · tester: ______ · date: ______', '']),
 ].join('\n'));
 
-// ---------------------------------------------------------------- agent evals (AI agents)
+// ---------------------------------------------------------------- agent evals (Logic and Repair agents)
 const tdir = P.TRANSLATIONS;
 const index = fs.existsSync(path.join(tdir, 'index.json')) ? JSON.parse(fs.readFileSync(path.join(tdir, 'index.json'), 'utf8')) : [];
 const methods = bp.services.flatMap((s) => (s.methods || []).map((m) => ({ cls: s.source.name, method: m, id: `${s.id}#${m}` })));
@@ -129,7 +129,7 @@ const repairEval = {
 write('agent-evals/logic-translation.json', JSON.stringify(logicEval, null, 2) + '\n');
 write('agent-evals/repair-seeded-faults.json', JSON.stringify(repairEval, null, 2) + '\n');
 write('agent-evals/README.md', ['# Agent evals', '', stamp('the blueprint, translations and parity cases'), '',
-  'How we measure the AI agents, not only the system they build.', '',
+  'How we measure the output of the Logic and Repair agents (the two that use a language model), not only the system they build.', '',
   md(['Eval', 'Agent', 'Items', 'Pass criteria'], [
     ['[logic-translation.json](logic-translation.json)', 'Logic', logicEval.items.length, logicEval.passCriteria.join('; ')],
     ['[repair-seeded-faults.json](repair-seeded-faults.json)', 'Repair', repairEval.items.length, repairEval.passCriteria.join('; ')],

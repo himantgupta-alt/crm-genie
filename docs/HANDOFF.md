@@ -6,12 +6,11 @@ and `adlc/1-discover/extraction/schema/schema-summary.md` for what the org curre
 ## Goal
 
 Prove that a Salesforce org can be read as a specification, compiled into software the client
-owns, and shown to behave identically — using **only Claude and the Salesforce CLI**. No
-third-party CRM (Twenty / Open Mercato were assessed and rejected). The model is a build-time
-compiler; it never sits in the runtime data path.
+owns, and shown to behave identically — using **only generators, a general-purpose language model (for reviewed Apex
+translations) and the Salesforce CLI**. No third-party CRM (Twenty / Open Mercato were assessed and
+rejected). The model is used only at build time; it never sits in the runtime data path.
 
-Approach deck (19 slides): https://claude.ai/code/artifact/d9d1466a-4d52-47b0-9db5-2cc8c2f48cf2
-Republish with the same file path or that URL to update it in place.
+Approach deck (19 slides): in `presentations/`.
 
 Timeline, data risks and rollout plan (no model training needed): `ROLLOUT-PLAN.md`.
 
@@ -249,7 +248,7 @@ done criteria, isolated git worktrees and bounded repair attempts.
 ## Open decisions
 
 - Node vs Python for the generated service layer
-- Claude Agent SDK vs a hand-rolled Messages API tool loop for the backend
+- A vendor agent SDK vs a hand-rolled tool loop for the backend
 - How much of the admin shell ships inside the POC
 - Target cloud, and who hosts it
 - POC exit thresholds (deck section 13 proposes ≥90% of validation rules and ≥60% of flows

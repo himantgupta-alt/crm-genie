@@ -6,11 +6,11 @@
 //   node agents/run.js --from discover       include extraction (needs `sf org login web --alias myorg`)
 //   node agents/run.js --to validate         stop after a phase
 //   node agents/run.js --yes                 approve every gate automatically (CI)
-//   node agents/run.js --dry-run             LLM agents save their prompts but do not call Claude
+//   node agents/run.js --dry-run             LLM agents save their prompts but do not call the model
 //   node agents/run.js --list                print the agents and what they do
 //
-// LLM agents (Logic, Repair) call Claude with ANTHROPIC_API_KEY or an `ant auth login` profile; with no
-// credentials they fall back to a dry run. Every run writes agents/runs/<run-id>/run.json with each
+// LLM agents (Logic, Repair) call a language model with the key in LLM_API_KEY (see agents/lib/llm.js);
+// with no credentials they fall back to a dry run. Every run writes agents/runs/<run-id>/run.json with each
 // agent's result and each reviewer decision, plus the prompts and responses of the LLM agents.
 const fs = require('fs');
 const os = require('os');
@@ -45,9 +45,7 @@ const from = opt('--from', 'design');
 const to = opt('--to', 'go-live');
 const family = opt('--family', 'Subscription__c,Subscription_Line__c').split(',');
 const autoApprove = flag('--yes');
-const hasCreds = !!(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN || process.env.ANTHROPIC_PROFILE
-  || fs.existsSync(path.join(os.homedir(), '.config', 'anthropic')));
-const live = !flag('--dry-run') && hasCreds;
+const live = !flag('--dry-run') && require('./lib/llm').hasCredentials();
 if (!ids.includes(from) || !ids.includes(to)) { console.error(`phases are: ${ids.join(', ')}`); process.exit(2); }
 
 const reviewer = process.env.REVIEWER || os.userInfo().username;
@@ -59,9 +57,10 @@ const save = () => fs.writeFileSync(path.join(runDir, 'run.json'), JSON.stringif
 const log = (msg) => console.log(`  ${msg}`);
 
 // ---------------------------------------------------------------- helpers
-function sh(cmd) {
-  const env = { ...process.env, Path: `${path.join(ROOT, 'tools', 'node')}${path.delimiter}${process.env.Path || process.env.PATH || ''}` };
-  return spawnSync(cmd, { cwd: WORK, shell: true, stdio: 'inherit', env }).status ?? 1;
+// opts.env adds variables for this command only; opts.quiet hides its output (for checks).
+function sh(cmd, opts = {}) {
+  const env = { ...process.env, ...opts.env, Path: `${path.join(ROOT, 'tools', 'node')}${path.delimiter}${process.env.Path || process.env.PATH || ''}` };
+  return spawnSync(cmd, { cwd: WORK, shell: true, stdio: opts.quiet ? 'ignore' : 'inherit', env }).status ?? 1;
 }
 const ctx = { root: ROOT, workdir: WORK, runDir, family, live, log, sh };
 

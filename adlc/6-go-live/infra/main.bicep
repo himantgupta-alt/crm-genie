@@ -42,6 +42,10 @@ param appUsers string
 @description('Key that signs session cookies (32+ characters).')
 param sessionSecret string
 
+@secure()
+@description('Optional JSON { username, password } filled into the sign-in form for demo reviewers. Built by deploy.ps1.')
+param loginPrefill string = ''
+
 param tags object = {
   owner: 'Demo User'
   project: 'CRM Genie'
@@ -148,6 +152,7 @@ var baseSettings = [
   { name: 'WEBSITE_RUN_FROM_PACKAGE', value: '1' }
   { name: 'CRMGENIE_USERS', value: appUsers }
   { name: 'SESSION_SECRET', value: sessionSecret }
+  { name: 'LOGIN_PREFILL', value: loginPrefill }
 ]
 // Bicep replaces all app settings on every deploy, so the auth secret is passed back in each time.
 var authSettings = empty(authClientSecret) ? [] : [

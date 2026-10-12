@@ -1,0 +1,42 @@
+{
+  "id": "assessment",
+  "name": "Assessment agent",
+  "phase": "discover",
+  "outputDir": "adlc/1-discover/assessment",
+  "kb": [
+    "kb/engineering-principles.md",
+    "kb/secure-coding.md",
+    "kb/nodejs-standards.md"
+  ],
+  "guardrails": "guardrails/guardrails.json",
+  "kind": "deterministic",
+  "role": "Reads what each regional org has built on top of standard Salesforce (read-only), matches every custom component to a business capability, and proposes a fit-gap verdict: adopt a standard feature, replace with configuration, keep and harmonise, retire, or review in the workshop. Compares the orgs capability by capability.",
+  "inputs": [
+    "Salesforce orgs listed in src/agents/assessment/engagement.json (one CLI alias per org, read-only integration user)",
+    "src/agents/assessment/capabilities.json (capability catalogue with the standard feature for each)"
+  ],
+  "tools": [
+    "Salesforce CLI",
+    "describe API",
+    "SOQL counts",
+    "Tooling API"
+  ],
+  "implementation": [
+    "src/generators/assess-org.js (once per org)",
+    "src/generators/emit-assessment.js"
+  ],
+  "outputs": [
+    "adlc/1-discover/assessment/orgs/ (as-is per org: components, counts, fill rates, markets; no record contents)",
+    "adlc/1-discover/assessment/fit-gap.json (every component with capability and verdict, cross-org matrix)",
+    "adlc/1-discover/assessment/assessment-report.md (summary, as-is, comparison, fit-gap, workshop list)",
+    "adlc/1-discover/assessment/architecture.md (principles, how the assessment runs, verdict flow, target direction)"
+  ],
+  "done_when": "Every connected org extracted, every custom component classified with a verdict and a reason, report and architecture written",
+  "reviewer_checks": [
+    "Every org in the engagement is extracted, or its absence is explained",
+    "Markets found match the market list agreed with the client",
+    "Adopt-standard verdicts name a feature the client is licensed for, or the licence is on the workshop agenda",
+    "Retire candidates are confirmed unused with the business owner",
+    "Review items are on the workshop agenda"
+  ]
+}

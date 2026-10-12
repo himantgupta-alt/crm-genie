@@ -61,6 +61,7 @@ jobs:
         run: |
           node src/generators/emit-cutover.js
           node src/generators/emit-docs.js
+          node src/generators/emit-assessment.js
           node src/generators/emit-evals.js
           node src/generators/emit-adlc-index.js
           node src/generators/emit-console.js

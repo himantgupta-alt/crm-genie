@@ -1,7 +1,7 @@
 // Design documents from the blueprint: a high-level design (HLD) and a low-level design (LLD), each with
 // Mermaid diagrams derived from the org's own metadata. Local files only; no org connection.
 //
-//   node src/generators/emit-docs.js
+//   node src/generators/emit-docs.js                 (add --no-console to leave the console's embedded copy as is)
 //
 //   docs/HLD.md, docs/LLD.md        readable documents (diagrams render on GitHub and in Org Compiler)
 //   docs/diagrams/*.mmd             one Mermaid source per diagram
@@ -373,7 +373,7 @@ const ADRS = [
   { id: 'ADR-007', slug: 'check-constraints', title: 'Row-local validation rules become CHECK constraints', strategy: 'check', context: 'Rules that read only the row being saved can be enforced by the database itself.', decision: 'Compile to CHECK constraints named after the rule, keeping the Salesforce error message in the mapping.', consequences: 'Enforced for every writer, including integrations and loads.' },
   { id: 'ADR-008', slug: 'guard-triggers', title: 'Rules needing the previous row or a parent record become BEFORE-trigger guards', strategy: 'write_guard', context: 'PRIORVALUE, ISCHANGED and cross-object rules cannot be CHECK constraints.', decision: 'Generate BEFORE INSERT OR UPDATE triggers that raise the Salesforce message.', consequences: 'Same behaviour as Salesforce; order of guards follows Salesforce’s order of execution.' },
   { id: 'ADR-009', slug: 'roles-and-rls', title: 'Profiles and permission sets become roles; sharing becomes row-level security', context: 'Access must be enforced where the data lives, not only in the app.', decision: 'One database role per profile or permission set, column grants for field-level security, RLS policies for sharing; the app sets the role per request.', consequences: 'Any client of the database gets the same access rules; policies are tested by parity cases.', applies: rolesShown.map((r) => r.id) },
-  { id: 'ADR-010', slug: 'reviewed-llm-translation', title: 'Apex is translated by an AI agent and merged only after review', strategy: 'trigger_dispatch', context: 'Apex can do anything; deterministic templates cannot cover it.', decision: 'The Logic agent drafts a translation with tests; it is marked reviewed:false until a person approves it at the gate.', consequences: 'Speed of generation with human accountability; nothing generated merges unchecked.' },
+  { id: 'ADR-010', slug: 'reviewed-llm-translation', title: 'Apex translations are proposed by the Logic agent and merged only after review', strategy: 'trigger_dispatch', context: 'Apex can do anything; deterministic templates cannot cover it.', decision: 'The Logic agent drafts a translation with tests; it is marked reviewed:false until a person approves it at the gate.', consequences: 'Speed of generation with human accountability; nothing generated merges unchecked.' },
   { id: 'ADR-012', slug: 'azure-paas-hosting', title: 'Host on Azure Container Apps and Azure Database for PostgreSQL', context: 'The platform will grow to many domains, with web traffic, scheduled jobs and event handlers; the client wants no servers to run and zone-level resilience.', decision: 'Run domain services, jobs and the Salesforce sync on a zone-redundant Azure Container Apps environment, and data on PostgreSQL Flexible Server with zone-redundant high availability.', consequences: 'One hosting model for every domain, with scale-to-demand and event-driven jobs; containers keep the option to move to Kubernetes or another cloud.', applies: ['Azure Container Apps', 'Azure Database for PostgreSQL'] },
   { id: 'ADR-013', slug: 'entra-id-sso', title: 'Staff sign in with Entra ID, portal users with Entra External ID; services use managed identities', context: 'Salesforce passwords cannot be exported, and stored service credentials are a leading cause of breaches.', decision: 'OpenID Connect sign-in through Entra ID for staff (matched by Federation ID) and Entra External ID for customer and partner portal users; services reach Key Vault, the database and the event bus with managed identities; integrations use OAuth 2.0 through API Management.', consequences: 'No passwords to migrate or rotate; conditional access and MFA come from the client tenant.', applies: ['Microsoft Entra ID', 'Entra External ID', 'Key Vault', 'API Management'] },
   { id: 'ADR-014', slug: 'private-networking', area: 'target', title: 'Data services are reachable only on private endpoints; the edge is Front Door with WAF', context: 'Customer and revenue data must not be reachable from the internet.', decision: 'PostgreSQL and Key Vault have private endpoints in a spoke virtual network; the app uses VNet integration; public traffic enters only through Front Door with the Web Application Firewall.', consequences: 'One controlled entry point; deployments and administration go through the pipeline or a bastion.', applies: ['Front Door', 'Virtual network', 'Private endpoints'] },
@@ -386,7 +386,7 @@ const ADRS = [
   { id: 'ADR-011', slug: 'parity-as-acceptance', title: 'Behaviour is accepted only when it matches Salesforce’s own values', context: 'Reviewing generated code line by line does not scale.', decision: 'The Verification agent recomputes every calculated value against what Salesforce stored and replays rule cases; CI blocks release on any mismatch.', consequences: 'Correctness is measured, not asserted; new behaviours need new cases.', applies: [P.rel(P.PARITY_CASES)] },
 ];
 ADRS.sort((a, b) => a.id.localeCompare(b.id));
-// How the migration is produced (blueprint, AI translation, parity acceptance) is method, not target architecture;
+// How the migration is produced (blueprint, reviewed Apex translation, parity acceptance) is method, not target architecture;
 // those records stay in adr/ but the HLD lists only the decisions that shape the target system.
 const METHOD = ['ADR-001', 'ADR-010', 'ADR-011'];
 for (const a of ADRS) a.applies = a.applies || used(a.strategy);
@@ -618,9 +618,9 @@ fs.writeFileSync(path.join(OUT, 'LLD.md'), LLD);
 const bundle = { blueprint: bp.contentHash.slice(0, 12), hld: HLD, lld: LLD, adrs: Object.fromEntries(ADRS.map((a) => [a.id, adrMd(a)])), diagrams: D };
 fs.writeFileSync(path.join(OUT, 'docs.json'), JSON.stringify(bundle, null, 2));
 
-// Keep the Org Compiler console's embedded copy in step (between the DOCS markers).
+// Keep the Org Compiler console's embedded copy in step (between the DOCS markers). --no-console skips it.
 const demo = P.CONSOLE;
-if (fs.existsSync(demo)) {
+if (!process.argv.includes('--no-console') && fs.existsSync(demo)) {
   const h = fs.readFileSync(demo, 'utf8');
   const a = h.indexOf('/*DOCS-START*/'), b = h.indexOf('/*DOCS-END*/');
   if (a > -1 && b > a) fs.writeFileSync(demo, h.slice(0, a + 14) + JSON.stringify(bundle).replace(/<\//g, '<\\/') + h.slice(b));
