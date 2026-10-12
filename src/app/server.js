@@ -386,7 +386,9 @@ app.use((err, _req, res, _next) => {
 // ---------------------------------------------------------------- web
 
 app.use((req, res, next) => {
-  if (/\.(html|js|css)$/.test(req.path) || req.path === '/') res.set('Cache-Control', 'no-cache');
+  // Pages and scripts always revalidate (cheap with ETags): the package's file times are fixed, so without this
+  // a browser may keep an old copy of the console after a deploy. /compiler and /login have no extension.
+  if (/\.(html|js|css)$/.test(req.path) || !/\.\w+$/.test(req.path)) res.set('Cache-Control', 'no-cache');
   next();
 });
 app.get('/compiler', (_req, res) => res.sendFile(path.join(pub, 'compiler.html')));
