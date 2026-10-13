@@ -254,7 +254,7 @@ spread across days if the client's integrations already use most of the allocati
 | 5 | Login IP ranges or trusted IP ranges for the runner's outbound IP | Client (Salesforce admins, network) | Week 0 |
 | 6 | API allocation and current use checked per org; run windows agreed | Ascendion (agent operations), confirmed by client admins | Week 0 |
 | 7 | Tooling API and Metadata API access confirmed with a test call | Ascendion (agent operations) | Week 0, last day |
-| 8 | Runner VM or container provisioned with Node.js and the Salesforce CLI, outbound HTTPS only | Client (cloud team); Ascendion supplies the specification | Week 0 |
+| 8 | Only if the client-hosted runner is chosen: a VM or container with Node.js and the Salesforce CLI, outbound HTTPS only. With the default (Ascendion's runner) the client installs nothing; we provide and install the tools | Client (cloud team), Ascendion supplies the specification and install steps | Week 0, client-hosted option only |
 | 9 | Client git repository to receive the approved deliverables at handover | Client (engineering) | Before the readout |
 | 10 | Credentials and private keys kept in Ascendion's vault (or the client's, if the runner is client-hosted), read only at run time, never written to git | Ascendion (information security); client IT security informed | Week 0 |
 | 11 | Named Ascendion team members given MFA-protected access to the runner and repository | Client (IT security); Ascendion supplies the names | Week 0 |
