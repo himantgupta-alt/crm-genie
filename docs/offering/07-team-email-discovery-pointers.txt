@@ -21,11 +21,10 @@ We are leading with a fixed-scope Discovery as the first offer. Below are the po
 - Usage evidence that only production holds (login history, report runs, real volumes): either one short read-only pass on production, if the client agrees, or standard Salesforce reports the client exports.
 - Agreement on data classification: the outputs hold metadata names, configuration and counts, never record contents.
 
-3. Where the work happens: our git first
-- The agents run in a dedicated, access-restricted runner in our environment, with the credentials in our vault.
-- Two repositories keep removal clean. The product repository (agents, rules, templates) never holds client material. One engagement repository per client holds only that client's generated artifacts and review records.
-- While the engagement repository is ours we use: one commit per run, so changes between runs are visible; review gates as pull requests with recorded decisions; CI that regenerates the outputs and fails if anything differs from what was reviewed; a tag per approved version; and the HTML explorer built from it.
-- If the client's policy does not allow credentials or outputs outside its environment, the same setup runs on a VM in their cloud, with the engagement repository in their git from the start.
+3. Where the work happens: our git or yours
+- The client's credentials decide where it runs. If they share credentials with us, the agents run in our access-restricted environment and the outputs go to a dedicated engagement repository in our git. We hand it over to their git at the end and delete ours.
+- If their policy keeps credentials and outputs inside their environment, the same setup runs on a VM in their cloud, and the outputs go straight to their git.
+- Either way, client outputs are never mixed with our agent code, every run is versioned and reviewed before it is shared, and the client ends up with everything in their git.
 
 4. What we deliver
 - One Discovery Report covering all orgs. It contains an executive summary; scope and method; a current system landscape diagram; findings by area, each with risk level, business impact, evidence, recommendation and priority; customised versus standard per org; data model diagrams; the fit-gap and cross-org comparison; a prioritised roadmap (quick wins, immediate, medium term, strategic); the target direction; and an appendix per org.
