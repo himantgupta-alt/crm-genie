@@ -48,7 +48,7 @@
 
 * { box-sizing: border-box; }
 html, body { height: 100%; }
-body { background: var(--bg); color: var(--ink); font: 14px/1.5 var(--sans); }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.5 var(--sans); }
 button, input, select, textarea { font: inherit; color: inherit; }
 button { cursor: pointer; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
@@ -426,8 +426,31 @@ a.gh::after { content: " \2197"; font-size: 0.85em; }
 .dx-orgs button { border: 1px solid var(--line-strong); background: var(--surface); border-radius: 999px; padding: 4px 12px; font-size: 12.5px; color: var(--muted); }
 .dx-orgs button[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
 .dx-orgs button:disabled { opacity: .5; cursor: not-allowed; }
-.dx-body { display: grid; grid-template-columns: 290px minmax(0, 1fr); min-height: 640px; }
-.dx-tree { border-right: 1px solid var(--line); background: var(--sunk); padding: 10px 8px; display: grid; gap: 6px; align-content: start; max-height: calc(100vh - 170px); overflow-y: auto; position: sticky; top: 64px; }
+/* The explorer is a fixed-height workspace: the tree and the reading pane scroll on their own, so a click never
+   moves the page. */
+.dx-body { display: grid; grid-template-columns: 290px minmax(0, 1fr); height: calc(100vh - 178px); min-height: 520px; transition: grid-template-columns .2s ease; }
+.dx-body.treemin { grid-template-columns: 40px minmax(0, 1fr); }
+.dx-tree { border-right: 1px solid var(--line); background: var(--sunk); padding: 10px 8px; display: grid; gap: 6px; align-content: start; overflow-y: auto; overscroll-behavior: contain; min-height: 0; }
+.dx-treehead { display: flex; gap: 6px; align-items: center; }
+.dx-treehead input { flex: 1; }
+.iconbtn { border: 1px solid var(--line-strong); background: var(--surface); border-radius: 6px; width: 28px; height: 28px; display: grid; place-items: center; color: var(--muted); flex: none; padding: 0; }
+.iconbtn:hover { color: var(--accent); border-color: var(--accent); }
+.dx-body.treemin .dx-tree { padding: 10px 5px; }
+.dx-body.treemin .dx-tree > :not(.dx-treehead), .dx-body.treemin .dx-treehead input { display: none; }
+.dx-canvas { min-height: 0; overflow: hidden; }
+.dx-canvas .tabs { overflow: hidden; }
+.dx-main { overflow-y: auto; overscroll-behavior: contain; min-height: 0; font-size: 14.5px; line-height: 1.6; }
+.dx-main > * { max-width: 1180px; width: 100%; }
+.dx-main .doc { max-width: 1000px; font-size: 14.5px; line-height: 1.65; }
+.dx-main .doc table { font-size: 13px; }
+.dx-main.swap { animation: dxfade .16s ease-out; }
+@keyframes dxfade { from { opacity: .35; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .dx-main.swap { animation: none; } .dx-body { transition: none; } }
+/* Main menu collapses to a slim rail */
+.navtoggle { align-self: flex-end; margin-bottom: 4px; }
+.app.navmin { grid-template-columns: 48px minmax(0, 1fr); }
+.app.navmin .nav { padding: 14px 8px; }
+.app.navmin .nav > :not(.navtoggle) { display: none; }
 .dx-tree input { width: 100%; border: 1px solid var(--line-strong); border-radius: 6px; padding: 6px 9px; background: var(--surface); }
 .dx-cat { display: flex; justify-content: flex-start; gap: 4px; align-items: center; width: 100%; border: 0; background: none; text-align: left; padding: 7px 8px; border-radius: 6px; font-weight: 600; font-size: 13px; color: var(--ink); }
 .dx-cat:hover { background: var(--surface); }
@@ -487,7 +510,8 @@ a.gh::after { content: " \2197"; font-size: 0.85em; }
 .steps { display: grid; gap: 6px; } .steps div { display: grid; grid-template-columns: 70px minmax(0, 1fr); gap: 8px; font-size: 12.5px; align-items: start; }
 .steps .k { font: 600 11px var(--sans); text-transform: uppercase; letter-spacing: .05em; padding: 3px 6px; border-radius: 5px; text-align: center; background: var(--sunk); color: var(--muted); }
 .steps .k.insert { background: var(--accent-soft); color: var(--accent); } .steps .k.read { background: var(--ok-soft); color: var(--ok); } .steps .k.update { background: var(--run-soft); color: var(--run); }
-@media (max-width: 900px) { .dx-body { grid-template-columns: minmax(0, 1fr); } .dx-tree { position: static; max-height: 320px; border-right: 0; border-bottom: 1px solid var(--line); } }
+@media (max-width: 1100px) { .navtoggle { display: none; } .app.navmin { grid-template-columns: 1fr; } .app.navmin .nav > :not(.navtoggle) { display: revert; } }
+@media (max-width: 900px) { .dx-body, .dx-body.treemin { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); height: auto; } .dx-tree { max-height: 320px; border-right: 0; border-bottom: 1px solid var(--line); } .dx-main { overflow: visible; } }
 @media (max-width: 640px) { .stack { grid-template-columns: 90px minmax(0, 1fr) 36px; } .hbar { grid-template-columns: 110px minmax(0, 1fr) 34px; } }
 </style>
 
@@ -507,6 +531,7 @@ a.gh::after { content: " \2197"; font-size: 0.85em; }
   </header>
 
   <aside class="nav" aria-label="Main">
+    <button type="button" class="iconbtn navtoggle" id="nav-toggle" aria-label="Collapse the menu" aria-expanded="true" title="Collapse the menu">&#x2039;</button>
     <p class="grp">Assessment</p>
     <button type="button" data-view="connections"><span>1 · Connections</span><span class="badge n" id="nav-conn"></span></button>
     <button type="button" data-view="discovery"><span>Discovery explorer</span></button>
@@ -671,7 +696,7 @@ a.gh::after { content: " \2197"; font-size: 0.85em; }
         </div>
         <div class="dx-body">
           <nav class="dx-tree" id="dx-tree" aria-label="Discovery items">
-            <input type="search" id="dx-q" placeholder="Search this org" aria-label="Search this org">
+            <div class="dx-treehead"><button type="button" class="iconbtn" id="dx-treetoggle" aria-label="Collapse the list" aria-expanded="true" title="Collapse the list">&#x2039;</button><input type="search" id="dx-q" placeholder="Search this org" aria-label="Search this org"></div>
             <div id="dx-tree-list"></div>
           </nav>
           <section class="dx-canvas" aria-live="polite">
@@ -1051,6 +1076,7 @@ document.addEventListener('DOMContentLoaded', () => window.loadRuntimeData());
   }
   function renderTree() {
     const qq = q.toLowerCase();
+    const keep = $('dx-tree').scrollTop; // a click re-draws the list; the list must not jump
     $('dx-tree-list').innerHTML = categories().map((c) => {
       const items = (c.items || []).filter((i) => !qq || i.label.toLowerCase().includes(qq));
       if (qq && !c.leaf && !items.length) return '';
@@ -1060,6 +1086,7 @@ document.addEventListener('DOMContentLoaded', () => window.loadRuntimeData());
       return `<button type="button" class="dx-cat ${c.leaf ? 'leaf' : ''}" data-cat="${c.id}" ${c.leaf ? `aria-current="${sel.cat === c.id}"` : `aria-expanded="${isOpen}"`}><span>${esc(c.label)}</span>${count != null ? `<span class="c">${count}</span>` : ''}</button>
         ${isOpen ? `<div class="dx-items">${items.map((i) => `<button type="button" class="dx-item" data-cat="${c.id}" data-id="${esc(i.id)}" aria-current="${sel.cat === c.id && sel.id === i.id}" title="${esc(i.label)}">${i.origin ? `<i class="o-${i.origin}"></i>` : '<i></i>'}<span>${esc(i.label)}</span><small>${esc(i.meta ?? '')}</small></button>`).join('')}</div>` : ''}`;
     }).join('');
+    $('dx-tree').scrollTop = keep;
   }
 
   // ---------------------------------------------------------------- items
@@ -1205,14 +1232,26 @@ document.addEventListener('DOMContentLoaded', () => window.loadRuntimeData());
     $('dx-head').innerHTML = `<span class="crumb">${esc(O().label)} · ${esc(it.crumb || '')}</span><h3>${esc(it.title)} ${(it.tags || []).join(' ')}</h3>`;
     document.querySelectorAll('#dx-tabs [data-dxt]').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.dxt === tab)));
     const main = $('dx-main');
+    // A new item starts at the top of the reading pane, with a short fade instead of a jump.
+    const key = `${org}|${sel.cat}|${sel.id}|${tab}`;
+    if (key !== shown) { shown = key; main.scrollTop = 0; main.classList.remove('swap'); void main.offsetWidth; main.classList.add('swap'); }
     if (tab === 'json') { main.innerHTML = `<pre class="jsonview">${jsonHtml(it.json)}</pre>`; return; }
     if (it.doc != null) { await window.renderMarkdownInto(main, it.doc); return; }
     main.innerHTML = it.visual();
     for (const el of main.querySelectorAll('.mmd')) { el.classList.add('diagram'); await window.renderMarkdownInto(el, '```mermaid\n' + el.dataset.src + '\n```'); }
   }
-  const go = (cat, id) => { sel = { cat, id: id || null }; if (id) open.add(cat); render(); $('dx-main').scrollIntoView({ block: 'nearest' }); };
+  let shown = '';
+  const go = (cat, id) => { sel = { cat, id: id || null }; if (id) open.add(cat); render(); };
+  // Collapsible main menu and explorer list; the choice is remembered on this browser.
+  const remember = (k, v) => { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch { return null; } return null; };
+  const setNav = (min) => { document.querySelector('.app').classList.toggle('navmin', min); const b = $('nav-toggle'); b.setAttribute('aria-expanded', String(!min)); b.innerHTML = min ? '&#x203A;' : '&#x2039;'; b.title = b.ariaLabel = min ? 'Expand the menu' : 'Collapse the menu'; };
+  const setTree = (min) => { document.querySelector('.dx-body').classList.toggle('treemin', min); const b = $('dx-treetoggle'); b.setAttribute('aria-expanded', String(!min)); b.innerHTML = min ? '&#x203A;' : '&#x2039;'; b.title = b.ariaLabel = min ? 'Expand the list' : 'Collapse the list'; };
 
   document.addEventListener('DOMContentLoaded', () => {
+    setNav(remember('orgc.navmin') === '1');
+    setTree(remember('orgc.treemin') === '1');
+    $('nav-toggle').addEventListener('click', () => { const min = !document.querySelector('.app').classList.contains('navmin'); setNav(min); remember('orgc.navmin', min ? '1' : '0'); });
+    $('dx-treetoggle').addEventListener('click', () => { const min = !document.querySelector('.dx-body').classList.contains('treemin'); setTree(min); remember('orgc.treemin', min ? '1' : '0'); });
     $('dx-tree-list').addEventListener('click', (e) => {
       const it = e.target.closest('.dx-item');
       if (it) return go(it.dataset.cat, it.dataset.id);
