@@ -1227,8 +1227,20 @@ document.addEventListener('DOMContentLoaded', () => window.loadRuntimeData());
     $('dx-main').addEventListener('click', (e) => { const b = e.target.closest('[data-go]'); if (!b) return; const [cat, id] = b.dataset.go.split('|'); go(cat, id); });
     document.querySelector('.nav [data-view="discovery"]').addEventListener('click', () => setTimeout(render, 0));
   });
+  // Deep links that survive sign-in (the query string is kept; a #fragment is not):
+  //   /compiler?view=discovery                       opens the Discovery explorer on the Discovery Report
+  //   /compiler?view=discovery&item=process/Trade_Promotion__c   opens one item (category/id)
+  //   /compiler?view=assessment | connections | workflow
+  document.addEventListener('DOMContentLoaded', () => {
+    const q = new URLSearchParams(location.search);
+    const view = q.get('view');
+    if (!view) return;
+    const item = q.get('item');
+    if (view === 'discovery' && item) { const [cat, ...rest] = item.split('/'); sel = { cat, id: rest.join('/') || null }; if (sel.id) open.add(cat); }
+    setTimeout(() => document.querySelector(`.nav [data-view="${CSS.escape(view)}"]`)?.click(), 0);
+  });
   // A real discovery run on the server replaces the built-in sample.
-  window.addEventListener('orgc-data', () => { D = null; org = null; sel = { cat: 'report', id: null }; if (!$('view-discovery').hidden) render(); });
+  window.addEventListener('orgc-data', () => { D = null; org = null; if (!new URLSearchParams(location.search).get('item')) sel = { cat: 'report', id: null }; if (!$('view-discovery').hidden) render(); });
 })();
 </script>
 <script>

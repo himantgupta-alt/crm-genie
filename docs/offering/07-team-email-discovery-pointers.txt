@@ -50,7 +50,18 @@ We are leading with a fixed-scope Discovery as the first offer. Below are the po
 - We send a dated deletion confirmation for the client to countersign.
 - Ascendion keeps only the product repository: agent code, rules and templates, never client data.
 
-7. What to prepare
+7. See it on our example (sample company, three regional orgs, Europe connected)
+Sign in with the prefilled demo login, then use these links:
+- Discovery explorer, opening on the Discovery Report: https://crmgenie-app-hg01.azurewebsites.net/compiler?view=discovery
+- A business process, "When a Trade Promotion is saved", with its process map and the checks that can stop the save: https://crmgenie-app-hg01.azurewebsites.net/compiler?view=discovery&item=process/Trade_Promotion__c
+- A validation rule, with the condition and the message the user sees: https://crmgenie-app-hg01.azurewebsites.net/compiler?view=discovery&item=rules/Account.VAT_Format
+- An automated flow drawn as a diagram: https://crmgenie-app-hg01.azurewebsites.net/compiler?view=discovery&item=flows/Subscription_At_Risk_Alert
+- Customised versus standard: https://crmgenie-app-hg01.azurewebsites.net/compiler?view=discovery&item=custom
+- Fit-gap and cross-org comparison: https://crmgenie-app-hg01.azurewebsites.net/compiler?view=assessment
+- Connections, to see what the agents need and to run discovery: https://crmgenie-app-hg01.azurewebsites.net/compiler?view=connections
+Every item has a Visual tab and a JSON tab, so the raw data behind each view is one click away.
+
+8. What to prepare
 - The proposal: scope, deliverables and timeline as above, sized Small, Medium or Large with the questionnaire in docs/offering/02-engagement-sizes.md.
 - The client readiness checklist (point 2), to send with the proposal.
 - The demo flow in the Org Compiler: Connections, then Run discovery, then the Discovery explorer and the Discovery Report. The demo login is prefilled on the sign-in page.
