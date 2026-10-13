@@ -68,7 +68,7 @@ Every item has a Visual tab and a JSON tab, so the raw data behind each view is 
 - Open points to confirm with the client: Metadata API permissions (to be checked in the pilot), whether the username-password flow is allowed if JWT is not possible, licence fit for Consumer Goods Cloud and Trade Promotion Management, and their market list.
 
 Demo: https://crmgenie-app-hg01.azurewebsites.net/compiler
-The repository is private; ask me for access.
+Repository (public for now): https://github.com/himantgupta-alt/crm-genie
 
 Thanks,
 Himant

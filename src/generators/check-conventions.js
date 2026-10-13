@@ -83,6 +83,17 @@ if (fs.existsSync(PRIVATE)) {
     const t = fs.readFileSync(abs, 'utf8').toLowerCase();
     if (ids.some((id) => t.includes(id))) problems.push(`private: ${f} contains a value listed in .secrets/private-identifiers.txt`);
   }
+  // Slide decks are zip files: look inside every entry (slide text, notes and hyperlinks).
+  const zlib = require('zlib');
+  for (const f of execFileSync('git', ['ls-files', '-z', '--', '*.pptx'], { cwd: P.ROOT }).toString().split('\0').filter(Boolean)) {
+    const buf = fs.readFileSync(path.join(P.ROOT, f));
+    for (let o = buf.indexOf(Buffer.from([0x50, 0x4b, 0x03, 0x04])); o >= 0; o = buf.indexOf(Buffer.from([0x50, 0x4b, 0x03, 0x04]), o + 4)) {
+      const method = buf.readUInt16LE(o + 8), size = buf.readUInt32LE(o + 18), start = o + 30 + buf.readUInt16LE(o + 26) + buf.readUInt16LE(o + 28);
+      let t = '';
+      try { t = (method === 8 ? zlib.inflateRawSync(buf.subarray(start, start + size)) : buf.subarray(start, start + size)).toString('utf8').toLowerCase(); } catch { continue; }
+      if (ids.some((id) => t.includes(id))) { problems.push(`private: ${f} contains a value listed in .secrets/private-identifiers.txt`); break; }
+    }
+  }
 }
 // 8. Knowledge base and guardrails exist, and every agent follows at least one KB page that exists
 for (const f of ['kb/README.md', 'guardrails/README.md', 'guardrails/guardrails.json']) if (!fs.existsSync(path.join(P.ROOT, f))) problems.push(`standards: ${f} missing`);
