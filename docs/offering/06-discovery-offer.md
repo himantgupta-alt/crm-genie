@@ -187,9 +187,9 @@ Where they do not:
 
 | Item | Detail |
 |---|---|
-| Read-only integration user | A dedicated user (an API-only or integration licence where available) used only for Discovery |
+| Read-only integration user | A dedicated user (an API-only or integration licence where available) used only for Discovery. The client gives us its credentials as described under "Access" |
 | Dedicated permission set | "API Enabled"; "View Setup and Configuration"; "View All Data", or a scoped alternative (Read and "View All" on the objects in scope), so record counts and fill rates are complete. "Modify All Data" and "Modify Metadata Through Metadata API Functions" are not requested by default (see the note below) |
-| OAuth app | An External Client App (preferred on current orgs) or a Connected App using the JWT bearer flow for unattended runs, with a certificate whose private key sits in the client's vault; or, for a one-off run, a Salesforce CLI web login by a client admin for the integration user |
+| Access (credentials) | Preferred: the JWT bearer flow for the integration user. The client approves our connected app for that user (or creates one with the certificate we supply); we keep the private key in our vault. No password is exchanged, nothing expires, and runs are unattended. Fallback, only where the org's policy allows the username-password flow: the integration user's username, password and security token, sent through a secure channel, with "password never expires" on that user so runs do not stop at the next password rotation. A one-time "Connect with Salesforce" sign-in is used for demos and pilots; its token lasts until revoked, but a password reset or an admin revocation ends it |
 | Network | Login IP ranges on the integration user's profile, or the org's trusted IP ranges, allowing the runner's outbound IP address |
 | API call budget | See section 4.2 |
 | Tooling API and Metadata API | Available on the org edition (Enterprise, Unlimited and Performance editions include them) and not blocked by policy for the integration user |
@@ -199,6 +199,23 @@ integration user to retrieve metadata. We do not ask for it by default. If retri
 options are, in order of preference: (1) collect the same information through describe calls and the Tooling
 API only, with the gaps listed in the coverage report; (2) a client admin runs the retrieve step and hands over
 the files; (3) a time-boxed grant of the permission for the retrieve window, logged and removed afterwards.
+
+Why credentials rather than a one-time sign-in: Discovery is re-run after changes and during workshops, often
+weeks apart. A token from an interactive sign-in can end with a password reset, a session policy or an admin
+revocation, and someone then has to sign in again. A dedicated integration user with the JWT bearer flow keeps
+working until the client switches it off, and the client can see every call in that user's login history.
+
+### 4.1a Connect to a sandbox first
+
+We suggest connecting to a sandbox of each org rather than production:
+
+- **Full Copy sandbox (recommended):** the same configuration, code and data as production as of its last refresh, so the inventory, fit-gap and record counts are representative. Ask for a refresh shortly before week 1.
+- **Partial Copy sandbox:** the same configuration and code; record counts and field fill rates are a sample, so usage findings are marked as indicative.
+- **Developer sandbox:** configuration and code only; enough for the inventory and fit-gap, not for usage or fill rates.
+
+Sandboxes use https://test.salesforce.com (or the sandbox's My Domain address) to sign in. Usage evidence that
+only production holds (login history, report runs, real record volumes) is either read in one short read-only
+pass on production, if the client agrees, or provided by the client as standard Salesforce reports.
 
 ### 4.2 API call budget
 
@@ -223,26 +240,26 @@ spread across days if the client's integrations already use most of the allocati
 
 | Option | Description | When to use |
 |---|---|---|
-| Client-hosted runner (preferred) | A VM or container in the client's cloud with Node.js and the Salesforce CLI, outbound HTTPS only to the Salesforce orgs and the client's git, no inbound ports; Ascendion engineers reach it through the client's remote access with MFA | Default. Org data and outputs never leave the client environment |
-| Ascendion secured environment | A dedicated, access-restricted runner in Ascendion's environment, one per client, with the same controls | Only if the client agrees in writing, for example to save week 0 time |
+| Ascendion secured environment (default) | A dedicated, access-restricted runner in Ascendion's environment, one per client, writing to the client's engagement repository in Ascendion's git; credentials in Ascendion's vault; outbound calls only to the client's Salesforce orgs | Default. Fastest start; the outputs hold configuration and counts only, and everything is handed over and purged at the end (section 6) |
+| Client-hosted runner | A VM or container in the client's cloud with Node.js and the Salesforce CLI, outbound HTTPS only, no inbound ports; Ascendion engineers reach it through the client's remote access with MFA | When the client's policy does not allow credentials or outputs outside its environment |
 
 ### 4.4 Readiness checklist
 
 | # | Item | Owner | When needed |
 |---|---|---|---|
-| 1 | Agreed list of orgs (production plus one full sandbox each) and markets | Client (product owner) | Week 0, day 1 |
+| 1 | Agreed list of orgs and markets, and for each org the sandbox to connect to (Full Copy preferred, refreshed shortly before week 1) | Client (product owner) | Week 0, day 1 |
 | 2 | Data classification of Discovery outputs agreed (metadata names, configuration, counts; no record contents) | Client (IT security, data protection) with Ascendion | Week 0 |
 | 3 | Integration user per org, with the dedicated read-only permission set | Client (Salesforce admins, IT security) | Week 0 |
-| 4 | External Client App or Connected App per org (JWT bearer), certificate in the client's vault; or one-time CLI web login | Client (Salesforce admins), Ascendion provides the setup steps | Week 0 |
+| 4 | Credentials for the integration user: our connected app approved for that user with the certificate we supply (JWT bearer), or, where policy allows, username, password and security token sent through a secure channel | Client (Salesforce admins), Ascendion provides the setup steps and the certificate | Week 0 |
 | 5 | Login IP ranges or trusted IP ranges for the runner's outbound IP | Client (Salesforce admins, network) | Week 0 |
 | 6 | API allocation and current use checked per org; run windows agreed | Ascendion (agent operations), confirmed by client admins | Week 0 |
 | 7 | Tooling API and Metadata API access confirmed with a test call | Ascendion (agent operations) | Week 0, last day |
 | 8 | Runner VM or container provisioned with Node.js and the Salesforce CLI, outbound HTTPS only | Client (cloud team); Ascendion supplies the specification | Week 0 |
-| 9 | Git repository for the deliverables, client-hosted preferred | Client (engineering) | Week 0 |
-| 10 | Secrets (private keys, client IDs) stored in the client's vault, read by the runner at run time | Client (IT security) | Week 0 |
+| 9 | Client git repository to receive the approved deliverables at handover | Client (engineering) | Before the readout |
+| 10 | Credentials and private keys kept in Ascendion's vault (or the client's, if the runner is client-hosted), read only at run time, never written to git | Ascendion (information security); client IT security informed | Week 0 |
 | 11 | Named Ascendion team members given MFA-protected access to the runner and repository | Client (IT security); Ascendion supplies the names | Week 0 |
 | 12 | Audit: login history of the integration user and runner access logs available to the client | Client (IT security) | Throughout |
-| 13 | Private engagement repository created, access limited to the named team (section 6) | Ascendion (engagement lead) | Week 0 |
+| 13 | Ascendion engagement repository created for this client (artifacts only, no agent code), access limited to the named team (section 6) | Ascendion (engagement lead) | Week 0 |
 | 14 | Regional owners named and workshop dates booked | Client (product owner) | Week 1 |
 | 15 | Licence and package contracts with renewal dates | Client (procurement) | Week 2 |
 
@@ -298,31 +315,47 @@ What the outputs contain, and what they do not:
 
 ## 6. Artifact handover and removal from our private git
 
+### 6.0 Our git first: two repositories, so removal is clean
+
+Work happens in Ascendion's git first. To make the later removal complete and simple, client material and our
+reusable code never share a repository:
+
+- **Product repository (kept):** the agents, generator rules, capability catalogue and document templates. It never holds client metadata, outputs or credentials, and the conventions check in CI rejects client identifiers.
+- **Engagement repository (deleted at the end), one per client:** only that client's generated artifacts, review records and the readout pack. The runner pins the product version it used, so every artifact can be regenerated.
+
+While the engagement repository is ours we can use everything git offers: one commit per run, so the client can
+see what changed between runs; review gates as pull requests with the reviewer's decision recorded; CI that
+regenerates the outputs and fails if anything differs from what was reviewed; tags for each approved
+version (for example discovery-v1 after the readout); and the HTML explorer built from the repository. Deleting a
+file from git keeps it in history, so removal is done by deleting the whole engagement repository, not by
+deleting files.
+
 ### 6.1 Steps
 
 | Step | What happens | Owner | Evidence |
 |---|---|---|---|
-| 1. Generate | Outputs are generated into a private engagement repository, one per client, with access restricted to the named team (or directly in the client's repository when the client-hosted runner is used) | Ascendion engagement lead | Repository access list |
+| 1. Generate | Outputs are generated into the client's engagement repository in Ascendion's git, with access restricted to the named team | Ascendion engagement lead | Repository access list |
 | 2. Review gate | Every output is reviewed and approved, rejected (re-run) or stopped; each decision is recorded with reviewer, time and comment | Ascendion architects; client product owner for the final readout | Gate record |
 | 3. Push to the client | Approved artifacts are pushed to the client's git by mirror push, or delivered as a git bundle where the client prefers; integrity is verified by matching commit hashes, or SHA-256 checksums for a bundle | Ascendion agent operations | Commit hash or checksum list, signed by both sides |
 | 4. Client confirms receipt | The client checks that the commits or bundle open and match the hashes, and confirms in writing | Client product owner or IT lead | Receipt confirmation |
-| 5. Removal on our side | Delete or archive the private repository (archive only if the client asks for a held copy); purge forks, local clones and runner workspaces, including run records; revoke the integration user's sessions and the OAuth app tokens; ask the client to deactivate the integration user; rotate or delete the secrets and certificates | Ascendion agent operations and information security; client Salesforce admins for user deactivation and token revocation | Removal checklist with dates |
+| 5. Removal on our side | Delete the engagement repository itself (not only its files), which also removes its pull requests, CI logs and build artifacts; purge forks, local clones and runner workspaces, including run records; delete the integration user's credentials and private key from our vault; ask the client to deactivate the integration user and revoke our connected app; the product repository is checked to hold no client identifiers | Ascendion agent operations and information security; client Salesforce admins for user deactivation | Removal checklist with dates |
 | 6. Deletion certificate | A dated deletion confirmation listing the repository, clones, workspaces and backups removed, and the date by which hosting-provider backups expire | Signed by the Ascendion engagement lead and Ascendion information security; countersigned by the client IT security lead | Deletion certificate |
 
 ### 6.2 Retention windows
 
 | Item | Retention on Ascendion's side |
 |---|---|
-| Private engagement repository | Until the client confirms receipt, then deleted within [10] working days |
+| Engagement repository (artifacts, review records, CI logs) | Until the client confirms receipt, then deleted within [10] working days |
 | Local clones and runner workspaces (Ascendion environment) | Deleted with the repository |
 | Run records and logs | Deleted with the repository; never copied outside the runner |
 | Hosting-provider backups | Expire under the provider's backup schedule, at most [n] days; the expiry date is stated on the certificate |
-| Integration user and OAuth tokens | Revoked within [1] working day of the final run |
-| Secrets and certificates | Rotated or deleted within [1] working day of the final run |
+| Integration user credentials and private key in our vault | Deleted within [1] working day of the final run; the client deactivates the user |
+| Connected app approval in the client org | Revoked by the client admin at the same time |
 | Deletion certificate | Issued within [5] working days of removal |
 
-The windows in brackets are agreed with the client's IT security before start. If the client-hosted runner and
-repository are used, steps 3 to 5 are reduced to revoking Ascendion's access and the agents' credentials.
+The windows in brackets are agreed with the client's IT security before start. If the client-hosted runner is
+used instead, the engagement repository lives in the client's git from the start and steps 3 to 5 reduce to
+revoking Ascendion's access and the agents' credentials.
 
 What stays with Ascendion: only the reusable agent code, generator rules and document templates. No client data,
 no client metadata, no generated documents and no run records.
@@ -398,7 +431,7 @@ up to one week.
 
 | Risk | Impact | Mitigation |
 |---|---|---|
-| Access lead time (security review, OAuth app approval, network rules) | Start delayed; the client controls week 0 | Readiness checklist sent with the offer; one-time CLI web login as a fallback for the pilot; the elapsed weeks start only when access works |
+| Access lead time (security review, OAuth app approval, network rules) | Start delayed; the client controls week 0 | Readiness checklist sent with the offer; start on a sandbox, which usually needs fewer approvals than production; a one-time "Connect with Salesforce" sign-in as a fallback for the pilot; the elapsed weeks start only when access works |
 | API limits shared with busy integrations | Runs throttled or postponed | Allocation read before each run; runs outside peak hours; budget threshold stops a run safely; re-runs spread over days |
 | Managed-package code cannot be read | Behaviour inside packages is not documented | Packages listed with versions, licences and dependencies; package configuration documented; behaviour captured in workshops; decision per package taken in Design |
 | Metadata types an org does not expose, or Metadata API retrieve refused | Some documents incomplete | Coverage report compares what the org offers with what was read; describe and Tooling API used where possible; client admin runs the retrieve if needed (section 4.1) |
