@@ -6,7 +6,8 @@
   "kb": [
     "kb/engineering-principles.md",
     "kb/documentation-standards.md",
-    "kb/salesforce-translation-playbook.md"
+    "kb/salesforce-translation-playbook.md",
+    "kb/fit-gap-method.md"
   ],
   "guardrails": "guardrails/guardrails.json",
   "kind": "deterministic",

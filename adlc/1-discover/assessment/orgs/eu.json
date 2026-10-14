@@ -936,6 +936,8 @@
       {
         "name": "OpportunityService",
         "lines": 50,
+        "apiVersion": 67,
+        "modified": "2026-09-18",
         "test": false,
         "callout": false,
         "objects": [
@@ -950,7 +952,11 @@
               "verdict": "configure",
               "confidence": "Medium",
               "why": "Record-triggered flow creating the records.",
-              "method": "createSubscriptionsForWonDeals"
+              "method": "createSubscriptionsForWonDeals",
+              "lines": [
+                9,
+                49
+              ]
             }
           ],
           "issues": [
@@ -960,25 +966,44 @@
               "severity": "Medium"
             }
           ],
-          "calls": [
-            "Date.today"
-          ],
           "methodInfo": [
             {
               "name": "createSubscriptionsForWonDeals",
+              "lines": [
+                9,
+                49
+              ],
               "local": [],
               "writes": [
                 "Subscription__c"
-              ]
+              ],
+              "fields": {
+                "reads": [
+                  "Source_Opportunity__c"
+                ],
+                "writes": [
+                  "Account__c",
+                  "Source_Opportunity__c",
+                  "Start_Date__c",
+                  "End_Date__c"
+                ]
+              }
             }
           ],
-          "lines": 47
+          "lines": 50,
+          "calls": [
+            {
+              "to": "Date.today"
+            }
+          ]
         },
         "unreferenced": false
       },
       {
         "name": "PromotionClaimService",
         "lines": 23,
+        "apiVersion": 67,
+        "modified": "2026-10-14",
         "test": false,
         "callout": false,
         "objects": [
@@ -994,7 +1019,11 @@
               "verdict": "retain",
               "confidence": "Medium",
               "why": "The check needs other records, which a validation rule cannot read; keep it, or move it to a before-save flow with a lookup.",
-              "method": "checkAgainstSpend"
+              "method": "checkAgainstSpend",
+              "lines": [
+                5,
+                15
+              ]
             },
             {
               "kind": "status",
@@ -1002,7 +1031,11 @@
               "verdict": "configure",
               "confidence": "High",
               "why": "Approval process entry criteria or a before-save flow; keep any threshold as custom metadata, not in code.",
-              "method": "autoApprove"
+              "method": "autoApprove",
+              "lines": [
+                18,
+                22
+              ]
             }
           ],
           "issues": [
@@ -1012,26 +1045,53 @@
               "severity": "Medium"
             }
           ],
-          "calls": [],
           "methodInfo": [
             {
               "name": "checkAgainstSpend",
+              "lines": [
+                5,
+                15
+              ],
               "local": [],
-              "writes": []
+              "writes": [],
+              "fields": {
+                "reads": [
+                  "Trade_Promotion__c",
+                  "Actual_Spend__c",
+                  "Budget__c",
+                  "Claim_Amount__c"
+                ],
+                "writes": []
+              }
             },
             {
               "name": "autoApprove",
+              "lines": [
+                18,
+                22
+              ],
               "local": [],
-              "writes": []
+              "writes": [],
+              "fields": {
+                "reads": [
+                  "Claim_Amount__c"
+                ],
+                "writes": [
+                  "Status__c"
+                ]
+              }
             }
           ],
-          "lines": 23
+          "lines": 23,
+          "calls": []
         },
         "unreferenced": false
       },
       {
         "name": "PromotionClaimServiceTest",
         "lines": 27,
+        "apiVersion": 67,
+        "modified": "2026-10-14",
         "test": true,
         "callout": false,
         "objects": [
@@ -1042,6 +1102,8 @@
       {
         "name": "StoreVisitLegacyHandler",
         "lines": 9,
+        "apiVersion": 67,
+        "modified": "2026-10-14",
         "test": false,
         "callout": false,
         "objects": [
@@ -1056,25 +1118,43 @@
               "verdict": "configure",
               "confidence": "High",
               "why": "Formula field, or a before-save flow if the value must be stored.",
-              "method": "stampCheckIn"
+              "method": "stampCheckIn",
+              "lines": [
+                2,
+                8
+              ]
             }
           ],
           "issues": [],
-          "calls": [],
           "methodInfo": [
             {
               "name": "stampCheckIn",
+              "lines": [
+                2,
+                8
+              ],
               "local": [],
-              "writes": []
+              "writes": [],
+              "fields": {
+                "reads": [],
+                "writes": [
+                  "Check_In_Latitude__c",
+                  "Check_In_Longitude__c",
+                  "Checked_In__c"
+                ]
+              }
             }
           ],
-          "lines": 9
+          "lines": 9,
+          "calls": []
         },
         "unreferenced": true
       },
       {
         "name": "StoreVisitService",
         "lines": 64,
+        "apiVersion": 67,
+        "modified": "2026-10-14",
         "test": false,
         "callout": false,
         "objects": [
@@ -1092,7 +1172,11 @@
               "verdict": "configure",
               "confidence": "Medium",
               "why": "Record-triggered flow creating the records.",
-              "method": "createVisitTasks"
+              "method": "createVisitTasks",
+              "lines": [
+                5,
+                19
+              ]
             },
             {
               "kind": "rule",
@@ -1100,7 +1184,11 @@
               "verdict": "configure",
               "confidence": "High",
               "why": "Validation rule.",
-              "method": "requireCheckIn"
+              "method": "requireCheckIn",
+              "lines": [
+                22,
+                27
+              ]
             },
             {
               "kind": "rollup",
@@ -1108,7 +1196,11 @@
               "verdict": "configure",
               "confidence": "Medium",
               "why": "Roll-up summary field where the relationship is master-detail; otherwise a record-triggered flow.",
-              "method": "countOutOfStocks"
+              "method": "countOutOfStocks",
+              "lines": [
+                30,
+                41
+              ]
             },
             {
               "kind": "email",
@@ -1116,7 +1208,11 @@
               "verdict": "adopt",
               "confidence": "Medium",
               "why": "Email template with an email alert, sent from a flow or an approval step.",
-              "method": "alertAreaManager"
+              "method": "alertAreaManager",
+              "lines": [
+                44,
+                63
+              ]
             }
           ],
           "issues": [
@@ -1136,45 +1232,106 @@
               "severity": "Medium"
             }
           ],
-          "calls": [
-            "Date.today",
-            "String.valueOf",
-            "Messaging.SingleEmailMessage",
-            "Messaging.sendEmail"
-          ],
           "methodInfo": [
             {
               "name": "createVisitTasks",
+              "lines": [
+                5,
+                19
+              ],
               "local": [],
               "writes": [
                 "Visit_Task__c"
-              ]
+              ],
+              "fields": {
+                "reads": [
+                  "Account__c",
+                  "Product__c",
+                  "Must_Stock__c"
+                ],
+                "writes": [
+                  "Store_Visit__c",
+                  "Product__c",
+                  "Task_Type__c"
+                ]
+              }
             },
             {
               "name": "requireCheckIn",
+              "lines": [
+                22,
+                27
+              ],
               "local": [],
-              "writes": []
+              "writes": [],
+              "fields": {
+                "reads": [
+                  "Status__c",
+                  "Checked_In__c"
+                ],
+                "writes": []
+              }
             },
             {
               "name": "countOutOfStocks",
+              "lines": [
+                30,
+                41
+              ],
               "local": [],
               "writes": [
                 "Store_Visit__c"
-              ]
+              ],
+              "fields": {
+                "reads": [
+                  "Store_Visit__c",
+                  "On_Shelf__c"
+                ],
+                "writes": [
+                  "Out_Of_Stocks__c"
+                ]
+              }
             },
             {
               "name": "alertAreaManager",
+              "lines": [
+                44,
+                63
+              ],
               "local": [],
-              "writes": []
+              "writes": [],
+              "fields": {
+                "reads": [
+                  "Out_Of_Stocks__c",
+                  "Visit_Date__c"
+                ],
+                "writes": []
+              }
             }
           ],
-          "lines": 64
+          "lines": 64,
+          "calls": [
+            {
+              "to": "Date.today"
+            },
+            {
+              "to": "String.valueOf"
+            },
+            {
+              "to": "Messaging.SingleEmailMessage"
+            },
+            {
+              "to": "Messaging.sendEmail"
+            }
+          ]
         },
         "unreferenced": false
       },
       {
         "name": "StoreVisitServiceTest",
         "lines": 47,
+        "apiVersion": 67,
+        "modified": "2026-10-14",
         "test": true,
         "callout": false,
         "objects": [
@@ -1187,6 +1344,8 @@
       {
         "name": "SubscriptionRenewalBatch",
         "lines": 41,
+        "apiVersion": 67,
+        "modified": "2026-09-18",
         "test": false,
         "callout": false,
         "objects": [
@@ -1202,40 +1361,90 @@
               "severity": "Medium"
             }
           ],
-          "calls": [
-            "Date.today",
-            "Database.getQueryLocator",
-            "Database.executeBatch"
-          ],
           "methodInfo": [
             {
               "name": "start",
+              "lines": [
+                9,
+                16
+              ],
               "local": [],
-              "writes": []
+              "writes": [],
+              "fields": {
+                "reads": [
+                  "Account__c",
+                  "End_Date__c",
+                  "Auto_Renew__c",
+                  "Health_Score__c",
+                  "Status__c"
+                ],
+                "writes": []
+              }
             },
             {
               "name": "execute",
+              "lines": [
+                18,
+                32
+              ],
               "local": [],
-              "writes": []
+              "writes": [],
+              "fields": {
+                "reads": [
+                  "Auto_Renew__c",
+                  "End_Date__c",
+                  "Health_Score__c"
+                ],
+                "writes": []
+              }
             },
             {
               "name": "finish",
+              "lines": [
+                34,
+                36
+              ],
               "local": [],
-              "writes": []
+              "writes": [],
+              "fields": {
+                "reads": [],
+                "writes": []
+              }
             },
             {
               "name": "execute",
+              "lines": [
+                38,
+                40
+              ],
               "local": [],
-              "writes": []
+              "writes": [],
+              "fields": {
+                "reads": [],
+                "writes": []
+              }
             }
           ],
-          "lines": 38
+          "lines": 41,
+          "calls": [
+            {
+              "to": "Date.today"
+            },
+            {
+              "to": "Database.getQueryLocator"
+            },
+            {
+              "to": "Database.executeBatch"
+            }
+          ]
         },
         "unreferenced": false
       },
       {
         "name": "SubscriptionService",
         "lines": 70,
+        "apiVersion": 67,
+        "modified": "2026-09-18",
         "test": false,
         "callout": false,
         "objects": [
@@ -1250,7 +1459,11 @@
               "verdict": "configure",
               "confidence": "High",
               "why": "Formula field, or a before-save flow if the value must be stored.",
-              "method": "applyDefaults"
+              "method": "applyDefaults",
+              "lines": [
+                11,
+                23
+              ]
             }
           ],
           "issues": [
@@ -1260,36 +1473,86 @@
               "severity": "Medium"
             }
           ],
-          "calls": [
-            "Start_Date__c.addMonths",
-            "Integer.valueOf",
-            "Start_Date__c.monthsBetween",
-            "Date.today"
-          ],
           "methodInfo": [
             {
               "name": "applyDefaults",
+              "lines": [
+                11,
+                23
+              ],
               "local": [],
-              "writes": []
+              "writes": [],
+              "fields": {
+                "reads": [
+                  "Health_Score__c",
+                  "Start_Date__c",
+                  "Term_Months__c",
+                  "End_Date__c"
+                ],
+                "writes": [
+                  "Health_Score__c",
+                  "End_Date__c",
+                  "Term_Months__c"
+                ]
+              }
             },
             {
               "name": "handleStatusChange",
+              "lines": [
+                31,
+                58
+              ],
               "local": [],
-              "writes": []
+              "writes": [],
+              "fields": {
+                "reads": [
+                  "Status__c",
+                  "Account__c"
+                ],
+                "writes": []
+              }
             },
             {
               "name": "totalActiveMrr",
+              "lines": [
+                61,
+                69
+              ],
               "local": [],
-              "writes": []
+              "writes": [],
+              "fields": {
+                "reads": [
+                  "MRR__c",
+                  "Account__c",
+                  "Status__c"
+                ],
+                "writes": []
+              }
             }
           ],
-          "lines": 64
+          "lines": 70,
+          "calls": [
+            {
+              "to": "Start_Date__c.addMonths"
+            },
+            {
+              "to": "Integer.valueOf"
+            },
+            {
+              "to": "Start_Date__c.monthsBetween"
+            },
+            {
+              "to": "Date.today"
+            }
+          ]
         },
         "unreferenced": false
       },
       {
         "name": "SubscriptionServiceTest",
         "lines": 104,
+        "apiVersion": 67,
+        "modified": "2026-09-18",
         "test": true,
         "callout": false,
         "objects": [
@@ -1300,6 +1563,8 @@
       {
         "name": "TradePromotionApproval",
         "lines": 10,
+        "apiVersion": 67,
+        "modified": "2026-10-14",
         "test": false,
         "callout": false,
         "objects": [
@@ -1314,7 +1579,11 @@
               "verdict": "configure",
               "confidence": "High",
               "why": "Approval process entry criteria or a before-save flow; keep any threshold as custom metadata, not in code.",
-              "method": "apply"
+              "method": "apply",
+              "lines": [
+                3,
+                9
+              ]
             }
           ],
           "issues": [
@@ -1324,21 +1593,36 @@
               "severity": "Medium"
             }
           ],
-          "calls": [],
           "methodInfo": [
             {
               "name": "apply",
+              "lines": [
+                3,
+                9
+              ],
               "local": [],
-              "writes": []
+              "writes": [],
+              "fields": {
+                "reads": [
+                  "Status__c",
+                  "Budget__c"
+                ],
+                "writes": [
+                  "Status__c"
+                ]
+              }
             }
           ],
-          "lines": 10
+          "lines": 10,
+          "calls": []
         },
         "unreferenced": false
       },
       {
         "name": "TradePromotionApprovalTest",
         "lines": 33,
+        "apiVersion": 67,
+        "modified": "2026-10-14",
         "test": true,
         "callout": false,
         "objects": [
@@ -1348,6 +1632,8 @@
       {
         "name": "TradePromotionService",
         "lines": 99,
+        "apiVersion": 67,
+        "modified": "2026-10-14",
         "test": false,
         "callout": true,
         "objects": [
@@ -1363,7 +1649,11 @@
               "verdict": "configure",
               "confidence": "High",
               "why": "Formula field, or a before-save flow if the value must be stored.",
-              "method": "calculateResults"
+              "method": "calculateResults",
+              "lines": [
+                6,
+                13
+              ]
             },
             {
               "kind": "check",
@@ -1371,7 +1661,11 @@
               "verdict": "retain",
               "confidence": "Medium",
               "why": "The check needs other records, which a validation rule cannot read; keep it, or move it to a before-save flow with a lookup.",
-              "method": "checkFund"
+              "method": "checkFund",
+              "lines": [
+                16,
+                29
+              ]
             },
             {
               "kind": "rollup",
@@ -1379,7 +1673,11 @@
               "verdict": "configure",
               "confidence": "Medium",
               "why": "Roll-up summary field where the relationship is master-detail; otherwise a record-triggered flow.",
-              "method": "updateFundCommitted"
+              "method": "updateFundCommitted",
+              "lines": [
+                32,
+                43
+              ]
             },
             {
               "kind": "chatter",
@@ -1387,7 +1685,11 @@
               "verdict": "configure",
               "confidence": "High",
               "why": "Flow 'Post to Chatter' action.",
-              "method": "postApprovalToChatter"
+              "method": "postApprovalToChatter",
+              "lines": [
+                46,
+                53
+              ]
             },
             {
               "kind": "email",
@@ -1395,7 +1697,11 @@
               "verdict": "adopt",
               "confidence": "Medium",
               "why": "Email template with an email alert, sent from a flow or an approval step.",
-              "method": "emailKeyAccountManager"
+              "method": "emailKeyAccountManager",
+              "lines": [
+                56,
+                73
+              ]
             },
             {
               "kind": "integration",
@@ -1403,7 +1709,11 @@
               "verdict": "retain",
               "confidence": "High",
               "why": "External system integration; no standard feature replaces it. Keep it behind a named credential; a queue or platform event adds retries.",
-              "method": "sendToErp"
+              "method": "sendToErp",
+              "lines": [
+                84,
+                98
+              ]
             }
           ],
           "issues": [
@@ -1428,65 +1738,170 @@
               "severity": "Medium"
             }
           ],
-          "calls": [
-            "Math.max",
-            "Math.min",
-            "Database.insert",
-            "Messaging.SingleEmailMessage",
-            "Messaging.sendEmail",
-            "System.debug",
-            "UserInfo.getName",
-            "Test.isRunningTest",
-            "JSON.serialize"
-          ],
           "methodInfo": [
             {
               "name": "calculateResults",
+              "lines": [
+                6,
+                13
+              ],
               "local": [],
-              "writes": []
+              "writes": [],
+              "fields": {
+                "reads": [
+                  "Baseline_Volume__c",
+                  "Actual_Volume__c",
+                  "Actual_Spend__c"
+                ],
+                "writes": [
+                  "ROI__c"
+                ]
+              }
             },
             {
               "name": "checkFund",
+              "lines": [
+                16,
+                29
+              ],
               "local": [],
-              "writes": []
+              "writes": [],
+              "fields": {
+                "reads": [
+                  "Trade_Fund__c",
+                  "Amount__c",
+                  "Budget__c",
+                  "Committed__c"
+                ],
+                "writes": []
+              }
             },
             {
               "name": "updateFundCommitted",
+              "lines": [
+                32,
+                43
+              ],
               "local": [],
               "writes": [
                 "Trade_Fund__c"
-              ]
+              ],
+              "fields": {
+                "reads": [
+                  "Trade_Fund__c",
+                  "Budget__c",
+                  "Status__c"
+                ],
+                "writes": [
+                  "Committed__c"
+                ]
+              }
             },
             {
               "name": "postApprovalToChatter",
+              "lines": [
+                46,
+                53
+              ],
               "local": [],
-              "writes": []
+              "writes": [],
+              "fields": {
+                "reads": [
+                  "Status__c",
+                  "Budget__c"
+                ],
+                "writes": []
+              }
             },
             {
               "name": "emailKeyAccountManager",
+              "lines": [
+                56,
+                73
+              ],
               "local": [],
-              "writes": []
+              "writes": [],
+              "fields": {
+                "reads": [
+                  "Status__c",
+                  "Budget__c"
+                ],
+                "writes": []
+              }
             },
             {
               "name": "syncToErp",
+              "lines": [
+                76,
+                82
+              ],
               "local": [
                 "sendToErp"
               ],
-              "writes": []
+              "writes": [],
+              "fields": {
+                "reads": [
+                  "Status__c",
+                  "ERP_Synced__c"
+                ],
+                "writes": []
+              }
             },
             {
               "name": "sendToErp",
+              "lines": [
+                84,
+                98
+              ],
               "local": [],
-              "writes": []
+              "writes": [],
+              "fields": {
+                "reads": [
+                  "Legacy_ERP_Code__c",
+                  "Budget__c"
+                ],
+                "writes": []
+              }
             }
           ],
-          "lines": 99
+          "lines": 99,
+          "calls": [
+            {
+              "to": "Math.max"
+            },
+            {
+              "to": "Math.min"
+            },
+            {
+              "to": "Database.insert"
+            },
+            {
+              "to": "Messaging.SingleEmailMessage"
+            },
+            {
+              "to": "Messaging.sendEmail"
+            },
+            {
+              "to": "System.debug"
+            },
+            {
+              "to": "UserInfo.getName"
+            },
+            {
+              "to": "Test.isRunningTest"
+            },
+            {
+              "to": "JSON.serialize"
+            }
+          ]
         },
         "unreferenced": false
       },
       {
         "name": "TradePromotionServiceTest",
         "lines": 61,
+        "apiVersion": 67,
+        "modified": "2026-10-14",
         "test": true,
         "callout": false,
         "objects": [
@@ -1501,24 +1916,38 @@
         "object": "Opportunity",
         "active": true,
         "lines": 3,
-        "events": [
-          "after update"
-        ],
+        "apiVersion": 67,
+        "modified": "2026-09-18",
         "analysis": {
           "name": "OpportunityTrigger",
           "functions": [],
           "issues": [],
-          "calls": [
-            "OpportunityService.createSubscriptionsForWonDeals"
-          ],
           "methodInfo": [
             {
               "name": "(trigger body)",
+              "lines": [
+                1,
+                3
+              ],
               "local": [],
-              "writes": []
+              "writes": [],
+              "fields": {
+                "reads": [],
+                "writes": []
+              }
             }
           ],
-          "lines": 3
+          "lines": 3,
+          "calls": [
+            {
+              "to": "OpportunityService.createSubscriptionsForWonDeals",
+              "line": 2,
+              "phase": "after"
+            }
+          ],
+          "events": [
+            "after update"
+          ]
         }
       },
       {
@@ -1526,26 +1955,45 @@
         "object": "Promotion_Claim__c",
         "active": true,
         "lines": 4,
-        "events": [
-          "before insert",
-          "before update"
-        ],
+        "apiVersion": 67,
+        "modified": "2026-10-14",
         "analysis": {
           "name": "PromotionClaimTrigger",
           "functions": [],
           "issues": [],
-          "calls": [
-            "PromotionClaimService.checkAgainstSpend",
-            "PromotionClaimService.autoApprove"
-          ],
           "methodInfo": [
             {
               "name": "(trigger body)",
+              "lines": [
+                1,
+                4
+              ],
               "local": [],
-              "writes": []
+              "writes": [],
+              "fields": {
+                "reads": [],
+                "writes": []
+              }
             }
           ],
-          "lines": 4
+          "lines": 4,
+          "calls": [
+            {
+              "to": "PromotionClaimService.checkAgainstSpend",
+              "line": 2,
+              "phase": "before"
+            },
+            {
+              "to": "PromotionClaimService.autoApprove",
+              "line": 3,
+              "phase": "before",
+              "insert": true
+            }
+          ],
+          "events": [
+            "before insert",
+            "before update"
+          ]
         }
       },
       {
@@ -1553,26 +2001,42 @@
         "object": "Shelf_Check__c",
         "active": true,
         "lines": 5,
-        "events": [
-          "after insert",
-          "after update",
-          "after delete"
-        ],
+        "apiVersion": 67,
+        "modified": "2026-10-14",
         "analysis": {
           "name": "ShelfCheckTrigger",
           "functions": [],
           "issues": [],
-          "calls": [
-            "StoreVisitService.countOutOfStocks"
-          ],
           "methodInfo": [
             {
               "name": "(trigger body)",
+              "lines": [
+                1,
+                5
+              ],
               "local": [],
-              "writes": []
+              "writes": [],
+              "fields": {
+                "reads": [
+                  "Store_Visit__c"
+                ],
+                "writes": []
+              }
             }
           ],
-          "lines": 5
+          "lines": 5,
+          "calls": [
+            {
+              "to": "StoreVisitService.countOutOfStocks",
+              "line": 4,
+              "phase": "after"
+            }
+          ],
+          "events": [
+            "after insert",
+            "after update",
+            "after delete"
+          ]
         }
       },
       {
@@ -1580,28 +2044,53 @@
         "object": "Store_Visit__c",
         "active": true,
         "lines": 5,
-        "events": [
-          "after insert",
-          "before update",
-          "after update"
-        ],
+        "apiVersion": 67,
+        "modified": "2026-10-14",
         "analysis": {
           "name": "StoreVisitTrigger",
           "functions": [],
           "issues": [],
-          "calls": [
-            "StoreVisitService.createVisitTasks",
-            "StoreVisitService.requireCheckIn",
-            "StoreVisitService.alertAreaManager"
-          ],
           "methodInfo": [
             {
               "name": "(trigger body)",
+              "lines": [
+                1,
+                5
+              ],
               "local": [],
-              "writes": []
+              "writes": [],
+              "fields": {
+                "reads": [],
+                "writes": []
+              }
             }
           ],
-          "lines": 5
+          "lines": 5,
+          "calls": [
+            {
+              "to": "StoreVisitService.createVisitTasks",
+              "line": 2,
+              "phase": "after",
+              "insert": true
+            },
+            {
+              "to": "StoreVisitService.requireCheckIn",
+              "line": 3,
+              "phase": "before",
+              "insert": false
+            },
+            {
+              "to": "StoreVisitService.alertAreaManager",
+              "line": 4,
+              "phase": "after",
+              "insert": false
+            }
+          ],
+          "events": [
+            "after insert",
+            "before update",
+            "after update"
+          ]
         }
       },
       {
@@ -1609,27 +2098,46 @@
         "object": "Subscription__c",
         "active": true,
         "lines": 7,
-        "events": [
-          "before insert",
-          "before update",
-          "after update"
-        ],
+        "apiVersion": 67,
+        "modified": "2026-09-18",
         "analysis": {
           "name": "SubscriptionTrigger",
           "functions": [],
           "issues": [],
-          "calls": [
-            "SubscriptionService.applyDefaults",
-            "SubscriptionService.handleStatusChange"
-          ],
           "methodInfo": [
             {
               "name": "(trigger body)",
+              "lines": [
+                1,
+                7
+              ],
               "local": [],
-              "writes": []
+              "writes": [],
+              "fields": {
+                "reads": [],
+                "writes": []
+              }
             }
           ],
-          "lines": 7
+          "lines": 7,
+          "calls": [
+            {
+              "to": "SubscriptionService.applyDefaults",
+              "line": 3,
+              "phase": "before"
+            },
+            {
+              "to": "SubscriptionService.handleStatusChange",
+              "line": 5,
+              "phase": "after",
+              "insert": false
+            }
+          ],
+          "events": [
+            "before insert",
+            "before update",
+            "after update"
+          ]
         }
       },
       {
@@ -1637,33 +2145,76 @@
         "object": "Trade_Promotion__c",
         "active": true,
         "lines": 19,
-        "events": [
-          "before insert",
-          "before update",
-          "after insert",
-          "after update"
-        ],
+        "apiVersion": 67,
+        "modified": "2026-10-14",
         "analysis": {
           "name": "TradePromotionTrigger",
           "functions": [],
           "issues": [],
-          "calls": [
-            "TradePromotionApproval.apply",
-            "TradePromotionService.calculateResults",
-            "TradePromotionService.checkFund",
-            "TradePromotionService.updateFundCommitted",
-            "TradePromotionService.postApprovalToChatter",
-            "TradePromotionService.emailKeyAccountManager",
-            "TradePromotionService.syncToErp"
-          ],
           "methodInfo": [
             {
               "name": "(trigger body)",
+              "lines": [
+                1,
+                19
+              ],
               "local": [],
-              "writes": []
+              "writes": [],
+              "fields": {
+                "reads": [
+                  "Trade_Fund__c"
+                ],
+                "writes": []
+              }
             }
           ],
-          "lines": 19
+          "lines": 19,
+          "calls": [
+            {
+              "to": "TradePromotionApproval.apply",
+              "line": 3,
+              "phase": "before"
+            },
+            {
+              "to": "TradePromotionService.calculateResults",
+              "line": 4,
+              "phase": "before"
+            },
+            {
+              "to": "TradePromotionService.checkFund",
+              "line": 5,
+              "phase": "before"
+            },
+            {
+              "to": "TradePromotionService.updateFundCommitted",
+              "line": 12,
+              "phase": "after"
+            },
+            {
+              "to": "TradePromotionService.postApprovalToChatter",
+              "line": 14,
+              "phase": "after",
+              "insert": false
+            },
+            {
+              "to": "TradePromotionService.emailKeyAccountManager",
+              "line": 15,
+              "phase": "after",
+              "insert": false
+            },
+            {
+              "to": "TradePromotionService.syncToErp",
+              "line": 16,
+              "phase": "after",
+              "insert": false
+            }
+          ],
+          "events": [
+            "before insert",
+            "before update",
+            "after insert",
+            "after update"
+          ]
         }
       }
     ],

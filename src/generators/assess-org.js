@@ -67,8 +67,10 @@ async function main() {
   // 3. Code and declarative automation (unmanaged only)
   const customNames = objects.map((o) => o.name);
   const touches = (body) => [...new Set(customNames.filter((n) => new RegExp(`\\b${n}\\b`).test(body || '')))].sort();
-  const classRows = ok(await soql('SELECT Name, Body, LengthWithoutComments FROM ApexClass WHERE NamespacePrefix = null', true));
-  const trigRows = ok(await soql('SELECT Name, TableEnumOrId, Body, Status FROM ApexTrigger WHERE NamespacePrefix = null', true));
+  const classRows = ok(await soql('SELECT Name, Body, ApiVersion, LastModifiedDate FROM ApexClass WHERE NamespacePrefix = null', true));
+  const trigRows = ok(await soql('SELECT Name, TableEnumOrId, Body, Status, ApiVersion, LastModifiedDate FROM ApexTrigger WHERE NamespacePrefix = null', true));
+  // Line references hold for the version read: keep its API version and last change with them.
+  const version = (r) => ({ apiVersion: r.ApiVersion, modified: (r.LastModifiedDate || '').slice(0, 10) });
   // Function-level reading of the code (kb/fit-gap-method.md). Only names and verdicts are kept, never the source.
   const isTest = (b) => /@isTest/i.test(b || '');
   const live = [...classRows.filter((c) => !isTest(c.Body)), ...trigRows.filter((t) => t.Status === 'Active')];
@@ -79,13 +81,12 @@ async function main() {
       const test = isTest(c.Body);
       const objs = touches(c.Body);
       const analysis = test ? undefined : analyseApex(c.Name, c.Body, { kind: 'class' });
-      return { name: c.Name, lines: (c.Body || '').split('\n').length, test, callout: /callout:|new\s+HttpRequest|HttpCalloutMock/.test(c.Body || '') && !test, objects: objs,
+      return { name: c.Name, lines: (c.Body || '').split('\n').length, ...version(c), test, callout: /callout:|new\s+HttpRequest|HttpCalloutMock/.test(c.Body || '') && !test, objects: objs,
         ...(test ? {} : { analysis, unreferenced: !entryPoint.test(c.Body || '') && !calledFromLiveCode(c.Name) }) };
     })
     .sort(byName);
   const triggers = trigRows
-    .map((t) => ({ name: t.Name, object: t.TableEnumOrId, active: t.Status === 'Active', lines: (t.Body || '').split('\n').length,
-      events: [...new Set(((t.Body || '').match(/\((?:\s*(?:before|after)\s+\w+\s*,?)+\)/i)?.[0] || '').match(/(before|after)\s+\w+/gi) || [])],
+    .map((t) => ({ name: t.Name, object: t.TableEnumOrId, active: t.Status === 'Active', lines: (t.Body || '').split('\n').length, ...version(t),
       analysis: analyseApex(t.Name, t.Body, { kind: 'trigger', object: t.TableEnumOrId }) }))
     .sort(byName);
   const flows = ok(await soql('SELECT ApiName, Label, ProcessType, TriggerType, TriggerObjectOrEventLabel, IsActive FROM FlowDefinitionView WHERE NamespacePrefix = null'))

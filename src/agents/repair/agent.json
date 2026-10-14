@@ -7,7 +7,8 @@
     "kb/testing-standards.md",
     "kb/secure-coding.md",
     "kb/engineering-principles.md",
-    "kb/salesforce-translation-playbook.md"
+    "kb/salesforce-translation-playbook.md",
+    "kb/fit-gap-method.md"
   ],
   "guardrails": "guardrails/guardrails.json",
   "kind": "llm",

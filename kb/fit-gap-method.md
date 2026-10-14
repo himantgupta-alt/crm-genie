@@ -75,11 +75,114 @@ high regression impact. Adopting a licensed feature is never a quick win: the li
 | Hard-coded ID prefixes | Checks like `'005'` to tell users from queues |
 | Business thresholds in code | A limit the business owns needs a developer and a release to change |
 
+## Verdict tree
+
+```
+Used?  ── no ──► RETIRE
+  │yes
+Purpose known? ── no ──► REVIEW WITH CLIENT
+  │yes
+Standard (core or package) does it? ── yes ──► ADOPT STANDARD   (+ "needs package upgrade" if only in the latest release)
+  │no / partly
+Can settings do it instead of code? ── yes ──► REPLACE WITH CONFIGURATION
+  │no
+RETAIN (truly needed; note if it should be simplified)
+```
+
+"Partly standard" is an outcome, not a verdict: some functions of a component can move and some cannot. Record
+"x of y can move"; effort is at least Medium. Full splitting is time-boxed to the top 20 to 30 components per org.
+
+How the custom part relates to standard:
+
+| Relationship | Meaning | Usual verdict |
+|---|---|---|
+| Duplicates | Does what standard already does | Adopt standard |
+| Extends | Adds to standard through a documented extension point | Retain, low debt |
+| Overrides | Works around or replaces package logic (for example a package trigger switched off) | Adopt standard or Retain, high debt; expert review |
+| Fills a gap | Standard has nothing for this | Retain |
+| Upgrade gap | Standard has it only in a newer release than the one installed | Adopt standard, needs package upgrade |
+
+Process Builder and Workflow Rules are no longer supported: always Replace with configuration (rebuild as a flow),
+High confidence.
+
+## Code references
+
+Every function says where it is, so the next person opens it in seconds. No reference means the finding is not
+finished.
+
+- Apex class: `Class.method` and line range, for example `OrderService.applyDiscount L120–164`.
+- Trigger: trigger name, line and context, then the handler method: `OrderTrigger L5 (before) → OrderHandler.beforeUpdate L30–58`.
+- Logic in a helper: the caller and the helper method, each with lines.
+- Flow: API name, version and element; validation rule or formula: object and API name.
+- Lines hold for the version read: record its API version and last-modified date.
+- For chains, give the reference of each link, in run order.
+
 ## Order of execution
 
 Inside one Apex class, steps run in the order they are written. Once some steps become flows, Salesforce's save
-order decides instead: moved logic runs after the Apex that stays. When saving one object updates another that has
-its own trigger, the steps form a chain; steps that depend on each other move together, or stay together.
+order decides instead. One record save:
+
+1. Load the record; system checks (required fields, formats)
+2. Before-save record-triggered flows
+3. Before triggers (Apex)
+4. System checks again, then validation rules
+5. Duplicate rules
+6. Record saved (not yet committed)
+7. After triggers (Apex)
+8. Assignment rules, auto-response rules
+9. Workflow rules (field updates re-run update triggers once)
+10. Escalation rules, entitlement rules
+11. After-save record-triggered flows
+12. Roll-up summary fields on the parent (the parent goes through its own save)
+13. Criteria-based sharing
+14. Commit
+15. After commit: emails sent, asynchronous Apex (future, queueable), asynchronous flow paths
+
+Where moved logic lands:
+
+| The function | Moves to | Runs at step | Watch out |
+|---|---|---|---|
+| Sets fields on the same record | Before-save flow, or formula | 2 | Runs before before-triggers; a trigger that stays still sees the value |
+| Blocks a save with an error | Validation rule | 4 | Sees values the before-triggers set |
+| Updates or creates related records | After-save flow | 11 | Runs after after-triggers: Apex that stays cannot use its result in the same save |
+| Sends email, notification or Chatter post | Flow action or email alert | 11 (email at 15) | Usually safe: a good quick win |
+| Sums or counts children | Roll-up summary | 12 | The parent saves again: its triggers and flows run |
+| Calls another system | Apex (asynchronous) or an asynchronous flow path | 15 | Never in the same transaction as the save |
+
+Rules:
+
+1. A function that only uses results of Apex that stays may move to an after-save flow.
+2. A function whose result is used by Apex that stays, and that would land later than that Apex, cannot move alone:
+   move it as a group with what depends on it, or keep it.
+3. Chains move or stay together. Mark them sequence-sensitive; regression impact is High, with a list of what to retest
+   (the full business flow, not just the one object).
+4. An after-save flow that updates the same record is a second save: triggers run again. Check the recursion guard.
+5. Static recursion flags in Apex have no flow equivalent: use entry conditions ("only when field X changed").
+6. Several flows on one object: set their trigger order. Flow order cannot be set relative to Apex triggers.
+7. More than one trigger on an object already has no fixed order: note it as a finding.
+8. Hints that the order mattered before: comments like "moved from Flow to Apex" or "must run after", static flags,
+   methods called in a fixed sequence inside one handler.
+
+When saving one object updates another that has its own trigger, the steps form a chain across objects; the same rules
+apply.
+
+## Review
+
+- Rules close the easy rows (High confidence): unused, inactive, Process Builder or Workflow, exact catalogue match.
+  Reviewers spot-check these.
+- Reviewers check every Medium and Low row and every code component; the TPM expert reviews everything on the
+  package's own objects.
+- Review order: switched-off package triggers and the code that replaced them; custom objects; code on package
+  objects; screens that replace package screens; then other Apex, flows and the rest.
+- Each row records the reviewer and the date.
+
+## The headline: how much is custom?
+
+A single percentage misleads, so show three views per org:
+
+1. By component count: standard, package, custom configuration, custom code.
+2. By capability: capabilities mainly standard versus mainly custom.
+3. By build size: lines of custom Apex against configuration (flows, validation rules, fields).
 
 ## Consumer goods: Retail execution and TPM
 
@@ -96,6 +199,11 @@ its own trigger, the steps form a chain; steps that depend on each other move to
 | Home-grown promotion approval | Approval process or Flow approval orchestration | Sales Cloud |
 
 Licence fit is confirmed with the client before an adopt-standard verdict becomes a decision.
+
+Before judging anything on the Consumer Goods Cloud package's own objects, read the package switches (its trigger and
+validation-rule settings) and the installed version: a package trigger that is switched off is the strongest sign
+that custom code overrides it. The installed package wins over the catalogue: if they differ, trust the org's
+schema. Never match to objects the package marks as for future or internal use.
 
 ## Assumptions and limits
 

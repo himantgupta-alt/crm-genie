@@ -32,6 +32,9 @@ const caps = cat.capabilities.map((c) => ({ ...c, re: Object.fromEntries(Object.
 const byKey = (kind, name) => caps.find((c) => c.re[kind]?.test(name));
 const capOfObject = (name) => byKey('objects', name);
 
+// Process Builder and Workflow Rules: support ended at the end of 2025, so they are rebuilt as flows whatever they do.
+const RETIRED_AUTOMATION = 'Process Builder and Workflow Rules are no longer supported: rebuild as a record-triggered flow.';
+
 function classify(o) {
   const a = o.asIs;
   const items = [];
@@ -72,7 +75,10 @@ function classify(o) {
     const base = cap ? { ...cap, verdict: cap.verdict === 'adopt' ? 'adopt' : 'retain' } : { id: null, verdict: 'retain', standard: 'Already configuration (Flow); retain and document.' };
     push('Flow', fl.name, base.id ? base : null, { via: 'objects', unused: fl.active ? null : 'Inactive.', facts: { object: fl.object } });
     if (!base.id) Object.assign(items[items.length - 1], { verdict: fl.active ? 'retain' : 'retire', reason: base.standard, confidence: 'Medium' });
+    if (fl.kind === 'Workflow' && fl.active) Object.assign(items[items.length - 1], { verdict: 'configure', reason: RETIRED_AUTOMATION, confidence: 'High' });
   }
+  for (const w of a.automation.workflowRules || []) push('Workflow rule', `${w.object}.${w.name}`, capOfObject(w.object), { facts: { object: w.object } });
+  for (const i of items.filter((x) => x.kind === 'Workflow rule')) Object.assign(i, { verdict: 'configure', reason: RETIRED_AUTOMATION, confidence: 'High' });
   for (const vr of a.automation.validationRules) {
     const cap = capOfObject(vr.object) || caps.find((c) => c.re.fields && [...(a.extended.find((s) => s.name === vr.object)?.fields || [])].some((f) => c.re.fields.test(`${vr.object}.${f.name}`) && new RegExp(f.name.replace(/__c$/, '').split('_')[0], 'i').test(vr.name)));
     push('Validation rule', `${vr.object}.${vr.name}`, cap, { unused: vr.active ? null : 'Inactive.', facts: { object: vr.object } });
@@ -94,7 +100,7 @@ for (const i of items) if (i.verdict === 'retain' && i.capability && builtDiffer
 const capById = Object.fromEntries(cat.capabilities.map((c) => [c.id, c]));
 const effortOf = (i) => {
   if (i.verdict === 'retire' || i.verdict === 'review') return 'Low';
-  if (['Custom field', 'Validation rule', 'Flow'].includes(i.kind)) return 'Low';
+  if (['Custom field', 'Validation rule', 'Flow', 'Workflow rule'].includes(i.kind)) return 'Low';
   if (/Apex/.test(i.kind)) return (i.lines || 0) <= 80 ? 'Low' : (i.lines || 0) <= 300 ? 'Medium' : 'High';
   if (i.kind === 'Custom object') return (i.records || 0) > 1000 || (i.fields || 0) > 15 ? 'High' : 'Medium';
   return 'Medium';
@@ -159,20 +165,66 @@ function functionFitGap(o) {
   const triggerOn = Object.fromEntries(a.automation.triggers.filter((t) => t.active).map((t) => [t.object, t.name]));
   const comps = [];
 
+  const L = (r) => (r ? (r[0] === r[1] ? `L${r[0]}` : `L${r[0]}–${r[1]}`) : '');
+  const info = (c, m) => cls[c].analysis.methodInfo.find((x) => x.name === m);
+  const ref = (c, m) => `${c}.${m} ${L(info(c, m)?.lines)}`.trim();
+  // Where moved logic lands in Salesforce's save order (kb/fit-gap-method.md): step numbers of one record save.
+  const LAND = { status: 2, calc: 2, rule: 4, check: 4, approval: 11, chatter: 11, email: 11, create: 11, rollup: 12, integration: 15 };
+  const STAYS = new Set(['retain', 'review', 'harmonise']);
+
   for (const t of a.automation.triggers) {
-    const byClass = {};
-    for (const call of t.analysis?.calls || []) { const [c, m] = call.split('.'); if (cls[c]) (byClass[c] = byClass[c] || []).push(m); }
-    const handlers = Object.entries(byClass).map(([c, ms]) => { const set = reach(cls[c], ms); set.forEach((m) => reached[c].add(m)); return [c, set]; });
     const tItem = itemOf('Apex trigger', t.name);
-    const functions = [
-      ...(t.analysis?.functions || []).map((f) => judge(f, tItem, t.name)),
-      ...handlers.flatMap(([c, set]) => cls[c].analysis.functions.filter((f) => set.has(f.method)).map((f) => judge(f, itemOf('Apex class', c), c))),
-    ];
-    if (!t.active) functions.unshift({ kind: 'dead', what: 'Inactive trigger, still in the code', verdict: 'retire', confidence: 'High', why: 'The trigger is inactive; remove it and any handler only it calls, after confirming its status in the org.', method: '(trigger)', component: t.name });
-    const writes = [...new Set(handlers.flatMap(([c, set]) => cls[c].analysis.methodInfo.filter((m) => set.has(m.name)).flatMap((m) => m.writes)))].filter((w) => w !== t.object);
-    comps.push({ id: `trg-${t.name}`, name: t.name, title: `${words(t.object)} triggers and handlers`, kind: 'Trigger + handlers', object: t.object, members: [t.name, ...handlers.map(([c]) => c)],
-      lines: t.lines + handlers.reduce((n, [c]) => n + (cls[c].lines || 0), 0), files: 1 + handlers.length, functions, writes, capability: tItem?.capability || null,
-      issues: [...(t.analysis?.issues || []), ...handlers.flatMap(([c]) => cls[c].analysis.issues.map((x) => ({ ...x, in: c })))], active: t.active, callout: handlers.some(([c]) => cls[c].callout) });
+    // Each call the trigger makes into a handler is one step; steps run before the save, then after, in code order.
+    const seen = new Set();
+    const steps = (t.analysis?.calls || []).filter((x) => cls[x.to.split('.')[0]]).map((x) => {
+      const [c, m] = x.to.split('.');
+      const set = reach(cls[c], [m]);
+      set.forEach((mm) => reached[c].add(mm));
+      const own = [...set].filter((mm) => !seen.has(`${c}.${mm}`));
+      own.forEach((mm) => seen.add(`${c}.${mm}`));
+      const fields = { reads: new Set(), writes: new Set() };
+      for (const mm of set) { const i = info(c, mm); i?.fields?.reads.forEach((f) => fields.reads.add(f)); i?.fields?.writes.forEach((f) => fields.writes.add(f)); }
+      const call = `${t.name} L${x.line}${x.phase ? ` (${x.phase}${x.insert === true ? ' insert' : x.insert === false ? ' update' : ''})` : ''}`;
+      const functions = cls[c].analysis.functions.filter((f) => own.includes(f.method))
+        .map((f) => ({ ...judge(f, itemOf('Apex class', c), c), ref: `${call} → ${ref(c, f.method)}`, phase: x.phase }));
+      return { to: x.to, line: x.line, phase: x.phase, insert: x.insert, set, cls: c, fields, functions, call };
+    }).sort((p, q) => ({ before: 0, after: 1 }[p.phase] ?? 0.5) - ({ before: 0, after: 1 }[q.phase] ?? 0.5) || p.line - q.line);
+    steps.forEach((s, n) => { s.order = n + 1; s.functions.forEach((f) => { f.step = n + 1; }); });
+
+    // Chains inside the component: a later step reads what an earlier step writes in the same save.
+    const links = [];
+    for (let p = 0; p < steps.length; p++) for (let q = p + 1; q < steps.length; q++) {
+      const A = steps[p], B = steps[q];
+      if (A.insert !== undefined && B.insert !== undefined && A.insert !== B.insert) continue;
+      const shared = [...A.fields.writes].filter((f) => B.fields.reads.has(f));
+      if (shared.length) links.push({ from: A, to: B, fields: shared });
+    }
+    for (const lk of links) {
+      const consumerStays = !lk.to.functions.length || lk.to.functions.some((f) => STAYS.has(f.verdict));
+      const consumerStep = lk.to.phase === 'before' ? 3 : 7;
+      [...lk.from.functions, ...lk.to.functions].forEach((f) => { f.sequenceSensitive = true; });
+      const producers = lk.from.functions.filter((f) => (info(f.component, f.method)?.fields?.writes || []).some((w) => lk.fields.includes(w)));
+      for (const f of (producers.length ? producers : lk.from.functions)) {
+        if (!MOVES.has(f.verdict) || f.verdict === 'retire' || !consumerStays || (LAND[f.kind] || 11) <= consumerStep) continue;
+        f.verdict = 'retain';
+        f.cannotMoveAlone = true;
+        f.why = `Can't move alone: ${lk.to.to} (Apex that stays, ${lk.to.phase || 'in the trigger'}) uses its result (${lk.fields.map(words).join(', ')}) in the same save, and the moved logic would run after it. Move as a group or keep. Otherwise: ${f.why}`;
+      }
+    }
+    const chainsInside = links.map((lk) => ({
+      from: `${lk.from.to} (step ${lk.from.order})`, to: `${lk.to.to} (step ${lk.to.order})`, fields: lk.fields,
+      text: `${lk.from.to} writes ${lk.fields.map(words).join(', ')}, which ${lk.to.to} reads later in the same save (${lk.from.call} → ${lk.to.call}).`,
+    }));
+
+    const functions = [...(t.analysis?.functions || []).map((f) => ({ ...judge(f, tItem, t.name), ref: `${t.name} ${L(f.lines)}` })), ...steps.flatMap((s) => s.functions)];
+    if (!t.active) functions.unshift({ kind: 'dead', what: 'Inactive trigger, still in the code', verdict: 'retire', confidence: 'High', why: 'The trigger is inactive; remove it and any handler only it calls, after confirming its status in the org.', method: '(trigger)', component: t.name, ref: `${t.name} L1–${t.lines}` });
+    const handlers = [...new Set(steps.map((s) => s.cls))];
+    const writes = [...new Set(steps.flatMap((s) => [...s.set].flatMap((m) => info(s.cls, m)?.writes || [])))].filter((w) => w !== t.object);
+    comps.push({ id: `trg-${t.name}`, name: t.name, title: `${words(t.object)} triggers and handlers`, kind: 'Trigger + handlers', object: t.object, members: [t.name, ...handlers],
+      versions: [t, ...handlers.map((h) => cls[h])].map((x) => ({ name: x.name, apiVersion: x.apiVersion, modified: x.modified })), events: t.analysis?.events || [],
+      steps: steps.map((s) => ({ order: s.order, call: s.call, to: s.to, reads: [...s.fields.reads], writes: [...s.fields.writes], functions: s.functions.length })), chainsInside,
+      lines: t.lines + handlers.reduce((n, h) => n + (cls[h].lines || 0), 0), files: 1 + handlers.length, functions, writes, capability: tItem?.capability || null,
+      issues: [...(t.analysis?.issues || []), ...handlers.flatMap((h) => cls[h].analysis.issues.map((x) => ({ ...x, in: h })))], active: t.active, callout: handlers.some((h) => cls[h].callout) });
   }
   for (const c of Object.values(cls)) {
     const rest = c.analysis.functions.filter((f) => !reached[c.name].has(f.method));
@@ -180,10 +232,11 @@ function functionFitGap(o) {
     if (touchedByTrigger && !rest.length) continue;
     const item = itemOf('Apex class', c.name);
     // Dead code is one decision: remove it. Its inner jobs are not judged.
-    const functions = c.unreferenced ? [] : rest.map((f) => judge(f, item, c.name));
-    if (c.unreferenced) functions.unshift({ kind: 'dead', what: 'Whole class: no live code calls it', verdict: 'retire', confidence: 'High', why: 'Not called by any active trigger or class and not an entry point (screen, flow, batch, schedule or API). Remove it with its test after confirming in the org.', method: '(class)', component: c.name });
+    const functions = c.unreferenced ? [] : rest.map((f) => ({ ...judge(f, item, c.name), ref: ref(c.name, f.method) }));
+    if (c.unreferenced) functions.unshift({ kind: 'dead', what: 'Whole class: no live code calls it', verdict: 'retire', confidence: 'High', why: 'Not called by any active trigger or class and not an entry point (screen, flow, batch, schedule or API). Remove it with its test after confirming in the org.', method: '(class)', component: c.name, ref: `${c.name} L1–${c.lines}` });
     if (!functions.length) continue;
     comps.push({ id: `cls-${c.name}`, name: c.name, title: c.name.replace(/([a-z0-9])([A-Z])/g, '$1 $2'), kind: 'Apex class', object: c.objects[0] || null, members: [c.name], lines: c.lines, files: 1,
+      versions: [{ name: c.name, apiVersion: c.apiVersion, modified: c.modified }], steps: [], chainsInside: [],
       functions, writes: [...new Set(c.analysis.methodInfo.flatMap((m) => m.writes))], capability: item?.capability || null, issues: c.analysis.issues.map((x) => ({ ...x, in: c.name })), dead: !!c.unreferenced, callout: c.callout });
   }
 
@@ -193,8 +246,16 @@ function functionFitGap(o) {
     k.canMove = moves;
     k.overall = k.dead || (k.active === false) ? 'Retire' : moves === n ? 'Can move' : moves === 0 ? (k.functions.some((f) => f.verdict === 'review') ? 'Keep / review' : 'Keep') : 'Partly standard';
     k.effort = k.dead ? 'Low' : n >= 6 ? 'High' : lvl(k.lines, 60, 200);
+    if (k.overall === 'Partly standard' && k.effort === 'Low') k.effort = 'Medium'; // a split component is never a small change
     const chained = k.writes.some((w) => triggerOn[w]);
-    k.regression = k.dead ? 'Low' : chained || (k.callout && moves) ? 'High' : k.writes.length || k.kind === 'Trigger + handlers' ? 'Medium' : 'Low';
+    k.sequenceSensitive = k.functions.some((f) => f.sequenceSensitive);
+    k.regression = k.dead ? 'Low' : chained || k.sequenceSensitive || (k.callout && moves) ? 'High' : k.writes.length || k.kind === 'Trigger + handlers' ? 'Medium' : 'Low';
+    // What to retest when anything here moves: the whole business flow, not just the one object.
+    k.retest = k.dead ? `Nothing runs it: confirm no screen, flow or job calls ${k.name}, then remove it with its test.`
+      : [`Save ${words(k.object || k.name)} end to end${k.events?.length ? ` (${k.events.join(', ')})` : ''}`,
+        ...k.writes.map((w) => `the ${words(w)} records it updates${triggerOn[w] ? `, and ${triggerOn[w]} that this fires` : ''}`),
+        ...(k.functions.some((f) => f.kind === 'email' || f.kind === 'chatter') ? ['notifications and Chatter posts'] : []),
+        ...(k.callout ? ['the outbound integration call'] : [])].join('; ') + '.';
     k.value = moves >= 3 ? 'High' : moves >= 1 ? 'Medium' : 'Low';
     const cap = k.capability ? capById[k.capability] : null;
     k.area = cap?.area || 'Other';
@@ -207,7 +268,7 @@ function functionFitGap(o) {
   // Quick wins: self-contained jobs (nothing else depends on their order) that move to configuration or a
   // standard setting without a licence, or dead code that can go.
   const SELF_CONTAINED = new Set(['chatter', 'email', 'status', 'rule', 'calc', 'dead']);
-  const quickWins = comps.flatMap((k) => k.functions.filter((f) => SELF_CONTAINED.has(f.kind) && (f.verdict === 'configure' || f.verdict === 'retire' || (f.verdict === 'adopt' && f.kind === 'email')))
+  const quickWins = comps.flatMap((k) => k.functions.filter((f) => SELF_CONTAINED.has(f.kind) && !f.sequenceSensitive && (f.verdict === 'configure' || f.verdict === 'retire' || (f.verdict === 'adopt' && f.kind === 'email')))
     .map((f) => ({ what: f.what, component: f.component, verdict: f.verdict, replaceWith: f.why, effort: 'Low', regression: f.kind === 'status' || k.regression === 'Low' ? 'Low' : 'Medium' })));
   // Cross-cutting findings: the same risky pattern wherever it appears.
   const xc = {};
@@ -226,6 +287,7 @@ function functionFitGap(o) {
     integrations.length ? `Integrations stay custom: ${[...new Set(integrations)].join(', ')}. They can still be simplified (named credential, retries through a queue or platform event).` : null,
     quickWins.length ? `${quickWins.length} quick win${quickWins.length === 1 ? '' : 's'} with low effort and contained regression: ${[...new Set(quickWins.map((q) => q.what.toLowerCase()))].slice(0, 3).join('; ')}.` : null,
     chains.length ? `Order of execution matters in ${chains.length} place${chains.length === 1 ? '' : 's'}: ${chains.map((c) => `${words(c.from)} → ${words(c.to)}`).join(', ')}. Steps that depend on each other move together.` : null,
+    comps.some((k) => k.chainsInside.length) ? `Sequence-sensitive inside ${comps.filter((k) => k.chainsInside.length).map((k) => k.title).join(', ')}: later steps use results of earlier ones in the same save${fns.some((f) => f.cannotMoveAlone) ? `; ${fns.filter((f) => f.cannotMoveAlone).length} function(s) cannot move alone` : ''}.` : null,
     crossCutting.length ? `Structural risks: ${crossCutting.slice(0, 3).map((c) => c.title.toLowerCase()).join('; ')}.` : null,
   ].filter(Boolean);
   return {

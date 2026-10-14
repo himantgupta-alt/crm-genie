@@ -579,35 +579,12 @@
       "messages": [
         "14 of 16 functions could move to standard features or configuration; 1 stay custom, 1 can be retired.",
         "Integrations stay custom: TradePromotionService. They can still be simplified (named credential, retries through a queue or platform event).",
-        "7 quick wins with low effort and contained regression: sets the status automatically; posts a chatter message; builds and sends an email in code.",
+        "4 quick wins with low effort and contained regression: blocks the save when a field rule fails; builds and sends an email in code; sets the status automatically.",
         "Order of execution matters in 2 places: Shelf Check → Store Visit, Opportunity → Subscription. Steps that depend on each other move together.",
+        "Sequence-sensitive inside Trade Promotion triggers and handlers: later steps use results of earlier ones in the same save.",
         "Structural risks: business thresholds held in code; logic keyed on text values; errors hidden from users."
       ],
       "quickWins": [
-        {
-          "what": "Sets the status automatically",
-          "component": "TradePromotionApproval",
-          "verdict": "configure",
-          "replaceWith": "Approval process entry criteria or a before-save flow; keep any threshold as custom metadata, not in code.",
-          "effort": "Low",
-          "regression": "Low"
-        },
-        {
-          "what": "Posts a Chatter message",
-          "component": "TradePromotionService",
-          "verdict": "configure",
-          "replaceWith": "Flow 'Post to Chatter' action.",
-          "effort": "Low",
-          "regression": "Medium"
-        },
-        {
-          "what": "Builds and sends an email in code",
-          "component": "TradePromotionService",
-          "verdict": "adopt",
-          "replaceWith": "Email template with an email alert, sent from a flow or an approval step.",
-          "effort": "Low",
-          "regression": "Medium"
-        },
         {
           "what": "Blocks the save when a field rule fails",
           "component": "StoreVisitService",
@@ -731,6 +708,154 @@
             "TradePromotionApproval",
             "TradePromotionService"
           ],
+          "versions": [
+            {
+              "name": "TradePromotionTrigger",
+              "apiVersion": 67,
+              "modified": "2026-10-14"
+            },
+            {
+              "name": "TradePromotionApproval",
+              "apiVersion": 67,
+              "modified": "2026-10-14"
+            },
+            {
+              "name": "TradePromotionService",
+              "apiVersion": 67,
+              "modified": "2026-10-14"
+            }
+          ],
+          "events": [
+            "before insert",
+            "before update",
+            "after insert",
+            "after update"
+          ],
+          "steps": [
+            {
+              "order": 1,
+              "call": "TradePromotionTrigger L3 (before)",
+              "to": "TradePromotionApproval.apply",
+              "reads": [
+                "Status__c",
+                "Budget__c"
+              ],
+              "writes": [
+                "Status__c"
+              ],
+              "functions": 1
+            },
+            {
+              "order": 2,
+              "call": "TradePromotionTrigger L4 (before)",
+              "to": "TradePromotionService.calculateResults",
+              "reads": [
+                "Baseline_Volume__c",
+                "Actual_Volume__c",
+                "Actual_Spend__c"
+              ],
+              "writes": [
+                "ROI__c"
+              ],
+              "functions": 1
+            },
+            {
+              "order": 3,
+              "call": "TradePromotionTrigger L5 (before)",
+              "to": "TradePromotionService.checkFund",
+              "reads": [
+                "Trade_Fund__c",
+                "Amount__c",
+                "Budget__c",
+                "Committed__c"
+              ],
+              "writes": [],
+              "functions": 1
+            },
+            {
+              "order": 4,
+              "call": "TradePromotionTrigger L12 (after)",
+              "to": "TradePromotionService.updateFundCommitted",
+              "reads": [
+                "Trade_Fund__c",
+                "Budget__c",
+                "Status__c"
+              ],
+              "writes": [
+                "Committed__c"
+              ],
+              "functions": 1
+            },
+            {
+              "order": 5,
+              "call": "TradePromotionTrigger L14 (after update)",
+              "to": "TradePromotionService.postApprovalToChatter",
+              "reads": [
+                "Status__c",
+                "Budget__c"
+              ],
+              "writes": [],
+              "functions": 1
+            },
+            {
+              "order": 6,
+              "call": "TradePromotionTrigger L15 (after update)",
+              "to": "TradePromotionService.emailKeyAccountManager",
+              "reads": [
+                "Status__c",
+                "Budget__c"
+              ],
+              "writes": [],
+              "functions": 1
+            },
+            {
+              "order": 7,
+              "call": "TradePromotionTrigger L16 (after update)",
+              "to": "TradePromotionService.syncToErp",
+              "reads": [
+                "Status__c",
+                "ERP_Synced__c",
+                "Legacy_ERP_Code__c",
+                "Budget__c"
+              ],
+              "writes": [],
+              "functions": 1
+            }
+          ],
+          "chainsInside": [
+            {
+              "from": "TradePromotionApproval.apply (step 1)",
+              "to": "TradePromotionService.updateFundCommitted (step 4)",
+              "fields": [
+                "Status__c"
+              ],
+              "text": "TradePromotionApproval.apply writes Status, which TradePromotionService.updateFundCommitted reads later in the same save (TradePromotionTrigger L3 (before) → TradePromotionTrigger L12 (after))."
+            },
+            {
+              "from": "TradePromotionApproval.apply (step 1)",
+              "to": "TradePromotionService.postApprovalToChatter (step 5)",
+              "fields": [
+                "Status__c"
+              ],
+              "text": "TradePromotionApproval.apply writes Status, which TradePromotionService.postApprovalToChatter reads later in the same save (TradePromotionTrigger L3 (before) → TradePromotionTrigger L14 (after update))."
+            },
+            {
+              "from": "TradePromotionApproval.apply (step 1)",
+              "to": "TradePromotionService.emailKeyAccountManager (step 6)",
+              "fields": [
+                "Status__c"
+              ],
+              "text": "TradePromotionApproval.apply writes Status, which TradePromotionService.emailKeyAccountManager reads later in the same save (TradePromotionTrigger L3 (before) → TradePromotionTrigger L15 (after update))."
+            },
+            {
+              "from": "TradePromotionApproval.apply (step 1)",
+              "to": "TradePromotionService.syncToErp (step 7)",
+              "fields": [
+                "Status__c"
+              ],
+              "text": "TradePromotionApproval.apply writes Status, which TradePromotionService.syncToErp reads later in the same save (TradePromotionTrigger L3 (before) → TradePromotionTrigger L16 (after update))."
+            }
+          ],
           "lines": 128,
           "files": 3,
           "functions": [
@@ -741,7 +866,15 @@
               "confidence": "High",
               "why": "Approval process entry criteria or a before-save flow; keep any threshold as custom metadata, not in code.",
               "method": "apply",
-              "component": "TradePromotionApproval"
+              "lines": [
+                3,
+                9
+              ],
+              "component": "TradePromotionApproval",
+              "ref": "TradePromotionTrigger L3 (before) → TradePromotionApproval.apply L3–9",
+              "phase": "before",
+              "step": 1,
+              "sequenceSensitive": true
             },
             {
               "kind": "calc",
@@ -750,7 +883,14 @@
               "confidence": "Medium",
               "why": "Covered by the standard feature: Consumer Goods Cloud Trade Promotion Management: promotion planning, funds and post-event analysis.",
               "method": "calculateResults",
-              "component": "TradePromotionService"
+              "lines": [
+                6,
+                13
+              ],
+              "component": "TradePromotionService",
+              "ref": "TradePromotionTrigger L4 (before) → TradePromotionService.calculateResults L6–13",
+              "phase": "before",
+              "step": 2
             },
             {
               "kind": "check",
@@ -759,7 +899,14 @@
               "confidence": "Medium",
               "why": "Covered by the standard feature: Consumer Goods Cloud Trade Promotion Management: promotion planning, funds and post-event analysis.",
               "method": "checkFund",
-              "component": "TradePromotionService"
+              "lines": [
+                16,
+                29
+              ],
+              "component": "TradePromotionService",
+              "ref": "TradePromotionTrigger L5 (before) → TradePromotionService.checkFund L16–29",
+              "phase": "before",
+              "step": 3
             },
             {
               "kind": "rollup",
@@ -768,7 +915,15 @@
               "confidence": "Medium",
               "why": "Roll-up summary field where the relationship is master-detail; otherwise a record-triggered flow.",
               "method": "updateFundCommitted",
-              "component": "TradePromotionService"
+              "lines": [
+                32,
+                43
+              ],
+              "component": "TradePromotionService",
+              "ref": "TradePromotionTrigger L12 (after) → TradePromotionService.updateFundCommitted L32–43",
+              "phase": "after",
+              "step": 4,
+              "sequenceSensitive": true
             },
             {
               "kind": "chatter",
@@ -777,7 +932,15 @@
               "confidence": "High",
               "why": "Flow 'Post to Chatter' action.",
               "method": "postApprovalToChatter",
-              "component": "TradePromotionService"
+              "lines": [
+                46,
+                53
+              ],
+              "component": "TradePromotionService",
+              "ref": "TradePromotionTrigger L14 (after update) → TradePromotionService.postApprovalToChatter L46–53",
+              "phase": "after",
+              "step": 5,
+              "sequenceSensitive": true
             },
             {
               "kind": "email",
@@ -786,7 +949,15 @@
               "confidence": "Medium",
               "why": "Email template with an email alert, sent from a flow or an approval step.",
               "method": "emailKeyAccountManager",
-              "component": "TradePromotionService"
+              "lines": [
+                56,
+                73
+              ],
+              "component": "TradePromotionService",
+              "ref": "TradePromotionTrigger L15 (after update) → TradePromotionService.emailKeyAccountManager L56–73",
+              "phase": "after",
+              "step": 6,
+              "sequenceSensitive": true
             },
             {
               "kind": "integration",
@@ -795,7 +966,15 @@
               "confidence": "High",
               "why": "External system integration; no standard feature replaces it. Keep it behind a named credential; a queue or platform event adds retries.",
               "method": "sendToErp",
-              "component": "TradePromotionService"
+              "lines": [
+                84,
+                98
+              ],
+              "component": "TradePromotionService",
+              "ref": "TradePromotionTrigger L16 (after update) → TradePromotionService.sendToErp L84–98",
+              "phase": "after",
+              "step": 7,
+              "sequenceSensitive": true
             }
           ],
           "writes": [
@@ -839,7 +1018,9 @@
           "canMove": 6,
           "overall": "Partly standard",
           "effort": "High",
+          "sequenceSensitive": true,
           "regression": "High",
+          "retest": "Save Trade Promotion end to end (before insert, before update, after insert, after update); the Trade Fund records it updates; notifications and Chatter posts; the outbound integration call.",
           "value": "High",
           "area": "Trade promotion management (TPM)",
           "summary": "7 business functions across TradePromotionTrigger, TradePromotionApproval, TradePromotionService: sets the status automatically; calculates roi; blocks the save after checking other records (trade fund); keeps totals on trade fund from its related records; …."
@@ -854,6 +1035,54 @@
             "SubscriptionTrigger",
             "SubscriptionService"
           ],
+          "versions": [
+            {
+              "name": "SubscriptionTrigger",
+              "apiVersion": 67,
+              "modified": "2026-09-18"
+            },
+            {
+              "name": "SubscriptionService",
+              "apiVersion": 67,
+              "modified": "2026-09-18"
+            }
+          ],
+          "events": [
+            "before insert",
+            "before update",
+            "after update"
+          ],
+          "steps": [
+            {
+              "order": 1,
+              "call": "SubscriptionTrigger L3 (before)",
+              "to": "SubscriptionService.applyDefaults",
+              "reads": [
+                "Health_Score__c",
+                "Start_Date__c",
+                "Term_Months__c",
+                "End_Date__c"
+              ],
+              "writes": [
+                "Health_Score__c",
+                "End_Date__c",
+                "Term_Months__c"
+              ],
+              "functions": 1
+            },
+            {
+              "order": 2,
+              "call": "SubscriptionTrigger L5 (after update)",
+              "to": "SubscriptionService.handleStatusChange",
+              "reads": [
+                "Status__c",
+                "Account__c"
+              ],
+              "writes": [],
+              "functions": 0
+            }
+          ],
+          "chainsInside": [],
           "lines": 77,
           "files": 2,
           "functions": [
@@ -864,7 +1093,14 @@
               "confidence": "Medium",
               "why": "Covered by the standard feature: Revenue Cloud subscription management.",
               "method": "applyDefaults",
-              "component": "SubscriptionService"
+              "lines": [
+                11,
+                23
+              ],
+              "component": "SubscriptionService",
+              "ref": "SubscriptionTrigger L3 (before) → SubscriptionService.applyDefaults L11–23",
+              "phase": "before",
+              "step": 1
             }
           ],
           "writes": [],
@@ -882,7 +1118,9 @@
           "canMove": 1,
           "overall": "Can move",
           "effort": "Medium",
+          "sequenceSensitive": false,
           "regression": "Medium",
+          "retest": "Save Subscription end to end (before insert, before update, after update).",
           "value": "Medium",
           "area": "Other",
           "summary": "1 business function across SubscriptionTrigger, SubscriptionService: calculates health score, end date, term months."
@@ -897,6 +1135,39 @@
             "ShelfCheckTrigger",
             "StoreVisitService"
           ],
+          "versions": [
+            {
+              "name": "ShelfCheckTrigger",
+              "apiVersion": 67,
+              "modified": "2026-10-14"
+            },
+            {
+              "name": "StoreVisitService",
+              "apiVersion": 67,
+              "modified": "2026-10-14"
+            }
+          ],
+          "events": [
+            "after insert",
+            "after update",
+            "after delete"
+          ],
+          "steps": [
+            {
+              "order": 1,
+              "call": "ShelfCheckTrigger L4 (after)",
+              "to": "StoreVisitService.countOutOfStocks",
+              "reads": [
+                "Store_Visit__c",
+                "On_Shelf__c"
+              ],
+              "writes": [
+                "Out_Of_Stocks__c"
+              ],
+              "functions": 1
+            }
+          ],
+          "chainsInside": [],
           "lines": 69,
           "files": 2,
           "functions": [
@@ -907,7 +1178,14 @@
               "confidence": "Medium",
               "why": "Roll-up summary field where the relationship is master-detail; otherwise a record-triggered flow.",
               "method": "countOutOfStocks",
-              "component": "StoreVisitService"
+              "lines": [
+                30,
+                41
+              ],
+              "component": "StoreVisitService",
+              "ref": "ShelfCheckTrigger L4 (after) → StoreVisitService.countOutOfStocks L30–41",
+              "phase": "after",
+              "step": 1
             }
           ],
           "writes": [
@@ -939,7 +1217,9 @@
           "canMove": 1,
           "overall": "Can move",
           "effort": "Medium",
+          "sequenceSensitive": false,
           "regression": "High",
+          "retest": "Save Shelf Check end to end (after insert, after update, after delete); the Store Visit records it updates, and StoreVisitTrigger that this fires.",
           "value": "Medium",
           "area": "Retail execution",
           "summary": "1 business function across ShelfCheckTrigger, StoreVisitService: keeps totals on store visit from its related records."
@@ -954,18 +1234,67 @@
             "StoreVisitTrigger",
             "StoreVisitService"
           ],
+          "versions": [
+            {
+              "name": "StoreVisitTrigger",
+              "apiVersion": 67,
+              "modified": "2026-10-14"
+            },
+            {
+              "name": "StoreVisitService",
+              "apiVersion": 67,
+              "modified": "2026-10-14"
+            }
+          ],
+          "events": [
+            "after insert",
+            "before update",
+            "after update"
+          ],
+          "steps": [
+            {
+              "order": 1,
+              "call": "StoreVisitTrigger L3 (before update)",
+              "to": "StoreVisitService.requireCheckIn",
+              "reads": [
+                "Status__c",
+                "Checked_In__c"
+              ],
+              "writes": [],
+              "functions": 1
+            },
+            {
+              "order": 2,
+              "call": "StoreVisitTrigger L2 (after insert)",
+              "to": "StoreVisitService.createVisitTasks",
+              "reads": [
+                "Account__c",
+                "Product__c",
+                "Must_Stock__c"
+              ],
+              "writes": [
+                "Store_Visit__c",
+                "Product__c",
+                "Task_Type__c"
+              ],
+              "functions": 1
+            },
+            {
+              "order": 3,
+              "call": "StoreVisitTrigger L4 (after update)",
+              "to": "StoreVisitService.alertAreaManager",
+              "reads": [
+                "Out_Of_Stocks__c",
+                "Visit_Date__c"
+              ],
+              "writes": [],
+              "functions": 1
+            }
+          ],
+          "chainsInside": [],
           "lines": 69,
           "files": 2,
           "functions": [
-            {
-              "kind": "create",
-              "what": "Creates Visit Task records automatically",
-              "verdict": "adopt",
-              "confidence": "Medium",
-              "why": "Covered by the standard feature: Consumer Goods Cloud: Visit and Retail Store, with visit tasks on the mobile app.",
-              "method": "createVisitTasks",
-              "component": "StoreVisitService"
-            },
             {
               "kind": "rule",
               "what": "Blocks the save when a field rule fails",
@@ -973,7 +1302,30 @@
               "confidence": "High",
               "why": "Validation rule.",
               "method": "requireCheckIn",
-              "component": "StoreVisitService"
+              "lines": [
+                22,
+                27
+              ],
+              "component": "StoreVisitService",
+              "ref": "StoreVisitTrigger L3 (before update) → StoreVisitService.requireCheckIn L22–27",
+              "phase": "before",
+              "step": 1
+            },
+            {
+              "kind": "create",
+              "what": "Creates Visit Task records automatically",
+              "verdict": "adopt",
+              "confidence": "Medium",
+              "why": "Covered by the standard feature: Consumer Goods Cloud: Visit and Retail Store, with visit tasks on the mobile app.",
+              "method": "createVisitTasks",
+              "lines": [
+                5,
+                19
+              ],
+              "component": "StoreVisitService",
+              "ref": "StoreVisitTrigger L2 (after insert) → StoreVisitService.createVisitTasks L5–19",
+              "phase": "after",
+              "step": 2
             },
             {
               "kind": "email",
@@ -982,7 +1334,14 @@
               "confidence": "Medium",
               "why": "Email template with an email alert, sent from a flow or an approval step.",
               "method": "alertAreaManager",
-              "component": "StoreVisitService"
+              "lines": [
+                44,
+                63
+              ],
+              "component": "StoreVisitService",
+              "ref": "StoreVisitTrigger L4 (after update) → StoreVisitService.alertAreaManager L44–63",
+              "phase": "after",
+              "step": 3
             }
           ],
           "writes": [
@@ -1014,10 +1373,12 @@
           "canMove": 3,
           "overall": "Can move",
           "effort": "Medium",
+          "sequenceSensitive": false,
           "regression": "Medium",
+          "retest": "Save Store Visit end to end (after insert, before update, after update); the Visit Task records it updates; notifications and Chatter posts.",
           "value": "High",
           "area": "Retail execution",
-          "summary": "3 business functions across StoreVisitTrigger, StoreVisitService: creates visit task records automatically; blocks the save when a field rule fails; builds and sends an email in code."
+          "summary": "3 business functions across StoreVisitTrigger, StoreVisitService: blocks the save when a field rule fails; creates visit task records automatically; builds and sends an email in code."
         },
         {
           "id": "trg-OpportunityTrigger",
@@ -1029,6 +1390,39 @@
             "OpportunityTrigger",
             "OpportunityService"
           ],
+          "versions": [
+            {
+              "name": "OpportunityTrigger",
+              "apiVersion": 67,
+              "modified": "2026-09-18"
+            },
+            {
+              "name": "OpportunityService",
+              "apiVersion": 67,
+              "modified": "2026-09-18"
+            }
+          ],
+          "events": [
+            "after update"
+          ],
+          "steps": [
+            {
+              "order": 1,
+              "call": "OpportunityTrigger L2 (after)",
+              "to": "OpportunityService.createSubscriptionsForWonDeals",
+              "reads": [
+                "Source_Opportunity__c"
+              ],
+              "writes": [
+                "Account__c",
+                "Source_Opportunity__c",
+                "Start_Date__c",
+                "End_Date__c"
+              ],
+              "functions": 1
+            }
+          ],
+          "chainsInside": [],
           "lines": 53,
           "files": 2,
           "functions": [
@@ -1039,7 +1433,14 @@
               "confidence": "Medium",
               "why": "Covered by the standard feature: Revenue Cloud subscription management.",
               "method": "createSubscriptionsForWonDeals",
-              "component": "OpportunityService"
+              "lines": [
+                9,
+                49
+              ],
+              "component": "OpportunityService",
+              "ref": "OpportunityTrigger L2 (after) → OpportunityService.createSubscriptionsForWonDeals L9–49",
+              "phase": "after",
+              "step": 1
             }
           ],
           "writes": [
@@ -1059,7 +1460,9 @@
           "canMove": 1,
           "overall": "Can move",
           "effort": "Low",
+          "sequenceSensitive": false,
           "regression": "High",
+          "retest": "Save Opportunity end to end (after update); the Subscription records it updates, and SubscriptionTrigger that this fires.",
           "value": "Medium",
           "area": "Other",
           "summary": "1 business function across OpportunityTrigger, OpportunityService: creates subscription records automatically."
@@ -1074,6 +1477,50 @@
             "PromotionClaimTrigger",
             "PromotionClaimService"
           ],
+          "versions": [
+            {
+              "name": "PromotionClaimTrigger",
+              "apiVersion": 67,
+              "modified": "2026-10-14"
+            },
+            {
+              "name": "PromotionClaimService",
+              "apiVersion": 67,
+              "modified": "2026-10-14"
+            }
+          ],
+          "events": [
+            "before insert",
+            "before update"
+          ],
+          "steps": [
+            {
+              "order": 1,
+              "call": "PromotionClaimTrigger L2 (before)",
+              "to": "PromotionClaimService.checkAgainstSpend",
+              "reads": [
+                "Trade_Promotion__c",
+                "Actual_Spend__c",
+                "Budget__c",
+                "Claim_Amount__c"
+              ],
+              "writes": [],
+              "functions": 1
+            },
+            {
+              "order": 2,
+              "call": "PromotionClaimTrigger L3 (before insert)",
+              "to": "PromotionClaimService.autoApprove",
+              "reads": [
+                "Claim_Amount__c"
+              ],
+              "writes": [
+                "Status__c"
+              ],
+              "functions": 1
+            }
+          ],
+          "chainsInside": [],
           "lines": 27,
           "files": 2,
           "functions": [
@@ -1084,7 +1531,14 @@
               "confidence": "Medium",
               "why": "Covered by the standard feature: Trade Promotion Management: claims and payments checked against promotion funds.",
               "method": "checkAgainstSpend",
-              "component": "PromotionClaimService"
+              "lines": [
+                5,
+                15
+              ],
+              "component": "PromotionClaimService",
+              "ref": "PromotionClaimTrigger L2 (before) → PromotionClaimService.checkAgainstSpend L5–15",
+              "phase": "before",
+              "step": 1
             },
             {
               "kind": "status",
@@ -1093,7 +1547,14 @@
               "confidence": "High",
               "why": "Approval process entry criteria or a before-save flow; keep any threshold as custom metadata, not in code.",
               "method": "autoApprove",
-              "component": "PromotionClaimService"
+              "lines": [
+                18,
+                22
+              ],
+              "component": "PromotionClaimService",
+              "ref": "PromotionClaimTrigger L3 (before insert) → PromotionClaimService.autoApprove L18–22",
+              "phase": "before",
+              "step": 2
             }
           ],
           "writes": [],
@@ -1111,7 +1572,9 @@
           "canMove": 2,
           "overall": "Can move",
           "effort": "Low",
+          "sequenceSensitive": false,
           "regression": "Medium",
+          "retest": "Save Promotion Claim end to end (before insert, before update).",
           "value": "Medium",
           "area": "Trade promotion management (TPM)",
           "summary": "2 business functions across PromotionClaimTrigger, PromotionClaimService: blocks the save after checking other records (trade promotion); sets the status automatically."
@@ -1127,6 +1590,15 @@
           ],
           "lines": 9,
           "files": 1,
+          "versions": [
+            {
+              "name": "StoreVisitLegacyHandler",
+              "apiVersion": 67,
+              "modified": "2026-10-14"
+            }
+          ],
+          "steps": [],
+          "chainsInside": [],
           "functions": [
             {
               "kind": "dead",
@@ -1135,7 +1607,8 @@
               "confidence": "High",
               "why": "Not called by any active trigger or class and not an entry point (screen, flow, batch, schedule or API). Remove it with its test after confirming in the org.",
               "method": "(class)",
-              "component": "StoreVisitLegacyHandler"
+              "component": "StoreVisitLegacyHandler",
+              "ref": "StoreVisitLegacyHandler L1–9"
             }
           ],
           "writes": [],
@@ -1146,7 +1619,9 @@
           "canMove": 1,
           "overall": "Retire",
           "effort": "Low",
+          "sequenceSensitive": false,
           "regression": "Low",
+          "retest": "Nothing runs it: confirm no screen, flow or job calls StoreVisitLegacyHandler, then remove it with its test.",
           "value": "Medium",
           "area": "Retail execution",
           "summary": "1 business function: whole class: no live code calls it."

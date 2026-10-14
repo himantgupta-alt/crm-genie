@@ -15,6 +15,9 @@ Find the root cause and propose a fix:
 - Never widen a database grant for a user role to make a test pass. If the failure is a permission
   problem, check whether Salesforce performs that operation in system context (for example
   auto-numbering or roll-up recalculation); if so, the generated function should run as the owner.
+- If a value is right in isolation but wrong after a save, suspect the order steps run in: compare the generated
+  trigger order with Salesforce's save order (the order of execution in the fit-gap method below) before changing
+  any calculation.
 - If the failure is in the test case rather than the generator, say so and propose no patch.
 
 Respond with exactly two fenced blocks, in this order:

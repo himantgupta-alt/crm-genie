@@ -21,6 +21,9 @@ Rules for the translation:
 - Only use tables listed in the field mapping. If the Apex method reads or writes an object that is not
   in the mapping (for example Task), do not invent a table: report the method as blocked and say which
   object is missing.
+- Keep the run order of linked steps. When one method reads a field that another sets earlier in the same save
+  (the chains and the save order in the fit-gap method below), the PostgreSQL triggers must run them in the same
+  order: name them so they sort that way, and say which step depends on which in the header.
 - Logic that writes to another business object after commit (cross-aggregate writes) is not a trigger:
   report it as blocked with the reason "needs an outbox consumer".
 - Do not add features, logging, or comments beyond a short header that names the Apex method and lists
