@@ -7,7 +7,7 @@ We are leading with a fixed-scope Discovery as the first offer. Below are the po
 1. What Discovery is
 - A read-only discovery of each of the client's regional Salesforce orgs (our example has 3 orgs and 37 markets), done by our agents and reviewed by our architects.
 - It covers what is built on top of standard Salesforce and what is standard, installed packages, business processes and rules, code, security, integrations, usage and technical debt.
-- It compares the orgs capability by capability, proposes a fit-gap per component (adopt a standard feature, replace with configuration, keep and harmonise, retire, review in workshop) and a prioritised roadmap.
+- Each org is assessed in its own context. We propose a disposition per component (adopt standard, replace with configuration, retain, harmonise, retire, review with the client), show a fitment heatmap per capability and org, and build a prioritised roadmap. Cross-org patterns are shown as insights; merging the orgs is not an objective.
 - Out of scope: design, build and data migration. These follow as separate phases.
 - Discovery uses no language model. The agents read Salesforce through its standard APIs, so the results are repeatable and can be re-run after any change.
 
@@ -18,7 +18,9 @@ We are leading with a fixed-scope Discovery as the first offer. Below are the po
 - Why not a one-time sign-in: Discovery is re-run over several weeks, and a token from an interactive sign-in ends at the next password reset or admin revocation. We keep "Connect with Salesforce" for demos and pilots.
 - Login IP ranges opened for our runner's address, if the org restricts sign-in by IP.
 - API capacity: a run uses about 2,000 to 6,000 API calls per org (planned at under 10,000), well within the daily allowance of an Enterprise or Unlimited org.
-- Usage evidence that only production holds (login history, report runs, real volumes): either one short read-only pass on production, if the client agrees, or standard Salesforce reports the client exports.
+- We never use production. Usage evidence that only production holds (login history, report runs) comes from standard Salesforce reports the client exports.
+- The integration user also needs the Consumer Goods Cloud permission set licence, so the agents can read the CG Cloud objects and settings.
+- Helpful, not required: architecture and integration diagrams, process documentation, user training manuals, known customisation lists. Our architects use them as supporting evidence next to the system findings.
 - Agreement on data classification: the outputs hold metadata names, configuration and counts, never record contents.
 
 3. Where the work happens: our git

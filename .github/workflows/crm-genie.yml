@@ -106,6 +106,8 @@ jobs:
           cp src/paths.js src/app/runtime/src/
           cp src/generators/{lib,assess-org,discover-org,emit-assessment,emit-discovery}.js src/app/runtime/src/generators/
           cp src/agents/assessment/*.json src/app/runtime/src/agents/assessment/
+          # The commit the packaged agents come from; runs compare it with the latest commit on main.
+          echo "$GITHUB_SHA" > src/app/runtime/VERSION
           npm ci --prefix src/app --omit=dev --no-fund --no-audit
           cd src/app && zip -qr "$GITHUB_WORKSPACE/crmgenie.zip" . -x 'scripts/*'
 

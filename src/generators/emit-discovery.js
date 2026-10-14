@@ -192,6 +192,7 @@ function documents(o) {
     '## Flows built in this org', '',
     ...x.ownFlows.map((f) => { const dg = flowDiagram(f); return [`### ${f.label} (\`${f.name}\`)`, '', `${f.kind}${f.trigger ? ` · ${f.trigger}` : ''}${f.object ? ` on ${f.object}` : ''} · ${f.active ? 'active' : 'inactive'}`, f.description ? `\n${f.description}` : '', f.logic?.nodes?.[0]?.filter ? `\nStarts when: \`${f.logic.nodes[0].filter}\`` : '', dg ? `\n\`\`\`mermaid\n${dg}\n\`\`\`` : '', ''].join('\n'); }),
     '## Approval processes', '', table(['Name', 'Object', 'Active'], d.approvals.map((a) => [a.name, a.object, a.active ? 'yes' : 'no'])), '',
+    '## Scheduled processing', '', table(['Job', 'Type', 'State', 'Schedule', 'Next run'], (d.scheduledJobs || []).map((j) => [j.name, j.type, j.state, j.schedule || '', j.next || ''])), '',
     '## Workflow rules', '', table(['Name', 'Object', 'Origin'], d.workflowRules.map((w) => [w.name, w.object, ORIGIN[w.origin]])), '',
     '## Apex triggers', '', table(['Trigger', 'Object', 'Runs on', 'Active', 'Lines', 'Coverage'], d.triggers.map((t) => [t.name, t.object, t.events.join(', '), t.active ? 'yes' : 'no', t.lines ?? '', t.coverage == null ? '' : `${t.coverage}%`])), '',
     `## Flows provided by Salesforce or packages`, '', `${d.flows.length - x.ownFlows.length} flows (templates for features such as appointments, service and approvals). Active: ${d.flows.filter((f) => f.origin !== 'custom' && f.active).length}.`, ''].join('\n');
@@ -211,6 +212,8 @@ function documents(o) {
     `${d.security.profiles.length} profiles in total.`, '',
     '## Permission sets', '', table(['Permission set', 'Label', 'Origin', 'Assignments'], d.security.permissionSets.filter((p) => p.origin === 'custom' || p.assignments > 0).map((p) => [p.name, p.label, ORIGIN[p.origin], p.assignments])), '',
     `Permission set groups: ${d.security.permissionSetGroups.length}. Roles: ${d.security.roles.count}, hierarchy depth ${d.security.roles.depth}. Sharing rules: ${d.security.sharingRules.length}.`, '',
+    '## Field-level access to custom fields', '', 'How many profiles and permission sets can read and edit each custom field.', '',
+    table(['Field', 'Can read', 'Can edit', 'Through profiles', 'Through permission sets'], d.objects.flatMap((ob) => ob.fields.filter((f) => f.origin === 'custom' && f.access).map((f) => [`${ob.name}.${f.name}`, f.access.read, f.access.edit, f.access.profiles, f.access.permissionSets]))), '',
     d.security.sharingRules.length ? table(['Sharing rule', 'Kind'], d.security.sharingRules.map((s) => [s.name, s.kind])) : '', ''].join('\n');
 
   docs['09-integrations.md'] = [...head(o, 'integrations'),
@@ -244,7 +247,7 @@ function findings(built, fitGap) {
   const add = (f) => out.push(f);
   const label = (r) => built.find((b) => b.o.region === r)?.o.label || r;
   for (const c of fitGap?.capabilities?.filter((cc) => cc.builtDifferently) || []) {
-    add({ area: 'Architecture and data model', title: `${c.capability} is built differently in each org`, risk: 'High', impact: 'The same business process is reported and supported differently per region; any global change is built several times.', evidence: Object.entries(c.perOrg).filter(([, v]) => v.length).map(([r, v]) => `${label(r)}: ${v.filter((x) => /__c$/.test(x)).join(', ') || v.join(', ')}`).join('; '), recommendation: `Define it once in the global core${c.verdict === 'adopt' ? ` using the standard feature (${c.standard})` : ''}.`, tier: 'Strategic' });
+    add({ area: 'Architecture and data model', title: `${c.capability} is built differently in each org`, risk: 'Medium', impact: 'The same business need is reported and supported differently per region; a change that applies to all regions is built several times.', evidence: Object.entries(c.perOrg).filter(([, v]) => v.length).map(([r, v]) => `${label(r)}: ${v.filter((x) => /__c$/.test(x)).join(', ') || v.join(', ')}`).join('; '), recommendation: c.verdict === 'adopt' ? `Adopt the standard feature in each org (${c.standard}), which also aligns the regions.` : 'Harmonise the pattern across the orgs (same objects, names and rules) while keeping the orgs separate.', tier: 'Medium term', capability: c.capability, rootCause: 'Each region built its own solution for the same need' });
   }
   for (const { o, d, x } of built) {
     const L = o.label;
@@ -260,10 +263,28 @@ function findings(built, fitGap) {
     if (coverage.length) add({ area: 'Code', title: `Apex in ${L} without enough test coverage`, risk: 'Medium', impact: 'Changes to this code cannot be deployed safely.', evidence: coverage.map((t) => `${t.name} (${t.why})`).join(', '), recommendation: 'Add tests, or retire the code if the fit-gap replaces it.', tier: 'Immediate' });
     const openObjects = d.objects.filter((ob) => ob.origin === 'custom' && ob.sharing?.internal === 'ReadWrite');
     if (openObjects.length) add({ area: 'Security', title: `Custom objects in ${L} open to every internal user for editing`, risk: 'Medium', impact: 'Any user can change any record of these objects.', evidence: openObjects.map((ob) => ob.name).join(', '), recommendation: 'Review the org-wide default per object with the data owner.', tier: 'Medium term' });
-    if (d.packages.length) add({ area: 'Architecture and data model', title: `${n(d.packages.length, 'installed package')} in ${L}`, risk: 'Medium', impact: 'Package code cannot be read or exported; behaviour must be confirmed and a keep, replace or rebuild decision taken.', evidence: d.packages.map((p) => `${p.name} (${p.objects} objects, ${p.classes} classes)`).join('; '), recommendation: 'Record package behaviour as test cases; decide per package in the fit-gap workshop.', tier: 'Immediate' });
+    if (d.packages.length) add({ area: 'Architecture and data model', title: `${n(d.packages.length, 'installed package')} in ${L}`, risk: 'Medium', impact: 'Package code cannot be read or exported; behaviour must be confirmed and a keep, replace or rebuild decision taken.', evidence: d.packages.map((p) => `${p.name} (${p.objects} objects, ${p.classes} classes)`).join('; '), recommendation: 'Record package behaviour as test cases; decide per package in focused validation with the client.', tier: 'Immediate' });
     const profilesUsed = d.security.profiles.filter((p) => p.users > 0).length;
     const psCustom = d.security.permissionSets.filter((p) => p.origin === 'custom').length;
     if (profilesUsed > 3 && psCustom < profilesUsed) add({ area: 'Security', title: `Access in ${L} is managed mainly through profiles`, risk: 'Low', impact: 'Profile-based access is harder to audit and to keep consistent across orgs.', evidence: `${profilesUsed} profiles with users, ${psCustom} custom permission sets`, recommendation: 'Move to permission sets and permission set groups, with minimal profiles.', tier: 'Strategic' });
+  }
+  // The proposal's technical-debt card also names the affected capability and the root cause.
+  const capOf = (names) => [...new Set((fitGap?.items || []).filter((i) => names.includes(i.name) && i.capability).map((i) => fitGap.capabilities.find((c) => c.id === i.capability)?.capability).filter(Boolean))].join(', ');
+  const ROOT = [
+    [/unused component/, 'Components were created for needs that changed and were never removed', (f) => capOf(f.evidence.split(', ')) || 'Several'],
+    [/configuration can replace/, 'Business rules were written in code rather than configuration', (f) => capOf(f.evidence.split(', ')) || 'Automation'],
+    [/Retired automation/, 'Built before Flow became the standard automation tool', () => 'Automation'],
+    [/without a named credential/, 'Endpoints and credentials are handled in code', () => 'Integrations'],
+    [/test coverage/, 'Tests were not kept up to date with code changes', (f) => capOf(f.evidence.split(', ').map((s) => s.replace(/ \(.*$/, ''))) || 'Custom code'],
+    [/open to every internal user/, 'Default sharing was set wide when the objects were built', (f) => capOf(f.evidence.split(', ')) || 'Security and access'],
+    [/installed package/, 'Functionality bought as a package; its internals are not visible', () => 'Installed packages'],
+    [/managed mainly through profiles/, 'Access was built up on profiles over time', () => 'Security and access'],
+  ];
+  for (const f of out) {
+    if (f.rootCause) continue;
+    const hit = ROOT.find(([re]) => re.test(f.title));
+    f.rootCause = hit ? hit[1] : 'To confirm in validation';
+    f.capability = hit ? hit[2](f) : 'To confirm';
   }
   const rank = { High: 0, Medium: 1, Low: 2 };
   return out.sort((a, b) => TIERS.indexOf(a.tier) - TIERS.indexOf(b.tier) || rank[a.risk] - rank[b.risk] || a.title.localeCompare(b.title));
@@ -318,11 +339,13 @@ const report = [
   `- Orgs in scope: ${orgs.map((o) => `${o.label}${o.d ? '' : ' (not yet connected)'}`).join(', ')}. Expected markets: ${eng.marketsExpected}.`,
   '- Read-only, through one integration user per org: describe, SOQL counts, Tooling API and the dependency index. No record contents are copied; this report holds configuration, names and counts.',
   '- Every component is labelled by origin: custom (built in the org), installed package, or standard and provided by Salesforce.',
-  '- Not covered by the extraction, and covered in workshops: business process interviews, report usage by person, data quality beyond fill rates, and managed-package internals.', '',
+  '- Each org is assessed in its own implementation context, on a recently refreshed full-copy sandbox. Cross-org patterns are surfaced as insights; consolidation is not an objective.',
+  '- Supporting information from the client (architecture and integration diagrams, process documentation, user training manuals, known customisation lists) is read by the architects and cited as evidence next to the system findings.',
+  '- Not visible in metadata, and routed to focused validation with the client\'s process experts: business intent, regulatory context, report usage by person, data quality beyond fill rates, and managed-package internals.', '',
   '## 3. System landscape (current)', '', '```mermaid', landscape(built), '```', '',
   '## 4. Findings by area', '',
   'Each finding has a risk level, its business impact, the evidence from the orgs, a recommendation and a priority tier.', '',
-  ...[...new Set(F.map((f) => f.area))].flatMap((area) => [`### ${area}`, '', table(['Finding', 'Risk', 'Business impact', 'Evidence', 'Recommendation', 'Priority'], F.filter((f) => f.area === area).map((f) => [f.title, f.risk, f.impact, f.evidence, f.recommendation, f.tier])), '']),
+  ...[...new Set(F.map((f) => f.area))].flatMap((area) => [`### ${area}`, '', table(['Finding and evidence', 'Affected capability', 'Risk and business impact', 'Root cause', 'Recommended treatment', 'Priority'], F.filter((f) => f.area === area).map((f) => [`${f.title}. ${f.evidence}`, f.capability, `${f.risk}: ${f.impact}`, f.rootCause, f.recommendation, f.tier])), '']),
   '## 5. Customised versus standard', '',
   ...built.flatMap(({ o, x }) => [`### ${o.label}`, '', table(['Component', 'Custom', 'Installed packages', 'Standard or provided by Salesforce'], x.components.map((c) => [c.label, c.custom, c.package, c.salesforce])), '']),
   '## 6. Data model', '', 'Custom objects and the objects they relate to. Standard objects are shown where custom objects point at them.', '',

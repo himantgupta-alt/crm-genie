@@ -29,7 +29,7 @@ with 3 regional orgs (Europe, APAC, Americas and LATAM) serving 37 markets.
 | Area | What the client gets |
 |---|---|
 | Cross-org comparison | Capability by capability: which org implements it, with which components, and whether the orgs built it differently |
-| Fit-gap | A proposed verdict per custom component (adopt standard, replace with configuration, keep and harmonise, retire, review in workshop) with the reason and the standard feature it was matched to |
+| Fit-gap | A proposed verdict per custom component (adopt standard, replace with configuration, retain, harmonise, retire, or review with the client; each org also gets a fitment code per capability: native standard, configured standard, extended standard, differentiating custom, technical-debt candidate, requires validation) with the reason and the standard feature it was matched to |
 | Validation workshops | The proposed verdicts and the as-is picture confirmed or corrected with the regional owners |
 | Readout | Findings, confirmed fit-gap, target direction, and a re-baselined estimate and size for the next phases |
 
@@ -207,15 +207,22 @@ working until the client switches it off, and the client can see every call in t
 
 ### 4.1a Connect to a sandbox first
 
-We suggest connecting to a sandbox of each org rather than production:
+We connect to a sandbox of each org, never to production:
 
 - **Full Copy sandbox (recommended):** the same configuration, code and data as production as of its last refresh, so the inventory, fit-gap and record counts are representative. Ask for a refresh shortly before week 1.
 - **Partial Copy sandbox:** the same configuration and code; record counts and field fill rates are a sample, so usage findings are marked as indicative.
 - **Developer sandbox:** configuration and code only; enough for the inventory and fit-gap, not for usage or fill rates.
 
 Sandboxes use https://test.salesforce.com (or the sandbox's My Domain address) to sign in. Usage evidence that
-only production holds (login history, report runs, real record volumes) is either read in one short read-only
-pass on production, if the client agrees, or provided by the client as standard Salesforce reports.
+only production holds (login history, report runs) is provided by the client as standard Salesforce reports.
+Findings reflect each sandbox as of its refresh date and are confirmed by the client in validation.
+
+The integration user also needs the Consumer Goods Cloud permission set licence (and Trade Promotion Management,
+where used), so the agents can read the CG Cloud objects and the package settings held as records.
+
+Helpful inputs, not required to start: architecture and integration diagrams, existing process documentation,
+user training manuals, known customisation lists, prior assessments, package and licensing information, and
+known technical-debt concerns. The architects use them as supporting evidence next to the system findings.
 
 ### 4.2 API call budget
 
@@ -249,7 +256,7 @@ spread across days if the client's integrations already use most of the allocati
 |---|---|---|---|
 | 1 | Agreed list of orgs and markets, and for each org the sandbox to connect to (Full Copy preferred, refreshed shortly before week 1) | Client (product owner) | Week 0, day 1 |
 | 2 | Data classification of Discovery outputs agreed (metadata names, configuration, counts; no record contents) | Client (IT security, data protection) with Ascendion | Week 0 |
-| 3 | Integration user per org, with the dedicated read-only permission set | Client (Salesforce admins, IT security) | Week 0 |
+| 3 | Integration user per org (sandbox only), with the dedicated read-only permission set and the Consumer Goods Cloud permission set licence | Client (Salesforce admins, IT security) | Week 0 |
 | 4 | Credentials for the integration user: our connected app approved for that user with the certificate we supply (JWT bearer), or, where policy allows, username, password and security token sent through a secure channel | Client (Salesforce admins), Ascendion provides the setup steps and the certificate | Week 0 |
 | 5 | Login IP ranges or trusted IP ranges for the runner's outbound IP | Client (Salesforce admins, network) | Week 0 |
 | 6 | API allocation and current use checked per org; run windows agreed | Ascendion (agent operations), confirmed by client admins | Week 0 |

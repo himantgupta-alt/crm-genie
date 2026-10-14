@@ -3,6 +3,9 @@
 //   - Each regional org is connected with "Connect with Salesforce" (OAuth web server flow with PKCE, connected app
 //     "Org Compiler"; no password ever reaches this server). Only the refresh token is kept, encrypted with
 //     CONNECTION_KEY (AES-256-GCM), in ops.org_connection. Disconnect revokes it at Salesforce.
+//   - Each run uses the agent code of the latest commit on main (AGENTS_REPO, AGENTS_REF), fetched from GitHub
+//     and cached per commit, so a change pushed to git is picked up by the next run; the packaged copy is the
+//     fallback. The run records which commit it used.
 //   - "Run discovery" runs the real, read-only agents (assess-org, discover-org, then emit-assessment and
 //     emit-discovery) against the connected orgs. Outputs go to RUNTIME_DATA_DIR and are served to the console by
 //     /api/assessment-data, replacing the sample built into the page.
@@ -22,8 +25,43 @@ const CLIENT_ID = process.env.ORGC_OAUTH_CLIENT_ID || '';
 const DATA = process.env.RUNTIME_DATA_DIR || path.join(process.env.HOME || os.tmpdir(), 'orgcompiler-data');
 // Agents ship inside the app package (runtime/) on the server; locally they are the repository's own.
 const RUNTIME = fs.existsSync(path.join(__dirname, 'runtime', 'src', 'generators')) ? path.join(__dirname, 'runtime', 'src') : path.join(__dirname, '..');
-const GEN = path.join(RUNTIME, 'generators');
 const DEFAULT_ORGS = JSON.parse(fs.readFileSync(path.join(RUNTIME, 'agents', 'assessment', 'engagement.json'), 'utf8'));
+
+// Agent code for a run: the latest commit on the repository's main branch, so a change pushed to git is used by
+// the next run without waiting for a deploy. The packaged copy (runtime/VERSION) is the fallback.
+const DEPLOYED = (() => { try { return fs.readFileSync(path.join(__dirname, 'runtime', 'VERSION'), 'utf8').trim() || null; } catch { return null; } })();
+const REPO = process.env.AGENTS_REPO || 'himantgupta-alt/crm-genie';
+const REF = process.env.AGENTS_REF || 'main';
+const AGENT_FILES = ['src/paths.js', 'src/generators/lib.js', 'src/generators/assess-org.js', 'src/generators/discover-org.js', 'src/generators/emit-assessment.js',
+  'src/generators/emit-discovery.js', 'src/agents/assessment/engagement.json', 'src/agents/assessment/capabilities.json', 'src/agents/assessment/agent.json'];
+let latestCache = { at: 0, sha: null };
+async function latestSha() {
+  if (Date.now() - latestCache.at < 60000) return latestCache.sha;
+  try {
+    const r = await fetch(`https://api.github.com/repos/${REPO}/commits/${REF}`, { headers: { Accept: 'application/vnd.github+json', 'User-Agent': 'org-compiler' } });
+    latestCache = { at: Date.now(), sha: r.ok ? (await r.json()).sha : null };
+  } catch { latestCache = { at: Date.now(), sha: null }; }
+  return latestCache.sha;
+}
+async function agentsFor(useLatest, log) {
+  const deployed = { root: RUNTIME, sha: DEPLOYED, source: 'deployed' };
+  if (!useLatest) return deployed;
+  const sha = await latestSha();
+  if (!sha) { log('agent code: GitHub not reachable; using the deployed agents'); return deployed; }
+  if (sha === DEPLOYED) return { ...deployed, source: `${REF} (same as deployed)` };
+  const dir = path.join(DATA, 'agents', sha);
+  if (!fs.existsSync(path.join(dir, '.complete'))) {
+    for (const f of AGENT_FILES) {
+      const r = await fetch(`https://raw.githubusercontent.com/${REPO}/${sha}/${f}`).catch(() => null);
+      if (!r?.ok) { log(`agent code: ${f} not found at ${sha.slice(0, 7)}; using the deployed agents`); return deployed; }
+      const out = path.join(dir, f);
+      fs.mkdirSync(path.dirname(out), { recursive: true });
+      fs.writeFileSync(out, await r.text());
+    }
+    fs.writeFileSync(path.join(dir, '.complete'), sha);
+  }
+  return { root: path.join(dir, 'src'), sha, source: REF };
+}
 const LOGIN_HOST = /^https:\/\/([a-z0-9-]+\.)*(salesforce\.com|force\.com|salesforce\.mil|cloudforce\.com)$/i;
 
 const maskId = (id) => (id ? `${id.slice(0, 3)}…${id.slice(-3)}` : null);
@@ -52,7 +90,7 @@ function install(app, owner) {
 
   app.get('/api/connections', async (_req, res) => {
     try {
-      res.json({ orgs: (await rows()).map(view), oauthReady: !!(CLIENT_ID && KEY), storageReady: !!KEY, runner: 'server', job: job && { ...job, log: job.log.slice(-60) } });
+      res.json({ orgs: (await rows()).map(view), oauthReady: !!(CLIENT_ID && KEY), storageReady: !!KEY, runner: 'server', agents: { repo: REPO, ref: REF, deployed: DEPLOYED, latest: await latestSha() }, job: job && { ...job, log: job.log.slice(-60) } });
     } catch (e) { err(res, 500, e.message); }
   });
 
@@ -138,9 +176,9 @@ function install(app, owner) {
 
   // ---------------------------------------------------------------- discovery runs
 
-  const run = (script, args, env, log) => new Promise((resolve) => {
+  const run = (script, args, env, log, root = RUNTIME) => new Promise((resolve) => {
     // NODE_PATH: the agents load the app's own Salesforce client (jsforce), wherever they are installed.
-    const p = spawn(process.execPath, [path.join(GEN, script), ...args], { cwd: RUNTIME, env: { ...process.env, NODE_PATH: path.join(__dirname, 'node_modules'), ...env } });
+    const p = spawn(process.execPath, [path.join(root, 'generators', script), ...args], { cwd: root, env: { ...process.env, NODE_PATH: path.join(__dirname, 'node_modules'), ...env } });
     const out = (d) => String(d).split('\n').filter(Boolean).forEach((l) => log(l.replace(/(token|secret)=\S+/gi, '$1=…')));
     p.stdout.on('data', out); p.stderr.on('data', out);
     p.on('close', (code) => resolve(code));
@@ -155,6 +193,10 @@ function install(app, owner) {
     res.json(job);
     const j = job;
     const log = (l) => { j.log.push(`${new Date().toISOString().slice(11, 19)}  ${l}`); if (j.log.length > 400) j.log.shift(); };
+    // Agent code: the latest commit on main unless the caller asks for the deployed copy.
+    const agents = await agentsFor(req.body?.useLatest !== false, log);
+    j.agents = { sha: agents.sha, source: agents.source };
+    log(`agent code: commit ${agents.sha ? agents.sha.slice(0, 7) : 'unknown'} (${agents.source})`);
     const adlc = path.join(DATA, 'adlc');
     fs.mkdirSync(adlc, { recursive: true });
     // The engagement for this run: the connected orgs, under the names given on the Connections page.
@@ -168,14 +210,14 @@ function install(app, owner) {
       try { a = await accessFor(r); } catch (e) { log(`${r.label}: cannot sign in (${e.message})`); failed = true; await owner('UPDATE ops.org_connection SET last_run = $2 WHERE region = $1', [r.region, { id: j.id, status: 'failed', at: new Date().toISOString(), message: e.message }]); continue; }
       const env = { ...base_, SF_REFRESH_TOKEN: a.refresh, SF_INSTANCE_URL: a.instance, SF_CLIENT_ID: r.client_id, SF_LOGIN_URL: r.login_url };
       log(`${r.label}: as-is extraction (read-only)`);
-      const c1 = await run('assess-org.js', [r.region, r.label], env, log);
+      const c1 = await run('assess-org.js', [r.region, r.label], env, log, agents.root);
       log(`${r.label}: full discovery (read-only)`);
-      const c2 = c1 === 0 ? await run('discover-org.js', [r.region, r.label], env, log) : 1;
+      const c2 = c1 === 0 ? await run('discover-org.js', [r.region, r.label], env, log, agents.root) : 1;
       const ok = c1 === 0 && c2 === 0;
       if (!ok) failed = true;
       await owner('UPDATE ops.org_connection SET last_run = $2 WHERE region = $1', [r.region, { id: j.id, status: ok ? 'ok' : 'failed', at: new Date().toISOString() }]);
     }
-    for (const g of ['emit-assessment.js', 'emit-discovery.js']) { log(`all orgs: ${g.replace('.js', '')}`); if (await run(g, [], base_, log) !== 0) failed = true; }
+    for (const g of ['emit-assessment.js', 'emit-discovery.js']) { log(`all orgs: ${g.replace('.js', '')}`); if (await run(g, [], base_, log, agents.root) !== 0) failed = true; }
     j.finishedAt = new Date().toISOString();
     j.status = failed ? 'finished with errors' : 'complete';
     log(`run ${j.id} ${j.status}`);

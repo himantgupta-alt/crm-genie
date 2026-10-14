@@ -147,6 +147,15 @@ async function main() {
   // Package code is hidden, but the class count shows how much behaviour the package brings.
   for (const p of packages) if (p.namespace) p.classes = (await q(`SELECT Id FROM ApexClass WHERE NamespacePrefix = '${p.namespace}'`, true)).length;
 
+  /* ---------------------------------------------------------------- scheduled processing */
+  const JOB = { 1: 'Data export', 3: 'Dashboard refresh', 4: 'Reporting snapshot', 6: 'Scheduled flow', 7: 'Scheduled Apex', 8: 'Report run', 9: 'Batch Apex', A: 'Report notification' };
+  // Report and dashboard jobs are often named after the person who scheduled them, so only code-based jobs keep
+  // their name; the others are listed by type and number (no personal data in the outputs).
+  const scheduledJobs = (await q('SELECT CronJobDetail.Name, CronJobDetail.JobType, State, CronExpression, NextFireTime FROM CronTrigger'))
+    .map((j) => { const code = j.CronJobDetail?.JobType; const type = JOB[code] || `System job (type ${code || '?'})`; return { name: /Apex/.test(type) ? j.CronJobDetail?.Name : null, type, state: j.State, schedule: j.CronExpression, next: j.NextFireTime ? String(j.NextFireTime).slice(0, 10) : null }; })
+    .sort((a, b) => `${a.type}${a.name}${a.schedule}`.localeCompare(`${b.type}${b.name}${b.schedule}`))
+    .map((j, k, all) => ({ ...j, name: j.name || `${j.type} ${all.slice(0, k + 1).filter((x) => x.type === j.type && !x.name).length}` }));
+
   /* ---------------------------------------------------------------- security */
   const profiles = (await q('SELECT Name, UserLicense.Name, UserType FROM Profile')).map((p) => ({ name: p.Name, licence: p.UserLicense?.Name, users: usersByProfile.find((u) => u.profile === p.Name)?.users || 0 })).sort(by('name'));
   const psAssign = Object.fromEntries((await q('SELECT PermissionSetId p, COUNT(Id) n FROM PermissionSetAssignment WHERE PermissionSet.IsOwnedByProfile = false GROUP BY PermissionSetId')).map((r) => [r.p, r.n]));
@@ -164,6 +173,18 @@ async function main() {
     }
   } catch { sharingRules = []; }
   sharingRules.sort(by('name'));
+  // Field-level access to custom fields: how many profiles and permission sets can read and edit each one.
+  const fieldAccess = {};
+  const customObjs = objects.filter((ob) => ob.fields.some((f) => f.origin !== 'standard')).map((ob) => `'${ob.name}'`);
+  if (customObjs.length) {
+    for (const p of await q(`SELECT SobjectType, Field, PermissionsRead, PermissionsEdit, Parent.IsOwnedByProfile FROM FieldPermissions WHERE SobjectType IN (${customObjs.join(',')})`)) {
+      const a = (fieldAccess[p.Field] ||= { read: 0, edit: 0, profiles: 0, permissionSets: 0 });
+      if (p.PermissionsRead) a.read++;
+      if (p.PermissionsEdit) a.edit++;
+      if (p.Parent?.IsOwnedByProfile) a.profiles++; else a.permissionSets++;
+    }
+  }
+  for (const ob of objects) for (const f of ob.fields) if (f.origin !== 'standard') f.access = fieldAccess[`${ob.name}.${f.name}`] || { read: 0, edit: 0, profiles: 0, permissionSets: 0 };
 
   /* ---------------------------------------------------------------- integrations */
   const namedCredentials = (await q('SELECT DeveloperName, MasterLabel, Endpoint FROM NamedCredential')).map((n) => ({ name: n.DeveloperName, label: n.MasterLabel, host: hostOf(n.Endpoint) })).sort(by('name'));
@@ -202,7 +223,7 @@ async function main() {
   const out = {
     region, label: label || region,
     profile: { edition: orgRow.OrganizationType, locale: orgRow.DefaultLocaleSidKey, language: orgRow.LanguageLocaleKey, timeZone: orgRow.TimeZoneSidKey, currencies, licences, featureLicences, limits, usersByProfile },
-    markets, objects, validationRules, flows, approvals, workflowRules, triggers,
+    markets, objects, validationRules, flows, approvals, workflowRules, triggers, scheduledJobs,
     code: { classes, lwc, aura, visualforce }, packages,
     security: { profiles, permissionSets, permissionSetGroups, roles, sharingRules },
     integrations: { namedCredentials, remoteSites, connectedApps, loginSources, calloutClasses: classes.filter((c) => c.callout).map((c) => c.name) },

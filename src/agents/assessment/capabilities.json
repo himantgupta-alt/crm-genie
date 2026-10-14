@@ -1,11 +1,12 @@
 {
-  "description": "Business capabilities the Assessment agent recognises in a consumer-goods sales org, the standard Salesforce feature that covers each one, and the default verdict. A component (custom object, custom field on a standard object, Apex class or trigger, installed package) belongs to the first capability whose pattern matches its name; Apex code that matches no name pattern belongs to the capability of the objects it reads or writes. Anything left over goes to the workshop list. Verdicts: adopt (a standard feature covers it), configure (standard configuration replaces the code), keep (no standard equivalent; keep and harmonise across orgs), retire (unused), review (not recognised; confirm in the workshop).",
+  "description": "Business capabilities the Assessment agent recognises in a consumer-goods sales org, the standard Salesforce feature that covers each one, and the default verdict. A component (custom object, custom field on a standard object, Apex class or trigger, installed package) belongs to the first capability whose pattern matches its name; Apex code that matches no name pattern belongs to the capability of the objects it reads or writes. Anything left over goes to the workshop list. Dispositions (as in the proposal): adopt (a standard Salesforce or Consumer Goods Cloud feature covers it), configure (replace custom code with supported configuration), retain (valuable, supportable differentiation with no standard equivalent), harmonise (the same need is built differently in several orgs: align the pattern while keeping the orgs separate), retire (unused, duplicated or obsolete), review (purpose, regulatory context, usage or licensing to confirm with the client).",
   "verdicts": {
     "adopt": "Adopt standard",
     "configure": "Replace with configuration",
-    "keep": "Keep and harmonise",
+    "retain": "Retain",
+    "harmonise": "Harmonise",
     "retire": "Retire",
-    "review": "Review in workshop"
+    "review": "Review with client"
   },
   "capabilities": [
     {
@@ -126,7 +127,7 @@
         "classes": "^ErpCredit\\w*$",
         "fields": "^Account\\.(Credit_Limit|Credit_Status)__c$"
       },
-      "verdict": "keep",
+      "verdict": "retain",
       "standard": "No standard equivalent: keep one integration, called through the integration layer with a named credential",
       "licence": "",
       "reference": "Salesforce Help: Named credentials"
@@ -138,7 +139,7 @@
       "match": {
         "objects": "^Distributor_Stock__c$"
       },
-      "verdict": "keep",
+      "verdict": "retain",
       "standard": "No standard equivalent in Consumer Goods Cloud: keep one global object and load it from distributor feeds",
       "licence": "",
       "reference": ""
@@ -174,7 +175,7 @@
       "match": {
         "fields": "^Account\\.(VAT_Number|GST_Number|Tax_ID|Tax_Number)__c$"
       },
-      "verdict": "keep",
+      "verdict": "retain",
       "standard": "No standard tax ID field on Account: keep one global field with per-market format rules",
       "licence": "",
       "reference": ""
@@ -186,7 +187,7 @@
       "match": {
         "fields": "^Account\\.(Legacy_ERP_Code|ERP_Code|ERP_Id)__c$"
       },
-      "verdict": "keep",
+      "verdict": "retain",
       "standard": "Keep as an external ID field so integrations can upsert by the ERP key",
       "licence": "",
       "reference": "Salesforce Help: External ID fields"
@@ -210,7 +211,7 @@
       "match": {
         "fields": "^Product2\\.(Brand|Category|EAN|Case_Size)__c$"
       },
-      "verdict": "keep",
+      "verdict": "retain",
       "standard": "Keep as fields on Product, owned by the product master (one definition for all orgs)",
       "licence": "",
       "reference": ""

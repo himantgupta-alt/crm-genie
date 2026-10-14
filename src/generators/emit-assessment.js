@@ -41,7 +41,9 @@ function classify(o) {
     if (extra.unused && verdict !== 'retire') {
       if (!cap) { verdict = 'retire'; reason = extra.unused; } else reason = `${reason}. Note: ${extra.unused.toLowerCase()}`;
     }
-    items.push({ org: o.region, kind, name, capability: cap?.id || null, verdict, reason, ...extra.facts });
+    // Evidence confidence: matched by the component's own name, through the objects its code touches, or not at all.
+    const confidence = !cap ? 'Low' : extra.via === 'objects' ? 'Medium' : 'High';
+    items.push({ org: o.region, kind, name, capability: cap?.id || null, verdict, reason, confidence, ...extra.facts });
   };
 
   for (const ob of a.objects) {
@@ -54,20 +56,22 @@ function classify(o) {
     push('Custom field', name, byKey('fields', name), { unused, facts: { fill: f.fill, type: f.type } });
   }
   for (const c of a.automation.classes.filter((x) => !x.test)) {
-    const cap = byKey('classes', c.name) || (c.objects.length ? capOfObject(c.objects[0]) : null);
-    push('Apex class', c.name, cap, { facts: { lines: c.lines, objects: c.objects } });
+    const byName = byKey('classes', c.name);
+    const cap = byName || (c.objects.length ? capOfObject(c.objects[0]) : null);
+    push('Apex class', c.name, cap, { via: byName ? 'name' : 'objects', facts: { lines: c.lines, objects: c.objects } });
   }
   for (const t of a.automation.triggers) {
-    const cap = byKey('triggers', t.name) || capOfObject(t.object);
-    push('Apex trigger', t.name, cap, { unused: t.active ? null : 'Inactive.', facts: { object: t.object, lines: t.lines } });
+    const byName = byKey('triggers', t.name);
+    const cap = byName || capOfObject(t.object);
+    push('Apex trigger', t.name, cap, { via: byName ? 'name' : 'objects', unused: t.active ? null : 'Inactive.', facts: { object: t.object, lines: t.lines } });
   }
   for (const fl of a.automation.flows) {
     const obj = a.objects.find((x) => x.label === fl.object)?.name;
     const cap = obj ? capOfObject(obj) : null;
     // A flow is already configuration: it stays unless its capability moves to a standard feature.
-    const base = cap ? { ...cap, verdict: cap.verdict === 'adopt' ? 'adopt' : 'keep' } : { id: null, verdict: 'keep', standard: 'Already configuration (Flow); keep and document.' };
-    push('Flow', fl.name, base.id ? base : null, { unused: fl.active ? null : 'Inactive.', facts: { object: fl.object } });
-    if (!base.id) Object.assign(items[items.length - 1], { verdict: fl.active ? 'keep' : 'retire', reason: base.standard });
+    const base = cap ? { ...cap, verdict: cap.verdict === 'adopt' ? 'adopt' : 'retain' } : { id: null, verdict: 'retain', standard: 'Already configuration (Flow); retain and document.' };
+    push('Flow', fl.name, base.id ? base : null, { via: 'objects', unused: fl.active ? null : 'Inactive.', facts: { object: fl.object } });
+    if (!base.id) Object.assign(items[items.length - 1], { verdict: fl.active ? 'retain' : 'retire', reason: base.standard, confidence: 'Medium' });
   }
   for (const vr of a.automation.validationRules) {
     const cap = capOfObject(vr.object) || caps.find((c) => c.re.fields && [...(a.extended.find((s) => s.name === vr.object)?.fields || [])].some((f) => c.re.fields.test(`${vr.object}.${f.name}`) && new RegExp(f.name.replace(/__c$/, '').split('_')[0], 'i').test(vr.name)));
@@ -78,6 +82,55 @@ function classify(o) {
 }
 
 const items = extracted.flatMap(classify);
+
+// Harmonise: a need that would be retained is built with different custom objects in two or more orgs. The orgs
+// stay separate; only the pattern is aligned.
+const objectSets = (capId) => new Set(extracted.map((o) => items.filter((i) => i.org === o.region && i.capability === capId && i.kind === 'Custom object').map((i) => i.name).sort().join('+')).filter(Boolean));
+const builtDifferently = Object.fromEntries(cat.capabilities.map((c) => [c.id, objectSets(c.id).size > 1]));
+const capVerdict = (c) => (c.verdict === 'retain' && builtDifferently[c.id] ? 'harmonise' : c.verdict);
+for (const i of items) if (i.verdict === 'retain' && i.capability && builtDifferently[i.capability]) i.verdict = 'harmonise';
+
+// The decision register fields of the proposal: layer, effort, where, priority, impact and decision owner.
+const capById = Object.fromEntries(cat.capabilities.map((c) => [c.id, c]));
+const effortOf = (i) => {
+  if (i.verdict === 'retire' || i.verdict === 'review') return 'Low';
+  if (['Custom field', 'Validation rule', 'Flow'].includes(i.kind)) return 'Low';
+  if (/Apex/.test(i.kind)) return (i.lines || 0) <= 80 ? 'Low' : (i.lines || 0) <= 300 ? 'Medium' : 'High';
+  if (i.kind === 'Custom object') return (i.records || 0) > 1000 || (i.fields || 0) > 15 ? 'High' : 'Medium';
+  return 'Medium';
+};
+const PRIORITY = { retire: 'Quick win', configure: 'Quick win', review: 'Immediate', adopt: 'Medium term', harmonise: 'Medium term', retain: 'Strategic' };
+const IMPACT = {
+  adopt: 'Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.',
+  configure: 'The business changes the rule as a setting, without a developer or a release.',
+  retain: 'Kept as valuable differentiation; documented and supported.',
+  harmonise: 'One pattern for the same need across regions; simpler reporting and support, orgs stay separate.',
+  retire: 'Less clutter; nothing unused is maintained or migrated.',
+  review: 'Purpose, usage or licensing to confirm before a verdict.',
+};
+const labelOf = (r) => orgs.find((o) => o.region === r)?.label || r;
+const orgList = (rs) => (rs.length > 1 ? `${rs.slice(0, -1).join(', ')} and ${rs[rs.length - 1]} orgs` : `${rs[0]} org`);
+for (const i of items) {
+  const cap = i.capability ? capById[i.capability] : null;
+  i.layer = i.kind === 'Installed package' ? 'Installed package' : 'Client custom';
+  i.effort = effortOf(i);
+  i.priority = PRIORITY[i.verdict];
+  i.impact = IMPACT[i.verdict];
+  i.where = orgList(i.capability ? [...new Set(items.filter((x) => x.capability === i.capability).map((x) => labelOf(x.org)))] : [labelOf(i.org)]);
+  i.decisionOwner = cap ? `Client ${cap.area.toLowerCase()} owner (to confirm)` : 'Client product owner (to confirm)';
+}
+
+// Fitment per capability and org, in the proposal's codes. Nothing custom found means the standard is used as is.
+const FITMENT = { NS: 'Native standard', CS: 'Configured standard', ES: 'Extended standard', DC: 'Differentiating custom', TD: 'Technical-debt candidate', RV: 'Requires validation' };
+function fitmentOf(region, capId) {
+  const xs = items.filter((i) => i.org === region && (capId ? i.capability === capId : !i.capability));
+  if (!xs.length) return 'NS';
+  if (!capId || xs.some((i) => i.verdict === 'review')) return 'RV';
+  const v = capVerdict(capById[capId]);
+  if (xs.some((i) => i.kind === 'Custom object' || /Apex/.test(i.kind))) return v === 'retain' || v === 'harmonise' ? 'DC' : 'TD';
+  if (xs.some((i) => i.kind === 'Custom field')) return 'ES';
+  return 'CS';
+}
 
 /* ---------------------------------------------------------------- summarise */
 
@@ -114,8 +167,11 @@ const capabilityMatrix = cat.capabilities.map((c) => {
   const perOrg = Object.fromEntries(extracted.map((o) => [o.region, items.filter((i) => i.org === o.region && i.capability === c.id).map((i) => i.name)]));
   const objectsPerOrg = extracted.map((o) => items.filter((i) => i.org === o.region && i.capability === c.id && i.kind === 'Custom object').map((i) => i.name).sort().join('+')).filter(Boolean);
   const inOrgs = Object.values(perOrg).filter((x) => x.length).length;
-  return { id: c.id, area: c.area, capability: c.capability, verdict: c.verdict, standard: c.standard, licence: c.licence, reference: c.reference, perOrg, inOrgs, builtDifferently: new Set(objectsPerOrg).size > 1 };
+  return { id: c.id, area: c.area, capability: c.capability, verdict: capVerdict(c), standard: c.standard, licence: c.licence, reference: c.reference, perOrg, inOrgs, builtDifferently: new Set(objectsPerOrg).size > 1,
+    fitment: Object.fromEntries(extracted.map((o) => [o.region, fitmentOf(o.region, c.id)])) };
 }).filter((c) => c.inOrgs > 0);
+// Components that match no capability form one row of their own: they need validation with the client.
+const unmatched = { area: 'Other', capability: 'Not matched to a capability', fitment: Object.fromEntries(extracted.map((o) => [o.region, fitmentOf(o.region, null)])) };
 
 const total = items.length;
 const share = (v) => (total ? Math.round((items.filter((i) => i.verdict === v).length / total) * 100) : 0);
@@ -135,7 +191,7 @@ const findings = [
 const fitGap = {
   owner: 'Assessment agent', generatedBy: 'src/generators/emit-assessment.js',
   client: eng.client, sampleData: eng.sampleData, note: eng.note, marketsExpected: eng.marketsExpected,
-  verdicts: V, findings, orgs: orgSummary, capabilities: capabilityMatrix,
+  verdicts: V, fitmentCodes: FITMENT, findings, orgs: orgSummary, capabilities: capabilityMatrix, unmatched,
   items: items.sort((a, b) => a.org.localeCompare(b.org) || a.kind.localeCompare(b.kind) || a.name.localeCompare(b.name)),
 };
 
@@ -174,12 +230,15 @@ const report = [
   'Each row is a business capability; each cell lists the components that implement it in that org. "Built differently" means two or more orgs use different custom objects for the same need.', '',
   table(['Area', 'Capability', ...ex.map((o) => o.label), 'Built differently', 'Standard feature', 'Verdict'], capabilityMatrix.map((c) => [
     c.area, c.capability, ...ex.map((o) => (c.perOrg[o.region] || []).join(', ') || '—'), c.builtDifferently ? 'Yes' : 'No', c.standard, V[c.verdict]])), '',
+  '## Fitment heatmap', '',
+  `Each org is assessed in its own implementation context. Codes: ${Object.entries(FITMENT).map(([k, v]) => `${k} ${v.toLowerCase()}`).join(', ')}. Customisation is not automatically technical debt; it becomes a concern when cost, complexity or risk is out of proportion to the business value.`, '',
+  table(['Area', 'Capability / process', ...ex.map((o) => o.label)], [...capabilityMatrix, unmatched].map((c) => [c.area, c.capability, ...ex.map((o) => `${c.fitment[o.region]} ${FITMENT[c.fitment[o.region]].toLowerCase()}`)])), '',
   '## Fit-gap by org', '',
-  table(['Verdict', ...ex.map((o) => o.label), 'All orgs'], VERDICTS.map((v) => [V[v], ...ex.map((o) => o.verdicts[v]), items.filter((i) => i.verdict === v).length])), '',
+  table(['Disposition', ...ex.map((o) => o.label), 'All orgs'], VERDICTS.map((v) => [V[v], ...ex.map((o) => o.verdicts[v]), items.filter((i) => i.verdict === v).length])), '',
   ...VERDICTS.flatMap((v) => {
     const xs = items.filter((i) => i.verdict === v);
     if (!xs.length) return [];
-    return [`### ${V[v]} (${xs.length})`, '', table(['Org', 'Type', 'Component', 'Why'], xs.map((i) => [lbl(i.org), i.kind, i.name, i.reason])), ''];
+    return [`### ${V[v]} (${xs.length})`, '', table(['Org', 'Type', 'Component', 'Why', 'Effort', 'Priority', 'Evidence confidence'], xs.map((i) => [lbl(i.org), i.kind, i.name, i.reason, i.effort, i.priority, i.confidence])), ''];
   }),
   '## Method and limits', '',
   '- Read-only: describe, SOQL counts and the Tooling API, with the permissions of one integration user per org. No record contents leave the org; the as-is files hold component names, counts and fill rates only.',
@@ -196,23 +255,27 @@ const architecture = [
   '## Principles', '',
   '1. **Standard before custom.** Each capability is first matched to a standard Salesforce or Consumer Goods Cloud feature; custom build stays only where no standard feature fits.',
   '2. **Configuration before code.** Approvals, roll-ups and thresholds move from Apex to configuration that the business can change without a release.',
-  '3. **One definition per business concept.** A store visit, a promotion or a tax ID is modelled once and shared by every org, so reporting and integrations work across regions.',
+  '3. **Harmonise patterns, keep the orgs.** Each org is assessed in its own context. Where regions solve the same need differently, the pattern is aligned while the orgs stay separate; consolidation is not an objective of Discovery.',
   '4. **Retire before you move.** Unused objects, fields and automation are removed first; nothing unused is rebuilt.',
   '5. **Integrations through one layer.** Outbound calls use named credentials through the integration layer; no endpoints or secrets in code.',
-  '6. **Data stays in the client environment.** The agents run there, read-only, with one least-privilege integration user per org; outputs hold names and counts, not records.',
+  '6. **Minimum data, read-only.** One least-privilege integration user per org, on a full-copy sandbox; outputs hold configuration, names and counts, never record contents.',
   '7. **Reviewed and repeatable.** Every output is generated from the extraction, versioned, and approved at a review gate before it is used.', '',
   '## How the assessment runs', '',
   '```mermaid',
   'flowchart TB',
-  '  subgraph Client["Client environment"]',
+  '  subgraph Client["Client: full-copy sandboxes"]',
   ...orgs.map((o) => `    ${o.region}[("${o.label} org")]`),
-  '    subgraph Agents["Assessment agent"]',
-  '      X["As-is extraction<br/>read-only, per org"] --> C["Classify against<br/>capability catalogue"] --> G["Fit-gap, comparison,<br/>report"]',
-  '    end',
-  ...orgs.map((o) => `    ${o.region} -- "integration user<br/>read-only" --> X`),
-  '    G --> R{{"Review gate"}} --> H["HTML console<br/>and report"]',
   '  end',
-  '  H --> W["Workshop:<br/>confirm verdicts"]',
+  '  subgraph Boundary["Ascendion access-controlled environment"]',
+  '    O["Discovery orchestrator"] --> X["Extraction"]',
+  '    X --> BP["Business process"] & CC["Capability classification"] & DP["Dependency"] & TD["Technical debt"]',
+  '    BP & CC & DP & TD --> FG["Fit-gap and recommendation"]',
+  '    FG --> R{{"Architect review"}} --> H["Discovery Explorer<br/>and report"]',
+  '    H --> E[("Engagement repository<br/>versioned")]',
+  '  end',
+  ...orgs.map((o) => `  ${o.region} -- "integration user<br/>read-only" --> X`),
+  '  E --> W["Focused validation<br/>with the client"]',
+  '  W --> Hd["Handover to the client,<br/>repository cleaned up"]',
   '```', '',
   '## How a verdict is reached', '',
   '```mermaid',
@@ -225,32 +288,27 @@ const architecture = [
   `  S -- "yes" --> AD["${V.adopt}"]`,
   '  S -- "partly" --> CF{"Logic expressible<br/>as configuration?"}',
   `  CF -- "yes" --> CO["${V.configure}"]`,
-  `  CF -- "no" --> KP["${V.keep}"]`,
+  '  CF -- "no" --> DF{"Built differently<br/>in other orgs?"}',
+  `  DF -- "yes" --> HA["${V.harmonise}"]`,
+  `  DF -- "no" --> KP["${V.retain}"]`,
   '```', '',
+  'Every disposition is weighed on business value, standard fit, technical risk, change impact and evidence confidence, and confirmed by the decision owner on the client side.', '',
   '## Target direction', '',
-  'One global core shared by all regional orgs: the data model and configuration are built once, versioned, and deployed to every org through one pipeline. Regions keep only what is truly local (tax formats, market lists). Whether the three orgs later merge into one is a separate decision; a shared core makes either path cheaper.', '',
+  'Each regional org stays a separate org, assessed in its own implementation context. Discovery points each org towards standard Salesforce and Consumer Goods Cloud capability, moves rules from code to configuration, and aligns patterns that regions built differently. Cross-org patterns are surfaced as insights; consolidation of the orgs is not an objective.', '',
   '```mermaid',
   'flowchart TB',
-  '  subgraph Core["Global core (one source, one pipeline)"]',
-  '    DM["Data model:<br/>customer, product, visit,<br/>promotion, order"]',
-  '    STD["Standard features:<br/>Consumer Goods Cloud,<br/>Sales Cloud, TPM"]',
-  '    CFG["Configuration:<br/>approvals, roll-ups,<br/>global value sets"]',
+  '  subgraph Orgs["Regional orgs, kept separate"]',
+  ...orgs.map((o) => `    T${o.region}["${o.label}"]`),
   '  end',
-  '  subgraph Orgs["Regional orgs"]',
-  ...orgs.map((o) => `    T${o.region}["${o.label}<br/>local: tax rules, markets"]`),
-  '  end',
-  '  Core -- "CI/CD deploy" --> Orgs',
-  '  subgraph Int["Integration layer"]',
-  '    API["APIs with named credentials"]',
-  '  end',
-  '  Orgs <--> API',
+  '  STD["Standard Salesforce and<br/>Consumer Goods Cloud capability"] -- "adopt" --> Orgs',
+  '  CFG["Configuration the business owns:<br/>approvals, roll-ups, value sets"] -- "replace code" --> Orgs',
+  '  PAT["Shared patterns and naming<br/>for the same need"] -. "harmonise" .-> Orgs',
+  '  Orgs <--> API["Integration layer<br/>named credentials"]',
   '  API <--> ERP[("ERP:<br/>orders, credit")]',
   '  API <--> DIST[("Distributor feeds:<br/>stock, claims")]',
-  '  MDM[("Master data:<br/>customers, products")] --> API',
-  '  Orgs --> AN["Cross-region reporting"]',
   '```', '',
-  '## What moves where', '',
-  table(['Verdict', 'Goes to', 'Components'], VERDICTS.map((v) => [V[v], { adopt: 'Standard features in the global core', configure: 'Configuration in the global core', keep: 'Custom, built once in the global core', retire: 'Removed before the move', review: 'Workshop agenda' }[v], items.filter((i) => i.verdict === v).length])), '',
+  '## What happens to each disposition', '',
+  table(['Disposition', 'What follows', 'Components'], VERDICTS.map((v) => [V[v], { adopt: 'Use the native Salesforce or Consumer Goods Cloud capability', configure: 'Remove custom code; use supported configuration', retain: 'Keep as valuable, supportable differentiation', harmonise: 'Align the pattern across orgs while retaining separate orgs', retire: 'Remove unused, duplicated or obsolete components', review: 'Validate intent, regulatory context, usage or licensing with the client' }[v], items.filter((i) => i.verdict === v).length])), '',
 ].join('\n');
 
 /* ---------------------------------------------------------------- write */

@@ -10,7 +10,7 @@
   ],
   "guardrails": "guardrails/guardrails.json",
   "kind": "deterministic",
-  "role": "Reads what each regional org has built on top of standard Salesforce (read-only), matches every custom component to a business capability, and proposes a fit-gap verdict: adopt a standard feature, replace with configuration, keep and harmonise, retire, or review in the workshop. Compares the orgs capability by capability.",
+  "role": "Reads what each regional org has built on top of standard Salesforce (read-only), matches every custom component to a business capability, and proposes a fit-gap verdict: adopt standard, replace with configuration, retain, harmonise, retire, or review with the client, and a fitment code per capability and org. Each org is assessed in its own context; cross-org patterns are insights, not a consolidation plan.",
   "inputs": [
     "Salesforce orgs listed in src/agents/assessment/engagement.json (one CLI alias per org, read-only integration user)",
     "src/agents/assessment/capabilities.json (capability catalogue with the standard feature for each)"

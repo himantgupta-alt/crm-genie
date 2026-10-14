@@ -187,7 +187,7 @@
       },
       "DailyApiRequests": {
         "max": 15000,
-        "used": 555
+        "used": 829
       },
       "DailyBulkV2QueryJobs": {
         "max": 10000,
@@ -296,7 +296,13 @@
           "origin": "custom",
           "required": false,
           "picklistValues": 2,
-          "fill": 13
+          "fill": 13,
+          "access": {
+            "read": 43,
+            "edit": 42,
+            "profiles": 42,
+            "permissionSets": 1
+          }
         },
         {
           "name": "Customer_Channel__c",
@@ -305,7 +311,13 @@
           "origin": "custom",
           "required": false,
           "picklistValues": 4,
-          "fill": 72
+          "fill": 72,
+          "access": {
+            "read": 2,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 2
+          }
         },
         {
           "name": "Customer_Tier__c",
@@ -314,7 +326,13 @@
           "origin": "custom",
           "required": false,
           "picklistValues": 3,
-          "fill": 72
+          "fill": 72,
+          "access": {
+            "read": 2,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 2
+          }
         },
         {
           "name": "CustomerPriority__c",
@@ -323,7 +341,13 @@
           "origin": "custom",
           "required": false,
           "picklistValues": 3,
-          "fill": 12
+          "fill": 12,
+          "access": {
+            "read": 43,
+            "edit": 42,
+            "profiles": 42,
+            "permissionSets": 1
+          }
         },
         {
           "name": "Legacy_ERP_Code__c",
@@ -331,7 +355,13 @@
           "type": "string",
           "origin": "custom",
           "required": false,
-          "fill": 44
+          "fill": 44,
+          "access": {
+            "read": 2,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 2
+          }
         },
         {
           "name": "Market__c",
@@ -340,7 +370,13 @@
           "origin": "custom",
           "required": false,
           "picklistValues": 14,
-          "fill": 72
+          "fill": 72,
+          "access": {
+            "read": 2,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 2
+          }
         },
         {
           "name": "NumberofLocations__c",
@@ -348,7 +384,13 @@
           "type": "double",
           "origin": "custom",
           "required": false,
-          "fill": 14
+          "fill": 14,
+          "access": {
+            "read": 43,
+            "edit": 42,
+            "profiles": 42,
+            "permissionSets": 1
+          }
         },
         {
           "name": "Old_Segment__c",
@@ -356,7 +398,13 @@
           "type": "string",
           "origin": "custom",
           "required": false,
-          "fill": 0
+          "fill": 0,
+          "access": {
+            "read": 2,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 2
+          }
         },
         {
           "name": "SLA__c",
@@ -365,7 +413,13 @@
           "origin": "custom",
           "required": false,
           "picklistValues": 4,
-          "fill": 14
+          "fill": 14,
+          "access": {
+            "read": 43,
+            "edit": 42,
+            "profiles": 42,
+            "permissionSets": 1
+          }
         },
         {
           "name": "SLAExpirationDate__c",
@@ -373,7 +427,13 @@
           "type": "date",
           "origin": "custom",
           "required": false,
-          "fill": 14
+          "fill": 14,
+          "access": {
+            "read": 43,
+            "edit": 42,
+            "profiles": 42,
+            "permissionSets": 1
+          }
         },
         {
           "name": "SLASerialNumber__c",
@@ -381,7 +441,13 @@
           "type": "string",
           "origin": "custom",
           "required": false,
-          "fill": 14
+          "fill": 14,
+          "access": {
+            "read": 43,
+            "edit": 42,
+            "profiles": 42,
+            "permissionSets": 1
+          }
         },
         {
           "name": "Store_Format__c",
@@ -390,7 +456,13 @@
           "origin": "custom",
           "required": false,
           "picklistValues": 5,
-          "fill": 54
+          "fill": 54,
+          "access": {
+            "read": 2,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 2
+          }
         },
         {
           "name": "UpsellOpportunity__c",
@@ -399,7 +471,13 @@
           "origin": "custom",
           "required": false,
           "picklistValues": 3,
-          "fill": 14
+          "fill": 14,
+          "access": {
+            "read": 43,
+            "edit": 42,
+            "profiles": 42,
+            "permissionSets": 1
+          }
         },
         {
           "name": "VAT_Number__c",
@@ -407,7 +485,13 @@
           "type": "string",
           "origin": "custom",
           "required": false,
-          "fill": 36
+          "fill": 36,
+          "access": {
+            "read": 2,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 2
+          }
         },
         {
           "name": "Won_Opportunity_Amount__c",
@@ -415,7 +499,13 @@
           "type": "currency",
           "origin": "custom",
           "required": false,
-          "fill": 28
+          "fill": 28,
+          "access": {
+            "read": 2,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 2
+          }
         },
         {
           "name": "Won_Opportunity_Count__c",
@@ -423,7 +513,13 @@
           "type": "double",
           "origin": "custom",
           "required": false,
-          "fill": 28
+          "fill": 28,
+          "access": {
+            "read": 2,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 2
+          }
         },
         {
           "name": "AccountNumber",
@@ -1284,7 +1380,13 @@
           "type": "string",
           "origin": "custom",
           "required": false,
-          "fill": 85
+          "fill": 85,
+          "access": {
+            "read": 40,
+            "edit": 40,
+            "profiles": 40,
+            "permissionSets": 0
+          }
         },
         {
           "name": "PotentialLiability__c",
@@ -1293,7 +1395,13 @@
           "origin": "custom",
           "required": false,
           "picklistValues": 2,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 42,
+            "edit": 42,
+            "profiles": 42,
+            "permissionSets": 0
+          }
         },
         {
           "name": "Product__c",
@@ -1302,7 +1410,13 @@
           "origin": "custom",
           "required": false,
           "picklistValues": 9,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 42,
+            "edit": 42,
+            "profiles": 42,
+            "permissionSets": 0
+          }
         },
         {
           "name": "SLAViolation__c",
@@ -1311,7 +1425,13 @@
           "origin": "custom",
           "required": false,
           "picklistValues": 2,
-          "fill": 96
+          "fill": 96,
+          "access": {
+            "read": 42,
+            "edit": 42,
+            "profiles": 42,
+            "permissionSets": 0
+          }
         },
         {
           "name": "AccountId",
@@ -1660,7 +1780,13 @@
           "type": "date",
           "origin": "custom",
           "required": false,
-          "fill": 0
+          "fill": 0,
+          "access": {
+            "read": 2,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 2
+          }
         },
         {
           "name": "GDPR_Consent__c",
@@ -1668,7 +1794,13 @@
           "type": "boolean",
           "origin": "custom",
           "required": false,
-          "fill": 0
+          "fill": 0,
+          "access": {
+            "read": 2,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 2
+          }
         },
         {
           "name": "Languages__c",
@@ -1676,7 +1808,13 @@
           "type": "string",
           "origin": "custom",
           "required": false,
-          "fill": 85
+          "fill": 85,
+          "access": {
+            "read": 43,
+            "edit": 42,
+            "profiles": 42,
+            "permissionSets": 1
+          }
         },
         {
           "name": "Level__c",
@@ -1685,7 +1823,13 @@
           "origin": "custom",
           "required": false,
           "picklistValues": 3,
-          "fill": 85
+          "fill": 85,
+          "access": {
+            "read": 43,
+            "edit": 42,
+            "profiles": 42,
+            "permissionSets": 1
+          }
         },
         {
           "name": "AccountId",
@@ -3171,7 +3315,13 @@
           "type": "string",
           "origin": "custom",
           "required": false,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 42,
+            "edit": 42,
+            "profiles": 42,
+            "permissionSets": 0
+          }
         },
         {
           "name": "NumberofLocations__c",
@@ -3179,7 +3329,13 @@
           "type": "double",
           "origin": "custom",
           "required": false,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 41,
+            "edit": 41,
+            "profiles": 41,
+            "permissionSets": 0
+          }
         },
         {
           "name": "Primary__c",
@@ -3188,7 +3344,13 @@
           "origin": "custom",
           "required": false,
           "picklistValues": 2,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 40,
+            "edit": 40,
+            "profiles": 40,
+            "permissionSets": 0
+          }
         },
         {
           "name": "ProductInterest__c",
@@ -3197,7 +3359,13 @@
           "origin": "custom",
           "required": false,
           "picklistValues": 3,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 42,
+            "edit": 42,
+            "profiles": 42,
+            "permissionSets": 0
+          }
         },
         {
           "name": "SICCode__c",
@@ -3205,7 +3373,13 @@
           "type": "string",
           "origin": "custom",
           "required": false,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 40,
+            "edit": 40,
+            "profiles": 40,
+            "permissionSets": 0
+          }
         },
         {
           "name": "Address",
@@ -3725,7 +3899,13 @@
           "type": "string",
           "origin": "custom",
           "required": false,
-          "fill": 52
+          "fill": 52,
+          "access": {
+            "read": 42,
+            "edit": 42,
+            "profiles": 42,
+            "permissionSets": 0
+          }
         },
         {
           "name": "DeliveryInstallationStatus__c",
@@ -3734,7 +3914,13 @@
           "origin": "custom",
           "required": false,
           "picklistValues": 3,
-          "fill": 74
+          "fill": 74,
+          "access": {
+            "read": 41,
+            "edit": 41,
+            "profiles": 41,
+            "permissionSets": 0
+          }
         },
         {
           "name": "Loss_Reason__c",
@@ -3743,7 +3929,13 @@
           "origin": "custom",
           "required": false,
           "picklistValues": 6,
-          "fill": 13
+          "fill": 13,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
         },
         {
           "name": "MainCompetitors__c",
@@ -3751,7 +3943,13 @@
           "type": "string",
           "origin": "custom",
           "required": false,
-          "fill": 58
+          "fill": 58,
+          "access": {
+            "read": 42,
+            "edit": 42,
+            "profiles": 42,
+            "permissionSets": 0
+          }
         },
         {
           "name": "OrderNumber__c",
@@ -3759,7 +3957,13 @@
           "type": "string",
           "origin": "custom",
           "required": false,
-          "fill": 58
+          "fill": 58,
+          "access": {
+            "read": 41,
+            "edit": 41,
+            "profiles": 41,
+            "permissionSets": 0
+          }
         },
         {
           "name": "TrackingNumber__c",
@@ -3767,7 +3971,13 @@
           "type": "string",
           "origin": "custom",
           "required": false,
-          "fill": 29
+          "fill": 29,
+          "access": {
+            "read": 41,
+            "edit": 41,
+            "profiles": 41,
+            "permissionSets": 0
+          }
         },
         {
           "name": "AccountId",
@@ -5344,7 +5554,13 @@
           "origin": "custom",
           "required": false,
           "picklistValues": 5,
-          "fill": 37
+          "fill": 37,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
         },
         {
           "name": "Case_Size__c",
@@ -5352,7 +5568,13 @@
           "type": "double",
           "origin": "custom",
           "required": false,
-          "fill": 37
+          "fill": 37,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
         },
         {
           "name": "Category__c",
@@ -5361,7 +5583,13 @@
           "origin": "custom",
           "required": false,
           "picklistValues": 4,
-          "fill": 37
+          "fill": 37,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
         },
         {
           "name": "EAN__c",
@@ -5369,7 +5597,13 @@
           "type": "string",
           "origin": "custom",
           "required": false,
-          "fill": 37
+          "fill": 37,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
         },
         {
           "name": "CreatedById",
@@ -5582,7 +5816,13 @@
           "type": "percent",
           "origin": "custom",
           "required": false,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
         },
         {
           "name": "Product__c",
@@ -5593,7 +5833,13 @@
           "references": [
             "Product2"
           ],
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
         },
         {
           "name": "Trade_Promotion__c",
@@ -5605,7 +5851,13 @@
             "Trade_Promotion__c"
           ],
           "masterDetail": true,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 0,
+            "edit": 0,
+            "profiles": 0,
+            "permissionSets": 0
+          }
         },
         {
           "name": "CreatedById",
@@ -5702,7 +5954,13 @@
           "references": [
             "Account"
           ],
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
         },
         {
           "name": "Category__c",
@@ -5711,7 +5969,13 @@
           "origin": "custom",
           "required": false,
           "picklistValues": 4,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
         },
         {
           "name": "Period_Start__c",
@@ -5719,7 +5983,13 @@
           "type": "date",
           "origin": "custom",
           "required": true,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 0,
+            "edit": 0,
+            "profiles": 0,
+            "permissionSets": 0
+          }
         },
         {
           "name": "Target_Amount__c",
@@ -5727,7 +5997,13 @@
           "type": "currency",
           "origin": "custom",
           "required": false,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
         },
         {
           "name": "CreatedById",
@@ -5841,7 +6117,13 @@
           "type": "double",
           "origin": "custom",
           "required": false,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
         },
         {
           "name": "On_Shelf__c",
@@ -5849,7 +6131,13 @@
           "type": "boolean",
           "origin": "custom",
           "required": false,
-          "fill": 86
+          "fill": 86,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
         },
         {
           "name": "Product__c",
@@ -5860,7 +6148,13 @@
           "references": [
             "Product2"
           ],
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
         },
         {
           "name": "Shelf_Price__c",
@@ -5868,7 +6162,13 @@
           "type": "currency",
           "origin": "custom",
           "required": false,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
         },
         {
           "name": "Store_Visit__c",
@@ -5880,7 +6180,13 @@
             "Store_Visit__c"
           ],
           "masterDetail": true,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 0,
+            "edit": 0,
+            "profiles": 0,
+            "permissionSets": 0
+          }
         },
         {
           "name": "CreatedById",
@@ -5977,7 +6283,13 @@
           "references": [
             "Account"
           ],
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
         },
         {
           "name": "Must_Stock__c",
@@ -5985,7 +6297,13 @@
           "type": "boolean",
           "origin": "custom",
           "required": false,
-          "fill": 50
+          "fill": 50,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
         },
         {
           "name": "Product__c",
@@ -5996,7 +6314,13 @@
           "references": [
             "Product2"
           ],
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
         },
         {
           "name": "CreatedById",
@@ -6113,7 +6437,13 @@
           "references": [
             "Account"
           ],
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
         },
         {
           "name": "Notes__c",
@@ -6121,7 +6451,13 @@
           "type": "textarea",
           "origin": "custom",
           "required": false,
-          "fill": null
+          "fill": null,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
         },
         {
           "name": "Shelf_Checks__c",
@@ -6129,7 +6465,13 @@
           "type": "roll-up",
           "origin": "custom",
           "required": false,
-          "fill": null
+          "fill": null,
+          "access": {
+            "read": 1,
+            "edit": 0,
+            "profiles": 0,
+            "permissionSets": 1
+          }
         },
         {
           "name": "Status__c",
@@ -6138,7 +6480,13 @@
           "origin": "custom",
           "required": false,
           "picklistValues": 3,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
         },
         {
           "name": "Visit_Date__c",
@@ -6146,7 +6494,13 @@
           "type": "date",
           "origin": "custom",
           "required": true,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 0,
+            "edit": 0,
+            "profiles": 0,
+            "permissionSets": 0
+          }
         },
         {
           "name": "Visit_Type__c",
@@ -6155,7 +6509,13 @@
           "origin": "custom",
           "required": false,
           "picklistValues": 4,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
         },
         {
           "name": "CreatedById",
@@ -6270,7 +6630,13 @@
           "origin": "custom",
           "required": false,
           "formula": "Subscription__r.Account__r.Name",
-          "fill": null
+          "fill": null,
+          "access": {
+            "read": 1,
+            "edit": 0,
+            "profiles": 0,
+            "permissionSets": 1
+          }
         },
         {
           "name": "Line_Total__c",
@@ -6279,7 +6645,13 @@
           "origin": "custom",
           "required": false,
           "formula": "Quantity__c * Unit_Price__c",
-          "fill": null
+          "fill": null,
+          "access": {
+            "read": 1,
+            "edit": 0,
+            "profiles": 0,
+            "permissionSets": 1
+          }
         },
         {
           "name": "Product__c",
@@ -6290,7 +6662,13 @@
           "references": [
             "Product2"
           ],
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
         },
         {
           "name": "Quantity__c",
@@ -6298,7 +6676,13 @@
           "type": "double",
           "origin": "custom",
           "required": true,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 0,
+            "edit": 0,
+            "profiles": 0,
+            "permissionSets": 0
+          }
         },
         {
           "name": "Subscription__c",
@@ -6310,7 +6694,13 @@
             "Subscription__c"
           ],
           "masterDetail": true,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 0,
+            "edit": 0,
+            "profiles": 0,
+            "permissionSets": 0
+          }
         },
         {
           "name": "Unit_Price__c",
@@ -6318,7 +6708,13 @@
           "type": "currency",
           "origin": "custom",
           "required": true,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 0,
+            "edit": 0,
+            "profiles": 0,
+            "permissionSets": 0
+          }
         },
         {
           "name": "CreatedById",
@@ -6416,7 +6812,13 @@
             "Account"
           ],
           "masterDetail": true,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 0,
+            "edit": 0,
+            "profiles": 0,
+            "permissionSets": 0
+          }
         },
         {
           "name": "Annual_Value__c",
@@ -6425,7 +6827,13 @@
           "origin": "custom",
           "required": false,
           "formula": "MRR__c * 12",
-          "fill": null
+          "fill": null,
+          "access": {
+            "read": 1,
+            "edit": 0,
+            "profiles": 0,
+            "permissionSets": 1
+          }
         },
         {
           "name": "Auto_Renew__c",
@@ -6433,7 +6841,13 @@
           "type": "boolean",
           "origin": "custom",
           "required": false,
-          "fill": 52
+          "fill": 52,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
         },
         {
           "name": "Cancellation_Reason__c",
@@ -6441,7 +6855,13 @@
           "type": "string",
           "origin": "custom",
           "required": false,
-          "fill": 21
+          "fill": 21,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
         },
         {
           "name": "Days_To_Renewal__c",
@@ -6450,7 +6870,13 @@
           "origin": "custom",
           "required": false,
           "formula": "End_Date__c - TODAY()",
-          "fill": null
+          "fill": null,
+          "access": {
+            "read": 1,
+            "edit": 0,
+            "profiles": 0,
+            "permissionSets": 1
+          }
         },
         {
           "name": "End_Date__c",
@@ -6458,7 +6884,13 @@
           "type": "date",
           "origin": "custom",
           "required": true,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 0,
+            "edit": 0,
+            "profiles": 0,
+            "permissionSets": 0
+          }
         },
         {
           "name": "Health_Score__c",
@@ -6466,7 +6898,13 @@
           "type": "double",
           "origin": "custom",
           "required": false,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
         },
         {
           "name": "Line_Count__c",
@@ -6474,7 +6912,13 @@
           "type": "roll-up",
           "origin": "custom",
           "required": false,
-          "fill": null
+          "fill": null,
+          "access": {
+            "read": 1,
+            "edit": 0,
+            "profiles": 0,
+            "permissionSets": 1
+          }
         },
         {
           "name": "MRR__c",
@@ -6482,7 +6926,13 @@
           "type": "currency",
           "origin": "custom",
           "required": false,
-          "fill": 93
+          "fill": 93,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
         },
         {
           "name": "Primary_Contact__c",
@@ -6493,7 +6943,13 @@
           "references": [
             "Contact"
           ],
-          "fill": 34
+          "fill": 34,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
         },
         {
           "name": "Source_Opportunity__c",
@@ -6504,7 +6960,13 @@
           "references": [
             "Opportunity"
           ],
-          "fill": 5
+          "fill": 5,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
         },
         {
           "name": "Start_Date__c",
@@ -6512,7 +6974,13 @@
           "type": "date",
           "origin": "custom",
           "required": true,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 0,
+            "edit": 0,
+            "profiles": 0,
+            "permissionSets": 0
+          }
         },
         {
           "name": "Status__c",
@@ -6521,7 +6989,13 @@
           "origin": "custom",
           "required": false,
           "picklistValues": 5,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 0,
+            "edit": 0,
+            "profiles": 0,
+            "permissionSets": 0
+          }
         },
         {
           "name": "Term_Months__c",
@@ -6529,7 +7003,13 @@
           "type": "double",
           "origin": "custom",
           "required": false,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
         },
         {
           "name": "Total_Line_Value__c",
@@ -6537,7 +7017,13 @@
           "type": "roll-up",
           "origin": "custom",
           "required": false,
-          "fill": null
+          "fill": null,
+          "access": {
+            "read": 1,
+            "edit": 0,
+            "profiles": 0,
+            "permissionSets": 1
+          }
         },
         {
           "name": "CreatedById",
@@ -7110,7 +7596,13 @@
           "references": [
             "Account"
           ],
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
         },
         {
           "name": "Budget__c",
@@ -7118,7 +7610,13 @@
           "type": "currency",
           "origin": "custom",
           "required": false,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
         },
         {
           "name": "End_Date__c",
@@ -7126,7 +7624,13 @@
           "type": "date",
           "origin": "custom",
           "required": true,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 0,
+            "edit": 0,
+            "profiles": 0,
+            "permissionSets": 0
+          }
         },
         {
           "name": "Mechanic__c",
@@ -7135,7 +7639,13 @@
           "origin": "custom",
           "required": false,
           "picklistValues": 4,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
         },
         {
           "name": "Start_Date__c",
@@ -7143,7 +7653,13 @@
           "type": "date",
           "origin": "custom",
           "required": true,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 0,
+            "edit": 0,
+            "profiles": 0,
+            "permissionSets": 0
+          }
         },
         {
           "name": "Status__c",
@@ -7152,7 +7668,13 @@
           "origin": "custom",
           "required": false,
           "picklistValues": 5,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
         },
         {
           "name": "Uplift_Pct__c",
@@ -7160,7 +7682,13 @@
           "type": "percent",
           "origin": "custom",
           "required": false,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
         },
         {
           "name": "CreatedById",
@@ -8869,7 +9397,13 @@
           "type": "double",
           "origin": "package",
           "required": false,
-          "fill": null
+          "fill": null,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 1,
+            "permissionSets": 0
+          }
         },
         {
           "name": "dlrs__Color__c",
@@ -8878,7 +9412,13 @@
           "origin": "package",
           "required": false,
           "picklistValues": 4,
-          "fill": null
+          "fill": null,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 1,
+            "permissionSets": 0
+          }
         },
         {
           "name": "dlrs__Description__c",
@@ -8886,7 +9426,13 @@
           "type": "string",
           "origin": "package",
           "required": false,
-          "fill": null
+          "fill": null,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 1,
+            "permissionSets": 0
+          }
         },
         {
           "name": "dlrs__Description2__c",
@@ -8894,7 +9440,13 @@
           "type": "string",
           "origin": "package",
           "required": false,
-          "fill": null
+          "fill": null,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 1,
+            "permissionSets": 0
+          }
         },
         {
           "name": "dlrs__LookupParent__c",
@@ -8905,7 +9457,13 @@
           "references": [
             "dlrs__LookupParent__c"
           ],
-          "fill": null
+          "fill": null,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 1,
+            "permissionSets": 0
+          }
         },
         {
           "name": "dlrs__LookupParent2__c",
@@ -8916,7 +9474,13 @@
           "references": [
             "dlrs__LookupParent__c"
           ],
-          "fill": null
+          "fill": null,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 1,
+            "permissionSets": 0
+          }
         },
         {
           "name": "CreatedById",
@@ -9023,7 +9587,13 @@
           "origin": "package",
           "required": false,
           "picklistValues": 4,
-          "fill": null
+          "fill": null,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 1,
+            "permissionSets": 0
+          }
         },
         {
           "name": "dlrs__Descriptions__c",
@@ -9031,7 +9601,13 @@
           "type": "string",
           "origin": "package",
           "required": false,
-          "fill": null
+          "fill": null,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 1,
+            "permissionSets": 0
+          }
         },
         {
           "name": "dlrs__Descriptions2__c",
@@ -9039,7 +9615,13 @@
           "type": "string",
           "origin": "package",
           "required": false,
-          "fill": null
+          "fill": null,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 1,
+            "permissionSets": 0
+          }
         },
         {
           "name": "dlrs__Total__c",
@@ -9047,7 +9629,13 @@
           "type": "double",
           "origin": "package",
           "required": false,
-          "fill": null
+          "fill": null,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 1,
+            "permissionSets": 0
+          }
         },
         {
           "name": "dlrs__Total2__c",
@@ -9055,7 +9643,13 @@
           "type": "double",
           "origin": "package",
           "required": false,
-          "fill": null
+          "fill": null,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 1,
+            "permissionSets": 0
+          }
         },
         {
           "name": "CreatedById",
@@ -9162,7 +9756,13 @@
           "origin": "package",
           "required": true,
           "unique": true,
-          "fill": null
+          "fill": null,
+          "access": {
+            "read": 0,
+            "edit": 0,
+            "profiles": 0,
+            "permissionSets": 0
+          }
         },
         {
           "name": "CreatedById",
@@ -9284,7 +9884,13 @@
           "type": "textarea",
           "origin": "package",
           "required": false,
-          "fill": null
+          "fill": null,
+          "access": {
+            "read": 3,
+            "edit": 2,
+            "profiles": 1,
+            "permissionSets": 2
+          }
         },
         {
           "name": "dlrs__ParentId__c",
@@ -9294,7 +9900,13 @@
           "required": true,
           "unique": true,
           "externalId": true,
-          "fill": null
+          "fill": null,
+          "access": {
+            "read": 0,
+            "edit": 0,
+            "profiles": 0,
+            "permissionSets": 0
+          }
         },
         {
           "name": "dlrs__ParentObject__c",
@@ -9302,7 +9914,13 @@
           "type": "string",
           "origin": "package",
           "required": false,
-          "fill": null
+          "fill": null,
+          "access": {
+            "read": 3,
+            "edit": 2,
+            "profiles": 1,
+            "permissionSets": 2
+          }
         },
         {
           "name": "dlrs__ParentRecord__c",
@@ -9311,7 +9929,13 @@
           "origin": "package",
           "required": false,
           "formula": "HYPERLINK( dlrs__ParentId__c , 'Parent Record')",
-          "fill": null
+          "fill": null,
+          "access": {
+            "read": 3,
+            "edit": 0,
+            "profiles": 1,
+            "permissionSets": 2
+          }
         },
         {
           "name": "CreatedById",
@@ -9433,7 +10057,13 @@
           "type": "string",
           "origin": "package",
           "required": false,
-          "fill": null
+          "fill": null,
+          "access": {
+            "read": 2,
+            "edit": 2,
+            "profiles": 1,
+            "permissionSets": 1
+          }
         },
         {
           "name": "dlrs__ParentId__c",
@@ -9441,7 +10071,13 @@
           "type": "string",
           "origin": "package",
           "required": false,
-          "fill": null
+          "fill": null,
+          "access": {
+            "read": 3,
+            "edit": 3,
+            "profiles": 1,
+            "permissionSets": 2
+          }
         },
         {
           "name": "dlrs__ParentKeyPrefix__c",
@@ -9450,7 +10086,13 @@
           "origin": "package",
           "required": false,
           "formula": "LEFT( dlrs__ParentId__c , 3)",
-          "fill": null
+          "fill": null,
+          "access": {
+            "read": 2,
+            "edit": 0,
+            "profiles": 1,
+            "permissionSets": 1
+          }
         },
         {
           "name": "dlrs__ParentRecord__c",
@@ -9459,7 +10101,13 @@
           "origin": "package",
           "required": false,
           "formula": "HYPERLINK( dlrs__ParentId__c , 'Parent Record')",
-          "fill": null
+          "fill": null,
+          "access": {
+            "read": 3,
+            "edit": 0,
+            "profiles": 1,
+            "permissionSets": 2
+          }
         },
         {
           "name": "dlrs__QualifiedParentID__c",
@@ -9469,7 +10117,13 @@
           "required": true,
           "unique": true,
           "externalId": true,
-          "fill": null
+          "fill": null,
+          "access": {
+            "read": 0,
+            "edit": 0,
+            "profiles": 0,
+            "permissionSets": 0
+          }
         },
         {
           "name": "CreatedById",
@@ -9591,7 +10245,13 @@
           "type": "boolean",
           "origin": "package",
           "required": false,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 3,
+            "edit": 2,
+            "profiles": 1,
+            "permissionSets": 2
+          }
         },
         {
           "name": "dlrs__AggregateAllRows__c",
@@ -9599,7 +10259,13 @@
           "type": "boolean",
           "origin": "package",
           "required": false,
-          "fill": 0
+          "fill": 0,
+          "access": {
+            "read": 3,
+            "edit": 2,
+            "profiles": 1,
+            "permissionSets": 2
+          }
         },
         {
           "name": "dlrs__AggregateOperation__c",
@@ -9608,7 +10274,13 @@
           "origin": "package",
           "required": false,
           "picklistValues": 10,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 3,
+            "edit": 2,
+            "profiles": 1,
+            "permissionSets": 2
+          }
         },
         {
           "name": "dlrs__AggregateResultField__c",
@@ -9616,7 +10288,13 @@
           "type": "string",
           "origin": "package",
           "required": true,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 0,
+            "edit": 0,
+            "profiles": 0,
+            "permissionSets": 0
+          }
         },
         {
           "name": "dlrs__CalculateJobId__c",
@@ -9624,7 +10302,13 @@
           "type": "string",
           "origin": "package",
           "required": false,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 1,
+            "permissionSets": 0
+          }
         },
         {
           "name": "dlrs__CalculationMode__c",
@@ -9633,7 +10317,13 @@
           "origin": "package",
           "required": false,
           "picklistValues": 4,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 3,
+            "edit": 2,
+            "profiles": 1,
+            "permissionSets": 2
+          }
         },
         {
           "name": "dlrs__CalculationSharingMode__c",
@@ -9642,7 +10332,13 @@
           "origin": "package",
           "required": false,
           "picklistValues": 2,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 2,
+            "edit": 2,
+            "profiles": 1,
+            "permissionSets": 1
+          }
         },
         {
           "name": "dlrs__ChildObject__c",
@@ -9650,7 +10346,13 @@
           "type": "string",
           "origin": "package",
           "required": true,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 0,
+            "edit": 0,
+            "profiles": 0,
+            "permissionSets": 0
+          }
         },
         {
           "name": "dlrs__ConcatenateDelimiter__c",
@@ -9658,7 +10360,13 @@
           "type": "string",
           "origin": "package",
           "required": false,
-          "fill": 0
+          "fill": 0,
+          "access": {
+            "read": 2,
+            "edit": 2,
+            "profiles": 1,
+            "permissionSets": 1
+          }
         },
         {
           "name": "dlrs__Description__c",
@@ -9666,7 +10374,13 @@
           "type": "textarea",
           "origin": "package",
           "required": false,
-          "fill": null
+          "fill": null,
+          "access": {
+            "read": 2,
+            "edit": 2,
+            "profiles": 1,
+            "permissionSets": 1
+          }
         },
         {
           "name": "dlrs__FieldToAggregate__c",
@@ -9674,7 +10388,13 @@
           "type": "string",
           "origin": "package",
           "required": true,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 0,
+            "edit": 0,
+            "profiles": 0,
+            "permissionSets": 0
+          }
         },
         {
           "name": "dlrs__FieldToOrderBy__c",
@@ -9682,7 +10402,13 @@
           "type": "string",
           "origin": "package",
           "required": false,
-          "fill": 0
+          "fill": 0,
+          "access": {
+            "read": 2,
+            "edit": 2,
+            "profiles": 1,
+            "permissionSets": 1
+          }
         },
         {
           "name": "dlrs__ParentObject__c",
@@ -9690,7 +10416,13 @@
           "type": "string",
           "origin": "package",
           "required": true,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 0,
+            "edit": 0,
+            "profiles": 0,
+            "permissionSets": 0
+          }
         },
         {
           "name": "dlrs__RelationshipCriteria__c",
@@ -9698,7 +10430,13 @@
           "type": "string",
           "origin": "package",
           "required": false,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 3,
+            "edit": 2,
+            "profiles": 1,
+            "permissionSets": 2
+          }
         },
         {
           "name": "dlrs__RelationshipCriteriaFields__c",
@@ -9706,7 +10444,13 @@
           "type": "textarea",
           "origin": "package",
           "required": false,
-          "fill": null
+          "fill": null,
+          "access": {
+            "read": 3,
+            "edit": 2,
+            "profiles": 1,
+            "permissionSets": 2
+          }
         },
         {
           "name": "dlrs__RelationshipField__c",
@@ -9714,7 +10458,13 @@
           "type": "string",
           "origin": "package",
           "required": true,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 0,
+            "edit": 0,
+            "profiles": 0,
+            "permissionSets": 0
+          }
         },
         {
           "name": "dlrs__RowLimit__c",
@@ -9722,7 +10472,13 @@
           "type": "double",
           "origin": "package",
           "required": false,
-          "fill": 0
+          "fill": 0,
+          "access": {
+            "read": 3,
+            "edit": 2,
+            "profiles": 1,
+            "permissionSets": 2
+          }
         },
         {
           "name": "dlrs__TestCode__c",
@@ -9730,7 +10486,13 @@
           "type": "textarea",
           "origin": "package",
           "required": false,
-          "fill": null
+          "fill": null,
+          "access": {
+            "read": 2,
+            "edit": 2,
+            "profiles": 1,
+            "permissionSets": 1
+          }
         },
         {
           "name": "dlrs__TestCodeSeeAllData__c",
@@ -9738,7 +10500,13 @@
           "type": "boolean",
           "origin": "package",
           "required": false,
-          "fill": 0
+          "fill": 0,
+          "access": {
+            "read": 2,
+            "edit": 2,
+            "profiles": 1,
+            "permissionSets": 1
+          }
         },
         {
           "name": "dlrs__UniqueName__c",
@@ -9747,7 +10515,13 @@
           "origin": "package",
           "required": false,
           "unique": true,
-          "fill": 100
+          "fill": 100,
+          "access": {
+            "read": 2,
+            "edit": 2,
+            "profiles": 1,
+            "permissionSets": 1
+          }
         },
         {
           "name": "CreatedById",
@@ -11449,6 +12223,29 @@
       "coverage": 0
     }
   ],
+  "scheduledJobs": [
+    {
+      "name": "System job (type K) 1",
+      "type": "System job (type K)",
+      "state": "WAITING",
+      "schedule": "0 54 10 ? * 1,2,3,4,5,6,7",
+      "next": "2026-10-14"
+    },
+    {
+      "name": "System job (type P) 1",
+      "type": "System job (type P)",
+      "state": "WAITING",
+      "schedule": "0 59 6,11,16,23 ? * *",
+      "next": "2026-10-14"
+    },
+    {
+      "name": "System job (type S) 1",
+      "type": "System job (type S)",
+      "state": "WAITING",
+      "schedule": "0 0 5,20 ? * *",
+      "next": "2026-10-14"
+    }
+  ],
   "code": {
     "classes": [
       {
@@ -12401,7 +13198,7 @@
         "name": "OptimizerService",
         "apiVersion": 66,
         "origin": "package",
-        "lines": null,
+        "lines": 50,
         "test": false,
         "callout": false,
         "batch": false,
@@ -12445,7 +13242,7 @@
         "name": "RollupActionCalculate",
         "apiVersion": 66,
         "origin": "package",
-        "lines": null,
+        "lines": 26,
         "test": false,
         "callout": false,
         "batch": false,
@@ -12599,11 +13396,11 @@
         "name": "RollupJob",
         "apiVersion": 66,
         "origin": "package",
-        "lines": null,
+        "lines": 16,
         "test": false,
         "callout": false,
-        "batch": false,
-        "schedulable": false,
+        "batch": true,
+        "schedulable": true,
         "coverage": null
       },
       {
@@ -14350,17 +15147,19 @@
         "active": true
       }
     ],
-    "connectedApps": [],
+    "connectedApps": [
+      "Org Compiler"
+    ],
     "loginSources": [
+      {
+        "application": "Salesforce CLI",
+        "type": "Remote Access 2.0",
+        "logins": 27
+      },
       {
         "application": "Browser",
         "type": "Application",
         "logins": 9
-      },
-      {
-        "application": "Salesforce CLI",
-        "type": "Remote Access 2.0",
-        "logins": 7
       },
       {
         "application": "Browser",

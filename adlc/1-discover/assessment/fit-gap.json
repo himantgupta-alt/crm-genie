@@ -8,13 +8,22 @@
   "verdicts": {
     "adopt": "Adopt standard",
     "configure": "Replace with configuration",
-    "keep": "Keep and harmonise",
+    "retain": "Retain",
+    "harmonise": "Harmonise",
     "retire": "Retire",
-    "review": "Review in workshop"
+    "review": "Review with client"
+  },
+  "fitmentCodes": {
+    "NS": "Native standard",
+    "CS": "Configured standard",
+    "ES": "Extended standard",
+    "DC": "Differentiating custom",
+    "TD": "Technical-debt candidate",
+    "RV": "Requires validation"
   },
   "findings": [
     "1 of 3 orgs extracted; 14 of 37 markets found in the extracted orgs.",
-    "68 custom components classified: 34% adopt standard, 12% replace with configuration, 10% keep and harmonise, 1% retire, 43% review in workshop.",
+    "68 custom components classified: 34% adopt standard, 12% replace with configuration, 10% retain, 0% harmonise, 1% retire, 43% review with client.",
     "Cross-org comparison starts once a second org is extracted.",
     "1 component is unused and can be retired before any move.",
     "29 components are not matched to a known capability and go on the workshop agenda."
@@ -158,7 +167,8 @@
       "verdicts": {
         "adopt": 23,
         "configure": 8,
-        "keep": 7,
+        "retain": 7,
+        "harmonise": 0,
         "retire": 1,
         "review": 29
       }
@@ -189,7 +199,10 @@
         ]
       },
       "inOrgs": 1,
-      "builtDifferently": false
+      "builtDifferently": false,
+      "fitment": {
+        "eu": "TD"
+      }
     },
     {
       "id": "in-store-audit",
@@ -205,7 +218,10 @@
         ]
       },
       "inOrgs": 1,
-      "builtDifferently": false
+      "builtDifferently": false,
+      "fitment": {
+        "eu": "TD"
+      }
     },
     {
       "id": "assortment",
@@ -221,7 +237,10 @@
         ]
       },
       "inOrgs": 1,
-      "builtDifferently": false
+      "builtDifferently": false,
+      "fitment": {
+        "eu": "TD"
+      }
     },
     {
       "id": "trade-promotions",
@@ -240,7 +259,10 @@
         ]
       },
       "inOrgs": 1,
-      "builtDifferently": false
+      "builtDifferently": false,
+      "fitment": {
+        "eu": "TD"
+      }
     },
     {
       "id": "promotion-approval",
@@ -257,7 +279,10 @@
         ]
       },
       "inOrgs": 1,
-      "builtDifferently": false
+      "builtDifferently": false,
+      "fitment": {
+        "eu": "TD"
+      }
     },
     {
       "id": "targets",
@@ -273,7 +298,10 @@
         ]
       },
       "inOrgs": 1,
-      "builtDifferently": false
+      "builtDifferently": false,
+      "fitment": {
+        "eu": "TD"
+      }
     },
     {
       "id": "market",
@@ -292,13 +320,16 @@
         ]
       },
       "inOrgs": 1,
-      "builtDifferently": false
+      "builtDifferently": false,
+      "fitment": {
+        "eu": "ES"
+      }
     },
     {
       "id": "tax-id",
       "area": "Customer master",
       "capability": "Customer tax registration",
-      "verdict": "keep",
+      "verdict": "retain",
       "standard": "No standard tax ID field on Account: keep one global field with per-market format rules",
       "licence": "",
       "reference": "",
@@ -309,13 +340,16 @@
         ]
       },
       "inOrgs": 1,
-      "builtDifferently": false
+      "builtDifferently": false,
+      "fitment": {
+        "eu": "ES"
+      }
     },
     {
       "id": "erp-key",
       "area": "Customer master",
       "capability": "ERP customer key",
-      "verdict": "keep",
+      "verdict": "retain",
       "standard": "Keep as an external ID field so integrations can upsert by the ERP key",
       "licence": "",
       "reference": "Salesforce Help: External ID fields",
@@ -325,7 +359,10 @@
         ]
       },
       "inOrgs": 1,
-      "builtDifferently": false
+      "builtDifferently": false,
+      "fitment": {
+        "eu": "ES"
+      }
     },
     {
       "id": "consent",
@@ -342,13 +379,16 @@
         ]
       },
       "inOrgs": 1,
-      "builtDifferently": false
+      "builtDifferently": false,
+      "fitment": {
+        "eu": "ES"
+      }
     },
     {
       "id": "product-master",
       "area": "Product master",
       "capability": "Product attributes",
-      "verdict": "keep",
+      "verdict": "retain",
       "standard": "Keep as fields on Product, owned by the product master (one definition for all orgs)",
       "licence": "",
       "reference": "",
@@ -361,7 +401,10 @@
         ]
       },
       "inOrgs": 1,
-      "builtDifferently": false
+      "builtDifferently": false,
+      "fitment": {
+        "eu": "ES"
+      }
     },
     {
       "id": "subscriptions",
@@ -390,7 +433,10 @@
         ]
       },
       "inOrgs": 1,
-      "builtDifferently": false
+      "builtDifferently": false,
+      "fitment": {
+        "eu": "TD"
+      }
     },
     {
       "id": "rollup-tool",
@@ -406,9 +452,19 @@
         ]
       },
       "inOrgs": 1,
-      "builtDifferently": false
+      "builtDifferently": false,
+      "fitment": {
+        "eu": "CS"
+      }
     }
   ],
+  "unmatched": {
+    "area": "Other",
+    "capability": "Not matched to a capability",
+    "fitment": {
+      "eu": "RV"
+    }
+  },
   "items": [
     {
       "org": "eu",
@@ -417,10 +473,17 @@
       "capability": "subscriptions",
       "verdict": "adopt",
       "reason": "Revenue Cloud subscription management",
+      "confidence": "High",
       "lines": 50,
       "objects": [
         "Subscription__c"
-      ]
+      ],
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Medium term",
+      "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
+      "where": "Europe org",
+      "decisionOwner": "Client other owner (to confirm)"
     },
     {
       "org": "eu",
@@ -429,10 +492,17 @@
       "capability": "subscriptions",
       "verdict": "adopt",
       "reason": "Revenue Cloud subscription management",
+      "confidence": "High",
       "lines": 41,
       "objects": [
         "Subscription__c"
-      ]
+      ],
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Medium term",
+      "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
+      "where": "Europe org",
+      "decisionOwner": "Client other owner (to confirm)"
     },
     {
       "org": "eu",
@@ -441,10 +511,17 @@
       "capability": "subscriptions",
       "verdict": "adopt",
       "reason": "Revenue Cloud subscription management",
+      "confidence": "High",
       "lines": 70,
       "objects": [
         "Subscription__c"
-      ]
+      ],
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Medium term",
+      "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
+      "where": "Europe org",
+      "decisionOwner": "Client other owner (to confirm)"
     },
     {
       "org": "eu",
@@ -453,10 +530,17 @@
       "capability": "promotion-approval",
       "verdict": "configure",
       "reason": "Approval processes or Flow approval orchestration, with the threshold held as configuration",
+      "confidence": "High",
       "lines": 10,
       "objects": [
         "Trade_Promotion__c"
-      ]
+      ],
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Quick win",
+      "impact": "The business changes the rule as a setting, without a developer or a release.",
+      "where": "Europe org",
+      "decisionOwner": "Client revenue growth owner (to confirm)"
     },
     {
       "org": "eu",
@@ -465,8 +549,15 @@
       "capability": "subscriptions",
       "verdict": "adopt",
       "reason": "Revenue Cloud subscription management",
+      "confidence": "High",
       "object": "Opportunity",
-      "lines": 3
+      "lines": 3,
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Medium term",
+      "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
+      "where": "Europe org",
+      "decisionOwner": "Client other owner (to confirm)"
     },
     {
       "org": "eu",
@@ -475,8 +566,15 @@
       "capability": "subscriptions",
       "verdict": "adopt",
       "reason": "Revenue Cloud subscription management",
+      "confidence": "High",
       "object": "Subscription__c",
-      "lines": 7
+      "lines": 7,
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Medium term",
+      "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
+      "where": "Europe org",
+      "decisionOwner": "Client other owner (to confirm)"
     },
     {
       "org": "eu",
@@ -485,8 +583,15 @@
       "capability": "promotion-approval",
       "verdict": "configure",
       "reason": "Approval processes or Flow approval orchestration, with the threshold held as configuration",
+      "confidence": "High",
       "object": "Trade_Promotion__c",
-      "lines": 3
+      "lines": 3,
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Quick win",
+      "impact": "The business changes the rule as a setting, without a developer or a release.",
+      "where": "Europe org",
+      "decisionOwner": "Client revenue growth owner (to confirm)"
     },
     {
       "org": "eu",
@@ -495,8 +600,15 @@
       "capability": null,
       "verdict": "review",
       "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "confidence": "Low",
       "fill": 13,
-      "type": "picklist"
+      "type": "picklist",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Immediate",
+      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "where": "Europe org",
+      "decisionOwner": "Client product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -505,8 +617,15 @@
       "capability": "market",
       "verdict": "configure",
       "reason": "Global value sets shared by all orgs, with Enterprise Territory Management for market ownership",
+      "confidence": "High",
       "fill": 72,
-      "type": "picklist"
+      "type": "picklist",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Quick win",
+      "impact": "The business changes the rule as a setting, without a developer or a release.",
+      "where": "Europe org",
+      "decisionOwner": "Client customer master owner (to confirm)"
     },
     {
       "org": "eu",
@@ -515,8 +634,15 @@
       "capability": "market",
       "verdict": "configure",
       "reason": "Global value sets shared by all orgs, with Enterprise Territory Management for market ownership",
+      "confidence": "High",
       "fill": 72,
-      "type": "picklist"
+      "type": "picklist",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Quick win",
+      "impact": "The business changes the rule as a setting, without a developer or a release.",
+      "where": "Europe org",
+      "decisionOwner": "Client customer master owner (to confirm)"
     },
     {
       "org": "eu",
@@ -525,18 +651,32 @@
       "capability": null,
       "verdict": "review",
       "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "confidence": "Low",
       "fill": 12,
-      "type": "picklist"
+      "type": "picklist",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Immediate",
+      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "where": "Europe org",
+      "decisionOwner": "Client product owner (to confirm)"
     },
     {
       "org": "eu",
       "kind": "Custom field",
       "name": "Account.Legacy_ERP_Code__c",
       "capability": "erp-key",
-      "verdict": "keep",
+      "verdict": "retain",
       "reason": "Keep as an external ID field so integrations can upsert by the ERP key",
+      "confidence": "High",
       "fill": 44,
-      "type": "string"
+      "type": "string",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Strategic",
+      "impact": "Kept as valuable differentiation; documented and supported.",
+      "where": "Europe org",
+      "decisionOwner": "Client customer master owner (to confirm)"
     },
     {
       "org": "eu",
@@ -545,8 +685,15 @@
       "capability": "market",
       "verdict": "configure",
       "reason": "Global value sets shared by all orgs, with Enterprise Territory Management for market ownership",
+      "confidence": "High",
       "fill": 72,
-      "type": "picklist"
+      "type": "picklist",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Quick win",
+      "impact": "The business changes the rule as a setting, without a developer or a release.",
+      "where": "Europe org",
+      "decisionOwner": "Client customer master owner (to confirm)"
     },
     {
       "org": "eu",
@@ -555,8 +702,15 @@
       "capability": null,
       "verdict": "review",
       "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "confidence": "Low",
       "fill": 14,
-      "type": "double"
+      "type": "double",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Immediate",
+      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "where": "Europe org",
+      "decisionOwner": "Client product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -565,8 +719,15 @@
       "capability": null,
       "verdict": "retire",
       "reason": "Filled on 0% of 78 records.",
+      "confidence": "Low",
       "fill": 0,
-      "type": "string"
+      "type": "string",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Quick win",
+      "impact": "Less clutter; nothing unused is maintained or migrated.",
+      "where": "Europe org",
+      "decisionOwner": "Client product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -575,8 +736,15 @@
       "capability": null,
       "verdict": "review",
       "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "confidence": "Low",
       "fill": 14,
-      "type": "picklist"
+      "type": "picklist",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Immediate",
+      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "where": "Europe org",
+      "decisionOwner": "Client product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -585,8 +753,15 @@
       "capability": null,
       "verdict": "review",
       "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "confidence": "Low",
       "fill": 14,
-      "type": "date"
+      "type": "date",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Immediate",
+      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "where": "Europe org",
+      "decisionOwner": "Client product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -595,8 +770,15 @@
       "capability": null,
       "verdict": "review",
       "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "confidence": "Low",
       "fill": 14,
-      "type": "string"
+      "type": "string",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Immediate",
+      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "where": "Europe org",
+      "decisionOwner": "Client product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -605,8 +787,15 @@
       "capability": "market",
       "verdict": "configure",
       "reason": "Global value sets shared by all orgs, with Enterprise Territory Management for market ownership",
+      "confidence": "High",
       "fill": 54,
-      "type": "picklist"
+      "type": "picklist",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Quick win",
+      "impact": "The business changes the rule as a setting, without a developer or a release.",
+      "where": "Europe org",
+      "decisionOwner": "Client customer master owner (to confirm)"
     },
     {
       "org": "eu",
@@ -615,18 +804,32 @@
       "capability": null,
       "verdict": "review",
       "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "confidence": "Low",
       "fill": 14,
-      "type": "picklist"
+      "type": "picklist",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Immediate",
+      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "where": "Europe org",
+      "decisionOwner": "Client product owner (to confirm)"
     },
     {
       "org": "eu",
       "kind": "Custom field",
       "name": "Account.VAT_Number__c",
       "capability": "tax-id",
-      "verdict": "keep",
+      "verdict": "retain",
       "reason": "No standard tax ID field on Account: keep one global field with per-market format rules",
+      "confidence": "High",
       "fill": 36,
-      "type": "string"
+      "type": "string",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Strategic",
+      "impact": "Kept as valuable differentiation; documented and supported.",
+      "where": "Europe org",
+      "decisionOwner": "Client customer master owner (to confirm)"
     },
     {
       "org": "eu",
@@ -635,8 +838,15 @@
       "capability": null,
       "verdict": "review",
       "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "confidence": "Low",
       "fill": 28,
-      "type": "currency"
+      "type": "currency",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Immediate",
+      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "where": "Europe org",
+      "decisionOwner": "Client product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -645,8 +855,15 @@
       "capability": null,
       "verdict": "review",
       "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "confidence": "Low",
       "fill": 28,
-      "type": "double"
+      "type": "double",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Immediate",
+      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "where": "Europe org",
+      "decisionOwner": "Client product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -655,8 +872,15 @@
       "capability": null,
       "verdict": "review",
       "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "confidence": "Low",
       "fill": 85,
-      "type": "string"
+      "type": "string",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Immediate",
+      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "where": "Europe org",
+      "decisionOwner": "Client product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -665,8 +889,15 @@
       "capability": null,
       "verdict": "review",
       "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "confidence": "Low",
       "fill": 100,
-      "type": "picklist"
+      "type": "picklist",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Immediate",
+      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "where": "Europe org",
+      "decisionOwner": "Client product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -675,8 +906,15 @@
       "capability": null,
       "verdict": "review",
       "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "confidence": "Low",
       "fill": 100,
-      "type": "picklist"
+      "type": "picklist",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Immediate",
+      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "where": "Europe org",
+      "decisionOwner": "Client product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -685,8 +923,15 @@
       "capability": null,
       "verdict": "review",
       "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "confidence": "Low",
       "fill": 96,
-      "type": "picklist"
+      "type": "picklist",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Immediate",
+      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "where": "Europe org",
+      "decisionOwner": "Client product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -695,8 +940,15 @@
       "capability": "consent",
       "verdict": "adopt",
       "reason": "Individual and contact point consent objects with data use purposes. Note: filled on 0% of 20 records.",
+      "confidence": "High",
       "fill": 0,
-      "type": "date"
+      "type": "date",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Medium term",
+      "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
+      "where": "Europe org",
+      "decisionOwner": "Client customer master owner (to confirm)"
     },
     {
       "org": "eu",
@@ -705,8 +957,15 @@
       "capability": "consent",
       "verdict": "adopt",
       "reason": "Individual and contact point consent objects with data use purposes. Note: filled on 0% of 20 records.",
+      "confidence": "High",
       "fill": 0,
-      "type": "boolean"
+      "type": "boolean",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Medium term",
+      "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
+      "where": "Europe org",
+      "decisionOwner": "Client customer master owner (to confirm)"
     },
     {
       "org": "eu",
@@ -715,8 +974,15 @@
       "capability": null,
       "verdict": "review",
       "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "confidence": "Low",
       "fill": 85,
-      "type": "string"
+      "type": "string",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Immediate",
+      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "where": "Europe org",
+      "decisionOwner": "Client product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -725,8 +991,15 @@
       "capability": null,
       "verdict": "review",
       "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "confidence": "Low",
       "fill": 85,
-      "type": "picklist"
+      "type": "picklist",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Immediate",
+      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "where": "Europe org",
+      "decisionOwner": "Client product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -735,8 +1008,15 @@
       "capability": null,
       "verdict": "review",
       "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "confidence": "Low",
       "fill": 100,
-      "type": "string"
+      "type": "string",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Immediate",
+      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "where": "Europe org",
+      "decisionOwner": "Client product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -745,8 +1025,15 @@
       "capability": null,
       "verdict": "review",
       "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "confidence": "Low",
       "fill": 100,
-      "type": "double"
+      "type": "double",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Immediate",
+      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "where": "Europe org",
+      "decisionOwner": "Client product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -755,8 +1042,15 @@
       "capability": null,
       "verdict": "review",
       "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "confidence": "Low",
       "fill": 100,
-      "type": "picklist"
+      "type": "picklist",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Immediate",
+      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "where": "Europe org",
+      "decisionOwner": "Client product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -765,8 +1059,15 @@
       "capability": null,
       "verdict": "review",
       "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "confidence": "Low",
       "fill": 100,
-      "type": "picklist"
+      "type": "picklist",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Immediate",
+      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "where": "Europe org",
+      "decisionOwner": "Client product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -775,8 +1076,15 @@
       "capability": null,
       "verdict": "review",
       "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "confidence": "Low",
       "fill": 100,
-      "type": "string"
+      "type": "string",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Immediate",
+      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "where": "Europe org",
+      "decisionOwner": "Client product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -785,8 +1093,15 @@
       "capability": null,
       "verdict": "review",
       "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "confidence": "Low",
       "fill": 52,
-      "type": "string"
+      "type": "string",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Immediate",
+      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "where": "Europe org",
+      "decisionOwner": "Client product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -795,8 +1110,15 @@
       "capability": null,
       "verdict": "review",
       "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "confidence": "Low",
       "fill": 74,
-      "type": "picklist"
+      "type": "picklist",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Immediate",
+      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "where": "Europe org",
+      "decisionOwner": "Client product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -805,8 +1127,15 @@
       "capability": null,
       "verdict": "review",
       "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "confidence": "Low",
       "fill": 13,
-      "type": "picklist"
+      "type": "picklist",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Immediate",
+      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "where": "Europe org",
+      "decisionOwner": "Client product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -815,8 +1144,15 @@
       "capability": null,
       "verdict": "review",
       "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "confidence": "Low",
       "fill": 58,
-      "type": "string"
+      "type": "string",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Immediate",
+      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "where": "Europe org",
+      "decisionOwner": "Client product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -825,8 +1161,15 @@
       "capability": null,
       "verdict": "review",
       "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "confidence": "Low",
       "fill": 58,
-      "type": "string"
+      "type": "string",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Immediate",
+      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "where": "Europe org",
+      "decisionOwner": "Client product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -835,48 +1178,83 @@
       "capability": null,
       "verdict": "review",
       "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "confidence": "Low",
       "fill": 29,
-      "type": "string"
+      "type": "string",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Immediate",
+      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "where": "Europe org",
+      "decisionOwner": "Client product owner (to confirm)"
     },
     {
       "org": "eu",
       "kind": "Custom field",
       "name": "Product2.Brand__c",
       "capability": "product-master",
-      "verdict": "keep",
+      "verdict": "retain",
       "reason": "Keep as fields on Product, owned by the product master (one definition for all orgs)",
+      "confidence": "High",
       "fill": 37,
-      "type": "picklist"
+      "type": "picklist",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Strategic",
+      "impact": "Kept as valuable differentiation; documented and supported.",
+      "where": "Europe org",
+      "decisionOwner": "Client product master owner (to confirm)"
     },
     {
       "org": "eu",
       "kind": "Custom field",
       "name": "Product2.Case_Size__c",
       "capability": "product-master",
-      "verdict": "keep",
+      "verdict": "retain",
       "reason": "Keep as fields on Product, owned by the product master (one definition for all orgs)",
+      "confidence": "High",
       "fill": 37,
-      "type": "double"
+      "type": "double",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Strategic",
+      "impact": "Kept as valuable differentiation; documented and supported.",
+      "where": "Europe org",
+      "decisionOwner": "Client product master owner (to confirm)"
     },
     {
       "org": "eu",
       "kind": "Custom field",
       "name": "Product2.Category__c",
       "capability": "product-master",
-      "verdict": "keep",
+      "verdict": "retain",
       "reason": "Keep as fields on Product, owned by the product master (one definition for all orgs)",
+      "confidence": "High",
       "fill": 37,
-      "type": "picklist"
+      "type": "picklist",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Strategic",
+      "impact": "Kept as valuable differentiation; documented and supported.",
+      "where": "Europe org",
+      "decisionOwner": "Client product master owner (to confirm)"
     },
     {
       "org": "eu",
       "kind": "Custom field",
       "name": "Product2.EAN__c",
       "capability": "product-master",
-      "verdict": "keep",
+      "verdict": "retain",
       "reason": "Keep as fields on Product, owned by the product master (one definition for all orgs)",
+      "confidence": "High",
       "fill": 37,
-      "type": "string"
+      "type": "string",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Strategic",
+      "impact": "Kept as valuable differentiation; documented and supported.",
+      "where": "Europe org",
+      "decisionOwner": "Client product master owner (to confirm)"
     },
     {
       "org": "eu",
@@ -885,8 +1263,15 @@
       "capability": "trade-promotions",
       "verdict": "adopt",
       "reason": "Consumer Goods Cloud Trade Promotion Management: promotion planning, funds and post-event analysis",
+      "confidence": "High",
       "records": 56,
-      "fields": 3
+      "fields": 3,
+      "layer": "Client custom",
+      "effort": "Medium",
+      "priority": "Medium term",
+      "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
+      "where": "Europe org",
+      "decisionOwner": "Client revenue growth owner (to confirm)"
     },
     {
       "org": "eu",
@@ -895,8 +1280,15 @@
       "capability": "targets",
       "verdict": "configure",
       "reason": "Collaborative Forecasts with quotas by user, territory or product family",
+      "confidence": "High",
       "records": 28,
-      "fields": 4
+      "fields": 4,
+      "layer": "Client custom",
+      "effort": "Medium",
+      "priority": "Quick win",
+      "impact": "The business changes the rule as a setting, without a developer or a release.",
+      "where": "Europe org",
+      "decisionOwner": "Client sales performance owner (to confirm)"
     },
     {
       "org": "eu",
@@ -905,8 +1297,15 @@
       "capability": "in-store-audit",
       "verdict": "adopt",
       "reason": "Consumer Goods Cloud: assessment tasks and retail store KPIs recorded during a visit",
+      "confidence": "High",
       "records": 378,
-      "fields": 5
+      "fields": 5,
+      "layer": "Client custom",
+      "effort": "Medium",
+      "priority": "Medium term",
+      "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
+      "where": "Europe org",
+      "decisionOwner": "Client retail execution owner (to confirm)"
     },
     {
       "org": "eu",
@@ -915,8 +1314,15 @@
       "capability": "assortment",
       "verdict": "adopt",
       "reason": "Consumer Goods Cloud: product assortments assigned to retail store groups",
+      "confidence": "High",
       "records": 168,
-      "fields": 3
+      "fields": 3,
+      "layer": "Client custom",
+      "effort": "Medium",
+      "priority": "Medium term",
+      "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
+      "where": "Europe org",
+      "decisionOwner": "Client retail execution owner (to confirm)"
     },
     {
       "org": "eu",
@@ -925,8 +1331,15 @@
       "capability": "store-visits",
       "verdict": "adopt",
       "reason": "Consumer Goods Cloud: Visit and Retail Store, with visit tasks on the mobile app",
+      "confidence": "High",
       "records": 210,
-      "fields": 6
+      "fields": 6,
+      "layer": "Client custom",
+      "effort": "Medium",
+      "priority": "Medium term",
+      "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
+      "where": "Europe org",
+      "decisionOwner": "Client retail execution owner (to confirm)"
     },
     {
       "org": "eu",
@@ -935,8 +1348,15 @@
       "capability": "subscriptions",
       "verdict": "adopt",
       "reason": "Revenue Cloud subscription management",
+      "confidence": "High",
       "records": 107,
-      "fields": 15
+      "fields": 15,
+      "layer": "Client custom",
+      "effort": "Medium",
+      "priority": "Medium term",
+      "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
+      "where": "Europe org",
+      "decisionOwner": "Client other owner (to confirm)"
     },
     {
       "org": "eu",
@@ -945,8 +1365,15 @@
       "capability": "subscriptions",
       "verdict": "adopt",
       "reason": "Revenue Cloud subscription management",
+      "confidence": "High",
       "records": 219,
-      "fields": 6
+      "fields": 6,
+      "layer": "Client custom",
+      "effort": "Medium",
+      "priority": "Medium term",
+      "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
+      "where": "Europe org",
+      "decisionOwner": "Client other owner (to confirm)"
     },
     {
       "org": "eu",
@@ -955,8 +1382,15 @@
       "capability": "trade-promotions",
       "verdict": "adopt",
       "reason": "Consumer Goods Cloud Trade Promotion Management: promotion planning, funds and post-event analysis",
+      "confidence": "High",
       "records": 28,
-      "fields": 7
+      "fields": 7,
+      "layer": "Client custom",
+      "effort": "Medium",
+      "priority": "Medium term",
+      "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
+      "where": "Europe org",
+      "decisionOwner": "Client revenue growth owner (to confirm)"
     },
     {
       "org": "eu",
@@ -965,7 +1399,14 @@
       "capability": "subscriptions",
       "verdict": "adopt",
       "reason": "Revenue Cloud subscription management",
-      "object": "Subscription"
+      "confidence": "Medium",
+      "object": "Subscription",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Medium term",
+      "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
+      "where": "Europe org",
+      "decisionOwner": "Client other owner (to confirm)"
     },
     {
       "org": "eu",
@@ -973,7 +1414,14 @@
       "name": "Declarative Lookup Rollup Summaries Tool",
       "capability": "rollup-tool",
       "verdict": "configure",
-      "reason": "Roll-up summary fields where the relationship is master-detail, record-triggered flows elsewhere"
+      "reason": "Roll-up summary fields where the relationship is master-detail, record-triggered flows elsewhere",
+      "confidence": "High",
+      "layer": "Installed package",
+      "effort": "Medium",
+      "priority": "Quick win",
+      "impact": "The business changes the rule as a setting, without a developer or a release.",
+      "where": "Europe org",
+      "decisionOwner": "Client platform owner (to confirm)"
     },
     {
       "org": "eu",
@@ -981,16 +1429,30 @@
       "name": "Developer Edition",
       "capability": null,
       "verdict": "review",
-      "reason": "Not matched to a known capability; confirm owner and purpose in the workshop."
+      "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
+      "confidence": "Low",
+      "layer": "Installed package",
+      "effort": "Low",
+      "priority": "Immediate",
+      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "where": "Europe org",
+      "decisionOwner": "Client product owner (to confirm)"
     },
     {
       "org": "eu",
       "kind": "Validation rule",
       "name": "Account.VAT_Format",
       "capability": "tax-id",
-      "verdict": "keep",
+      "verdict": "retain",
       "reason": "No standard tax ID field on Account: keep one global field with per-market format rules",
-      "object": "Account"
+      "confidence": "High",
+      "object": "Account",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Strategic",
+      "impact": "Kept as valuable differentiation; documented and supported.",
+      "where": "Europe org",
+      "decisionOwner": "Client customer master owner (to confirm)"
     },
     {
       "org": "eu",
@@ -999,7 +1461,14 @@
       "capability": null,
       "verdict": "review",
       "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
-      "object": "Opportunity"
+      "confidence": "Low",
+      "object": "Opportunity",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Immediate",
+      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "where": "Europe org",
+      "decisionOwner": "Client product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -1008,7 +1477,14 @@
       "capability": null,
       "verdict": "review",
       "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
-      "object": "Opportunity"
+      "confidence": "Low",
+      "object": "Opportunity",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Immediate",
+      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "where": "Europe org",
+      "decisionOwner": "Client product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -1017,7 +1493,14 @@
       "capability": "subscriptions",
       "verdict": "adopt",
       "reason": "Revenue Cloud subscription management",
-      "object": "Subscription__c"
+      "confidence": "High",
+      "object": "Subscription__c",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Medium term",
+      "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
+      "where": "Europe org",
+      "decisionOwner": "Client other owner (to confirm)"
     },
     {
       "org": "eu",
@@ -1026,7 +1509,14 @@
       "capability": "subscriptions",
       "verdict": "adopt",
       "reason": "Revenue Cloud subscription management",
-      "object": "Subscription__c"
+      "confidence": "High",
+      "object": "Subscription__c",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Medium term",
+      "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
+      "where": "Europe org",
+      "decisionOwner": "Client other owner (to confirm)"
     },
     {
       "org": "eu",
@@ -1035,7 +1525,14 @@
       "capability": "subscriptions",
       "verdict": "adopt",
       "reason": "Revenue Cloud subscription management",
-      "object": "Subscription__c"
+      "confidence": "High",
+      "object": "Subscription__c",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Medium term",
+      "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
+      "where": "Europe org",
+      "decisionOwner": "Client other owner (to confirm)"
     },
     {
       "org": "eu",
@@ -1044,7 +1541,14 @@
       "capability": "subscriptions",
       "verdict": "adopt",
       "reason": "Revenue Cloud subscription management",
-      "object": "Subscription__c"
+      "confidence": "High",
+      "object": "Subscription__c",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Medium term",
+      "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
+      "where": "Europe org",
+      "decisionOwner": "Client other owner (to confirm)"
     },
     {
       "org": "eu",
@@ -1053,7 +1557,14 @@
       "capability": "subscriptions",
       "verdict": "adopt",
       "reason": "Revenue Cloud subscription management",
-      "object": "Subscription_Line__c"
+      "confidence": "High",
+      "object": "Subscription_Line__c",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Medium term",
+      "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
+      "where": "Europe org",
+      "decisionOwner": "Client other owner (to confirm)"
     },
     {
       "org": "eu",
@@ -1062,7 +1573,14 @@
       "capability": "subscriptions",
       "verdict": "adopt",
       "reason": "Revenue Cloud subscription management",
-      "object": "Subscription_Line__c"
+      "confidence": "High",
+      "object": "Subscription_Line__c",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Medium term",
+      "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
+      "where": "Europe org",
+      "decisionOwner": "Client other owner (to confirm)"
     },
     {
       "org": "eu",
@@ -1071,7 +1589,14 @@
       "capability": "trade-promotions",
       "verdict": "adopt",
       "reason": "Consumer Goods Cloud Trade Promotion Management: promotion planning, funds and post-event analysis",
-      "object": "Trade_Promotion__c"
+      "confidence": "High",
+      "object": "Trade_Promotion__c",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Medium term",
+      "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
+      "where": "Europe org",
+      "decisionOwner": "Client revenue growth owner (to confirm)"
     },
     {
       "org": "eu",
@@ -1080,7 +1605,14 @@
       "capability": "trade-promotions",
       "verdict": "adopt",
       "reason": "Consumer Goods Cloud Trade Promotion Management: promotion planning, funds and post-event analysis",
-      "object": "Trade_Promotion__c"
+      "confidence": "High",
+      "object": "Trade_Promotion__c",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Medium term",
+      "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
+      "where": "Europe org",
+      "decisionOwner": "Client revenue growth owner (to confirm)"
     }
   ]
 }

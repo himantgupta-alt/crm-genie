@@ -27,6 +27,7 @@ New-Item -ItemType Directory -Force "$rt\generators", "$rt\agents\assessment" | 
 Copy-Item "$src\paths.js" $rt -Force
 foreach ($g in 'lib', 'assess-org', 'discover-org', 'emit-assessment', 'emit-discovery') { Copy-Item "$src\generators\$g.js" "$rt\generators" -Force }
 Copy-Item "$src\agents\assessment\*.json" "$rt\agents\assessment" -Force
+Set-Content -Path (Join-Path $appDir 'runtime\VERSION') -Value (git -C (Join-Path $src '..') rev-parse HEAD) -Encoding ascii
 
 Push-Location $appDir
 try { npm ci --omit=dev --no-fund --no-audit --loglevel=error; if ($LASTEXITCODE -ne 0) { throw 'npm ci failed' } } finally { Pop-Location }

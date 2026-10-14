@@ -21,7 +21,7 @@ the orgs have drifted apart:
 | Outcome | How it is evidenced |
 |---|---|
 | A fact base of every org | As-is report per org: components, counts, fill rates, markets (no record contents) |
-| A decision per custom component | Fit-gap register: adopt standard, replace with configuration, keep and harmonise, retire, or review |
+| A decision per custom component | Fit-gap register: adopt standard, replace with configuration, retain, harmonise, retire, or review with the client |
 | A target agreed by the business | Signed-off target design and wave plan per business domain |
 | Custom modules moved to the client's cloud | Modules rebuilt on the client's cloud, records loaded with Salesforce IDs kept |
 | Proof before switch-over | Parity report: calculated values and rule outcomes compared with Salesforce |
