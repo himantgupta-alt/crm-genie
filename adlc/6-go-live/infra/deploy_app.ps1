@@ -25,7 +25,7 @@ $src = (Resolve-Path "$PSScriptRoot\..\..\..\src").Path
 $rt = Join-Path $appDir 'runtime\src'
 New-Item -ItemType Directory -Force "$rt\generators", "$rt\agents\assessment" | Out-Null
 Copy-Item "$src\paths.js" $rt -Force
-foreach ($g in 'lib', 'assess-org', 'discover-org', 'emit-assessment', 'emit-discovery') { Copy-Item "$src\generators\$g.js" "$rt\generators" -Force }
+foreach ($g in 'lib', 'assess-org', 'discover-org', 'emit-assessment', 'emit-discovery', 'apex-functions') { Copy-Item "$src\generators\$g.js" "$rt\generators" -Force }
 Copy-Item "$src\agents\assessment\*.json" "$rt\agents\assessment" -Force
 Set-Content -Path (Join-Path $appDir 'runtime\VERSION') -Value (git -C (Join-Path $src '..') rev-parse HEAD) -Encoding ascii
 

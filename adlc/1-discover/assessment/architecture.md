@@ -77,8 +77,8 @@ flowchart TB
 
 | Disposition | What follows | Components |
 | --- | --- | --- |
-| Adopt standard | Use the native Salesforce or Consumer Goods Cloud capability | 23 |
-| Replace with configuration | Remove custom code; use supported configuration | 8 |
+| Adopt standard | Use the native Salesforce or Consumer Goods Cloud capability | 36 |
+| Replace with configuration | Remove custom code; use supported configuration | 7 |
 | Retain | Keep as valuable, supportable differentiation | 7 |
 | Harmonise | Align the pattern across orgs while retaining separate orgs | 0 |
 | Retire | Remove unused, duplicated or obsolete components | 1 |

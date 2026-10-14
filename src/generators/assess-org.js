@@ -7,6 +7,7 @@
 // written: only names of components, counts and fill rates, so the file can be versioned and shared.
 const path = require('path');
 const { connect, writeJson, P } = require('./lib');
+const { analyseApex } = require('./apex-functions');
 
 const [region, label] = process.argv.slice(2);
 if (!region) { console.error('usage: SF_ALIAS=<alias> node src/generators/assess-org.js <region> "<label>"'); process.exit(2); }
@@ -66,11 +67,26 @@ async function main() {
   // 3. Code and declarative automation (unmanaged only)
   const customNames = objects.map((o) => o.name);
   const touches = (body) => [...new Set(customNames.filter((n) => new RegExp(`\\b${n}\\b`).test(body || '')))].sort();
-  const classes = ok(await soql('SELECT Name, Body, LengthWithoutComments FROM ApexClass WHERE NamespacePrefix = null', true))
-    .map((c) => ({ name: c.Name, lines: (c.Body || '').split('\n').length, test: /@isTest/i.test(c.Body || ''), callout: /callout:|new\s+HttpRequest|HttpCalloutMock/.test(c.Body || '') && !/@isTest/i.test(c.Body || ''), objects: touches(c.Body) }))
+  const classRows = ok(await soql('SELECT Name, Body, LengthWithoutComments FROM ApexClass WHERE NamespacePrefix = null', true));
+  const trigRows = ok(await soql('SELECT Name, TableEnumOrId, Body, Status FROM ApexTrigger WHERE NamespacePrefix = null', true));
+  // Function-level reading of the code (kb/fit-gap-method.md). Only names and verdicts are kept, never the source.
+  const isTest = (b) => /@isTest/i.test(b || '');
+  const live = [...classRows.filter((c) => !isTest(c.Body)), ...trigRows.filter((t) => t.Status === 'Active')];
+  const entryPoint = /@AuraEnabled|@InvocableMethod|@RestResource|webservice\s|implements\s+[\w.,\s]*(Schedulable|Database\.Batchable|Queueable)|@RemoteAction/i;
+  const calledFromLiveCode = (name) => live.some((x) => x.Name !== name && new RegExp(`\\b${name}\\b`).test(x.Body || ''));
+  const classes = classRows
+    .map((c) => {
+      const test = isTest(c.Body);
+      const objs = touches(c.Body);
+      const analysis = test ? undefined : analyseApex(c.Name, c.Body, { kind: 'class' });
+      return { name: c.Name, lines: (c.Body || '').split('\n').length, test, callout: /callout:|new\s+HttpRequest|HttpCalloutMock/.test(c.Body || '') && !test, objects: objs,
+        ...(test ? {} : { analysis, unreferenced: !entryPoint.test(c.Body || '') && !calledFromLiveCode(c.Name) }) };
+    })
     .sort(byName);
-  const triggers = ok(await soql('SELECT Name, TableEnumOrId, Body, Status FROM ApexTrigger WHERE NamespacePrefix = null', true))
-    .map((t) => ({ name: t.Name, object: t.TableEnumOrId, active: t.Status === 'Active', lines: (t.Body || '').split('\n').length }))
+  const triggers = trigRows
+    .map((t) => ({ name: t.Name, object: t.TableEnumOrId, active: t.Status === 'Active', lines: (t.Body || '').split('\n').length,
+      events: [...new Set(((t.Body || '').match(/\((?:\s*(?:before|after)\s+\w+\s*,?)+\)/i)?.[0] || '').match(/(before|after)\s+\w+/gi) || [])],
+      analysis: analyseApex(t.Name, t.Body, { kind: 'trigger', object: t.TableEnumOrId }) }))
     .sort(byName);
   const flows = ok(await soql('SELECT ApiName, Label, ProcessType, TriggerType, TriggerObjectOrEventLabel, IsActive FROM FlowDefinitionView WHERE NamespacePrefix = null'))
     .map((f) => ({ name: f.ApiName, label: f.Label, kind: f.ProcessType, trigger: f.TriggerType, object: f.TriggerObjectOrEventLabel, active: f.IsActive }))

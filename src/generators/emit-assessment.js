@@ -132,6 +132,111 @@ function fitmentOf(region, capId) {
   return 'CS';
 }
 
+/* ---------------------------------------------------------------- function-level fit-gap (kb/fit-gap-method.md) */
+
+// Each trigger with the handler methods it reaches is one component ("Trigger + handlers"); classes no trigger
+// reaches stand alone. Every component is split into the business functions it does, each judged on its own.
+const MOVES = new Set(['adopt', 'configure', 'retire']);
+const { CHECKS } = require('./apex-functions');
+const CHECK_DETAIL = Object.fromEntries(CHECKS.map((c) => [c.id, c.detail]));
+const lvl = (n, lo, hi) => (n <= lo ? 'Low' : n <= hi ? 'Medium' : 'High');
+const words = (s) => String(s || '').replace(/__c$/, '').replace(/_/g, ' ');
+
+function functionFitGap(o) {
+  const a = o.asIs;
+  const cls = Object.fromEntries(a.automation.classes.filter((c) => !c.test && c.analysis).map((c) => [c.name, c]));
+  if (!Object.keys(cls).length && !a.automation.triggers.some((t) => t.analysis)) return null;
+  const itemOf = (kind, name) => items.find((i) => i.org === o.region && i.kind === kind && i.name === name);
+  // A rule, calculation or record creation on a capability that a standard feature covers moves with that feature.
+  const judge = (fn, item, component) => {
+    const cap = item?.capability ? capById[item.capability] : null;
+    const out = { ...fn, component };
+    if (cap?.verdict === 'adopt' && ['check', 'create', 'calc'].includes(fn.kind)) Object.assign(out, { verdict: 'adopt', confidence: 'Medium', why: `Covered by the standard feature: ${cap.standard}.` });
+    return out;
+  };
+  const reach = (c, start) => { const seen = new Set(); const go = (m) => { if (seen.has(m)) return; seen.add(m); (c.analysis.methodInfo.find((x) => x.name === m)?.local || []).forEach(go); }; start.forEach(go); return seen; };
+  const reached = Object.fromEntries(Object.keys(cls).map((n) => [n, new Set()]));
+  const triggerOn = Object.fromEntries(a.automation.triggers.filter((t) => t.active).map((t) => [t.object, t.name]));
+  const comps = [];
+
+  for (const t of a.automation.triggers) {
+    const byClass = {};
+    for (const call of t.analysis?.calls || []) { const [c, m] = call.split('.'); if (cls[c]) (byClass[c] = byClass[c] || []).push(m); }
+    const handlers = Object.entries(byClass).map(([c, ms]) => { const set = reach(cls[c], ms); set.forEach((m) => reached[c].add(m)); return [c, set]; });
+    const tItem = itemOf('Apex trigger', t.name);
+    const functions = [
+      ...(t.analysis?.functions || []).map((f) => judge(f, tItem, t.name)),
+      ...handlers.flatMap(([c, set]) => cls[c].analysis.functions.filter((f) => set.has(f.method)).map((f) => judge(f, itemOf('Apex class', c), c))),
+    ];
+    if (!t.active) functions.unshift({ kind: 'dead', what: 'Inactive trigger, still in the code', verdict: 'retire', confidence: 'High', why: 'The trigger is inactive; remove it and any handler only it calls, after confirming its status in the org.', method: '(trigger)', component: t.name });
+    const writes = [...new Set(handlers.flatMap(([c, set]) => cls[c].analysis.methodInfo.filter((m) => set.has(m.name)).flatMap((m) => m.writes)))].filter((w) => w !== t.object);
+    comps.push({ id: `trg-${t.name}`, name: t.name, title: `${words(t.object)} triggers and handlers`, kind: 'Trigger + handlers', object: t.object, members: [t.name, ...handlers.map(([c]) => c)],
+      lines: t.lines + handlers.reduce((n, [c]) => n + (cls[c].lines || 0), 0), files: 1 + handlers.length, functions, writes, capability: tItem?.capability || null,
+      issues: [...(t.analysis?.issues || []), ...handlers.flatMap(([c]) => cls[c].analysis.issues.map((x) => ({ ...x, in: c })))], active: t.active, callout: handlers.some(([c]) => cls[c].callout) });
+  }
+  for (const c of Object.values(cls)) {
+    const rest = c.analysis.functions.filter((f) => !reached[c.name].has(f.method));
+    const touchedByTrigger = reached[c.name].size > 0;
+    if (touchedByTrigger && !rest.length) continue;
+    const item = itemOf('Apex class', c.name);
+    // Dead code is one decision: remove it. Its inner jobs are not judged.
+    const functions = c.unreferenced ? [] : rest.map((f) => judge(f, item, c.name));
+    if (c.unreferenced) functions.unshift({ kind: 'dead', what: 'Whole class: no live code calls it', verdict: 'retire', confidence: 'High', why: 'Not called by any active trigger or class and not an entry point (screen, flow, batch, schedule or API). Remove it with its test after confirming in the org.', method: '(class)', component: c.name });
+    if (!functions.length) continue;
+    comps.push({ id: `cls-${c.name}`, name: c.name, title: c.name.replace(/([a-z0-9])([A-Z])/g, '$1 $2'), kind: 'Apex class', object: c.objects[0] || null, members: [c.name], lines: c.lines, files: 1,
+      functions, writes: [...new Set(c.analysis.methodInfo.flatMap((m) => m.writes))], capability: item?.capability || null, issues: c.analysis.issues.map((x) => ({ ...x, in: c.name })), dead: !!c.unreferenced, callout: c.callout });
+  }
+
+  for (const k of comps) {
+    const n = k.functions.length;
+    const moves = k.functions.filter((f) => MOVES.has(f.verdict)).length;
+    k.canMove = moves;
+    k.overall = k.dead || (k.active === false) ? 'Retire' : moves === n ? 'Can move' : moves === 0 ? (k.functions.some((f) => f.verdict === 'review') ? 'Keep / review' : 'Keep') : 'Partly standard';
+    k.effort = k.dead ? 'Low' : n >= 6 ? 'High' : lvl(k.lines, 60, 200);
+    const chained = k.writes.some((w) => triggerOn[w]);
+    k.regression = k.dead ? 'Low' : chained || (k.callout && moves) ? 'High' : k.writes.length || k.kind === 'Trigger + handlers' ? 'Medium' : 'Low';
+    k.value = moves >= 3 ? 'High' : moves >= 1 ? 'Medium' : 'Low';
+    const cap = k.capability ? capById[k.capability] : null;
+    k.area = cap?.area || 'Other';
+    k.summary = `${n} business function${n === 1 ? '' : 's'}${k.members.length > 1 ? ` across ${k.members.join(', ')}` : ''}: ${[...new Set(k.functions.map((f) => f.what.toLowerCase()))].slice(0, 4).join('; ')}${n > 4 ? '; …' : ''}.`;
+  }
+  comps.sort((x, y) => y.lines - x.lines);
+
+  const fns = comps.flatMap((k) => k.functions);
+  const count = (v) => fns.filter((f) => f.verdict === v).length;
+  // Quick wins: self-contained jobs (nothing else depends on their order) that move to configuration or a
+  // standard setting without a licence, or dead code that can go.
+  const SELF_CONTAINED = new Set(['chatter', 'email', 'status', 'rule', 'calc', 'dead']);
+  const quickWins = comps.flatMap((k) => k.functions.filter((f) => SELF_CONTAINED.has(f.kind) && (f.verdict === 'configure' || f.verdict === 'retire' || (f.verdict === 'adopt' && f.kind === 'email')))
+    .map((f) => ({ what: f.what, component: f.component, verdict: f.verdict, replaceWith: f.why, effort: 'Low', regression: f.kind === 'status' || k.regression === 'Low' ? 'Low' : 'Medium' })));
+  // Cross-cutting findings: the same risky pattern wherever it appears.
+  const xc = {};
+  for (const k of comps) for (const i of k.issues) { const e = (xc[i.id] = xc[i.id] || { id: i.id, title: i.title, severity: i.severity, detail: CHECK_DETAIL[i.id] || '', where: [] }); e.where.push(i.in || k.name); if (i.where) e.detail = `${e.detail || 'Methods over 150 lines are hard to test and change safely.'} ${i.where.join(', ')}.`.trim(); }
+  const dead = comps.filter((k) => k.overall === 'Retire');
+  if (dead.length) xc.dead = { id: 'dead', title: 'Dead code that looks live', severity: 'Medium', detail: 'Code no live trigger or class calls is still deployed; readers and tools can mistake it for live logic.', where: dead.map((k) => k.name) };
+  const crossCutting = Object.values(xc).map((x) => ({ ...x, where: [...new Set(x.where)] })).sort((p, q) => ['High', 'Medium', 'Low'].indexOf(p.severity) - ['High', 'Medium', 'Low'].indexOf(q.severity));
+  // Order of execution: a save that writes another object fires that object's trigger; such steps move together.
+  const chains = comps.filter((k) => k.kind === 'Trigger + handlers').flatMap((k) => k.writes.filter((w) => triggerOn[w]).map((w) => ({
+    from: k.object, to: w, via: k.name, fires: triggerOn[w],
+    text: `Saving ${words(k.object)} updates ${words(w)} (${k.functions.filter((f) => f.kind === 'rollup' || f.kind === 'create').map((f) => f.what.toLowerCase()).join('; ') || 'through its handlers'}), which fires ${triggerOn[w]}. Move these steps together, or keep them together.`,
+  })));
+  const integrations = fns.filter((f) => f.kind === 'integration').map((f) => f.component);
+  const messages = [
+    `${count('adopt') + count('configure')} of ${fns.length} functions could move to standard features or configuration; ${count('retain')} stay custom${count('retire') ? `, ${count('retire')} can be retired` : ''}.`,
+    integrations.length ? `Integrations stay custom: ${[...new Set(integrations)].join(', ')}. They can still be simplified (named credential, retries through a queue or platform event).` : null,
+    quickWins.length ? `${quickWins.length} quick win${quickWins.length === 1 ? '' : 's'} with low effort and contained regression: ${[...new Set(quickWins.map((q) => q.what.toLowerCase()))].slice(0, 3).join('; ')}.` : null,
+    chains.length ? `Order of execution matters in ${chains.length} place${chains.length === 1 ? '' : 's'}: ${chains.map((c) => `${words(c.from)} → ${words(c.to)}`).join(', ')}. Steps that depend on each other move together.` : null,
+    crossCutting.length ? `Structural risks: ${crossCutting.slice(0, 3).map((c) => c.title.toLowerCase()).join('; ')}.` : null,
+  ].filter(Boolean);
+  return {
+    region: o.region,
+    totals: { components: comps.length, classes: comps.filter((k) => k.kind === 'Apex class').length, triggerGroups: comps.filter((k) => k.kind === 'Trigger + handlers').length,
+      lines: comps.reduce((n, k) => n + k.lines, 0), files: comps.reduce((n, k) => n + k.files, 0), functions: fns.length, canMove: count('adopt') + count('configure') + count('retire'),
+      verdicts: Object.fromEntries(VERDICTS.map((v) => [v, count(v)])), confidence: Object.fromEntries(['High', 'Medium', 'Low'].map((c) => [c, fns.filter((f) => f.confidence === c).length])) },
+    messages, quickWins, crossCutting, chains, components: comps,
+  };
+}
+
 /* ---------------------------------------------------------------- summarise */
 
 const sum = (xs, f) => xs.reduce((n, x) => n + (f(x) || 0), 0);
@@ -192,6 +297,7 @@ const fitGap = {
   owner: 'Assessment agent', generatedBy: 'src/generators/emit-assessment.js',
   client: eng.client, sampleData: eng.sampleData, note: eng.note, marketsExpected: eng.marketsExpected,
   verdicts: V, fitmentCodes: FITMENT, findings, orgs: orgSummary, capabilities: capabilityMatrix, unmatched,
+  functionFitGap: Object.fromEntries(extracted.map((o) => [o.region, functionFitGap(o)]).filter(([, x]) => x)),
   items: items.sort((a, b) => a.org.localeCompare(b.org) || a.kind.localeCompare(b.kind) || a.name.localeCompare(b.name)),
 };
 

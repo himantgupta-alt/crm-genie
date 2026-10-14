@@ -16,6 +16,7 @@ are in [`../guardrails/`](../guardrails/README.md).
 | [testing-standards.md](testing-standards.md) | unit, golden-master parity, contract, smoke; what blocks a release | Verification, Repair, CI |
 | [documentation-standards.md](documentation-standards.md) | arc42, C4, ADRs, traceability, plain language | Modelling |
 | [salesforce-translation-playbook.md](salesforce-translation-playbook.md) | each Salesforce construct, its target pattern, and the traps | Modelling, Schema, Logic, Security |
+| [fit-gap-method.md](fit-gap-method.md) | function-level fit-gap: verdicts, ratings, quick wins, cross-cutting checks, order of execution, Retail and TPM mapping | Assessment |
 | [review-checklists.md](review-checklists.md) | what a reviewer checks at each gate | reviewers at G1–G6 |
 
 How the knowledge base grows: when the Repair agent fixes the same kind of problem twice, the lesson becomes a

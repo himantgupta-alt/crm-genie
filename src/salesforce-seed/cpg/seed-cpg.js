@@ -64,6 +64,7 @@ for (const o of org.objects) {
     <deploymentStatus>Deployed</deploymentStatus>
     <description>${esc(`${COMPANY} · ${R.label} sales org (sample).`)}</description>
     <enableActivities>${!detail}</enableActivities>
+    <enableFeeds>${!!o.feeds}</enableFeeds>
     <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
     <enableSearch>true</enableSearch>
@@ -256,6 +257,68 @@ insert targets;
 System.debug('seeded ' + accts.size() + ' accounts across ' + markets.size() + ' markets');
 `].filter(Boolean).join('\n');
 
+// Trade promotion and retail depth for the Europe org, loaded on top of the base sample (its own guard, so an org
+// seeded before these objects existed gets them too). Past visits only, so no alert emails go out.
+const extra = region !== 'eu' ? '' : `
+// ${COMPANY} · ${R.label} · trade funds, post-event results, claims, check-ins and visit tasks
+if ([SELECT COUNT() FROM Trade_Fund__c] > 0) { System.debug('trade promotion and retail data already loaded'); return; }
+List<Account> stores = [SELECT Id FROM Account WHERE Market__c != null AND Customer_Channel__c != 'Wholesale' ORDER BY Name];
+List<Account> custs = [SELECT Id FROM Account WHERE Market__c != null ORDER BY Name];
+List<String> fundTypes = new List<String>{ 'Fixed', 'Accrual', 'Off-invoice' };
+List<Trade_Fund__c> funds = new List<Trade_Fund__c>();
+for (Integer i = 0; i < custs.size(); i++) funds.add(new Trade_Fund__c(Account__c = custs[i].Id, Year__c = 2026, Fund_Type__c = fundTypes[Math.mod(i, 3)], Amount__c = 60000 + Math.mod(i, 5) * 10000, Status__c = 'Open'));
+insert funds;
+Map<Id, Id> fundByAccount = new Map<Id, Id>();
+for (Trade_Fund__c f : funds) fundByAccount.put(f.Account__c, f.Id);
+
+List<Trade_Promotion__c> promos = [SELECT Id, Account__c, Budget__c, Status__c, Uplift_Pct__c, Actual_Spend__c FROM Trade_Promotion__c ORDER BY Name];
+for (Integer k = 0; k < promos.size(); k++) {
+    Trade_Promotion__c p = promos[k];
+    p.Trade_Fund__c = fundByAccount.get(p.Account__c);
+    if (p.Status__c == 'Live' && p.Budget__c != null) {
+        Decimal base = 800 + Math.mod(k, 7) * 100;
+        Decimal uplift = (p.Uplift_Pct__c == null ? 10 : p.Uplift_Pct__c) / 100 + (Math.mod(k, 3) - 1) * 0.05;
+        p.Baseline_Volume__c = base;
+        p.Actual_Volume__c = (base * (1 + uplift)).round();
+        p.Actual_Spend__c = (p.Budget__c * (0.7 + Math.mod(k, 4) * 0.1)).setScale(2);
+    }
+}
+update promos;
+
+List<Promotion_Claim__c> claims = new List<Promotion_Claim__c>();
+for (Integer i = 0; i < promos.size(); i++) {
+    if (promos[i].Actual_Spend__c == null || Math.mod(i, 2) == 1) continue;
+    claims.add(new Promotion_Claim__c(Trade_Promotion__c = promos[i].Id, Account__c = promos[i].Account__c, Invoice_Number__c = 'INV-' + String.valueOf(70000 + i),
+        Claim_Amount__c = Math.mod(i, 3) == 0 ? 400 : (promos[i].Actual_Spend__c * 0.6).setScale(2), Status__c = 'Submitted'));
+}
+insert claims;
+
+List<Store_Visit__c> done = [SELECT Id FROM Store_Visit__c WHERE Status__c = 'Completed' ORDER BY Name];
+for (Integer i = 0; i < done.size(); i++) {
+    if (Math.mod(i, 6) == 0) continue;
+    done[i].Checked_In__c = true;
+    done[i].Check_In_Latitude__c = 48.85 + Math.mod(i, 40) * 0.05;
+    done[i].Check_In_Longitude__c = 2.35 + Math.mod(i, 30) * 0.07;
+    done[i].Compliance_Pct__c = 60 + Math.mod(i * 7, 40);
+}
+update done;
+StoreVisitService.countOutOfStocks(new Map<Id, Store_Visit__c>(done).keySet());
+
+List<String> taskTypes = new List<String>{ 'Check price', 'Check display', 'Take photo', 'Survey' };
+List<Visit_Task__c> past = new List<Visit_Task__c>();
+for (Integer i = 0; i < done.size(); i++) for (Integer t = 0; t < 2; t++) {
+    past.add(new Visit_Task__c(Store_Visit__c = done[i].Id, Task_Type__c = taskTypes[Math.mod(i + t, 4)], Done__c = Math.mod(i + t, 5) != 0, Result__c = Math.mod(i + t, 7) == 0 ? 'Issue found' : 'OK'));
+}
+insert past;
+
+// Next month's visits: each gets a task per must-stock product of its store.
+List<Store_Visit__c> planned = new List<Store_Visit__c>();
+Date next = Date.newInstance(2026, 11, 2);
+for (Integer i = 0; i < stores.size(); i++) planned.add(new Store_Visit__c(Account__c = stores[i].Id, Visit_Date__c = next.addDays(Math.mod(i, 10)), Status__c = 'Planned', Visit_Type__c = Math.mod(i, 4) == 0 ? 'Promotion Check' : 'Routine'));
+insert planned;
+System.debug('loaded ' + funds.size() + ' funds, ' + claims.size() + ' claims, ' + planned.size() + ' planned visits');
+`;
+
 /* ---------------------------------------------------------------- write */
 
 fs.rmSync(path.join(OUT, 'force-app'), { recursive: true, force: true }); // contents only: the folder may be a shell's working directory
@@ -266,6 +329,8 @@ for (const [p, body] of Object.entries(files)) {
 }
 fs.writeFileSync(path.join(OUT, 'sfdx-project.json'), JSON.stringify({ packageDirectories: [{ path: 'force-app', default: true }], name: `brightwell-${region}`, namespace: '', sfdcLoginUrl: 'https://login.salesforce.com', sourceApiVersion: '67.0' }, null, 2));
 fs.writeFileSync(path.join(OUT, 'seed-data.apex'), apex);
+const extraFile = path.join(OUT, 'seed-extra.apex');
+if (extra) fs.writeFileSync(extraFile, extra.trim() + '\n'); else fs.rmSync(extraFile, { force: true });
 const tests = Object.keys(org.apex.tests);
 fs.writeFileSync(path.join(OUT, 'tests.txt'), tests.join(' '));
 console.log(`${R.label}: ${org.objects.length} custom objects, ${Object.keys(files).length} metadata files, ${tests.length} test classes -> ${path.relative(process.cwd(), OUT)}`);

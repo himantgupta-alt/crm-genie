@@ -187,7 +187,7 @@
       },
       "DailyApiRequests": {
         "max": 15000,
-        "used": 7
+        "used": 2913
       },
       "DailyBulkV2QueryJobs": {
         "max": 10000,
@@ -3245,6 +3245,7 @@
             "PromotionSegmentSalesStore",
             "PromotionTarget",
             "PromotionTier",
+            "Promotion_Claim__c",
             "ResourceAbsence",
             "ReturnOrder",
             "ReturnOrderLineItem",
@@ -3265,6 +3266,7 @@
             "Store_Assortment__c",
             "Store_Visit__c",
             "Subscription__c",
+            "Trade_Fund__c",
             "Trade_Promotion__c",
             "Waitlist",
             "WaitlistParticipant",
@@ -5800,6 +5802,189 @@
       ]
     },
     {
+      "name": "Promotion_Claim__c",
+      "label": "Promotion Claim",
+      "origin": "custom",
+      "records": 9,
+      "sharing": {
+        "internal": "ReadWrite",
+        "external": "Private"
+      },
+      "recordTypes": [],
+      "layouts": [
+        "Promotion Claim Layout"
+      ],
+      "fields": [
+        {
+          "name": "Account__c",
+          "label": "Customer",
+          "type": "reference",
+          "origin": "custom",
+          "required": false,
+          "references": [
+            "Account"
+          ],
+          "fill": 100,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
+        },
+        {
+          "name": "Claim_Amount__c",
+          "label": "Claim Amount",
+          "type": "currency",
+          "origin": "custom",
+          "required": false,
+          "fill": 100,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
+        },
+        {
+          "name": "Invoice_Number__c",
+          "label": "Invoice Number",
+          "type": "string",
+          "origin": "custom",
+          "required": false,
+          "fill": 100,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
+        },
+        {
+          "name": "Status__c",
+          "label": "Status",
+          "type": "picklist",
+          "origin": "custom",
+          "required": false,
+          "picklistValues": 5,
+          "fill": 100,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
+        },
+        {
+          "name": "Trade_Promotion__c",
+          "label": "Trade Promotion",
+          "type": "reference",
+          "origin": "custom",
+          "required": false,
+          "references": [
+            "Trade_Promotion__c"
+          ],
+          "fill": 100,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
+        },
+        {
+          "name": "CreatedById",
+          "label": "Created By ID",
+          "type": "reference",
+          "origin": "standard",
+          "required": false,
+          "references": [
+            "User"
+          ],
+          "fill": null
+        },
+        {
+          "name": "CreatedDate",
+          "label": "Created Date",
+          "type": "datetime",
+          "origin": "standard",
+          "required": false,
+          "fill": null
+        },
+        {
+          "name": "Id",
+          "label": "Record ID",
+          "type": "id",
+          "origin": "standard",
+          "required": false,
+          "fill": null
+        },
+        {
+          "name": "IsDeleted",
+          "label": "Deleted",
+          "type": "boolean",
+          "origin": "standard",
+          "required": false,
+          "fill": null
+        },
+        {
+          "name": "LastActivityDate",
+          "label": "Last Activity Date",
+          "type": "date",
+          "origin": "standard",
+          "required": false,
+          "fill": null
+        },
+        {
+          "name": "LastModifiedById",
+          "label": "Last Modified By ID",
+          "type": "reference",
+          "origin": "standard",
+          "required": false,
+          "references": [
+            "User"
+          ],
+          "fill": null
+        },
+        {
+          "name": "LastModifiedDate",
+          "label": "Last Modified Date",
+          "type": "datetime",
+          "origin": "standard",
+          "required": false,
+          "fill": null
+        },
+        {
+          "name": "Name",
+          "label": "Promotion Claim Number",
+          "type": "string",
+          "origin": "standard",
+          "required": false,
+          "fill": null
+        },
+        {
+          "name": "OwnerId",
+          "label": "Owner ID",
+          "type": "reference",
+          "origin": "standard",
+          "required": false,
+          "references": [
+            "Group",
+            "User"
+          ],
+          "fill": null
+        },
+        {
+          "name": "SystemModstamp",
+          "label": "System Modstamp",
+          "type": "datetime",
+          "origin": "standard",
+          "required": false,
+          "fill": null
+        }
+      ]
+    },
+    {
       "name": "Promotion_Product__c",
       "label": "Promotion Product",
       "origin": "custom",
@@ -6421,7 +6606,7 @@
       "name": "Store_Visit__c",
       "label": "Store Visit",
       "origin": "custom",
-      "records": 210,
+      "records": 252,
       "sharing": {
         "internal": "ReadWrite",
         "external": "Private"
@@ -6449,12 +6634,82 @@
           }
         },
         {
+          "name": "Check_In_Latitude__c",
+          "label": "Check-in Latitude",
+          "type": "double",
+          "origin": "custom",
+          "required": false,
+          "fill": 42,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
+        },
+        {
+          "name": "Check_In_Longitude__c",
+          "label": "Check-in Longitude",
+          "type": "double",
+          "origin": "custom",
+          "required": false,
+          "fill": 42,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
+        },
+        {
+          "name": "Checked_In__c",
+          "label": "Checked In",
+          "type": "boolean",
+          "origin": "custom",
+          "required": false,
+          "fill": 42,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
+        },
+        {
+          "name": "Compliance_Pct__c",
+          "label": "Shelf Compliance",
+          "type": "percent",
+          "origin": "custom",
+          "required": false,
+          "fill": 42,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
+        },
+        {
           "name": "Notes__c",
           "label": "Notes",
           "type": "textarea",
           "origin": "custom",
           "required": false,
           "fill": null,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
+        },
+        {
+          "name": "Out_Of_Stocks__c",
+          "label": "Out of Stocks",
+          "type": "double",
+          "origin": "custom",
+          "required": false,
+          "fill": 50,
           "access": {
             "read": 1,
             "edit": 1,
@@ -7528,6 +7783,7 @@
             "PromotionSegmentSalesStore",
             "PromotionTarget",
             "PromotionTier",
+            "Promotion_Claim__c",
             "ResourceAbsence",
             "ReturnOrder",
             "ReturnOrderLineItem",
@@ -7548,6 +7804,7 @@
             "Store_Assortment__c",
             "Store_Visit__c",
             "Subscription__c",
+            "Trade_Fund__c",
             "Trade_Promotion__c",
             "Waitlist",
             "WaitlistParticipant",
@@ -7574,6 +7831,201 @@
             "Contact",
             "Lead"
           ],
+          "fill": null
+        }
+      ]
+    },
+    {
+      "name": "Trade_Fund__c",
+      "label": "Trade Fund",
+      "origin": "custom",
+      "records": 56,
+      "sharing": {
+        "internal": "ReadWrite",
+        "external": "Private"
+      },
+      "recordTypes": [],
+      "layouts": [
+        "Trade Fund Layout"
+      ],
+      "fields": [
+        {
+          "name": "Account__c",
+          "label": "Customer",
+          "type": "reference",
+          "origin": "custom",
+          "required": false,
+          "references": [
+            "Account"
+          ],
+          "fill": 100,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
+        },
+        {
+          "name": "Amount__c",
+          "label": "Amount",
+          "type": "currency",
+          "origin": "custom",
+          "required": false,
+          "fill": 100,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
+        },
+        {
+          "name": "Committed__c",
+          "label": "Committed",
+          "type": "currency",
+          "origin": "custom",
+          "required": false,
+          "fill": 50,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
+        },
+        {
+          "name": "Fund_Type__c",
+          "label": "Fund Type",
+          "type": "picklist",
+          "origin": "custom",
+          "required": false,
+          "picklistValues": 3,
+          "fill": 100,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
+        },
+        {
+          "name": "Status__c",
+          "label": "Status",
+          "type": "picklist",
+          "origin": "custom",
+          "required": false,
+          "picklistValues": 2,
+          "fill": 100,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
+        },
+        {
+          "name": "Year__c",
+          "label": "Year",
+          "type": "double",
+          "origin": "custom",
+          "required": false,
+          "fill": 100,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
+        },
+        {
+          "name": "CreatedById",
+          "label": "Created By ID",
+          "type": "reference",
+          "origin": "standard",
+          "required": false,
+          "references": [
+            "User"
+          ],
+          "fill": null
+        },
+        {
+          "name": "CreatedDate",
+          "label": "Created Date",
+          "type": "datetime",
+          "origin": "standard",
+          "required": false,
+          "fill": null
+        },
+        {
+          "name": "Id",
+          "label": "Record ID",
+          "type": "id",
+          "origin": "standard",
+          "required": false,
+          "fill": null
+        },
+        {
+          "name": "IsDeleted",
+          "label": "Deleted",
+          "type": "boolean",
+          "origin": "standard",
+          "required": false,
+          "fill": null
+        },
+        {
+          "name": "LastActivityDate",
+          "label": "Last Activity Date",
+          "type": "date",
+          "origin": "standard",
+          "required": false,
+          "fill": null
+        },
+        {
+          "name": "LastModifiedById",
+          "label": "Last Modified By ID",
+          "type": "reference",
+          "origin": "standard",
+          "required": false,
+          "references": [
+            "User"
+          ],
+          "fill": null
+        },
+        {
+          "name": "LastModifiedDate",
+          "label": "Last Modified Date",
+          "type": "datetime",
+          "origin": "standard",
+          "required": false,
+          "fill": null
+        },
+        {
+          "name": "Name",
+          "label": "Trade Fund Number",
+          "type": "string",
+          "origin": "standard",
+          "required": false,
+          "fill": null
+        },
+        {
+          "name": "OwnerId",
+          "label": "Owner ID",
+          "type": "reference",
+          "origin": "standard",
+          "required": false,
+          "references": [
+            "Group",
+            "User"
+          ],
+          "fill": null
+        },
+        {
+          "name": "SystemModstamp",
+          "label": "System Modstamp",
+          "type": "datetime",
+          "origin": "standard",
+          "required": false,
           "fill": null
         }
       ]
@@ -7610,6 +8062,48 @@
           }
         },
         {
+          "name": "Actual_Spend__c",
+          "label": "Actual Spend",
+          "type": "currency",
+          "origin": "custom",
+          "required": false,
+          "fill": 64,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
+        },
+        {
+          "name": "Actual_Volume__c",
+          "label": "Actual Volume (cases)",
+          "type": "double",
+          "origin": "custom",
+          "required": false,
+          "fill": 64,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
+        },
+        {
+          "name": "Baseline_Volume__c",
+          "label": "Baseline Volume (cases)",
+          "type": "double",
+          "origin": "custom",
+          "required": false,
+          "fill": 64,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
+        },
+        {
           "name": "Budget__c",
           "label": "Budget",
           "type": "currency",
@@ -7638,6 +8132,20 @@
           }
         },
         {
+          "name": "ERP_Synced__c",
+          "label": "Sent to ERP",
+          "type": "boolean",
+          "origin": "custom",
+          "required": false,
+          "fill": 0,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
+        },
+        {
           "name": "Mechanic__c",
           "label": "Mechanic",
           "type": "picklist",
@@ -7645,6 +8153,20 @@
           "required": false,
           "picklistValues": 4,
           "fill": 100,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
+        },
+        {
+          "name": "ROI__c",
+          "label": "Return on Investment",
+          "type": "percent",
+          "origin": "custom",
+          "required": false,
+          "fill": 64,
           "access": {
             "read": 1,
             "edit": 1,
@@ -7673,6 +8195,23 @@
           "origin": "custom",
           "required": false,
           "picklistValues": 5,
+          "fill": 100,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
+        },
+        {
+          "name": "Trade_Fund__c",
+          "label": "Trade Fund",
+          "type": "reference",
+          "origin": "custom",
+          "required": false,
+          "references": [
+            "Trade_Fund__c"
+          ],
           "fill": 100,
           "access": {
             "read": 1,
@@ -9383,6 +9922,170 @@
       ]
     },
     {
+      "name": "Visit_Task__c",
+      "label": "Visit Task",
+      "origin": "custom",
+      "records": 336,
+      "sharing": {
+        "internal": "ControlledByParent",
+        "external": "ControlledByParent"
+      },
+      "recordTypes": [],
+      "layouts": [
+        "Visit Task Layout"
+      ],
+      "fields": [
+        {
+          "name": "Done__c",
+          "label": "Done",
+          "type": "boolean",
+          "origin": "custom",
+          "required": false,
+          "fill": 60,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
+        },
+        {
+          "name": "Product__c",
+          "label": "Product",
+          "type": "reference",
+          "origin": "custom",
+          "required": false,
+          "references": [
+            "Product2"
+          ],
+          "fill": 25,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
+        },
+        {
+          "name": "Result__c",
+          "label": "Result",
+          "type": "string",
+          "origin": "custom",
+          "required": false,
+          "fill": 75,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
+        },
+        {
+          "name": "Store_Visit__c",
+          "label": "Store Visit",
+          "type": "reference",
+          "origin": "custom",
+          "required": true,
+          "references": [
+            "Store_Visit__c"
+          ],
+          "masterDetail": true,
+          "fill": 100,
+          "access": {
+            "read": 0,
+            "edit": 0,
+            "profiles": 0,
+            "permissionSets": 0
+          }
+        },
+        {
+          "name": "Task_Type__c",
+          "label": "Task Type",
+          "type": "picklist",
+          "origin": "custom",
+          "required": false,
+          "picklistValues": 5,
+          "fill": 100,
+          "access": {
+            "read": 1,
+            "edit": 1,
+            "profiles": 0,
+            "permissionSets": 1
+          }
+        },
+        {
+          "name": "CreatedById",
+          "label": "Created By ID",
+          "type": "reference",
+          "origin": "standard",
+          "required": false,
+          "references": [
+            "User"
+          ],
+          "fill": null
+        },
+        {
+          "name": "CreatedDate",
+          "label": "Created Date",
+          "type": "datetime",
+          "origin": "standard",
+          "required": false,
+          "fill": null
+        },
+        {
+          "name": "Id",
+          "label": "Record ID",
+          "type": "id",
+          "origin": "standard",
+          "required": false,
+          "fill": null
+        },
+        {
+          "name": "IsDeleted",
+          "label": "Deleted",
+          "type": "boolean",
+          "origin": "standard",
+          "required": false,
+          "fill": null
+        },
+        {
+          "name": "LastModifiedById",
+          "label": "Last Modified By ID",
+          "type": "reference",
+          "origin": "standard",
+          "required": false,
+          "references": [
+            "User"
+          ],
+          "fill": null
+        },
+        {
+          "name": "LastModifiedDate",
+          "label": "Last Modified Date",
+          "type": "datetime",
+          "origin": "standard",
+          "required": false,
+          "fill": null
+        },
+        {
+          "name": "Name",
+          "label": "Visit Task Number",
+          "type": "string",
+          "origin": "standard",
+          "required": false,
+          "fill": null
+        },
+        {
+          "name": "SystemModstamp",
+          "label": "System Modstamp",
+          "type": "datetime",
+          "origin": "standard",
+          "required": false,
+          "fill": null
+        }
+      ]
+    },
+    {
       "name": "dlrs__LookupChild__c",
       "label": "Lookup Child",
       "origin": "package",
@@ -10671,6 +11374,16 @@
       "description": null
     },
     {
+      "object": "Promotion_Claim__c",
+      "name": "Claim_Positive",
+      "active": true,
+      "origin": "custom",
+      "formula": "Claim_Amount__c <= 0",
+      "message": "Claim amount must be greater than zero.",
+      "field": "Claim Amount",
+      "description": null
+    },
+    {
       "object": "Subscription__c",
       "name": "Active_Requires_MRR",
       "active": true,
@@ -10728,6 +11441,16 @@
       "formula": "Quantity__c <= 0",
       "message": "Quantity must be greater than zero.",
       "field": "Quantity",
+      "description": null
+    },
+    {
+      "object": "Trade_Fund__c",
+      "name": "Amount_Positive",
+      "active": true,
+      "origin": "custom",
+      "formula": "Amount__c <= 0",
+      "message": "The fund amount must be greater than zero.",
+      "field": "Amount",
       "description": null
     },
     {
@@ -12184,6 +12907,19 @@
       "coverage": 100
     },
     {
+      "name": "PromotionClaimTrigger",
+      "object": "Promotion_Claim__c",
+      "active": true,
+      "apiVersion": 67,
+      "origin": "custom",
+      "events": [
+        "before insert",
+        "before update"
+      ],
+      "lines": 4,
+      "coverage": 0
+    },
+    {
       "name": "RollupSummariesTrigger",
       "object": "dlrs__LookupRollupSummary__c",
       "active": true,
@@ -12199,6 +12935,34 @@
       ],
       "lines": null,
       "coverage": null
+    },
+    {
+      "name": "ShelfCheckTrigger",
+      "object": "Shelf_Check__c",
+      "active": true,
+      "apiVersion": 67,
+      "origin": "custom",
+      "events": [
+        "after insert",
+        "after update",
+        "after delete"
+      ],
+      "lines": 5,
+      "coverage": 0
+    },
+    {
+      "name": "StoreVisitTrigger",
+      "object": "Store_Visit__c",
+      "active": true,
+      "apiVersion": 67,
+      "origin": "custom",
+      "events": [
+        "after insert",
+        "before update",
+        "after update"
+      ],
+      "lines": 5,
+      "coverage": 0
     },
     {
       "name": "SubscriptionTrigger",
@@ -12222,9 +12986,11 @@
       "origin": "custom",
       "events": [
         "before insert",
-        "before update"
+        "after insert",
+        "before update",
+        "after update"
       ],
-      "lines": 3,
+      "lines": 19,
       "coverage": 0
     }
   ],
@@ -12248,7 +13014,7 @@
       "type": "System job (type S)",
       "state": "WAITING",
       "schedule": "0 0 5,20 ? * *",
-      "next": "2026-10-14"
+      "next": "2026-10-15"
     }
   ],
   "code": {
@@ -13244,6 +14010,28 @@
         "coverage": null
       },
       {
+        "name": "PromotionClaimService",
+        "apiVersion": 67,
+        "origin": "custom",
+        "lines": 23,
+        "test": false,
+        "callout": false,
+        "batch": false,
+        "schedulable": false,
+        "coverage": 0
+      },
+      {
+        "name": "PromotionClaimServiceTest",
+        "apiVersion": 67,
+        "origin": "custom",
+        "lines": 27,
+        "test": true,
+        "callout": false,
+        "batch": false,
+        "schedulable": false,
+        "coverage": null
+      },
+      {
         "name": "RollupActionCalculate",
         "apiVersion": 66,
         "origin": "package",
@@ -13717,6 +14505,39 @@
         "coverage": null
       },
       {
+        "name": "StoreVisitLegacyHandler",
+        "apiVersion": 67,
+        "origin": "custom",
+        "lines": 9,
+        "test": false,
+        "callout": false,
+        "batch": false,
+        "schedulable": false,
+        "coverage": 0
+      },
+      {
+        "name": "StoreVisitService",
+        "apiVersion": 67,
+        "origin": "custom",
+        "lines": 64,
+        "test": false,
+        "callout": false,
+        "batch": false,
+        "schedulable": false,
+        "coverage": 0
+      },
+      {
+        "name": "StoreVisitServiceTest",
+        "apiVersion": 67,
+        "origin": "custom",
+        "lines": 47,
+        "test": true,
+        "callout": false,
+        "batch": false,
+        "schedulable": false,
+        "coverage": null
+      },
+      {
         "name": "SubscriptionRenewalBatch",
         "apiVersion": 67,
         "origin": "custom",
@@ -13787,6 +14608,28 @@
         "apiVersion": 67,
         "origin": "custom",
         "lines": 33,
+        "test": true,
+        "callout": false,
+        "batch": false,
+        "schedulable": false,
+        "coverage": null
+      },
+      {
+        "name": "TradePromotionService",
+        "apiVersion": 67,
+        "origin": "custom",
+        "lines": 99,
+        "test": false,
+        "callout": true,
+        "batch": false,
+        "schedulable": false,
+        "coverage": 0
+      },
+      {
+        "name": "TradePromotionServiceTest",
+        "apiVersion": 67,
+        "origin": "custom",
+        "lines": 61,
         "test": true,
         "callout": false,
         "batch": false,
@@ -15227,25 +16070,32 @@
       {
         "application": "Salesforce CLI",
         "type": "Remote Access 2.0",
-        "logins": 31
+        "logins": 35
       },
       {
         "application": "Browser",
         "type": "Application",
-        "logins": 9
+        "logins": 12
       },
       {
         "application": "Browser",
         "type": "Remote Access Client",
-        "logins": 3
+        "logins": 5
       },
       {
         "application": "orgfarm_app_1",
         "type": "Remote Access 2.0",
         "logins": 3
+      },
+      {
+        "application": "Trailhead Connected App",
+        "type": "Remote Access 2.0",
+        "logins": 2
       }
     ],
-    "calloutClasses": []
+    "calloutClasses": [
+      "TradePromotionService"
+    ]
   },
   "ui": {
     "apps": [
@@ -15684,6 +16534,420 @@
       "toType": "StandardEntity"
     },
     {
+      "from": "PromotionClaimService",
+      "fromType": "ApexClass",
+      "to": "Actual_Spend",
+      "toType": "CustomField"
+    },
+    {
+      "from": "PromotionClaimService",
+      "fromType": "ApexClass",
+      "to": "Budget",
+      "toType": "CustomField"
+    },
+    {
+      "from": "PromotionClaimService",
+      "fromType": "ApexClass",
+      "to": "Claim_Amount",
+      "toType": "CustomField"
+    },
+    {
+      "from": "PromotionClaimService",
+      "fromType": "ApexClass",
+      "to": "Status",
+      "toType": "CustomField"
+    },
+    {
+      "from": "PromotionClaimService",
+      "fromType": "ApexClass",
+      "to": "Trade_Promotion",
+      "toType": "CustomField"
+    },
+    {
+      "from": "PromotionClaimService",
+      "fromType": "ApexClass",
+      "to": "Promotion_Claim",
+      "toType": "CustomObject"
+    },
+    {
+      "from": "PromotionClaimService",
+      "fromType": "ApexClass",
+      "to": "Trade_Promotion",
+      "toType": "CustomObject"
+    },
+    {
+      "from": "PromotionClaimServiceTest",
+      "fromType": "ApexClass",
+      "to": "Account",
+      "toType": "CustomField"
+    },
+    {
+      "from": "PromotionClaimServiceTest",
+      "fromType": "ApexClass",
+      "to": "Account",
+      "toType": "CustomField"
+    },
+    {
+      "from": "PromotionClaimServiceTest",
+      "fromType": "ApexClass",
+      "to": "Budget",
+      "toType": "CustomField"
+    },
+    {
+      "from": "PromotionClaimServiceTest",
+      "fromType": "ApexClass",
+      "to": "Claim_Amount",
+      "toType": "CustomField"
+    },
+    {
+      "from": "PromotionClaimServiceTest",
+      "fromType": "ApexClass",
+      "to": "End_Date",
+      "toType": "CustomField"
+    },
+    {
+      "from": "PromotionClaimServiceTest",
+      "fromType": "ApexClass",
+      "to": "Invoice_Number",
+      "toType": "CustomField"
+    },
+    {
+      "from": "PromotionClaimServiceTest",
+      "fromType": "ApexClass",
+      "to": "Start_Date",
+      "toType": "CustomField"
+    },
+    {
+      "from": "PromotionClaimServiceTest",
+      "fromType": "ApexClass",
+      "to": "Status",
+      "toType": "CustomField"
+    },
+    {
+      "from": "PromotionClaimServiceTest",
+      "fromType": "ApexClass",
+      "to": "Status",
+      "toType": "CustomField"
+    },
+    {
+      "from": "PromotionClaimServiceTest",
+      "fromType": "ApexClass",
+      "to": "Trade_Promotion",
+      "toType": "CustomField"
+    },
+    {
+      "from": "PromotionClaimServiceTest",
+      "fromType": "ApexClass",
+      "to": "Promotion_Claim",
+      "toType": "CustomObject"
+    },
+    {
+      "from": "PromotionClaimServiceTest",
+      "fromType": "ApexClass",
+      "to": "Trade_Promotion",
+      "toType": "CustomObject"
+    },
+    {
+      "from": "PromotionClaimServiceTest",
+      "fromType": "ApexClass",
+      "to": "PermissionSet",
+      "toType": "PermissionSet"
+    },
+    {
+      "from": "PromotionClaimServiceTest",
+      "fromType": "ApexClass",
+      "to": "Profile",
+      "toType": "Profile"
+    },
+    {
+      "from": "PromotionClaimServiceTest",
+      "fromType": "ApexClass",
+      "to": "Account",
+      "toType": "StandardEntity"
+    },
+    {
+      "from": "PromotionClaimServiceTest",
+      "fromType": "ApexClass",
+      "to": "PermissionSetAssignment",
+      "toType": "StandardEntity"
+    },
+    {
+      "from": "PromotionClaimServiceTest",
+      "fromType": "ApexClass",
+      "to": "User",
+      "toType": "User"
+    },
+    {
+      "from": "StoreVisitLegacyHandler",
+      "fromType": "ApexClass",
+      "to": "Check_In_Latitude",
+      "toType": "CustomField"
+    },
+    {
+      "from": "StoreVisitLegacyHandler",
+      "fromType": "ApexClass",
+      "to": "Check_In_Longitude",
+      "toType": "CustomField"
+    },
+    {
+      "from": "StoreVisitLegacyHandler",
+      "fromType": "ApexClass",
+      "to": "Checked_In",
+      "toType": "CustomField"
+    },
+    {
+      "from": "StoreVisitLegacyHandler",
+      "fromType": "ApexClass",
+      "to": "Store_Visit",
+      "toType": "CustomObject"
+    },
+    {
+      "from": "StoreVisitService",
+      "fromType": "ApexClass",
+      "to": "Account",
+      "toType": "CustomField"
+    },
+    {
+      "from": "StoreVisitService",
+      "fromType": "ApexClass",
+      "to": "Account",
+      "toType": "CustomField"
+    },
+    {
+      "from": "StoreVisitService",
+      "fromType": "ApexClass",
+      "to": "Checked_In",
+      "toType": "CustomField"
+    },
+    {
+      "from": "StoreVisitService",
+      "fromType": "ApexClass",
+      "to": "Must_Stock",
+      "toType": "CustomField"
+    },
+    {
+      "from": "StoreVisitService",
+      "fromType": "ApexClass",
+      "to": "On_Shelf",
+      "toType": "CustomField"
+    },
+    {
+      "from": "StoreVisitService",
+      "fromType": "ApexClass",
+      "to": "Out_Of_Stocks",
+      "toType": "CustomField"
+    },
+    {
+      "from": "StoreVisitService",
+      "fromType": "ApexClass",
+      "to": "Product",
+      "toType": "CustomField"
+    },
+    {
+      "from": "StoreVisitService",
+      "fromType": "ApexClass",
+      "to": "Product",
+      "toType": "CustomField"
+    },
+    {
+      "from": "StoreVisitService",
+      "fromType": "ApexClass",
+      "to": "Status",
+      "toType": "CustomField"
+    },
+    {
+      "from": "StoreVisitService",
+      "fromType": "ApexClass",
+      "to": "Store_Visit",
+      "toType": "CustomField"
+    },
+    {
+      "from": "StoreVisitService",
+      "fromType": "ApexClass",
+      "to": "Store_Visit",
+      "toType": "CustomField"
+    },
+    {
+      "from": "StoreVisitService",
+      "fromType": "ApexClass",
+      "to": "Task_Type",
+      "toType": "CustomField"
+    },
+    {
+      "from": "StoreVisitService",
+      "fromType": "ApexClass",
+      "to": "Visit_Date",
+      "toType": "CustomField"
+    },
+    {
+      "from": "StoreVisitService",
+      "fromType": "ApexClass",
+      "to": "Shelf_Check",
+      "toType": "CustomObject"
+    },
+    {
+      "from": "StoreVisitService",
+      "fromType": "ApexClass",
+      "to": "Store_Assortment",
+      "toType": "CustomObject"
+    },
+    {
+      "from": "StoreVisitService",
+      "fromType": "ApexClass",
+      "to": "Store_Visit",
+      "toType": "CustomObject"
+    },
+    {
+      "from": "StoreVisitService",
+      "fromType": "ApexClass",
+      "to": "Visit_Task",
+      "toType": "CustomObject"
+    },
+    {
+      "from": "StoreVisitService",
+      "fromType": "ApexClass",
+      "to": "AggregateResult",
+      "toType": "StandardEntity"
+    },
+    {
+      "from": "StoreVisitServiceTest",
+      "fromType": "ApexClass",
+      "to": "StoreVisitLegacyHandler",
+      "toType": "ApexClass"
+    },
+    {
+      "from": "StoreVisitServiceTest",
+      "fromType": "ApexClass",
+      "to": "Account",
+      "toType": "CustomField"
+    },
+    {
+      "from": "StoreVisitServiceTest",
+      "fromType": "ApexClass",
+      "to": "Account",
+      "toType": "CustomField"
+    },
+    {
+      "from": "StoreVisitServiceTest",
+      "fromType": "ApexClass",
+      "to": "Checked_In",
+      "toType": "CustomField"
+    },
+    {
+      "from": "StoreVisitServiceTest",
+      "fromType": "ApexClass",
+      "to": "Must_Stock",
+      "toType": "CustomField"
+    },
+    {
+      "from": "StoreVisitServiceTest",
+      "fromType": "ApexClass",
+      "to": "On_Shelf",
+      "toType": "CustomField"
+    },
+    {
+      "from": "StoreVisitServiceTest",
+      "fromType": "ApexClass",
+      "to": "Out_Of_Stocks",
+      "toType": "CustomField"
+    },
+    {
+      "from": "StoreVisitServiceTest",
+      "fromType": "ApexClass",
+      "to": "Product",
+      "toType": "CustomField"
+    },
+    {
+      "from": "StoreVisitServiceTest",
+      "fromType": "ApexClass",
+      "to": "Product",
+      "toType": "CustomField"
+    },
+    {
+      "from": "StoreVisitServiceTest",
+      "fromType": "ApexClass",
+      "to": "Status",
+      "toType": "CustomField"
+    },
+    {
+      "from": "StoreVisitServiceTest",
+      "fromType": "ApexClass",
+      "to": "Store_Visit",
+      "toType": "CustomField"
+    },
+    {
+      "from": "StoreVisitServiceTest",
+      "fromType": "ApexClass",
+      "to": "Store_Visit",
+      "toType": "CustomField"
+    },
+    {
+      "from": "StoreVisitServiceTest",
+      "fromType": "ApexClass",
+      "to": "Visit_Date",
+      "toType": "CustomField"
+    },
+    {
+      "from": "StoreVisitServiceTest",
+      "fromType": "ApexClass",
+      "to": "Shelf_Check",
+      "toType": "CustomObject"
+    },
+    {
+      "from": "StoreVisitServiceTest",
+      "fromType": "ApexClass",
+      "to": "Store_Assortment",
+      "toType": "CustomObject"
+    },
+    {
+      "from": "StoreVisitServiceTest",
+      "fromType": "ApexClass",
+      "to": "Store_Visit",
+      "toType": "CustomObject"
+    },
+    {
+      "from": "StoreVisitServiceTest",
+      "fromType": "ApexClass",
+      "to": "Visit_Task",
+      "toType": "CustomObject"
+    },
+    {
+      "from": "StoreVisitServiceTest",
+      "fromType": "ApexClass",
+      "to": "PermissionSet",
+      "toType": "PermissionSet"
+    },
+    {
+      "from": "StoreVisitServiceTest",
+      "fromType": "ApexClass",
+      "to": "Profile",
+      "toType": "Profile"
+    },
+    {
+      "from": "StoreVisitServiceTest",
+      "fromType": "ApexClass",
+      "to": "Account",
+      "toType": "StandardEntity"
+    },
+    {
+      "from": "StoreVisitServiceTest",
+      "fromType": "ApexClass",
+      "to": "PermissionSetAssignment",
+      "toType": "StandardEntity"
+    },
+    {
+      "from": "StoreVisitServiceTest",
+      "fromType": "ApexClass",
+      "to": "Product2",
+      "toType": "StandardEntity"
+    },
+    {
+      "from": "StoreVisitServiceTest",
+      "fromType": "ApexClass",
+      "to": "User",
+      "toType": "User"
+    },
+    {
       "from": "SubscriptionRenewalBatch",
       "fromType": "ApexClass",
       "to": "SubscriptionService",
@@ -16008,6 +17272,258 @@
       "toType": "User"
     },
     {
+      "from": "TradePromotionService",
+      "fromType": "ApexClass",
+      "to": "Account",
+      "toType": "CustomField"
+    },
+    {
+      "from": "TradePromotionService",
+      "fromType": "ApexClass",
+      "to": "Actual_Spend",
+      "toType": "CustomField"
+    },
+    {
+      "from": "TradePromotionService",
+      "fromType": "ApexClass",
+      "to": "Actual_Volume",
+      "toType": "CustomField"
+    },
+    {
+      "from": "TradePromotionService",
+      "fromType": "ApexClass",
+      "to": "Amount",
+      "toType": "CustomField"
+    },
+    {
+      "from": "TradePromotionService",
+      "fromType": "ApexClass",
+      "to": "Baseline_Volume",
+      "toType": "CustomField"
+    },
+    {
+      "from": "TradePromotionService",
+      "fromType": "ApexClass",
+      "to": "Budget",
+      "toType": "CustomField"
+    },
+    {
+      "from": "TradePromotionService",
+      "fromType": "ApexClass",
+      "to": "Committed",
+      "toType": "CustomField"
+    },
+    {
+      "from": "TradePromotionService",
+      "fromType": "ApexClass",
+      "to": "ERP_Synced",
+      "toType": "CustomField"
+    },
+    {
+      "from": "TradePromotionService",
+      "fromType": "ApexClass",
+      "to": "Legacy_ERP_Code",
+      "toType": "CustomField"
+    },
+    {
+      "from": "TradePromotionService",
+      "fromType": "ApexClass",
+      "to": "ROI",
+      "toType": "CustomField"
+    },
+    {
+      "from": "TradePromotionService",
+      "fromType": "ApexClass",
+      "to": "Status",
+      "toType": "CustomField"
+    },
+    {
+      "from": "TradePromotionService",
+      "fromType": "ApexClass",
+      "to": "Trade_Fund",
+      "toType": "CustomField"
+    },
+    {
+      "from": "TradePromotionService",
+      "fromType": "ApexClass",
+      "to": "Trade_Fund",
+      "toType": "CustomObject"
+    },
+    {
+      "from": "TradePromotionService",
+      "fromType": "ApexClass",
+      "to": "Trade_Promotion",
+      "toType": "CustomObject"
+    },
+    {
+      "from": "TradePromotionService",
+      "fromType": "ApexClass",
+      "to": "Account",
+      "toType": "StandardEntity"
+    },
+    {
+      "from": "TradePromotionService",
+      "fromType": "ApexClass",
+      "to": "AggregateResult",
+      "toType": "StandardEntity"
+    },
+    {
+      "from": "TradePromotionService",
+      "fromType": "ApexClass",
+      "to": "FeedItem",
+      "toType": "StandardEntity"
+    },
+    {
+      "from": "TradePromotionServiceTest",
+      "fromType": "ApexClass",
+      "to": "TradePromotionService",
+      "toType": "ApexClass"
+    },
+    {
+      "from": "TradePromotionServiceTest",
+      "fromType": "ApexClass",
+      "to": "Account",
+      "toType": "CustomField"
+    },
+    {
+      "from": "TradePromotionServiceTest",
+      "fromType": "ApexClass",
+      "to": "Account",
+      "toType": "CustomField"
+    },
+    {
+      "from": "TradePromotionServiceTest",
+      "fromType": "ApexClass",
+      "to": "Actual_Spend",
+      "toType": "CustomField"
+    },
+    {
+      "from": "TradePromotionServiceTest",
+      "fromType": "ApexClass",
+      "to": "Actual_Volume",
+      "toType": "CustomField"
+    },
+    {
+      "from": "TradePromotionServiceTest",
+      "fromType": "ApexClass",
+      "to": "Amount",
+      "toType": "CustomField"
+    },
+    {
+      "from": "TradePromotionServiceTest",
+      "fromType": "ApexClass",
+      "to": "Baseline_Volume",
+      "toType": "CustomField"
+    },
+    {
+      "from": "TradePromotionServiceTest",
+      "fromType": "ApexClass",
+      "to": "Budget",
+      "toType": "CustomField"
+    },
+    {
+      "from": "TradePromotionServiceTest",
+      "fromType": "ApexClass",
+      "to": "Committed",
+      "toType": "CustomField"
+    },
+    {
+      "from": "TradePromotionServiceTest",
+      "fromType": "ApexClass",
+      "to": "End_Date",
+      "toType": "CustomField"
+    },
+    {
+      "from": "TradePromotionServiceTest",
+      "fromType": "ApexClass",
+      "to": "Fund_Type",
+      "toType": "CustomField"
+    },
+    {
+      "from": "TradePromotionServiceTest",
+      "fromType": "ApexClass",
+      "to": "Legacy_ERP_Code",
+      "toType": "CustomField"
+    },
+    {
+      "from": "TradePromotionServiceTest",
+      "fromType": "ApexClass",
+      "to": "ROI",
+      "toType": "CustomField"
+    },
+    {
+      "from": "TradePromotionServiceTest",
+      "fromType": "ApexClass",
+      "to": "Start_Date",
+      "toType": "CustomField"
+    },
+    {
+      "from": "TradePromotionServiceTest",
+      "fromType": "ApexClass",
+      "to": "Status",
+      "toType": "CustomField"
+    },
+    {
+      "from": "TradePromotionServiceTest",
+      "fromType": "ApexClass",
+      "to": "Status",
+      "toType": "CustomField"
+    },
+    {
+      "from": "TradePromotionServiceTest",
+      "fromType": "ApexClass",
+      "to": "Trade_Fund",
+      "toType": "CustomField"
+    },
+    {
+      "from": "TradePromotionServiceTest",
+      "fromType": "ApexClass",
+      "to": "Year",
+      "toType": "CustomField"
+    },
+    {
+      "from": "TradePromotionServiceTest",
+      "fromType": "ApexClass",
+      "to": "Trade_Fund",
+      "toType": "CustomObject"
+    },
+    {
+      "from": "TradePromotionServiceTest",
+      "fromType": "ApexClass",
+      "to": "Trade_Promotion",
+      "toType": "CustomObject"
+    },
+    {
+      "from": "TradePromotionServiceTest",
+      "fromType": "ApexClass",
+      "to": "PermissionSet",
+      "toType": "PermissionSet"
+    },
+    {
+      "from": "TradePromotionServiceTest",
+      "fromType": "ApexClass",
+      "to": "Profile",
+      "toType": "Profile"
+    },
+    {
+      "from": "TradePromotionServiceTest",
+      "fromType": "ApexClass",
+      "to": "Account",
+      "toType": "StandardEntity"
+    },
+    {
+      "from": "TradePromotionServiceTest",
+      "fromType": "ApexClass",
+      "to": "PermissionSetAssignment",
+      "toType": "StandardEntity"
+    },
+    {
+      "from": "TradePromotionServiceTest",
+      "fromType": "ApexClass",
+      "to": "User",
+      "toType": "User"
+    },
+    {
       "from": "OpportunityTrigger",
       "fromType": "ApexTrigger",
       "to": "OpportunityService",
@@ -16018,6 +17534,48 @@
       "fromType": "ApexTrigger",
       "to": "Opportunity",
       "toType": "StandardEntity"
+    },
+    {
+      "from": "PromotionClaimTrigger",
+      "fromType": "ApexTrigger",
+      "to": "PromotionClaimService",
+      "toType": "ApexClass"
+    },
+    {
+      "from": "PromotionClaimTrigger",
+      "fromType": "ApexTrigger",
+      "to": "Promotion_Claim",
+      "toType": "CustomObject"
+    },
+    {
+      "from": "ShelfCheckTrigger",
+      "fromType": "ApexTrigger",
+      "to": "StoreVisitService",
+      "toType": "ApexClass"
+    },
+    {
+      "from": "ShelfCheckTrigger",
+      "fromType": "ApexTrigger",
+      "to": "Store_Visit",
+      "toType": "CustomField"
+    },
+    {
+      "from": "ShelfCheckTrigger",
+      "fromType": "ApexTrigger",
+      "to": "Shelf_Check",
+      "toType": "CustomObject"
+    },
+    {
+      "from": "StoreVisitTrigger",
+      "fromType": "ApexTrigger",
+      "to": "StoreVisitService",
+      "toType": "ApexClass"
+    },
+    {
+      "from": "StoreVisitTrigger",
+      "fromType": "ApexTrigger",
+      "to": "Store_Visit",
+      "toType": "CustomObject"
     },
     {
       "from": "SubscriptionTrigger",
@@ -16036,6 +17594,18 @@
       "fromType": "ApexTrigger",
       "to": "TradePromotionApproval",
       "toType": "ApexClass"
+    },
+    {
+      "from": "TradePromotionTrigger",
+      "fromType": "ApexTrigger",
+      "to": "TradePromotionService",
+      "toType": "ApexClass"
+    },
+    {
+      "from": "TradePromotionTrigger",
+      "fromType": "ApexTrigger",
+      "to": "Trade_Fund",
+      "toType": "CustomField"
     },
     {
       "from": "TradePromotionTrigger",
@@ -16800,6 +18370,12 @@
       "toType": "CustomField"
     },
     {
+      "from": "Amount_Positive",
+      "fromType": "ValidationRule",
+      "to": "Amount",
+      "toType": "CustomField"
+    },
+    {
       "from": "Budget_Required_To_Submit",
       "fromType": "ValidationRule",
       "to": "Budget",
@@ -16821,6 +18397,12 @@
       "from": "Cancellation_Reason_Required",
       "fromType": "ValidationRule",
       "to": "Status",
+      "toType": "CustomField"
+    },
+    {
+      "from": "Claim_Positive",
+      "fromType": "ValidationRule",
+      "to": "Claim_Amount",
       "toType": "CustomField"
     },
     {

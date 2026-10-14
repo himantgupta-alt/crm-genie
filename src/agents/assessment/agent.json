@@ -6,7 +6,8 @@
   "kb": [
     "kb/engineering-principles.md",
     "kb/secure-coding.md",
-    "kb/nodejs-standards.md"
+    "kb/nodejs-standards.md",
+    "kb/fit-gap-method.md"
   ],
   "guardrails": "guardrails/guardrails.json",
   "kind": "deterministic",
@@ -22,7 +23,7 @@
     "Tooling API"
   ],
   "implementation": [
-    "src/generators/assess-org.js (once per org)",
+    "src/generators/assess-org.js (once per org; reads each Apex class and trigger function by function with src/generators/apex-functions.js)",
     "src/generators/discover-org.js (once per org)",
     "src/generators/emit-assessment.js",
     "src/generators/emit-discovery.js"
@@ -31,7 +32,7 @@
     "adlc/1-discover/assessment/discovery-report.md (one Discovery Report for all orgs: executive summary, findings with risk and priority, landscape, data model, fit-gap, roadmap, appendix per org)",
     "adlc/1-discover/assessment/discovery/ (complete discovery per org as data, behind the report and the Discovery explorer)",
     "adlc/1-discover/assessment/orgs/ (as-is per org: components, counts, fill rates, markets; no record contents)",
-    "adlc/1-discover/assessment/fit-gap.json (every component with capability and verdict, cross-org matrix)",
+    "adlc/1-discover/assessment/fit-gap.json (every component with capability and verdict, cross-org matrix, and the function-level fit-gap of the Apex code: business functions with verdict and confidence, effort, regression and value, quick wins, cross-cutting findings, order of execution)",
     "adlc/1-discover/assessment/assessment-report.md (summary, as-is, comparison, fit-gap, workshop list)",
     "adlc/1-discover/assessment/architecture.md (principles, how the assessment runs, verdict flow, target direction)"
   ],

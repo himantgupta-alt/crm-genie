@@ -23,7 +23,7 @@
   },
   "findings": [
     "1 of 3 orgs extracted; 14 of 37 markets found in the extracted orgs.",
-    "68 custom components classified: 34% adopt standard, 12% replace with configuration, 10% retain, 0% harmonise, 1% retire, 43% review with client.",
+    "80 custom components classified: 45% adopt standard, 9% replace with configuration, 9% retain, 0% harmonise, 1% retire, 36% review with client.",
     "Cross-org comparison starts once a second org is extracted.",
     "1 component is unused and can be retired before any move.",
     "29 components are not matched to a known capability and go on the workshop agenda."
@@ -93,17 +93,17 @@
         }
       ],
       "counts": {
-        "customObjects": 8,
-        "customFields": 88,
+        "customObjects": 11,
+        "customFields": 115,
         "fieldsOnStandard": 39,
-        "apexClasses": 4,
-        "apexTests": 2,
-        "apexLines": 184,
-        "triggers": 3,
+        "apexClasses": 8,
+        "apexTests": 5,
+        "apexLines": 409,
+        "triggers": 6,
         "flows": 1,
-        "validationRules": 11,
+        "validationRules": 13,
         "packages": 2,
-        "customRecords": 1194,
+        "customRecords": 1637,
         "activeUsers": 4,
         "reports": 30
       },
@@ -112,9 +112,17 @@
         "remoteSites": [
           "ApexDevNet"
         ],
-        "calloutClasses": []
+        "calloutClasses": [
+          "TradePromotionService"
+        ]
       },
       "objects": [
+        {
+          "name": "Promotion_Claim__c",
+          "label": "Promotion Claim",
+          "records": 9,
+          "fields": 5
+        },
         {
           "name": "Promotion_Product__c",
           "label": "Promotion Product",
@@ -142,8 +150,8 @@
         {
           "name": "Store_Visit__c",
           "label": "Store Visit",
-          "records": 210,
-          "fields": 6
+          "records": 252,
+          "fields": 11
         },
         {
           "name": "Subscription_Line__c",
@@ -158,15 +166,27 @@
           "fields": 15
         },
         {
+          "name": "Trade_Fund__c",
+          "label": "Trade Fund",
+          "records": 56,
+          "fields": 6
+        },
+        {
           "name": "Trade_Promotion__c",
           "label": "Trade Promotion",
           "records": 28,
-          "fields": 7
+          "fields": 13
+        },
+        {
+          "name": "Visit_Task__c",
+          "label": "Visit Task",
+          "records": 336,
+          "fields": 5
         }
       ],
       "verdicts": {
-        "adopt": 23,
-        "configure": 8,
+        "adopt": 36,
+        "configure": 7,
         "retain": 7,
         "harmonise": 0,
         "retire": 1,
@@ -195,7 +215,29 @@
       "reference": "Salesforce Help: Consumer Goods Cloud, Retail Execution",
       "perOrg": {
         "eu": [
-          "Store_Visit__c"
+          "Store_Visit__c",
+          "StoreVisitLegacyHandler",
+          "StoreVisitService",
+          "StoreVisitTrigger"
+        ]
+      },
+      "inOrgs": 1,
+      "builtDifferently": false,
+      "fitment": {
+        "eu": "TD"
+      }
+    },
+    {
+      "id": "visit-tasks",
+      "area": "Retail execution",
+      "capability": "Visit tasks",
+      "verdict": "adopt",
+      "standard": "Consumer Goods Cloud: action plan templates create the tasks of each visit (assessment, inventory and price checks)",
+      "licence": "Consumer Goods Cloud",
+      "reference": "Salesforce Help: Consumer Goods Cloud, action plan templates",
+      "perOrg": {
+        "eu": [
+          "Visit_Task__c"
         ]
       },
       "inOrgs": 1,
@@ -214,7 +256,8 @@
       "reference": "Salesforce Help: Consumer Goods Cloud, Retail Execution (assessment tasks, KPIs)",
       "perOrg": {
         "eu": [
-          "Shelf_Check__c"
+          "Shelf_Check__c",
+          "ShelfCheckTrigger"
         ]
       },
       "inOrgs": 1,
@@ -244,7 +287,7 @@
     },
     {
       "id": "trade-promotions",
-      "area": "Revenue growth",
+      "area": "Trade promotion management (TPM)",
       "capability": "Trade promotions and deals",
       "verdict": "adopt",
       "standard": "Consumer Goods Cloud Trade Promotion Management: promotion planning, funds and post-event analysis",
@@ -254,6 +297,8 @@
         "eu": [
           "Promotion_Product__c",
           "Trade_Promotion__c",
+          "TradePromotionService",
+          "TradePromotionTrigger",
           "Trade_Promotion__c.Budget_Required_To_Submit",
           "Trade_Promotion__c.End_After_Start"
         ]
@@ -265,8 +310,50 @@
       }
     },
     {
+      "id": "trade-funds",
+      "area": "Trade promotion management (TPM)",
+      "capability": "Trade funds",
+      "verdict": "adopt",
+      "standard": "Trade Promotion Management: funds with allocated, committed and spent amounts kept by the platform",
+      "licence": "Trade Promotion Management (add-on)",
+      "reference": "Salesforce Help: Trade Promotion Management, funds",
+      "perOrg": {
+        "eu": [
+          "Trade_Fund__c",
+          "Trade_Fund__c.Amount_Positive"
+        ]
+      },
+      "inOrgs": 1,
+      "builtDifferently": false,
+      "fitment": {
+        "eu": "TD"
+      }
+    },
+    {
+      "id": "claims",
+      "area": "Trade promotion management (TPM)",
+      "capability": "Distributor and customer claims",
+      "verdict": "adopt",
+      "standard": "Trade Promotion Management: claims and payments checked against promotion funds",
+      "licence": "Trade Promotion Management (add-on)",
+      "reference": "Salesforce Help: Trade Promotion Management, claims",
+      "perOrg": {
+        "eu": [
+          "Promotion_Claim__c",
+          "PromotionClaimService",
+          "PromotionClaimTrigger",
+          "Promotion_Claim__c.Claim_Positive"
+        ]
+      },
+      "inOrgs": 1,
+      "builtDifferently": false,
+      "fitment": {
+        "eu": "TD"
+      }
+    },
+    {
       "id": "promotion-approval",
-      "area": "Revenue growth",
+      "area": "Trade promotion management (TPM)",
       "capability": "Promotion approval",
       "verdict": "configure",
       "standard": "Approval processes or Flow approval orchestration, with the threshold held as configuration",
@@ -274,8 +361,7 @@
       "reference": "Salesforce Help: Approval processes; Flow approval orchestration",
       "perOrg": {
         "eu": [
-          "TradePromotionApproval",
-          "TradePromotionTrigger"
+          "TradePromotionApproval"
         ]
       },
       "inOrgs": 1,
@@ -465,6 +551,609 @@
       "eu": "RV"
     }
   },
+  "functionFitGap": {
+    "eu": {
+      "region": "eu",
+      "totals": {
+        "components": 7,
+        "classes": 1,
+        "triggerGroups": 6,
+        "lines": 432,
+        "files": 14,
+        "functions": 16,
+        "canMove": 15,
+        "verdicts": {
+          "adopt": 8,
+          "configure": 6,
+          "retain": 1,
+          "harmonise": 0,
+          "retire": 1,
+          "review": 0
+        },
+        "confidence": {
+          "High": 6,
+          "Medium": 10,
+          "Low": 0
+        }
+      },
+      "messages": [
+        "14 of 16 functions could move to standard features or configuration; 1 stay custom, 1 can be retired.",
+        "Integrations stay custom: TradePromotionService. They can still be simplified (named credential, retries through a queue or platform event).",
+        "7 quick wins with low effort and contained regression: sets the status automatically; posts a chatter message; builds and sends an email in code.",
+        "Order of execution matters in 2 places: Shelf Check → Store Visit, Opportunity → Subscription. Steps that depend on each other move together.",
+        "Structural risks: business thresholds held in code; logic keyed on text values; errors hidden from users."
+      ],
+      "quickWins": [
+        {
+          "what": "Sets the status automatically",
+          "component": "TradePromotionApproval",
+          "verdict": "configure",
+          "replaceWith": "Approval process entry criteria or a before-save flow; keep any threshold as custom metadata, not in code.",
+          "effort": "Low",
+          "regression": "Low"
+        },
+        {
+          "what": "Posts a Chatter message",
+          "component": "TradePromotionService",
+          "verdict": "configure",
+          "replaceWith": "Flow 'Post to Chatter' action.",
+          "effort": "Low",
+          "regression": "Medium"
+        },
+        {
+          "what": "Builds and sends an email in code",
+          "component": "TradePromotionService",
+          "verdict": "adopt",
+          "replaceWith": "Email template with an email alert, sent from a flow or an approval step.",
+          "effort": "Low",
+          "regression": "Medium"
+        },
+        {
+          "what": "Blocks the save when a field rule fails",
+          "component": "StoreVisitService",
+          "verdict": "configure",
+          "replaceWith": "Validation rule.",
+          "effort": "Low",
+          "regression": "Medium"
+        },
+        {
+          "what": "Builds and sends an email in code",
+          "component": "StoreVisitService",
+          "verdict": "adopt",
+          "replaceWith": "Email template with an email alert, sent from a flow or an approval step.",
+          "effort": "Low",
+          "regression": "Medium"
+        },
+        {
+          "what": "Sets the status automatically",
+          "component": "PromotionClaimService",
+          "verdict": "configure",
+          "replaceWith": "Approval process entry criteria or a before-save flow; keep any threshold as custom metadata, not in code.",
+          "effort": "Low",
+          "regression": "Low"
+        },
+        {
+          "what": "Whole class: no live code calls it",
+          "component": "StoreVisitLegacyHandler",
+          "verdict": "retire",
+          "replaceWith": "Not called by any active trigger or class and not an entry point (screen, flow, batch, schedule or API). Remove it with its test after confirming in the org.",
+          "effort": "Low",
+          "regression": "Low"
+        }
+      ],
+      "crossCutting": [
+        {
+          "id": "thresholds",
+          "title": "Business thresholds held in code",
+          "severity": "Medium",
+          "detail": "A limit the business owns is changed only by a developer and a release; custom metadata keeps it as configuration.",
+          "where": [
+            "TradePromotionApproval",
+            "TradePromotionService",
+            "SubscriptionService",
+            "StoreVisitService",
+            "OpportunityService",
+            "PromotionClaimService"
+          ]
+        },
+        {
+          "id": "text-keys",
+          "title": "Logic keyed on text values",
+          "severity": "Medium",
+          "detail": "Decisions taken on a user, profile or record name break when a label changes; a custom permission or a setting is safer.",
+          "where": [
+            "TradePromotionService"
+          ]
+        },
+        {
+          "id": "hidden-errors",
+          "title": "Errors hidden from users",
+          "severity": "Medium",
+          "detail": "A catch block only logs the error, so failures are silent.",
+          "where": [
+            "TradePromotionService",
+            "StoreVisitService"
+          ]
+        },
+        {
+          "id": "dead",
+          "title": "Dead code that looks live",
+          "severity": "Medium",
+          "detail": "Code no live trigger or class calls is still deployed; readers and tools can mistake it for live logic.",
+          "where": [
+            "StoreVisitLegacyHandler"
+          ]
+        },
+        {
+          "id": "test-code",
+          "title": "Test-only code in production",
+          "severity": "Low",
+          "detail": "Test.isRunningTest() changes behaviour under test, so tests do not prove what runs in production.",
+          "where": [
+            "TradePromotionService"
+          ]
+        },
+        {
+          "id": "id-prefix",
+          "title": "Hard-coded ID prefixes",
+          "severity": "Low",
+          "detail": "Checks like '005' to tell users from queues; use the Schema describe or instanceof instead.",
+          "where": [
+            "StoreVisitService"
+          ]
+        }
+      ],
+      "chains": [
+        {
+          "from": "Shelf_Check__c",
+          "to": "Store_Visit__c",
+          "via": "ShelfCheckTrigger",
+          "fires": "StoreVisitTrigger",
+          "text": "Saving Shelf Check updates Store Visit (keeps totals on store visit from its related records), which fires StoreVisitTrigger. Move these steps together, or keep them together."
+        },
+        {
+          "from": "Opportunity",
+          "to": "Subscription__c",
+          "via": "OpportunityTrigger",
+          "fires": "SubscriptionTrigger",
+          "text": "Saving Opportunity updates Subscription (creates subscription records automatically), which fires SubscriptionTrigger. Move these steps together, or keep them together."
+        }
+      ],
+      "components": [
+        {
+          "id": "trg-TradePromotionTrigger",
+          "name": "TradePromotionTrigger",
+          "title": "Trade Promotion triggers and handlers",
+          "kind": "Trigger + handlers",
+          "object": "Trade_Promotion__c",
+          "members": [
+            "TradePromotionTrigger",
+            "TradePromotionApproval",
+            "TradePromotionService"
+          ],
+          "lines": 128,
+          "files": 3,
+          "functions": [
+            {
+              "kind": "status",
+              "what": "Sets the status automatically",
+              "verdict": "configure",
+              "confidence": "High",
+              "why": "Approval process entry criteria or a before-save flow; keep any threshold as custom metadata, not in code.",
+              "method": "apply",
+              "component": "TradePromotionApproval"
+            },
+            {
+              "kind": "calc",
+              "what": "Calculates ROI",
+              "verdict": "adopt",
+              "confidence": "Medium",
+              "why": "Covered by the standard feature: Consumer Goods Cloud Trade Promotion Management: promotion planning, funds and post-event analysis.",
+              "method": "calculateResults",
+              "component": "TradePromotionService"
+            },
+            {
+              "kind": "check",
+              "what": "Blocks the save after checking other records (Trade Fund)",
+              "verdict": "adopt",
+              "confidence": "Medium",
+              "why": "Covered by the standard feature: Consumer Goods Cloud Trade Promotion Management: promotion planning, funds and post-event analysis.",
+              "method": "checkFund",
+              "component": "TradePromotionService"
+            },
+            {
+              "kind": "rollup",
+              "what": "Keeps totals on Trade Fund from its related records",
+              "verdict": "configure",
+              "confidence": "Medium",
+              "why": "Roll-up summary field where the relationship is master-detail; otherwise a record-triggered flow.",
+              "method": "updateFundCommitted",
+              "component": "TradePromotionService"
+            },
+            {
+              "kind": "chatter",
+              "what": "Posts a Chatter message",
+              "verdict": "configure",
+              "confidence": "High",
+              "why": "Flow 'Post to Chatter' action.",
+              "method": "postApprovalToChatter",
+              "component": "TradePromotionService"
+            },
+            {
+              "kind": "email",
+              "what": "Builds and sends an email in code",
+              "verdict": "adopt",
+              "confidence": "Medium",
+              "why": "Email template with an email alert, sent from a flow or an approval step.",
+              "method": "emailKeyAccountManager",
+              "component": "TradePromotionService"
+            },
+            {
+              "kind": "integration",
+              "what": "Calls an external system asynchronously (@future)",
+              "verdict": "retain",
+              "confidence": "High",
+              "why": "External system integration; no standard feature replaces it. Keep it behind a named credential; a queue or platform event adds retries.",
+              "method": "sendToErp",
+              "component": "TradePromotionService"
+            }
+          ],
+          "writes": [
+            "Trade_Fund__c"
+          ],
+          "capability": "trade-promotions",
+          "issues": [
+            {
+              "id": "thresholds",
+              "title": "Business thresholds held in code",
+              "severity": "Medium",
+              "in": "TradePromotionApproval"
+            },
+            {
+              "id": "test-code",
+              "title": "Test-only code in production",
+              "severity": "Low",
+              "in": "TradePromotionService"
+            },
+            {
+              "id": "text-keys",
+              "title": "Logic keyed on text values",
+              "severity": "Medium",
+              "in": "TradePromotionService"
+            },
+            {
+              "id": "hidden-errors",
+              "title": "Errors hidden from users",
+              "severity": "Medium",
+              "in": "TradePromotionService"
+            },
+            {
+              "id": "thresholds",
+              "title": "Business thresholds held in code",
+              "severity": "Medium",
+              "in": "TradePromotionService"
+            }
+          ],
+          "active": true,
+          "callout": true,
+          "canMove": 6,
+          "overall": "Partly standard",
+          "effort": "High",
+          "regression": "High",
+          "value": "High",
+          "area": "Trade promotion management (TPM)",
+          "summary": "7 business functions across TradePromotionTrigger, TradePromotionApproval, TradePromotionService: sets the status automatically; calculates roi; blocks the save after checking other records (trade fund); keeps totals on trade fund from its related records; …."
+        },
+        {
+          "id": "trg-SubscriptionTrigger",
+          "name": "SubscriptionTrigger",
+          "title": "Subscription triggers and handlers",
+          "kind": "Trigger + handlers",
+          "object": "Subscription__c",
+          "members": [
+            "SubscriptionTrigger",
+            "SubscriptionService"
+          ],
+          "lines": 77,
+          "files": 2,
+          "functions": [
+            {
+              "kind": "calc",
+              "what": "Calculates Health Score, End Date, Term Months",
+              "verdict": "adopt",
+              "confidence": "Medium",
+              "why": "Covered by the standard feature: Revenue Cloud subscription management.",
+              "method": "applyDefaults",
+              "component": "SubscriptionService"
+            }
+          ],
+          "writes": [],
+          "capability": "subscriptions",
+          "issues": [
+            {
+              "id": "thresholds",
+              "title": "Business thresholds held in code",
+              "severity": "Medium",
+              "in": "SubscriptionService"
+            }
+          ],
+          "active": true,
+          "callout": false,
+          "canMove": 1,
+          "overall": "Can move",
+          "effort": "Medium",
+          "regression": "Medium",
+          "value": "Medium",
+          "area": "Other",
+          "summary": "1 business function across SubscriptionTrigger, SubscriptionService: calculates health score, end date, term months."
+        },
+        {
+          "id": "trg-ShelfCheckTrigger",
+          "name": "ShelfCheckTrigger",
+          "title": "Shelf Check triggers and handlers",
+          "kind": "Trigger + handlers",
+          "object": "Shelf_Check__c",
+          "members": [
+            "ShelfCheckTrigger",
+            "StoreVisitService"
+          ],
+          "lines": 69,
+          "files": 2,
+          "functions": [
+            {
+              "kind": "rollup",
+              "what": "Keeps totals on Store Visit from its related records",
+              "verdict": "configure",
+              "confidence": "Medium",
+              "why": "Roll-up summary field where the relationship is master-detail; otherwise a record-triggered flow.",
+              "method": "countOutOfStocks",
+              "component": "StoreVisitService"
+            }
+          ],
+          "writes": [
+            "Store_Visit__c"
+          ],
+          "capability": "in-store-audit",
+          "issues": [
+            {
+              "id": "id-prefix",
+              "title": "Hard-coded ID prefixes",
+              "severity": "Low",
+              "in": "StoreVisitService"
+            },
+            {
+              "id": "hidden-errors",
+              "title": "Errors hidden from users",
+              "severity": "Medium",
+              "in": "StoreVisitService"
+            },
+            {
+              "id": "thresholds",
+              "title": "Business thresholds held in code",
+              "severity": "Medium",
+              "in": "StoreVisitService"
+            }
+          ],
+          "active": true,
+          "callout": false,
+          "canMove": 1,
+          "overall": "Can move",
+          "effort": "Medium",
+          "regression": "High",
+          "value": "Medium",
+          "area": "Retail execution",
+          "summary": "1 business function across ShelfCheckTrigger, StoreVisitService: keeps totals on store visit from its related records."
+        },
+        {
+          "id": "trg-StoreVisitTrigger",
+          "name": "StoreVisitTrigger",
+          "title": "Store Visit triggers and handlers",
+          "kind": "Trigger + handlers",
+          "object": "Store_Visit__c",
+          "members": [
+            "StoreVisitTrigger",
+            "StoreVisitService"
+          ],
+          "lines": 69,
+          "files": 2,
+          "functions": [
+            {
+              "kind": "create",
+              "what": "Creates Visit Task records automatically",
+              "verdict": "adopt",
+              "confidence": "Medium",
+              "why": "Covered by the standard feature: Consumer Goods Cloud: Visit and Retail Store, with visit tasks on the mobile app.",
+              "method": "createVisitTasks",
+              "component": "StoreVisitService"
+            },
+            {
+              "kind": "rule",
+              "what": "Blocks the save when a field rule fails",
+              "verdict": "configure",
+              "confidence": "High",
+              "why": "Validation rule.",
+              "method": "requireCheckIn",
+              "component": "StoreVisitService"
+            },
+            {
+              "kind": "email",
+              "what": "Builds and sends an email in code",
+              "verdict": "adopt",
+              "confidence": "Medium",
+              "why": "Email template with an email alert, sent from a flow or an approval step.",
+              "method": "alertAreaManager",
+              "component": "StoreVisitService"
+            }
+          ],
+          "writes": [
+            "Visit_Task__c"
+          ],
+          "capability": "store-visits",
+          "issues": [
+            {
+              "id": "id-prefix",
+              "title": "Hard-coded ID prefixes",
+              "severity": "Low",
+              "in": "StoreVisitService"
+            },
+            {
+              "id": "hidden-errors",
+              "title": "Errors hidden from users",
+              "severity": "Medium",
+              "in": "StoreVisitService"
+            },
+            {
+              "id": "thresholds",
+              "title": "Business thresholds held in code",
+              "severity": "Medium",
+              "in": "StoreVisitService"
+            }
+          ],
+          "active": true,
+          "callout": false,
+          "canMove": 3,
+          "overall": "Can move",
+          "effort": "Medium",
+          "regression": "Medium",
+          "value": "High",
+          "area": "Retail execution",
+          "summary": "3 business functions across StoreVisitTrigger, StoreVisitService: creates visit task records automatically; blocks the save when a field rule fails; builds and sends an email in code."
+        },
+        {
+          "id": "trg-OpportunityTrigger",
+          "name": "OpportunityTrigger",
+          "title": "Opportunity triggers and handlers",
+          "kind": "Trigger + handlers",
+          "object": "Opportunity",
+          "members": [
+            "OpportunityTrigger",
+            "OpportunityService"
+          ],
+          "lines": 53,
+          "files": 2,
+          "functions": [
+            {
+              "kind": "create",
+              "what": "Creates Subscription records automatically",
+              "verdict": "adopt",
+              "confidence": "Medium",
+              "why": "Covered by the standard feature: Revenue Cloud subscription management.",
+              "method": "createSubscriptionsForWonDeals",
+              "component": "OpportunityService"
+            }
+          ],
+          "writes": [
+            "Subscription__c"
+          ],
+          "capability": "subscriptions",
+          "issues": [
+            {
+              "id": "thresholds",
+              "title": "Business thresholds held in code",
+              "severity": "Medium",
+              "in": "OpportunityService"
+            }
+          ],
+          "active": true,
+          "callout": false,
+          "canMove": 1,
+          "overall": "Can move",
+          "effort": "Low",
+          "regression": "High",
+          "value": "Medium",
+          "area": "Other",
+          "summary": "1 business function across OpportunityTrigger, OpportunityService: creates subscription records automatically."
+        },
+        {
+          "id": "trg-PromotionClaimTrigger",
+          "name": "PromotionClaimTrigger",
+          "title": "Promotion Claim triggers and handlers",
+          "kind": "Trigger + handlers",
+          "object": "Promotion_Claim__c",
+          "members": [
+            "PromotionClaimTrigger",
+            "PromotionClaimService"
+          ],
+          "lines": 27,
+          "files": 2,
+          "functions": [
+            {
+              "kind": "check",
+              "what": "Blocks the save after checking other records (Trade Promotion)",
+              "verdict": "adopt",
+              "confidence": "Medium",
+              "why": "Covered by the standard feature: Trade Promotion Management: claims and payments checked against promotion funds.",
+              "method": "checkAgainstSpend",
+              "component": "PromotionClaimService"
+            },
+            {
+              "kind": "status",
+              "what": "Sets the status automatically",
+              "verdict": "configure",
+              "confidence": "High",
+              "why": "Approval process entry criteria or a before-save flow; keep any threshold as custom metadata, not in code.",
+              "method": "autoApprove",
+              "component": "PromotionClaimService"
+            }
+          ],
+          "writes": [],
+          "capability": "claims",
+          "issues": [
+            {
+              "id": "thresholds",
+              "title": "Business thresholds held in code",
+              "severity": "Medium",
+              "in": "PromotionClaimService"
+            }
+          ],
+          "active": true,
+          "callout": false,
+          "canMove": 2,
+          "overall": "Can move",
+          "effort": "Low",
+          "regression": "Medium",
+          "value": "Medium",
+          "area": "Trade promotion management (TPM)",
+          "summary": "2 business functions across PromotionClaimTrigger, PromotionClaimService: blocks the save after checking other records (trade promotion); sets the status automatically."
+        },
+        {
+          "id": "cls-StoreVisitLegacyHandler",
+          "name": "StoreVisitLegacyHandler",
+          "title": "Store Visit Legacy Handler",
+          "kind": "Apex class",
+          "object": "Store_Visit__c",
+          "members": [
+            "StoreVisitLegacyHandler"
+          ],
+          "lines": 9,
+          "files": 1,
+          "functions": [
+            {
+              "kind": "dead",
+              "what": "Whole class: no live code calls it",
+              "verdict": "retire",
+              "confidence": "High",
+              "why": "Not called by any active trigger or class and not an entry point (screen, flow, batch, schedule or API). Remove it with its test after confirming in the org.",
+              "method": "(class)",
+              "component": "StoreVisitLegacyHandler"
+            }
+          ],
+          "writes": [],
+          "capability": "store-visits",
+          "issues": [],
+          "dead": true,
+          "callout": false,
+          "canMove": 1,
+          "overall": "Retire",
+          "effort": "Low",
+          "regression": "Low",
+          "value": "Medium",
+          "area": "Retail execution",
+          "summary": "1 business function: whole class: no live code calls it."
+        }
+      ]
+    }
+  },
   "items": [
     {
       "org": "eu",
@@ -484,6 +1173,67 @@
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
       "decisionOwner": "Client other owner (to confirm)"
+    },
+    {
+      "org": "eu",
+      "kind": "Apex class",
+      "name": "PromotionClaimService",
+      "capability": "claims",
+      "verdict": "adopt",
+      "reason": "Trade Promotion Management: claims and payments checked against promotion funds",
+      "confidence": "High",
+      "lines": 23,
+      "objects": [
+        "Promotion_Claim__c",
+        "Trade_Promotion__c"
+      ],
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Medium term",
+      "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
+      "where": "Europe org",
+      "decisionOwner": "Client trade promotion management (tpm) owner (to confirm)"
+    },
+    {
+      "org": "eu",
+      "kind": "Apex class",
+      "name": "StoreVisitLegacyHandler",
+      "capability": "store-visits",
+      "verdict": "adopt",
+      "reason": "Consumer Goods Cloud: Visit and Retail Store, with visit tasks on the mobile app",
+      "confidence": "High",
+      "lines": 9,
+      "objects": [
+        "Store_Visit__c"
+      ],
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Medium term",
+      "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
+      "where": "Europe org",
+      "decisionOwner": "Client retail execution owner (to confirm)"
+    },
+    {
+      "org": "eu",
+      "kind": "Apex class",
+      "name": "StoreVisitService",
+      "capability": "store-visits",
+      "verdict": "adopt",
+      "reason": "Consumer Goods Cloud: Visit and Retail Store, with visit tasks on the mobile app",
+      "confidence": "High",
+      "lines": 64,
+      "objects": [
+        "Shelf_Check__c",
+        "Store_Assortment__c",
+        "Store_Visit__c",
+        "Visit_Task__c"
+      ],
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Medium term",
+      "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
+      "where": "Europe org",
+      "decisionOwner": "Client retail execution owner (to confirm)"
     },
     {
       "org": "eu",
@@ -540,7 +1290,27 @@
       "priority": "Quick win",
       "impact": "The business changes the rule as a setting, without a developer or a release.",
       "where": "Europe org",
-      "decisionOwner": "Client revenue growth owner (to confirm)"
+      "decisionOwner": "Client trade promotion management (tpm) owner (to confirm)"
+    },
+    {
+      "org": "eu",
+      "kind": "Apex class",
+      "name": "TradePromotionService",
+      "capability": "trade-promotions",
+      "verdict": "adopt",
+      "reason": "Consumer Goods Cloud Trade Promotion Management: promotion planning, funds and post-event analysis",
+      "confidence": "High",
+      "lines": 99,
+      "objects": [
+        "Trade_Fund__c",
+        "Trade_Promotion__c"
+      ],
+      "layer": "Client custom",
+      "effort": "Medium",
+      "priority": "Medium term",
+      "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
+      "where": "Europe org",
+      "decisionOwner": "Client trade promotion management (tpm) owner (to confirm)"
     },
     {
       "org": "eu",
@@ -558,6 +1328,57 @@
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
       "decisionOwner": "Client other owner (to confirm)"
+    },
+    {
+      "org": "eu",
+      "kind": "Apex trigger",
+      "name": "PromotionClaimTrigger",
+      "capability": "claims",
+      "verdict": "adopt",
+      "reason": "Trade Promotion Management: claims and payments checked against promotion funds",
+      "confidence": "Medium",
+      "object": "Promotion_Claim__c",
+      "lines": 4,
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Medium term",
+      "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
+      "where": "Europe org",
+      "decisionOwner": "Client trade promotion management (tpm) owner (to confirm)"
+    },
+    {
+      "org": "eu",
+      "kind": "Apex trigger",
+      "name": "ShelfCheckTrigger",
+      "capability": "in-store-audit",
+      "verdict": "adopt",
+      "reason": "Consumer Goods Cloud: assessment tasks and retail store KPIs recorded during a visit",
+      "confidence": "Medium",
+      "object": "Shelf_Check__c",
+      "lines": 5,
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Medium term",
+      "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
+      "where": "Europe org",
+      "decisionOwner": "Client retail execution owner (to confirm)"
+    },
+    {
+      "org": "eu",
+      "kind": "Apex trigger",
+      "name": "StoreVisitTrigger",
+      "capability": "store-visits",
+      "verdict": "adopt",
+      "reason": "Consumer Goods Cloud: Visit and Retail Store, with visit tasks on the mobile app",
+      "confidence": "Medium",
+      "object": "Store_Visit__c",
+      "lines": 5,
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Medium term",
+      "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
+      "where": "Europe org",
+      "decisionOwner": "Client retail execution owner (to confirm)"
     },
     {
       "org": "eu",
@@ -580,18 +1401,18 @@
       "org": "eu",
       "kind": "Apex trigger",
       "name": "TradePromotionTrigger",
-      "capability": "promotion-approval",
-      "verdict": "configure",
-      "reason": "Approval processes or Flow approval orchestration, with the threshold held as configuration",
-      "confidence": "High",
+      "capability": "trade-promotions",
+      "verdict": "adopt",
+      "reason": "Consumer Goods Cloud Trade Promotion Management: promotion planning, funds and post-event analysis",
+      "confidence": "Medium",
       "object": "Trade_Promotion__c",
-      "lines": 3,
+      "lines": 19,
       "layer": "Client custom",
       "effort": "Low",
-      "priority": "Quick win",
-      "impact": "The business changes the rule as a setting, without a developer or a release.",
+      "priority": "Medium term",
+      "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Client revenue growth owner (to confirm)"
+      "decisionOwner": "Client trade promotion management (tpm) owner (to confirm)"
     },
     {
       "org": "eu",
@@ -1259,6 +2080,23 @@
     {
       "org": "eu",
       "kind": "Custom object",
+      "name": "Promotion_Claim__c",
+      "capability": "claims",
+      "verdict": "adopt",
+      "reason": "Trade Promotion Management: claims and payments checked against promotion funds",
+      "confidence": "High",
+      "records": 9,
+      "fields": 5,
+      "layer": "Client custom",
+      "effort": "Medium",
+      "priority": "Medium term",
+      "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
+      "where": "Europe org",
+      "decisionOwner": "Client trade promotion management (tpm) owner (to confirm)"
+    },
+    {
+      "org": "eu",
+      "kind": "Custom object",
       "name": "Promotion_Product__c",
       "capability": "trade-promotions",
       "verdict": "adopt",
@@ -1271,7 +2109,7 @@
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Client revenue growth owner (to confirm)"
+      "decisionOwner": "Client trade promotion management (tpm) owner (to confirm)"
     },
     {
       "org": "eu",
@@ -1332,8 +2170,8 @@
       "verdict": "adopt",
       "reason": "Consumer Goods Cloud: Visit and Retail Store, with visit tasks on the mobile app",
       "confidence": "High",
-      "records": 210,
-      "fields": 6,
+      "records": 252,
+      "fields": 11,
       "layer": "Client custom",
       "effort": "Medium",
       "priority": "Medium term",
@@ -1378,19 +2216,53 @@
     {
       "org": "eu",
       "kind": "Custom object",
+      "name": "Trade_Fund__c",
+      "capability": "trade-funds",
+      "verdict": "adopt",
+      "reason": "Trade Promotion Management: funds with allocated, committed and spent amounts kept by the platform",
+      "confidence": "High",
+      "records": 56,
+      "fields": 6,
+      "layer": "Client custom",
+      "effort": "Medium",
+      "priority": "Medium term",
+      "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
+      "where": "Europe org",
+      "decisionOwner": "Client trade promotion management (tpm) owner (to confirm)"
+    },
+    {
+      "org": "eu",
+      "kind": "Custom object",
       "name": "Trade_Promotion__c",
       "capability": "trade-promotions",
       "verdict": "adopt",
       "reason": "Consumer Goods Cloud Trade Promotion Management: promotion planning, funds and post-event analysis",
       "confidence": "High",
       "records": 28,
-      "fields": 7,
+      "fields": 13,
       "layer": "Client custom",
       "effort": "Medium",
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Client revenue growth owner (to confirm)"
+      "decisionOwner": "Client trade promotion management (tpm) owner (to confirm)"
+    },
+    {
+      "org": "eu",
+      "kind": "Custom object",
+      "name": "Visit_Task__c",
+      "capability": "visit-tasks",
+      "verdict": "adopt",
+      "reason": "Consumer Goods Cloud: action plan templates create the tasks of each visit (assessment, inventory and price checks)",
+      "confidence": "High",
+      "records": 336,
+      "fields": 5,
+      "layer": "Client custom",
+      "effort": "Medium",
+      "priority": "Medium term",
+      "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
+      "where": "Europe org",
+      "decisionOwner": "Client retail execution owner (to confirm)"
     },
     {
       "org": "eu",
@@ -1485,6 +2357,22 @@
       "impact": "Purpose, usage or licensing to confirm before a verdict.",
       "where": "Europe org",
       "decisionOwner": "Client product owner (to confirm)"
+    },
+    {
+      "org": "eu",
+      "kind": "Validation rule",
+      "name": "Promotion_Claim__c.Claim_Positive",
+      "capability": "claims",
+      "verdict": "adopt",
+      "reason": "Trade Promotion Management: claims and payments checked against promotion funds",
+      "confidence": "High",
+      "object": "Promotion_Claim__c",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Medium term",
+      "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
+      "where": "Europe org",
+      "decisionOwner": "Client trade promotion management (tpm) owner (to confirm)"
     },
     {
       "org": "eu",
@@ -1585,6 +2473,22 @@
     {
       "org": "eu",
       "kind": "Validation rule",
+      "name": "Trade_Fund__c.Amount_Positive",
+      "capability": "trade-funds",
+      "verdict": "adopt",
+      "reason": "Trade Promotion Management: funds with allocated, committed and spent amounts kept by the platform",
+      "confidence": "High",
+      "object": "Trade_Fund__c",
+      "layer": "Client custom",
+      "effort": "Low",
+      "priority": "Medium term",
+      "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
+      "where": "Europe org",
+      "decisionOwner": "Client trade promotion management (tpm) owner (to confirm)"
+    },
+    {
+      "org": "eu",
+      "kind": "Validation rule",
       "name": "Trade_Promotion__c.Budget_Required_To_Submit",
       "capability": "trade-promotions",
       "verdict": "adopt",
@@ -1596,7 +2500,7 @@
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Client revenue growth owner (to confirm)"
+      "decisionOwner": "Client trade promotion management (tpm) owner (to confirm)"
     },
     {
       "org": "eu",
@@ -1612,7 +2516,7 @@
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Client revenue growth owner (to confirm)"
+      "decisionOwner": "Client trade promotion management (tpm) owner (to confirm)"
     }
   ]
 }

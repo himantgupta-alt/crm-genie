@@ -14,12 +14,25 @@
       "area": "Retail execution",
       "capability": "Store visits",
       "match": {
-        "objects": "^(Store|Outlet|Field|Retail)_?Visit__c$"
+        "objects": "^(Store|Outlet|Field|Retail)_?Visit__c$",
+        "classes": "^(Store|Outlet|Field)Visit\\w*$"
       },
       "verdict": "adopt",
       "standard": "Consumer Goods Cloud: Visit and Retail Store, with visit tasks on the mobile app",
       "licence": "Consumer Goods Cloud",
       "reference": "Salesforce Help: Consumer Goods Cloud, Retail Execution"
+    },
+    {
+      "id": "visit-tasks",
+      "area": "Retail execution",
+      "capability": "Visit tasks",
+      "match": {
+        "objects": "^(Visit_Task|Visit_Activity|Visit_Action)__c$"
+      },
+      "verdict": "adopt",
+      "standard": "Consumer Goods Cloud: action plan templates create the tasks of each visit (assessment, inventory and price checks)",
+      "licence": "Consumer Goods Cloud",
+      "reference": "Salesforce Help: Consumer Goods Cloud, action plan templates"
     },
     {
       "id": "in-store-audit",
@@ -72,10 +85,11 @@
     },
     {
       "id": "trade-promotions",
-      "area": "Revenue growth",
+      "area": "Trade promotion management (TPM)",
       "capability": "Trade promotions and deals",
       "match": {
-        "objects": "^(Trade_Promotion|Trade_Deal|Promotion_Product|Promotion_Line)__c$"
+        "objects": "^(Trade_Promotion|Trade_Deal|Promotion_Product|Promotion_Line)__c$",
+        "classes": "^TradePromotionService$"
       },
       "verdict": "adopt",
       "standard": "Consumer Goods Cloud Trade Promotion Management: promotion planning, funds and post-event analysis",
@@ -83,11 +97,24 @@
       "reference": "Salesforce Help: Consumer Goods Cloud, Trade Promotion Management"
     },
     {
+      "id": "trade-funds",
+      "area": "Trade promotion management (TPM)",
+      "capability": "Trade funds",
+      "match": {
+        "objects": "^(Trade_Fund|Promotion_Fund|Fund)__c$"
+      },
+      "verdict": "adopt",
+      "standard": "Trade Promotion Management: funds with allocated, committed and spent amounts kept by the platform",
+      "licence": "Trade Promotion Management (add-on)",
+      "reference": "Salesforce Help: Trade Promotion Management, funds"
+    },
+    {
       "id": "claims",
-      "area": "Revenue growth",
+      "area": "Trade promotion management (TPM)",
       "capability": "Distributor and customer claims",
       "match": {
-        "objects": "^(Distributor_Claim|Customer_Claim|Claim)__c$"
+        "objects": "^(Distributor_Claim|Customer_Claim|Promotion_Claim|Claim)__c$",
+        "classes": "^(Distributor|Promotion)Claim\\w*$"
       },
       "verdict": "adopt",
       "standard": "Trade Promotion Management: claims and payments checked against promotion funds",
@@ -96,11 +123,10 @@
     },
     {
       "id": "promotion-approval",
-      "area": "Revenue growth",
+      "area": "Trade promotion management (TPM)",
       "capability": "Promotion approval",
       "match": {
-        "classes": "^TradePromotionApproval$",
-        "triggers": "^TradePromotionTrigger$"
+        "classes": "^TradePromotionApproval$"
       },
       "verdict": "configure",
       "standard": "Approval processes or Flow approval orchestration, with the threshold held as configuration",

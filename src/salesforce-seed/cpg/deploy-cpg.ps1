@@ -44,5 +44,9 @@ try {
   # Exit code 1 here usually means the user already has it.
   sf apex run --file seed-data.apex --target-org $Alias
   if ($LASTEXITCODE -ne 0) { throw "seed data failed on $Alias" }
+  if (Test-Path seed-extra.apex) {
+    sf apex run --file seed-extra.apex --target-org $Alias
+    if ($LASTEXITCODE -ne 0) { throw "extra seed data failed on $Alias" }
+  }
   Write-Host "Brightwell $Region org ready on $Alias"
 } finally { Pop-Location }

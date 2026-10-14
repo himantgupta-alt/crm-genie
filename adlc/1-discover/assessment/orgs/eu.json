@@ -66,6 +66,49 @@
   ],
   "objects": [
     {
+      "name": "Promotion_Claim__c",
+      "label": "Promotion Claim",
+      "records": 9,
+      "fields": [
+        {
+          "name": "Account__c",
+          "label": "Customer",
+          "type": "Lookup",
+          "references": [
+            "Account"
+          ],
+          "fill": 100
+        },
+        {
+          "name": "Claim_Amount__c",
+          "label": "Claim Amount",
+          "type": "currency",
+          "fill": 100
+        },
+        {
+          "name": "Invoice_Number__c",
+          "label": "Invoice Number",
+          "type": "string",
+          "fill": 100
+        },
+        {
+          "name": "Status__c",
+          "label": "Status",
+          "type": "picklist",
+          "fill": 100
+        },
+        {
+          "name": "Trade_Promotion__c",
+          "label": "Trade Promotion",
+          "type": "Lookup",
+          "references": [
+            "Trade_Promotion__c"
+          ],
+          "fill": 100
+        }
+      ]
+    },
+    {
       "name": "Promotion_Product__c",
       "label": "Promotion Product",
       "records": 56,
@@ -207,7 +250,7 @@
     {
       "name": "Store_Visit__c",
       "label": "Store Visit",
-      "records": 210,
+      "records": 252,
       "fields": [
         {
           "name": "Account__c",
@@ -219,10 +262,40 @@
           "fill": 100
         },
         {
+          "name": "Check_In_Latitude__c",
+          "label": "Check-in Latitude",
+          "type": "double",
+          "fill": 42
+        },
+        {
+          "name": "Check_In_Longitude__c",
+          "label": "Check-in Longitude",
+          "type": "double",
+          "fill": 42
+        },
+        {
+          "name": "Checked_In__c",
+          "label": "Checked In",
+          "type": "boolean",
+          "fill": 42
+        },
+        {
+          "name": "Compliance_Pct__c",
+          "label": "Shelf Compliance",
+          "type": "percent",
+          "fill": 42
+        },
+        {
           "name": "Notes__c",
           "label": "Notes",
           "type": "textarea",
           "fill": null
+        },
+        {
+          "name": "Out_Of_Stocks__c",
+          "label": "Out of Stocks",
+          "type": "double",
+          "fill": 50
         },
         {
           "name": "Shelf_Checks__c",
@@ -406,6 +479,52 @@
       ]
     },
     {
+      "name": "Trade_Fund__c",
+      "label": "Trade Fund",
+      "records": 56,
+      "fields": [
+        {
+          "name": "Account__c",
+          "label": "Customer",
+          "type": "Lookup",
+          "references": [
+            "Account"
+          ],
+          "fill": 100
+        },
+        {
+          "name": "Amount__c",
+          "label": "Amount",
+          "type": "currency",
+          "fill": 100
+        },
+        {
+          "name": "Committed__c",
+          "label": "Committed",
+          "type": "currency",
+          "fill": 50
+        },
+        {
+          "name": "Fund_Type__c",
+          "label": "Fund Type",
+          "type": "picklist",
+          "fill": 100
+        },
+        {
+          "name": "Status__c",
+          "label": "Status",
+          "type": "picklist",
+          "fill": 100
+        },
+        {
+          "name": "Year__c",
+          "label": "Year",
+          "type": "double",
+          "fill": 100
+        }
+      ]
+    },
+    {
       "name": "Trade_Promotion__c",
       "label": "Trade Promotion",
       "records": 28,
@@ -420,10 +539,34 @@
           "fill": 100
         },
         {
+          "name": "Actual_Spend__c",
+          "label": "Actual Spend",
+          "type": "currency",
+          "fill": 64
+        },
+        {
+          "name": "Actual_Volume__c",
+          "label": "Actual Volume (cases)",
+          "type": "double",
+          "fill": 64
+        },
+        {
+          "name": "Baseline_Volume__c",
+          "label": "Baseline Volume (cases)",
+          "type": "double",
+          "fill": 64
+        },
+        {
           "name": "Budget__c",
           "label": "Budget",
           "type": "currency",
           "fill": 100
+        },
+        {
+          "name": "ERP_Synced__c",
+          "label": "Sent to ERP",
+          "type": "boolean",
+          "fill": 0
         },
         {
           "name": "End_Date__c",
@@ -438,6 +581,12 @@
           "fill": 100
         },
         {
+          "name": "ROI__c",
+          "label": "Return on Investment",
+          "type": "percent",
+          "fill": 64
+        },
+        {
           "name": "Start_Date__c",
           "label": "Start Date",
           "type": "date",
@@ -450,9 +599,61 @@
           "fill": 100
         },
         {
+          "name": "Trade_Fund__c",
+          "label": "Trade Fund",
+          "type": "Lookup",
+          "references": [
+            "Trade_Fund__c"
+          ],
+          "fill": 100
+        },
+        {
           "name": "Uplift_Pct__c",
           "label": "Expected Uplift",
           "type": "percent",
+          "fill": 100
+        }
+      ]
+    },
+    {
+      "name": "Visit_Task__c",
+      "label": "Visit Task",
+      "records": 336,
+      "fields": [
+        {
+          "name": "Done__c",
+          "label": "Done",
+          "type": "boolean",
+          "fill": 60
+        },
+        {
+          "name": "Product__c",
+          "label": "Product",
+          "type": "Lookup",
+          "references": [
+            "Product2"
+          ],
+          "fill": 25
+        },
+        {
+          "name": "Result__c",
+          "label": "Result",
+          "type": "string",
+          "fill": 75
+        },
+        {
+          "name": "Store_Visit__c",
+          "label": "Store Visit",
+          "type": "Master-detail",
+          "references": [
+            "Store_Visit__c"
+          ],
+          "fill": 100
+        },
+        {
+          "name": "Task_Type__c",
+          "label": "Task Type",
+          "type": "picklist",
           "fill": 100
         }
       ]
@@ -739,6 +940,248 @@
         "callout": false,
         "objects": [
           "Subscription__c"
+        ],
+        "analysis": {
+          "name": "OpportunityService",
+          "functions": [
+            {
+              "kind": "create",
+              "what": "Creates Subscription records automatically",
+              "verdict": "configure",
+              "confidence": "Medium",
+              "why": "Record-triggered flow creating the records.",
+              "method": "createSubscriptionsForWonDeals"
+            }
+          ],
+          "issues": [
+            {
+              "id": "thresholds",
+              "title": "Business thresholds held in code",
+              "severity": "Medium"
+            }
+          ],
+          "calls": [
+            "Date.today"
+          ],
+          "methodInfo": [
+            {
+              "name": "createSubscriptionsForWonDeals",
+              "local": [],
+              "writes": [
+                "Subscription__c"
+              ]
+            }
+          ],
+          "lines": 47
+        },
+        "unreferenced": false
+      },
+      {
+        "name": "PromotionClaimService",
+        "lines": 23,
+        "test": false,
+        "callout": false,
+        "objects": [
+          "Promotion_Claim__c",
+          "Trade_Promotion__c"
+        ],
+        "analysis": {
+          "name": "PromotionClaimService",
+          "functions": [
+            {
+              "kind": "check",
+              "what": "Blocks the save after checking other records (Trade Promotion)",
+              "verdict": "retain",
+              "confidence": "Medium",
+              "why": "The check needs other records, which a validation rule cannot read; keep it, or move it to a before-save flow with a lookup.",
+              "method": "checkAgainstSpend"
+            },
+            {
+              "kind": "status",
+              "what": "Sets the status automatically",
+              "verdict": "configure",
+              "confidence": "High",
+              "why": "Approval process entry criteria or a before-save flow; keep any threshold as custom metadata, not in code.",
+              "method": "autoApprove"
+            }
+          ],
+          "issues": [
+            {
+              "id": "thresholds",
+              "title": "Business thresholds held in code",
+              "severity": "Medium"
+            }
+          ],
+          "calls": [],
+          "methodInfo": [
+            {
+              "name": "checkAgainstSpend",
+              "local": [],
+              "writes": []
+            },
+            {
+              "name": "autoApprove",
+              "local": [],
+              "writes": []
+            }
+          ],
+          "lines": 23
+        },
+        "unreferenced": false
+      },
+      {
+        "name": "PromotionClaimServiceTest",
+        "lines": 27,
+        "test": true,
+        "callout": false,
+        "objects": [
+          "Promotion_Claim__c",
+          "Trade_Promotion__c"
+        ]
+      },
+      {
+        "name": "StoreVisitLegacyHandler",
+        "lines": 9,
+        "test": false,
+        "callout": false,
+        "objects": [
+          "Store_Visit__c"
+        ],
+        "analysis": {
+          "name": "StoreVisitLegacyHandler",
+          "functions": [
+            {
+              "kind": "calc",
+              "what": "Calculates Check In Latitude, Check In Longitude, Checked In",
+              "verdict": "configure",
+              "confidence": "High",
+              "why": "Formula field, or a before-save flow if the value must be stored.",
+              "method": "stampCheckIn"
+            }
+          ],
+          "issues": [],
+          "calls": [],
+          "methodInfo": [
+            {
+              "name": "stampCheckIn",
+              "local": [],
+              "writes": []
+            }
+          ],
+          "lines": 9
+        },
+        "unreferenced": true
+      },
+      {
+        "name": "StoreVisitService",
+        "lines": 64,
+        "test": false,
+        "callout": false,
+        "objects": [
+          "Shelf_Check__c",
+          "Store_Assortment__c",
+          "Store_Visit__c",
+          "Visit_Task__c"
+        ],
+        "analysis": {
+          "name": "StoreVisitService",
+          "functions": [
+            {
+              "kind": "create",
+              "what": "Creates Visit Task records automatically",
+              "verdict": "configure",
+              "confidence": "Medium",
+              "why": "Record-triggered flow creating the records.",
+              "method": "createVisitTasks"
+            },
+            {
+              "kind": "rule",
+              "what": "Blocks the save when a field rule fails",
+              "verdict": "configure",
+              "confidence": "High",
+              "why": "Validation rule.",
+              "method": "requireCheckIn"
+            },
+            {
+              "kind": "rollup",
+              "what": "Keeps totals on Store Visit from its related records",
+              "verdict": "configure",
+              "confidence": "Medium",
+              "why": "Roll-up summary field where the relationship is master-detail; otherwise a record-triggered flow.",
+              "method": "countOutOfStocks"
+            },
+            {
+              "kind": "email",
+              "what": "Builds and sends an email in code",
+              "verdict": "adopt",
+              "confidence": "Medium",
+              "why": "Email template with an email alert, sent from a flow or an approval step.",
+              "method": "alertAreaManager"
+            }
+          ],
+          "issues": [
+            {
+              "id": "id-prefix",
+              "title": "Hard-coded ID prefixes",
+              "severity": "Low"
+            },
+            {
+              "id": "hidden-errors",
+              "title": "Errors hidden from users",
+              "severity": "Medium"
+            },
+            {
+              "id": "thresholds",
+              "title": "Business thresholds held in code",
+              "severity": "Medium"
+            }
+          ],
+          "calls": [
+            "Date.today",
+            "String.valueOf",
+            "Messaging.SingleEmailMessage",
+            "Messaging.sendEmail"
+          ],
+          "methodInfo": [
+            {
+              "name": "createVisitTasks",
+              "local": [],
+              "writes": [
+                "Visit_Task__c"
+              ]
+            },
+            {
+              "name": "requireCheckIn",
+              "local": [],
+              "writes": []
+            },
+            {
+              "name": "countOutOfStocks",
+              "local": [],
+              "writes": [
+                "Store_Visit__c"
+              ]
+            },
+            {
+              "name": "alertAreaManager",
+              "local": [],
+              "writes": []
+            }
+          ],
+          "lines": 64
+        },
+        "unreferenced": false
+      },
+      {
+        "name": "StoreVisitServiceTest",
+        "lines": 47,
+        "test": true,
+        "callout": false,
+        "objects": [
+          "Shelf_Check__c",
+          "Store_Assortment__c",
+          "Store_Visit__c",
+          "Visit_Task__c"
         ]
       },
       {
@@ -748,7 +1191,47 @@
         "callout": false,
         "objects": [
           "Subscription__c"
-        ]
+        ],
+        "analysis": {
+          "name": "SubscriptionRenewalBatch",
+          "functions": [],
+          "issues": [
+            {
+              "id": "thresholds",
+              "title": "Business thresholds held in code",
+              "severity": "Medium"
+            }
+          ],
+          "calls": [
+            "Date.today",
+            "Database.getQueryLocator",
+            "Database.executeBatch"
+          ],
+          "methodInfo": [
+            {
+              "name": "start",
+              "local": [],
+              "writes": []
+            },
+            {
+              "name": "execute",
+              "local": [],
+              "writes": []
+            },
+            {
+              "name": "finish",
+              "local": [],
+              "writes": []
+            },
+            {
+              "name": "execute",
+              "local": [],
+              "writes": []
+            }
+          ],
+          "lines": 38
+        },
+        "unreferenced": false
       },
       {
         "name": "SubscriptionService",
@@ -757,7 +1240,52 @@
         "callout": false,
         "objects": [
           "Subscription__c"
-        ]
+        ],
+        "analysis": {
+          "name": "SubscriptionService",
+          "functions": [
+            {
+              "kind": "calc",
+              "what": "Calculates Health Score, End Date, Term Months",
+              "verdict": "configure",
+              "confidence": "High",
+              "why": "Formula field, or a before-save flow if the value must be stored.",
+              "method": "applyDefaults"
+            }
+          ],
+          "issues": [
+            {
+              "id": "thresholds",
+              "title": "Business thresholds held in code",
+              "severity": "Medium"
+            }
+          ],
+          "calls": [
+            "Start_Date__c.addMonths",
+            "Integer.valueOf",
+            "Start_Date__c.monthsBetween",
+            "Date.today"
+          ],
+          "methodInfo": [
+            {
+              "name": "applyDefaults",
+              "local": [],
+              "writes": []
+            },
+            {
+              "name": "handleStatusChange",
+              "local": [],
+              "writes": []
+            },
+            {
+              "name": "totalActiveMrr",
+              "local": [],
+              "writes": []
+            }
+          ],
+          "lines": 64
+        },
+        "unreferenced": false
       },
       {
         "name": "SubscriptionServiceTest",
@@ -776,7 +1304,37 @@
         "callout": false,
         "objects": [
           "Trade_Promotion__c"
-        ]
+        ],
+        "analysis": {
+          "name": "TradePromotionApproval",
+          "functions": [
+            {
+              "kind": "status",
+              "what": "Sets the status automatically",
+              "verdict": "configure",
+              "confidence": "High",
+              "why": "Approval process entry criteria or a before-save flow; keep any threshold as custom metadata, not in code.",
+              "method": "apply"
+            }
+          ],
+          "issues": [
+            {
+              "id": "thresholds",
+              "title": "Business thresholds held in code",
+              "severity": "Medium"
+            }
+          ],
+          "calls": [],
+          "methodInfo": [
+            {
+              "name": "apply",
+              "local": [],
+              "writes": []
+            }
+          ],
+          "lines": 10
+        },
+        "unreferenced": false
       },
       {
         "name": "TradePromotionApprovalTest",
@@ -786,6 +1344,155 @@
         "objects": [
           "Trade_Promotion__c"
         ]
+      },
+      {
+        "name": "TradePromotionService",
+        "lines": 99,
+        "test": false,
+        "callout": true,
+        "objects": [
+          "Trade_Fund__c",
+          "Trade_Promotion__c"
+        ],
+        "analysis": {
+          "name": "TradePromotionService",
+          "functions": [
+            {
+              "kind": "calc",
+              "what": "Calculates ROI",
+              "verdict": "configure",
+              "confidence": "High",
+              "why": "Formula field, or a before-save flow if the value must be stored.",
+              "method": "calculateResults"
+            },
+            {
+              "kind": "check",
+              "what": "Blocks the save after checking other records (Trade Fund)",
+              "verdict": "retain",
+              "confidence": "Medium",
+              "why": "The check needs other records, which a validation rule cannot read; keep it, or move it to a before-save flow with a lookup.",
+              "method": "checkFund"
+            },
+            {
+              "kind": "rollup",
+              "what": "Keeps totals on Trade Fund from its related records",
+              "verdict": "configure",
+              "confidence": "Medium",
+              "why": "Roll-up summary field where the relationship is master-detail; otherwise a record-triggered flow.",
+              "method": "updateFundCommitted"
+            },
+            {
+              "kind": "chatter",
+              "what": "Posts a Chatter message",
+              "verdict": "configure",
+              "confidence": "High",
+              "why": "Flow 'Post to Chatter' action.",
+              "method": "postApprovalToChatter"
+            },
+            {
+              "kind": "email",
+              "what": "Builds and sends an email in code",
+              "verdict": "adopt",
+              "confidence": "Medium",
+              "why": "Email template with an email alert, sent from a flow or an approval step.",
+              "method": "emailKeyAccountManager"
+            },
+            {
+              "kind": "integration",
+              "what": "Calls an external system asynchronously (@future)",
+              "verdict": "retain",
+              "confidence": "High",
+              "why": "External system integration; no standard feature replaces it. Keep it behind a named credential; a queue or platform event adds retries.",
+              "method": "sendToErp"
+            }
+          ],
+          "issues": [
+            {
+              "id": "test-code",
+              "title": "Test-only code in production",
+              "severity": "Low"
+            },
+            {
+              "id": "text-keys",
+              "title": "Logic keyed on text values",
+              "severity": "Medium"
+            },
+            {
+              "id": "hidden-errors",
+              "title": "Errors hidden from users",
+              "severity": "Medium"
+            },
+            {
+              "id": "thresholds",
+              "title": "Business thresholds held in code",
+              "severity": "Medium"
+            }
+          ],
+          "calls": [
+            "Math.max",
+            "Math.min",
+            "Database.insert",
+            "Messaging.SingleEmailMessage",
+            "Messaging.sendEmail",
+            "System.debug",
+            "UserInfo.getName",
+            "Test.isRunningTest",
+            "JSON.serialize"
+          ],
+          "methodInfo": [
+            {
+              "name": "calculateResults",
+              "local": [],
+              "writes": []
+            },
+            {
+              "name": "checkFund",
+              "local": [],
+              "writes": []
+            },
+            {
+              "name": "updateFundCommitted",
+              "local": [],
+              "writes": [
+                "Trade_Fund__c"
+              ]
+            },
+            {
+              "name": "postApprovalToChatter",
+              "local": [],
+              "writes": []
+            },
+            {
+              "name": "emailKeyAccountManager",
+              "local": [],
+              "writes": []
+            },
+            {
+              "name": "syncToErp",
+              "local": [
+                "sendToErp"
+              ],
+              "writes": []
+            },
+            {
+              "name": "sendToErp",
+              "local": [],
+              "writes": []
+            }
+          ],
+          "lines": 99
+        },
+        "unreferenced": false
+      },
+      {
+        "name": "TradePromotionServiceTest",
+        "lines": 61,
+        "test": true,
+        "callout": false,
+        "objects": [
+          "Trade_Fund__c",
+          "Trade_Promotion__c"
+        ]
       }
     ],
     "triggers": [
@@ -793,19 +1500,171 @@
         "name": "OpportunityTrigger",
         "object": "Opportunity",
         "active": true,
-        "lines": 3
+        "lines": 3,
+        "events": [
+          "after update"
+        ],
+        "analysis": {
+          "name": "OpportunityTrigger",
+          "functions": [],
+          "issues": [],
+          "calls": [
+            "OpportunityService.createSubscriptionsForWonDeals"
+          ],
+          "methodInfo": [
+            {
+              "name": "(trigger body)",
+              "local": [],
+              "writes": []
+            }
+          ],
+          "lines": 3
+        }
+      },
+      {
+        "name": "PromotionClaimTrigger",
+        "object": "Promotion_Claim__c",
+        "active": true,
+        "lines": 4,
+        "events": [
+          "before insert",
+          "before update"
+        ],
+        "analysis": {
+          "name": "PromotionClaimTrigger",
+          "functions": [],
+          "issues": [],
+          "calls": [
+            "PromotionClaimService.checkAgainstSpend",
+            "PromotionClaimService.autoApprove"
+          ],
+          "methodInfo": [
+            {
+              "name": "(trigger body)",
+              "local": [],
+              "writes": []
+            }
+          ],
+          "lines": 4
+        }
+      },
+      {
+        "name": "ShelfCheckTrigger",
+        "object": "Shelf_Check__c",
+        "active": true,
+        "lines": 5,
+        "events": [
+          "after insert",
+          "after update",
+          "after delete"
+        ],
+        "analysis": {
+          "name": "ShelfCheckTrigger",
+          "functions": [],
+          "issues": [],
+          "calls": [
+            "StoreVisitService.countOutOfStocks"
+          ],
+          "methodInfo": [
+            {
+              "name": "(trigger body)",
+              "local": [],
+              "writes": []
+            }
+          ],
+          "lines": 5
+        }
+      },
+      {
+        "name": "StoreVisitTrigger",
+        "object": "Store_Visit__c",
+        "active": true,
+        "lines": 5,
+        "events": [
+          "after insert",
+          "before update",
+          "after update"
+        ],
+        "analysis": {
+          "name": "StoreVisitTrigger",
+          "functions": [],
+          "issues": [],
+          "calls": [
+            "StoreVisitService.createVisitTasks",
+            "StoreVisitService.requireCheckIn",
+            "StoreVisitService.alertAreaManager"
+          ],
+          "methodInfo": [
+            {
+              "name": "(trigger body)",
+              "local": [],
+              "writes": []
+            }
+          ],
+          "lines": 5
+        }
       },
       {
         "name": "SubscriptionTrigger",
         "object": "Subscription__c",
         "active": true,
-        "lines": 7
+        "lines": 7,
+        "events": [
+          "before insert",
+          "before update",
+          "after update"
+        ],
+        "analysis": {
+          "name": "SubscriptionTrigger",
+          "functions": [],
+          "issues": [],
+          "calls": [
+            "SubscriptionService.applyDefaults",
+            "SubscriptionService.handleStatusChange"
+          ],
+          "methodInfo": [
+            {
+              "name": "(trigger body)",
+              "local": [],
+              "writes": []
+            }
+          ],
+          "lines": 7
+        }
       },
       {
         "name": "TradePromotionTrigger",
         "object": "Trade_Promotion__c",
         "active": true,
-        "lines": 3
+        "lines": 19,
+        "events": [
+          "before insert",
+          "before update",
+          "after insert",
+          "after update"
+        ],
+        "analysis": {
+          "name": "TradePromotionTrigger",
+          "functions": [],
+          "issues": [],
+          "calls": [
+            "TradePromotionApproval.apply",
+            "TradePromotionService.calculateResults",
+            "TradePromotionService.checkFund",
+            "TradePromotionService.updateFundCommitted",
+            "TradePromotionService.postApprovalToChatter",
+            "TradePromotionService.emailKeyAccountManager",
+            "TradePromotionService.syncToErp"
+          ],
+          "methodInfo": [
+            {
+              "name": "(trigger body)",
+              "local": [],
+              "writes": []
+            }
+          ],
+          "lines": 19
+        }
       }
     ],
     "flows": [
@@ -832,6 +1691,11 @@
       {
         "name": "Loss_Reason_Required_When_Lost",
         "object": "Opportunity",
+        "active": true
+      },
+      {
+        "name": "Claim_Positive",
+        "object": "Promotion_Claim__c",
         "active": true
       },
       {
@@ -862,6 +1726,11 @@
       {
         "name": "Quantity_Must_Be_Positive",
         "object": "Subscription_Line__c",
+        "active": true
+      },
+      {
+        "name": "Amount_Positive",
+        "object": "Trade_Fund__c",
         "active": true
       },
       {
@@ -1332,7 +2201,9 @@
     "remoteSites": [
       "ApexDevNet"
     ],
-    "calloutClasses": []
+    "calloutClasses": [
+      "TradePromotionService"
+    ]
   },
   "usage": {
     "activeUsers": 4,

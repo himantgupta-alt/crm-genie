@@ -104,7 +104,7 @@ jobs:
           # The Assessment agent ships with the app, so the Org Compiler can run real discovery on connected orgs.
           mkdir -p src/app/runtime/src/generators src/app/runtime/src/agents/assessment
           cp src/paths.js src/app/runtime/src/
-          cp src/generators/{lib,assess-org,discover-org,emit-assessment,emit-discovery}.js src/app/runtime/src/generators/
+          cp src/generators/{lib,assess-org,discover-org,emit-assessment,emit-discovery,apex-functions}.js src/app/runtime/src/generators/
           cp src/agents/assessment/*.json src/app/runtime/src/agents/assessment/
           # The commit the packaged agents come from; runs compare it with the latest commit on main.
           echo "$GITHUB_SHA" > src/app/runtime/VERSION

@@ -66,19 +66,35 @@ const ORGS = {
       Product2: productCommon,
     },
     objects: [
-      { name: 'Store_Visit__c', label: 'Store Visit', plural: 'Store Visits', format: 'SV-{00000}', fields: [
+      { name: 'Store_Visit__c', label: 'Store Visit', plural: 'Store Visits', format: 'SV-{00000}', feeds: true, fields: [
         lookup('Account__c', 'Store', 'Account', 'Store_Visits'), date('Visit_Date__c', 'Visit Date', true), visitStatus,
         pick('Visit_Type__c', 'Visit Type', ['Routine', 'Promotion Check', 'New Listing', 'Audit']), longText('Notes__c', 'Notes'),
         rollup('Shelf_Checks__c', 'Shelf Checks', 'count', 'Shelf_Check__c', 'Store_Visit__c'),
+        check('Checked_In__c', 'Checked In'), num('Check_In_Latitude__c', 'Check-in Latitude', 9, 6), num('Check_In_Longitude__c', 'Check-in Longitude', 9, 6),
+        num('Out_Of_Stocks__c', 'Out of Stocks', 3), pct('Compliance_Pct__c', 'Shelf Compliance'),
+      ] },
+      { name: 'Visit_Task__c', label: 'Visit Task', plural: 'Visit Tasks', format: 'VT-{00000}', fields: [
+        master('Store_Visit__c', 'Store Visit', 'Store_Visit__c', 'Visit_Tasks'), pick('Task_Type__c', 'Task Type', ['Check must-stock', 'Check price', 'Check display', 'Take photo', 'Survey']),
+        lookup('Product__c', 'Product', 'Product2', 'Visit_Tasks'), check('Done__c', 'Done'), text('Result__c', 'Result', 80),
       ] },
       { name: 'Shelf_Check__c', label: 'Shelf Check', plural: 'Shelf Checks', format: 'SC-{00000}', fields: [
         master('Store_Visit__c', 'Store Visit', 'Store_Visit__c', 'Shelf_Checks'), lookup('Product__c', 'Product', 'Product2', 'Shelf_Checks'),
         check('On_Shelf__c', 'On Shelf'), num('Facings__c', 'Facings', 3), money('Shelf_Price__c', 'Shelf Price'),
       ] },
-      { name: 'Trade_Promotion__c', label: 'Trade Promotion', plural: 'Trade Promotions', format: 'TP-{0000}', fields: [
+      { name: 'Trade_Fund__c', label: 'Trade Fund', plural: 'Trade Funds', format: 'TF-{0000}', fields: [
+        lookup('Account__c', 'Customer', 'Account', 'Trade_Funds'), pick('Fund_Type__c', 'Fund Type', ['Fixed', 'Accrual', 'Off-invoice']), num('Year__c', 'Year', 4),
+        money('Amount__c', 'Amount'), money('Committed__c', 'Committed'), pick('Status__c', 'Status', ['Open', 'Closed']),
+      ] },
+      { name: 'Trade_Promotion__c', label: 'Trade Promotion', plural: 'Trade Promotions', format: 'TP-{0000}', feeds: true, fields: [
         lookup('Account__c', 'Customer', 'Account', 'Trade_Promotions'), date('Start_Date__c', 'Start Date', true), date('End_Date__c', 'End Date', true),
         pick('Mechanic__c', 'Mechanic', ['Price Off', 'Multibuy', 'Display', 'Feature']), money('Budget__c', 'Budget'), pct('Uplift_Pct__c', 'Expected Uplift'),
         promoStatus(['Draft', 'Submitted', 'Approved', 'Live', 'Closed']),
+        lookup('Trade_Fund__c', 'Trade Fund', 'Trade_Fund__c', 'Trade_Promotions'), num('Baseline_Volume__c', 'Baseline Volume (cases)', 8), num('Actual_Volume__c', 'Actual Volume (cases)', 8),
+        money('Actual_Spend__c', 'Actual Spend'), pct('ROI__c', 'Return on Investment'), check('ERP_Synced__c', 'Sent to ERP'),
+      ] },
+      { name: 'Promotion_Claim__c', label: 'Promotion Claim', plural: 'Promotion Claims', format: 'PC-{00000}', fields: [
+        lookup('Trade_Promotion__c', 'Trade Promotion', 'Trade_Promotion__c', 'Promotion_Claims'), lookup('Account__c', 'Customer', 'Account', 'Promotion_Claims'),
+        money('Claim_Amount__c', 'Claim Amount'), text('Invoice_Number__c', 'Invoice Number', 30), pick('Status__c', 'Status', ['Submitted', 'Matched', 'Approved', 'Paid', 'Rejected']),
       ] },
       { name: 'Promotion_Product__c', label: 'Promotion Product', plural: 'Promotion Products', format: 'PP-{00000}', fields: [
         master('Trade_Promotion__c', 'Trade Promotion', 'Trade_Promotion__c', 'Promotion_Products'), lookup('Product__c', 'Product', 'Product2', 'Promotion_Products'),
@@ -95,6 +111,8 @@ const ORGS = {
       { object: 'Trade_Promotion__c', name: 'End_After_Start', formula: 'End_Date__c &lt; Start_Date__c', message: 'End Date must be on or after Start Date.', field: 'End_Date__c' },
       { object: 'Trade_Promotion__c', name: 'Budget_Required_To_Submit', formula: "AND(ISPICKVAL(Status__c, 'Submitted'), ISBLANK(Budget__c))", message: 'Add a budget before submitting the promotion.', field: 'Budget__c' },
       { object: 'Account', name: 'VAT_Format', formula: 'AND(NOT(ISBLANK(VAT_Number__c)), NOT(REGEX(VAT_Number__c, "[A-Z]{2}[0-9A-Z]{2,13}")))', message: 'VAT number must start with the two-letter country code.', field: 'VAT_Number__c' },
+      { object: 'Trade_Fund__c', name: 'Amount_Positive', formula: 'Amount__c &lt;= 0', message: 'The fund amount must be greater than zero.', field: 'Amount__c' },
+      { object: 'Promotion_Claim__c', name: 'Claim_Positive', formula: 'Claim_Amount__c &lt;= 0', message: 'Claim amount must be greater than zero.', field: 'Claim_Amount__c' },
     ],
     // A home-grown approval: promotions under 10,000 approve themselves on submit, the rest wait for a manager.
     apex: {
@@ -110,14 +128,344 @@ public with sharing class TradePromotionApproval {
         }
     }
 }`,
+        // Grown over several releases: post-event results, fund checks, announcements and the ERP hand-off.
+        TradePromotionService: `
+public with sharing class TradePromotionService {
+    // Margin per case used for the return on investment; finance sets it once a year.
+    public static final Decimal MARGIN_PER_CASE = 2.5;
+
+    // Post-event result: return on investment from baseline and actual volume.
+    public static void calculateResults(List<Trade_Promotion__c> promos) {
+        for (Trade_Promotion__c p : promos) {
+            if (p.Baseline_Volume__c == null || p.Actual_Volume__c == null || p.Actual_Spend__c == null || p.Actual_Spend__c == 0) continue;
+            Decimal incremental = (p.Actual_Volume__c - p.Baseline_Volume__c) * MARGIN_PER_CASE;
+            Decimal roi = (incremental - p.Actual_Spend__c) / p.Actual_Spend__c * 100;
+            p.ROI__c = Math.max(-999, Math.min(999, roi)).setScale(2);
+        }
+    }
+
+    // A promotion may not commit more than is left in its trade fund.
+    public static void checkFund(List<Trade_Promotion__c> promos, Map<Id, Trade_Promotion__c> oldMap) {
+        Set<Id> fundIds = new Set<Id>();
+        for (Trade_Promotion__c p : promos) if (p.Trade_Fund__c != null) fundIds.add(p.Trade_Fund__c);
+        if (fundIds.isEmpty()) return;
+        Map<Id, Trade_Fund__c> funds = new Map<Id, Trade_Fund__c>([SELECT Id, Amount__c, Committed__c FROM Trade_Fund__c WHERE Id IN :fundIds]);
+        for (Trade_Promotion__c p : promos) {
+            Trade_Fund__c f = funds.get(p.Trade_Fund__c);
+            if (f == null || f.Amount__c == null || p.Budget__c == null) continue;
+            Trade_Promotion__c old = oldMap == null ? null : oldMap.get(p.Id);
+            Decimal own = old != null && old.Trade_Fund__c == p.Trade_Fund__c && old.Budget__c != null && old.Status__c != 'Draft' ? old.Budget__c : 0;
+            Decimal committed = f.Committed__c == null ? 0 : f.Committed__c;
+            if (committed - own + p.Budget__c > f.Amount__c) p.addError('The promotion budget exceeds what is left in the trade fund.');
+        }
+    }
+
+    // Keeps the committed amount on each trade fund up to date.
+    public static void updateFundCommitted(Set<Id> fundIds) {
+        fundIds.remove(null);
+        if (fundIds.isEmpty()) return;
+        Map<Id, Decimal> committed = new Map<Id, Decimal>();
+        for (Id i : fundIds) committed.put(i, 0);
+        for (AggregateResult r : [SELECT Trade_Fund__c f, SUM(Budget__c) s FROM Trade_Promotion__c WHERE Trade_Fund__c IN :fundIds AND Status__c != 'Draft' GROUP BY Trade_Fund__c]) {
+            committed.put((Id) r.get('f'), (Decimal) r.get('s'));
+        }
+        List<Trade_Fund__c> upd = new List<Trade_Fund__c>();
+        for (Id i : committed.keySet()) upd.add(new Trade_Fund__c(Id = i, Committed__c = committed.get(i)));
+        update upd;
+    }
+
+    // Tells the team on the promotion's feed that it is approved.
+    public static void postApprovalToChatter(List<Trade_Promotion__c> promos, Map<Id, Trade_Promotion__c> oldMap) {
+        List<FeedItem> posts = new List<FeedItem>();
+        for (Trade_Promotion__c p : promos) {
+            if (p.Status__c != 'Approved' || oldMap.get(p.Id).Status__c == 'Approved') continue;
+            posts.add(new FeedItem(ParentId = p.Id, Body = 'Promotion ' + p.Name + ' is approved with a budget of ' + p.Budget__c + '.'));
+        }
+        if (!posts.isEmpty()) Database.insert(posts, false);
+    }
+
+    // Emails the key account manager (the promotion owner) when the promotion is approved.
+    public static void emailKeyAccountManager(List<Trade_Promotion__c> promos, Map<Id, Trade_Promotion__c> oldMap) {
+        List<Messaging.SingleEmailMessage> mails = new List<Messaging.SingleEmailMessage>();
+        for (Trade_Promotion__c p : promos) {
+            if (p.Status__c != 'Approved' || oldMap.get(p.Id).Status__c == 'Approved') continue;
+            Messaging.SingleEmailMessage m = new Messaging.SingleEmailMessage();
+            m.setTargetObjectId(p.OwnerId);
+            m.setSaveAsActivity(false);
+            m.setSubject('Promotion approved: ' + p.Name);
+            m.setPlainTextBody('Your promotion ' + p.Name + ' is approved. Budget: ' + p.Budget__c);
+            mails.add(m);
+        }
+        if (mails.isEmpty()) return;
+        try {
+            Messaging.sendEmail(mails);
+        } catch (Exception e) {
+            System.debug(e.getMessage());
+        }
+    }
+
+    // Approved promotions go to the ERP so the funds are reserved there.
+    public static void syncToErp(List<Trade_Promotion__c> promos, Map<Id, Trade_Promotion__c> oldMap) {
+        if (UserInfo.getName() == 'Integration User') return;
+        Set<Id> ids = new Set<Id>();
+        for (Trade_Promotion__c p : promos) if (p.Status__c == 'Approved' && oldMap.get(p.Id).Status__c != 'Approved' && !p.ERP_Synced__c) ids.add(p.Id);
+        if (ids.isEmpty() || Test.isRunningTest()) return;
+        sendToErp(ids);
+    }
+
+    @future(callout=true)
+    public static void sendToErp(Set<Id> ids) {
+        for (Trade_Promotion__c p : [SELECT Id, Name, Budget__c, Account__r.Legacy_ERP_Code__c FROM Trade_Promotion__c WHERE Id IN :ids]) {
+            HttpRequest req = new HttpRequest();
+            req.setEndpoint('callout:ERP_Funds/promotions');
+            req.setMethod('POST');
+            req.setHeader('Content-Type', 'application/json');
+            req.setBody(JSON.serialize(new Map<String, Object>{ 'promotion' => p.Name, 'customer' => p.Account__r.Legacy_ERP_Code__c, 'budget' => p.Budget__c }));
+            try {
+                new Http().send(req);
+            } catch (Exception e) {
+                System.debug(e.getMessage());
+            }
+        }
+    }
+}`,
+        PromotionClaimService: `
+public with sharing class PromotionClaimService {
+    public static final Decimal AUTO_APPROVE_CLAIM = 500;
+
+    // No claim may exceed what the promotion actually spent (or its budget while it runs).
+    public static void checkAgainstSpend(List<Promotion_Claim__c> claims) {
+        Set<Id> promoIds = new Set<Id>();
+        for (Promotion_Claim__c c : claims) if (c.Trade_Promotion__c != null) promoIds.add(c.Trade_Promotion__c);
+        if (promoIds.isEmpty()) return;
+        Map<Id, Trade_Promotion__c> promos = new Map<Id, Trade_Promotion__c>([SELECT Id, Actual_Spend__c, Budget__c FROM Trade_Promotion__c WHERE Id IN :promoIds]);
+        for (Promotion_Claim__c c : claims) {
+            Trade_Promotion__c p = promos.get(c.Trade_Promotion__c);
+            Decimal ceiling = p == null ? null : (p.Actual_Spend__c != null ? p.Actual_Spend__c : p.Budget__c);
+            if (ceiling != null && c.Claim_Amount__c != null && c.Claim_Amount__c > ceiling) c.addError('The claim is higher than the promotion spend.');
+        }
+    }
+
+    // Small claims are approved on arrival.
+    public static void autoApprove(List<Promotion_Claim__c> claims) {
+        for (Promotion_Claim__c c : claims) {
+            if (c.Claim_Amount__c != null && c.Claim_Amount__c <= AUTO_APPROVE_CLAIM) c.Status__c = 'Approved';
+        }
+    }
+}`,
+        StoreVisitService: `
+public with sharing class StoreVisitService {
+    public static final Integer OUT_OF_STOCK_ALERT = 3;
+
+    // Every new visit gets a task per must-stock product of the store.
+    public static void createVisitTasks(List<Store_Visit__c> visits) {
+        Set<Id> storeIds = new Set<Id>();
+        for (Store_Visit__c v : visits) storeIds.add(v.Account__c);
+        Map<Id, List<Store_Assortment__c>> byStore = new Map<Id, List<Store_Assortment__c>>();
+        for (Store_Assortment__c a : [SELECT Account__c, Product__c FROM Store_Assortment__c WHERE Account__c IN :storeIds AND Must_Stock__c = true]) {
+            if (!byStore.containsKey(a.Account__c)) byStore.put(a.Account__c, new List<Store_Assortment__c>());
+            byStore.get(a.Account__c).add(a);
+        }
+        List<Visit_Task__c> tasks = new List<Visit_Task__c>();
+        for (Store_Visit__c v : visits) {
+            if (!byStore.containsKey(v.Account__c)) continue;
+            for (Store_Assortment__c a : byStore.get(v.Account__c)) tasks.add(new Visit_Task__c(Store_Visit__c = v.Id, Product__c = a.Product__c, Task_Type__c = 'Check must-stock'));
+        }
+        insert tasks;
+    }
+
+    // A visit can only be completed after the rep checked in at the store.
+    public static void requireCheckIn(List<Store_Visit__c> visits, Map<Id, Store_Visit__c> oldMap) {
+        for (Store_Visit__c v : visits) {
+            Boolean completing = v.Status__c == 'Completed' && oldMap.get(v.Id).Status__c != 'Completed';
+            if (completing && !v.Checked_In__c) v.addError('Check in at the store before completing the visit.');
+        }
+    }
+
+    // Counts the products that were not on the shelf at each visit.
+    public static void countOutOfStocks(Set<Id> visitIds) {
+        visitIds.remove(null);
+        if (visitIds.isEmpty()) return;
+        Map<Id, Integer> counts = new Map<Id, Integer>();
+        for (Id i : visitIds) counts.put(i, 0);
+        for (AggregateResult r : [SELECT Store_Visit__c v, COUNT(Id) n FROM Shelf_Check__c WHERE Store_Visit__c IN :visitIds AND On_Shelf__c = false GROUP BY Store_Visit__c]) {
+            counts.put((Id) r.get('v'), (Integer) r.get('n'));
+        }
+        List<Store_Visit__c> upd = new List<Store_Visit__c>();
+        for (Id i : counts.keySet()) upd.add(new Store_Visit__c(Id = i, Out_Of_Stocks__c = counts.get(i)));
+        update upd;
+    }
+
+    // Emails the visit owner when an upcoming visit finds too many gaps on the shelf.
+    public static void alertAreaManager(List<Store_Visit__c> visits, Map<Id, Store_Visit__c> oldMap) {
+        List<Messaging.SingleEmailMessage> mails = new List<Messaging.SingleEmailMessage>();
+        for (Store_Visit__c v : visits) {
+            Decimal before = oldMap.get(v.Id).Out_Of_Stocks__c;
+            if (v.Out_Of_Stocks__c == null || v.Out_Of_Stocks__c < OUT_OF_STOCK_ALERT || (before != null && before >= OUT_OF_STOCK_ALERT)) continue;
+            if (v.Visit_Date__c < Date.today()) continue;
+            if (!String.valueOf(v.OwnerId).startsWith('005')) continue;
+            Messaging.SingleEmailMessage m = new Messaging.SingleEmailMessage();
+            m.setTargetObjectId(v.OwnerId);
+            m.setSaveAsActivity(false);
+            m.setSubject('Out of stocks found at a store visit');
+            m.setPlainTextBody(v.Out_Of_Stocks__c + ' products were not on the shelf at visit ' + v.Name + '.');
+            mails.add(m);
+        }
+        if (mails.isEmpty()) return;
+        try {
+            Messaging.sendEmail(mails);
+        } catch (Exception e) {
+        }
+    }
+}`,
+        // From the first release; the mobile check-in replaced it and nothing calls it any more.
+        StoreVisitLegacyHandler: `
+public with sharing class StoreVisitLegacyHandler {
+    public static void stampCheckIn(List<Store_Visit__c> visits, Decimal lat, Decimal lon) {
+        for (Store_Visit__c v : visits) {
+            v.Check_In_Latitude__c = lat;
+            v.Check_In_Longitude__c = lon;
+            v.Checked_In__c = true;
+        }
+    }
+}`,
       },
       triggers: {
         TradePromotionTrigger: `
-trigger TradePromotionTrigger on Trade_Promotion__c (before insert, before update) {
-    TradePromotionApproval.apply(Trigger.new, Trigger.oldMap);
+trigger TradePromotionTrigger on Trade_Promotion__c (before insert, before update, after insert, after update) {
+    if (Trigger.isBefore) {
+        TradePromotionApproval.apply(Trigger.new, Trigger.oldMap);
+        TradePromotionService.calculateResults(Trigger.new);
+        TradePromotionService.checkFund(Trigger.new, Trigger.oldMap);
+    } else {
+        Set<Id> fundIds = new Set<Id>();
+        for (Trade_Promotion__c p : Trigger.new) {
+            fundIds.add(p.Trade_Fund__c);
+            if (Trigger.isUpdate) fundIds.add(Trigger.oldMap.get(p.Id).Trade_Fund__c);
+        }
+        TradePromotionService.updateFundCommitted(fundIds);
+        if (Trigger.isUpdate) {
+            TradePromotionService.postApprovalToChatter(Trigger.new, Trigger.oldMap);
+            TradePromotionService.emailKeyAccountManager(Trigger.new, Trigger.oldMap);
+            TradePromotionService.syncToErp(Trigger.new, Trigger.oldMap);
+        }
+    }
+}`,
+        PromotionClaimTrigger: `
+trigger PromotionClaimTrigger on Promotion_Claim__c (before insert, before update) {
+    PromotionClaimService.checkAgainstSpend(Trigger.new);
+    if (Trigger.isInsert) PromotionClaimService.autoApprove(Trigger.new);
+}`,
+        StoreVisitTrigger: `
+trigger StoreVisitTrigger on Store_Visit__c (after insert, before update, after update) {
+    if (Trigger.isInsert) StoreVisitService.createVisitTasks(Trigger.new);
+    else if (Trigger.isBefore) StoreVisitService.requireCheckIn(Trigger.new, Trigger.oldMap);
+    else StoreVisitService.alertAreaManager(Trigger.new, Trigger.oldMap);
+}`,
+        ShelfCheckTrigger: `
+trigger ShelfCheckTrigger on Shelf_Check__c (after insert, after update, after delete) {
+    Set<Id> ids = new Set<Id>();
+    for (Shelf_Check__c c : Trigger.isDelete ? Trigger.old : Trigger.new) ids.add(c.Store_Visit__c);
+    StoreVisitService.countOutOfStocks(ids);
 }`,
       },
       tests: {
+        TradePromotionServiceTest: `
+@isTest
+private class TradePromotionServiceTest {
+    private class ErpMock implements HttpCalloutMock {
+        public HttpResponse respond(HttpRequest req) {
+            HttpResponse r = new HttpResponse();
+            r.setStatusCode(201);
+            return r;
+        }
+    }
+    @isTest static void fundIsCommittedAndResultsCalculated() {
+        Account a = new Account(Name = 'Test Customer');
+        insert a;
+        Trade_Fund__c f = new Trade_Fund__c(Account__c = a.Id, Year__c = 2026, Amount__c = 20000, Fund_Type__c = 'Fixed', Status__c = 'Open');
+        insert f;
+        Trade_Promotion__c p = new Trade_Promotion__c(Account__c = a.Id, Trade_Fund__c = f.Id, Start_Date__c = Date.today(), End_Date__c = Date.today().addDays(14), Budget__c = 8000, Status__c = 'Submitted');
+        insert p;
+        System.assertEquals(8000, [SELECT Committed__c FROM Trade_Fund__c WHERE Id = :f.Id].Committed__c);
+        p.Baseline_Volume__c = 1000;
+        p.Actual_Volume__c = 1800;
+        p.Actual_Spend__c = 1000;
+        update p;
+        System.assertEquals(100, [SELECT ROI__c FROM Trade_Promotion__c WHERE Id = :p.Id].ROI__c);
+        Database.SaveResult r = Database.insert(new Trade_Promotion__c(Account__c = a.Id, Trade_Fund__c = f.Id, Start_Date__c = Date.today(), End_Date__c = Date.today().addDays(14), Budget__c = 15000, Status__c = 'Draft'), false);
+        System.assert(!r.isSuccess(), 'the second promotion should exceed the fund');
+    }
+    @isTest static void approvalIsAnnounced() {
+        Account a = new Account(Name = 'Test Customer');
+        insert a;
+        Trade_Promotion__c p = new Trade_Promotion__c(Account__c = a.Id, Start_Date__c = Date.today(), End_Date__c = Date.today().addDays(14), Budget__c = 50000, Status__c = 'Submitted');
+        insert p;
+        p.Status__c = 'Approved';
+        update p;
+        System.assertEquals('Approved', [SELECT Status__c FROM Trade_Promotion__c WHERE Id = :p.Id].Status__c);
+    }
+    @isTest static void erpReceivesApprovedPromotion() {
+        Account a = new Account(Name = 'Test Customer', Legacy_ERP_Code__c = 'ERP-1');
+        insert a;
+        Trade_Promotion__c p = new Trade_Promotion__c(Account__c = a.Id, Start_Date__c = Date.today(), End_Date__c = Date.today().addDays(14), Budget__c = 2000, Status__c = 'Draft');
+        insert p;
+        Test.setMock(HttpCalloutMock.class, new ErpMock());
+        Test.startTest();
+        TradePromotionService.sendToErp(new Set<Id>{ p.Id });
+        Test.stopTest();
+        System.assertNotEquals(null, p.Id);
+    }
+}`,
+        PromotionClaimServiceTest: `
+@isTest
+private class PromotionClaimServiceTest {
+    @isTest static void smallClaimApprovesAndLargeClaimIsBlocked() {
+        Account a = new Account(Name = 'Test Customer');
+        insert a;
+        Trade_Promotion__c p = new Trade_Promotion__c(Account__c = a.Id, Start_Date__c = Date.today(), End_Date__c = Date.today().addDays(14), Budget__c = 1000, Status__c = 'Draft');
+        insert p;
+        Promotion_Claim__c c = new Promotion_Claim__c(Trade_Promotion__c = p.Id, Account__c = a.Id, Claim_Amount__c = 300, Status__c = 'Submitted', Invoice_Number__c = 'INV-1');
+        insert c;
+        System.assertEquals('Approved', [SELECT Status__c FROM Promotion_Claim__c WHERE Id = :c.Id].Status__c);
+        Database.SaveResult r = Database.insert(new Promotion_Claim__c(Trade_Promotion__c = p.Id, Account__c = a.Id, Claim_Amount__c = 5000, Status__c = 'Submitted'), false);
+        System.assert(!r.isSuccess(), 'the claim should exceed the promotion budget');
+    }
+}`,
+        StoreVisitServiceTest: `
+@isTest
+private class StoreVisitServiceTest {
+    @testSetup static void product() {
+        insert new Product2(Name = 'Test Product', IsActive = true);
+    }
+    @isTest static void visitGetsTasksAndCountsGaps() {
+        Account a = new Account(Name = 'Test Store');
+        insert a;
+        Id productId = [SELECT Id FROM Product2 LIMIT 1].Id;
+        insert new Store_Assortment__c(Account__c = a.Id, Product__c = productId, Must_Stock__c = true);
+        Store_Visit__c v = new Store_Visit__c(Account__c = a.Id, Visit_Date__c = Date.today().addDays(1), Status__c = 'Planned');
+        insert v;
+        System.assertEquals(1, [SELECT COUNT() FROM Visit_Task__c WHERE Store_Visit__c = :v.Id]);
+        List<Shelf_Check__c> checks = new List<Shelf_Check__c>();
+        for (Integer i = 0; i < 3; i++) checks.add(new Shelf_Check__c(Store_Visit__c = v.Id, Product__c = productId, On_Shelf__c = false));
+        insert checks;
+        System.assertEquals(3, [SELECT Out_Of_Stocks__c FROM Store_Visit__c WHERE Id = :v.Id].Out_Of_Stocks__c);
+        delete checks[0];
+        System.assertEquals(2, [SELECT Out_Of_Stocks__c FROM Store_Visit__c WHERE Id = :v.Id].Out_Of_Stocks__c);
+    }
+    @isTest static void completingNeedsCheckIn() {
+        Account a = new Account(Name = 'Test Store');
+        insert a;
+        Store_Visit__c v = new Store_Visit__c(Account__c = a.Id, Visit_Date__c = Date.today(), Status__c = 'Planned');
+        insert v;
+        v.Status__c = 'Completed';
+        Database.SaveResult r = Database.update(v, false);
+        System.assert(!r.isSuccess(), 'completing without a check-in should fail');
+        StoreVisitLegacyHandler.stampCheckIn(new List<Store_Visit__c>{ v }, 51.5, -0.12);
+        update v;
+        System.assertEquals(true, [SELECT Checked_In__c FROM Store_Visit__c WHERE Id = :v.Id].Checked_In__c);
+    }
+}`,
         TradePromotionApprovalTest: `
 @isTest
 private class TradePromotionApprovalTest {
