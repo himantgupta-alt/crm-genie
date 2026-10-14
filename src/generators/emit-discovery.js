@@ -204,7 +204,9 @@ function documents(o) {
 
   docs['07-installed-packages.md'] = [...head(o, 'installed packages'),
     'Package code cannot be read or exported; behaviour is captured as test cases and a decision is taken per package (keep, replace with standard, rebuild).', '',
-    table(['Package', 'Namespace', 'Version', 'Objects', 'Fields', 'Apex classes'], d.packages.map((p) => [p.name, p.namespace || '—', p.version, p.objects, p.fields, p.classes])), ''].join('\n');
+    table(['Package', 'Namespace', 'Version', 'Objects', 'Fields', 'Apex classes'], d.packages.map((p) => [p.name, p.namespace || '—', p.version, p.objects, p.fields, p.classes])), '',
+    '## Configuration held as records', '', 'Packages and Salesforce features keep much of their set-up as records (templates, definitions, settings). The code stays hidden; this set-up shows how each feature is configured and used.', '',
+    table(['Owner', 'Set-up object', 'Records', 'Examples'], (d.featureConfig || []).map((c) => [c.namespace ? d.packages.find((p) => p.namespace === c.namespace)?.name || c.namespace : 'Salesforce feature', c.object, c.records ?? '', c.names.slice(0, 5).join(', ')])), ''].join('\n');
 
   docs['08-security-model.md'] = [...head(o, 'security model'),
     '## Org-wide defaults', '', table(['Object', 'Internal', 'External'], d.objects.filter((ob) => ob.sharing).map((ob) => [ob.name, ob.sharing.internal, ob.sharing.external])), '',

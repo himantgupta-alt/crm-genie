@@ -147,6 +147,28 @@ async function main() {
   // Package code is hidden, but the class count shows how much behaviour the package brings.
   for (const p of packages) if (p.namespace) p.classes = (await q(`SELECT Id FROM ApexClass WHERE NamespacePrefix = '${p.namespace}'`, true)).length;
 
+  // Feature configuration held as records. A managed package (or a Salesforce feature such as Consumer Goods
+  // Cloud) keeps much of its set-up as records: templates, definitions, settings. These are set-up, not business
+  // records: we keep the object, the count and the record names, so the feature's configuration is evidenced
+  // without its code.
+  const SETUP_NAME = /(Template|Setting|Config|Definition|Rule|Polic|Summar|Schedule|Calculat|Type|Kpi)/i;
+  const PLATFORM_SETUP = ['ActionPlanTemplate', 'ActionPlanTemplateItem', 'AssessmentIndicatorDefinition', 'AssessmentTaskDefinition', 'AssessmentTaskIndDefinition', 'RetailStoreGroup', 'InStoreLocation', 'RetailStoreKpi', 'VisitorTerritory', 'ProductCategory'];
+  const setupObjects = global.sobjects.filter((s) => s.queryable && (
+    (s.custom && installedNs.size && [...installedNs].some((ns) => s.name.startsWith(`${ns}__`)) && (s.customSetting || SETUP_NAME.test(s.name)))
+    || PLATFORM_SETUP.includes(s.name)));
+  const featureConfig = [];
+  for (const s of setupObjects) {
+    const ns = s.name.match(/^([A-Za-z0-9]+)__/)?.[1] || null;
+    const records = await count(`SELECT COUNT() FROM ${s.name}`);
+    let names = [];
+    if (records) {
+      const nameField = (await conn.sobject(s.name).describe()).fields.find((f) => f.nameField)?.name;
+      if (nameField) names = (await q(`SELECT ${nameField} FROM ${s.name} ORDER BY ${nameField} LIMIT 50`)).map((r) => String(r[nameField])).filter(Boolean);
+    }
+    featureConfig.push({ object: s.name, label: s.label, origin: ns ? managed(ns) : 'salesforce', namespace: ns, customSetting: !!s.customSetting, records, names });
+  }
+  featureConfig.sort((a, b) => `${a.origin}${a.object}`.localeCompare(`${b.origin}${b.object}`));
+
   /* ---------------------------------------------------------------- scheduled processing */
   const JOB = { 1: 'Data export', 3: 'Dashboard refresh', 4: 'Reporting snapshot', 6: 'Scheduled flow', 7: 'Scheduled Apex', 8: 'Report run', 9: 'Batch Apex', A: 'Report notification' };
   // Report and dashboard jobs are often named after the person who scheduled them, so only code-based jobs keep
@@ -224,7 +246,7 @@ async function main() {
     region, label: label || region,
     profile: { edition: orgRow.OrganizationType, locale: orgRow.DefaultLocaleSidKey, language: orgRow.LanguageLocaleKey, timeZone: orgRow.TimeZoneSidKey, currencies, licences, featureLicences, limits, usersByProfile },
     markets, objects, validationRules, flows, approvals, workflowRules, triggers, scheduledJobs,
-    code: { classes, lwc, aura, visualforce }, packages,
+    code: { classes, lwc, aura, visualforce }, packages, featureConfig,
     security: { profiles, permissionSets, permissionSetGroups, roles, sharingRules },
     integrations: { namedCredentials, remoteSites, connectedApps, loginSources, calloutClasses: classes.filter((c) => c.callout).map((c) => c.name) },
     ui: { apps, flexiPages }, usage, dependencies,

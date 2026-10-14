@@ -187,7 +187,7 @@
       },
       "DailyApiRequests": {
         "max": 15000,
-        "used": 829
+        "used": 7
       },
       "DailyBulkV2QueryJobs": {
         "max": 10000,
@@ -1685,6 +1685,7 @@
           "required": false,
           "references": [
             "EmailMessage",
+            "LiveChatTranscript",
             "MessagingSession"
           ],
           "fill": null
@@ -3223,6 +3224,8 @@
             "Invoice",
             "LegalEntity",
             "ListEmail",
+            "LiveAgentSession",
+            "LiveChatTranscript",
             "Location",
             "LocationShippingCarrierMethod",
             "OperatingHoursHoliday",
@@ -7504,6 +7507,8 @@
             "Invoice",
             "LegalEntity",
             "ListEmail",
+            "LiveAgentSession",
+            "LiveChatTranscript",
             "Location",
             "LocationShippingCarrierMethod",
             "OperatingHoursHoliday",
@@ -14013,6 +14018,74 @@
       "classes": 4
     }
   ],
+  "featureConfig": [
+    {
+      "object": "dlrs__DeclarativeLookupRollupSummaries__c",
+      "label": "Declarative Lookup Rollup Summaries",
+      "origin": "package",
+      "namespace": "dlrs",
+      "customSetting": true,
+      "records": 0,
+      "names": []
+    },
+    {
+      "object": "dlrs__LookupRollupCalculateJob__c",
+      "label": "Lookup Rollup Calculate Job",
+      "origin": "package",
+      "namespace": "dlrs",
+      "customSetting": false,
+      "records": 0,
+      "names": []
+    },
+    {
+      "object": "dlrs__LookupRollupSummary__c",
+      "label": "Lookup Rollup Summary",
+      "origin": "package",
+      "namespace": "dlrs",
+      "customSetting": false,
+      "records": 2,
+      "names": [
+        "Account Won Opportunity Amount",
+        "Account Won Opportunity Count"
+      ]
+    },
+    {
+      "object": "dlrs__LookupRollupSummary2__mdt",
+      "label": "Lookup Rollup Summary",
+      "origin": "package",
+      "namespace": "dlrs",
+      "customSetting": false,
+      "records": 0,
+      "names": []
+    },
+    {
+      "object": "dlrs__LookupRollupSummaryLog__c",
+      "label": "Lookup Rollup Summary Log",
+      "origin": "package",
+      "namespace": "dlrs",
+      "customSetting": false,
+      "records": 0,
+      "names": []
+    },
+    {
+      "object": "dlrs__LookupRollupSummaryScheduleItems__c",
+      "label": "Lookup Rollup Summary Schedule Item",
+      "origin": "package",
+      "namespace": "dlrs",
+      "customSetting": false,
+      "records": 0,
+      "names": []
+    },
+    {
+      "object": "ProductCategory",
+      "label": "Category",
+      "origin": "salesforce",
+      "namespace": null,
+      "customSetting": false,
+      "records": 0,
+      "names": []
+    }
+  ],
   "security": {
     "profiles": [
       {
@@ -15154,7 +15227,7 @@
       {
         "application": "Salesforce CLI",
         "type": "Remote Access 2.0",
-        "logins": 27
+        "logins": 31
       },
       {
         "application": "Browser",

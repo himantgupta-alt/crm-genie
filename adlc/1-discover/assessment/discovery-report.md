@@ -224,7 +224,7 @@ The same detail is interactive in the Discovery explorer (Org Compiler) and mach
 | --- | --- | --- |
 | DataStorageMB | 2 | 5 |
 | FileStorageMB | 0 | 20 |
-| DailyApiRequests | 829 | 15000 |
+| DailyApiRequests | 7 | 15000 |
 | DailyBulkV2QueryJobs | 0 | 10000 |
 | DailyAsyncApexExecutions | 0 | 250000 |
 
@@ -1162,6 +1162,20 @@ _None._
 | Declarative Lookup Rollup Summaries Tool | dlrs | 2.25 | 9 | 72 | 134 |
 | Developer Edition | devedapp | 0.9 | 0 | 0 | 4 |
 
+#### Configuration held as records
+
+Packages and Salesforce features keep much of their set-up as records (templates, definitions, settings). The code stays hidden; this set-up shows how each feature is configured and used.
+
+| Owner | Set-up object | Records | Examples |
+| --- | --- | --- | --- |
+| Declarative Lookup Rollup Summaries Tool | dlrs__DeclarativeLookupRollupSummaries__c | 0 |  |
+| Declarative Lookup Rollup Summaries Tool | dlrs__LookupRollupCalculateJob__c | 0 |  |
+| Declarative Lookup Rollup Summaries Tool | dlrs__LookupRollupSummary__c | 2 | Account Won Opportunity Amount, Account Won Opportunity Count |
+| Declarative Lookup Rollup Summaries Tool | dlrs__LookupRollupSummary2__mdt | 0 |  |
+| Declarative Lookup Rollup Summaries Tool | dlrs__LookupRollupSummaryLog__c | 0 |  |
+| Declarative Lookup Rollup Summaries Tool | dlrs__LookupRollupSummaryScheduleItems__c | 0 |  |
+| Salesforce feature | ProductCategory | 0 |  |
+
 ### A.8 Security model
 
 #### Org-wide defaults
@@ -1335,7 +1349,7 @@ How many profiles and permission sets can read and edit each custom field.
 
 | Application | Login type | Logins |
 | --- | --- | --- |
-| Salesforce CLI | Remote Access 2.0 | 27 |
+| Salesforce CLI | Remote Access 2.0 | 31 |
 | Browser | Application | 9 |
 | Browser | Remote Access Client | 3 |
 | orgfarm_app_1 | Remote Access 2.0 | 3 |
