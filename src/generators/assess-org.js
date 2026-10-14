@@ -12,7 +12,9 @@ const [region, label] = process.argv.slice(2);
 if (!region) { console.error('usage: SF_ALIAS=<alias> node src/generators/assess-org.js <region> "<label>"'); process.exit(2); }
 
 const API = '67.0';
-const STANDARD = ['Account', 'Contact', 'Lead', 'Opportunity', 'Product2', 'Order', 'OrderItem', 'Case', 'Campaign', 'Contract', 'Quote', 'Asset'];
+// Standard objects whose client-added fields are assessed; Consumer Goods Cloud objects count when the org has them.
+const STANDARD = ['Account', 'Contact', 'Lead', 'Opportunity', 'Product2', 'Order', 'OrderItem', 'Case', 'Campaign', 'Contract', 'Quote', 'Asset',
+  'RetailStore', 'Visit', 'RetailVisitKpi', 'AssessmentTask', 'RetailStoreGroup', 'InStoreLocation', 'StoreProduct'];
 const SKIP_FILL = new Set(['LongTextArea', 'Html', 'EncryptedString', 'base64', 'textarea']);
 const byName = (a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0);
 

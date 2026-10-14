@@ -34,6 +34,19 @@
       "reference": "Salesforce Help: Consumer Goods Cloud, Retail Execution (assessment tasks, KPIs)"
     },
     {
+      "id": "cg-extensions",
+      "area": "Retail execution",
+      "capability": "Extensions to Consumer Goods Cloud objects",
+      "match": {
+        "fields": "^(Visit|RetailStore|RetailVisitKpi|AssessmentTask|RetailStoreGroup|InStoreLocation|StoreProduct)\\.",
+        "triggers": "^(Visit|RetailStore|RetailVisitKpi)\\w*Trigger$"
+      },
+      "verdict": "retain",
+      "standard": "Fields and automation added to standard Consumer Goods Cloud objects: the standard object is used, the client extends it",
+      "licence": "Consumer Goods Cloud",
+      "reference": "Salesforce Help: Consumer Goods Cloud, Retail Execution"
+    },
+    {
       "id": "visit-planning",
       "area": "Retail execution",
       "capability": "Visit planning and routes",
