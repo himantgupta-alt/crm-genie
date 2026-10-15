@@ -23,9 +23,9 @@
   },
   "findings": [
     "1 of 3 orgs extracted; 14 of 37 markets found in the extracted orgs.",
-    "80 custom components classified: 45% adopt standard, 9% replace with configuration, 9% retain, 0% harmonise, 1% retire, 36% review with business.",
+    "80 custom components classified: 44% adopt standard, 9% replace with configuration, 9% retain, 0% harmonise, 3% retire, 36% review with business.",
     "Cross-org comparison starts once a second org is extracted.",
-    "1 component is unused and can be retired before any move.",
+    "2 components are unused and can be retired before any move.",
     "29 components are not matched to a known capability and go on the workshop agenda."
   ],
   "orgs": [
@@ -185,11 +185,11 @@
         }
       ],
       "verdicts": {
-        "adopt": 36,
+        "adopt": 35,
         "configure": 7,
         "retain": 7,
         "harmonise": 0,
-        "retire": 1,
+        "retire": 2,
         "review": 29
       }
     },
@@ -225,7 +225,198 @@
       "builtDifferently": false,
       "fitment": {
         "eu": "TD"
-      }
+      },
+      "subprocesses": [
+        {
+          "id": "visit-scheduling",
+          "name": "Visit scheduling",
+          "fitment": {
+            "eu": "TD"
+          },
+          "evidence": {
+            "eu": [
+              {
+                "kind": "Custom object",
+                "name": "Store_Visit__c",
+                "verdict": "adopt",
+                "why": "Consumer Goods Cloud: Visit and Retail Store, with visit tasks on the mobile app",
+                "effort": "Medium",
+                "layer": "Custom",
+                "ref": "Store_Visit__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Store_Visit__c.Account__c",
+                "verdict": "adopt",
+                "why": "Field added to Store Visit, filled on 100% of records.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Store_Visit__c.Account__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Store_Visit__c.Notes__c",
+                "verdict": "adopt",
+                "why": "Field added to Store Visit.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Store_Visit__c.Notes__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Store_Visit__c.Status__c",
+                "verdict": "adopt",
+                "why": "Field added to Store Visit, filled on 100% of records.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Store_Visit__c.Status__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Store_Visit__c.Visit_Date__c",
+                "verdict": "adopt",
+                "why": "Field added to Store Visit, filled on 100% of records.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Store_Visit__c.Visit_Date__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Store_Visit__c.Visit_Type__c",
+                "verdict": "adopt",
+                "why": "Field added to Store Visit, filled on 100% of records.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Store_Visit__c.Visit_Type__c"
+              }
+            ]
+          }
+        },
+        {
+          "id": "check-in",
+          "name": "Check-in at the store",
+          "fitment": {
+            "eu": "TD"
+          },
+          "evidence": {
+            "eu": [
+              {
+                "kind": "Custom field",
+                "name": "Store_Visit__c.Check_In_Latitude__c",
+                "verdict": "adopt",
+                "why": "Field added to Store Visit, filled on 42% of records.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Store_Visit__c.Check_In_Latitude__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Store_Visit__c.Check_In_Longitude__c",
+                "verdict": "adopt",
+                "why": "Field added to Store Visit, filled on 42% of records.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Store_Visit__c.Check_In_Longitude__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Store_Visit__c.Checked_In__c",
+                "verdict": "adopt",
+                "why": "Field added to Store Visit, filled on 42% of records.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Store_Visit__c.Checked_In__c"
+              },
+              {
+                "kind": "Function",
+                "name": "Blocks the save when a field rule fails",
+                "verdict": "configure",
+                "why": "Validation rule.",
+                "effort": "Medium",
+                "layer": "Custom",
+                "ref": "StoreVisitTrigger L3 (before update) → StoreVisitService.requireCheckIn L22–27",
+                "component": "Store Visit triggers and handlers",
+                "componentId": "trg-StoreVisitTrigger",
+                "sequenceSensitive": false
+              },
+              {
+                "kind": "Function",
+                "name": "Whole class: no live code calls it",
+                "verdict": "retire",
+                "why": "Not called by any active trigger or class and not an entry point (screen, flow, batch, schedule or API). Remove it with its test after confirming in the org.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "StoreVisitLegacyHandler L1–9",
+                "component": "Store Visit Legacy Handler",
+                "componentId": "cls-StoreVisitLegacyHandler",
+                "sequenceSensitive": false
+              }
+            ]
+          }
+        },
+        {
+          "id": "visit-outcome",
+          "name": "Visit outcome and alerts",
+          "fitment": {
+            "eu": "TD"
+          },
+          "evidence": {
+            "eu": [
+              {
+                "kind": "Custom field",
+                "name": "Store_Visit__c.Compliance_Pct__c",
+                "verdict": "adopt",
+                "why": "Field added to Store Visit, filled on 42% of records.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Store_Visit__c.Compliance_Pct__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Store_Visit__c.Out_Of_Stocks__c",
+                "verdict": "adopt",
+                "why": "Field added to Store Visit, filled on 50% of records.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Store_Visit__c.Out_Of_Stocks__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Store_Visit__c.Shelf_Checks__c",
+                "verdict": "adopt",
+                "why": "Field added to Store Visit.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Store_Visit__c.Shelf_Checks__c"
+              },
+              {
+                "kind": "Function",
+                "name": "Keeps totals on Store Visit from its related records",
+                "verdict": "configure",
+                "why": "Roll-up summary field where the relationship is master-detail; otherwise a record-triggered flow.",
+                "effort": "Medium",
+                "layer": "Custom",
+                "ref": "ShelfCheckTrigger L4 (after) → StoreVisitService.countOutOfStocks L30–41",
+                "component": "Shelf Check triggers and handlers",
+                "componentId": "trg-ShelfCheckTrigger",
+                "sequenceSensitive": false
+              },
+              {
+                "kind": "Function",
+                "name": "Builds and sends an email in code",
+                "verdict": "adopt",
+                "why": "Email template with an email alert, sent from a flow or an approval step.",
+                "effort": "Medium",
+                "layer": "Custom",
+                "ref": "StoreVisitTrigger L4 (after update) → StoreVisitService.alertAreaManager L44–63",
+                "component": "Store Visit triggers and handlers",
+                "componentId": "trg-StoreVisitTrigger",
+                "sequenceSensitive": false
+              }
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "visit-tasks",
@@ -244,7 +435,70 @@
       "builtDifferently": false,
       "fitment": {
         "eu": "TD"
-      }
+      },
+      "subprocesses": [
+        {
+          "id": "task-generation",
+          "name": "Task generation",
+          "fitment": {
+            "eu": "TD"
+          },
+          "evidence": {
+            "eu": [
+              {
+                "kind": "Custom object",
+                "name": "Visit_Task__c",
+                "verdict": "adopt",
+                "why": "Consumer Goods Cloud: action plan templates create the tasks of each visit (assessment, inventory and price checks)",
+                "effort": "Medium",
+                "layer": "Custom",
+                "ref": "Visit_Task__c"
+              },
+              {
+                "kind": "Function",
+                "name": "Creates Visit Task records automatically",
+                "verdict": "adopt",
+                "why": "Covered by the standard feature: Consumer Goods Cloud: Visit and Retail Store, with visit tasks on the mobile app.",
+                "effort": "Medium",
+                "layer": "Custom",
+                "ref": "StoreVisitTrigger L2 (after insert) → StoreVisitService.createVisitTasks L5–19",
+                "component": "Store Visit triggers and handlers",
+                "componentId": "trg-StoreVisitTrigger",
+                "sequenceSensitive": false
+              }
+            ]
+          }
+        },
+        {
+          "id": "task-completion",
+          "name": "Task completion",
+          "fitment": {
+            "eu": "ES"
+          },
+          "evidence": {
+            "eu": [
+              {
+                "kind": "Custom field",
+                "name": "Visit_Task__c.Done__c",
+                "verdict": "adopt",
+                "why": "Field added to Visit Task, filled on 60% of records.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Visit_Task__c.Done__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Visit_Task__c.Result__c",
+                "verdict": "adopt",
+                "why": "Field added to Visit Task, filled on 75% of records.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Visit_Task__c.Result__c"
+              }
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "in-store-audit",
@@ -264,7 +518,76 @@
       "builtDifferently": false,
       "fitment": {
         "eu": "TD"
-      }
+      },
+      "subprocesses": [
+        {
+          "id": "availability-check",
+          "name": "Shelf availability check",
+          "fitment": {
+            "eu": "TD"
+          },
+          "evidence": {
+            "eu": [
+              {
+                "kind": "Custom object",
+                "name": "Shelf_Check__c",
+                "verdict": "adopt",
+                "why": "Consumer Goods Cloud: assessment tasks and retail store KPIs recorded during a visit",
+                "effort": "Medium",
+                "layer": "Custom",
+                "ref": "Shelf_Check__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Shelf_Check__c.Facings__c",
+                "verdict": "adopt",
+                "why": "Field added to Shelf Check, filled on 100% of records.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Shelf_Check__c.Facings__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Shelf_Check__c.On_Shelf__c",
+                "verdict": "adopt",
+                "why": "Field added to Shelf Check, filled on 86% of records.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Shelf_Check__c.On_Shelf__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Shelf_Check__c.Product__c",
+                "verdict": "adopt",
+                "why": "Field added to Shelf Check, filled on 100% of records.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Shelf_Check__c.Product__c"
+              }
+            ]
+          }
+        },
+        {
+          "id": "price-check",
+          "name": "Price check",
+          "fitment": {
+            "eu": "ES"
+          },
+          "evidence": {
+            "eu": [
+              {
+                "kind": "Custom field",
+                "name": "Shelf_Check__c.Shelf_Price__c",
+                "verdict": "adopt",
+                "why": "Field added to Shelf Check, filled on 100% of records.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Shelf_Check__c.Shelf_Price__c"
+              }
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "assortment",
@@ -283,7 +606,29 @@
       "builtDifferently": false,
       "fitment": {
         "eu": "TD"
-      }
+      },
+      "subprocesses": [
+        {
+          "id": "must-stock",
+          "name": "Must-stock lists",
+          "fitment": {
+            "eu": "TD"
+          },
+          "evidence": {
+            "eu": [
+              {
+                "kind": "Custom object",
+                "name": "Store_Assortment__c",
+                "verdict": "adopt",
+                "why": "Consumer Goods Cloud: product assortments assigned to retail store groups",
+                "effort": "Medium",
+                "layer": "Custom",
+                "ref": "Store_Assortment__c"
+              }
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "trade-promotions",
@@ -307,7 +652,245 @@
       "builtDifferently": false,
       "fitment": {
         "eu": "TD"
-      }
+      },
+      "subprocesses": [
+        {
+          "id": "promo-planning",
+          "name": "Promotion planning",
+          "fitment": {
+            "eu": "TD"
+          },
+          "evidence": {
+            "eu": [
+              {
+                "kind": "Custom object",
+                "name": "Promotion_Product__c",
+                "verdict": "adopt",
+                "why": "Consumer Goods Cloud Trade Promotion Management: promotion planning, funds and post-event analysis",
+                "effort": "Medium",
+                "layer": "Custom",
+                "ref": "Promotion_Product__c"
+              },
+              {
+                "kind": "Custom object",
+                "name": "Trade_Promotion__c",
+                "verdict": "adopt",
+                "why": "Consumer Goods Cloud Trade Promotion Management: promotion planning, funds and post-event analysis",
+                "effort": "Medium",
+                "layer": "Custom",
+                "ref": "Trade_Promotion__c"
+              },
+              {
+                "kind": "Validation rule",
+                "name": "Trade_Promotion__c.Budget_Required_To_Submit",
+                "verdict": "adopt",
+                "why": "Consumer Goods Cloud Trade Promotion Management: promotion planning, funds and post-event analysis",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Trade_Promotion__c.Budget_Required_To_Submit"
+              },
+              {
+                "kind": "Validation rule",
+                "name": "Trade_Promotion__c.End_After_Start",
+                "verdict": "adopt",
+                "why": "Consumer Goods Cloud Trade Promotion Management: promotion planning, funds and post-event analysis",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Trade_Promotion__c.End_After_Start"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Trade_Promotion__c.Account__c",
+                "verdict": "adopt",
+                "why": "Field added to Trade Promotion, filled on 100% of records.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Trade_Promotion__c.Account__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Trade_Promotion__c.Budget__c",
+                "verdict": "adopt",
+                "why": "Field added to Trade Promotion, filled on 100% of records.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Trade_Promotion__c.Budget__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Trade_Promotion__c.End_Date__c",
+                "verdict": "adopt",
+                "why": "Field added to Trade Promotion, filled on 100% of records.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Trade_Promotion__c.End_Date__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Trade_Promotion__c.Mechanic__c",
+                "verdict": "adopt",
+                "why": "Field added to Trade Promotion, filled on 100% of records.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Trade_Promotion__c.Mechanic__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Trade_Promotion__c.Start_Date__c",
+                "verdict": "adopt",
+                "why": "Field added to Trade Promotion, filled on 100% of records.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Trade_Promotion__c.Start_Date__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Trade_Promotion__c.Status__c",
+                "verdict": "adopt",
+                "why": "Field added to Trade Promotion, filled on 100% of records.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Trade_Promotion__c.Status__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Trade_Promotion__c.Uplift_Pct__c",
+                "verdict": "adopt",
+                "why": "Field added to Trade Promotion, filled on 100% of records.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Trade_Promotion__c.Uplift_Pct__c"
+              }
+            ]
+          }
+        },
+        {
+          "id": "post-event",
+          "name": "Post-event analysis",
+          "fitment": {
+            "eu": "TD"
+          },
+          "evidence": {
+            "eu": [
+              {
+                "kind": "Custom field",
+                "name": "Trade_Promotion__c.Actual_Spend__c",
+                "verdict": "adopt",
+                "why": "Field added to Trade Promotion, filled on 64% of records.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Trade_Promotion__c.Actual_Spend__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Trade_Promotion__c.Actual_Volume__c",
+                "verdict": "adopt",
+                "why": "Field added to Trade Promotion, filled on 64% of records.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Trade_Promotion__c.Actual_Volume__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Trade_Promotion__c.Baseline_Volume__c",
+                "verdict": "adopt",
+                "why": "Field added to Trade Promotion, filled on 64% of records.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Trade_Promotion__c.Baseline_Volume__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Trade_Promotion__c.ROI__c",
+                "verdict": "adopt",
+                "why": "Field added to Trade Promotion, filled on 64% of records.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Trade_Promotion__c.ROI__c"
+              },
+              {
+                "kind": "Function",
+                "name": "Calculates ROI",
+                "verdict": "adopt",
+                "why": "Covered by the standard feature: Consumer Goods Cloud Trade Promotion Management: promotion planning, funds and post-event analysis.",
+                "effort": "High",
+                "layer": "Custom",
+                "ref": "TradePromotionTrigger L4 (before) → TradePromotionService.calculateResults L6–13",
+                "component": "Trade Promotion triggers and handlers",
+                "componentId": "trg-TradePromotionTrigger",
+                "sequenceSensitive": false
+              }
+            ]
+          }
+        },
+        {
+          "id": "promo-notifications",
+          "name": "Promotion notifications",
+          "fitment": {
+            "eu": "TD"
+          },
+          "evidence": {
+            "eu": [
+              {
+                "kind": "Function",
+                "name": "Posts a Chatter message",
+                "verdict": "configure",
+                "why": "Flow 'Post to Chatter' action.",
+                "effort": "High",
+                "layer": "Custom",
+                "ref": "TradePromotionTrigger L14 (after update) → TradePromotionService.postApprovalToChatter L46–53",
+                "component": "Trade Promotion triggers and handlers",
+                "componentId": "trg-TradePromotionTrigger",
+                "sequenceSensitive": true
+              },
+              {
+                "kind": "Function",
+                "name": "Builds and sends an email in code",
+                "verdict": "adopt",
+                "why": "Email template with an email alert, sent from a flow or an approval step.",
+                "effort": "High",
+                "layer": "Custom",
+                "ref": "TradePromotionTrigger L15 (after update) → TradePromotionService.emailKeyAccountManager L56–73",
+                "component": "Trade Promotion triggers and handlers",
+                "componentId": "trg-TradePromotionTrigger",
+                "sequenceSensitive": true
+              }
+            ]
+          }
+        },
+        {
+          "id": "erp-handoff",
+          "name": "ERP hand-off",
+          "fitment": {
+            "eu": "DC"
+          },
+          "evidence": {
+            "eu": [
+              {
+                "kind": "Custom field",
+                "name": "Trade_Promotion__c.ERP_Synced__c",
+                "verdict": "adopt",
+                "why": "Field added to Trade Promotion, filled on 0% of records.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Trade_Promotion__c.ERP_Synced__c"
+              },
+              {
+                "kind": "Function",
+                "name": "Calls an external system asynchronously (@future)",
+                "verdict": "retain",
+                "why": "External system integration; no standard feature replaces it. Keep it behind a named credential; a queue or platform event adds retries.",
+                "effort": "High",
+                "layer": "Custom",
+                "ref": "TradePromotionTrigger L16 (after update) → TradePromotionService.sendToErp L84–98",
+                "component": "Trade Promotion triggers and handlers",
+                "componentId": "trg-TradePromotionTrigger",
+                "sequenceSensitive": true
+              }
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "trade-funds",
@@ -327,7 +910,136 @@
       "builtDifferently": false,
       "fitment": {
         "eu": "TD"
-      }
+      },
+      "subprocesses": [
+        {
+          "id": "fund-allocation",
+          "name": "Fund allocation",
+          "fitment": {
+            "eu": "TD"
+          },
+          "evidence": {
+            "eu": [
+              {
+                "kind": "Custom object",
+                "name": "Trade_Fund__c",
+                "verdict": "adopt",
+                "why": "Trade Promotion Management: funds with allocated, committed and spent amounts kept by the platform",
+                "effort": "Medium",
+                "layer": "Custom",
+                "ref": "Trade_Fund__c"
+              },
+              {
+                "kind": "Validation rule",
+                "name": "Trade_Fund__c.Amount_Positive",
+                "verdict": "adopt",
+                "why": "Trade Promotion Management: funds with allocated, committed and spent amounts kept by the platform",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Trade_Fund__c.Amount_Positive"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Trade_Fund__c.Account__c",
+                "verdict": "adopt",
+                "why": "Field added to Trade Fund, filled on 100% of records.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Trade_Fund__c.Account__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Trade_Fund__c.Amount__c",
+                "verdict": "adopt",
+                "why": "Field added to Trade Fund, filled on 100% of records.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Trade_Fund__c.Amount__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Trade_Fund__c.Fund_Type__c",
+                "verdict": "adopt",
+                "why": "Field added to Trade Fund, filled on 100% of records.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Trade_Fund__c.Fund_Type__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Trade_Fund__c.Status__c",
+                "verdict": "adopt",
+                "why": "Field added to Trade Fund, filled on 100% of records.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Trade_Fund__c.Status__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Trade_Fund__c.Year__c",
+                "verdict": "adopt",
+                "why": "Field added to Trade Fund, filled on 100% of records.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Trade_Fund__c.Year__c"
+              }
+            ]
+          }
+        },
+        {
+          "id": "fund-commitment",
+          "name": "Fund commitment and checks",
+          "fitment": {
+            "eu": "TD"
+          },
+          "evidence": {
+            "eu": [
+              {
+                "kind": "Custom field",
+                "name": "Trade_Fund__c.Committed__c",
+                "verdict": "adopt",
+                "why": "Field added to Trade Fund, filled on 50% of records.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Trade_Fund__c.Committed__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Trade_Promotion__c.Trade_Fund__c",
+                "verdict": "adopt",
+                "why": "Field added to Trade Promotion, filled on 100% of records.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Trade_Promotion__c.Trade_Fund__c"
+              },
+              {
+                "kind": "Function",
+                "name": "Blocks the save after checking other records (Trade Fund)",
+                "verdict": "adopt",
+                "why": "Covered by the standard feature: Consumer Goods Cloud Trade Promotion Management: promotion planning, funds and post-event analysis.",
+                "effort": "High",
+                "layer": "Custom",
+                "ref": "TradePromotionTrigger L5 (before) → TradePromotionService.checkFund L16–29",
+                "component": "Trade Promotion triggers and handlers",
+                "componentId": "trg-TradePromotionTrigger",
+                "sequenceSensitive": false
+              },
+              {
+                "kind": "Function",
+                "name": "Keeps totals on Trade Fund from its related records",
+                "verdict": "configure",
+                "why": "Roll-up summary field where the relationship is master-detail; otherwise a record-triggered flow.",
+                "effort": "High",
+                "layer": "Custom",
+                "ref": "TradePromotionTrigger L12 (after) → TradePromotionService.updateFundCommitted L32–43",
+                "component": "Trade Promotion triggers and handlers",
+                "componentId": "trg-TradePromotionTrigger",
+                "sequenceSensitive": true
+              }
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "claims",
@@ -349,7 +1061,118 @@
       "builtDifferently": false,
       "fitment": {
         "eu": "TD"
-      }
+      },
+      "subprocesses": [
+        {
+          "id": "claim-capture",
+          "name": "Claim capture",
+          "fitment": {
+            "eu": "TD"
+          },
+          "evidence": {
+            "eu": [
+              {
+                "kind": "Custom object",
+                "name": "Promotion_Claim__c",
+                "verdict": "adopt",
+                "why": "Trade Promotion Management: claims and payments checked against promotion funds",
+                "effort": "Medium",
+                "layer": "Custom",
+                "ref": "Promotion_Claim__c"
+              },
+              {
+                "kind": "Validation rule",
+                "name": "Promotion_Claim__c.Claim_Positive",
+                "verdict": "adopt",
+                "why": "Trade Promotion Management: claims and payments checked against promotion funds",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Promotion_Claim__c.Claim_Positive"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Promotion_Claim__c.Account__c",
+                "verdict": "adopt",
+                "why": "Field added to Promotion Claim, filled on 100% of records.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Promotion_Claim__c.Account__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Promotion_Claim__c.Claim_Amount__c",
+                "verdict": "adopt",
+                "why": "Field added to Promotion Claim, filled on 100% of records.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Promotion_Claim__c.Claim_Amount__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Promotion_Claim__c.Invoice_Number__c",
+                "verdict": "adopt",
+                "why": "Field added to Promotion Claim, filled on 100% of records.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Promotion_Claim__c.Invoice_Number__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Promotion_Claim__c.Trade_Promotion__c",
+                "verdict": "adopt",
+                "why": "Field added to Promotion Claim, filled on 100% of records.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Promotion_Claim__c.Trade_Promotion__c"
+              }
+            ]
+          }
+        },
+        {
+          "id": "claim-validation",
+          "name": "Claim validation and approval",
+          "fitment": {
+            "eu": "TD"
+          },
+          "evidence": {
+            "eu": [
+              {
+                "kind": "Custom field",
+                "name": "Promotion_Claim__c.Status__c",
+                "verdict": "adopt",
+                "why": "Field added to Promotion Claim, filled on 100% of records.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Promotion_Claim__c.Status__c"
+              },
+              {
+                "kind": "Function",
+                "name": "Blocks the save after checking other records (Trade Promotion)",
+                "verdict": "adopt",
+                "why": "Covered by the standard feature: Trade Promotion Management: claims and payments checked against promotion funds.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "PromotionClaimTrigger L2 (before) → PromotionClaimService.checkAgainstSpend L5–15",
+                "component": "Promotion Claim triggers and handlers",
+                "componentId": "trg-PromotionClaimTrigger",
+                "sequenceSensitive": false
+              },
+              {
+                "kind": "Function",
+                "name": "Sets the status automatically",
+                "verdict": "configure",
+                "why": "Approval process entry criteria or a before-save flow; keep any threshold as custom metadata, not in code.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "PromotionClaimTrigger L3 (before insert) → PromotionClaimService.autoApprove L18–22",
+                "component": "Promotion Claim triggers and handlers",
+                "componentId": "trg-PromotionClaimTrigger",
+                "sequenceSensitive": false
+              }
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "promotion-approval",
@@ -368,7 +1191,32 @@
       "builtDifferently": false,
       "fitment": {
         "eu": "TD"
-      }
+      },
+      "subprocesses": [
+        {
+          "id": "approval-routing",
+          "name": "Approval routing",
+          "fitment": {
+            "eu": "TD"
+          },
+          "evidence": {
+            "eu": [
+              {
+                "kind": "Function",
+                "name": "Sets the status automatically",
+                "verdict": "configure",
+                "why": "Approval process entry criteria or a before-save flow; keep any threshold as custom metadata, not in code.",
+                "effort": "High",
+                "layer": "Custom",
+                "ref": "TradePromotionTrigger L3 (before) → TradePromotionApproval.apply L3–9",
+                "component": "Trade Promotion triggers and handlers",
+                "componentId": "trg-TradePromotionTrigger",
+                "sequenceSensitive": true
+              }
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "targets",
@@ -1674,8 +2522,8 @@
       "kind": "Apex class",
       "name": "StoreVisitLegacyHandler",
       "capability": "store-visits",
-      "verdict": "adopt",
-      "reason": "Consumer Goods Cloud: Visit and Retail Store, with visit tasks on the mobile app",
+      "verdict": "retire",
+      "reason": "No active trigger or class calls it and it is not an entry point (screen, flow, batch, schedule or API).",
       "confidence": "High",
       "lines": 9,
       "objects": [
@@ -1683,8 +2531,8 @@
       ],
       "layer": "Custom",
       "effort": "Low",
-      "priority": "Medium term",
-      "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
+      "priority": "Quick win",
+      "impact": "Less clutter; nothing unused is maintained or migrated.",
       "where": "Europe org",
       "decisionOwner": "Retail execution owner (to confirm)"
     },

@@ -166,6 +166,19 @@ Rules:
 When saving one object updates another that has its own trigger, the steps form a chain across objects; the same rules
 apply.
 
+## Roll-up: area, process, sub-process
+
+Findings are made low (objects, fields, validation rules, the functions in the code) and read high. Each
+capability in the catalogue (a process, such as Store visits or Trade funds) lists its sub-processes, with patterns
+for the objects, fields, rules and methods that serve each one. A finding rolls up to the first sub-process it
+matches, otherwise to the first sub-process of its own capability; fields count only where a sub-process names them.
+
+The fitment code of a sub-process comes from what rolled up to it: Requires validation if anything is unresolved;
+Technical-debt candidate if custom objects or code do what standard or configuration could; Differentiating custom
+if custom objects or code stay; Extended standard if only fields were added; Configured standard if only rules or
+flows; Native standard if nothing custom was found. The heatmap reads area → process → sub-process by org, and each
+cell lists the findings behind it with their code references.
+
 ## Review
 
 - Rules close the easy rows (High confidence): unused, inactive, Process Builder or Workflow, exact catalogue match.

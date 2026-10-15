@@ -62,6 +62,8 @@ function classify(o) {
     const byName = byKey('classes', c.name);
     const cap = byName || (c.objects.length ? capOfObject(c.objects[0]) : null);
     push('Apex class', c.name, cap, { via: byName ? 'name' : 'objects', facts: { lines: c.lines, objects: c.objects } });
+    // Code nothing live calls is dead, whatever its capability: remove it rather than move it.
+    if (c.unreferenced) Object.assign(items[items.length - 1], { verdict: 'retire', reason: 'No active trigger or class calls it and it is not an entry point (screen, flow, batch, schedule or API).', confidence: 'High' });
   }
   for (const t of a.automation.triggers) {
     const byName = byKey('triggers', t.name);
@@ -340,6 +342,61 @@ const capabilityMatrix = cat.capabilities.map((c) => {
 // Components that match no capability form one row of their own: they need validation.
 const unmatched = { area: 'Other', capability: 'Not matched to a capability', fitment: Object.fromEntries(extracted.map((o) => [o.region, fitmentOf(o.region, null)])) };
 
+/* ---------------------------------------------------------------- roll-up to sub-processes */
+
+// Low-level findings (custom objects, fields, validation rules, the functions in the Apex code) roll up to the
+// sub-process they serve, so the heatmap reads area → process → sub-process. A finding goes to the first
+// sub-process whose pattern it matches; otherwise to the first sub-process of its own capability (fields only
+// when named explicitly, so a sub-process is not filled with every field of an object).
+const ffgByRegion = Object.fromEntries(extracted.map((o) => [o.region, functionFitGap(o)]).filter(([, x]) => x));
+const SPS = cat.capabilities.flatMap((c) => (c.subprocesses || []).map((sp) => ({ ...sp, cap: c.id, re: Object.fromEntries(Object.entries(sp.match).map(([k, v]) => [k, new RegExp(v)])) })));
+for (const row of capabilityMatrix) {
+  const c = capById[row.id];
+  if (c.subprocesses) row.subprocesses = c.subprocesses.map((sp) => ({ id: sp.id, name: sp.name, fitment: {}, evidence: {} }));
+}
+// Fitment of a sub-process, in the proposal's codes, from what was found in it.
+function spCode(us) {
+  if (!us.length) return 'NS';
+  if (us.some((u) => u.verdict === 'review')) return 'RV';
+  const built = us.filter((u) => u.kind === 'Custom object' || u.kind === 'Function');
+  if (built.some((u) => ['adopt', 'configure', 'retire'].includes(u.verdict))) return 'TD';
+  if (built.length) return 'DC';
+  if (us.some((u) => u.kind === 'Custom field')) return 'ES';
+  return 'CS';
+}
+for (const o of extracted) {
+  const a = o.asIs;
+  const mine = items.filter((i) => i.org === o.region);
+  const unit = (i, keys, extra = {}) => ({ kind: i.kind, name: i.name, keys, verdict: i.verdict, why: i.reason, cap: i.capability, effort: i.effort, layer: i.layer, ref: i.name, ...extra });
+  const units = [
+    ...mine.filter((i) => i.kind === 'Custom object').map((i) => unit(i, { objects: [i.name] })),
+    ...mine.filter((i) => i.kind === 'Validation rule').map((i) => unit(i, { rules: [i.name] })),
+    ...mine.filter((i) => i.kind === 'Custom field').map((i) => unit(i, { fields: [i.name] }, { explicitOnly: true })),
+  ];
+  for (const ob of a.objects) {
+    const oi = mine.find((i) => i.kind === 'Custom object' && i.name === ob.name);
+    for (const f of ob.fields) units.push({ kind: 'Custom field', name: `${ob.name}.${f.name}`, keys: { fields: [`${ob.name}.${f.name}`] }, verdict: oi?.verdict || 'review',
+      why: `Field added to ${words(ob.name)}${f.fill != null ? `, filled on ${f.fill}% of records` : ''}.`, cap: oi?.capability || null, effort: 'Low', layer: 'Custom', ref: `${ob.name}.${f.name}`, explicitOnly: true });
+  }
+  const clsInfo = Object.fromEntries(a.automation.classes.map((c) => [c.name, c]));
+  for (const k of ffgByRegion[o.region]?.components || []) for (const f of k.functions) {
+    const whole = f.method.startsWith('(');
+    const methods = whole ? (clsInfo[f.component]?.analysis?.methodInfo || []).map((m) => `${f.component}.${m.name}`) : [`${f.component}.${f.method}`];
+    const ci = mine.find((i) => /Apex/.test(i.kind) && i.name === f.component);
+    units.push({ kind: 'Function', name: f.what, keys: { methods, classes: [f.component] }, verdict: f.verdict, why: f.why, cap: ci?.capability || k.capability, effort: k.effort, layer: 'Custom',
+      ref: f.ref || `${f.component}.${f.method}`, component: k.title, componentId: k.id, sequenceSensitive: !!f.sequenceSensitive });
+  }
+  const hit = (sp, u) => Object.entries(u.keys).some(([k, vs]) => sp.re[k] && vs.some((v) => sp.re[k].test(v)));
+  for (const u of units) {
+    const sp = SPS.find((s) => hit(s, u)) || (!u.explicitOnly && u.cap ? SPS.find((s) => s.cap === u.cap) : null);
+    const row = sp && capabilityMatrix.find((r) => r.id === sp.cap)?.subprocesses?.find((x) => x.id === sp.id);
+    if (!row) continue;
+    const { keys, explicitOnly, cap, ...shown } = u;
+    (row.evidence[o.region] = row.evidence[o.region] || []).push(shown);
+  }
+  for (const r of capabilityMatrix) for (const s of r.subprocesses || []) s.fitment[o.region] = spCode(s.evidence[o.region] || []);
+}
+
 const total = items.length;
 const share = (v) => (total ? Math.round((items.filter((i) => i.verdict === v).length / total) * 100) : 0);
 const marketsFound = sum(orgSummary.filter((o) => o.extracted), (o) => o.markets.length);
@@ -359,7 +416,7 @@ const fitGap = {
   owner: 'Assessment agent', generatedBy: 'src/generators/emit-assessment.js',
   client: eng.client, sampleData: eng.sampleData, note: eng.note, marketsExpected: eng.marketsExpected,
   verdicts: V, fitmentCodes: FITMENT, findings, orgs: orgSummary, capabilities: capabilityMatrix, unmatched,
-  functionFitGap: Object.fromEntries(extracted.map((o) => [o.region, functionFitGap(o)]).filter(([, x]) => x)),
+  functionFitGap: ffgByRegion,
   items: items.sort((a, b) => a.org.localeCompare(b.org) || a.kind.localeCompare(b.kind) || a.name.localeCompare(b.name)),
 };
 

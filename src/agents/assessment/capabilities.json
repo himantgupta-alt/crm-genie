@@ -20,7 +20,33 @@
       "verdict": "adopt",
       "standard": "Consumer Goods Cloud: Visit and Retail Store, with visit tasks on the mobile app",
       "licence": "Consumer Goods Cloud",
-      "reference": "Salesforce Help: Consumer Goods Cloud, Retail Execution"
+      "reference": "Salesforce Help: Consumer Goods Cloud, Retail Execution",
+      "subprocesses": [
+        {
+          "id": "visit-scheduling",
+          "name": "Visit scheduling",
+          "match": {
+            "objects": "^(Store|Outlet|Field|Retail)_?Visit__c$",
+            "fields": "^(Store|Outlet|Field|Retail)_?Visit__c\\.(Visit_Date|Visit_Type|Status|Notes|Account|Beat_Plan)__c$"
+          }
+        },
+        {
+          "id": "check-in",
+          "name": "Check-in at the store",
+          "match": {
+            "fields": "^(Store|Outlet|Field|Retail)_?Visit__c\\.(Checked_In|Check_In_\\w+|GPS_\\w+)__c$",
+            "methods": "\\.(requireCheckIn|stampCheckIn|checkIn\\w*)$"
+          }
+        },
+        {
+          "id": "visit-outcome",
+          "name": "Visit outcome and alerts",
+          "match": {
+            "fields": "^(Store|Outlet|Field|Retail)_?Visit__c\\.(Out_Of_Stocks|Compliance_Pct|Planogram_OK|Shelf_Checks)__c$",
+            "methods": "\\.(alertAreaManager|countOutOfStocks|\\w*Alert\\w*)$"
+          }
+        }
+      ]
     },
     {
       "id": "visit-tasks",
@@ -32,7 +58,24 @@
       "verdict": "adopt",
       "standard": "Consumer Goods Cloud: action plan templates create the tasks of each visit (assessment, inventory and price checks)",
       "licence": "Consumer Goods Cloud",
-      "reference": "Salesforce Help: Consumer Goods Cloud, action plan templates"
+      "reference": "Salesforce Help: Consumer Goods Cloud, action plan templates",
+      "subprocesses": [
+        {
+          "id": "task-generation",
+          "name": "Task generation",
+          "match": {
+            "objects": "^(Visit_Task|Visit_Activity|Visit_Action)__c$",
+            "methods": "\\.(create\\w*Tasks?|generate\\w*Tasks?)$"
+          }
+        },
+        {
+          "id": "task-completion",
+          "name": "Task completion",
+          "match": {
+            "fields": "^(Visit_Task|Visit_Activity|Visit_Action)__c\\.(Done|Result|Completed\\w*)__c$"
+          }
+        }
+      ]
     },
     {
       "id": "in-store-audit",
@@ -44,7 +87,24 @@
       "verdict": "adopt",
       "standard": "Consumer Goods Cloud: assessment tasks and retail store KPIs recorded during a visit",
       "licence": "Consumer Goods Cloud",
-      "reference": "Salesforce Help: Consumer Goods Cloud, Retail Execution (assessment tasks, KPIs)"
+      "reference": "Salesforce Help: Consumer Goods Cloud, Retail Execution (assessment tasks, KPIs)",
+      "subprocesses": [
+        {
+          "id": "availability-check",
+          "name": "Shelf availability check",
+          "match": {
+            "objects": "^(Shelf_Check|Outlet_Audit|Store_Audit|Store_Check)__c$",
+            "fields": "^(Shelf_Check|Outlet_Audit|Store_Audit|Store_Check)__c\\.(On_Shelf|Available|Facings|Product)__c$"
+          }
+        },
+        {
+          "id": "price-check",
+          "name": "Price check",
+          "match": {
+            "fields": "^(Shelf_Check|Outlet_Audit|Store_Audit|Store_Check)__c\\.(Shelf_Price|Price_Observed)__c$"
+          }
+        }
+      ]
     },
     {
       "id": "cg-extensions",
@@ -69,7 +129,24 @@
       "verdict": "adopt",
       "standard": "Consumer Goods Cloud: visit planning with retail store groups and action plan templates",
       "licence": "Consumer Goods Cloud",
-      "reference": "Salesforce Help: Consumer Goods Cloud, visit planning"
+      "reference": "Salesforce Help: Consumer Goods Cloud, visit planning",
+      "subprocesses": [
+        {
+          "id": "route-planning",
+          "name": "Route and sequence planning",
+          "match": {
+            "objects": "^(Beat_Plan|Route_Plan|Journey_Plan)__c$",
+            "fields": "^(Beat_Plan|Route_Plan|Journey_Plan)(_\\w+)?__c\\.(Day_Of_Week|Territory|Sequence)__c$"
+          }
+        },
+        {
+          "id": "outlet-selection",
+          "name": "Territory and outlet selection",
+          "match": {
+            "objects": "^(Beat_Plan|Route_Plan|Journey_Plan)_(Outlet|Store)__c$"
+          }
+        }
+      ]
     },
     {
       "id": "assortment",
@@ -81,7 +158,16 @@
       "verdict": "adopt",
       "standard": "Consumer Goods Cloud: product assortments assigned to retail store groups",
       "licence": "Consumer Goods Cloud",
-      "reference": "Salesforce Help: Consumer Goods Cloud, product assortments"
+      "reference": "Salesforce Help: Consumer Goods Cloud, product assortments",
+      "subprocesses": [
+        {
+          "id": "must-stock",
+          "name": "Must-stock lists",
+          "match": {
+            "objects": "^(Store_Assortment|Must_Stock_List|Assortment\\w*)__c$"
+          }
+        }
+      ]
     },
     {
       "id": "trade-promotions",
@@ -94,7 +180,41 @@
       "verdict": "adopt",
       "standard": "Consumer Goods Cloud Trade Promotion Management: promotion planning, funds and post-event analysis",
       "licence": "Trade Promotion Management (add-on)",
-      "reference": "Salesforce Help: Consumer Goods Cloud, Trade Promotion Management"
+      "reference": "Salesforce Help: Consumer Goods Cloud, Trade Promotion Management",
+      "subprocesses": [
+        {
+          "id": "promo-planning",
+          "name": "Promotion planning",
+          "match": {
+            "objects": "^(Trade_Promotion|Trade_Deal|Promotion_Product|Promotion_Line)__c$",
+            "fields": "^(Trade_Promotion|Trade_Deal)__c\\.(Mechanic|Budget|Start_Date|End_Date|Uplift_Pct|Discount_Pct|Funding|Account|Status)__c$",
+            "rules": "^(Trade_Promotion|Trade_Deal)__c\\."
+          }
+        },
+        {
+          "id": "post-event",
+          "name": "Post-event analysis",
+          "match": {
+            "fields": "^(Trade_Promotion|Trade_Deal)__c\\.(Baseline_Volume|Actual_Volume|Actual_Spend|ROI)__c$",
+            "methods": "\\.(calculateResults|\\w*ROI\\w*|\\w*PostEvent\\w*)$"
+          }
+        },
+        {
+          "id": "promo-notifications",
+          "name": "Promotion notifications",
+          "match": {
+            "methods": "^(TradePromotion|TradeDeal)\\w*\\.(post\\w*|email\\w*|notify\\w*)$"
+          }
+        },
+        {
+          "id": "erp-handoff",
+          "name": "ERP hand-off",
+          "match": {
+            "fields": "^(Trade_Promotion|Trade_Deal)__c\\.ERP_\\w+__c$",
+            "methods": "^(TradePromotion|TradeDeal)\\w*\\.\\w*(Erp|ERP)\\w*$"
+          }
+        }
+      ]
     },
     {
       "id": "trade-funds",
@@ -106,7 +226,26 @@
       "verdict": "adopt",
       "standard": "Trade Promotion Management: funds with allocated, committed and spent amounts kept by the platform",
       "licence": "Trade Promotion Management (add-on)",
-      "reference": "Salesforce Help: Trade Promotion Management, funds"
+      "reference": "Salesforce Help: Trade Promotion Management, funds",
+      "subprocesses": [
+        {
+          "id": "fund-allocation",
+          "name": "Fund allocation",
+          "match": {
+            "objects": "^(Trade_Fund|Promotion_Fund|Fund)__c$",
+            "fields": "^(Trade_Fund|Promotion_Fund|Fund)__c\\.(Amount|Fund_Type|Year|Account|Status)__c$",
+            "rules": "^(Trade_Fund|Promotion_Fund|Fund)__c\\."
+          }
+        },
+        {
+          "id": "fund-commitment",
+          "name": "Fund commitment and checks",
+          "match": {
+            "fields": "^(Trade_Fund|Promotion_Fund|Fund)__c\\.Committed__c$|__c\\.(Trade_Fund|Fund)__c$",
+            "methods": "\\.(check\\w*Fund\\w*|update\\w*Fund\\w*|\\w*Fund\\w*)$"
+          }
+        }
+      ]
     },
     {
       "id": "claims",
@@ -119,7 +258,26 @@
       "verdict": "adopt",
       "standard": "Trade Promotion Management: claims and payments checked against promotion funds",
       "licence": "Trade Promotion Management (add-on)",
-      "reference": "Salesforce Help: Trade Promotion Management, claims"
+      "reference": "Salesforce Help: Trade Promotion Management, claims",
+      "subprocesses": [
+        {
+          "id": "claim-capture",
+          "name": "Claim capture",
+          "match": {
+            "objects": "^(Distributor_Claim|Customer_Claim|Promotion_Claim|Claim)__c$",
+            "fields": "^(Distributor_Claim|Customer_Claim|Promotion_Claim|Claim)__c\\.(Invoice_Number|Claim_Amount|Distributor|Account|Trade_Promotion)__c$",
+            "rules": "^(Distributor_Claim|Customer_Claim|Promotion_Claim|Claim)__c\\."
+          }
+        },
+        {
+          "id": "claim-validation",
+          "name": "Claim validation and approval",
+          "match": {
+            "methods": "Claim\\w*\\.(check\\w*|autoApprove\\w*|\\w*Budget\\w*|\\w*Approve\\w*)$",
+            "fields": "^(Distributor_Claim|Customer_Claim|Promotion_Claim|Claim)__c\\.Status__c$"
+          }
+        }
+      ]
     },
     {
       "id": "promotion-approval",
@@ -131,7 +289,16 @@
       "verdict": "configure",
       "standard": "Approval processes or Flow approval orchestration, with the threshold held as configuration",
       "licence": "Sales Cloud",
-      "reference": "Salesforce Help: Approval processes; Flow approval orchestration"
+      "reference": "Salesforce Help: Approval processes; Flow approval orchestration",
+      "subprocesses": [
+        {
+          "id": "approval-routing",
+          "name": "Approval routing",
+          "match": {
+            "methods": "^(TradePromotion|TradeDeal)Approval\\w*\\."
+          }
+        }
+      ]
     },
     {
       "id": "orders",
