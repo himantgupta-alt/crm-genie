@@ -1,12 +1,12 @@
 {
-  "description": "Business capabilities the Assessment agent recognises in a consumer-goods sales org, the standard Salesforce feature that covers each one, and the default verdict. A component (custom object, custom field on a standard object, Apex class or trigger, installed package) belongs to the first capability whose pattern matches its name; Apex code that matches no name pattern belongs to the capability of the objects it reads or writes. Anything left over goes to the workshop list. Dispositions (as in the proposal): adopt (a standard Salesforce or Consumer Goods Cloud feature covers it), configure (replace custom code with supported configuration), retain (valuable, supportable differentiation with no standard equivalent), harmonise (the same need is built differently in several orgs: align the pattern while keeping the orgs separate), retire (unused, duplicated or obsolete), review (purpose, regulatory context, usage or licensing to confirm with the client).",
+  "description": "Business capabilities the Assessment agent recognises in a consumer-goods sales org, the standard Salesforce feature that covers each one, and the default verdict. A component (custom object, custom field on a standard object, Apex class or trigger, installed package) belongs to the first capability whose pattern matches its name; Apex code that matches no name pattern belongs to the capability of the objects it reads or writes. Anything left over goes to the workshop list. Dispositions (as in the proposal): adopt (a standard Salesforce or Consumer Goods Cloud feature covers it), configure (replace custom code with supported configuration), retain (valuable, supportable differentiation with no standard equivalent), harmonise (the same need is built differently in several orgs: align the pattern while keeping the orgs separate), retire (unused, duplicated or obsolete), review (purpose, regulatory context, usage or licensing to confirm).",
   "verdicts": {
     "adopt": "Adopt standard",
     "configure": "Replace with configuration",
     "retain": "Retain",
     "harmonise": "Harmonise",
     "retire": "Retire",
-    "review": "Review with client"
+    "review": "Review with business"
   },
   "capabilities": [
     {
@@ -55,7 +55,7 @@
         "triggers": "^(Visit|RetailStore|RetailVisitKpi)\\w*Trigger$"
       },
       "verdict": "retain",
-      "standard": "Fields and automation added to standard Consumer Goods Cloud objects: the standard object is used, the client extends it",
+      "standard": "Fields and automation added to standard Consumer Goods Cloud objects: the standard object is used and extended",
       "licence": "Consumer Goods Cloud",
       "reference": "Salesforce Help: Consumer Goods Cloud, Retail Execution"
     },

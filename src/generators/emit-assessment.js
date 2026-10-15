@@ -118,12 +118,12 @@ const labelOf = (r) => orgs.find((o) => o.region === r)?.label || r;
 const orgList = (rs) => (rs.length > 1 ? `${rs.slice(0, -1).join(', ')} and ${rs[rs.length - 1]} orgs` : `${rs[0]} org`);
 for (const i of items) {
   const cap = i.capability ? capById[i.capability] : null;
-  i.layer = i.kind === 'Installed package' ? 'Installed package' : 'Client custom';
+  i.layer = i.kind === 'Installed package' ? 'Installed package' : 'Custom';
   i.effort = effortOf(i);
   i.priority = PRIORITY[i.verdict];
   i.impact = IMPACT[i.verdict];
   i.where = orgList(i.capability ? [...new Set(items.filter((x) => x.capability === i.capability).map((x) => labelOf(x.org)))] : [labelOf(i.org)]);
-  i.decisionOwner = cap ? `Client ${cap.area.toLowerCase()} owner (to confirm)` : 'Client product owner (to confirm)';
+  i.decisionOwner = cap ? `${cap.area} owner (to confirm)` : 'Product owner (to confirm)';
 }
 
 // Fitment per capability and org, in the proposal's codes. Nothing custom found means the standard is used as is.
@@ -337,7 +337,7 @@ const capabilityMatrix = cat.capabilities.map((c) => {
   return { id: c.id, area: c.area, capability: c.capability, verdict: capVerdict(c), standard: c.standard, licence: c.licence, reference: c.reference, perOrg, inOrgs, builtDifferently: new Set(objectsPerOrg).size > 1,
     fitment: Object.fromEntries(extracted.map((o) => [o.region, fitmentOf(o.region, c.id)])) };
 }).filter((c) => c.inOrgs > 0);
-// Components that match no capability form one row of their own: they need validation with the client.
+// Components that match no capability form one row of their own: they need validation.
 const unmatched = { area: 'Other', capability: 'Not matched to a capability', fitment: Object.fromEntries(extracted.map((o) => [o.region, fitmentOf(o.region, null)])) };
 
 const total = items.length;
@@ -412,7 +412,7 @@ const report = [
   '- Read-only: describe, SOQL counts and the Tooling API, with the permissions of one integration user per org. No record contents leave the org; the as-is files hold component names, counts and fill rates only.',
   '- Each component is matched to a capability by name, then by the objects its code reads or writes (`src/agents/assessment/capabilities.json`). The verdict is the capability\'s default, overridden to Retire when a component is unused (no records, field filled on under 1% of records, or inactive).',
   '- Not yet covered: page layouts and Lightning pages, reports and dashboards by usage, profiles and sharing, email templates. These are listed in the gap register of the Extraction agent for the migration and are added here in the next iteration.',
-  '- Verdicts are proposals for the workshop. Licence fit (Consumer Goods Cloud, Trade Promotion Management, Revenue Cloud) is confirmed with the client before any verdict becomes a decision.', '',
+  '- Verdicts are proposals for the workshop. Licence fit (Consumer Goods Cloud, Trade Promotion Management, Revenue Cloud) is confirmed before any verdict becomes a decision.', '',
 ].join('\n');
 
 /* ---------------------------------------------------------------- architecture */
@@ -431,7 +431,7 @@ const architecture = [
   '## How the assessment runs', '',
   '```mermaid',
   'flowchart TB',
-  '  subgraph Client["Client: full-copy sandboxes"]',
+  '  subgraph Client["Full-copy sandboxes"]',
   ...orgs.map((o) => `    ${o.region}[("${o.label} org")]`),
   '  end',
   '  subgraph Boundary["Ascendion access-controlled environment"]',
@@ -442,8 +442,8 @@ const architecture = [
   '    H --> E[("Engagement repository<br/>versioned")]',
   '  end',
   ...orgs.map((o) => `  ${o.region} -- "integration user<br/>read-only" --> X`),
-  '  E --> W["Focused validation<br/>with the client"]',
-  '  W --> Hd["Handover to the client,<br/>repository cleaned up"]',
+  '  E --> W["Focused validation<br/>with process owners"]',
+  '  W --> Hd["Handover,<br/>repository cleaned up"]',
   '```', '',
   '## How a verdict is reached', '',
   '```mermaid',
@@ -460,7 +460,7 @@ const architecture = [
   `  DF -- "yes" --> HA["${V.harmonise}"]`,
   `  DF -- "no" --> KP["${V.retain}"]`,
   '```', '',
-  'Every disposition is weighed on business value, standard fit, technical risk, change impact and evidence confidence, and confirmed by the decision owner on the client side.', '',
+  'Every disposition is weighed on business value, standard fit, technical risk, change impact and evidence confidence, and confirmed by the decision owner.', '',
   '## Target direction', '',
   'Each regional org stays a separate org, assessed in its own implementation context. Discovery points each org towards standard Salesforce and Consumer Goods Cloud capability, moves rules from code to configuration, and aligns patterns that regions built differently. Cross-org patterns are surfaced as insights; consolidation of the orgs is not an objective.', '',
   '```mermaid',
@@ -476,7 +476,7 @@ const architecture = [
   '  API <--> DIST[("Distributor feeds:<br/>stock, claims")]',
   '```', '',
   '## What happens to each disposition', '',
-  table(['Disposition', 'What follows', 'Components'], VERDICTS.map((v) => [V[v], { adopt: 'Use the native Salesforce or Consumer Goods Cloud capability', configure: 'Remove custom code; use supported configuration', retain: 'Keep as valuable, supportable differentiation', harmonise: 'Align the pattern across orgs while retaining separate orgs', retire: 'Remove unused, duplicated or obsolete components', review: 'Validate intent, regulatory context, usage or licensing with the client' }[v], items.filter((i) => i.verdict === v).length])), '',
+  table(['Disposition', 'What follows', 'Components'], VERDICTS.map((v) => [V[v], { adopt: 'Use the native Salesforce or Consumer Goods Cloud capability', configure: 'Remove custom code; use supported configuration', retain: 'Keep as valuable, supportable differentiation', harmonise: 'Align the pattern across orgs while retaining separate orgs', retire: 'Remove unused, duplicated or obsolete components', review: 'Validate intent, regulatory context, usage or licensing' }[v], items.filter((i) => i.verdict === v).length])), '',
 ].join('\n');
 
 /* ---------------------------------------------------------------- write */

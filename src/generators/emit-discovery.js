@@ -265,7 +265,7 @@ function findings(built, fitGap) {
     if (coverage.length) add({ area: 'Code', title: `Apex in ${L} without enough test coverage`, risk: 'Medium', impact: 'Changes to this code cannot be deployed safely.', evidence: coverage.map((t) => `${t.name} (${t.why})`).join(', '), recommendation: 'Add tests, or retire the code if the fit-gap replaces it.', tier: 'Immediate' });
     const openObjects = d.objects.filter((ob) => ob.origin === 'custom' && ob.sharing?.internal === 'ReadWrite');
     if (openObjects.length) add({ area: 'Security', title: `Custom objects in ${L} open to every internal user for editing`, risk: 'Medium', impact: 'Any user can change any record of these objects.', evidence: openObjects.map((ob) => ob.name).join(', '), recommendation: 'Review the org-wide default per object with the data owner.', tier: 'Medium term' });
-    if (d.packages.length) add({ area: 'Architecture and data model', title: `${n(d.packages.length, 'installed package')} in ${L}`, risk: 'Medium', impact: 'Package code cannot be read or exported; behaviour must be confirmed and a keep, replace or rebuild decision taken.', evidence: d.packages.map((p) => `${p.name} (${p.objects} objects, ${p.classes} classes)`).join('; '), recommendation: 'Record package behaviour as test cases; decide per package in focused validation with the client.', tier: 'Immediate' });
+    if (d.packages.length) add({ area: 'Architecture and data model', title: `${n(d.packages.length, 'installed package')} in ${L}`, risk: 'Medium', impact: 'Package code cannot be read or exported; behaviour must be confirmed and a keep, replace or rebuild decision taken.', evidence: d.packages.map((p) => `${p.name} (${p.objects} objects, ${p.classes} classes)`).join('; '), recommendation: 'Record package behaviour as test cases; decide per package in focused validation.', tier: 'Immediate' });
     const profilesUsed = d.security.profiles.filter((p) => p.users > 0).length;
     const psCustom = d.security.permissionSets.filter((p) => p.origin === 'custom').length;
     if (profilesUsed > 3 && psCustom < profilesUsed) add({ area: 'Security', title: `Access in ${L} is managed mainly through profiles`, risk: 'Low', impact: 'Profile-based access is harder to audit and to keep consistent across orgs.', evidence: `${profilesUsed} profiles with users, ${psCustom} custom permission sets`, recommendation: 'Move to permission sets and permission set groups, with minimal profiles.', tier: 'Strategic' });
@@ -336,14 +336,14 @@ const report = [
   })), '',
   ...(fitGap ? ['**Fit-gap across the orgs:** ' + Object.entries(fitGap.verdicts).map(([k, v]) => `${fitGap.items.filter((i) => i.verdict === k).length} ${v.toLowerCase()}`).join(', ') + '.', ''] : []),
   '**Key findings**', '', ...F.filter((f) => f.risk === 'High').concat(F.filter((f) => f.risk !== 'High')).slice(0, 6).map((f) => `- **${f.risk} risk · ${f.title}.** ${f.impact}`), '',
-  '**Decisions needed from the client:** confirm the market list per org; confirm licence fit for the standard features proposed (Consumer Goods Cloud, Trade Promotion Management); name an owner for each review item; agree the retirement of unused components.', '',
+  '**Decisions needed:** confirm the market list per org; confirm licence fit for the standard features proposed (Consumer Goods Cloud, Trade Promotion Management); name an owner for each review item; agree the retirement of unused components.', '',
   '## 2. Scope and method', '',
   `- Orgs in scope: ${orgs.map((o) => `${o.label}${o.d ? '' : ' (not yet connected)'}`).join(', ')}. Expected markets: ${eng.marketsExpected}.`,
   '- Read-only, through one integration user per org: describe, SOQL counts, Tooling API and the dependency index. No record contents are copied; this report holds configuration, names and counts.',
   '- Every component is labelled by origin: custom (built in the org), installed package, or standard and provided by Salesforce.',
   '- Each org is assessed in its own implementation context, on a recently refreshed full-copy sandbox. Cross-org patterns are surfaced as insights; consolidation is not an objective.',
-  '- Supporting information from the client (architecture and integration diagrams, process documentation, user training manuals, known customisation lists) is read by the architects and cited as evidence next to the system findings.',
-  '- Not visible in metadata, and routed to focused validation with the client\'s process experts: business intent, regulatory context, report usage by person, data quality beyond fill rates, and managed-package internals.', '',
+  '- Supporting information (architecture and integration diagrams, process documentation, user training manuals, known customisation lists) is read by the architects and cited as evidence next to the system findings.',
+  '- Not visible in metadata, and routed to focused validation with process experts: business intent, regulatory context, report usage by person, data quality beyond fill rates, and managed-package internals.', '',
   '## 3. System landscape (current)', '', '```mermaid', landscape(built), '```', '',
   '## 4. Findings by area', '',
   'Each finding has a risk level, its business impact, the evidence from the orgs, a recommendation and a priority tier.', '',

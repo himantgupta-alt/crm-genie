@@ -1,7 +1,7 @@
 # Fit-gap method
 
 Owner: Engineering standards · used by the Assessment agent (`src/generators/apex-functions.js`,
-`src/generators/emit-assessment.js`) and by reviewers at the Discover gate. Reusable for every client.
+`src/generators/emit-assessment.js`) and by reviewers at the Discover gate. Reusable for any org.
 
 A fit-gap judges custom build against standard Salesforce features and configuration. One verdict per component
 hides the detail: most components are partly standard, with some jobs that can move and others that must stay.
@@ -29,9 +29,9 @@ stand alone.
 | Retain | A real need with no standard option (integrations, deep clones, specialised editing); may still be simplified |
 | Harmonise | The same need built differently in several orgs: align the pattern, orgs stay separate |
 | Retire | Not used: inactive, or no live code calls it |
-| Review with client | Depends on a business rule, setting or licence not visible in the metadata |
+| Review with business | Depends on a business rule, setting or licence not visible in the metadata |
 
-Confidence: **High** = clear standard match · **Medium** = likely, to confirm · **Low** = needs client input.
+Confidence: **High** = clear standard match · **Medium** = likely, to confirm · **Low** = needs business input.
 
 ## Function patterns and their usual verdict
 
@@ -198,7 +198,7 @@ A single percentage misleads, so show three views per org:
 | Distributor or customer claims | Claims and payments checked against funds | Trade Promotion Management |
 | Home-grown promotion approval | Approval process or Flow approval orchestration | Sales Cloud |
 
-Licence fit is confirmed with the client before an adopt-standard verdict becomes a decision.
+Licence fit is confirmed before an adopt-standard verdict becomes a decision.
 
 Before judging anything on the Consumer Goods Cloud package's own objects, read the package switches (its trigger and
 validation-rule settings) and the installed version: a package trigger that is switched off is the strongest sign
@@ -207,7 +207,7 @@ schema. Never match to objects the package marks as for future or internal use.
 
 ## Assumptions and limits
 
-- The code reading is deterministic pattern matching; business intent is confirmed with the client's process experts.
+- The code reading is deterministic pattern matching; business intent is confirmed with process experts.
 - Usage (record counts, how often things run, which switches are on) can turn a verdict into Retire.
 - Verdicts say what could move and how hard it is; designing the change is a later step.
 - Effort includes regression testing; the testing itself is part of the change phase.

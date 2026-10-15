@@ -11,7 +11,7 @@
   ],
   "guardrails": "guardrails/guardrails.json",
   "kind": "deterministic",
-  "role": "Reads what each regional org has built on top of standard Salesforce (read-only), matches every custom component to a business capability, and proposes a fit-gap verdict: adopt standard, replace with configuration, retain, harmonise, retire, or review with the client, and a fitment code per capability and org. Each org is assessed in its own context; cross-org patterns are insights, not a consolidation plan.",
+  "role": "Reads what each regional org has built on top of standard Salesforce (read-only), matches every custom component to a business capability, and proposes a fit-gap verdict: adopt standard, replace with configuration, retain, harmonise, retire, or review with the business, and a fitment code per capability and org. Each org is assessed in its own context; cross-org patterns are insights, not a consolidation plan.",
   "inputs": [
     "Salesforce orgs listed in src/agents/assessment/engagement.json (one CLI alias per org, read-only integration user)",
     "src/agents/assessment/capabilities.json (capability catalogue with the standard feature for each)"
@@ -39,8 +39,8 @@
   "done_when": "Every connected org extracted, every custom component classified with a verdict and a reason, report and architecture written",
   "reviewer_checks": [
     "Every org in the engagement is extracted, or its absence is explained",
-    "Markets found match the market list agreed with the client",
-    "Adopt-standard verdicts name a feature the client is licensed for, or the licence is on the workshop agenda",
+    "Markets found match the market list agreed for the engagement",
+    "Adopt-standard verdicts name a licensed feature, or the licence is on the workshop agenda",
     "Retire candidates are confirmed unused with the business owner",
     "Review items are on the workshop agenda"
   ]

@@ -11,7 +11,7 @@
     "retain": "Retain",
     "harmonise": "Harmonise",
     "retire": "Retire",
-    "review": "Review with client"
+    "review": "Review with business"
   },
   "fitmentCodes": {
     "NS": "Native standard",
@@ -23,7 +23,7 @@
   },
   "findings": [
     "1 of 3 orgs extracted; 14 of 37 markets found in the extracted orgs.",
-    "80 custom components classified: 45% adopt standard, 9% replace with configuration, 9% retain, 0% harmonise, 1% retire, 36% review with client.",
+    "80 custom components classified: 45% adopt standard, 9% replace with configuration, 9% retain, 0% harmonise, 1% retire, 36% review with business.",
     "Cross-org comparison starts once a second org is extracted.",
     "1 component is unused and can be retired before any move.",
     "29 components are not matched to a known capability and go on the workshop agenda."
@@ -1642,12 +1642,12 @@
       "objects": [
         "Subscription__c"
       ],
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Client other owner (to confirm)"
+      "decisionOwner": "Other owner (to confirm)"
     },
     {
       "org": "eu",
@@ -1662,12 +1662,12 @@
         "Promotion_Claim__c",
         "Trade_Promotion__c"
       ],
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Client trade promotion management (tpm) owner (to confirm)"
+      "decisionOwner": "Trade promotion management (TPM) owner (to confirm)"
     },
     {
       "org": "eu",
@@ -1681,12 +1681,12 @@
       "objects": [
         "Store_Visit__c"
       ],
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Client retail execution owner (to confirm)"
+      "decisionOwner": "Retail execution owner (to confirm)"
     },
     {
       "org": "eu",
@@ -1703,12 +1703,12 @@
         "Store_Visit__c",
         "Visit_Task__c"
       ],
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Client retail execution owner (to confirm)"
+      "decisionOwner": "Retail execution owner (to confirm)"
     },
     {
       "org": "eu",
@@ -1722,12 +1722,12 @@
       "objects": [
         "Subscription__c"
       ],
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Client other owner (to confirm)"
+      "decisionOwner": "Other owner (to confirm)"
     },
     {
       "org": "eu",
@@ -1741,12 +1741,12 @@
       "objects": [
         "Subscription__c"
       ],
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Client other owner (to confirm)"
+      "decisionOwner": "Other owner (to confirm)"
     },
     {
       "org": "eu",
@@ -1760,12 +1760,12 @@
       "objects": [
         "Trade_Promotion__c"
       ],
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Quick win",
       "impact": "The business changes the rule as a setting, without a developer or a release.",
       "where": "Europe org",
-      "decisionOwner": "Client trade promotion management (tpm) owner (to confirm)"
+      "decisionOwner": "Trade promotion management (TPM) owner (to confirm)"
     },
     {
       "org": "eu",
@@ -1780,12 +1780,12 @@
         "Trade_Fund__c",
         "Trade_Promotion__c"
       ],
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Medium",
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Client trade promotion management (tpm) owner (to confirm)"
+      "decisionOwner": "Trade promotion management (TPM) owner (to confirm)"
     },
     {
       "org": "eu",
@@ -1797,12 +1797,12 @@
       "confidence": "High",
       "object": "Opportunity",
       "lines": 3,
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Client other owner (to confirm)"
+      "decisionOwner": "Other owner (to confirm)"
     },
     {
       "org": "eu",
@@ -1814,12 +1814,12 @@
       "confidence": "Medium",
       "object": "Promotion_Claim__c",
       "lines": 4,
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Client trade promotion management (tpm) owner (to confirm)"
+      "decisionOwner": "Trade promotion management (TPM) owner (to confirm)"
     },
     {
       "org": "eu",
@@ -1831,12 +1831,12 @@
       "confidence": "Medium",
       "object": "Shelf_Check__c",
       "lines": 5,
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Client retail execution owner (to confirm)"
+      "decisionOwner": "Retail execution owner (to confirm)"
     },
     {
       "org": "eu",
@@ -1848,12 +1848,12 @@
       "confidence": "Medium",
       "object": "Store_Visit__c",
       "lines": 5,
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Client retail execution owner (to confirm)"
+      "decisionOwner": "Retail execution owner (to confirm)"
     },
     {
       "org": "eu",
@@ -1865,12 +1865,12 @@
       "confidence": "High",
       "object": "Subscription__c",
       "lines": 7,
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Client other owner (to confirm)"
+      "decisionOwner": "Other owner (to confirm)"
     },
     {
       "org": "eu",
@@ -1882,12 +1882,12 @@
       "confidence": "Medium",
       "object": "Trade_Promotion__c",
       "lines": 19,
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Client trade promotion management (tpm) owner (to confirm)"
+      "decisionOwner": "Trade promotion management (TPM) owner (to confirm)"
     },
     {
       "org": "eu",
@@ -1899,12 +1899,12 @@
       "confidence": "Low",
       "fill": 13,
       "type": "picklist",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Immediate",
       "impact": "Purpose, usage or licensing to confirm before a verdict.",
       "where": "Europe org",
-      "decisionOwner": "Client product owner (to confirm)"
+      "decisionOwner": "Product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -1916,12 +1916,12 @@
       "confidence": "High",
       "fill": 72,
       "type": "picklist",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Quick win",
       "impact": "The business changes the rule as a setting, without a developer or a release.",
       "where": "Europe org",
-      "decisionOwner": "Client customer master owner (to confirm)"
+      "decisionOwner": "Customer master owner (to confirm)"
     },
     {
       "org": "eu",
@@ -1933,12 +1933,12 @@
       "confidence": "High",
       "fill": 72,
       "type": "picklist",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Quick win",
       "impact": "The business changes the rule as a setting, without a developer or a release.",
       "where": "Europe org",
-      "decisionOwner": "Client customer master owner (to confirm)"
+      "decisionOwner": "Customer master owner (to confirm)"
     },
     {
       "org": "eu",
@@ -1950,12 +1950,12 @@
       "confidence": "Low",
       "fill": 12,
       "type": "picklist",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Immediate",
       "impact": "Purpose, usage or licensing to confirm before a verdict.",
       "where": "Europe org",
-      "decisionOwner": "Client product owner (to confirm)"
+      "decisionOwner": "Product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -1967,12 +1967,12 @@
       "confidence": "High",
       "fill": 44,
       "type": "string",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Strategic",
       "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
-      "decisionOwner": "Client customer master owner (to confirm)"
+      "decisionOwner": "Customer master owner (to confirm)"
     },
     {
       "org": "eu",
@@ -1984,12 +1984,12 @@
       "confidence": "High",
       "fill": 72,
       "type": "picklist",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Quick win",
       "impact": "The business changes the rule as a setting, without a developer or a release.",
       "where": "Europe org",
-      "decisionOwner": "Client customer master owner (to confirm)"
+      "decisionOwner": "Customer master owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2001,12 +2001,12 @@
       "confidence": "Low",
       "fill": 14,
       "type": "double",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Immediate",
       "impact": "Purpose, usage or licensing to confirm before a verdict.",
       "where": "Europe org",
-      "decisionOwner": "Client product owner (to confirm)"
+      "decisionOwner": "Product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2018,12 +2018,12 @@
       "confidence": "Low",
       "fill": 0,
       "type": "string",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Quick win",
       "impact": "Less clutter; nothing unused is maintained or migrated.",
       "where": "Europe org",
-      "decisionOwner": "Client product owner (to confirm)"
+      "decisionOwner": "Product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2035,12 +2035,12 @@
       "confidence": "Low",
       "fill": 14,
       "type": "picklist",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Immediate",
       "impact": "Purpose, usage or licensing to confirm before a verdict.",
       "where": "Europe org",
-      "decisionOwner": "Client product owner (to confirm)"
+      "decisionOwner": "Product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2052,12 +2052,12 @@
       "confidence": "Low",
       "fill": 14,
       "type": "date",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Immediate",
       "impact": "Purpose, usage or licensing to confirm before a verdict.",
       "where": "Europe org",
-      "decisionOwner": "Client product owner (to confirm)"
+      "decisionOwner": "Product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2069,12 +2069,12 @@
       "confidence": "Low",
       "fill": 14,
       "type": "string",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Immediate",
       "impact": "Purpose, usage or licensing to confirm before a verdict.",
       "where": "Europe org",
-      "decisionOwner": "Client product owner (to confirm)"
+      "decisionOwner": "Product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2086,12 +2086,12 @@
       "confidence": "High",
       "fill": 54,
       "type": "picklist",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Quick win",
       "impact": "The business changes the rule as a setting, without a developer or a release.",
       "where": "Europe org",
-      "decisionOwner": "Client customer master owner (to confirm)"
+      "decisionOwner": "Customer master owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2103,12 +2103,12 @@
       "confidence": "Low",
       "fill": 14,
       "type": "picklist",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Immediate",
       "impact": "Purpose, usage or licensing to confirm before a verdict.",
       "where": "Europe org",
-      "decisionOwner": "Client product owner (to confirm)"
+      "decisionOwner": "Product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2120,12 +2120,12 @@
       "confidence": "High",
       "fill": 36,
       "type": "string",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Strategic",
       "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
-      "decisionOwner": "Client customer master owner (to confirm)"
+      "decisionOwner": "Customer master owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2137,12 +2137,12 @@
       "confidence": "Low",
       "fill": 28,
       "type": "currency",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Immediate",
       "impact": "Purpose, usage or licensing to confirm before a verdict.",
       "where": "Europe org",
-      "decisionOwner": "Client product owner (to confirm)"
+      "decisionOwner": "Product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2154,12 +2154,12 @@
       "confidence": "Low",
       "fill": 28,
       "type": "double",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Immediate",
       "impact": "Purpose, usage or licensing to confirm before a verdict.",
       "where": "Europe org",
-      "decisionOwner": "Client product owner (to confirm)"
+      "decisionOwner": "Product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2171,12 +2171,12 @@
       "confidence": "Low",
       "fill": 85,
       "type": "string",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Immediate",
       "impact": "Purpose, usage or licensing to confirm before a verdict.",
       "where": "Europe org",
-      "decisionOwner": "Client product owner (to confirm)"
+      "decisionOwner": "Product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2188,12 +2188,12 @@
       "confidence": "Low",
       "fill": 100,
       "type": "picklist",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Immediate",
       "impact": "Purpose, usage or licensing to confirm before a verdict.",
       "where": "Europe org",
-      "decisionOwner": "Client product owner (to confirm)"
+      "decisionOwner": "Product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2205,12 +2205,12 @@
       "confidence": "Low",
       "fill": 100,
       "type": "picklist",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Immediate",
       "impact": "Purpose, usage or licensing to confirm before a verdict.",
       "where": "Europe org",
-      "decisionOwner": "Client product owner (to confirm)"
+      "decisionOwner": "Product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2222,12 +2222,12 @@
       "confidence": "Low",
       "fill": 96,
       "type": "picklist",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Immediate",
       "impact": "Purpose, usage or licensing to confirm before a verdict.",
       "where": "Europe org",
-      "decisionOwner": "Client product owner (to confirm)"
+      "decisionOwner": "Product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2239,12 +2239,12 @@
       "confidence": "High",
       "fill": 0,
       "type": "date",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Client customer master owner (to confirm)"
+      "decisionOwner": "Customer master owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2256,12 +2256,12 @@
       "confidence": "High",
       "fill": 0,
       "type": "boolean",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Client customer master owner (to confirm)"
+      "decisionOwner": "Customer master owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2273,12 +2273,12 @@
       "confidence": "Low",
       "fill": 85,
       "type": "string",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Immediate",
       "impact": "Purpose, usage or licensing to confirm before a verdict.",
       "where": "Europe org",
-      "decisionOwner": "Client product owner (to confirm)"
+      "decisionOwner": "Product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2290,12 +2290,12 @@
       "confidence": "Low",
       "fill": 85,
       "type": "picklist",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Immediate",
       "impact": "Purpose, usage or licensing to confirm before a verdict.",
       "where": "Europe org",
-      "decisionOwner": "Client product owner (to confirm)"
+      "decisionOwner": "Product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2307,12 +2307,12 @@
       "confidence": "Low",
       "fill": 100,
       "type": "string",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Immediate",
       "impact": "Purpose, usage or licensing to confirm before a verdict.",
       "where": "Europe org",
-      "decisionOwner": "Client product owner (to confirm)"
+      "decisionOwner": "Product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2324,12 +2324,12 @@
       "confidence": "Low",
       "fill": 100,
       "type": "double",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Immediate",
       "impact": "Purpose, usage or licensing to confirm before a verdict.",
       "where": "Europe org",
-      "decisionOwner": "Client product owner (to confirm)"
+      "decisionOwner": "Product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2341,12 +2341,12 @@
       "confidence": "Low",
       "fill": 100,
       "type": "picklist",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Immediate",
       "impact": "Purpose, usage or licensing to confirm before a verdict.",
       "where": "Europe org",
-      "decisionOwner": "Client product owner (to confirm)"
+      "decisionOwner": "Product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2358,12 +2358,12 @@
       "confidence": "Low",
       "fill": 100,
       "type": "picklist",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Immediate",
       "impact": "Purpose, usage or licensing to confirm before a verdict.",
       "where": "Europe org",
-      "decisionOwner": "Client product owner (to confirm)"
+      "decisionOwner": "Product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2375,12 +2375,12 @@
       "confidence": "Low",
       "fill": 100,
       "type": "string",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Immediate",
       "impact": "Purpose, usage or licensing to confirm before a verdict.",
       "where": "Europe org",
-      "decisionOwner": "Client product owner (to confirm)"
+      "decisionOwner": "Product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2392,12 +2392,12 @@
       "confidence": "Low",
       "fill": 52,
       "type": "string",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Immediate",
       "impact": "Purpose, usage or licensing to confirm before a verdict.",
       "where": "Europe org",
-      "decisionOwner": "Client product owner (to confirm)"
+      "decisionOwner": "Product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2409,12 +2409,12 @@
       "confidence": "Low",
       "fill": 74,
       "type": "picklist",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Immediate",
       "impact": "Purpose, usage or licensing to confirm before a verdict.",
       "where": "Europe org",
-      "decisionOwner": "Client product owner (to confirm)"
+      "decisionOwner": "Product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2426,12 +2426,12 @@
       "confidence": "Low",
       "fill": 13,
       "type": "picklist",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Immediate",
       "impact": "Purpose, usage or licensing to confirm before a verdict.",
       "where": "Europe org",
-      "decisionOwner": "Client product owner (to confirm)"
+      "decisionOwner": "Product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2443,12 +2443,12 @@
       "confidence": "Low",
       "fill": 58,
       "type": "string",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Immediate",
       "impact": "Purpose, usage or licensing to confirm before a verdict.",
       "where": "Europe org",
-      "decisionOwner": "Client product owner (to confirm)"
+      "decisionOwner": "Product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2460,12 +2460,12 @@
       "confidence": "Low",
       "fill": 58,
       "type": "string",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Immediate",
       "impact": "Purpose, usage or licensing to confirm before a verdict.",
       "where": "Europe org",
-      "decisionOwner": "Client product owner (to confirm)"
+      "decisionOwner": "Product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2477,12 +2477,12 @@
       "confidence": "Low",
       "fill": 29,
       "type": "string",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Immediate",
       "impact": "Purpose, usage or licensing to confirm before a verdict.",
       "where": "Europe org",
-      "decisionOwner": "Client product owner (to confirm)"
+      "decisionOwner": "Product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2494,12 +2494,12 @@
       "confidence": "High",
       "fill": 37,
       "type": "picklist",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Strategic",
       "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
-      "decisionOwner": "Client product master owner (to confirm)"
+      "decisionOwner": "Product master owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2511,12 +2511,12 @@
       "confidence": "High",
       "fill": 37,
       "type": "double",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Strategic",
       "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
-      "decisionOwner": "Client product master owner (to confirm)"
+      "decisionOwner": "Product master owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2528,12 +2528,12 @@
       "confidence": "High",
       "fill": 37,
       "type": "picklist",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Strategic",
       "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
-      "decisionOwner": "Client product master owner (to confirm)"
+      "decisionOwner": "Product master owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2545,12 +2545,12 @@
       "confidence": "High",
       "fill": 37,
       "type": "string",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Strategic",
       "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
-      "decisionOwner": "Client product master owner (to confirm)"
+      "decisionOwner": "Product master owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2562,12 +2562,12 @@
       "confidence": "High",
       "records": 9,
       "fields": 5,
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Medium",
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Client trade promotion management (tpm) owner (to confirm)"
+      "decisionOwner": "Trade promotion management (TPM) owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2579,12 +2579,12 @@
       "confidence": "High",
       "records": 56,
       "fields": 3,
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Medium",
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Client trade promotion management (tpm) owner (to confirm)"
+      "decisionOwner": "Trade promotion management (TPM) owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2596,12 +2596,12 @@
       "confidence": "High",
       "records": 28,
       "fields": 4,
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Medium",
       "priority": "Quick win",
       "impact": "The business changes the rule as a setting, without a developer or a release.",
       "where": "Europe org",
-      "decisionOwner": "Client sales performance owner (to confirm)"
+      "decisionOwner": "Sales performance owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2613,12 +2613,12 @@
       "confidence": "High",
       "records": 378,
       "fields": 5,
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Medium",
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Client retail execution owner (to confirm)"
+      "decisionOwner": "Retail execution owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2630,12 +2630,12 @@
       "confidence": "High",
       "records": 168,
       "fields": 3,
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Medium",
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Client retail execution owner (to confirm)"
+      "decisionOwner": "Retail execution owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2647,12 +2647,12 @@
       "confidence": "High",
       "records": 252,
       "fields": 11,
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Medium",
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Client retail execution owner (to confirm)"
+      "decisionOwner": "Retail execution owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2664,12 +2664,12 @@
       "confidence": "High",
       "records": 107,
       "fields": 15,
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Medium",
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Client other owner (to confirm)"
+      "decisionOwner": "Other owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2681,12 +2681,12 @@
       "confidence": "High",
       "records": 219,
       "fields": 6,
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Medium",
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Client other owner (to confirm)"
+      "decisionOwner": "Other owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2698,12 +2698,12 @@
       "confidence": "High",
       "records": 56,
       "fields": 6,
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Medium",
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Client trade promotion management (tpm) owner (to confirm)"
+      "decisionOwner": "Trade promotion management (TPM) owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2715,12 +2715,12 @@
       "confidence": "High",
       "records": 28,
       "fields": 13,
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Medium",
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Client trade promotion management (tpm) owner (to confirm)"
+      "decisionOwner": "Trade promotion management (TPM) owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2732,12 +2732,12 @@
       "confidence": "High",
       "records": 336,
       "fields": 5,
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Medium",
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Client retail execution owner (to confirm)"
+      "decisionOwner": "Retail execution owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2748,12 +2748,12 @@
       "reason": "Revenue Cloud subscription management",
       "confidence": "Medium",
       "object": "Subscription",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Client other owner (to confirm)"
+      "decisionOwner": "Other owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2768,7 +2768,7 @@
       "priority": "Quick win",
       "impact": "The business changes the rule as a setting, without a developer or a release.",
       "where": "Europe org",
-      "decisionOwner": "Client platform owner (to confirm)"
+      "decisionOwner": "Platform owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2783,7 +2783,7 @@
       "priority": "Immediate",
       "impact": "Purpose, usage or licensing to confirm before a verdict.",
       "where": "Europe org",
-      "decisionOwner": "Client product owner (to confirm)"
+      "decisionOwner": "Product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2794,12 +2794,12 @@
       "reason": "No standard tax ID field on Account: keep one global field with per-market format rules",
       "confidence": "High",
       "object": "Account",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Strategic",
       "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
-      "decisionOwner": "Client customer master owner (to confirm)"
+      "decisionOwner": "Customer master owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2810,12 +2810,12 @@
       "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
       "confidence": "Low",
       "object": "Opportunity",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Immediate",
       "impact": "Purpose, usage or licensing to confirm before a verdict.",
       "where": "Europe org",
-      "decisionOwner": "Client product owner (to confirm)"
+      "decisionOwner": "Product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2826,12 +2826,12 @@
       "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
       "confidence": "Low",
       "object": "Opportunity",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Immediate",
       "impact": "Purpose, usage or licensing to confirm before a verdict.",
       "where": "Europe org",
-      "decisionOwner": "Client product owner (to confirm)"
+      "decisionOwner": "Product owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2842,12 +2842,12 @@
       "reason": "Trade Promotion Management: claims and payments checked against promotion funds",
       "confidence": "High",
       "object": "Promotion_Claim__c",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Client trade promotion management (tpm) owner (to confirm)"
+      "decisionOwner": "Trade promotion management (TPM) owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2858,12 +2858,12 @@
       "reason": "Revenue Cloud subscription management",
       "confidence": "High",
       "object": "Subscription__c",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Client other owner (to confirm)"
+      "decisionOwner": "Other owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2874,12 +2874,12 @@
       "reason": "Revenue Cloud subscription management",
       "confidence": "High",
       "object": "Subscription__c",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Client other owner (to confirm)"
+      "decisionOwner": "Other owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2890,12 +2890,12 @@
       "reason": "Revenue Cloud subscription management",
       "confidence": "High",
       "object": "Subscription__c",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Client other owner (to confirm)"
+      "decisionOwner": "Other owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2906,12 +2906,12 @@
       "reason": "Revenue Cloud subscription management",
       "confidence": "High",
       "object": "Subscription__c",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Client other owner (to confirm)"
+      "decisionOwner": "Other owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2922,12 +2922,12 @@
       "reason": "Revenue Cloud subscription management",
       "confidence": "High",
       "object": "Subscription_Line__c",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Client other owner (to confirm)"
+      "decisionOwner": "Other owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2938,12 +2938,12 @@
       "reason": "Revenue Cloud subscription management",
       "confidence": "High",
       "object": "Subscription_Line__c",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Client other owner (to confirm)"
+      "decisionOwner": "Other owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2954,12 +2954,12 @@
       "reason": "Trade Promotion Management: funds with allocated, committed and spent amounts kept by the platform",
       "confidence": "High",
       "object": "Trade_Fund__c",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Client trade promotion management (tpm) owner (to confirm)"
+      "decisionOwner": "Trade promotion management (TPM) owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2970,12 +2970,12 @@
       "reason": "Consumer Goods Cloud Trade Promotion Management: promotion planning, funds and post-event analysis",
       "confidence": "High",
       "object": "Trade_Promotion__c",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Client trade promotion management (tpm) owner (to confirm)"
+      "decisionOwner": "Trade promotion management (TPM) owner (to confirm)"
     },
     {
       "org": "eu",
@@ -2986,12 +2986,12 @@
       "reason": "Consumer Goods Cloud Trade Promotion Management: promotion planning, funds and post-event analysis",
       "confidence": "High",
       "object": "Trade_Promotion__c",
-      "layer": "Client custom",
+      "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Client trade promotion management (tpm) owner (to confirm)"
+      "decisionOwner": "Trade promotion management (TPM) owner (to confirm)"
     }
   ]
 }
