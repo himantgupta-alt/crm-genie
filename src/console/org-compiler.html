@@ -1250,7 +1250,13 @@ document.addEventListener('DOMContentLoaded', () => window.loadRuntimeData());
   }
   function fitgapView(id) {
     const g = FG(); const a = ASD();
-    if (!g) return { title: 'Fit-gap', crumb: 'No Apex code read in this org yet', json: null, visual: () => '<p class="as-note">Run the Assessment agent on this org to split its code into business functions.</p>' };
+    if (!g) {
+      // Results from a run made before the function-level fit-gap existed carry no fit-gap: say so, and how to get it.
+      const served = !!window.orgcRuntime?.run && a?.items;
+      return { title: 'Fit-gap', crumb: served ? 'The latest discovery run on this server has no function-level fit-gap' : 'No Apex code read in this org yet', json: null, visual: () => (served
+        ? `<div class="card"><h4>Run discovery again to see the fit-gap</h4><span>The results shown come from the last discovery run on this server${window.orgcRuntime.run.finishedAt ? ` (${esc(window.orgcRuntime.run.finishedAt.slice(0, 16).replace('T', ' '))} UTC)` : ''}, made before the function-level fit-gap was added. A new run reads every Apex class and trigger function by function.</span><div>${'<a class="btn" href="?view=connections">Open Connections and run discovery</a>'}</div></div>`
+        : '<p class="as-note">Run the Assessment agent on this org to split its code into business functions.</p>') };
+    }
     const K = Object.keys(a.verdicts);
     const legend = `<div class="legend-row">${K.filter((v) => g.totals.verdicts[v]).map((v) => `<span><i style="background:var(--v-${v})"></i>${esc(a.verdicts[v])} <b>${g.totals.verdicts[v]}</b></span>`).join('')}</div>`;
     const fns = g.components.flatMap((k) => k.functions);
@@ -1336,7 +1342,7 @@ document.addEventListener('DOMContentLoaded', () => window.loadRuntimeData());
       { id: 'report', label: 'Discovery Report', leaf: true },
       { id: 'areas', label: 'Business areas', items: [{ id: '__all', label: 'All areas at a glance' }, ...areaList().map((a) => ({ id: a.area, label: a.area, meta: areaItems(a.area).length }))] },
       { id: 'fitgap', label: 'Fit-gap', items: FG() ? [{ id: '__summary', label: 'Summary' }, { id: '__wins', label: `Quick wins (${FG().quickWins.length})` }, { id: '__cross', label: `Cross-cutting findings (${FG().crossCutting.length})` },
-        { id: '__order', label: `Order of execution (${FG().chains.length})` }, ...FG().components.map((k) => ({ id: k.id, label: k.title, meta: `${k.canMove}/${k.functions.length}` })), { id: '__method', label: 'Method, assumptions, next steps' }] : [] },
+        { id: '__order', label: `Order of execution (${FG().chains.length})` }, ...FG().components.map((k) => ({ id: k.id, label: k.title, meta: `${k.canMove}/${k.functions.length}` })), { id: '__method', label: 'Method, assumptions, next steps' }] : [{ id: '__summary', label: 'Summary' }] },
       { id: 'process', label: 'Business processes', items: Object.keys(O().derived.processMaps || {}).map((k) => ({ id: k, label: `When ${an(x.objects.find((o) => o.name === k)?.label || k)} is saved`, origin: x.objects.find((o) => o.name === k)?.origin })) },
       { id: 'objects', label: 'Objects and data model', items: [...x.objects].sort((a, b) => objOrder[a.origin] - objOrder[b.origin] || a.name.localeCompare(b.name)).map((o) => ({ id: o.name, label: o.name, origin: o.origin, meta: o.records ?? '' })) },
       { id: 'rules', label: 'Validation rules', items: x.validationRules.map((v) => ({ id: `${v.object}.${v.name}`, label: `${v.object}.${v.name}`, origin: v.origin, meta: v.active ? '' : 'off' })) },
