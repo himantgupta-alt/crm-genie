@@ -860,10 +860,17 @@ button.fit { cursor: pointer; width: 100%; padding: 8px; } button.fit:hover { fi
 // ---------------------------------------------------------------- connections and the latest real run
 // When the console is served by the Org Compiler server, the latest discovery run on the server replaces the
 // sample built into the page (event 'orgc-data'). Opened as a file, the page keeps its built-in sample.
-window.orgcRuntime = { served: false, run: null };
+// loading: on the site, the views wait for the run instead of showing the built-in sample meanwhile.
+window.orgcRuntime = { served: false, run: null, loading: location.protocol !== 'file:' };
 // runId: one run from the history; without it, the latest run.
-window.loadRuntimeData = (runId) => (location.protocol === 'file:' ? Promise.resolve(null) : fetch(`/api/assessment-data${runId ? `?run=${encodeURIComponent(runId)}` : ''}`, { cache: 'no-store' })).then((r) => (r.ok ? r.json() : null)).catch(() => null).then((d) => {
-  if (!d) return null;
+window.loadRuntimeData = (runId) => {
+  if (location.protocol === 'file:') return Promise.resolve(null);
+  window.orgcRuntime.loading = true;
+  window.dispatchEvent(new Event('orgc-data'));
+  return fetch(`/api/assessment-data${runId ? `?run=${encodeURIComponent(runId)}` : ''}`, { cache: 'no-store' }).then((r) => (r.ok ? r.json() : null)).catch(() => null).then((d) => {
+  window.orgcRuntime.loading = false;
+  // No run on this server yet: the views fall back to the built-in sample.
+  if (!d) { window.dispatchEvent(new Event('orgc-data')); return null; }
   // A real run replaces the sample in full: a discovery-only run shows no fit-gap rather than the sample's.
   const put = (id, start, end, v) => { if (v || d.runId) document.getElementById(id).textContent = `/*${start}*/${v ? JSON.stringify(v) : ''}/*${end}*/`; };
   put('discovery-data', 'DISCOVERY-START', 'DISCOVERY-END', d.discovery);
@@ -871,7 +878,8 @@ window.loadRuntimeData = (runId) => (location.protocol === 'file:' ? Promise.res
   window.orgcRuntime.run = { id: d.runId, finishedAt: d.finishedAt, scope: d.scope, orgs: d.orgs, latest: d.latest !== false };
   window.dispatchEvent(new Event('orgc-data'));
   return d;
-});
+  });
+};
 document.addEventListener('DOMContentLoaded', () => window.loadRuntimeData());
 (() => {
   const $ = (id) => document.getElementById(id);
@@ -1117,6 +1125,7 @@ document.addEventListener('DOMContentLoaded', () => window.loadRuntimeData());
 
   async function render() {
     const body = $('as-body');
+    if (window.orgcRuntime.loading) { $('as-title').textContent = 'Org assessment'; $('as-sample').hidden = true; body.innerHTML = '<p class="sub">Loading the latest run…</p>'; return; }
     load();
     if (!A.items) { body.innerHTML = window.orgcRuntime.run?.id ? `<p class="sub">Run ${esc(window.orgcRuntime.run.id)} was discovery only, so it has no fit-gap. On the Connections page, choose "Discovery and fit-gap" and run again, or open an earlier full run from the run history.</p>` : '<p class="sub">No assessment yet. Run the Assessment agent (src/agents/assessment).</p>'; return; }
     $('as-title').textContent = `${A.client} · org assessment`;
@@ -1153,8 +1162,10 @@ document.addEventListener('DOMContentLoaded', () => window.loadRuntimeData());
     document.querySelector('.nav [data-view="assessment"]').addEventListener('click', () => setTimeout(render, 0));
   });
   window.addEventListener('orgc-data', () => {
-    A = null; const a = load();
-    if (a.orgs) $('nav-orgs').textContent = `${a.orgs.filter((o) => o.extracted).length}/${a.orgs.length} orgs`;
+    A = null;
+    if (window.orgcRuntime.loading) { $('nav-orgs').textContent = '…'; if (!$('view-assessment').hidden) render(); return; }
+    const a = load();
+    $('nav-orgs').textContent = a.orgs ? `${a.orgs.filter((o) => o.extracted).length}/${a.orgs.length} orgs` : 'none';
     if (!$('view-assessment').hidden) render();
   });
 })();
@@ -1665,6 +1676,12 @@ document.addEventListener('DOMContentLoaded', () => window.loadRuntimeData());
   const jsonHtml = (v) => esc(JSON.stringify(v, null, 2)).replace(/(&quot;[^&]*?&quot;)(\s*:)/g, '<span class="k">$1</span>$2').replace(/:\s(&quot;.*?&quot;)/g, ': <span class="s">$1</span>').replace(/:\s(-?\d+(?:\.\d+)?|true|false|null)/g, ': <span class="n">$1</span>');
 
   async function render() {
+    if (window.orgcRuntime.loading) {
+      $('dx-title').textContent = 'Discovery explorer';
+      for (const id of ['dx-orgs', 'dx-tree-list', 'dx-head', 'dx-evidence']) if ($(id)) $(id).innerHTML = '';
+      $('dx-main').innerHTML = '<p class="sub">Loading the latest run…</p>';
+      return;
+    }
     load();
     if (!D.orgs.some((o) => o.extracted)) { $('dx-main').innerHTML = '<p class="sub">No discovery yet. Run the Assessment agent.</p>'; return; }
     const rn = window.orgcRuntime.run;

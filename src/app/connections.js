@@ -18,6 +18,7 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 const { spawn } = require('child_process');
+const zlib = require('zlib');
 
 const { KEY, enc, dec, mask } = require('./connections-crypto');
 
@@ -242,7 +243,8 @@ function install(app, owner) {
   // console shows the latest run by default and any earlier run on request. The newest KEEP_RUNS are kept.
   const RUNS = path.join(DATA, 'runs');
   const KEEP_RUNS = Number(process.env.KEEP_RUNS) || 30;
-  const readJson = (f) => (fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : null);
+  const gzCache = new Map(); // response bodies of recent runs, plain and compressed
+  const readJson = (f) =>(fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : null);
   function archive(j) {
     const dir = path.join(RUNS, j.id);
     fs.mkdirSync(dir, { recursive: true });
@@ -287,10 +289,22 @@ function install(app, owner) {
     const wantedRun = req.query.run ? runs.find((r) => r.id === String(req.query.run)) : runs[0];
     if (req.query.run && !wantedRun) return res.status(404).json({ error: { message: 'Unknown run' } });
     const dir = wantedRun ? path.join(RUNS, wantedRun.id) : DATA;
-    const assessment = readJson(path.join(dir, 'assessment-bundle.json'));
-    const discovery = readJson(path.join(dir, 'discovery-bundle.json'));
-    if (!assessment && !discovery) return res.status(404).json({ error: { message: 'No discovery run on this server yet' } });
-    res.set('Cache-Control', 'no-store').json({ assessment, discovery, runId: wantedRun?.id || job?.id || null, finishedAt: wantedRun?.finishedAt || job?.finishedAt || null, scope: wantedRun?.scope || null, orgs: wantedRun?.orgs || null, latest: !req.query.run || wantedRun?.id === runs[0]?.id });
+    const latest = !req.query.run || wantedRun?.id === runs[0]?.id;
+    // A large org's bundle is 15 MB of JSON; compressed it is a small fraction, so the console shows the run in
+    // a second or two instead of twenty. A finished run never changes, so its compressed body is built once.
+    const key = `${dir}|${latest}`;
+    let body = gzCache.get(key);
+    if (!body) {
+      const assessment = readJson(path.join(dir, 'assessment-bundle.json'));
+      const discovery = readJson(path.join(dir, 'discovery-bundle.json'));
+      if (!assessment && !discovery) return res.status(404).json({ error: { message: 'No discovery run on this server yet' } });
+      const json = JSON.stringify({ assessment, discovery, runId: wantedRun?.id || job?.id || null, finishedAt: wantedRun?.finishedAt || job?.finishedAt || null, scope: wantedRun?.scope || null, orgs: wantedRun?.orgs || null, latest });
+      body = { json, gz: zlib.gzipSync(json) };
+      if (wantedRun) { gzCache.set(key, body); if (gzCache.size > 6) gzCache.delete(gzCache.keys().next().value); }
+    }
+    res.set({ 'Cache-Control': 'no-store', 'Content-Type': 'application/json; charset=utf-8', Vary: 'Accept-Encoding' });
+    if (/\bgzip\b/.test(req.headers['accept-encoding'] || '')) res.set('Content-Encoding', 'gzip').send(body.gz);
+    else res.send(body.json);
   });
 }
 
