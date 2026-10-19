@@ -146,7 +146,12 @@ async function main() {
   /* ---------------------------------------------------------------- code */
   const coverage = Object.fromEntries((await q('SELECT ApexClassOrTrigger.Name, NumLinesCovered, NumLinesUncovered FROM ApexCodeCoverageAggregate', true))
     .filter((c) => c.NumLinesCovered + c.NumLinesUncovered > 0).map((c) => [c.ApexClassOrTrigger?.Name, Math.round((c.NumLinesCovered / (c.NumLinesCovered + c.NumLinesUncovered)) * 100)]));
-  const classes = (await q('SELECT Name, ApiVersion, Status, NamespacePrefix, Body FROM ApexClass', true)).map((c) => {
+  // Package code is hidden, so only the org's own classes are read with their body: a package-heavy org has
+  // thousands of package classes, and reading their (hidden) bodies page by page takes many minutes.
+  progress('code', 0, 1);
+  const classRows = [...await q('SELECT Name, ApiVersion, Status, NamespacePrefix, Body FROM ApexClass WHERE NamespacePrefix = null', true),
+    ...await q('SELECT Name, ApiVersion, Status, NamespacePrefix FROM ApexClass WHERE NamespacePrefix != null', true)];
+  const classes = classRows.map((c) => {
     const body = c.Body && c.Body !== '(hidden)' ? c.Body : '';
     return { name: c.Name, apiVersion: c.ApiVersion, origin: managed(c.NamespacePrefix), lines: body ? body.split('\n').length : null,
       test: /@isTest/i.test(body), callout: !/@isTest/i.test(body) && /callout:|new\s+HttpRequest\b/.test(body), batch: /Database\.Batchable/.test(body), schedulable: /\bSchedulable\b/.test(body),
