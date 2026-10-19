@@ -191,7 +191,7 @@ function install(app, owner) {
     if (!wanted.length) return err(res, 400, 'Connect at least one org first');
     // scope 'discovery': the full discovery only (Discovery explorer and report); 'full' adds the as-is extraction and fit-gap.
     const scope = req.body?.scope === 'discovery' ? 'discovery' : 'full';
-    job = { id: `DISC-${new Date().toISOString().slice(0, 16).replace(/[-:T]/g, '')}`, startedAt: new Date().toISOString(), finishedAt: null, status: 'running', scope, regions: wanted.map((r) => r.region), log: [], progress: null, by: req.session?.n || null };
+    job = { id: `DISC-${new Date().toISOString().slice(0, 16).replace(/[-:T]/g, '')}`, startedAt: new Date().toISOString(), finishedAt: null, status: 'running', scope, regions: wanted.map((r) => r.region), labels: Object.fromEntries(wanted.map((r) => [r.region, r.label])), log: [], progress: null, by: req.session?.n || null };
     res.json(job);
     const j = job;
     const log = (l) => {
@@ -235,17 +235,62 @@ function install(app, owner) {
     j.finishedAt = new Date().toISOString();
     j.status = failed ? 'finished with errors' : 'complete';
     log(`run ${j.id} ${j.status}`);
+    try { archive(j); } catch (e) { log(`run history: ${e.message}`); }
   });
+
+  // Run history: each finished run keeps what it produced in RUNS/<run id>/ (bundles, report, run record), so the
+  // console shows the latest run by default and any earlier run on request. The newest KEEP_RUNS are kept.
+  const RUNS = path.join(DATA, 'runs');
+  const KEEP_RUNS = Number(process.env.KEEP_RUNS) || 30;
+  const readJson = (f) => (fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : null);
+  function archive(j) {
+    const dir = path.join(RUNS, j.id);
+    fs.mkdirSync(dir, { recursive: true });
+    // A discovery-only run has no fit-gap of its own; the bundle left from an earlier full run is not copied.
+    const files = [['discovery-bundle.json', DATA], ...(j.scope === 'full' ? [['assessment-bundle.json', DATA]] : []),
+      ['discovery-report.md', path.join(DATA, 'adlc', '1-discover', 'assessment')]];
+    for (const [f, from] of files) if (fs.existsSync(path.join(from, f))) fs.copyFileSync(path.join(from, f), path.join(dir, f));
+    const labels = j.regions.map((r) => j.labels?.[r] || r);
+    fs.writeFileSync(path.join(dir, 'run.json'), JSON.stringify({ id: j.id, startedAt: j.startedAt, finishedAt: j.finishedAt, status: j.status, scope: j.scope, regions: j.regions, orgs: labels, by: j.by, agents: j.agents, log: j.log }, null, 2));
+    const all = fs.readdirSync(RUNS).filter((d) => fs.existsSync(path.join(RUNS, d, 'run.json'))).sort().reverse();
+    for (const old of all.slice(KEEP_RUNS)) fs.rmSync(path.join(RUNS, old), { recursive: true, force: true });
+  }
+  const runList = () => (fs.existsSync(RUNS) ? fs.readdirSync(RUNS).sort().reverse().map((d) => readJson(path.join(RUNS, d, 'run.json'))).filter(Boolean)
+    .map(({ log: _log, ...r }) => ({ ...r, hasDiscovery: fs.existsSync(path.join(RUNS, r.id, 'discovery-bundle.json')), hasAssessment: fs.existsSync(path.join(RUNS, r.id, 'assessment-bundle.json')) })) : []);
+
+  // Results from before the history existed become its first entry, so nothing produced earlier is lost.
+  try {
+    const legacy = path.join(DATA, 'discovery-bundle.json');
+    if (!runList().length && fs.existsSync(legacy)) {
+      const at = fs.statSync(legacy).mtime.toISOString();
+      const d = readJson(legacy);
+      const id = `DISC-${at.slice(0, 16).replace(/[-:T]/g, '')}`;
+      const dir = path.join(RUNS, id);
+      fs.mkdirSync(dir, { recursive: true });
+      fs.copyFileSync(legacy, path.join(dir, 'discovery-bundle.json'));
+      const ab = path.join(DATA, 'assessment-bundle.json');
+      // The fit-gap belongs to that run only if it was produced with it.
+      if (fs.existsSync(ab) && Math.abs(fs.statSync(ab).mtimeMs - fs.statSync(legacy).mtimeMs) < 15 * 60000) fs.copyFileSync(ab, path.join(dir, 'assessment-bundle.json'));
+      const orgs = (d?.orgs || []).filter((o) => o.extracted);
+      fs.writeFileSync(path.join(dir, 'run.json'), JSON.stringify({ id, startedAt: null, finishedAt: at, status: 'complete', scope: fs.existsSync(path.join(dir, 'assessment-bundle.json')) ? 'full' : 'discovery', regions: orgs.map((o) => o.region), orgs: orgs.map((o) => o.label), by: null, agents: null, log: [] }, null, 2));
+    }
+  } catch (e) { console.error('run history import', e.message); }
+
+  app.get('/api/discovery/runs',(_req, res) => res.set('Cache-Control', 'no-store').json({ runs: runList() }));
 
   app.get('/api/discovery/run', (_req, res) => res.json(job ? { ...job, log: job.log.slice(-200) } : null));
 
-  // Results of the latest real run, if there is one; the console falls back to its built-in sample otherwise.
-  app.get('/api/assessment-data', (_req, res) => {
-    const read = (f) => (fs.existsSync(path.join(DATA, f)) ? JSON.parse(fs.readFileSync(path.join(DATA, f), 'utf8')) : null);
-    const assessment = read('assessment-bundle.json');
-    const discovery = read('discovery-bundle.json');
+  // Results of one run: ?run=<id>, else the latest in the history. Runs from before the history existed are read
+  // from DATA itself. Without any run, the console keeps its built-in sample.
+  app.get('/api/assessment-data', (req, res) => {
+    const runs = runList();
+    const wantedRun = req.query.run ? runs.find((r) => r.id === String(req.query.run)) : runs[0];
+    if (req.query.run && !wantedRun) return res.status(404).json({ error: { message: 'Unknown run' } });
+    const dir = wantedRun ? path.join(RUNS, wantedRun.id) : DATA;
+    const assessment = readJson(path.join(dir, 'assessment-bundle.json'));
+    const discovery = readJson(path.join(dir, 'discovery-bundle.json'));
     if (!assessment && !discovery) return res.status(404).json({ error: { message: 'No discovery run on this server yet' } });
-    res.set('Cache-Control', 'no-store').json({ assessment, discovery, runId: job?.id || null, finishedAt: job?.finishedAt || null });
+    res.set('Cache-Control', 'no-store').json({ assessment, discovery, runId: wantedRun?.id || job?.id || null, finishedAt: wantedRun?.finishedAt || job?.finishedAt || null, scope: wantedRun?.scope || null, orgs: wantedRun?.orgs || null, latest: !req.query.run || wantedRun?.id === runs[0]?.id });
   });
 }
 

@@ -861,12 +861,14 @@ button.fit { cursor: pointer; width: 100%; padding: 8px; } button.fit:hover { fi
 // When the console is served by the Org Compiler server, the latest discovery run on the server replaces the
 // sample built into the page (event 'orgc-data'). Opened as a file, the page keeps its built-in sample.
 window.orgcRuntime = { served: false, run: null };
-window.loadRuntimeData = () => (location.protocol === 'file:' ? Promise.resolve(null) : fetch('/api/assessment-data', { cache: 'no-store' })).then((r) => (r.ok ? r.json() : null)).catch(() => null).then((d) => {
+// runId: one run from the history; without it, the latest run.
+window.loadRuntimeData = (runId) => (location.protocol === 'file:' ? Promise.resolve(null) : fetch(`/api/assessment-data${runId ? `?run=${encodeURIComponent(runId)}` : ''}`, { cache: 'no-store' })).then((r) => (r.ok ? r.json() : null)).catch(() => null).then((d) => {
   if (!d) return null;
-  const put = (id, start, end, v) => { if (v) document.getElementById(id).textContent = `/*${start}*/${JSON.stringify(v)}/*${end}*/`; };
+  // A real run replaces the sample in full: a discovery-only run shows no fit-gap rather than the sample's.
+  const put = (id, start, end, v) => { if (v || d.runId) document.getElementById(id).textContent = `/*${start}*/${v ? JSON.stringify(v) : ''}/*${end}*/`; };
   put('discovery-data', 'DISCOVERY-START', 'DISCOVERY-END', d.discovery);
   put('assessment-data', 'ASSESS-START', 'ASSESS-END', d.assessment);
-  window.orgcRuntime.run = { id: d.runId, finishedAt: d.finishedAt };
+  window.orgcRuntime.run = { id: d.runId, finishedAt: d.finishedAt, scope: d.scope, orgs: d.orgs, latest: d.latest !== false };
   window.dispatchEvent(new Event('orgc-data'));
   return d;
 });
@@ -879,11 +881,11 @@ document.addEventListener('DOMContentLoaded', () => window.loadRuntimeData());
   const fmt = (t) => (t ? new Date(t).toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' }) : '');
   const call = async (method, url, body) => { const r = await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: body ? JSON.stringify(body) : undefined }); const d = await r.json().catch(() => ({})); if (!r.ok) throw new Error(d.error?.message || `HTTP ${r.status}`); return d; };
   const needs = [
-    ['Salesforce login address', 'https://login.salesforce.com, https://test.salesforce.com for a sandbox, or the org\'s My Domain address', 'Client'],
+    ['Salesforce login address', 'https://login.salesforce.com, https://test.salesforce.com for a sandbox, or the org\'s My Domain address', 'Org owner'],
     ['An integration user, read-only', 'API Enabled, View Setup and Configuration, read access to the objects in scope (a permission set). No edit or Modify Metadata rights needed', 'Org admin'],
     ['Approval of the "Org Compiler" app', 'An admin approves the connected app on first sign-in (or pre-authorises it for the integration user)', 'Org admin'],
     ['Sign in once with Connect with Salesforce', 'Salesforce asks for the password and MFA; this site never sees them. It keeps only a revocable token, encrypted', 'Integration user'],
-    ['API capacity', 'A discovery run uses a few thousand API calls per org, well within the daily allowance', 'Checked by Test'],
+    ['API capacity', 'A discovery run uses from a few thousand API calls per org to about 12,000 for a large org with many packages, well within the daily allowance', 'Checked by Test'],
   ];
   function staticPage() {
     $('cx-mode').textContent = 'Sample (open from the Org Compiler site to connect orgs)';
@@ -925,12 +927,18 @@ document.addEventListener('DOMContentLoaded', () => window.loadRuntimeData());
         <div class="actions" style="justify-content:flex-start"><button class="btn primary" type="button" data-cx="run" ${running || !picked.length ? 'disabled' : ''}>${running ? '● Running…' : `▶ Run ${cxScope === 'full' ? 'discovery and fit-gap' : 'discovery'} on ${picked.length} org${picked.length === 1 ? '' : 's'}`}</button>
         ${S.job?.finishedAt ? `<button class="btn" type="button" data-cx="open">Open Discovery explorer</button><span class="as-note">Run ${esc(S.job.id)} ${esc(S.job.status)} · ${esc(fmt(S.job.finishedAt))}${S.job.agents?.sha ? ` · agent code <code>${esc(S.job.agents.sha.slice(0, 7))}</code> (${esc(S.job.agents.source)})` : ''}</span>` : ''}</div>
         ${running && S.job.progress ? progressBar(S.job.progress) : ''}
+        ${(S.runs || []).length ? `<h4 style="margin-top:14px">Run history <span class="as-note">every run is kept; the explorer, assessment and report show the one opened</span></h4>
+        <div class="tablewrap"><table><thead><tr><th>Run</th><th>Finished</th><th>Orgs</th><th>Scope</th><th>Status</th><th></th></tr></thead><tbody>${S.runs.map((r, k) => {
+          const shown = (window.orgcRuntime.run?.id || S.runs[0].id) === r.id;
+          return `<tr><td class="mono">${esc(r.id)}${k === 0 ? ' <span class="pill done">Latest</span>' : ''}</td><td>${esc(fmt(r.finishedAt))}</td><td>${esc((r.orgs || []).join(', '))}</td><td>${r.scope === 'full' ? 'Discovery and fit-gap' : 'Discovery only'}</td><td>${esc(r.status)}</td>
+            <td>${shown ? '<span class="as-note">Showing</span>' : `<button class="btn sm" type="button" data-cx="openrun" data-run="${esc(r.id)}">Open</button>`}</td></tr>`;
+        }).join('')}</tbody></table></div>` : ''}
         ${S.job ? `<pre class="jsonview" style="max-height:260px">${esc((S.job.log || []).join('\n'))}</pre>` : '<p class="as-note">A run takes a few minutes per org. The Discovery explorer, Org assessment and Discovery Report then show the results of this run instead of the sample.</p>'}
       </div>`;
   }
   async function refresh() {
     if (location.protocol === 'file:') { staticPage(); return; }
-    try { S = await call('GET', '/api/connections'); window.orgcRuntime.served = true; render(); }
+    try { S = await call('GET', '/api/connections'); S.runs = (await call('GET', '/api/discovery/runs').catch(() => ({ runs: [] }))).runs; window.orgcRuntime.served = true; render(); }
     catch { S = null; staticPage(); return; }
     clearTimeout(poll);
     if (S.job && !S.job.finishedAt) poll = setTimeout(async () => { const was = S.job.finishedAt; await refresh(); if (!was && S.job?.finishedAt) window.loadRuntimeData(); }, 2500);
@@ -955,7 +963,8 @@ document.addEventListener('DOMContentLoaded', () => window.loadRuntimeData());
         if (b.dataset.cx === 'disconnect') { if (!confirm('Disconnect this org? The stored token is revoked at Salesforce and deleted here.')) return; await call('DELETE', `/api/connections/${region}/token`); await refresh(); }
         if (b.dataset.cx === 'add') { await call('POST', '/api/connections', { label: $('cx-new-label').value, loginUrl: $('cx-new-login').value }); await refresh(); }
         if (b.dataset.cx === 'run') { await call('POST', '/api/discovery/run', { useLatest: cxLatest, scope: cxScope, regions: S.orgs.filter((o) => o.connected && !cxSkip.has(o.region)).map((o) => o.region) }); await refresh(); }
-        if (b.dataset.cx === 'open') document.querySelector('.nav [data-view="discovery"]').click();
+        if (b.dataset.cx === 'open') { await window.loadRuntimeData(); document.querySelector('.nav [data-view="discovery"]').click(); }
+        if (b.dataset.cx === 'openrun') { await window.loadRuntimeData(b.dataset.run); render(); document.querySelector('.nav [data-view="discovery"]').click(); }
       } catch (err) { if (card) msg(err.message); else { flash = err.message; render(); } }
     });
   });
@@ -1109,7 +1118,7 @@ document.addEventListener('DOMContentLoaded', () => window.loadRuntimeData());
   async function render() {
     const body = $('as-body');
     load();
-    if (!A.items) { body.innerHTML = '<p class="sub">No assessment yet. Run the Assessment agent (src/agents/assessment).</p>'; return; }
+    if (!A.items) { body.innerHTML = window.orgcRuntime.run?.id ? `<p class="sub">Run ${esc(window.orgcRuntime.run.id)} was discovery only, so it has no fit-gap. On the Connections page, choose "Discovery and fit-gap" and run again, or open an earlier full run from the run history.</p>` : '<p class="sub">No assessment yet. Run the Assessment agent (src/agents/assessment).</p>'; return; }
     $('as-title').textContent = `${A.client} · org assessment`;
     $('as-sample').hidden = !A.sampleData;
     if (tab === 'architecture' || tab === 'report') { await window.renderMarkdownInto(body, tab === 'report' ? A.report : A.architecture); return; }
@@ -1658,7 +1667,8 @@ document.addEventListener('DOMContentLoaded', () => window.loadRuntimeData());
   async function render() {
     load();
     if (!D.orgs.some((o) => o.extracted)) { $('dx-main').innerHTML = '<p class="sub">No discovery yet. Run the Assessment agent.</p>'; return; }
-    $('dx-title').textContent = `Discovery explorer · ${D.client}`;
+    const rn = window.orgcRuntime.run;
+    $('dx-title').textContent = `Discovery explorer · ${D.client}${rn?.id ? ` · run ${rn.id}${rn.finishedAt ? `, ${new Date(rn.finishedAt).toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' })}` : ''}${rn.latest ? ' (latest)' : ' (earlier run)'}` : ''}`;
     $('dx-orgs').innerHTML = D.orgs.map((o) => `<button type="button" role="tab" data-org="${o.region}" aria-selected="${o.region === org}" ${o.extracted ? '' : 'disabled title="Not connected yet"'}>${esc(o.label)}</button>`).join('');
     renderTree();
     const it = item();
