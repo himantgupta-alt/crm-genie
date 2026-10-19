@@ -874,7 +874,8 @@ document.addEventListener('DOMContentLoaded', () => window.loadRuntimeData());
 (() => {
   const $ = (id) => document.getElementById(id);
   const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-  let S = null, poll = null, flash = '', cxLatest = true;
+  let S = null, poll = null, flash = '', cxLatest = true, cxScope = 'discovery';
+  const cxSkip = new Set(); // connected orgs left out of the next run
   const fmt = (t) => (t ? new Date(t).toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' }) : '');
   const call = async (method, url, body) => { const r = await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: body ? JSON.stringify(body) : undefined }); const d = await r.json().catch(() => ({})); if (!r.ok) throw new Error(d.error?.message || `HTTP ${r.status}`); return d; };
   const needs = [
@@ -896,11 +897,15 @@ document.addEventListener('DOMContentLoaded', () => window.loadRuntimeData());
     $('nav-conn').textContent = `${connected.length}/${S.orgs.length}`;
     $('cx-mode').textContent = S.job && !S.job.finishedAt ? 'Discovery running…' : `${connected.length} of ${S.orgs.length} orgs connected`;
     const running = S.job && !S.job.finishedAt;
+    const picked = connected.filter((o) => !cxSkip.has(o.region));
+    const progressBar = (p) => `<div style="margin:10px 0 6px"><div class="as-note">${p.org ? `${esc(p.org)}${p.orgs > 1 ? ` (org ${p.orgIndex} of ${p.orgs})` : ''} · ` : ''}${esc(p.step)}${p.total ? ` · ${p.done.toLocaleString()} of ${p.total.toLocaleString()}` : ''}</div>
+      <div role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${p.pct}" style="height:8px;border-radius:4px;background:var(--line);overflow:hidden;margin-top:4px"><div style="height:100%;width:${p.pct}%;background:var(--accent, #2563eb);transition:width .4s"></div></div></div>`;
     $('cx-body').innerHTML = `
       ${flash ? `<div class="errprev" role="alert"><b>!</b><span>${esc(flash)}</span></div>` : ''}
       ${needsCard()}
       <div class="orgcards">${S.orgs.map((o) => `<div class="orgcard ${o.connected ? '' : 'pending'}" data-region="${esc(o.region)}">
         <h3><input class="cx-label" value="${esc(o.label)}" aria-label="Org name" style="font:inherit;font-weight:600;border:1px solid transparent;background:transparent;border-radius:5px;padding:2px 4px;width:60%">${o.connected ? '<span class="pill done">Connected</span>' : '<span class="pill">Not connected</span>'}</h3>
+        ${o.connected ? `<label class="as-note" style="display:inline-flex;gap:6px;align-items:center"><input type="checkbox" class="cx-pick" ${cxSkip.has(o.region) ? '' : 'checked'} ${running ? 'disabled' : ''}> Include in the next run</label>` : ''}
         <label class="as-note">Login address<input class="cx-login" value="${esc(o.loginUrl)}" style="width:100%;margin-top:3px;border:1px solid var(--line-strong);border-radius:6px;padding:6px 8px;background:var(--surface);font:12.5px var(--mono)"></label>
         ${o.connected ? `<dl class="kv" style="grid-template-columns:110px 1fr"><dt>Signed in as</dt><dd class="mono">${esc(o.username)}</dd><dt>Org</dt><dd class="mono">${esc(o.orgId)} · ${esc(o.instanceHost || '')}</dd><dt>Access</dt><dd>${esc(o.method)}</dd><dt>Since</dt><dd>${esc(fmt(o.connectedAt))}${o.connectedBy ? ` · ${esc(o.connectedBy)}` : ''}</dd>${o.lastRun ? `<dt>Last discovery</dt><dd>${esc(o.lastRun.status)} · ${esc(fmt(o.lastRun.at))}</dd>` : ''}</dl>` : '<span class="as-note">Connect the org to include it in discovery.</span>'}
         <div class="actions" style="justify-content:flex-start">
@@ -914,8 +919,12 @@ document.addEventListener('DOMContentLoaded', () => window.loadRuntimeData());
       <div class="card"><h4>Run discovery <span class="as-note">real agents, read-only, on the connected orgs</span></h4>
         ${S.agents ? `<div class="as-note">Agent code: ${S.agents.latest ? `latest commit on <b>${esc(S.agents.ref)}</b> <code>${esc(S.agents.latest.slice(0, 7))}</code>` : 'latest commit not reachable'}${S.agents.deployed ? ` · deployed <code>${esc(S.agents.deployed.slice(0, 7))}</code>` : ''}${S.agents.latest && S.agents.deployed && S.agents.latest !== S.agents.deployed ? ' · <b>a newer agent version is on git and will be used</b>' : ''}
           <label style="display:inline-flex;gap:6px;align-items:center;margin-left:10px"><input type="checkbox" id="cx-latest" ${cxLatest ? 'checked' : ''}> Use the latest agent code on git</label></div>` : ''}
-        <div class="actions" style="justify-content:flex-start"><button class="btn primary" type="button" data-cx="run" ${running || !connected.length ? 'disabled' : ''}>${running ? '● Running…' : `▶ Run discovery on ${connected.length} connected org${connected.length === 1 ? '' : 's'}`}</button>
+        <div class="as-note" style="display:flex;gap:14px;flex-wrap:wrap;margin-top:6px">Scope
+          <label style="display:inline-flex;gap:6px;align-items:center"><input type="radio" name="cx-scope" value="discovery" ${cxScope === 'discovery' ? 'checked' : ''} ${running ? 'disabled' : ''}> Discovery only (Discovery explorer and report)</label>
+          <label style="display:inline-flex;gap:6px;align-items:center"><input type="radio" name="cx-scope" value="full" ${cxScope === 'full' ? 'checked' : ''} ${running ? 'disabled' : ''}> Discovery and fit-gap (adds the Org assessment)</label></div>
+        <div class="actions" style="justify-content:flex-start"><button class="btn primary" type="button" data-cx="run" ${running || !picked.length ? 'disabled' : ''}>${running ? '● Running…' : `▶ Run ${cxScope === 'full' ? 'discovery and fit-gap' : 'discovery'} on ${picked.length} org${picked.length === 1 ? '' : 's'}`}</button>
         ${S.job?.finishedAt ? `<button class="btn" type="button" data-cx="open">Open Discovery explorer</button><span class="as-note">Run ${esc(S.job.id)} ${esc(S.job.status)} · ${esc(fmt(S.job.finishedAt))}${S.job.agents?.sha ? ` · agent code <code>${esc(S.job.agents.sha.slice(0, 7))}</code> (${esc(S.job.agents.source)})` : ''}</span>` : ''}</div>
+        ${running && S.job.progress ? progressBar(S.job.progress) : ''}
         ${S.job ? `<pre class="jsonview" style="max-height:260px">${esc((S.job.log || []).join('\n'))}</pre>` : '<p class="as-note">A run takes a few minutes per org. The Discovery explorer, Org assessment and Discovery Report then show the results of this run instead of the sample.</p>'}
       </div>`;
   }
@@ -932,7 +941,11 @@ document.addEventListener('DOMContentLoaded', () => window.loadRuntimeData());
     if (h.startsWith('#connections')) { flash = h.split(':').slice(1).join(':'); history.replaceState(null, '', location.pathname); setTimeout(() => document.querySelector('.nav [data-view="connections"]').click(), 0); }
     refresh();
     document.querySelector('.nav [data-view="connections"]').addEventListener('click', () => refresh());
-    $('cx-body').addEventListener('change', (e) => { if (e.target.id === 'cx-latest') cxLatest = e.target.checked; });
+    $('cx-body').addEventListener('change', (e) => {
+      if (e.target.id === 'cx-latest') cxLatest = e.target.checked;
+      if (e.target.name === 'cx-scope') { cxScope = e.target.value; render(); }
+      if (e.target.classList.contains('cx-pick')) { const r = e.target.closest('[data-region]').dataset.region; if (e.target.checked) cxSkip.delete(r); else cxSkip.add(r); render(); }
+    });
     $('cx-body').addEventListener('click', async (e) => {
       const b = e.target.closest('[data-cx]'); if (!b) return;
       const card = b.closest('[data-region]'); const region = card?.dataset.region; const msg = (t) => { if (card) card.querySelector('.cx-msg').textContent = t; };
@@ -941,7 +954,7 @@ document.addEventListener('DOMContentLoaded', () => window.loadRuntimeData());
         if (b.dataset.cx === 'test') { msg('Testing…'); const t = await call('POST', `/api/connections/${region}/test`); msg(`Connection works · ${t.apiRemaining?.toLocaleString()} of ${t.apiMax?.toLocaleString()} API calls left today`); }
         if (b.dataset.cx === 'disconnect') { if (!confirm('Disconnect this org? The stored token is revoked at Salesforce and deleted here.')) return; await call('DELETE', `/api/connections/${region}/token`); await refresh(); }
         if (b.dataset.cx === 'add') { await call('POST', '/api/connections', { label: $('cx-new-label').value, loginUrl: $('cx-new-login').value }); await refresh(); }
-        if (b.dataset.cx === 'run') { await call('POST', '/api/discovery/run', { useLatest: cxLatest }); await refresh(); }
+        if (b.dataset.cx === 'run') { await call('POST', '/api/discovery/run', { useLatest: cxLatest, scope: cxScope, regions: S.orgs.filter((o) => o.connected && !cxSkip.has(o.region)).map((o) => o.region) }); await refresh(); }
         if (b.dataset.cx === 'open') document.querySelector('.nav [data-view="discovery"]').click();
       } catch (err) { if (card) msg(err.message); else { flash = err.message; render(); } }
     });

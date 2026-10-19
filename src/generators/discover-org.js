@@ -16,6 +16,19 @@ const API = '67.0';
 const CORE = ['Account', 'Contact', 'Lead', 'Opportunity', 'OpportunityLineItem', 'Product2', 'Pricebook2', 'PricebookEntry', 'Order', 'OrderItem', 'Quote', 'Contract', 'Case', 'Campaign', 'Task', 'Event', 'User'];
 const SKIP_FILL = new Set(['textarea', 'base64', 'encryptedstring', 'address', 'location', 'anyType', 'complexvalue']);
 const by = (k) => (a, b) => String(a[k]).localeCompare(String(b[k]));
+// Queries in flight at once. Large orgs (managed packages with thousands of fields) need thousands of COUNT()
+// queries; run one at a time they take over an hour. DISCOVERY_CONCURRENCY tunes it within the org's API limits.
+const CONCURRENCY = Math.max(1, Number(process.env.DISCOVERY_CONCURRENCY) || 8);
+// Runs fn over items with at most n in flight; results keep the input order, so the output stays deterministic.
+async function pool(items, n, fn) {
+  const out = new Array(items.length);
+  let next = 0;
+  await Promise.all(Array.from({ length: Math.min(n, items.length) }, async () => {
+    while (next < items.length) { const i = next++; out[i] = await fn(items[i], i); }
+  }));
+  return out;
+}
+const progress = (step, done, total) => console.log(`discovery: ${step} ${done}/${total} (${Math.round((done / Math.max(total, 1)) * 100)}%)`);
 
 async function main() {
   const conn = await connect();
@@ -58,10 +71,18 @@ async function main() {
   const recordTypes = await q('SELECT SobjectType, Name, DeveloperName, IsActive FROM RecordType');
   const layouts = await q('SELECT Name, TableEnumOrId FROM Layout', true);
 
-  const objects = [];
-  for (const name of names) {
+  let described = 0;
+  const step = Math.max(1, Math.round(names.length / 20));
+  progress('objects', 0, names.length);
+  // Objects in parallel; each object's fill-rate counts run one after another inside its slot.
+  const tick = () => { if (++described % step === 0 || described === names.length) progress('objects', described, names.length); };
+  const objects = (await pool(names, CONCURRENCY, async (name) => {
+    try { return await describeObject(name); } finally { tick(); }
+  })).filter(Boolean);
+
+  async function describeObject(name) {
     let d;
-    try { d = await conn.sobject(name).describe(); } catch { continue; }
+    try { d = await conn.sobject(name).describe(); } catch { return null; }
     const records = d.queryable ? await count(`SELECT COUNT() FROM ${name}`) : null;
     const nsMatch = name.match(/^([A-Za-z0-9]+)__\w+__c$/);
     const fields = [];
@@ -82,33 +103,33 @@ async function main() {
       });
     }
     const objId = Object.entries(objIdToName).find(([, n]) => n === name)?.[0];
-    objects.push({
+    return {
       name, label: d.label, origin: d.custom ? managed(nsMatch?.[1]) : 'standard', records,
       sharing: sharing[name] || null,
       recordTypes: recordTypes.filter((r) => r.SobjectType === name).map((r) => ({ name: r.Name, active: r.IsActive })),
       layouts: layouts.filter((l) => l.TableEnumOrId === name || l.TableEnumOrId === objId).map((l) => l.Name).sort(),
       fields: fields.sort((a, b) => (a.origin === b.origin ? a.name.localeCompare(b.name) : a.origin === 'standard' ? 1 : -1)),
-    });
+    };
   }
 
   /* ---------------------------------------------------------------- rules and processes */
   const vrRows = await q('SELECT Id, ValidationName, EntityDefinition.QualifiedApiName, Active, ErrorMessage, ErrorDisplayField, Description, NamespacePrefix FROM ValidationRule', true);
-  const validationRules = [];
-  for (const v of vrRows) {
+  progress('validation rules', 0, vrRows.length);
+  const validationRules = await pool(vrRows, CONCURRENCY, async (v) => {
     const m = await one(`SELECT Metadata FROM ValidationRule WHERE Id = '${v.Id}'`);
-    validationRules.push({ object: v.EntityDefinition?.QualifiedApiName, name: v.ValidationName, active: v.Active, origin: managed(v.NamespacePrefix),
-      formula: m?.Metadata?.errorConditionFormula || null, message: v.ErrorMessage, field: v.ErrorDisplayField || null, description: v.Description || null });
-  }
+    return { object: v.EntityDefinition?.QualifiedApiName, name: v.ValidationName, active: v.Active, origin: managed(v.NamespacePrefix),
+      formula: m?.Metadata?.errorConditionFormula || null, message: v.ErrorMessage, field: v.ErrorDisplayField || null, description: v.Description || null };
+  });
   validationRules.sort((a, b) => `${a.object}.${a.name}`.localeCompare(`${b.object}.${b.name}`));
 
   const flowRows = await q('SELECT ApiName, Label, ProcessType, TriggerType, TriggerObjectOrEventLabel, RecordTriggerType, IsActive, ActiveVersionId, LatestVersionId, NamespacePrefix, Description FROM FlowDefinitionView');
-  const flows = [];
-  for (const f of flowRows) {
+  progress('flows', 0, flowRows.length);
+  const flows = await pool(flowRows, CONCURRENCY, async (f) => {
     const vid = f.ActiveVersionId || f.LatestVersionId;
     const m = !f.NamespacePrefix && vid ? (await one(`SELECT Metadata FROM Flow WHERE Id = '${vid}'`))?.Metadata : null;
-    flows.push({ name: f.ApiName, label: f.Label, kind: f.ProcessType, trigger: f.TriggerType, recordTrigger: f.RecordTriggerType, object: f.TriggerObjectOrEventLabel,
-      active: f.IsActive, origin: managed(f.NamespacePrefix), description: f.Description || null, logic: m ? flowLogic(m) : null });
-  }
+    return { name: f.ApiName, label: f.Label, kind: f.ProcessType, trigger: f.TriggerType, recordTrigger: f.RecordTriggerType, object: f.TriggerObjectOrEventLabel,
+      active: f.IsActive, origin: managed(f.NamespacePrefix), description: f.Description || null, logic: m ? flowLogic(m) : null };
+  });
   flows.sort(by('name'));
 
   const approvals = (await q("SELECT Name, DeveloperName, TableEnumOrId, State, Description FROM ProcessDefinition WHERE Type = 'Approval'"))
@@ -156,17 +177,18 @@ async function main() {
   const setupObjects = global.sobjects.filter((s) => s.queryable && (
     (s.custom && installedNs.size && [...installedNs].some((ns) => s.name.startsWith(`${ns}__`)) && (s.customSetting || SETUP_NAME.test(s.name)))
     || PLATFORM_SETUP.includes(s.name)));
-  const featureConfig = [];
-  for (const s of setupObjects) {
+  progress('feature configuration', 0, setupObjects.length);
+  const featureConfig = await pool(setupObjects, CONCURRENCY, async (s) => {
     const ns = s.name.match(/^([A-Za-z0-9]+)__/)?.[1] || null;
     const records = await count(`SELECT COUNT() FROM ${s.name}`);
     let names = [];
     if (records) {
-      const nameField = (await conn.sobject(s.name).describe()).fields.find((f) => f.nameField)?.name;
+      let nameField;
+      try { nameField = (await conn.sobject(s.name).describe()).fields.find((f) => f.nameField)?.name; } catch { nameField = null; }
       if (nameField) names = (await q(`SELECT ${nameField} FROM ${s.name} ORDER BY ${nameField} LIMIT 50`)).map((r) => String(r[nameField])).filter(Boolean);
     }
-    featureConfig.push({ object: s.name, label: s.label, origin: ns ? managed(ns) : 'salesforce', namespace: ns, customSetting: !!s.customSetting, records, names });
-  }
+    return { object: s.name, label: s.label, origin: ns ? managed(ns) : 'salesforce', namespace: ns, customSetting: !!s.customSetting, records, names };
+  });
   featureConfig.sort((a, b) => `${a.origin}${a.object}`.localeCompare(`${b.origin}${b.object}`));
 
   /* ---------------------------------------------------------------- scheduled processing */

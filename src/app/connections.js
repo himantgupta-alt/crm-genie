@@ -189,10 +189,17 @@ function install(app, owner) {
     const all = (await rows()).filter((r) => r.token_enc);
     const wanted = Array.isArray(req.body?.regions) && req.body.regions.length ? all.filter((r) => req.body.regions.includes(r.region)) : all;
     if (!wanted.length) return err(res, 400, 'Connect at least one org first');
-    job = { id: `DISC-${new Date().toISOString().slice(0, 16).replace(/[-:T]/g, '')}`, startedAt: new Date().toISOString(), finishedAt: null, status: 'running', regions: wanted.map((r) => r.region), log: [], by: req.session?.n || null };
+    // scope 'discovery': the full discovery only (Discovery explorer and report); 'full' adds the as-is extraction and fit-gap.
+    const scope = req.body?.scope === 'discovery' ? 'discovery' : 'full';
+    job = { id: `DISC-${new Date().toISOString().slice(0, 16).replace(/[-:T]/g, '')}`, startedAt: new Date().toISOString(), finishedAt: null, status: 'running', scope, regions: wanted.map((r) => r.region), log: [], progress: null, by: req.session?.n || null };
     res.json(job);
     const j = job;
-    const log = (l) => { j.log.push(`${new Date().toISOString().slice(11, 19)}  ${l}`); if (j.log.length > 400) j.log.shift(); };
+    const log = (l) => {
+      // discover-org.js prints "discovery: <step> <done>/<total> (<pct>%)"; the latest one drives the progress bar.
+      const m = /^discovery: (.+?) (\d+)\/(\d+) \((\d+)%\)$/.exec(l);
+      if (m) j.progress = { ...j.progress, step: m[1], done: Number(m[2]), total: Number(m[3]), pct: Number(m[4]) };
+      j.log.push(`${new Date().toISOString().slice(11, 19)}  ${l}`); if (j.log.length > 400) j.log.shift();
+    };
     // Agent code: the latest commit on main unless the caller asks for the deployed copy.
     const agents = await agentsFor(req.body?.useLatest !== false, log);
     j.agents = { sha: agents.sha, source: agents.source };
@@ -205,19 +212,22 @@ function install(app, owner) {
     fs.writeFileSync(engagementFile, JSON.stringify({ ...DEFAULT_ORGS, sampleData: DEFAULT_ORGS.sampleData && everyOrg.some((r) => r.region === 'eu' && r.token_enc), orgs: everyOrg.map((r) => ({ region: r.region, label: r.label, alias: r.region })) }, null, 2));
     const base_ = { ADLC_DIR: adlc, ENGAGEMENT_FILE: engagementFile, BUNDLE_DIR: DATA };
     let failed = false;
-    for (const r of wanted) {
+    for (const [k, r] of wanted.entries()) {
+      j.progress = { org: r.label, orgIndex: k + 1, orgs: wanted.length, step: 'connecting', done: 0, total: 0, pct: 0 };
       let a;
       try { a = await accessFor(r); } catch (e) { log(`${r.label}: cannot sign in (${e.message})`); failed = true; await owner('UPDATE ops.org_connection SET last_run = $2 WHERE region = $1', [r.region, { id: j.id, status: 'failed', at: new Date().toISOString(), message: e.message }]); continue; }
       const env = { ...base_, SF_REFRESH_TOKEN: a.refresh, SF_INSTANCE_URL: a.instance, SF_CLIENT_ID: r.client_id, SF_LOGIN_URL: r.login_url };
-      log(`${r.label}: as-is extraction (read-only)`);
-      const c1 = await run('assess-org.js', [r.region, r.label], env, log, agents.root);
+      let c1 = 0;
+      if (scope === 'full') { log(`${r.label}: as-is extraction (read-only)`); c1 = await run('assess-org.js', [r.region, r.label], env, log, agents.root); }
       log(`${r.label}: full discovery (read-only)`);
       const c2 = c1 === 0 ? await run('discover-org.js', [r.region, r.label], env, log, agents.root) : 1;
       const ok = c1 === 0 && c2 === 0;
       if (!ok) failed = true;
       await owner('UPDATE ops.org_connection SET last_run = $2 WHERE region = $1', [r.region, { id: j.id, status: ok ? 'ok' : 'failed', at: new Date().toISOString() }]);
     }
-    for (const g of ['emit-assessment.js', 'emit-discovery.js']) { log(`all orgs: ${g.replace('.js', '')}`); if (await run(g, [], base_, log, agents.root) !== 0) failed = true; }
+    j.progress = { step: 'building the explorer and report', done: 0, total: 0, pct: 100 };
+    for (const g of [...(scope === 'full' ? ['emit-assessment.js'] : []), 'emit-discovery.js']) { log(`all orgs: ${g.replace('.js', '')}`); if (await run(g, [], base_, log, agents.root) !== 0) failed = true; }
+    j.progress = null;
     j.finishedAt = new Date().toISOString();
     j.status = failed ? 'finished with errors' : 'complete';
     log(`run ${j.id} ${j.status}`);
