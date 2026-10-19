@@ -6,7 +6,7 @@
 // Writes adlc/1-discover/assessment/orgs/<region>.json. No org ID, instance, user names or record contents are
 // written: only names of components, counts and fill rates, so the file can be versioned and shared.
 const path = require('path');
-const { connect, writeJson, P } = require('./lib');
+const { connect, writeJson, pool, progress, CONCURRENCY, P } = require('./lib');
 const { analyseApex } = require('./apex-functions');
 
 const [region, label] = process.argv.slice(2);
@@ -48,21 +48,23 @@ async function main() {
     return out.sort(byName);
   }
 
-  // 1. Custom objects
-  const objects = [];
-  for (const g of global.sobjects.filter((s) => s.custom && unmanaged(s.name) && s.queryable && !s.customSetting)) {
-    const records = await count(`SELECT COUNT() FROM ${g.name}`);
-    objects.push({ name: g.name, label: g.label, records, fields: await fields(g.name, records) });
-  }
+  // 1. Custom objects, several at a time (each object's counts run one after another inside its slot).
+  const customObjs = global.sobjects.filter((s) => s.custom && unmanaged(s.name) && s.queryable && !s.customSetting);
+  const stdObjs = STANDARD.filter((n) => global.sobjects.some((s) => s.name === n));
+  const totalObjs = customObjs.length + stdObjs.length;
+  let doneObjs = 0;
+  const tick = () => { doneObjs++; if (doneObjs % Math.max(1, Math.round(totalObjs / 20)) === 0 || doneObjs === totalObjs) progress('as-is objects', doneObjs, totalObjs); };
+  progress('as-is objects', 0, totalObjs);
+  const objects = await pool(customObjs, CONCURRENCY, async (g) => {
+    try { const records = await count(`SELECT COUNT() FROM ${g.name}`); return { name: g.name, label: g.label, records, fields: await fields(g.name, records) }; } finally { tick(); }
+  });
   objects.sort(byName);
 
   // 2. Standard objects extended with custom fields
-  const extended = [];
-  for (const name of STANDARD.filter((n) => global.sobjects.some((s) => s.name === n))) {
-    const records = await count(`SELECT COUNT() FROM ${name}`);
-    const fs_ = await fields(name, records);
-    if (fs_.length) extended.push({ name, records, fields: fs_ });
-  }
+  const extended = (await pool(stdObjs, CONCURRENCY, async (name) => {
+    try { const records = await count(`SELECT COUNT() FROM ${name}`); const fs_ = await fields(name, records); return fs_.length ? { name, records, fields: fs_ } : null; } finally { tick(); }
+  })).filter(Boolean);
+  progress('as-is code and automation', 0, 1);
 
   // 3. Code and declarative automation (unmanaged only)
   const customNames = objects.map((o) => o.name);

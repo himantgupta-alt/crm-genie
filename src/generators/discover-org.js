@@ -6,7 +6,7 @@
 // Writes adlc/1-discover/assessment/discovery/<region>/discovery.json. Holds configuration (names, formulas, flow
 // logic, settings) and counts; never record contents, user names, org ID or instance.
 const path = require('path');
-const { connect, writeJson, P } = require('./lib');
+const { connect, writeJson, pool, progress, CONCURRENCY, P } = require('./lib');
 
 const [region, label] = process.argv.slice(2);
 if (!region) { console.error('usage: SF_ALIAS=<alias> node src/generators/discover-org.js <region> "<label>"'); process.exit(2); }
@@ -16,19 +16,6 @@ const API = '67.0';
 const CORE = ['Account', 'Contact', 'Lead', 'Opportunity', 'OpportunityLineItem', 'Product2', 'Pricebook2', 'PricebookEntry', 'Order', 'OrderItem', 'Quote', 'Contract', 'Case', 'Campaign', 'Task', 'Event', 'User'];
 const SKIP_FILL = new Set(['textarea', 'base64', 'encryptedstring', 'address', 'location', 'anyType', 'complexvalue']);
 const by = (k) => (a, b) => String(a[k]).localeCompare(String(b[k]));
-// Queries in flight at once. Large orgs (managed packages with thousands of fields) need thousands of COUNT()
-// queries; run one at a time they take over an hour. DISCOVERY_CONCURRENCY tunes it within the org's API limits.
-const CONCURRENCY = Math.max(1, Number(process.env.DISCOVERY_CONCURRENCY) || 8);
-// Runs fn over items with at most n in flight; results keep the input order, so the output stays deterministic.
-async function pool(items, n, fn) {
-  const out = new Array(items.length);
-  let next = 0;
-  await Promise.all(Array.from({ length: Math.min(n, items.length) }, async () => {
-    while (next < items.length) { const i = next++; out[i] = await fn(items[i], i); }
-  }));
-  return out;
-}
-const progress = (step, done, total) => console.log(`discovery: ${step} ${done}/${total} (${Math.round((done / Math.max(total, 1)) * 100)}%)`);
 
 async function main() {
   const conn = await connect();

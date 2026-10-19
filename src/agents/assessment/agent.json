@@ -1,6 +1,12 @@
 {
   "id": "assessment",
-  "name": "Assessment agent",
+  "name": "Discovery agent",
+  "subAgents": [
+    { "name": "Org scan sub-agent", "does": "Reads each org's configuration read-only: objects and fields with fill rates, rules, flows, code, packages, security, integrations, user interface and usage", "runs": "src/generators/discover-org.js" },
+    { "name": "As-is sub-agent", "does": "Lists what each org has built on top of standard Salesforce and how much of it is used, reading the code function by function", "runs": "src/generators/assess-org.js" },
+    { "name": "Fit-gap sub-agent", "does": "Matches every custom component to a business area and capability and proposes a verdict against the standard features", "runs": "src/generators/emit-assessment.js" },
+    { "name": "Report sub-agent", "does": "Writes the Discovery Report and the data behind the Discovery explorer, including the business processes", "runs": "src/generators/emit-discovery.js" }
+  ],
   "phase": "discover",
   "outputDir": "adlc/1-discover/assessment",
   "kb": [

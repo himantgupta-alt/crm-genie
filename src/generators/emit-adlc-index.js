@@ -39,6 +39,7 @@ for (const [id, s] of Object.entries(specs)) {
   fs.writeFileSync(path.join(dir, 'README.md'), [
     `# ${s.name}`, '', `Owner: ${s.name} · phase: ${s.phase} · ${s.kind === 'llm' ? 'language model proposals, reviewed before merge' : 'deterministic'}`, '', stamp, '',
     s.role, '',
+    ...(s.subAgents ? ['## Sub-agents', '', s.subAgents.map((a) => `- **${a.name}**: ${a.does}`).join('\n'), ''] : []),
     '## Inputs', '', list(s.inputs), '',
     '## Runs', '', list(s.implementation || [s.prompt].filter(Boolean)), '',
     '## Outputs', '', list(s.outputs), '',

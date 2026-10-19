@@ -447,6 +447,83 @@
       "standard": "Roll-up summary fields where the relationship is master-detail, record-triggered flows elsewhere",
       "licence": "",
       "reference": "Salesforce Help: Roll-up summary fields; record-triggered flows"
+    },
+    {
+      "id": "area-tpm",
+      "area": "Trade promotion management (TPM)",
+      "capability": "Other trade promotion extensions",
+      "match": {},
+      "fallback": "(Promotion|Tactic|Fund|Claim|Accrual|Payment_Tactic|Sell_Sheet|KAM)",
+      "verdict": "review",
+      "standard": "Placed in this area by the objects it belongs to or uses; compare with Consumer Goods Cloud Trade Promotion Management before a verdict",
+      "licence": "Consumer Goods Cloud TPM",
+      "reference": "Salesforce Help: Trade Promotion Management"
+    },
+    {
+      "id": "area-retail",
+      "area": "Retail execution",
+      "capability": "Other retail execution extensions",
+      "match": {},
+      "fallback": "(Visit|RetailStore|Retail_Store|InStoreLocation|Store|Outlet|Tour|Route|Trip|Audit|Survey|Assessment|Job_Definition|Job_List|POS|Planogram|Merchandis)",
+      "verdict": "review",
+      "standard": "Placed in this area by the objects it belongs to or uses; compare with Consumer Goods Cloud Retail Execution before a verdict",
+      "licence": "Consumer Goods Cloud",
+      "reference": "Salesforce Help: Consumer Goods Cloud, Retail Execution"
+    },
+    {
+      "id": "area-order",
+      "area": "Order to cash",
+      "capability": "Other order to cash extensions",
+      "match": {},
+      "fallback": "(Order|Invoice|Payment|Pricebook|Price|Pricing|Quote|Contract|Credit|Inventory|Warehouse|Stock|Delivery|Shipment|Billing|SBQQ|blng)",
+      "verdict": "review",
+      "standard": "Placed in this area by the objects it belongs to or uses; compare with standard Orders, Price Books and Consumer Goods Cloud order capture before a verdict",
+      "licence": "",
+      "reference": "Salesforce Help: Orders; Price Books"
+    },
+    {
+      "id": "area-product",
+      "area": "Product master",
+      "capability": "Other product extensions",
+      "match": {},
+      "fallback": "(Product|Assortment|Listing|Unit_of_Measure|Catalog|Category|Brand|SKU)",
+      "verdict": "review",
+      "standard": "Placed in this area by the objects it belongs to or uses; compare with standard Product and product hierarchy before a verdict",
+      "licence": "",
+      "reference": "Salesforce Help: Products"
+    },
+    {
+      "id": "area-customer",
+      "area": "Customer master",
+      "capability": "Other customer extensions",
+      "match": {},
+      "fallback": "(Account|Contact|Customer|Org_Unit|Hierarchy|Address|Individual|Consent)",
+      "verdict": "review",
+      "standard": "Placed in this area by the objects it belongs to or uses; compare with standard Account, Contact and account hierarchy before a verdict",
+      "licence": "",
+      "reference": "Salesforce Help: Accounts; Contacts"
+    },
+    {
+      "id": "area-sales",
+      "area": "Sales performance",
+      "capability": "Other sales extensions",
+      "match": {},
+      "fallback": "(Opportunity|Lead|Campaign|Target|Quota|Forecast|Territory|Sales_)",
+      "verdict": "review",
+      "standard": "Placed in this area by the objects it belongs to or uses; compare with standard Opportunities, Forecasts and Territory Management before a verdict",
+      "licence": "",
+      "reference": "Salesforce Help: Collaborative Forecasts"
+    },
+    {
+      "id": "area-service",
+      "area": "Service",
+      "capability": "Service extensions",
+      "match": {},
+      "fallback": "(Case|WorkOrder|Work_Order|ServiceAppointment|Service_|Asset|Entitlement|FSL)",
+      "verdict": "review",
+      "standard": "Placed in this area by the objects it belongs to or uses; compare with standard Service Cloud and Field Service before a verdict",
+      "licence": "",
+      "reference": "Salesforce Help: Cases; Field Service"
     }
   ],
   "rules": {

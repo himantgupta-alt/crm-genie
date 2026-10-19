@@ -29,6 +29,21 @@ async function connect() {
   return conn;
 }
 
+// Queries in flight at once. A large org (managed packages with thousands of fields) needs thousands of COUNT()
+// queries; one at a time they take over an hour. DISCOVERY_CONCURRENCY tunes it within the org's API limits.
+const CONCURRENCY = Math.max(1, Number(process.env.DISCOVERY_CONCURRENCY) || 8);
+// Runs fn over items with at most n in flight; results keep the input order, so outputs stay deterministic.
+async function pool(items, n, fn) {
+  const out = new Array(items.length);
+  let next = 0;
+  await Promise.all(Array.from({ length: Math.min(n, items.length) }, async () => {
+    while (next < items.length) { const i = next++; out[i] = await fn(items[i], i); }
+  }));
+  return out;
+}
+// One progress line per step; the Org Compiler turns the latest into its progress bar.
+const progress = (step, done, total) => console.log(`discovery: ${step} ${done}/${total} (${Math.round((done / Math.max(total, 1)) * 100)}%)`);
+
 function writeJson(file, data) {
   fs.mkdirSync(path.dirname(file), { recursive: true });
   fs.writeFileSync(file, JSON.stringify(data, null, 2));
@@ -52,4 +67,4 @@ function isHistoryObject(g, businessNames) {
   return businessNames.has(base);
 }
 
-module.exports = { connect, writeJson, isBusinessObject, isHistoryObject, ROOT, OUT, ALIAS, P };
+module.exports = { connect, writeJson, isBusinessObject, isHistoryObject, pool, progress, CONCURRENCY, ROOT, OUT, ALIAS, P };

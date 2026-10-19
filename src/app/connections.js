@@ -190,13 +190,13 @@ function install(app, owner) {
     const all = (await rows()).filter((r) => r.token_enc);
     const wanted = Array.isArray(req.body?.regions) && req.body.regions.length ? all.filter((r) => req.body.regions.includes(r.region)) : all;
     if (!wanted.length) return err(res, 400, 'Connect at least one org first');
-    // scope 'discovery': the full discovery only (Discovery explorer and report); 'full' adds the as-is extraction and fit-gap.
-    const scope = req.body?.scope === 'discovery' ? 'discovery' : 'full';
+    // Every run is the whole Discovery agent: org scan, as-is, fit-gap (business areas) and report (business processes).
+    const scope = 'full';
     job = { id: `DISC-${new Date().toISOString().slice(0, 16).replace(/[-:T]/g, '')}`, startedAt: new Date().toISOString(), finishedAt: null, status: 'running', scope, regions: wanted.map((r) => r.region), labels: Object.fromEntries(wanted.map((r) => [r.region, r.label])), log: [], progress: null, by: req.session?.n || null };
     res.json(job);
     const j = job;
     const log = (l) => {
-      // discover-org.js prints "discovery: <step> <done>/<total> (<pct>%)"; the latest one drives the progress bar.
+      // The sub-agents print "discovery: <step> <done>/<total> (<pct>%)"; the latest one drives the progress bar.
       const m = /^discovery: (.+?) (\d+)\/(\d+) \((\d+)%\)$/.exec(l);
       if (m) j.progress = { ...j.progress, step: m[1], done: Number(m[2]), total: Number(m[3]), pct: Number(m[4]) };
       j.log.push(`${new Date().toISOString().slice(11, 19)}  ${l}`); if (j.log.length > 400) j.log.shift();
@@ -222,16 +222,22 @@ function install(app, owner) {
       let a;
       try { a = await accessFor(r); } catch (e) { log(`${r.label}: cannot sign in (${e.message})`); failed = true; await owner('UPDATE ops.org_connection SET last_run = $2 WHERE region = $1', [r.region, { id: j.id, status: 'failed', at: new Date().toISOString(), message: e.message }]); continue; }
       const env = { ...base_, SF_REFRESH_TOKEN: a.refresh, SF_INSTANCE_URL: a.instance, SF_CLIENT_ID: r.client_id, SF_LOGIN_URL: r.login_url };
-      let c1 = 0;
-      if (scope === 'full') { log(`${r.label}: as-is extraction (read-only)`); c1 = await run('assess-org.js', [r.region, r.label], env, log, agents.root); }
-      log(`${r.label}: full discovery (read-only)`);
+      // The Discovery agent's sub-agents, each read-only against the org.
+      j.progress = { ...j.progress, agent: 'As-is sub-agent', step: 'starting' };
+      log(`${r.label}: As-is sub-agent (read-only)`);
+      const c1 = await run('assess-org.js', [r.region, r.label], env, log, agents.root);
+      j.progress = { ...j.progress, agent: 'Org scan sub-agent', step: 'starting', done: 0, total: 0, pct: 0 };
+      log(`${r.label}: Org scan sub-agent (read-only)`);
       const c2 = c1 === 0 ? await run('discover-org.js', [r.region, r.label], env, log, agents.root) : 1;
       const ok = c1 === 0 && c2 === 0;
       if (!ok) failed = true;
       await owner('UPDATE ops.org_connection SET last_run = $2 WHERE region = $1', [r.region, { id: j.id, status: ok ? 'ok' : 'failed', at: new Date().toISOString() }]);
     }
-    j.progress = { step: 'building the explorer and report', done: 0, total: 0, pct: 100 };
-    for (const g of [...(scope === 'full' ? ['emit-assessment.js'] : []), 'emit-discovery.js']) { log(`all orgs: ${g.replace('.js', '')}`); if (await run(g, [], base_, log, agents.root) !== 0) failed = true; }
+    for (const [script, agent] of [['emit-assessment.js', 'Fit-gap sub-agent'], ['emit-discovery.js', 'Report sub-agent']]) {
+      j.progress = { agent, step: script === 'emit-assessment.js' ? 'business areas and verdicts' : 'report, business processes and explorer', done: 0, total: 0, pct: 100 };
+      log(`all orgs: ${agent}`);
+      if (await run(script, [], base_, log, agents.root) !== 0) failed = true;
+    }
     j.progress = null;
     j.finishedAt = new Date().toISOString();
     j.status = failed ? 'finished with errors' : 'complete';

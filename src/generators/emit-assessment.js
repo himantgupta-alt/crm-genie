@@ -31,6 +31,10 @@ const re = (s) => (s ? new RegExp(s) : null);
 const caps = cat.capabilities.map((c) => ({ ...c, re: Object.fromEntries(Object.entries(c.match).map(([k, v]) => [k, re(v)])) }));
 const byKey = (kind, name) => caps.find((c) => c.re[kind]?.test(name));
 const capOfObject = (name) => byKey('objects', name);
+// Business area by the objects a component belongs to or uses, for components no named pattern matches (any org,
+// whatever its naming). The verdict stays "review": the area is placed, the capability and verdict are confirmed.
+const areaCaps = caps.filter((c) => c.fallback).map((c) => ({ ...c, reArea: new RegExp(c.fallback) }));
+const byArea = (...names) => { for (const n of names.flat().filter(Boolean)) { const c = areaCaps.find((a) => a.reArea.test(n)); if (c) return c; } return null; };
 
 // Process Builder and Workflow Rules: support ended at the end of 2025, so they are rebuilt as flows whatever they do.
 const RETIRED_AUTOMATION = 'Process Builder and Workflow Rules are no longer supported: rebuild as a record-triggered flow.';
@@ -38,52 +42,57 @@ const RETIRED_AUTOMATION = 'Process Builder and Workflow Rules are no longer sup
 function classify(o) {
   const a = o.asIs;
   const items = [];
-  const push = (kind, name, cap, extra = {}) => {
+  const push = (kind, name, named, extra = {}) => {
+    // No named match: place the component in a business area by its objects (extra.area lists them).
+    const cap = named || byArea(name, extra.area || []);
+    const placed = !named && !!cap;
     let verdict = cap ? cap.verdict : 'review';
     let reason = cap ? cap.standard : 'Not matched to a known capability; confirm owner and purpose in the workshop.';
     if (extra.unused && verdict !== 'retire') {
-      if (!cap) { verdict = 'retire'; reason = extra.unused; } else reason = `${reason}. Note: ${extra.unused.toLowerCase()}`;
+      if (!cap || placed) { verdict = 'retire'; reason = extra.unused; } else reason = `${reason}. Note: ${extra.unused.toLowerCase()}`;
     }
-    // Evidence confidence: matched by the component's own name, through the objects its code touches, or not at all.
-    const confidence = !cap ? 'Low' : extra.via === 'objects' ? 'Medium' : 'High';
+    // Evidence confidence: matched by the component's own name, through the objects its code touches, by business
+    // area only, or not at all.
+    const confidence = !cap || placed ? 'Low' : extra.via === 'objects' ? 'Medium' : 'High';
     items.push({ org: o.region, kind, name, capability: cap?.id || null, verdict, reason, confidence, ...extra.facts });
   };
 
   for (const ob of a.objects) {
     const unused = cat.rules.retireObjectsWithoutRecords && ob.records === 0 ? 'No records in the org.' : null;
-    push('Custom object', ob.name, capOfObject(ob.name), { unused, facts: { records: ob.records, fields: ob.fields.length } });
+    push('Custom object', ob.name, capOfObject(ob.name), { unused, area: ob.fields.flatMap((f) => f.references || []), facts: { records: ob.records, fields: ob.fields.length } });
   }
   for (const so of a.extended) for (const f of so.fields) {
     const name = `${so.name}.${f.name}`;
     const unused = f.fill != null && f.fill < cat.rules.retireWhenFillBelow && so.records > 0 ? `Filled on ${f.fill}% of ${so.records} records.` : null;
-    push('Custom field', name, byKey('fields', name), { unused, facts: { fill: f.fill, type: f.type } });
+    push('Custom field', name, byKey('fields', name), { unused, area: [so.name], facts: { fill: f.fill, type: f.type } });
   }
   for (const c of a.automation.classes.filter((x) => !x.test)) {
     const byName = byKey('classes', c.name);
     const cap = byName || (c.objects.length ? capOfObject(c.objects[0]) : null);
-    push('Apex class', c.name, cap, { via: byName ? 'name' : 'objects', facts: { lines: c.lines, objects: c.objects } });
+    push('Apex class', c.name, cap, { via: byName ? 'name' : 'objects', area: c.objects, facts: { lines: c.lines, objects: c.objects } });
     // Code nothing live calls is dead, whatever its capability: remove it rather than move it.
     if (c.unreferenced) Object.assign(items[items.length - 1], { verdict: 'retire', reason: 'No active trigger or class calls it and it is not an entry point (screen, flow, batch, schedule or API).', confidence: 'High' });
   }
   for (const t of a.automation.triggers) {
     const byName = byKey('triggers', t.name);
     const cap = byName || capOfObject(t.object);
-    push('Apex trigger', t.name, cap, { via: byName ? 'name' : 'objects', unused: t.active ? null : 'Inactive.', facts: { object: t.object, lines: t.lines } });
+    push('Apex trigger', t.name, cap, { via: byName ? 'name' : 'objects', area: [t.object], unused: t.active ? null : 'Inactive.', facts: { object: t.object, lines: t.lines } });
   }
   for (const fl of a.automation.flows) {
     const obj = a.objects.find((x) => x.label === fl.object)?.name;
     const cap = obj ? capOfObject(obj) : null;
     // A flow is already configuration: it stays unless its capability moves to a standard feature.
     const base = cap ? { ...cap, verdict: cap.verdict === 'adopt' ? 'adopt' : 'retain' } : { id: null, verdict: 'retain', standard: 'Already configuration (Flow); retain and document.' };
-    push('Flow', fl.name, base.id ? base : null, { via: 'objects', unused: fl.active ? null : 'Inactive.', facts: { object: fl.object } });
+    push('Flow', fl.name, base.id ? base : null, { via: 'objects', area: [obj, String(fl.object || '').replace(/\s+/g, '_')], unused: fl.active ? null : 'Inactive.', facts: { object: fl.object } });
+    // A flow placed only by area is configuration already: it is retained (or retired when inactive), not reviewed.
     if (!base.id) Object.assign(items[items.length - 1], { verdict: fl.active ? 'retain' : 'retire', reason: base.standard, confidence: 'Medium' });
     if (fl.kind === 'Workflow' && fl.active) Object.assign(items[items.length - 1], { verdict: 'configure', reason: RETIRED_AUTOMATION, confidence: 'High' });
   }
-  for (const w of a.automation.workflowRules || []) push('Workflow rule', `${w.object}.${w.name}`, capOfObject(w.object), { facts: { object: w.object } });
+  for (const w of a.automation.workflowRules || []) push('Workflow rule', `${w.object}.${w.name}`, capOfObject(w.object), { area: [w.object], facts: { object: w.object } });
   for (const i of items.filter((x) => x.kind === 'Workflow rule')) Object.assign(i, { verdict: 'configure', reason: RETIRED_AUTOMATION, confidence: 'High' });
   for (const vr of a.automation.validationRules) {
     const cap = capOfObject(vr.object) || caps.find((c) => c.re.fields && [...(a.extended.find((s) => s.name === vr.object)?.fields || [])].some((f) => c.re.fields.test(`${vr.object}.${f.name}`) && new RegExp(f.name.replace(/__c$/, '').split('_')[0], 'i').test(vr.name)));
-    push('Validation rule', `${vr.object}.${vr.name}`, cap, { unused: vr.active ? null : 'Inactive.', facts: { object: vr.object } });
+    push('Validation rule', `${vr.object}.${vr.name}`, cap, { area: [vr.object], unused: vr.active ? null : 'Inactive.', facts: { object: vr.object } });
   }
   for (const p of a.packages) push('Installed package', p.name, byKey('packages', p.name), {});
   return items;
@@ -94,7 +103,8 @@ const items = extracted.flatMap(classify);
 // Harmonise: a need that would be retained is built with different custom objects in two or more orgs. The orgs
 // stay separate; only the pattern is aligned.
 const objectSets = (capId) => new Set(extracted.map((o) => items.filter((i) => i.org === o.region && i.capability === capId && i.kind === 'Custom object').map((i) => i.name).sort().join('+')).filter(Boolean));
-const builtDifferently = Object.fromEntries(cat.capabilities.map((c) => [c.id, objectSets(c.id).size > 1]));
+// An area placement holds whatever each org built in that area, so it is never "built differently" on its own.
+const builtDifferently = Object.fromEntries(cat.capabilities.map((c) => [c.id, !c.fallback && objectSets(c.id).size > 1]));
 const capVerdict = (c) => (c.verdict === 'retain' && builtDifferently[c.id] ? 'harmonise' : c.verdict);
 for (const i of items) if (i.verdict === 'retain' && i.capability && builtDifferently[i.capability]) i.verdict = 'harmonise';
 
@@ -336,7 +346,7 @@ const capabilityMatrix = cat.capabilities.map((c) => {
   const perOrg = Object.fromEntries(extracted.map((o) => [o.region, items.filter((i) => i.org === o.region && i.capability === c.id).map((i) => i.name)]));
   const objectsPerOrg = extracted.map((o) => items.filter((i) => i.org === o.region && i.capability === c.id && i.kind === 'Custom object').map((i) => i.name).sort().join('+')).filter(Boolean);
   const inOrgs = Object.values(perOrg).filter((x) => x.length).length;
-  return { id: c.id, area: c.area, capability: c.capability, verdict: capVerdict(c), standard: c.standard, licence: c.licence, reference: c.reference, perOrg, inOrgs, builtDifferently: new Set(objectsPerOrg).size > 1,
+  return { id: c.id, area: c.area, capability: c.capability, verdict: capVerdict(c), standard: c.standard, licence: c.licence, reference: c.reference, perOrg, inOrgs, builtDifferently: !c.fallback && new Set(objectsPerOrg).size > 1,
     fitment: Object.fromEntries(extracted.map((o) => [o.region, fitmentOf(o.region, c.id)])) };
 }).filter((c) => c.inOrgs > 0);
 // Components that match no capability form one row of their own: they need validation.
@@ -413,7 +423,7 @@ const findings = [
 ];
 
 const fitGap = {
-  owner: 'Assessment agent', generatedBy: 'src/generators/emit-assessment.js',
+  owner: 'Discovery agent', subAgent: 'Fit-gap sub-agent',
   client: eng.client, sampleData: eng.sampleData, note: eng.note, marketsExpected: eng.marketsExpected,
   verdicts: V, fitmentCodes: FITMENT, findings, orgs: orgSummary, capabilities: capabilityMatrix, unmatched,
   functionFitGap: ffgByRegion,
@@ -430,7 +440,7 @@ const ex = orgSummary.filter((o) => o.extracted);
 
 const report = [
   `# ${eng.client}: Salesforce org assessment`, '',
-  'Owner: Assessment agent · generated by `src/generators/emit-assessment.js` from the as-is extraction of each org. Do not edit; re-run the agent.', '',
+  'Owner: Discovery agent · Fit-gap sub-agent, from the as-is of each org. Do not edit; run discovery again.', '',
   eng.sampleData ? `> ${eng.note}` : '', '',
   '## Summary', '', ...findings.map((f) => `- ${f}`), '',
   '## Orgs and markets', '',
@@ -476,7 +486,7 @@ const report = [
 
 const architecture = [
   `# ${eng.client}: assessment architecture and target direction`, '',
-  'Owner: Assessment agent · generated by `src/generators/emit-assessment.js`. Do not edit; re-run the agent.', '',
+  'Owner: Discovery agent · Fit-gap sub-agent. Do not edit; run discovery again.', '',
   '## Principles', '',
   '1. **Standard before custom.** Each capability is first matched to a standard Salesforce or Consumer Goods Cloud feature; custom build stays only where no standard feature fits.',
   '2. **Configuration before code.** Approvals, roll-ups and thresholds move from Apex to configuration that the business can change without a release.',
