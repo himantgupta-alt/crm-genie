@@ -2,17 +2,19 @@
 // connected to the org already in use (shown masked on the Connections page; replace it with Connect).
 //
 //   CONNECTION_KEY=… PGHOST=… PGUSER=… PGPASSWORD=… PGDATABASE=… node scripts/seed-connection.js eu myorg
+//   … node scripts/seed-connection.js cg cgorg "CG Cloud"      (any org: region, CLI alias, name)
 //
 // Reads the CLI's refresh token (sf org display --verbose), encrypts it with CONNECTION_KEY and stores it in
 // ops.org_connection. The token never touches disk or git; adlc/6-go-live/infra/seed_connection.ps1 sets the env.
 const { execFileSync } = require('child_process');
 const { Pool } = require('pg');
 
-const [region = 'eu', alias = 'myorg'] = process.argv.slice(2);
+const [region = 'eu', alias = 'myorg', labelArg] = process.argv.slice(2);
 if (!process.env.CONNECTION_KEY) { console.error('CONNECTION_KEY is required'); process.exit(2); }
 const { enc, mask } = require('../connections-crypto');
 const engagement = require('../../agents/assessment/engagement.json');
-const label = engagement.orgs.find((o) => o.region === region)?.label || region;
+// Name shown on the Connections page: given on the command line, else the demo engagement's, else the region.
+const label = labelArg || engagement.orgs.find((o) => o.region === region)?.label || region;
 
 (async () => {
   const sf = (args) => JSON.parse(execFileSync(process.platform === 'win32' ? `sf.cmd ${args.join(' ')}` : 'sf', process.platform === 'win32' ? [] : args, { encoding: 'utf8', shell: process.platform === 'win32', stdio: ['ignore', 'pipe', 'ignore'] })).result;

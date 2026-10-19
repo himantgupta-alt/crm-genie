@@ -10,10 +10,12 @@
 .EXAMPLE
   .\seed_connection.ps1                       # region eu from CLI alias myorg
   .\seed_connection.ps1 -Region apac -Alias apac
+  .\seed_connection.ps1 -Region cg -Alias cgorg -Label 'CG Cloud'   # any other org
 #>
 param(
   [string]$Region = 'eu',
   [string]$Alias = 'myorg',
+  [string]$Label = '',
   [string]$Subscription = '4ba3f0a9-d7ef-4952-b635-8ed5a84b5b76',
   [string]$ResourceGroup = 'AZAP-agentic-finance',
   [string]$Server = 'crmgenie-pg-hg01'
@@ -38,7 +40,7 @@ if (-not $env:CONNECTION_KEY) { throw 'no connection key in .secrets; run deploy
 
 Push-Location "$PSScriptRoot\..\..\..\src\app"
 try {
-  node scripts/seed-connection.js $Region $Alias
+  if ($Label) { node scripts/seed-connection.js $Region $Alias $Label } else { node scripts/seed-connection.js $Region $Alias }
   if ($LASTEXITCODE -ne 0) { throw 'seed failed' }
 } finally {
   Pop-Location
