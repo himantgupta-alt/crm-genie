@@ -1,0 +1,563 @@
+{
+  "about": "Every fact in kb/packages/*.md cites one entry here: an official Salesforce page and the exact words on it. src/generators/verify-kb-sources.js opens each page in a browser (or the PDF) and confirms the words are there; the date of the last successful check is recorded per entry.",
+  "sources": [
+    {
+      "id": "cg-rename",
+      "url": "https://www.salesforce.com/consumer-goods/cloud/guide/",
+      "quote": "Now known as Agentforce Consumer Goods",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "cg-dg-standard",
+      "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+      "quote": "Use Consumer Goods Standard Objects to store information related to entities that support Retail Execution",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "cg-dg-tpm",
+      "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+      "quote": "Use Trade Promotion Management Custom Objects to store information related to promotions, payments, and reports.",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "cg-dg-internal",
+      "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+      "quote": "but they are for internal use only",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "cg-dg-enhanced",
+      "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+      "quote": "Not applicable for the enhanced model of Consumer Goods cloud",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "cg-dg-hook",
+      "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+      "quote": "create a callable Apex class as a customization hook",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "cg-dg-modeler",
+      "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+      "quote": "This app can be customized using Modeler to meet the business requirements.",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "cg-install",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/consumer-goods-cloud-offline-mobile-app-for-admins/install-the-consumer-goods-cloud-offline-mobile-app",
+      "quote": "first installs the managed package Agentforce Consumer Goods Mobile Sync, and then Agentforce Consumer Goods",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "cg-editions",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/retail-execution-in-consumer-goods-cloud/get-started-with-retail-execution",
+      "quote": "Agentforce Consumer Goods features are available in Lightning Experience in Professional, Unlimited, and Enterprise Editions",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "cg-models",
+      "url": "https://help.salesforce.com/s/articleView?id=sf.cg_concept_basic_advanced.htm&language=en_US&type=5",
+      "quote": "Execute preplanned visits with inventory and custom assessment tasks",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "cg-promo-shared",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/integrated-promotions-with-consumer-goods-cloud/get-started-with-promotion-integration",
+      "quote": "TPM and RE promotions and product assortments share the same objects in a Salesforce org but use different record types",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "cg-action-plans",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/consumer-goods-cloud-data-model/set-up-task-definitions-and-action-plan-templates",
+      "quote": "An action plan template provides a framework to reuse tasks across stores and visits",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "cg-kpi",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/consumer-goods-cloud-data-model/set-up-store-visits-and-capture-data",
+      "quote": "This object is the runtime equivalent to the Retail Store KPI object",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "cg-store-product",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/consumer-goods-cloud-data-model/relate-products-to-stores",
+      "quote": "You can track all products that are either sold at a store or eligible for sale at a store through the Store Product object",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "cg-claims",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/claims-management-basics-in-consumer-goods-cloud/set-up-claims",
+      "quote": "Claim templates show the claim types, the payment definition for a promotional activity, and the variations in business rules for the claim types",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "cg-modeler-scope",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/consumer-goods-cloud-offline-mobile-app-for-admins/design-and-deploy-the-app",
+      "quote": "can't be used to customize apps other than the CG Cloud offline mobile app",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "cg-contracts",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/consumer-goods-modeler-quick-look/learn-about-consumer-goods-modeler",
+      "quote": "Salesforce ships the core contracts out of the box in a release",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "cg-associations",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/consumer-goods-cloud-data-model/get-to-know-the-consumer-goods-data-model",
+      "quote": "not all associations are required for all scenarios",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "cpq-eos-page",
+      "url": "https://www.salesforce.com/sales/cpq/end-of-life/",
+      "quote": "End of sale means Salesforce is no longer selling new Salesforce CPQ licenses to new customers",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "cpq-successor",
+      "url": "https://www.salesforce.com/sales/cpq/end-of-life/",
+      "quote": "is the successor to Salesforce CPQ",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "cpq-no-forced",
+      "url": "https://www.salesforce.com/sales/cpq/end-of-life/",
+      "quote": "There is no forced migration from Salesforce CPQ to Revenue Cloud",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "cpq-eos-article",
+      "url": "https://help.salesforce.com/s/articleView?id=005388761&language=en_US&type=1",
+      "quote": "Salesforce CPQ is end of sale",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "cpq-versions",
+      "url": "https://help.salesforce.com/s/articleView?id=000380904&language=en_US&type=1",
+      "quote": "more than two major releases behind the GA version",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "cpq-migrations",
+      "url": "https://www.salesforce.com/sales/cpq/migrations/",
+      "quote": "The right strategy depends on your CPQ complexity, data quality, pricing logic, and appetite for change",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "cpq-pdf-status",
+      "url": "https://resources.docs.salesforce.com/rel1/doc/en-us/static/pdf/salesforce_cpq_help_doc.pdf",
+      "quote": "there is no longer any new feature development",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "cpq-pdf-pricebooks",
+      "url": "https://resources.docs.salesforce.com/rel1/doc/en-us/static/pdf/salesforce_cpq_help_doc.pdf",
+      "quote": "Salesforce CPQ uses Salesforce price books",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "cpq-pdf-twin",
+      "url": "https://resources.docs.salesforce.com/rel1/doc/en-us/static/pdf/salesforce_cpq_help_doc.pdf",
+      "quote": "We call these field pairs",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "cpq-pdf-plugin",
+      "url": "https://resources.docs.salesforce.com/rel1/doc/en-us/static/pdf/salesforce_cpq_help_doc.pdf",
+      "quote": "is the only way to change how the quote calculator uses this data",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "cpq-pdf-batch",
+      "url": "https://resources.docs.salesforce.com/rel1/doc/en-us/static/pdf/salesforce_cpq_help_doc.pdf",
+      "quote": "We recommend keeping this value from 100 to 400",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "cpq-pdf-500",
+      "url": "https://resources.docs.salesforce.com/rel1/doc/en-us/static/pdf/salesforce_cpq_help_doc.pdf",
+      "quote": "Most customers encounter governor limits at a batch size of 500 quote lines",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "cpq-pdf-groups",
+      "url": "https://resources.docs.salesforce.com/rel1/doc/en-us/static/pdf/salesforce_cpq_help_doc.pdf",
+      "quote": "limit the quote line groups created for a single quote to 40",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "cpq-pdf-bundles",
+      "url": "https://resources.docs.salesforce.com/rel1/doc/en-us/static/pdf/salesforce_cpq_help_doc.pdf",
+      "quote": "keeping your nested bundles one to three levels deep",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "cpq-pdf-validation",
+      "url": "https://resources.docs.salesforce.com/rel1/doc/en-us/static/pdf/salesforce_cpq_help_doc.pdf",
+      "quote": "Editing or deactivating CPQ validation rules isn't supported",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "cpq-pdf-permsets",
+      "url": "https://resources.docs.salesforce.com/rel1/doc/en-us/static/pdf/salesforce_cpq_help_doc.pdf",
+      "quote": "cloned from the default permission sets don't receive updated permissions",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "cpq-pdf-apiaccess",
+      "url": "https://resources.docs.salesforce.com/rel1/doc/en-us/static/pdf/salesforce_cpq_help_doc.pdf",
+      "quote": "is incompatible with Salesforce CPQ",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "cpq-pdf-calcuser",
+      "url": "https://resources.docs.salesforce.com/rel1/doc/en-us/static/pdf/salesforce_cpq_help_doc.pdf",
+      "quote": "non-human admin user",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "cpq-pdf-contracting",
+      "url": "https://resources.docs.salesforce.com/rel1/doc/en-us/static/pdf/salesforce_cpq_help_doc.pdf",
+      "quote": "creating an order from the quote and creating the contract from the order",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "cpq-pdf-aa-name",
+      "url": "https://resources.docs.salesforce.com/rel1/doc/en-us/static/pdf/salesforce_cpq_help_doc.pdf",
+      "quote": "Revenue Cloud has an approval process feature that shares the same name, Advanced Approvals",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "blng-status",
+      "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/apex_reference_blng.pdf",
+      "quote": "The Salesforce Billing managed package continues to be available for existing customers",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "blng-successor",
+      "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/apex_reference_blng.pdf",
+      "quote": "we recommend exploring Billing in Revenue Cloud",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "cpq-price-rules",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/salesforce-cpq-features/product-and-price-rules",
+      "quote": "Price rules automate price calculations and update quote line fields",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "cpq-lookup",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/price-rules-in-salesforce-cpq/consolidate-price-rules-by-using-lookup-queries",
+      "quote": "never return more than one row",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "cpq-aa",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/advanced-approvals-for-admins/discover-advanced-approvals",
+      "quote": "Advanced Approvals expands on the standard Salesforce approval process by letting businesses set up complex approval paths",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "fs-parts",
+      "url": "https://trailhead.salesforce.com/en/modules/field_service_basics/units/field_service_basics_intro",
+      "quote": "The Scheduling Console for scheduling and optimization from a managed package",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "fs-core",
+      "url": "https://trailhead.salesforce.com/en/modules/field_service_basics/units/field_service_basics_intro",
+      "quote": "these core features are ready to configure in Setup",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "fs-policy",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/field-service-lightning-scheduling-basics/examine-scheduling-policies",
+      "quote": "Each scheduling policy is made up of work rules and service objectives",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "fs-custom-rule",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/field-service-lightning-scheduling-basics/examine-scheduling-policies",
+      "quote": "If the standard rules don't meet your needs, you can create one that does",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "fs-recipes",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/field-service-lightning-optimization/handle-inday-changes",
+      "quote": "what to do when a certain event occurs",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "fs-work-types",
+      "url": "https://trailhead.salesforce.com/content/learn/projects/modify-the-field-service-center/create-a-work-type",
+      "quote": "Work types are easy templates you can create for common jobs that your mobile workforce performs",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "fs-maintenance",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/field_service_maint/field_service_maint_plan",
+      "quote": "generate multiple work orders for future maintenance visits",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "fs-briefcase",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/offline-briefcase/allow-access-to-information-online",
+      "quote": "custom objects from outside the Salesforce Field Service data model hierarchy",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "fs-horizon",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/field-service-lightning-optimization/plan-ahead-with-global-optimization",
+      "quote": "Usually, optimizing from 1 to 7 days in advance is the best practice",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "fs-pinned",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/field-service-lightning-optimization/plan-ahead-with-global-optimization",
+      "quote": "Decrease the number of pinned appointments",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "fs-territories-large",
+      "url": "https://architect.salesforce.com/docs/architect/fundamentals/guide/field-service-contractor-sharing-patterns.html",
+      "quote": "can cause significant performance bottlenecks as well as risks of hitting platform limits",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "fs-territories-small",
+      "url": "https://architect.salesforce.com/docs/architect/fundamentals/guide/field-service-contractor-sharing-patterns.html",
+      "quote": "Creating a larger number of territories for a very low number of resources leads to scheduling overhead",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "fs-eso",
+      "url": "https://www.salesforce.com/service/field-service-management/",
+      "quote": "Enhanced Scheduling and Optimization automates workforce scheduling",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "maps-live-addon",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/salesforce-maps-basics/get-to-know-salesforce-maps",
+      "quote": "Live Tracking is an add-on product to Salesforce Maps",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "maps-tp-standalone",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/salesforce-maps-basics/get-to-know-salesforce-maps",
+      "quote": "Territory Planning can be purchased standalone or in addition to Salesforce Maps",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "maps-sandbox",
+      "url": "https://help.salesforce.com/s/articleView?id=000380147&language=en_US&type=1",
+      "quote": "Install Salesforce Maps in a sandbox first and test it before deploying to production",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "maps-base-objects",
+      "url": "https://help.salesforce.com/s/articleView?id=salesforce_maps_setup_base_objects_manage.htm&language=en_US&type=5",
+      "quote": "Salesforce Maps uses objects such as Account, Case, or Lead to plot records",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "maps-csv-retired",
+      "url": "https://help.salesforce.com/s/articleView?id=000393311&language=en_US&type=1",
+      "quote": "That capability was retired on May 16, 2025",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "maps-geocode-job",
+      "url": "https://help.salesforce.com/s/articleView?id=000389884&language=en_US&type=1",
+      "quote": "One geocoding job can process up to 250,000 records at a time",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "maps-shape-layers",
+      "url": "https://help.salesforce.com/s/articleView?id=000356382&language=en_US&type=1",
+      "quote": "Shape Layers are ideal for cases with less than 100 territories per Org and fewer than 50,000 total records",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "maps-tp-isolated",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/salesforce-maps-territory-planning/create-an-optimal-territory-alignment",
+      "quote": "Territory Planning data is isolated from production data and assignments",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "maps-advanced",
+      "url": "https://help.salesforce.com/s/articleView?id=sales.salesforce_maps_setup_maps_advanced.htm&language=en_US&type=5",
+      "quote": "Automate schedules and routes for your reps as far out as three months",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "maps-route-schedule",
+      "url": "https://help.salesforce.com/s/articleView?id=000381117&language=en_US&type=1",
+      "quote": "does create Salesforce Events for stops",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "maps-cg-visits",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/retail-execution-in-consumer-goods-cloud/extend-consumer-goods-cloud-with-more-features",
+      "quote": "uses Salesforce Maps to determine the best sequence of store visits",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "maps-mobile-retire",
+      "url": "https://help.salesforce.com/s/articleView?id=005314199&language=en_US&type=1",
+      "quote": "Salesforce will retire the standalone Salesforce Maps mobile app on August 31, 2026",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "maps-live-retire",
+      "url": "https://help.salesforce.com/s/articleView?id=000389876&language=en_US&type=1",
+      "quote": "your reps can no longer generate new geolocation data",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "maps-geocode-address",
+      "url": "https://help.salesforce.com/s/articleView?id=000380848&language=en_US&type=1",
+      "quote": "For the most accurate geocoding results, use the local address",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "maps-checkin",
+      "url": "https://help.salesforce.com/s/articleView?id=000381408&language=en_US&type=1",
+      "quote": "Salesforce Maps records each check-in and check-out as an activity",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "mc-connect",
+      "url": "https://help.salesforce.com/apex/HTViewHelpDoc?id=sf.mc_co_marketing_cloud_connect.htm&language=en_US",
+      "quote": "with the data management, segmentation, and campaign management tools in Salesforce",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "mc-objects",
+      "url": "https://help.salesforce.com/s/articleView?id=000390389&language=en_US&type=1",
+      "quote": "There are many objects that make up the Marketing Cloud Connect managed package",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "mc-editions",
+      "url": "https://help.salesforce.com/s/articleView?id=mktg.mc_co_account_edition_compatibility_faqs.htm&language=en_US&type=5",
+      "quote": "It doesn't currently work with Professional Edition",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "mc-api-user",
+      "url": "https://help.salesforce.com/s/articleView?id=mc_co_user_types_and_permissions.htm&language=en_US&type=5",
+      "quote": "use a dedicated system user as the Marketing Cloud Connect API user",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "mc-tracking-days",
+      "url": "https://help.salesforce.com/apex/HTViewHelpDoc?id=sf.mc_co_tracking_data_management.htm&language=en_US",
+      "quote": "Number of Days to Track",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "mc-sds-fields",
+      "url": "https://help.salesforce.com/s/articleView?id=mc_co_implement_synchronized_data_sources_best_practices.htm&language=en_US&type=5",
+      "quote": "We recommend no more than 20 fields per object for optimum performance",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "mc-sds-rename",
+      "url": "https://help.salesforce.com/s/articleView?id=mc_co_implement_synchronized_data_sources_best_practices.htm&language=en_US&type=5",
+      "quote": "Don't rename or change the API name for the Sales or Service Cloud object",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "ae-rename",
+      "url": "https://www.salesforce.com/in/blog/what-is-salesforce-pardot/",
+      "quote": "Account Engagement (formerly Pardot)",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "ae-sync-2min",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/pardot-salesforce-integration-for-lightning-app/integrate-pardot-with-salesforce",
+      "quote": "about every 2 minutes",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "ae-one-connector",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/pardot-salesforce-integration-for-lightning-app/integrate-pardot-with-salesforce",
+      "quote": "You can have only one Salesforce connector in Account Engagement",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "ae-integration-user",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/pardot-salesforce-integration-for-lightning-app/integrate-pardot-with-salesforce",
+      "quote": "doesn't require a Sales Cloud license",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "ae-sharing",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/pardot-salesforce-integration-for-lightning-app/integrate-pardot-with-salesforce",
+      "quote": "Account Engagement and Salesforce have different authorization and sharing models",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "ae-existing",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/pardot-salesforce-integration-for-lightning-app/plan-your-integration",
+      "quote": "they don't sync to Account Engagement automatically",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "mc-next-engagement",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/marketing-cloud-next-for-marketing-cloud-engagement-foundations/get-to-know-marketing-cloud-next-with-marketing-cloud-engagement",
+      "quote": "complements and extends it",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "mc-next-ae",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/marketing-cloud-next-for-marketing-cloud-account-engagement-basics/meet-marketing-cloud-next-for-account-engagement",
+      "quote": "continue running within the Execution layer exactly as they do today",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "pkg-usage",
+      "url": "https://help.salesforce.com/s/articleView?id=000383933&language=en_US&type=1",
+      "quote": "ensure that no one is actively using the app's features or functionality",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "pkg-sandbox",
+      "url": "https://help.salesforce.com/s/articleView?id=000383933&language=en_US&type=1",
+      "quote": "attempt the package or app uninstall there first",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "pkg-export",
+      "url": "https://help.salesforce.com/s/articleView?id=000383933&language=en_US&type=1",
+      "quote": "performed and downloaded a recent full data export",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "pkg-48h",
+      "url": "https://help.salesforce.com/s/articleView?id=000383933&language=en_US&type=1",
+      "quote": "Save a copy of this package's data for 48 hours after uninstall",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "pkg-outside",
+      "url": "https://help.salesforce.com/s/articleView?id=000383933&language=en_US&type=1",
+      "quote": "may also affect data contained outside of the app's direct components or functionality",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "pkg-licence-report",
+      "url": "https://help.salesforce.com/s/articleView?id=000391968&language=en_US&type=1",
+      "quote": "It's not currently possible to report on Managed Package licenses assigned to users",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "pkg-security-review",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/appexchange_basics/appexchange_basics_listings",
+      "quote": "the date that it passed our security review",
+      "checked": "2026-10-19"
+    }
+  ]
+}

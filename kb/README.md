@@ -1,6 +1,6 @@
 # Knowledge base
 
-Owner: Engineering standards · reusable for every client; not specific to one org.
+Owner: Engineering standards · reusable for any org; not specific to one org.
 
 The standards our agents and engineers follow. Each agent spec (`src/agents/<agent>/agent.json`) lists the
 pages it follows under `kb`; the two agents that use a language model (Logic, Repair) receive those pages in their prompts, and reviewers
@@ -16,7 +16,8 @@ are in [`../guardrails/`](../guardrails/README.md).
 | [testing-standards.md](testing-standards.md) | unit, golden-master parity, contract, smoke; what blocks a release | Verification, Repair, CI |
 | [documentation-standards.md](documentation-standards.md) | arc42, C4, ADRs, traceability, plain language | Modelling |
 | [salesforce-translation-playbook.md](salesforce-translation-playbook.md) | each Salesforce construct, its target pattern, and the traps | Modelling, Schema, Logic, Security |
-| [fit-gap-method.md](fit-gap-method.md) | function-level fit-gap: verdicts, ratings, quick wins, cross-cutting checks, order of execution, Retail and TPM mapping | Assessment, Modelling, Logic, Repair |
+| [fit-gap-method.md](fit-gap-method.md) | function-level fit-gap: verdicts, ratings, quick wins, cross-cutting checks, order of execution, Retail and TPM mapping | Discovery, Modelling, Logic, Repair |
+| [packages/](packages/README.md) | installed packages: how to assess any package, and guides for Consumer Goods Cloud, CPQ and Billing, Field Service, Salesforce Maps and Marketing, each from official Salesforce sources confirmed by `src/generators/verify-kb-sources.js` | Discovery, reviewers at the Discover gate |
 | [review-checklists.md](review-checklists.md) | what a reviewer checks at each gate | reviewers at G1–G6 |
 
 How the knowledge base grows: when the Repair agent fixes the same kind of problem twice, the lesson becomes a

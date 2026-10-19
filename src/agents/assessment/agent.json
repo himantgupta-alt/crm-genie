@@ -13,7 +13,8 @@
     "kb/engineering-principles.md",
     "kb/secure-coding.md",
     "kb/nodejs-standards.md",
-    "kb/fit-gap-method.md"
+    "kb/fit-gap-method.md",
+    "kb/packages/README.md"
   ],
   "guardrails": "guardrails/guardrails.json",
   "kind": "deterministic",

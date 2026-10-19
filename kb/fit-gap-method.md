@@ -1,7 +1,8 @@
 # Fit-gap method
 
-Owner: Engineering standards · used by the Assessment agent (`src/generators/apex-functions.js`,
-`src/generators/emit-assessment.js`) and by reviewers at the Discover gate. Reusable for any org.
+Owner: Engineering standards · used by the Discovery agent (As-is and Fit-gap sub-agents) and by reviewers at the
+Discover gate. Reusable for any org. Installed packages and the custom build around them follow
+[packages/](packages/README.md).
 
 A fit-gap judges custom build against standard Salesforce features and configuration. One verdict per component
 hides the detail: most components are partly standard, with some jobs that can move and others that must stay.
@@ -80,7 +81,7 @@ high regression impact. Adopting a licensed feature is never a quick win: the li
 ```
 Used?  ── no ──► RETIRE
   │yes
-Purpose known? ── no ──► REVIEW WITH CLIENT
+Purpose known? ── no ──► REVIEW WITH BUSINESS
   │yes
 Standard (core or package) does it? ── yes ──► ADOPT STANDARD   (+ "needs package upgrade" if only in the latest release)
   │no / partly

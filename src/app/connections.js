@@ -34,7 +34,7 @@ const DEPLOYED = (() => { try { return fs.readFileSync(path.join(__dirname, 'run
 const REPO = process.env.AGENTS_REPO || 'himantgupta-alt/crm-genie';
 const REF = process.env.AGENTS_REF || 'main';
 const AGENT_FILES = ['src/paths.js', 'src/generators/lib.js', 'src/generators/assess-org.js', 'src/generators/discover-org.js', 'src/generators/emit-assessment.js',
-  'src/generators/emit-discovery.js', 'src/generators/apex-functions.js', 'src/agents/assessment/engagement.json', 'src/agents/assessment/capabilities.json', 'src/agents/assessment/agent.json'];
+  'src/generators/emit-discovery.js', 'src/generators/apex-functions.js', 'src/agents/assessment/engagement.json', 'src/agents/assessment/capabilities.json', 'src/agents/assessment/agent.json', 'kb/packages/packages.json'];
 let latestCache = { at: 0, sha: null };
 async function latestSha() {
   if (Date.now() - latestCache.at < 60000) return latestCache.sha;

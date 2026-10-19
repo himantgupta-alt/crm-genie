@@ -34,6 +34,9 @@ const capOfObject = (name) => byKey('objects', name);
 // Business area by the objects a component belongs to or uses, for components no named pattern matches (any org,
 // whatever its naming). The verdict stays "review": the area is placed, the capability and verdict are confirmed.
 const areaCaps = caps.filter((c) => c.fallback).map((c) => ({ ...c, reArea: new RegExp(c.fallback) }));
+// Installed packages with a guide in the knowledge base, by namespace.
+const PACKAGES_FILE = path.join(P.ROOT, 'kb', 'packages', 'packages.json');
+const PACKAGES = fs.existsSync(PACKAGES_FILE) ? Object.fromEntries(JSON.parse(fs.readFileSync(PACKAGES_FILE, 'utf8')).packages.map((p) => [p.namespace, p])) : {};
 const byArea = (...names) => { for (const n of names.flat().filter(Boolean)) { const c = areaCaps.find((a) => a.reArea.test(n)); if (c) return c; } return null; };
 
 // Process Builder and Workflow Rules: support ended at the end of 2025, so they are rebuilt as flows whatever they do.
@@ -94,7 +97,12 @@ function classify(o) {
     const cap = capOfObject(vr.object) || caps.find((c) => c.re.fields && [...(a.extended.find((s) => s.name === vr.object)?.fields || [])].some((f) => c.re.fields.test(`${vr.object}.${f.name}`) && new RegExp(f.name.replace(/__c$/, '').split('_')[0], 'i').test(vr.name)));
     push('Validation rule', `${vr.object}.${vr.name}`, cap, { area: [vr.object], unused: vr.active ? null : 'Inactive.', facts: { object: vr.object } });
   }
-  for (const p of a.packages) push('Installed package', p.name, byKey('packages', p.name), {});
+  for (const p of a.packages) {
+    const guide = PACKAGES[p.namespace];
+    push('Installed package', p.name, byKey('packages', p.name) || (guide && areaCaps.find((c) => c.area === guide.area)) || null, {});
+    // A package with a guide in kb/packages gets that guide's verdict and reason (official sources behind it).
+    if (guide && !byKey('packages', p.name)) Object.assign(items[items.length - 1], { verdict: guide.verdict, reason: `${guide.reason} (${guide.guide}).`, confidence: 'Medium' });
+  }
   return items;
 }
 

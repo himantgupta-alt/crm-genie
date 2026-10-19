@@ -5,7 +5,7 @@ Owner: Engineering standards · OWASP Top 10 (2021) mapped to this stack. Applie
 | Risk | What it means here | Our rule |
 |---|---|---|
 | A01 Broken access control | A user reads or edits data Salesforce would not allow | Access is enforced in PostgreSQL: one role per profile/permission set, column grants, row-level security. The app sets the role per request (`SET LOCAL ROLE`); it never filters in JavaScript alone. Security parity cases must pass. |
-| A02 Cryptographic failures | Secrets or personal data exposed in transit or at rest | TLS to the database and app; secrets only in the environment, Key Vault or git-ignored `.secrets/`; passwords hashed with scrypt; encrypted fields re-encrypted with client-held keys. |
+| A02 Cryptographic failures | Secrets or personal data exposed in transit or at rest | TLS to the database and app; secrets only in the environment, Key Vault or git-ignored `.secrets/`; passwords hashed with scrypt; encrypted fields re-encrypted with customer-held keys. |
 | A03 Injection | SQL built from strings | Parameterised queries only (`$1`, `$2`). Identifiers in generated SQL come from the blueprint vocabulary, never from user input. Org text in prompts is treated as data. |
 | A04 Insecure design | Behaviour that is unsafe by construction | Threats and decisions recorded in ADRs; guardrails bound what agents may do. |
 | A05 Security misconfiguration | Defaults left open | Infrastructure as code (`main.bicep`), reviewed; HttpOnly, Secure cookies; firewall rules scoped to known IPs. |
