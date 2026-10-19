@@ -1185,6 +1185,12 @@ document.addEventListener('DOMContentLoaded', () => window.loadRuntimeData());
     if (D) return D;
     try { const raw = $('discovery-data').textContent.replace('/*DISCOVERY-START*/', '').replace('/*DISCOVERY-END*/', '').trim(); D = raw ? JSON.parse(raw) : { orgs: [] }; } catch { D = { orgs: [] }; }
     org = D.orgs.find((o) => o.extracted)?.region || null;
+    // Long lists start collapsed (a large org has hundreds of rules and flows); search and a click still open them.
+    const x0 = D.orgs.find((o) => o.region === org)?.data;
+    if (x0) {
+      const sizes = { process: Object.keys(D.orgs.find((o) => o.region === org).derived?.processMaps || {}).length, rules: x0.validationRules.length, flows: x0.flows.filter((f) => f.origin === 'custom').length };
+      for (const [k, size] of Object.entries(sizes)) if (size > 200) open.delete(k);
+    }
     return D;
   };
   const O = () => D.orgs.find((o) => o.region === org);
@@ -1666,7 +1672,13 @@ document.addEventListener('DOMContentLoaded', () => window.loadRuntimeData());
           ${tbl(['Kind', 'Component', 'Why'], der.debt.map((t) => `<tr><td>${esc(t.kind)}</td><td class="mono">${esc(t.name)}</td><td>${esc(t.why)}</td></tr>`))}` };
       }
       case 'docs': { const md = O().docs[id]; if (md == null) break; return { title: id, crumb: 'Appendix section of the Discovery Report', json: { section: id, markdown: md }, doc: md }; }
-      case 'report': return { title: 'Discovery Report', crumb: 'adlc/1-discover/assessment/discovery-report.md · one report for all orgs, reviewed at the Discover gate', json: { findings: D.findings }, doc: D.report };
+      case 'report': {
+        // The per-org appendix repeats the sections listed under "Report appendix", and for a large org it is
+        // megabytes: the reading pane shows the report and links to each appendix section instead.
+        const cut = D.report.indexOf('\n## Appendices');
+        const appendix = cut < 0 ? '' : `\n\n## Appendices\n\n<p>The detail per org is one section per page under <b>Report appendix (this org)</b>; the full report file holds them all.</p>\n<div class="chips">${Object.keys(O().docs).map((k) => link('docs', k, `${O().label}: ${k}`)).join(' ')}</div>\n`;
+        return { title: 'Discovery Report', crumb: 'adlc/1-discover/assessment/discovery-report.md · one report for all orgs, reviewed at the Discover gate', json: { findings: D.findings }, doc: cut < 0 ? D.report : D.report.slice(0, cut) + appendix };
+      }
       default: break;
     }
     return { title: 'Not found', crumb: '', json: null, visual: () => '<p class="as-note">This item is not in the selected org.</p>' };
@@ -1857,15 +1869,42 @@ document.addEventListener('DOMContentLoaded', () => window.loadRuntimeData());
 <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js" defer></script>
 <script>
 // ---------------------------------------------------------------- design documents view
+// Diagrams are drawn when they come near the screen, one at a time, and a very large one waits for a click: a
+// large org's report holds hundreds of diagrams, and drawing them all at once froze the page for minutes.
+const MMD_AUTO_LINES = 120;
+let mmdQueue = Promise.resolve(), mmdSeq = 0;
+const mdCache = new Map(); // Markdown source -> HTML
+const drawMermaid = (d) => {
+  if (d.dataset.drawn) return;
+  d.dataset.drawn = '1';
+  mmdQueue = mmdQueue.then(async () => {
+    if (!d.isConnected) return;
+    try { const { svg } = await window.mermaid.render(`md${Date.now().toString(36)}${mmdSeq++}`, d.dataset.src); d.innerHTML = svg; } catch (e) { d.textContent = 'Diagram could not be drawn: ' + e.message; }
+  });
+};
+const mmdObserver = 'IntersectionObserver' in window
+  ? new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { mmdObserver.unobserve(e.target); drawMermaid(e.target); } }), { rootMargin: '400px 0px' }) : null;
 window.renderMarkdownInto = async (el, md) => {
   if (!window.marked || !window.mermaid) { el.innerHTML = '<p class="sub">Loading the document viewer…</p>'; setTimeout(() => window.renderMarkdownInto(el, md), 300); return; }
   if (!window.__mmdReady) { window.mermaid.initialize({ startOnLoad: false, theme: 'base', securityLevel: 'loose', themeVariables: { primaryColor: '#E6ECFC', primaryBorderColor: '#2450D6', primaryTextColor: '#18212F', lineColor: '#5F6B7C', fontFamily: 'IBM Plex Sans, Segoe UI, sans-serif', fontSize: '13px' } }); window.__mmdReady = true; }
   el.innerHTML = '<article class="doc"></article>';
   const art = el.firstChild;
-  art.innerHTML = window.marked.parse(md);
+  // A large org's report is megabytes of Markdown: convert each document once, not on every visit.
+  let html = mdCache.get(md);
+  if (!html) { html = window.marked.parse(md); mdCache.set(md, html); if (mdCache.size > 12) mdCache.delete(mdCache.keys().next().value); }
+  art.innerHTML = html;
   art.querySelectorAll('code.language-mermaid').forEach((c) => { const d = document.createElement('div'); d.className = 'mermaid'; d.textContent = c.textContent; c.parentElement.replaceWith(d); });
-  let n = 0;
-  for (const d of art.querySelectorAll('.mermaid')) { try { const { svg } = await window.mermaid.render(`md${Date.now().toString(36)}${n++}`, d.textContent); d.innerHTML = svg; } catch (e) { d.textContent = 'Diagram could not be drawn: ' + e.message; } }
+  for (const d of art.querySelectorAll('.mermaid')) {
+    d.dataset.src = d.textContent;
+    const lines = d.dataset.src.split('\n').length;
+    if (lines > MMD_AUTO_LINES) {
+      d.innerHTML = `<button class="btn sm" type="button">Draw diagram (large: ${lines} lines)</button>`;
+      d.firstChild.addEventListener('click', () => { d.innerHTML = '<p class="as-note">Drawing…</p>'; drawMermaid(d); });
+    } else {
+      d.innerHTML = '<p class="as-note" style="min-height:40px">Diagram</p>';
+      if (mmdObserver) mmdObserver.observe(d); else drawMermaid(d);
+    }
+  }
   return art;
 };
 // ---- links to the real files on GitHub
