@@ -206,10 +206,14 @@ function install(app, owner) {
     log(`agent code: commit ${agents.sha ? agents.sha.slice(0, 7) : 'unknown'} (${agents.source})`);
     const adlc = path.join(DATA, 'adlc');
     fs.mkdirSync(adlc, { recursive: true });
-    // The engagement for this run: the connected orgs, under the names given on the Connections page.
+    // The engagement for this run: the orgs in this run, under the names given on the Connections page. The demo's
+    // sample framing (fictional company, expected markets) applies only when every org in the run is a demo org;
+    // any other org is reported as itself.
     const engagementFile = path.join(DATA, 'engagement.json');
-    const everyOrg = await rows();
-    fs.writeFileSync(engagementFile, JSON.stringify({ ...DEFAULT_ORGS, sampleData: DEFAULT_ORGS.sampleData && everyOrg.some((r) => r.region === 'eu' && r.token_enc), orgs: everyOrg.map((r) => ({ region: r.region, label: r.label, alias: r.region })) }, null, 2));
+    const demo = DEFAULT_ORGS.sampleData && wanted.every((r) => DEFAULT_ORGS.orgs.some((o) => o.region === r.region));
+    const orgList = wanted.map((r) => ({ region: r.region, label: r.label, alias: r.region }));
+    fs.writeFileSync(engagementFile, JSON.stringify(demo ? { ...DEFAULT_ORGS, orgs: orgList }
+      : { client: wanted.length === 1 ? wanted[0].label : 'Salesforce orgs', sampleData: false, orgs: orgList }, null, 2));
     const base_ = { ADLC_DIR: adlc, ENGAGEMENT_FILE: engagementFile, BUNDLE_DIR: DATA };
     let failed = false;
     for (const [k, r] of wanted.entries()) {

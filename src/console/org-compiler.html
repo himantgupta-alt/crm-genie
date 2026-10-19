@@ -1012,7 +1012,7 @@ document.addEventListener('DOMContentLoaded', () => window.loadRuntimeData());
     const markets = ex().reduce((n, o) => n + o.markets.length, 0);
     const tiles = [
       [`${ex().length} / ${A.orgs.length}`, 'orgs extracted'],
-      [`${markets} / ${A.marketsExpected}`, 'markets found'],
+      ...(A.marketsExpected ? [[`${markets} / ${A.marketsExpected}`, 'markets found']] : []),
       [items.length, 'custom components classified'],
       [`${pct('adopt') + pct('configure')}%`, 'covered by standard features or configuration'],
       [A.capabilities.filter((c) => c.builtDifferently).length, 'capabilities built differently across orgs'],

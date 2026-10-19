@@ -403,7 +403,7 @@ const marketsFound = sum(orgSummary.filter((o) => o.extracted), (o) => o.markets
 const n = (k, one, many) => `${k} ${k === 1 ? one : many}`;
 const differently = capabilityMatrix.filter((c) => c.builtDifferently);
 const findings = [
-  `${extracted.length} of ${orgs.length} orgs extracted; ${marketsFound} of ${eng.marketsExpected} markets found in the extracted orgs.`,
+  `${extracted.length} of ${orgs.length} orgs extracted${eng.marketsExpected ? `; ${marketsFound} of ${eng.marketsExpected} markets found in the extracted orgs` : ''}.`,
   `${n(total, 'custom component', 'custom components')} classified: ${VERDICTS.map((v) => `${share(v)}% ${V[v].toLowerCase()}`).join(', ')}.`,
   extracted.length > 1
     ? `${n(differently.length, 'business capability is', 'business capabilities are')} built in more than one org with different custom objects${differently.length ? ` (${differently.map((c) => c.capability.toLowerCase()).join(', ')})` : ''}.`
