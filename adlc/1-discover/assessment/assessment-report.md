@@ -7,10 +7,10 @@ Owner: Discovery agent · Fit-gap sub-agent, from the as-is of each org. Do not 
 ## Summary
 
 - 1 of 3 orgs extracted; 14 of 37 markets found in the extracted orgs.
-- 80 custom components classified: 44% adopt standard, 9% replace with configuration, 9% retain, 0% harmonise, 3% retire, 36% review with business.
+- 80 custom components classified: 44% adopt standard, 9% replace with configuration, 41% retain, 0% harmonise, 3% retire, 4% review with business.
 - Cross-org comparison starts once a second org is extracted.
 - 2 components are unused and can be retired before any move.
-- 29 components are not matched to a known capability and go on the workshop agenda.
+- 3 components are not matched to a known capability and go on the workshop agenda.
 
 ## Orgs and markets
 
@@ -58,11 +58,10 @@ Each row is a business capability; each cell lists the components that implement
 | Product master | Product attributes | Product2.Brand__c, Product2.Case_Size__c, Product2.Category__c, Product2.EAN__c | No | Keep as fields on Product, owned by the product master (one definition for all orgs) | Retain |
 | Other | Subscriptions | Subscription_Line__c, Subscription__c, OpportunityService, SubscriptionRenewalBatch, SubscriptionService, OpportunityTrigger, SubscriptionTrigger, Subscription_At_Risk_Alert, Subscription__c.Active_Requires_MRR, Subscription__c.Cancellation_Reason_Required, Subscription__c.End_Date_After_Start_Date, Subscription__c.No_Reactivation_After_Cancel, Subscription_Line__c.Parent_Not_Cancelled, Subscription_Line__c.Quantity_Must_Be_Positive | No | Revenue Cloud subscription management | Adopt standard |
 | Platform | Roll-ups between related records | Declarative Lookup Rollup Summaries Tool | No | Roll-up summary fields where the relationship is master-detail, record-triggered flows elsewhere | Replace with configuration |
-| Order to cash | Other order to cash extensions | Opportunity.DeliveryInstallationStatus__c, Opportunity.OrderNumber__c | No | Placed in this area by the objects it belongs to or uses; compare with standard Orders, Price Books and Consumer Goods Cloud order capture before a verdict | Review with business |
-| Product master | Other product extensions | Lead.ProductInterest__c, Case.Product__c | No | Placed in this area by the objects it belongs to or uses; compare with standard Product and product hierarchy before a verdict | Review with business |
-| Customer master | Other customer extensions | Account.Active__c, Account.CustomerPriority__c, Account.NumberofLocations__c, Account.Old_Segment__c, Account.SLAExpirationDate__c, Account.SLASerialNumber__c, Account.SLA__c, Account.UpsellOpportunity__c, Account.Won_Opportunity_Amount__c, Account.Won_Opportunity_Count__c, Contact.Languages__c, Contact.Level__c | No | Placed in this area by the objects it belongs to or uses; compare with standard Account, Contact and account hierarchy before a verdict | Review with business |
-| Sales performance | Other sales extensions | Lead.CurrentGenerators__c, Lead.NumberofLocations__c, Lead.Primary__c, Lead.SICCode__c, Opportunity.CurrentGenerators__c, Opportunity.Loss_Reason__c, Opportunity.MainCompetitors__c, Opportunity.TrackingNumber__c, Opportunity.Closed_Won_Requires_Amount, Opportunity.Loss_Reason_Required_When_Lost | No | Placed in this area by the objects it belongs to or uses; compare with standard Opportunities, Forecasts and Territory Management before a verdict | Review with business |
-| Service | Service extensions | Case.EngineeringReqNumber__c, Case.PotentialLiability__c, Case.SLAViolation__c | No | Placed in this area by the objects it belongs to or uses; compare with standard Service Cloud and Field Service before a verdict | Review with business |
+| Customer master | Account and contact management | Account.Active__c, Account.CustomerPriority__c, Account.NumberofLocations__c, Account.Old_Segment__c, Account.SLAExpirationDate__c, Account.SLASerialNumber__c, Account.SLA__c, Account.UpsellOpportunity__c, Account.Won_Opportunity_Amount__c, Account.Won_Opportunity_Count__c, Contact.Languages__c, Contact.Level__c | No | Accounts, contacts, person accounts and duplicate management | Review with business |
+| Sales performance | Lead management | Lead.CurrentGenerators__c, Lead.NumberofLocations__c, Lead.Primary__c, Lead.ProductInterest__c, Lead.SICCode__c | No | Capture, assign and convert leads | Review with business |
+| Sales performance | Opportunity management | Opportunity.CurrentGenerators__c, Opportunity.DeliveryInstallationStatus__c, Opportunity.Loss_Reason__c, Opportunity.MainCompetitors__c, Opportunity.OrderNumber__c, Opportunity.TrackingNumber__c, Opportunity.Closed_Won_Requires_Amount, Opportunity.Loss_Reason_Required_When_Lost | No | Opportunities with stages, contact roles and products | Review with business |
+| Service | Case management | Case.EngineeringReqNumber__c, Case.PotentialLiability__c, Case.Product__c, Case.SLAViolation__c | No | Case intake, assignment and escalation rules | Review with business |
 
 ## Fitment heatmap
 
@@ -86,11 +85,10 @@ Each org is assessed in its own implementation context. Codes: NS native standar
 | Product master | Product attributes | ES extended standard |
 | Other | Subscriptions | TD technical-debt candidate |
 | Platform | Roll-ups between related records | CS configured standard |
-| Order to cash | Other order to cash extensions | RV requires validation |
-| Product master | Other product extensions | RV requires validation |
-| Customer master | Other customer extensions | RV requires validation |
-| Sales performance | Other sales extensions | RV requires validation |
-| Service | Service extensions | RV requires validation |
+| Customer master | Account and contact management | ES extended standard |
+| Sales performance | Lead management | ES extended standard |
+| Sales performance | Opportunity management | RV requires validation |
+| Service | Case management | ES extended standard |
 | Other | Not matched to a capability | RV requires validation |
 
 ## Fit-gap by org
@@ -99,10 +97,10 @@ Each org is assessed in its own implementation context. Codes: NS native standar
 | --- | --- | --- |
 | Adopt standard | 35 | 35 |
 | Replace with configuration | 7 | 7 |
-| Retain | 7 | 7 |
+| Retain | 33 | 33 |
 | Harmonise | 0 | 0 |
 | Retire | 2 | 2 |
-| Review with business | 29 | 29 |
+| Review with business | 3 | 3 |
 
 ### Adopt standard (35)
 
@@ -156,12 +154,38 @@ Each org is assessed in its own implementation context. Codes: NS native standar
 | Europe | Custom object | Sales_Target__c | Collaborative Forecasts with quotas by user, territory or product family | Medium | Quick win | High |
 | Europe | Installed package | Declarative Lookup Rollup Summaries Tool | Roll-up summary fields where the relationship is master-detail, record-triggered flows elsewhere | Medium | Quick win | High |
 
-### Retain (7)
+### Retain (33)
 
 | Org | Type | Component | Why | Effort | Priority | Evidence confidence |
 | --- | --- | --- | --- | --- | --- | --- |
+| Europe | Custom field | Account.Active__c | Extends Account, the standard object of "Record companies and people". | Low | Strategic | Medium |
+| Europe | Custom field | Account.CustomerPriority__c | Extends Account, the standard object of "Record companies and people". | Low | Strategic | Medium |
 | Europe | Custom field | Account.Legacy_ERP_Code__c | Keep as an external ID field so integrations can upsert by the ERP key | Low | Strategic | High |
+| Europe | Custom field | Account.NumberofLocations__c | Extends Account, the standard object of "Record companies and people". | Low | Strategic | Medium |
+| Europe | Custom field | Account.SLA__c | Extends Account, the standard object of "Record companies and people". | Low | Strategic | Medium |
+| Europe | Custom field | Account.SLAExpirationDate__c | Extends Account, the standard object of "Record companies and people". | Low | Strategic | Medium |
+| Europe | Custom field | Account.SLASerialNumber__c | Extends Account, the standard object of "Record companies and people". | Low | Strategic | Medium |
+| Europe | Custom field | Account.UpsellOpportunity__c | Extends Account, the standard object of "Record companies and people". | Low | Strategic | Medium |
 | Europe | Custom field | Account.VAT_Number__c | No standard tax ID field on Account: keep one global field with per-market format rules | Low | Strategic | High |
+| Europe | Custom field | Account.Won_Opportunity_Amount__c | Extends Account, the standard object of "Record companies and people". | Low | Strategic | Medium |
+| Europe | Custom field | Account.Won_Opportunity_Count__c | Extends Account, the standard object of "Record companies and people". | Low | Strategic | Medium |
+| Europe | Custom field | Case.EngineeringReqNumber__c | Extends Case, the standard object of "Take in cases". | Low | Strategic | Medium |
+| Europe | Custom field | Case.PotentialLiability__c | Extends Case, the standard object of "Take in cases". | Low | Strategic | Medium |
+| Europe | Custom field | Case.Product__c | Extends Case, the standard object of "Take in cases". | Low | Strategic | Medium |
+| Europe | Custom field | Case.SLAViolation__c | Extends Case, the standard object of "Take in cases". | Low | Strategic | Medium |
+| Europe | Custom field | Contact.Languages__c | Extends Contact, the standard object of "Record companies and people". | Low | Strategic | Medium |
+| Europe | Custom field | Contact.Level__c | Extends Contact, the standard object of "Record companies and people". | Low | Strategic | Medium |
+| Europe | Custom field | Lead.CurrentGenerators__c | Extends Lead, the standard object of "Capture and assign leads". | Low | Strategic | Medium |
+| Europe | Custom field | Lead.NumberofLocations__c | Extends Lead, the standard object of "Capture and assign leads". | Low | Strategic | Medium |
+| Europe | Custom field | Lead.Primary__c | Extends Lead, the standard object of "Capture and assign leads". | Low | Strategic | Medium |
+| Europe | Custom field | Lead.ProductInterest__c | Extends Lead, the standard object of "Capture and assign leads". | Low | Strategic | Medium |
+| Europe | Custom field | Lead.SICCode__c | Extends Lead, the standard object of "Capture and assign leads". | Low | Strategic | Medium |
+| Europe | Custom field | Opportunity.CurrentGenerators__c | Extends Opportunity, the standard object of "Work opportunities through stages". | Low | Strategic | Medium |
+| Europe | Custom field | Opportunity.DeliveryInstallationStatus__c | Extends Opportunity, the standard object of "Work opportunities through stages". | Low | Strategic | Medium |
+| Europe | Custom field | Opportunity.Loss_Reason__c | Extends Opportunity, the standard object of "Work opportunities through stages". | Low | Strategic | Medium |
+| Europe | Custom field | Opportunity.MainCompetitors__c | Extends Opportunity, the standard object of "Work opportunities through stages". | Low | Strategic | Medium |
+| Europe | Custom field | Opportunity.OrderNumber__c | Extends Opportunity, the standard object of "Work opportunities through stages". | Low | Strategic | Medium |
+| Europe | Custom field | Opportunity.TrackingNumber__c | Extends Opportunity, the standard object of "Work opportunities through stages". | Low | Strategic | Medium |
 | Europe | Custom field | Product2.Brand__c | Keep as fields on Product, owned by the product master (one definition for all orgs) | Low | Strategic | High |
 | Europe | Custom field | Product2.Case_Size__c | Keep as fields on Product, owned by the product master (one definition for all orgs) | Low | Strategic | High |
 | Europe | Custom field | Product2.Category__c | Keep as fields on Product, owned by the product master (one definition for all orgs) | Low | Strategic | High |
@@ -172,42 +196,16 @@ Each org is assessed in its own implementation context. Codes: NS native standar
 
 | Org | Type | Component | Why | Effort | Priority | Evidence confidence |
 | --- | --- | --- | --- | --- | --- | --- |
-| Europe | Apex class | StoreVisitLegacyHandler | No active trigger or class calls it and it is not an entry point (screen, flow, batch, schedule or API). | Low | Quick win | High |
-| Europe | Custom field | Account.Old_Segment__c | Filled on 0% of 78 records. | Low | Quick win | Low |
+| Europe | Apex class | StoreVisitLegacyHandler | Nothing refers to it (no code, Lightning component, Visualforce page or flow) and it is no entry point (screen, flow, batch, schedule or API); usage logs are not available in this org, so confirm it is unused. | Low | Quick win | Low |
+| Europe | Custom field | Account.Old_Segment__c | Filled on 0% of 78 records. | Low | Quick win | Medium |
 
-### Review with business (29)
+### Review with business (3)
 
 | Org | Type | Component | Why | Effort | Priority | Evidence confidence |
 | --- | --- | --- | --- | --- | --- | --- |
-| Europe | Custom field | Account.Active__c | Placed in this area by the objects it belongs to or uses; compare with standard Account, Contact and account hierarchy before a verdict | Low | Immediate | Low |
-| Europe | Custom field | Account.CustomerPriority__c | Placed in this area by the objects it belongs to or uses; compare with standard Account, Contact and account hierarchy before a verdict | Low | Immediate | Low |
-| Europe | Custom field | Account.NumberofLocations__c | Placed in this area by the objects it belongs to or uses; compare with standard Account, Contact and account hierarchy before a verdict | Low | Immediate | Low |
-| Europe | Custom field | Account.SLA__c | Placed in this area by the objects it belongs to or uses; compare with standard Account, Contact and account hierarchy before a verdict | Low | Immediate | Low |
-| Europe | Custom field | Account.SLAExpirationDate__c | Placed in this area by the objects it belongs to or uses; compare with standard Account, Contact and account hierarchy before a verdict | Low | Immediate | Low |
-| Europe | Custom field | Account.SLASerialNumber__c | Placed in this area by the objects it belongs to or uses; compare with standard Account, Contact and account hierarchy before a verdict | Low | Immediate | Low |
-| Europe | Custom field | Account.UpsellOpportunity__c | Placed in this area by the objects it belongs to or uses; compare with standard Account, Contact and account hierarchy before a verdict | Low | Immediate | Low |
-| Europe | Custom field | Account.Won_Opportunity_Amount__c | Placed in this area by the objects it belongs to or uses; compare with standard Account, Contact and account hierarchy before a verdict | Low | Immediate | Low |
-| Europe | Custom field | Account.Won_Opportunity_Count__c | Placed in this area by the objects it belongs to or uses; compare with standard Account, Contact and account hierarchy before a verdict | Low | Immediate | Low |
-| Europe | Custom field | Case.EngineeringReqNumber__c | Placed in this area by the objects it belongs to or uses; compare with standard Service Cloud and Field Service before a verdict | Low | Immediate | Low |
-| Europe | Custom field | Case.PotentialLiability__c | Placed in this area by the objects it belongs to or uses; compare with standard Service Cloud and Field Service before a verdict | Low | Immediate | Low |
-| Europe | Custom field | Case.Product__c | Placed in this area by the objects it belongs to or uses; compare with standard Product and product hierarchy before a verdict | Low | Immediate | Low |
-| Europe | Custom field | Case.SLAViolation__c | Placed in this area by the objects it belongs to or uses; compare with standard Service Cloud and Field Service before a verdict | Low | Immediate | Low |
-| Europe | Custom field | Contact.Languages__c | Placed in this area by the objects it belongs to or uses; compare with standard Account, Contact and account hierarchy before a verdict | Low | Immediate | Low |
-| Europe | Custom field | Contact.Level__c | Placed in this area by the objects it belongs to or uses; compare with standard Account, Contact and account hierarchy before a verdict | Low | Immediate | Low |
-| Europe | Custom field | Lead.CurrentGenerators__c | Placed in this area by the objects it belongs to or uses; compare with standard Opportunities, Forecasts and Territory Management before a verdict | Low | Immediate | Low |
-| Europe | Custom field | Lead.NumberofLocations__c | Placed in this area by the objects it belongs to or uses; compare with standard Opportunities, Forecasts and Territory Management before a verdict | Low | Immediate | Low |
-| Europe | Custom field | Lead.Primary__c | Placed in this area by the objects it belongs to or uses; compare with standard Opportunities, Forecasts and Territory Management before a verdict | Low | Immediate | Low |
-| Europe | Custom field | Lead.ProductInterest__c | Placed in this area by the objects it belongs to or uses; compare with standard Product and product hierarchy before a verdict | Low | Immediate | Low |
-| Europe | Custom field | Lead.SICCode__c | Placed in this area by the objects it belongs to or uses; compare with standard Opportunities, Forecasts and Territory Management before a verdict | Low | Immediate | Low |
-| Europe | Custom field | Opportunity.CurrentGenerators__c | Placed in this area by the objects it belongs to or uses; compare with standard Opportunities, Forecasts and Territory Management before a verdict | Low | Immediate | Low |
-| Europe | Custom field | Opportunity.DeliveryInstallationStatus__c | Placed in this area by the objects it belongs to or uses; compare with standard Orders, Price Books and Consumer Goods Cloud order capture before a verdict | Low | Immediate | Low |
-| Europe | Custom field | Opportunity.Loss_Reason__c | Placed in this area by the objects it belongs to or uses; compare with standard Opportunities, Forecasts and Territory Management before a verdict | Low | Immediate | Low |
-| Europe | Custom field | Opportunity.MainCompetitors__c | Placed in this area by the objects it belongs to or uses; compare with standard Opportunities, Forecasts and Territory Management before a verdict | Low | Immediate | Low |
-| Europe | Custom field | Opportunity.OrderNumber__c | Placed in this area by the objects it belongs to or uses; compare with standard Orders, Price Books and Consumer Goods Cloud order capture before a verdict | Low | Immediate | Low |
-| Europe | Custom field | Opportunity.TrackingNumber__c | Placed in this area by the objects it belongs to or uses; compare with standard Opportunities, Forecasts and Territory Management before a verdict | Low | Immediate | Low |
 | Europe | Installed package | Developer Edition | Not matched to a known capability; confirm owner and purpose in the workshop. | Low | Immediate | Low |
-| Europe | Validation rule | Opportunity.Closed_Won_Requires_Amount | Placed in this area by the objects it belongs to or uses; compare with standard Opportunities, Forecasts and Territory Management before a verdict | Low | Immediate | Low |
-| Europe | Validation rule | Opportunity.Loss_Reason_Required_When_Lost | Placed in this area by the objects it belongs to or uses; compare with standard Opportunities, Forecasts and Territory Management before a verdict | Low | Immediate | Low |
+| Europe | Validation rule | Opportunity.Closed_Won_Requires_Amount | Custom logic on Opportunity in "Work opportunities through stages"; check whether the standard feature or configuration already covers it. | Low | Immediate | Medium |
+| Europe | Validation rule | Opportunity.Loss_Reason_Required_When_Lost | Custom logic on Opportunity in "Work opportunities through stages"; check whether the standard feature or configuration already covers it. | Low | Immediate | Medium |
 
 ## Method and limits
 

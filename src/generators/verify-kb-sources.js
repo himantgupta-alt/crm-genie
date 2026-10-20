@@ -1,4 +1,4 @@
-// Confirms every source behind the package knowledge base (kb/packages/sources.json): each official page is opened
+// Confirms every source behind the knowledge base (every kb/**/sources.json): each official page is opened
 // in a headless browser (Salesforce Help renders in the browser, inside shadow DOM) and each PDF is downloaded and
 // read, and the quoted words must be on it. Passing entries get today's date in "checked"; any miss fails the run.
 //
@@ -13,10 +13,11 @@ const path = require('path');
 const { spawn, execFileSync } = require('child_process');
 const P = require('../paths');
 
-const FILE = path.join(P.ROOT, 'kb', 'packages', 'sources.json');
-const doc = JSON.parse(fs.readFileSync(FILE, 'utf8'));
+const KB = path.join(P.ROOT, 'kb');
+const FILES = fs.readdirSync(KB, { withFileTypes: true }).filter((d) => d.isDirectory() && fs.existsSync(path.join(KB, d.name, 'sources.json'))).map((d) => path.join(KB, d.name, 'sources.json'));
+const docs = FILES.map((f) => ({ file: f, doc: JSON.parse(fs.readFileSync(f, 'utf8')) }));
 const only = process.argv[2] || '';
-const todo = doc.sources.filter((s) => s.id.startsWith(only));
+const todo = docs.flatMap((d) => d.doc.sources).filter((s) => s.id.startsWith(only));
 const norm = (s) => String(s).replace(/[\u2018\u2019\u201B\u2032]/g, "'").replace(/[\u201C\u201D]/g, '"').replace(/[\u00A0\s]+/g, ' ').toLowerCase().trim();
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -89,7 +90,7 @@ async function browser() {
     }
   }
   if (b) b.close();
-  fs.writeFileSync(FILE, `${JSON.stringify(doc, null, 2)}\n`);
+  for (const d of docs) fs.writeFileSync(d.file, `${JSON.stringify(d.doc, null, 2)}\n`);
   console.log(`\n${todo.length - failed.length}/${todo.length} sources confirmed${failed.length ? `; not found: ${failed.join(', ')}` : ''}`);
   process.exit(failed.length ? 1 : 0);
 })().catch((e) => { console.error(e); process.exit(1); });

@@ -15,6 +15,18 @@ const DIR = P.ASSESSMENT;
 const SPEC = path.join(P.AGENTS, 'assessment');
 const eng = JSON.parse(fs.readFileSync(process.env.ENGAGEMENT_FILE || path.join(SPEC, 'engagement.json'), 'utf8'));
 const cat = JSON.parse(fs.readFileSync(path.join(SPEC, 'capabilities.json'), 'utf8'));
+// Standard capabilities and process steps per business area (kb/capabilities/processes.json, official sources).
+// They join the catalogue as capabilities whose sub-processes are the standard process steps; a component is placed
+// on a step by the standard objects it sits on or uses, or by the step's keywords.
+const PROCESS_FILE = path.join(P.ROOT, 'kb', 'capabilities', 'processes.json');
+const PROCESS_KB = fs.existsSync(PROCESS_FILE) ? JSON.parse(fs.readFileSync(PROCESS_FILE, 'utf8')) : { areas: [] };
+const KB_CAPS = PROCESS_KB.areas.flatMap((a) => a.capabilities.map((c) => ({
+  id: `kb-${c.id}`, area: a.area, capability: c.name, match: {}, verdict: 'review', standard: c.standard, licence: c.licence || '', reference: `kb/capabilities/${a.guide || 'README.md'}`,
+  subprocesses: c.steps.map((s) => ({ id: s.id, name: s.name, match: {} })),
+  kb: { keywords: c.keywords ? new RegExp(c.keywords) : null, steps: c.steps.map((s) => ({ ...s, re: s.keywords ? new RegExp(s.keywords) : null })) },
+})));
+cat.capabilities.push(...KB_CAPS);
+const PROCESS_SOURCES = (() => { try { return Object.fromEntries(JSON.parse(fs.readFileSync(path.join(P.ROOT, 'kb', 'capabilities', 'sources.json'), 'utf8')).sources.map((s) => [s.id, { url: s.url, quote: s.quote }])); } catch { return {}; } })();
 const V = cat.verdicts;
 const VERDICTS = Object.keys(V);
 
@@ -42,23 +54,71 @@ const byArea = (...names) => { for (const n of names.flat().filter(Boolean)) { c
 // Process Builder and Workflow Rules: support ended at the end of 2025, so they are rebuilt as flows whatever they do.
 const RETIRED_AUTOMATION = 'Process Builder and Workflow Rules are no longer supported: rebuild as a record-triggered flow.';
 
+// The standard process step a component belongs to: first by a standard object it sits on or uses (strong), then by
+// the step's or capability's keywords in its name. Returns { cap, step, how, on }.
+const KB_CAP_LIST = caps.filter((c) => c.kb);
+function byProcess(name, objects = []) {
+  const objs = objects.filter(Boolean);
+  for (const c of KB_CAP_LIST) for (const s of c.kb.steps) { const on = objs.find((x) => (s.objects || []).includes(x)); if (on) return { cap: c, step: s, how: 'standard object', on }; }
+  const short = String(name).replace(/^[A-Za-z0-9_]+?__(?=\w+__)/, '');
+  for (const c of KB_CAP_LIST) for (const s of c.kb.steps) if (s.re?.test(short)) return { cap: c, step: s, how: 'keyword', on: s.re.source };
+  for (const c of KB_CAP_LIST) if (c.kb.keywords?.test(short)) return { cap: c, step: c.kb.steps[0], how: 'keyword', on: c.kb.keywords.source };
+  return null;
+}
+const RULE = {
+  capability: 'Verdict of the capability it implements (catalogue)',
+  unused: 'Not used: no records, field filled on under 1% of records, or inactive',
+  unreferenced: 'Nothing refers to it and it is no entry point',
+  'recently-run': 'Ran recently according to the usage logs',
+  'retired-automation': 'Workflow Rules and Process Builder are retired',
+  'flow-config': 'A flow is already configuration',
+  'extends-standard': 'Adds to a standard object of the process step',
+  'possible-duplicate': 'Built next to a standard feature of the same process step',
+  'logic-on-standard': 'Custom logic on a standard object of a process step',
+  'package-guide': 'Package guide in the knowledge base',
+  none: 'No capability found',
+};
+
 function classify(o) {
   const a = o.asIs;
   const items = [];
+  const uc = a.usageCheck || { dependencies: 'not run', logs: { available: false } };
   const push = (kind, name, named, extra = {}) => {
-    // No named match: place the component in a business area by its objects (extra.area lists them).
-    const cap = named || byArea(name, extra.area || []);
-    const placed = !named && !!cap;
+    // Placement, in order: named pattern in the catalogue, standard process step (knowledge base), business area by
+    // the objects it uses. Each item keeps how it was placed, so a reviewer can follow the reasoning.
+    // Installed packages are placed only by their package guide, never by a keyword in their name.
+    const proc = named || kind === 'Installed package' ? null : byProcess(name, extra.area || []);
+    const area = named || proc || kind === 'Installed package' ? null : byArea(name, extra.area || []);
+    const cap = named || proc?.cap || area;
     let verdict = cap ? cap.verdict : 'review';
     let reason = cap ? cap.standard : 'Not matched to a known capability; confirm owner and purpose in the workshop.';
-    if (extra.unused && verdict !== 'retire') {
-      if (!cap || placed) { verdict = 'retire'; reason = extra.unused; } else reason = `${reason}. Note: ${extra.unused.toLowerCase()}`;
+    let rule = cap ? 'capability' : 'none';
+    if (proc) {
+      // A field on a standard object of the step extends the standard; code or rules on it are custom logic on the
+      // standard step; anything else (custom objects, keyword matches) is built next to a standard feature.
+      const onStd = proc.how === 'standard object';
+      const ext = kind === 'Custom field' && onStd;
+      const logic = onStd && ['Apex trigger', 'Apex class', 'Validation rule', 'Flow', 'Workflow rule'].includes(kind);
+      verdict = ext ? 'retain' : 'review';
+      rule = ext ? 'extends-standard' : logic ? 'logic-on-standard' : 'possible-duplicate';
+      const std = (proc.step.objects || []).join(', ') || proc.cap.standard;
+      reason = ext ? `Extends ${proc.on}, the standard object of "${proc.step.name}".`
+        : logic ? `Custom logic on ${proc.on} in "${proc.step.name}"; check whether the standard feature or configuration already covers it.`
+          : `Possible duplicate of the standard feature for "${proc.step.name}" (${std}); compare before keeping it.`;
     }
-    // Evidence confidence: matched by the component's own name, through the objects its code touches, by business
-    // area only, or not at all.
-    const confidence = !cap || placed ? 'Low' : extra.via === 'objects' ? 'Medium' : 'High';
-    items.push({ org: o.region, kind, name, capability: cap?.id || null, verdict, reason, confidence, ...extra.facts });
+    if (extra.unused && verdict !== 'retire') {
+      if (!named) { verdict = 'retire'; reason = extra.unused; rule = 'unused'; } else reason = `${reason}. Note: ${extra.unused.toLowerCase()}`;
+    }
+    // Confidence: own name matched (High), through the objects its code touches or a standard object of the step
+    // (Medium), by keyword or business area only (Low).
+    const confidence = !cap ? 'Low' : named ? (extra.via === 'objects' ? 'Medium' : 'High') : proc?.how === 'standard object' ? 'Medium' : 'Low';
+    const place = named ? { method: extra.via === 'objects' ? 'Objects its code uses (catalogue)' : 'Its own name (catalogue)', detail: Object.values(named.match || {}).join(' · ') }
+      : proc ? { method: proc.how === 'standard object' ? 'Standard object of a process step (knowledge base)' : 'Keyword of a process step (knowledge base)', detail: proc.on }
+        : area ? { method: 'Business area of the objects it uses', detail: area.fallback } : { method: 'Not placed', detail: '' };
+    items.push({ org: o.region, kind, name, capability: cap?.id || null, step: proc?.step.id || null, verdict, reason, confidence, ...extra.facts,
+      trace: { place: { ...place, area: cap?.area || 'Other', capability: cap?.capability || null, step: proc?.step.name || null }, rule, ...(extra.use ? { use: extra.use } : {}) } });
   };
+  const setRule = (item, rule, patch) => { Object.assign(item, patch); item.trace.rule = rule; };
 
   for (const ob of a.objects) {
     const unused = cat.rules.retireObjectsWithoutRecords && ob.records === 0 ? 'No records in the org.' : null;
@@ -72,14 +132,23 @@ function classify(o) {
   for (const c of a.automation.classes.filter((x) => !x.test)) {
     const byName = byKey('classes', c.name);
     const cap = byName || (c.objects.length ? capOfObject(c.objects[0]) : null);
-    push('Apex class', c.name, cap, { via: byName ? 'name' : 'objects', area: c.objects, facts: { lines: c.lines, objects: c.objects } });
-    // Code nothing live calls is dead, whatever its capability: remove it rather than move it.
-    if (c.unreferenced) Object.assign(items[items.length - 1], { verdict: 'retire', reason: 'No active trigger or class calls it and it is not an entry point (screen, flow, batch, schedule or API).', confidence: 'High' });
+    const use = c.use ? { ...c.use, dependencies: uc.dependencies, logs: uc.logs?.available ? `available (${uc.logs.days} days)` : 'not available in this org' } : undefined;
+    push('Apex class', c.name, cap, { via: byName ? 'name' : 'objects', area: c.objects, use, facts: { lines: c.lines, objects: c.objects } });
+    const it = items[items.length - 1];
+    // Code that ran recently is used, whatever else the analysis says.
+    if (c.use?.lastRun) setRule(it, 'recently-run', { verdict: it.verdict === 'retire' ? 'review' : it.verdict, reason: `${it.reason} Ran on ${c.use.lastRun} according to the usage logs.` });
+    // Code nothing refers to is dead, whatever its capability: remove it rather than move it. How sure depends on
+    // the evidence the org allowed: dependency index and usage logs (High), dependency index only (Medium).
+    else if (c.unreferenced) {
+      const deps = uc.dependencies === 'ok';
+      setRule(it, 'unreferenced', { verdict: 'retire', confidence: deps && uc.logs?.available ? 'High' : deps ? 'Medium' : 'Low',
+        reason: `Nothing refers to it (no code, Lightning component, Visualforce page or flow) and it is no entry point (screen, flow, batch, schedule or API)${uc.logs?.available ? '; it did not run in the last 30 days' : '; usage logs are not available in this org, so confirm it is unused'}.` });
+    }
   }
   for (const t of a.automation.triggers) {
     const byName = byKey('triggers', t.name);
     const cap = byName || capOfObject(t.object);
-    push('Apex trigger', t.name, cap, { via: byName ? 'name' : 'objects', area: [t.object], unused: t.active ? null : 'Inactive.', facts: { object: t.object, lines: t.lines } });
+    push('Apex trigger', t.name, cap, { via: byName ? 'name' : 'objects', area: [t.object], unused: t.active ? null : 'Inactive.', use: { lastRun: t.lastRun || null, logs: uc.logs?.available ? `available (${uc.logs.days} days)` : 'not available in this org' }, facts: { object: t.object, lines: t.lines } });
   }
   for (const fl of a.automation.flows) {
     const obj = a.objects.find((x) => x.label === fl.object)?.name;
@@ -87,12 +156,12 @@ function classify(o) {
     // A flow is already configuration: it stays unless its capability moves to a standard feature.
     const base = cap ? { ...cap, verdict: cap.verdict === 'adopt' ? 'adopt' : 'retain' } : { id: null, verdict: 'retain', standard: 'Already configuration (Flow); retain and document.' };
     push('Flow', fl.name, base.id ? base : null, { via: 'objects', area: [obj, String(fl.object || '').replace(/\s+/g, '_')], unused: fl.active ? null : 'Inactive.', facts: { object: fl.object } });
-    // A flow placed only by area is configuration already: it is retained (or retired when inactive), not reviewed.
-    if (!base.id) Object.assign(items[items.length - 1], { verdict: fl.active ? 'retain' : 'retire', reason: base.standard, confidence: 'Medium' });
-    if (fl.kind === 'Workflow' && fl.active) Object.assign(items[items.length - 1], { verdict: 'configure', reason: RETIRED_AUTOMATION, confidence: 'High' });
+    // A flow placed only by area or process step is configuration already: it is retained (or retired when inactive).
+    if (!base.id) setRule(items[items.length - 1], fl.active ? 'flow-config' : 'unused', { verdict: fl.active ? 'retain' : 'retire', reason: fl.active ? base.standard : 'Inactive.', confidence: 'Medium' });
+    if (fl.kind === 'Workflow' && fl.active) setRule(items[items.length - 1], 'retired-automation', { verdict: 'configure', reason: RETIRED_AUTOMATION, confidence: 'High' });
   }
   for (const w of a.automation.workflowRules || []) push('Workflow rule', `${w.object}.${w.name}`, capOfObject(w.object), { area: [w.object], facts: { object: w.object } });
-  for (const i of items.filter((x) => x.kind === 'Workflow rule')) Object.assign(i, { verdict: 'configure', reason: RETIRED_AUTOMATION, confidence: 'High' });
+  for (const i of items.filter((x) => x.kind === 'Workflow rule')) setRule(i, 'retired-automation', { verdict: 'configure', reason: RETIRED_AUTOMATION, confidence: 'High' });
   for (const vr of a.automation.validationRules) {
     const cap = capOfObject(vr.object) || caps.find((c) => c.re.fields && [...(a.extended.find((s) => s.name === vr.object)?.fields || [])].some((f) => c.re.fields.test(`${vr.object}.${f.name}`) && new RegExp(f.name.replace(/__c$/, '').split('_')[0], 'i').test(vr.name)));
     push('Validation rule', `${vr.object}.${vr.name}`, cap, { area: [vr.object], unused: vr.active ? null : 'Inactive.', facts: { object: vr.object } });
@@ -101,7 +170,11 @@ function classify(o) {
     const guide = PACKAGES[p.namespace];
     push('Installed package', p.name, byKey('packages', p.name) || (guide && areaCaps.find((c) => c.area === guide.area)) || null, {});
     // A package with a guide in kb/packages gets that guide's verdict and reason (official sources behind it).
-    if (guide && !byKey('packages', p.name)) Object.assign(items[items.length - 1], { verdict: guide.verdict, reason: `${guide.reason} (${guide.guide}).`, confidence: 'Medium' });
+    if (guide && !byKey('packages', p.name)) {
+      const it = items[items.length - 1];
+      setRule(it, 'package-guide', { verdict: guide.verdict, reason: `${guide.reason} (${guide.guide}).`, confidence: 'Medium' });
+      it.trace.place = { method: 'Package guide (knowledge base)', detail: guide.guide, area: guide.area, capability: it.trace.place.capability, step: null };
+    }
   }
   return items;
 }
@@ -115,6 +188,21 @@ const objectSets = (capId) => new Set(extracted.map((o) => items.filter((i) => i
 const builtDifferently = Object.fromEntries(cat.capabilities.map((c) => [c.id, !c.fallback && objectSets(c.id).size > 1]));
 const capVerdict = (c) => (c.verdict === 'retain' && builtDifferently[c.id] ? 'harmonise' : c.verdict);
 for (const i of items) if (i.verdict === 'retain' && i.capability && builtDifferently[i.capability]) i.verdict = 'harmonise';
+
+// Expert review (REVIEWS_FILE, kept by the Org Compiler across runs): a reviewer agrees with a verdict or changes
+// it. The tool's own verdict stays on the item next to the decision, so agreement can be measured and the rules
+// that disagree most can be fixed.
+const REVIEWS = (() => { try { return JSON.parse(fs.readFileSync(process.env.REVIEWS_FILE || path.join(DIR, 'reviews.json'), 'utf8')).reviews || []; } catch { return []; } })();
+const reviewKey = (r) => `${r.org}|${r.kind}|${r.name}`;
+const reviewOf = Object.fromEntries(REVIEWS.map((r) => [reviewKey(r), r]));
+for (const i of items) {
+  const r = reviewOf[reviewKey(i)];
+  if (!r) continue;
+  i.tool = { verdict: i.verdict, reason: i.reason, confidence: i.confidence };
+  i.review = { agree: !!r.agree, verdict: r.agree ? i.verdict : r.verdict, comment: r.comment || '', by: r.by || null, at: r.at || null };
+  if (!r.agree && r.verdict && V[r.verdict]) { i.verdict = r.verdict; i.reason = `Expert review: ${r.comment || V[r.verdict]}`; }
+  i.confidence = 'Confirmed';
+}
 
 // The decision register fields of the proposal: layer, effort, where, priority, impact and decision owner.
 const capById = Object.fromEntries(cat.capabilities.map((c) => [c.id, c]));
@@ -385,7 +473,7 @@ function spCode(us) {
 for (const o of extracted) {
   const a = o.asIs;
   const mine = items.filter((i) => i.org === o.region);
-  const unit = (i, keys, extra = {}) => ({ kind: i.kind, name: i.name, keys, verdict: i.verdict, why: i.reason, cap: i.capability, effort: i.effort, layer: i.layer, ref: i.name, ...extra });
+  const unit = (i, keys, extra = {}) => ({ kind: i.kind, name: i.name, keys, verdict: i.verdict, why: i.reason, cap: i.capability, step: i.step, effort: i.effort, layer: i.layer, ref: i.name, ...extra });
   const units = [
     ...mine.filter((i) => i.kind === 'Custom object').map((i) => unit(i, { objects: [i.name] })),
     ...mine.filter((i) => i.kind === 'Validation rule').map((i) => unit(i, { rules: [i.name] })),
@@ -401,15 +489,16 @@ for (const o of extracted) {
     const whole = f.method.startsWith('(');
     const methods = whole ? (clsInfo[f.component]?.analysis?.methodInfo || []).map((m) => `${f.component}.${m.name}`) : [`${f.component}.${f.method}`];
     const ci = mine.find((i) => /Apex/.test(i.kind) && i.name === f.component);
-    units.push({ kind: 'Function', name: f.what, keys: { methods, classes: [f.component] }, verdict: f.verdict, why: f.why, cap: ci?.capability || k.capability, effort: k.effort, layer: 'Custom',
+    units.push({ kind: 'Function', name: f.what, keys: { methods, classes: [f.component] }, verdict: f.verdict, why: f.why, cap: ci?.capability || k.capability, step: ci?.step || null, effort: k.effort, layer: 'Custom',
       ref: f.ref || `${f.component}.${f.method}`, component: k.title, componentId: k.id, sequenceSensitive: !!f.sequenceSensitive });
   }
   const hit = (sp, u) => Object.entries(u.keys).some(([k, vs]) => sp.re[k] && vs.some((v) => sp.re[k].test(v)));
   for (const u of units) {
-    const sp = SPS.find((s) => hit(s, u)) || (!u.explicitOnly && u.cap ? SPS.find((s) => s.cap === u.cap) : null);
+    // A component placed on a standard process step (knowledge base) goes to that step.
+    const sp = (u.step && SPS.find((s) => s.cap === u.cap && s.id === u.step)) || SPS.find((s) => hit(s, u)) || (!u.explicitOnly && u.cap ? SPS.find((s) => s.cap === u.cap) : null);
     const row = sp && capabilityMatrix.find((r) => r.id === sp.cap)?.subprocesses?.find((x) => x.id === sp.id);
     if (!row) continue;
-    const { keys, explicitOnly, cap, ...shown } = u;
+    const { keys, explicitOnly, cap, step, ...shown } = u;
     (row.evidence[o.region] = row.evidence[o.region] || []).push(shown);
   }
   for (const r of capabilityMatrix) for (const s of r.subprocesses || []) s.fitment[o.region] = spCode(s.evidence[o.region] || []);
@@ -430,8 +519,31 @@ const findings = [
   `${n(items.filter((i) => i.verdict === 'review').length, 'component is', 'components are')} not matched to a known capability and ${items.filter((i) => i.verdict === 'review').length === 1 ? 'goes' : 'go'} on the workshop agenda.`,
 ];
 
+// How far the tool's verdicts hold up under expert review, per business area and per rule.
+const validation = (() => {
+  const rows = {};
+  const rules = {};
+  for (const i of items) {
+    const area = i.trace?.place?.area || 'Other';
+    const r = (rows[area] ||= { area, components: 0, reviewed: 0, agreed: 0 });
+    r.components++;
+    if (!i.review) continue;
+    r.reviewed++;
+    if (i.review.agree) r.agreed++;
+    const k = i.trace?.rule || 'none';
+    const x = (rules[k] ||= { rule: k, text: RULE[k] || k, reviewed: 0, changed: 0 });
+    x.reviewed++;
+    if (!i.review.agree) x.changed++;
+  }
+  const list = Object.values(rows).map((r) => ({ ...r, agreement: r.reviewed ? Math.round((r.agreed / r.reviewed) * 100) : null })).sort((a, b) => b.components - a.components);
+  return { areas: list, rules: Object.values(rules).sort((a, b) => b.changed - a.changed), reviewed: REVIEWS.length, ruleText: RULE };
+})();
+
 const fitGap = {
-  owner: 'Discovery agent', subAgent: 'Fit-gap sub-agent',
+  owner: 'Discovery agent', subAgent: 'Fit-gap sub-agent', validation,
+  // The standard processes with each step's sources resolved to the official page and the words quoted from it.
+  processes: PROCESS_KB.areas.map((a) => ({ area: a.area, capabilities: a.capabilities.map((c) => ({ id: `kb-${c.id}`, name: c.name, standard: c.standard,
+    steps: c.steps.map(({ re, keywords, ...s }) => ({ ...s, sources: (s.sources || []).map((id) => PROCESS_SOURCES[id]).filter(Boolean) })) })) })),
   client: eng.client, sampleData: eng.sampleData, note: eng.note, marketsExpected: eng.marketsExpected,
   verdicts: V, fitmentCodes: FITMENT, findings, orgs: orgSummary, capabilities: capabilityMatrix, unmatched,
   functionFitGap: ffgByRegion,

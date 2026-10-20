@@ -34,7 +34,7 @@ const DEPLOYED = (() => { try { return fs.readFileSync(path.join(__dirname, 'run
 const REPO = process.env.AGENTS_REPO || 'himantgupta-alt/crm-genie';
 const REF = process.env.AGENTS_REF || 'main';
 const AGENT_FILES = ['src/paths.js', 'src/generators/lib.js', 'src/generators/assess-org.js', 'src/generators/discover-org.js', 'src/generators/emit-assessment.js',
-  'src/generators/emit-discovery.js', 'src/generators/apex-functions.js', 'src/agents/assessment/engagement.json', 'src/agents/assessment/capabilities.json', 'src/agents/assessment/agent.json', 'kb/packages/packages.json'];
+  'src/generators/emit-discovery.js', 'src/generators/apex-functions.js', 'src/agents/assessment/engagement.json', 'src/agents/assessment/capabilities.json', 'src/agents/assessment/agent.json', 'kb/packages/packages.json', 'kb/capabilities/processes.json', 'kb/capabilities/sources.json'];
 let latestCache = { at: 0, sha: null };
 async function latestSha() {
   if (Date.now() - latestCache.at < 60000) return latestCache.sha;
@@ -81,6 +81,12 @@ function install(app, owner) {
         await owner('INSERT INTO ops.org_connection (region, label, login_url, position) VALUES ($1, $2, $3, $4) ON CONFLICT (region) DO NOTHING', [o.region, o.label, 'https://login.salesforce.com', i]);
       }
     }).catch((e) => console.error('connections table', e.message));
+  // Expert review of fit-gap verdicts: one decision per org and component, kept across runs and applied by the
+  // Fit-gap sub-agent on the next run (REVIEWS_FILE).
+  const reviewsReady = ready.then(() => owner(`CREATE TABLE IF NOT EXISTS ops.fitgap_review (
+      org text NOT NULL, kind text NOT NULL, name text NOT NULL, agree boolean NOT NULL, verdict text, comment text,
+      reviewed_by text, reviewed_at timestamptz NOT NULL DEFAULT now(), tool_verdict text, PRIMARY KEY (org, kind, name))`)).catch((e) => console.error('review table', e.message));
+  const reviewRows = async () => { await reviewsReady; return (await owner('SELECT org, kind, name, agree, verdict, comment, reviewed_by AS by, reviewed_at AS at, tool_verdict FROM ops.fitgap_review ORDER BY reviewed_at DESC')).rows; };
   const rows = async () => { await ready; return (await owner('SELECT * FROM ops.org_connection ORDER BY position, region')).rows; };
   const one = async (region) => { await ready; return (await owner('SELECT * FROM ops.org_connection WHERE region = $1', [region])).rows[0]; };
   const view = (r) => ({ region: r.region, label: r.label, loginUrl: r.login_url, connected: !!r.token_enc, username: mask(r.username), orgId: maskId(r.org_id),
@@ -175,6 +181,26 @@ function install(app, owner) {
     res.json(view(await one(r.region)));
   });
 
+  // ---------------------------------------------------------------- expert review
+  const VERDICT_IDS = ['adopt', 'configure', 'retain', 'harmonise', 'retire', 'review'];
+  app.get('/api/reviews', async (_req, res) => { try { res.set('Cache-Control', 'no-store').json({ reviews: await reviewRows() }); } catch (e) { err(res, 500, e.message); } });
+  app.post('/api/reviews', async (req, res) => {
+    const { org, kind, name, agree, verdict, comment, toolVerdict } = req.body || {};
+    if (!org || !kind || !name || typeof agree !== 'boolean') return err(res, 400, 'org, kind, name and agree are required');
+    if (!agree && !VERDICT_IDS.includes(verdict)) return err(res, 400, 'Choose the verdict you would give instead');
+    try {
+      await reviewsReady;
+      await owner(`INSERT INTO ops.fitgap_review (org, kind, name, agree, verdict, comment, reviewed_by, reviewed_at, tool_verdict) VALUES ($1, $2, $3, $4, $5, $6, $7, now(), $8)
+        ON CONFLICT (org, kind, name) DO UPDATE SET agree = EXCLUDED.agree, verdict = EXCLUDED.verdict, comment = EXCLUDED.comment, reviewed_by = EXCLUDED.reviewed_by, reviewed_at = now(), tool_verdict = EXCLUDED.tool_verdict`,
+      [String(org).slice(0, 40), String(kind).slice(0, 40), String(name).slice(0, 300), agree, agree ? null : verdict, String(comment || '').slice(0, 1000), req.session?.n || null, toolVerdict ? String(toolVerdict).slice(0, 20) : null]);
+      res.json({ ok: true, reviews: await reviewRows() });
+    } catch (e) { err(res, 500, e.message); }
+  });
+  app.delete('/api/reviews', async (req, res) => {
+    const { org, kind, name } = req.body || {};
+    try { await reviewsReady; await owner('DELETE FROM ops.fitgap_review WHERE org = $1 AND kind = $2 AND name = $3', [org, kind, name]); res.json({ ok: true, reviews: await reviewRows() }); } catch (e) { err(res, 500, e.message); }
+  });
+
   // ---------------------------------------------------------------- discovery runs
 
   const run = (script, args, env, log, root = RUNTIME) => new Promise((resolve) => {
@@ -215,7 +241,10 @@ function install(app, owner) {
     const orgList = wanted.map((r) => ({ region: r.region, label: r.label, alias: r.region }));
     fs.writeFileSync(engagementFile, JSON.stringify(demo ? { ...DEFAULT_ORGS, orgs: orgList }
       : { client: wanted.length === 1 ? wanted[0].label : 'Salesforce orgs', sampleData: false, orgs: orgList }, null, 2));
-    const base_ = { ADLC_DIR: adlc, ENGAGEMENT_FILE: engagementFile, BUNDLE_DIR: DATA };
+    // Expert decisions so far, applied by the Fit-gap sub-agent on top of its own verdicts.
+    const reviewsFile = path.join(DATA, 'reviews.json');
+    try { fs.writeFileSync(reviewsFile, JSON.stringify({ reviews: await reviewRows() })); } catch (e) { log(`expert reviews not loaded: ${e.message}`); }
+    const base_ = { ADLC_DIR: adlc, ENGAGEMENT_FILE: engagementFile, BUNDLE_DIR: DATA, REVIEWS_FILE: reviewsFile };
     let failed = false;
     for (const [k, r] of wanted.entries()) {
       j.progress = { org: r.label, orgIndex: k + 1, orgs: wanted.length, step: 'connecting', done: 0, total: 0, pct: 0 };

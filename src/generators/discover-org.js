@@ -71,7 +71,7 @@ async function main() {
     let d;
     try { d = await conn.sobject(name).describe(); } catch { return null; }
     const records = d.queryable ? await count(`SELECT COUNT() FROM ${name}`) : null;
-    const nsMatch = name.match(/^([A-Za-z0-9]+)__\w+__c$/);
+    const nsMatch = name.match(/^([A-Za-z0-9_]+?)__\w+__c$/);
     const fields = [];
     for (const f of d.fields) {
       const custom = !!f.custom;
@@ -80,7 +80,7 @@ async function main() {
         const n = await count(`SELECT COUNT() FROM ${name} WHERE ${f.name} ${f.type === 'boolean' ? '= true' : '!= null'}`);
         if (n != null) fill = Math.round((n / records) * 100);
       }
-      const fieldNs = f.name.match(/^([A-Za-z0-9]+)__\w+__c$/)?.[1];
+      const fieldNs = f.name.match(/^([A-Za-z0-9_]+?)__\w+__c$/)?.[1];
       fields.push({
         name: f.name, label: f.label, type: f.calculated ? (f.calculatedFormula ? 'formula' : 'roll-up') : f.type,
         origin: custom ? managed(fieldNs) : 'standard', required: !f.nillable && f.createable && !f.defaultedOnCreate,
@@ -171,7 +171,7 @@ async function main() {
     || PLATFORM_SETUP.includes(s.name)));
   progress('feature configuration', 0, setupObjects.length);
   const featureConfig = await pool(setupObjects, CONCURRENCY, async (s) => {
-    const ns = s.name.match(/^([A-Za-z0-9]+)__/)?.[1] || null;
+    const ns = s.name.match(/^([A-Za-z0-9_]+?)__(?=\w+__)/)?.[1] || null;
     const records = await count(`SELECT COUNT() FROM ${s.name}`);
     let names = [];
     if (records) {

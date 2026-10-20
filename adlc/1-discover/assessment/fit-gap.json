@@ -1,6 +1,1564 @@
 {
   "owner": "Discovery agent",
   "subAgent": "Fit-gap sub-agent",
+  "validation": {
+    "areas": [
+      {
+        "area": "Customer master",
+        "components": 21,
+        "reviewed": 0,
+        "agreed": 0,
+        "agreement": null
+      },
+      {
+        "area": "Other",
+        "components": 15,
+        "reviewed": 0,
+        "agreed": 0,
+        "agreement": null
+      },
+      {
+        "area": "Sales performance",
+        "components": 14,
+        "reviewed": 0,
+        "agreed": 0,
+        "agreement": null
+      },
+      {
+        "area": "Trade promotion management (TPM)",
+        "components": 13,
+        "reviewed": 0,
+        "agreed": 0,
+        "agreement": null
+      },
+      {
+        "area": "Retail execution",
+        "components": 8,
+        "reviewed": 0,
+        "agreed": 0,
+        "agreement": null
+      },
+      {
+        "area": "Product master",
+        "components": 4,
+        "reviewed": 0,
+        "agreed": 0,
+        "agreement": null
+      },
+      {
+        "area": "Service",
+        "components": 4,
+        "reviewed": 0,
+        "agreed": 0,
+        "agreement": null
+      },
+      {
+        "area": "Platform",
+        "components": 1,
+        "reviewed": 0,
+        "agreed": 0,
+        "agreement": null
+      }
+    ],
+    "rules": [],
+    "reviewed": 0,
+    "ruleText": {
+      "capability": "Verdict of the capability it implements (catalogue)",
+      "unused": "Not used: no records, field filled on under 1% of records, or inactive",
+      "unreferenced": "Nothing refers to it and it is no entry point",
+      "recently-run": "Ran recently according to the usage logs",
+      "retired-automation": "Workflow Rules and Process Builder are retired",
+      "flow-config": "A flow is already configuration",
+      "extends-standard": "Adds to a standard object of the process step",
+      "possible-duplicate": "Built next to a standard feature of the same process step",
+      "logic-on-standard": "Custom logic on a standard object of a process step",
+      "package-guide": "Package guide in the knowledge base",
+      "none": "No capability found"
+    }
+  },
+  "processes": [
+    {
+      "area": "Retail execution",
+      "capabilities": [
+        {
+          "id": "kb-re-store-setup",
+          "name": "Store and account setup",
+          "standard": "Retail stores, store groups and in-store locations, with the sales organisation structure",
+          "steps": [
+            {
+              "id": "re-stores",
+              "name": "Create stores and store groups",
+              "objects": [
+                "RetailStore",
+                "RetailLocationGroup",
+                "RetailStoreGroupAssignment"
+              ],
+              "standard": "Retail store records for physical stores, grouped by shared features",
+              "sources": [
+                {
+                  "url": "https://trailhead.salesforce.com/content/learn/projects/plan-and-manage-store-visits-with-consumer-goods-cloud/start-with-stores-and-locations",
+                  "quote": "Create retail stores, store groups, and in-store locations"
+                },
+                {
+                  "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+                  "quote": "Create records for physical retail stores associated to business accounts"
+                }
+              ]
+            },
+            {
+              "id": "re-locations",
+              "name": "Define in-store locations",
+              "objects": [
+                "InStoreLocation"
+              ],
+              "standard": "In-store locations such as aisles, shelves or backrooms",
+              "sources": [
+                {
+                  "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+                  "quote": "such as aisles, shelves, or backrooms"
+                }
+              ]
+            },
+            {
+              "id": "re-orgunits",
+              "name": "Sales organisation and org units",
+              "objects": [
+                "cgcloud__Org_Unit__c",
+                "cgcloud__Org_Unit_Hierarchy__c",
+                "cgcloud__Org_Unit_User__c",
+                "cgcloud__Sales_Organization__c",
+                "cgcloud__Account_Extension__c"
+              ],
+              "standard": "Org units, their hierarchy and users",
+              "sources": [
+                {
+                  "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+                  "quote": "Stores the details of the relationship between the organization unit and the user"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "kb-re-assortment",
+          "name": "Product assortment and store products",
+          "standard": "Assortments assigned to stores, store groups or accounts, and the products each store sells",
+          "steps": [
+            {
+              "id": "re-assortments",
+              "name": "Define assortments",
+              "objects": [
+                "Assortment",
+                "AssortmentProduct"
+              ],
+              "standard": "A list of products eligible for sale in a store",
+              "sources": [
+                {
+                  "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+                  "quote": "Represents a list of products that are eligible for sale in a store"
+                }
+              ]
+            },
+            {
+              "id": "re-storeproducts",
+              "name": "Assign assortments and products to stores",
+              "objects": [
+                "StoreAssortment",
+                "StoreProduct",
+                "cgcloud__Product_Assortment_Store__c"
+              ],
+              "standard": "Products associated to a store or an in-store location",
+              "sources": [
+                {
+                  "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+                  "quote": "Associate a product to a retail store or to a specific in-store location"
+                }
+              ]
+            },
+            {
+              "id": "re-listing",
+              "name": "Listing modules",
+              "objects": [
+                "cgcloud__Listing_Classification__c",
+                "cgcloud__Listing_Module__c",
+                "cgcloud__Product_Listing_Module__c"
+              ],
+              "standard": "Listing modules and product categories per customer",
+              "sources": [
+                {
+                  "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+                  "quote": "Holds the information about the listing modules and the product category for a customer"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "kb-re-visit-planning",
+          "name": "Visit planning and scheduling",
+          "standard": "Action plan templates, visit templates, trip lists and visit recommendations",
+          "steps": [
+            {
+              "id": "re-templates",
+              "name": "Define visit task templates",
+              "objects": [
+                "ActionPlanTemplate",
+                "StoreActionPlanTemplate",
+                "cgcloud__Visit_Template__c"
+              ],
+              "standard": "Action plan templates and visit templates describing the call behaviour",
+              "sources": [
+                {
+                  "url": "https://trailhead.salesforce.com/content/learn/projects/plan-and-manage-store-visits-with-consumer-goods-cloud/start-with-stores-and-locations",
+                  "quote": "Create action plan templates and visits to perform store audits"
+                },
+                {
+                  "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+                  "quote": "Template that describes the basic call behavior"
+                }
+              ]
+            },
+            {
+              "id": "re-plan",
+              "name": "Plan visits and visit sequences",
+              "objects": [
+                "cgcloud__Trip_List__c",
+                "cgcloud__Trip_List_Account__c",
+                "cgcloud__Account_Visit_Setting__c"
+              ],
+              "standard": "Trip lists plan visits on a predefined sequence of customers",
+              "sources": [
+                {
+                  "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+                  "quote": "Use Trip List to plan visits based on a predefined sequence of customers"
+                }
+              ]
+            },
+            {
+              "id": "re-recommend",
+              "name": "Recommended visits",
+              "objects": [
+                "AiVisitRecommendation",
+                "AiVisitRecommendRequest"
+              ],
+              "standard": "Visit recommendations",
+              "sources": [
+                {
+                  "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+                  "quote": "Represents the details of a visit recommendation"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "kb-re-route",
+          "name": "Route optimisation with Salesforce Maps",
+          "standard": "Salesforce Maps sequences store visits by distance, travel time and store hours",
+          "steps": [
+            {
+              "id": "re-sequence",
+              "name": "Optimise the visit sequence",
+              "objects": [],
+              "standard": "Salesforce Maps determines the best sequence of store visits",
+              "sources": [
+                {
+                  "url": "https://trailhead.salesforce.com/content/learn/modules/retail-execution-in-consumer-goods-cloud/extend-consumer-goods-cloud-with-more-features",
+                  "quote": "uses Salesforce Maps to determine the best sequence of store visits based on distance, travel time, and store hours"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "kb-re-visit-exec",
+          "name": "Visit execution",
+          "standard": "Start a visit with a location check, perform tasks, capture a signature",
+          "steps": [
+            {
+              "id": "re-start",
+              "name": "Start the visit",
+              "objects": [
+                "Visit",
+                "Visitor",
+                "VisitedParty"
+              ],
+              "standard": "Visit start with the GPS location checked against the store",
+              "sources": [
+                {
+                  "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+                  "quote": "Indicates whether the visit started outside the allowed distance between the GPS location and the store"
+                }
+              ]
+            },
+            {
+              "id": "re-tasks",
+              "name": "Perform visit tasks",
+              "objects": [
+                "AssessmentTask",
+                "OtherComponentTask"
+              ],
+              "standard": "Planogram, inventory and promotion checks, surveys and custom tasks",
+              "sources": [
+                {
+                  "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+                  "quote": "Perform activities such as planogram check, inventory check, promotion check, in-store survey, or custom task in stores to capture"
+                }
+              ]
+            },
+            {
+              "id": "re-signature",
+              "name": "Capture a signature",
+              "objects": [
+                "SignatureTask",
+                "SignatureTaskLineItem",
+                "cgcloud__Signature__c"
+              ],
+              "standard": "Signature information captured during a visit",
+              "sources": [
+                {
+                  "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+                  "quote": "Represents the signature-related information that a visitor captures as part of a visit"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "kb-re-audit",
+          "name": "In-store audits and KPIs",
+          "standard": "Assessment indicators with store targets, and actuals captured on each visit",
+          "steps": [
+            {
+              "id": "re-metrics",
+              "name": "Define metrics and task definitions",
+              "objects": [
+                "AssessmentIndicatorDefinition",
+                "AssessmentTaskDefinition",
+                "AssessmentTaskIndDefinition"
+              ],
+              "standard": "Markers of compliance that compare target and actual values",
+              "sources": [
+                {
+                  "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+                  "quote": "Define parameters that act as markers of compliance for retail tasks to compare target and actual values"
+                }
+              ]
+            },
+            {
+              "id": "re-targets",
+              "name": "Set store KPI targets",
+              "objects": [
+                "RetailStoreKpi"
+              ],
+              "standard": "Targets per store group, product and in-store location",
+              "sources": [
+                {
+                  "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+                  "quote": "Map store groups to assessment indicator definition, products, and in-store location categories and define targets"
+                }
+              ]
+            },
+            {
+              "id": "re-actuals",
+              "name": "Capture actuals on the visit",
+              "objects": [
+                "RetailVisitKpi",
+                "AssessmentTaskContentDocument",
+                "cgcloud__Job_Definition_List__c",
+                "cgcloud__Visit_Job__c",
+                "cgcloud__Asset_Audit__c"
+              ],
+              "standard": "Actual values captured during a visit against the targets",
+              "sources": [
+                {
+                  "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+                  "quote": "Capture the actual information during a visit against the defined assessment indicator definition and target values"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "kb-re-order",
+          "name": "Retail order capture",
+          "standard": "Order templates and pricing, orders taken during visits, inventory",
+          "steps": [
+            {
+              "id": "re-ordersetup",
+              "name": "Configure order behaviour and pricing",
+              "objects": [
+                "cgcloud__Order_Template__c",
+                "cgcloud__Order_Item_Template__c",
+                "cgcloud__CP_Calculation_Schema__c",
+                "cgcloud__Product_Condition__c"
+              ],
+              "standard": "Templates that control the behaviour of a sales document, and pricing",
+              "sources": [
+                {
+                  "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+                  "quote": "Template that controls the behavior of a sales document"
+                }
+              ]
+            },
+            {
+              "id": "re-takeorder",
+              "name": "Take the order during the visit",
+              "objects": [
+                "AssessmentTaskOrder",
+                "cgcloud__Order__c",
+                "cgcloud__Order_Item__c"
+              ],
+              "standard": "An order activity the sales rep performs during a store visit",
+              "sources": [
+                {
+                  "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+                  "quote": "Define an order activity that the sales rep can perform during a visit to the stores"
+                }
+              ]
+            },
+            {
+              "id": "re-inventory",
+              "name": "Inventory and delivery",
+              "objects": [
+                "cgcloud__Inventory__c",
+                "cgcloud__Inventory_Transaction__c",
+                "DeliveryTask"
+              ],
+              "standard": "Shipments and orders delivered to a store during a visit",
+              "sources": [
+                {
+                  "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+                  "quote": "Represents information about shipments and orders to be delivered to a store in a visit"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "kb-re-promo-exec",
+          "name": "Promotions in store",
+          "standard": "Retail promotions targeted at stores, and promotion checks on visits",
+          "steps": [
+            {
+              "id": "re-promotions",
+              "name": "Define store promotions and targeting",
+              "objects": [
+                "Promotion",
+                "PromotionChannel",
+                "PromotionProduct",
+                "PromotionProductCategory",
+                "cgcloud__Promotion_Store__c"
+              ],
+              "standard": "Promotions run at retail stores, part of a campaign or targeted",
+              "sources": [
+                {
+                  "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+                  "quote": "Create promotional activities that are either part of a campaign or isolated targeted promotions to run at retail stores"
+                }
+              ]
+            },
+            {
+              "id": "re-promocheck",
+              "name": "Check promotion compliance on visits",
+              "objects": [],
+              "standard": "Promotion checks assigned to field reps",
+              "sources": [
+                {
+                  "url": "https://trailhead.salesforce.com/content/learn/modules/retail-execution-in-consumer-goods-cloud/plan-and-manage-store-visits",
+                  "quote": "Gustavo can assign promotion checks to Chantelle"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "kb-re-sync",
+          "name": "Mobile app and sync",
+          "standard": "Sync configuration, app deployment packages and sync monitoring for the offline app",
+          "steps": [
+            {
+              "id": "re-syncconfig",
+              "name": "Configure sync",
+              "objects": [
+                "cgc_sync__Sync_Config__c",
+                "cgc_sync__Sync_Client_App_Profile_Mapping__c"
+              ],
+              "standard": "Settings for the synchronization engine",
+              "sources": [
+                {
+                  "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+                  "quote": "Represents the settings for synchronization engine client and its backend"
+                }
+              ]
+            },
+            {
+              "id": "re-deploy",
+              "name": "Deploy the mobile app",
+              "objects": [
+                "cgc_sync__Sync_Mobile_App_Depl_Pkg__c"
+              ],
+              "standard": "Deployment packages with the mobile app's runtime artifacts",
+              "sources": [
+                {
+                  "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+                  "quote": "Deployment packages that contain application runtime artifacts of the mobile app"
+                }
+              ]
+            },
+            {
+              "id": "re-offline",
+              "name": "Work offline and monitor sync",
+              "objects": [
+                "cgc_sync__Sync_History__c",
+                "cgc_sync__Sync_ID_Mapping__c",
+                "cgc_sync__Sync_API_Log__c"
+              ],
+              "standard": "Offline execution with background sync, and sync history",
+              "sources": [
+                {
+                  "url": "https://trailhead.salesforce.com/content/learn/modules/retail-execution-in-consumer-goods-cloud/get-started-with-retail-execution",
+                  "quote": "Execution of complex business processes offline, supported by background sync"
+                },
+                {
+                  "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+                  "quote": "Contains information about the mappings of the local mobile application IDs to Salesforce IDs"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "kb-re-dsd",
+          "name": "Direct store delivery",
+          "standard": "Routes, tours and vehicles for delivering goods to stores",
+          "steps": [
+            {
+              "id": "re-routes",
+              "name": "Routes, tours and vehicles",
+              "objects": [
+                "cgcloud__Route__c",
+                "cgcloud__Tour__c",
+                "cgcloud__Vehicle__c",
+                "VehicleUserAssignment"
+              ],
+              "standard": "Routes and tours with the list of stops for the driver",
+              "sources": [
+                {
+                  "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+                  "quote": "Create routes and tours to define a list of stops for the driver to deliver the goods"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "area": "Trade promotion management (TPM)",
+      "capabilities": [
+        {
+          "id": "kb-tpm-planning",
+          "name": "Business years, KPIs and account planning",
+          "standard": "Business years, KPI sets, account plans and customer business plans",
+          "steps": [
+            {
+              "id": "tpm-years",
+              "name": "Set up business years",
+              "objects": [
+                "cgcloud__Business_Year__c"
+              ],
+              "standard": "Business years in the sales organisation",
+              "sources": [
+                {
+                  "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_sales_org_adding_business_years_to_sales_org.htm&language=en_US&type=5",
+                  "quote": "Creating and activating business years in your sales organization is essential"
+                }
+              ]
+            },
+            {
+              "id": "tpm-kpis",
+              "name": "Configure KPI sets",
+              "objects": [
+                "cgcloud__KPI_Set__c",
+                "cgcloud__KPI_Definition__c",
+                "cgcloud__KPI_Set_KPI_Definition__c"
+              ],
+              "standard": "KPI sets that evaluate promotions, plans, funds and claims",
+              "sources": [
+                {
+                  "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_foundation_kpi_set_overview.htm&language=en_US&type=5",
+                  "quote": "A KPI set includes KPIs or measures that help evaluate promotions"
+                }
+              ]
+            },
+            {
+              "id": "tpm-accountplan",
+              "name": "Plan accounts",
+              "objects": [
+                "cgcloud__Account_Plan__c",
+                "cgcloud__Account_Plan_Category__c"
+              ],
+              "standard": "Account plans per planning account, business year and category",
+              "sources": [
+                {
+                  "url": "https://developer.salesforce.com/docs/atlas.en-us.retail_api.meta/retail_api/sforce_api_objects_cgcloud__account_plan__c.htm",
+                  "quote": "Contains the details of the account data for one planning account"
+                }
+              ]
+            },
+            {
+              "id": "tpm-cbp",
+              "name": "Customer business plans",
+              "objects": [],
+              "standard": "Customer business plans per business year",
+              "sources": [
+                {
+                  "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_account_plan_cbp_parent.htm&language=en_US&type=5",
+                  "quote": "You can create a CBP only for a business year"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "kb-tpm-funds",
+          "name": "Funds and budgets",
+          "standard": "Fund templates, funds, fund transactions, rate-based funding and fund assignment to tactics",
+          "steps": [
+            {
+              "id": "tpm-fundtemplates",
+              "name": "Define fund types",
+              "objects": [
+                "cgcloud__Fund_Template__c"
+              ],
+              "standard": "Templates for the kinds of funds",
+              "sources": [
+                {
+                  "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_reference_admin_funds_key_objects.htm&language=en_US&type=5",
+                  "quote": "Template to create varied types of funds"
+                }
+              ]
+            },
+            {
+              "id": "tpm-fundcreate",
+              "name": "Create funds",
+              "objects": [
+                "cgcloud__Fund__c",
+                "cgcloud__Fund_Product__c"
+              ],
+              "standard": "Budgets allocated for promotional activities",
+              "sources": [
+                {
+                  "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_reference_admin_funds_key_objects.htm&language=en_US&type=5",
+                  "quote": "Funds are budgets allocated for promotional activities"
+                }
+              ]
+            },
+            {
+              "id": "tpm-fundtx",
+              "name": "Move money between funds",
+              "objects": [
+                "cgcloud__Fund_Transaction_Header__c",
+                "cgcloud__Fund_Transaction__c",
+                "cgcloud__Fund_Transaction_Row__c",
+                "cgcloud__Fund_Transaction_Template__c"
+              ],
+              "standard": "Fund transactions add money to a fund or transfer it",
+              "sources": [
+                {
+                  "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_concept_fund_transactions.htm&language=en_US&type=5",
+                  "quote": "Use fund transactions to add money to your fund or transfer money from one fund to another"
+                }
+              ]
+            },
+            {
+              "id": "tpm-rbf",
+              "name": "Rate-based funding",
+              "objects": [
+                "cgcloud__Rate_Based_Funding__c",
+                "cgcloud__RBF_Template__c"
+              ],
+              "standard": "Flexible budgets with a fair-share distribution",
+              "sources": [
+                {
+                  "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_reference_admin_rbf_key_objects.htm&language=en_US&type=5",
+                  "quote": "Use the RBF objects to create flexible budgets"
+                }
+              ]
+            },
+            {
+              "id": "tpm-fundassign",
+              "name": "Assign funds to tactics",
+              "objects": [
+                "cgcloud__Tactic_Fund__c",
+                "cgcloud__Tactic_Template_Fund_Template__c"
+              ],
+              "standard": "Funds assigned to tactics, also automatically",
+              "sources": [
+                {
+                  "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_task_fund_auto_determination.htm&language=en_US&type=5",
+                  "quote": "You can automate the process of assigning funds to tactics via fund auto-determination"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "kb-tpm-promo-planning",
+          "name": "Promotion planning",
+          "standard": "Promotion and tactic templates, promotions with tactics and products, push to lower levels, trade calendar",
+          "steps": [
+            {
+              "id": "tpm-templates",
+              "name": "Build promotion and tactic templates",
+              "objects": [
+                "cgcloud__Promotion_Template__c",
+                "cgcloud__Tactic_Template__c",
+                "cgcloud__Promotion_Template_Tactic_Template__c"
+              ],
+              "standard": "Templates created before promotions",
+              "sources": [
+                {
+                  "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_concept_promotion_templates.htm&language=en_US&type=5",
+                  "quote": "Before a KAM creates a promotion, a business admin must create the promotion template"
+                }
+              ]
+            },
+            {
+              "id": "tpm-promo",
+              "name": "Create the promotion",
+              "objects": [
+                "cgcloud__Promotion__c"
+              ],
+              "standard": "A promotion defines prices for a time segment",
+              "sources": [
+                {
+                  "url": "https://developer.salesforce.com/docs/atlas.en-us.retail_api.meta/retail_api/sforce_api_objects_cgcloud__promotion__c.htm",
+                  "quote": "Promotion is an activity of a user that includes the definition of prices for a time segment"
+                }
+              ]
+            },
+            {
+              "id": "tpm-tactics",
+              "name": "Add tactics and products",
+              "objects": [
+                "cgcloud__Tactic__c",
+                "cgcloud__Tactic_Product__c",
+                "cgcloud__Tactic_Product_Condition__c"
+              ],
+              "standard": "Tactics such as displays, advertisements, price reductions and allowances",
+              "sources": [
+                {
+                  "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_reference_admin_tactics_key_objects.htm&language=en_US&type=5",
+                  "quote": "Tactics are the tasks in a promotion, such as displays, advertisements, consumer price reductions, and allowances"
+                }
+              ]
+            },
+            {
+              "id": "tpm-push",
+              "name": "Push national promotions down",
+              "objects": [
+                "cgcloud__Promotion_Push_Status__c",
+                "cgcloud__Account_Set__c"
+              ],
+              "standard": "Push a promotion to eligible customers at lower planning levels",
+              "sources": [
+                {
+                  "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_task_push_national_promotion.htm&language=en_US&type=5",
+                  "quote": "down to eligible customers at lower planning levels"
+                }
+              ]
+            },
+            {
+              "id": "tpm-calendar",
+              "name": "Monitor in the trade calendar",
+              "objects": [
+                "cgcloud__View__c"
+              ],
+              "standard": "The trade calendar as the planner's entry point",
+              "sources": [
+                {
+                  "url": "https://trailhead.salesforce.com/content/learn/modules/trade-promotion-management-in-consumer-goods-cloud/run-your-promotions",
+                  "quote": "The trade calendar is the entry point for Gustavo"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "kb-tpm-lifecycle",
+          "name": "Promotion lifecycle and approval",
+          "standard": "Promotion phases from preparation to commitment, and financial closure",
+          "steps": [
+            {
+              "id": "tpm-phases",
+              "name": "Move the promotion through its phases",
+              "objects": [],
+              "standard": "Default promotion phases, including For Approval",
+              "sources": [
+                {
+                  "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_howto_configtradecal_addvalues.htm&language=en_US&type=5",
+                  "quote": "The default phases in a promotion are"
+                }
+              ]
+            },
+            {
+              "id": "tpm-close",
+              "name": "Close the promotion financially",
+              "objects": [],
+              "standard": "Financial closure handles accruals and final calculations",
+              "sources": [
+                {
+                  "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+                  "quote": "It sets the promotion phase to ToBeFinanciallyClosed and initiates the save process"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "kb-tpm-claims",
+          "name": "Claims and payments",
+          "standard": "Claim templates, claims from A/R and A/P, claim tactics and funds, approval and adjustment",
+          "steps": [
+            {
+              "id": "tpm-claimtemplates",
+              "name": "Define claim types",
+              "objects": [
+                "cgcloud__Payment_Template__c"
+              ],
+              "standard": "Claim templates set how the retailer is paid",
+              "sources": [
+                {
+                  "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_reference_admin_claims_key_objects.htm&language=en_US&type=5",
+                  "quote": "Template to create claims and set the claim type that determines how the retailer is paid for promotions"
+                }
+              ]
+            },
+            {
+              "id": "tpm-claimscreate",
+              "name": "Create or receive claims",
+              "objects": [
+                "cgcloud__Payment__c"
+              ],
+              "standard": "Claims integrated with accounts receivable and payable",
+              "sources": [
+                {
+                  "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_reference_admin_claims_key_objects.htm&language=en_US&type=5",
+                  "quote": "Claims integrates with Accounts Receivable (A/R) and Accounts Payable (A/P)"
+                }
+              ]
+            },
+            {
+              "id": "tpm-claimslink",
+              "name": "Link tactics and funds to the claim",
+              "objects": [
+                "cgcloud__Payment_Tactic__c",
+                "cgcloud__Payment_Tactic_Fund__c",
+                "cgcloud__Payment_Tactic_Product__c"
+              ],
+              "standard": "Tactics and funds added to a claim before approval",
+              "sources": [
+                {
+                  "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_claim_approval_process.htm&language=en_US&type=5",
+                  "quote": "Submit the claim for approval after you add tactics and funds to the claim"
+                }
+              ]
+            },
+            {
+              "id": "tpm-claimsapprove",
+              "name": "Approve claims",
+              "objects": [
+                "cgcloud__Approval_Code__c"
+              ],
+              "standard": "Only approved claims count in other processes",
+              "sources": [
+                {
+                  "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_claim_approval_process.htm&language=en_US&type=5",
+                  "quote": "Only approved claims are considered by other processes"
+                }
+              ]
+            },
+            {
+              "id": "tpm-claimsadjust",
+              "name": "Adjust claims",
+              "objects": [],
+              "standard": "Reversal of claims processed by another system",
+              "sources": [
+                {
+                  "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_payments_adjust_claims.htm&language=en_US&type=5",
+                  "quote": "To revert a claim already processed by a third-party system, you can adjust a claim"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "kb-tpm-analysis",
+          "name": "Post-event analysis and reporting",
+          "standard": "Actuals against plan, real-time reporting and accruals",
+          "steps": [
+            {
+              "id": "tpm-actuals",
+              "name": "Compare actuals with plan",
+              "objects": [],
+              "standard": "Actual volume and costs reviewed in promotions or account plans",
+              "sources": [
+                {
+                  "url": "https://trailhead.salesforce.com/content/learn/modules/trade-promotion-management-in-consumer-goods-cloud/run-your-promotions",
+                  "quote": "Actual volume and costs are interfaced and can be reviewed in promotions or account plans"
+                }
+              ]
+            },
+            {
+              "id": "tpm-rtr",
+              "name": "Real-time reporting",
+              "objects": [
+                "cgcloud__RTR_Report_Configuration__c"
+              ],
+              "standard": "Account and promotion reports with the P&L KPIs",
+              "sources": [
+                {
+                  "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_rtr.htm&language=en_US&type=5",
+                  "quote": "builds fact-based account and promotion reports using the same KPIs and calculation rules as a P&L"
+                }
+              ]
+            },
+            {
+              "id": "tpm-accruals",
+              "name": "Accruals",
+              "objects": [],
+              "standard": "Accrual engine",
+              "sources": [
+                {
+                  "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_setup_accrual_engine.htm&language=en_US&type=5",
+                  "quote": "Set up your org and enable accrual engine"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "kb-tpm-re",
+          "name": "Promotion transfer to Retail Execution",
+          "standard": "Promotions planned in TPM and transferred to Retail Execution",
+          "steps": [
+            {
+              "id": "tpm-transfer",
+              "name": "Transfer promotions to Retail Execution",
+              "objects": [],
+              "standard": "One-way transfer from TPM to Retail Execution",
+              "sources": [
+                {
+                  "url": "https://trailhead.salesforce.com/content/learn/modules/integrated-promotions-with-consumer-goods-cloud/explore-promotion-transfer",
+                  "quote": "The promotion transfer process is unidirectional from TPM to RE"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "area": "Customer master",
+      "capabilities": [
+        {
+          "id": "kb-cm-accounts",
+          "name": "Account and contact management",
+          "standard": "Accounts, contacts, person accounts and duplicate management",
+          "steps": [
+            {
+              "id": "cm-record",
+              "name": "Record companies and people",
+              "objects": [
+                "Account",
+                "Contact"
+              ],
+              "standard": "Accounts for companies, contacts for the people who work for them",
+              "sources": [
+                {
+                  "url": "https://trailhead.salesforce.com/content/learn/modules/accounts_contacts_lightning_experience/accounts-and-contacts-lightning",
+                  "quote": "Accounts are companies that you're doing business with, and contacts are the people who work for them"
+                }
+              ]
+            },
+            {
+              "id": "cm-person",
+              "name": "Person accounts for consumers",
+              "objects": [],
+              "standard": "A special account type for individuals",
+              "sources": [
+                {
+                  "url": "https://trailhead.salesforce.com/content/learn/modules/accounts_contacts_lightning_experience/accounts-and-contacts-lightning",
+                  "quote": "you use a special account type called a person account"
+                }
+              ]
+            },
+            {
+              "id": "cm-duplicates",
+              "name": "Prevent duplicates",
+              "objects": [
+                "DuplicateRule",
+                "MatchingRule"
+              ],
+              "standard": "Matching rules paired with duplicate rules",
+              "sources": [
+                {
+                  "url": "https://trailhead.salesforce.com/content/learn/modules/sales_admin_duplicate_management/sales_admin_duplicate_management_unit_2",
+                  "quote": "Before an active matching rule can do anything, you pair it with a duplicate rule"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "kb-cm-hierarchy",
+          "name": "Account hierarchy and relationships",
+          "standard": "Parent account hierarchy, contacts related to several accounts, account teams",
+          "steps": [
+            {
+              "id": "cm-parent",
+              "name": "Account hierarchy",
+              "objects": [],
+              "standard": "A family tree for an account",
+              "sources": [
+                {
+                  "url": "https://trailhead.salesforce.com/content/learn/modules/accounts_contacts_lightning_experience/understand-account-and-contact-relationships-lightning",
+                  "quote": "Salesforce can generate a family tree for your account"
+                }
+              ]
+            },
+            {
+              "id": "cm-acr",
+              "name": "Contacts related to several accounts",
+              "objects": [
+                "AccountContactRelation"
+              ],
+              "standard": "Direct and indirect account relationships of a contact",
+              "sources": [
+                {
+                  "url": "https://trailhead.salesforce.com/content/learn/modules/accounts_contacts_lightning_experience/understand-account-and-contact-relationships-lightning",
+                  "quote": "Any other accounts associated with the contact represent indirect relationships"
+                }
+              ]
+            },
+            {
+              "id": "cm-teams",
+              "name": "Account teams",
+              "objects": [
+                "AccountTeamMember"
+              ],
+              "standard": "Access by account role through account teams",
+              "sources": [
+                {
+                  "url": "https://trailhead.salesforce.com/content/learn/modules/accounts_contacts_lightning_experience/understand-account-and-contact-relationships-lightning",
+                  "quote": "With account teams, you can enable the appropriate access to different account roles"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "area": "Product master",
+      "capabilities": [
+        {
+          "id": "kb-pm-products",
+          "name": "Product definition",
+          "standard": "Products and product families",
+          "steps": [
+            {
+              "id": "pm-create",
+              "name": "Create products",
+              "objects": [
+                "Product2"
+              ],
+              "standard": "Products are the items and services sold to customers",
+              "sources": [
+                {
+                  "url": "https://help.salesforce.com/s/articleView?id=sales.products_def.htm&language=en_US&type=5",
+                  "quote": "Products are the items and services that you sell to customers"
+                }
+              ]
+            },
+            {
+              "id": "pm-family",
+              "name": "Categorise products",
+              "objects": [],
+              "standard": "The Product Family picklist categorises products",
+              "sources": [
+                {
+                  "url": "https://help.salesforce.com/s/articleView?id=sf.customize_productfamily.htm&language=en_US&type=5",
+                  "quote": "Use the Product Family picklist to categorize your products"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "kb-pm-pricing",
+          "name": "Pricing with price books",
+          "standard": "Standard and custom price books with price book entries",
+          "steps": [
+            {
+              "id": "pm-standardpb",
+              "name": "Standard price book",
+              "objects": [
+                "Pricebook2"
+              ],
+              "standard": "The master list of products and default prices",
+              "sources": [
+                {
+                  "url": "https://help.salesforce.com/s/articleView?id=sales.pricebooks_landing_page.htm&language=en_US&type=5",
+                  "quote": "The standard price book is the master list of all your products and their default standard prices"
+                }
+              ]
+            },
+            {
+              "id": "pm-custompb",
+              "name": "Custom price books per segment or region",
+              "objects": [],
+              "standard": "Separate lists of products with list prices",
+              "sources": [
+                {
+                  "url": "https://help.salesforce.com/s/articleView?id=sales.pricebooks_landing_page.htm&language=en_US&type=5",
+                  "quote": "A custom price book is a separate list of products with custom prices, called list prices"
+                }
+              ]
+            },
+            {
+              "id": "pm-entries",
+              "name": "Price book entries",
+              "objects": [
+                "PricebookEntry"
+              ],
+              "standard": "A product with its price in a price book",
+              "sources": [
+                {
+                  "url": "https://help.salesforce.com/s/articleView?id=sales.pricebooks_landing_page.htm&language=en_US&type=5",
+                  "quote": "A price book entry is a product with its price as listed in a price book"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "area": "Order to cash",
+      "capabilities": [
+        {
+          "id": "kb-oc-quoting",
+          "name": "Quoting",
+          "standard": "Quotes created from opportunities, one synced quote per opportunity",
+          "steps": [
+            {
+              "id": "oc-quote",
+              "name": "Create a quote from an opportunity",
+              "objects": [
+                "Quote",
+                "QuoteLineItem"
+              ],
+              "standard": "A quote from an opportunity and its products",
+              "sources": [
+                {
+                  "url": "https://help.salesforce.com/s/articleView?id=sales.quotes_overview.htm&language=en_US&type=5",
+                  "quote": "You create a quote from an opportunity and its products"
+                }
+              ]
+            },
+            {
+              "id": "oc-sync",
+              "name": "Sync the quote with the opportunity",
+              "objects": [],
+              "standard": "One synced quote per opportunity",
+              "sources": [
+                {
+                  "url": "https://trailhead.salesforce.com/content/learn/projects/manage-products-prices-quotes-orders/create-multiple-quotes",
+                  "quote": "An opportunity can have multiple quotes, but it can sync with only one quote at a time"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "kb-oc-contracting",
+          "name": "Contracting",
+          "standard": "Contracts with accounts and opportunities",
+          "steps": [
+            {
+              "id": "oc-contract",
+              "name": "Establish the contract",
+              "objects": [
+                "Contract"
+              ],
+              "standard": "Document the contracts with accounts and opportunities",
+              "sources": [
+                {
+                  "url": "https://help.salesforce.com/s/articleView?id=sf.contract_manage_your_contracts.htm&language=en_US&type=5",
+                  "quote": "Establish and document the contracts that you have with your accounts and opportunities"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "kb-oc-orders",
+          "name": "Order management",
+          "standard": "Orders with order products from one price book, activated once complete",
+          "steps": [
+            {
+              "id": "oc-order",
+              "name": "Create the order",
+              "objects": [
+                "Order"
+              ],
+              "standard": "An agreement to provision services or deliver products with quantity, price and date",
+              "sources": [
+                {
+                  "url": "https://help.salesforce.com/s/articleView?id=sales.order_overview.htm&language=en_US&type=5",
+                  "quote": "An order is an agreement between a company and a customer to provision services or deliver products with a known quantity, price, and date"
+                }
+              ]
+            },
+            {
+              "id": "oc-orderproducts",
+              "name": "Add order products",
+              "objects": [
+                "OrderItem"
+              ],
+              "standard": "Order products from one price book per order",
+              "sources": [
+                {
+                  "url": "https://help.salesforce.com/s/articleView?id=sales.orderproduct_add.htm&language=en_US&type=5",
+                  "quote": "You can use only one price book per order"
+                }
+              ]
+            },
+            {
+              "id": "oc-activate",
+              "name": "Activate the order",
+              "objects": [],
+              "standard": "Orders are activated once they include order products",
+              "sources": [
+                {
+                  "url": "https://help.salesforce.com/s/articleView?id=sales.order_activate.htm",
+                  "quote": "You can activate orders only if they include order products"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "kb-oc-assets",
+          "name": "Installed base",
+          "standard": "Assets for purchased or installed products, in hierarchies",
+          "steps": [
+            {
+              "id": "oc-asset",
+              "name": "Record assets and their hierarchy",
+              "objects": [
+                "Asset"
+              ],
+              "standard": "An asset is a specific purchased or installed product",
+              "sources": [
+                {
+                  "url": "https://trailhead.salesforce.com/content/learn/modules/field_service_maint/field_service_maint_assets",
+                  "quote": "An asset in Salesforce represents a specific purchased or installed product"
+                },
+                {
+                  "url": "https://trailhead.salesforce.com/content/learn/modules/field_service_maint/field_service_maint_assets",
+                  "quote": "Asset hierarchies help you track related assets, like components of a machine, as a unit"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "area": "Sales performance",
+      "capabilities": [
+        {
+          "id": "kb-sp-leads",
+          "name": "Lead management",
+          "standard": "Capture, assign and convert leads",
+          "steps": [
+            {
+              "id": "sp-capture",
+              "name": "Capture and assign leads",
+              "objects": [
+                "Lead"
+              ],
+              "standard": "Web-to-Lead and lead assignment",
+              "sources": [
+                {
+                  "url": "https://trailhead.salesforce.com/content/learn/modules/leads_opportunities_lightning_experience/create-and-convert-leads-lightning",
+                  "quote": "a Web-to-Lead form that collects leads from your business website"
+                }
+              ]
+            },
+            {
+              "id": "sp-convert",
+              "name": "Convert leads",
+              "objects": [],
+              "standard": "Conversion creates an account, a contact and an opportunity",
+              "sources": [
+                {
+                  "url": "https://trailhead.salesforce.com/content/learn/modules/leads_opportunities_lightning_experience/create-and-convert-leads-lightning",
+                  "quote": "Salesforce uses the information stored in the lead record to create a business account, a contact, and an opportunity"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "kb-sp-opportunities",
+          "name": "Opportunity management",
+          "standard": "Opportunities with stages, contact roles and products",
+          "steps": [
+            {
+              "id": "sp-opp",
+              "name": "Work opportunities through stages",
+              "objects": [
+                "Opportunity",
+                "OpportunityContactRole"
+              ],
+              "standard": "Opportunities represent potential sales; contact roles show who is involved",
+              "sources": [
+                {
+                  "url": "https://trailhead.salesforce.com/content/learn/modules/leads_opportunities_lightning_experience/work-your-opportunities",
+                  "quote": "Opportunities represent potential sales"
+                },
+                {
+                  "url": "https://trailhead.salesforce.com/content/learn/modules/leads_opportunities_lightning_experience/work-your-opportunities",
+                  "quote": "Contact roles on opportunities show which contacts are involved in an opportunity"
+                }
+              ]
+            },
+            {
+              "id": "sp-oppproducts",
+              "name": "Add products to opportunities",
+              "objects": [
+                "OpportunityLineItem"
+              ],
+              "standard": "Track what is selling and in what quantity",
+              "sources": [
+                {
+                  "url": "https://help.salesforce.com/s/articleView?id=sales.products_add.htm&language=en_US&type=5",
+                  "quote": "Track what's selling and in what quantity by adding products to opportunities"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "kb-sp-forecasting",
+          "name": "Forecasting and targets",
+          "standard": "Collaborative Forecasts with quotas",
+          "steps": [
+            {
+              "id": "sp-forecast",
+              "name": "Forecast and set quotas",
+              "objects": [
+                "ForecastingItem",
+                "ForecastingQuota",
+                "ForecastingAdjustment"
+              ],
+              "standard": "Collaborative Forecasts and quotas",
+              "sources": [
+                {
+                  "url": "https://trailhead.salesforce.com/content/learn/modules/sales-territories-and-forecasting/sales-forecast-with-precision",
+                  "quote": "Collaborative Forecasts tool included with your Sales Cloud license"
+                },
+                {
+                  "url": "https://trailhead.salesforce.com/content/learn/modules/sales-territories-and-forecasting/sales-forecast-with-precision",
+                  "quote": "set additional quotas based on product families"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "kb-sp-territories",
+          "name": "Sales territories",
+          "standard": "Territory models with territories and assignment rules",
+          "steps": [
+            {
+              "id": "sp-territory",
+              "name": "Model territories and assign accounts",
+              "objects": [
+                "Territory2Model",
+                "Territory2",
+                "Territory2Type",
+                "ObjectTerritory2Association"
+              ],
+              "standard": "Territories organise accounts, leads and the users who work with them",
+              "sources": [
+                {
+                  "url": "https://help.salesforce.com/s/articleView?id=sf.tm2_territory_mgmt_overview.htm&language=en_US&type=5",
+                  "quote": "A territory model represents a complete territory management system for your company"
+                },
+                {
+                  "url": "https://help.salesforce.com/s/articleView?id=sf.tm2_territory_mgmt_overview.htm&language=en_US&type=5",
+                  "quote": "Territories organize groups of accounts, leads, and the Salesforce users who work with them"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "kb-sp-campaigns",
+          "name": "Campaign management",
+          "standard": "Campaign hierarchies and campaign members with statuses",
+          "steps": [
+            {
+              "id": "sp-campaign",
+              "name": "Plan campaigns and track members",
+              "objects": [
+                "Campaign",
+                "CampaignMember"
+              ],
+              "standard": "Campaign hierarchy and member statuses for response rates",
+              "sources": [
+                {
+                  "url": "https://trailhead.salesforce.com/content/learn/modules/campaign_basics/campaigns_basics_unit_2",
+                  "quote": "relate her campaigns to each other in a hierarchy"
+                },
+                {
+                  "url": "https://trailhead.salesforce.com/content/learn/modules/campaign_basics/campaigns_basics_unit_3",
+                  "quote": "Member statuses are very useful for reporting on the response rate of your campaigns"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "area": "Service",
+      "capabilities": [
+        {
+          "id": "kb-sv-cases",
+          "name": "Case management",
+          "standard": "Case intake, assignment and escalation rules",
+          "steps": [
+            {
+              "id": "sv-intake",
+              "name": "Take in cases",
+              "objects": [
+                "Case"
+              ],
+              "standard": "Cases created from email and web channels",
+              "sources": [
+                {
+                  "url": "https://trailhead.salesforce.com/content/learn/modules/service_lex/service_lex_channels",
+                  "quote": "they automatically route to Salesforce as cases"
+                }
+              ]
+            },
+            {
+              "id": "sv-route",
+              "name": "Assign and escalate",
+              "objects": [],
+              "standard": "Assignment and escalation rules",
+              "sources": [
+                {
+                  "url": "https://trailhead.salesforce.com/content/learn/modules/service_lex/service_lex_case_manage",
+                  "quote": "Automatically assign incoming cases to specific reps so that the right people work on the right cases"
+                },
+                {
+                  "url": "https://trailhead.salesforce.com/content/learn/modules/service_lex/service_lex_case_manage",
+                  "quote": "Automatically escalate cases to the right people when the cases aren't solved by a certain time"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "kb-sv-entitlements",
+          "name": "Entitlements and service levels",
+          "standard": "Entitlements with milestones",
+          "steps": [
+            {
+              "id": "sv-entitlement",
+              "name": "Entitlements and milestones",
+              "objects": [
+                "Entitlement",
+                "ServiceContract",
+                "CaseMilestone"
+              ],
+              "standard": "Entitlements are units of support; milestones are required steps",
+              "sources": [
+                {
+                  "url": "https://trailhead.salesforce.com/content/learn/modules/entitlement-management-for-lightning-experience/get-started-with-entitlements",
+                  "quote": "entitlements are units of customer support in Salesforce"
+                },
+                {
+                  "url": "https://trailhead.salesforce.com/content/learn/modules/entitlement-management-for-lightning-experience/set-up-milestones",
+                  "quote": "Milestones represent required steps in your support process"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "kb-sv-knowledge",
+          "name": "Knowledge",
+          "standard": "A knowledge base attached to cases",
+          "steps": [
+            {
+              "id": "sv-articles",
+              "name": "Publish articles and attach them to cases",
+              "objects": [
+                "CaseArticle"
+              ],
+              "standard": "Articles in a repository, attached to cases",
+              "sources": [
+                {
+                  "url": "https://trailhead.salesforce.com/content/learn/modules/lightning-knowledge-basics/get-started-with-lightning-knowledge",
+                  "quote": "A knowledge base puts that organizational knowledge into a repository"
+                },
+                {
+                  "url": "https://trailhead.salesforce.com/content/learn/modules/lightning-knowledge-setup-and-customization/close-cases-with-articles",
+                  "quote": "When they attach an article to a case, customers and agents have it for reference"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "kb-sv-workorders",
+          "name": "Work orders",
+          "standard": "Work orders from work type templates",
+          "steps": [
+            {
+              "id": "sv-workorder",
+              "name": "Plan field work",
+              "objects": [
+                "WorkOrder",
+                "WorkOrderLineItem",
+                "WorkType"
+              ],
+              "standard": "Work orders track work on customers' products; work types standardise it",
+              "sources": [
+                {
+                  "url": "https://trailhead.salesforce.com/content/learn/modules/entitlement-management-for-lightning-experience/use-entitlements-with-work-orders",
+                  "quote": "uses work orders to track the work it needs to perform on its customers' products"
+                },
+                {
+                  "url": "https://trailhead.salesforce.com/content/learn/modules/entitlement-management-for-lightning-experience/use-entitlements-with-work-orders",
+                  "quote": "templates that save time and make it easier to standardize field service work"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
   "client": "Brightwell Consumer Goods",
   "sampleData": true,
   "note": "Fictional company and sample markets, built in three Developer Edition orgs for the demo.",
@@ -23,10 +1581,10 @@
   },
   "findings": [
     "1 of 3 orgs extracted; 14 of 37 markets found in the extracted orgs.",
-    "80 custom components classified: 44% adopt standard, 9% replace with configuration, 9% retain, 0% harmonise, 3% retire, 36% review with business.",
+    "80 custom components classified: 44% adopt standard, 9% replace with configuration, 41% retain, 0% harmonise, 3% retire, 4% review with business.",
     "Cross-org comparison starts once a second org is extracted.",
     "2 components are unused and can be retired before any move.",
-    "29 components are not matched to a known capability and go on the workshop agenda."
+    "3 components are not matched to a known capability and go on the workshop agenda."
   ],
   "orgs": [
     {
@@ -187,10 +1745,10 @@
       "verdicts": {
         "adopt": 35,
         "configure": 7,
-        "retain": 7,
+        "retain": 33,
         "harmonise": 0,
         "retire": 2,
-        "review": 29
+        "review": 3
       }
     },
     {
@@ -1392,53 +2950,13 @@
       }
     },
     {
-      "id": "area-order",
-      "area": "Order to cash",
-      "capability": "Other order to cash extensions",
-      "verdict": "review",
-      "standard": "Placed in this area by the objects it belongs to or uses; compare with standard Orders, Price Books and Consumer Goods Cloud order capture before a verdict",
-      "licence": "",
-      "reference": "Salesforce Help: Orders; Price Books",
-      "perOrg": {
-        "eu": [
-          "Opportunity.DeliveryInstallationStatus__c",
-          "Opportunity.OrderNumber__c"
-        ]
-      },
-      "inOrgs": 1,
-      "builtDifferently": false,
-      "fitment": {
-        "eu": "RV"
-      }
-    },
-    {
-      "id": "area-product",
-      "area": "Product master",
-      "capability": "Other product extensions",
-      "verdict": "review",
-      "standard": "Placed in this area by the objects it belongs to or uses; compare with standard Product and product hierarchy before a verdict",
-      "licence": "",
-      "reference": "Salesforce Help: Products",
-      "perOrg": {
-        "eu": [
-          "Lead.ProductInterest__c",
-          "Case.Product__c"
-        ]
-      },
-      "inOrgs": 1,
-      "builtDifferently": false,
-      "fitment": {
-        "eu": "RV"
-      }
-    },
-    {
-      "id": "area-customer",
+      "id": "kb-cm-accounts",
       "area": "Customer master",
-      "capability": "Other customer extensions",
+      "capability": "Account and contact management",
       "verdict": "review",
-      "standard": "Placed in this area by the objects it belongs to or uses; compare with standard Account, Contact and account hierarchy before a verdict",
+      "standard": "Accounts, contacts, person accounts and duplicate management",
       "licence": "",
-      "reference": "Salesforce Help: Accounts; Contacts",
+      "reference": "kb/capabilities/core-processes.md",
       "perOrg": {
         "eu": [
           "Account.Active__c",
@@ -1458,26 +2976,250 @@
       "inOrgs": 1,
       "builtDifferently": false,
       "fitment": {
-        "eu": "RV"
-      }
+        "eu": "ES"
+      },
+      "subprocesses": [
+        {
+          "id": "cm-record",
+          "name": "Record companies and people",
+          "fitment": {
+            "eu": "ES"
+          },
+          "evidence": {
+            "eu": [
+              {
+                "kind": "Custom field",
+                "name": "Account.Active__c",
+                "verdict": "retain",
+                "why": "Extends Account, the standard object of \"Record companies and people\".",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Account.Active__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Account.CustomerPriority__c",
+                "verdict": "retain",
+                "why": "Extends Account, the standard object of \"Record companies and people\".",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Account.CustomerPriority__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Account.NumberofLocations__c",
+                "verdict": "retain",
+                "why": "Extends Account, the standard object of \"Record companies and people\".",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Account.NumberofLocations__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Account.Old_Segment__c",
+                "verdict": "retire",
+                "why": "Filled on 0% of 78 records.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Account.Old_Segment__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Account.SLAExpirationDate__c",
+                "verdict": "retain",
+                "why": "Extends Account, the standard object of \"Record companies and people\".",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Account.SLAExpirationDate__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Account.SLASerialNumber__c",
+                "verdict": "retain",
+                "why": "Extends Account, the standard object of \"Record companies and people\".",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Account.SLASerialNumber__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Account.SLA__c",
+                "verdict": "retain",
+                "why": "Extends Account, the standard object of \"Record companies and people\".",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Account.SLA__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Account.UpsellOpportunity__c",
+                "verdict": "retain",
+                "why": "Extends Account, the standard object of \"Record companies and people\".",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Account.UpsellOpportunity__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Account.Won_Opportunity_Amount__c",
+                "verdict": "retain",
+                "why": "Extends Account, the standard object of \"Record companies and people\".",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Account.Won_Opportunity_Amount__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Account.Won_Opportunity_Count__c",
+                "verdict": "retain",
+                "why": "Extends Account, the standard object of \"Record companies and people\".",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Account.Won_Opportunity_Count__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Contact.Languages__c",
+                "verdict": "retain",
+                "why": "Extends Contact, the standard object of \"Record companies and people\".",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Contact.Languages__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Contact.Level__c",
+                "verdict": "retain",
+                "why": "Extends Contact, the standard object of \"Record companies and people\".",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Contact.Level__c"
+              }
+            ]
+          }
+        },
+        {
+          "id": "cm-person",
+          "name": "Person accounts for consumers",
+          "fitment": {
+            "eu": "NS"
+          },
+          "evidence": {}
+        },
+        {
+          "id": "cm-duplicates",
+          "name": "Prevent duplicates",
+          "fitment": {
+            "eu": "NS"
+          },
+          "evidence": {}
+        }
+      ]
     },
     {
-      "id": "area-sales",
+      "id": "kb-sp-leads",
       "area": "Sales performance",
-      "capability": "Other sales extensions",
+      "capability": "Lead management",
       "verdict": "review",
-      "standard": "Placed in this area by the objects it belongs to or uses; compare with standard Opportunities, Forecasts and Territory Management before a verdict",
+      "standard": "Capture, assign and convert leads",
       "licence": "",
-      "reference": "Salesforce Help: Collaborative Forecasts",
+      "reference": "kb/capabilities/core-processes.md",
       "perOrg": {
         "eu": [
           "Lead.CurrentGenerators__c",
           "Lead.NumberofLocations__c",
           "Lead.Primary__c",
-          "Lead.SICCode__c",
+          "Lead.ProductInterest__c",
+          "Lead.SICCode__c"
+        ]
+      },
+      "inOrgs": 1,
+      "builtDifferently": false,
+      "fitment": {
+        "eu": "ES"
+      },
+      "subprocesses": [
+        {
+          "id": "sp-capture",
+          "name": "Capture and assign leads",
+          "fitment": {
+            "eu": "ES"
+          },
+          "evidence": {
+            "eu": [
+              {
+                "kind": "Custom field",
+                "name": "Lead.CurrentGenerators__c",
+                "verdict": "retain",
+                "why": "Extends Lead, the standard object of \"Capture and assign leads\".",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Lead.CurrentGenerators__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Lead.NumberofLocations__c",
+                "verdict": "retain",
+                "why": "Extends Lead, the standard object of \"Capture and assign leads\".",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Lead.NumberofLocations__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Lead.Primary__c",
+                "verdict": "retain",
+                "why": "Extends Lead, the standard object of \"Capture and assign leads\".",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Lead.Primary__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Lead.ProductInterest__c",
+                "verdict": "retain",
+                "why": "Extends Lead, the standard object of \"Capture and assign leads\".",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Lead.ProductInterest__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Lead.SICCode__c",
+                "verdict": "retain",
+                "why": "Extends Lead, the standard object of \"Capture and assign leads\".",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Lead.SICCode__c"
+              }
+            ]
+          }
+        },
+        {
+          "id": "sp-convert",
+          "name": "Convert leads",
+          "fitment": {
+            "eu": "NS"
+          },
+          "evidence": {}
+        }
+      ]
+    },
+    {
+      "id": "kb-sp-opportunities",
+      "area": "Sales performance",
+      "capability": "Opportunity management",
+      "verdict": "review",
+      "standard": "Opportunities with stages, contact roles and products",
+      "licence": "",
+      "reference": "kb/capabilities/core-processes.md",
+      "perOrg": {
+        "eu": [
           "Opportunity.CurrentGenerators__c",
+          "Opportunity.DeliveryInstallationStatus__c",
           "Opportunity.Loss_Reason__c",
           "Opportunity.MainCompetitors__c",
+          "Opportunity.OrderNumber__c",
           "Opportunity.TrackingNumber__c",
           "Opportunity.Closed_Won_Requires_Amount",
           "Opportunity.Loss_Reason_Required_When_Lost"
@@ -1487,28 +3229,179 @@
       "builtDifferently": false,
       "fitment": {
         "eu": "RV"
-      }
+      },
+      "subprocesses": [
+        {
+          "id": "sp-opp",
+          "name": "Work opportunities through stages",
+          "fitment": {
+            "eu": "RV"
+          },
+          "evidence": {
+            "eu": [
+              {
+                "kind": "Validation rule",
+                "name": "Opportunity.Closed_Won_Requires_Amount",
+                "verdict": "review",
+                "why": "Custom logic on Opportunity in \"Work opportunities through stages\"; check whether the standard feature or configuration already covers it.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Opportunity.Closed_Won_Requires_Amount"
+              },
+              {
+                "kind": "Validation rule",
+                "name": "Opportunity.Loss_Reason_Required_When_Lost",
+                "verdict": "review",
+                "why": "Custom logic on Opportunity in \"Work opportunities through stages\"; check whether the standard feature or configuration already covers it.",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Opportunity.Loss_Reason_Required_When_Lost"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Opportunity.CurrentGenerators__c",
+                "verdict": "retain",
+                "why": "Extends Opportunity, the standard object of \"Work opportunities through stages\".",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Opportunity.CurrentGenerators__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Opportunity.DeliveryInstallationStatus__c",
+                "verdict": "retain",
+                "why": "Extends Opportunity, the standard object of \"Work opportunities through stages\".",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Opportunity.DeliveryInstallationStatus__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Opportunity.Loss_Reason__c",
+                "verdict": "retain",
+                "why": "Extends Opportunity, the standard object of \"Work opportunities through stages\".",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Opportunity.Loss_Reason__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Opportunity.MainCompetitors__c",
+                "verdict": "retain",
+                "why": "Extends Opportunity, the standard object of \"Work opportunities through stages\".",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Opportunity.MainCompetitors__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Opportunity.OrderNumber__c",
+                "verdict": "retain",
+                "why": "Extends Opportunity, the standard object of \"Work opportunities through stages\".",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Opportunity.OrderNumber__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Opportunity.TrackingNumber__c",
+                "verdict": "retain",
+                "why": "Extends Opportunity, the standard object of \"Work opportunities through stages\".",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Opportunity.TrackingNumber__c"
+              }
+            ]
+          }
+        },
+        {
+          "id": "sp-oppproducts",
+          "name": "Add products to opportunities",
+          "fitment": {
+            "eu": "NS"
+          },
+          "evidence": {}
+        }
+      ]
     },
     {
-      "id": "area-service",
+      "id": "kb-sv-cases",
       "area": "Service",
-      "capability": "Service extensions",
+      "capability": "Case management",
       "verdict": "review",
-      "standard": "Placed in this area by the objects it belongs to or uses; compare with standard Service Cloud and Field Service before a verdict",
+      "standard": "Case intake, assignment and escalation rules",
       "licence": "",
-      "reference": "Salesforce Help: Cases; Field Service",
+      "reference": "kb/capabilities/core-processes.md",
       "perOrg": {
         "eu": [
           "Case.EngineeringReqNumber__c",
           "Case.PotentialLiability__c",
+          "Case.Product__c",
           "Case.SLAViolation__c"
         ]
       },
       "inOrgs": 1,
       "builtDifferently": false,
       "fitment": {
-        "eu": "RV"
-      }
+        "eu": "ES"
+      },
+      "subprocesses": [
+        {
+          "id": "sv-intake",
+          "name": "Take in cases",
+          "fitment": {
+            "eu": "ES"
+          },
+          "evidence": {
+            "eu": [
+              {
+                "kind": "Custom field",
+                "name": "Case.EngineeringReqNumber__c",
+                "verdict": "retain",
+                "why": "Extends Case, the standard object of \"Take in cases\".",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Case.EngineeringReqNumber__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Case.PotentialLiability__c",
+                "verdict": "retain",
+                "why": "Extends Case, the standard object of \"Take in cases\".",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Case.PotentialLiability__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Case.Product__c",
+                "verdict": "retain",
+                "why": "Extends Case, the standard object of \"Take in cases\".",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Case.Product__c"
+              },
+              {
+                "kind": "Custom field",
+                "name": "Case.SLAViolation__c",
+                "verdict": "retain",
+                "why": "Extends Case, the standard object of \"Take in cases\".",
+                "effort": "Low",
+                "layer": "Custom",
+                "ref": "Case.SLAViolation__c"
+              }
+            ]
+          }
+        },
+        {
+          "id": "sv-route",
+          "name": "Assign and escalate",
+          "fitment": {
+            "eu": "NS"
+          },
+          "evidence": {}
+        }
+      ]
     }
   ],
   "unmatched": {
@@ -2602,6 +4495,7 @@
       "kind": "Apex class",
       "name": "OpportunityService",
       "capability": "subscriptions",
+      "step": null,
       "verdict": "adopt",
       "reason": "Revenue Cloud subscription management",
       "confidence": "High",
@@ -2609,6 +4503,16 @@
       "objects": [
         "Subscription__c"
       ],
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^Subscription(_Line)?__c$ · ^(Subscription|Opportunity)\\w*$ · ^(Subscription|Opportunity)\\w*$",
+          "area": "Other",
+          "capability": "Subscriptions",
+          "step": null
+        },
+        "rule": "capability"
+      },
       "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
@@ -2621,6 +4525,7 @@
       "kind": "Apex class",
       "name": "PromotionClaimService",
       "capability": "claims",
+      "step": null,
       "verdict": "adopt",
       "reason": "Trade Promotion Management: claims and payments checked against promotion funds",
       "confidence": "High",
@@ -2629,6 +4534,16 @@
         "Promotion_Claim__c",
         "Trade_Promotion__c"
       ],
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^(Distributor_Claim|Customer_Claim|Promotion_Claim|Claim)__c$ · ^(Distributor|Promotion)Claim\\w*$",
+          "area": "Trade promotion management (TPM)",
+          "capability": "Distributor and customer claims",
+          "step": null
+        },
+        "rule": "capability"
+      },
       "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
@@ -2641,13 +4556,24 @@
       "kind": "Apex class",
       "name": "StoreVisitLegacyHandler",
       "capability": "store-visits",
+      "step": null,
       "verdict": "retire",
-      "reason": "No active trigger or class calls it and it is not an entry point (screen, flow, batch, schedule or API).",
-      "confidence": "High",
+      "reason": "Nothing refers to it (no code, Lightning component, Visualforce page or flow) and it is no entry point (screen, flow, batch, schedule or API); usage logs are not available in this org, so confirm it is unused.",
+      "confidence": "Low",
       "lines": 9,
       "objects": [
         "Store_Visit__c"
       ],
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^(Store|Outlet|Field|Retail)_?Visit__c$ · ^(Store|Outlet|Field)Visit\\w*$",
+          "area": "Retail execution",
+          "capability": "Store visits",
+          "step": null
+        },
+        "rule": "unreferenced"
+      },
       "layer": "Custom",
       "effort": "Low",
       "priority": "Quick win",
@@ -2660,6 +4586,7 @@
       "kind": "Apex class",
       "name": "StoreVisitService",
       "capability": "store-visits",
+      "step": null,
       "verdict": "adopt",
       "reason": "Consumer Goods Cloud: Visit and Retail Store, with visit tasks on the mobile app",
       "confidence": "High",
@@ -2670,6 +4597,16 @@
         "Store_Visit__c",
         "Visit_Task__c"
       ],
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^(Store|Outlet|Field|Retail)_?Visit__c$ · ^(Store|Outlet|Field)Visit\\w*$",
+          "area": "Retail execution",
+          "capability": "Store visits",
+          "step": null
+        },
+        "rule": "capability"
+      },
       "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
@@ -2682,6 +4619,7 @@
       "kind": "Apex class",
       "name": "SubscriptionRenewalBatch",
       "capability": "subscriptions",
+      "step": null,
       "verdict": "adopt",
       "reason": "Revenue Cloud subscription management",
       "confidence": "High",
@@ -2689,6 +4627,16 @@
       "objects": [
         "Subscription__c"
       ],
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^Subscription(_Line)?__c$ · ^(Subscription|Opportunity)\\w*$ · ^(Subscription|Opportunity)\\w*$",
+          "area": "Other",
+          "capability": "Subscriptions",
+          "step": null
+        },
+        "rule": "capability"
+      },
       "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
@@ -2701,6 +4649,7 @@
       "kind": "Apex class",
       "name": "SubscriptionService",
       "capability": "subscriptions",
+      "step": null,
       "verdict": "adopt",
       "reason": "Revenue Cloud subscription management",
       "confidence": "High",
@@ -2708,6 +4657,16 @@
       "objects": [
         "Subscription__c"
       ],
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^Subscription(_Line)?__c$ · ^(Subscription|Opportunity)\\w*$ · ^(Subscription|Opportunity)\\w*$",
+          "area": "Other",
+          "capability": "Subscriptions",
+          "step": null
+        },
+        "rule": "capability"
+      },
       "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
@@ -2720,6 +4679,7 @@
       "kind": "Apex class",
       "name": "TradePromotionApproval",
       "capability": "promotion-approval",
+      "step": null,
       "verdict": "configure",
       "reason": "Approval processes or Flow approval orchestration, with the threshold held as configuration",
       "confidence": "High",
@@ -2727,6 +4687,16 @@
       "objects": [
         "Trade_Promotion__c"
       ],
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^TradePromotionApproval$",
+          "area": "Trade promotion management (TPM)",
+          "capability": "Promotion approval",
+          "step": null
+        },
+        "rule": "capability"
+      },
       "layer": "Custom",
       "effort": "Low",
       "priority": "Quick win",
@@ -2739,6 +4709,7 @@
       "kind": "Apex class",
       "name": "TradePromotionService",
       "capability": "trade-promotions",
+      "step": null,
       "verdict": "adopt",
       "reason": "Consumer Goods Cloud Trade Promotion Management: promotion planning, funds and post-event analysis",
       "confidence": "High",
@@ -2747,6 +4718,16 @@
         "Trade_Fund__c",
         "Trade_Promotion__c"
       ],
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^(Trade_Promotion|Trade_Deal|Promotion_Product|Promotion_Line)__c$ · ^TradePromotionService$",
+          "area": "Trade promotion management (TPM)",
+          "capability": "Trade promotions and deals",
+          "step": null
+        },
+        "rule": "capability"
+      },
       "layer": "Custom",
       "effort": "Medium",
       "priority": "Medium term",
@@ -2759,11 +4740,26 @@
       "kind": "Apex trigger",
       "name": "OpportunityTrigger",
       "capability": "subscriptions",
+      "step": null,
       "verdict": "adopt",
       "reason": "Revenue Cloud subscription management",
       "confidence": "High",
       "object": "Opportunity",
       "lines": 3,
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^Subscription(_Line)?__c$ · ^(Subscription|Opportunity)\\w*$ · ^(Subscription|Opportunity)\\w*$",
+          "area": "Other",
+          "capability": "Subscriptions",
+          "step": null
+        },
+        "rule": "capability",
+        "use": {
+          "lastRun": null,
+          "logs": "not available in this org"
+        }
+      },
       "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
@@ -2776,11 +4772,26 @@
       "kind": "Apex trigger",
       "name": "PromotionClaimTrigger",
       "capability": "claims",
+      "step": null,
       "verdict": "adopt",
       "reason": "Trade Promotion Management: claims and payments checked against promotion funds",
       "confidence": "Medium",
       "object": "Promotion_Claim__c",
       "lines": 4,
+      "trace": {
+        "place": {
+          "method": "Objects its code uses (catalogue)",
+          "detail": "^(Distributor_Claim|Customer_Claim|Promotion_Claim|Claim)__c$ · ^(Distributor|Promotion)Claim\\w*$",
+          "area": "Trade promotion management (TPM)",
+          "capability": "Distributor and customer claims",
+          "step": null
+        },
+        "rule": "capability",
+        "use": {
+          "lastRun": null,
+          "logs": "not available in this org"
+        }
+      },
       "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
@@ -2793,11 +4804,26 @@
       "kind": "Apex trigger",
       "name": "ShelfCheckTrigger",
       "capability": "in-store-audit",
+      "step": null,
       "verdict": "adopt",
       "reason": "Consumer Goods Cloud: assessment tasks and retail store KPIs recorded during a visit",
       "confidence": "Medium",
       "object": "Shelf_Check__c",
       "lines": 5,
+      "trace": {
+        "place": {
+          "method": "Objects its code uses (catalogue)",
+          "detail": "^(Shelf_Check|Outlet_Audit|Store_Audit|Store_Check)__c$",
+          "area": "Retail execution",
+          "capability": "Shelf checks and in-store audits",
+          "step": null
+        },
+        "rule": "capability",
+        "use": {
+          "lastRun": null,
+          "logs": "not available in this org"
+        }
+      },
       "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
@@ -2810,11 +4836,26 @@
       "kind": "Apex trigger",
       "name": "StoreVisitTrigger",
       "capability": "store-visits",
+      "step": null,
       "verdict": "adopt",
       "reason": "Consumer Goods Cloud: Visit and Retail Store, with visit tasks on the mobile app",
       "confidence": "Medium",
       "object": "Store_Visit__c",
       "lines": 5,
+      "trace": {
+        "place": {
+          "method": "Objects its code uses (catalogue)",
+          "detail": "^(Store|Outlet|Field|Retail)_?Visit__c$ · ^(Store|Outlet|Field)Visit\\w*$",
+          "area": "Retail execution",
+          "capability": "Store visits",
+          "step": null
+        },
+        "rule": "capability",
+        "use": {
+          "lastRun": null,
+          "logs": "not available in this org"
+        }
+      },
       "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
@@ -2827,11 +4868,26 @@
       "kind": "Apex trigger",
       "name": "SubscriptionTrigger",
       "capability": "subscriptions",
+      "step": null,
       "verdict": "adopt",
       "reason": "Revenue Cloud subscription management",
       "confidence": "High",
       "object": "Subscription__c",
       "lines": 7,
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^Subscription(_Line)?__c$ · ^(Subscription|Opportunity)\\w*$ · ^(Subscription|Opportunity)\\w*$",
+          "area": "Other",
+          "capability": "Subscriptions",
+          "step": null
+        },
+        "rule": "capability",
+        "use": {
+          "lastRun": null,
+          "logs": "not available in this org"
+        }
+      },
       "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
@@ -2844,11 +4900,26 @@
       "kind": "Apex trigger",
       "name": "TradePromotionTrigger",
       "capability": "trade-promotions",
+      "step": null,
       "verdict": "adopt",
       "reason": "Consumer Goods Cloud Trade Promotion Management: promotion planning, funds and post-event analysis",
       "confidence": "Medium",
       "object": "Trade_Promotion__c",
       "lines": 19,
+      "trace": {
+        "place": {
+          "method": "Objects its code uses (catalogue)",
+          "detail": "^(Trade_Promotion|Trade_Deal|Promotion_Product|Promotion_Line)__c$ · ^TradePromotionService$",
+          "area": "Trade promotion management (TPM)",
+          "capability": "Trade promotions and deals",
+          "step": null
+        },
+        "rule": "capability",
+        "use": {
+          "lastRun": null,
+          "logs": "not available in this org"
+        }
+      },
       "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
@@ -2860,16 +4931,27 @@
       "org": "eu",
       "kind": "Custom field",
       "name": "Account.Active__c",
-      "capability": "area-customer",
-      "verdict": "review",
-      "reason": "Placed in this area by the objects it belongs to or uses; compare with standard Account, Contact and account hierarchy before a verdict",
-      "confidence": "Low",
+      "capability": "kb-cm-accounts",
+      "step": "cm-record",
+      "verdict": "retain",
+      "reason": "Extends Account, the standard object of \"Record companies and people\".",
+      "confidence": "Medium",
       "fill": 13,
       "type": "picklist",
+      "trace": {
+        "place": {
+          "method": "Standard object of a process step (knowledge base)",
+          "detail": "Account",
+          "area": "Customer master",
+          "capability": "Account and contact management",
+          "step": "Record companies and people"
+        },
+        "rule": "extends-standard"
+      },
       "layer": "Custom",
       "effort": "Low",
-      "priority": "Immediate",
-      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "priority": "Strategic",
+      "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
       "decisionOwner": "Customer master owner (to confirm)"
     },
@@ -2878,11 +4960,22 @@
       "kind": "Custom field",
       "name": "Account.Customer_Channel__c",
       "capability": "market",
+      "step": null,
       "verdict": "configure",
       "reason": "Global value sets shared by all orgs, with Enterprise Territory Management for market ownership",
       "confidence": "High",
       "fill": 72,
       "type": "picklist",
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^Account\\.(Market|Customer_Channel|Customer_Tier|Store_Format)__c$",
+          "area": "Customer master",
+          "capability": "Market and channel segmentation",
+          "step": null
+        },
+        "rule": "capability"
+      },
       "layer": "Custom",
       "effort": "Low",
       "priority": "Quick win",
@@ -2895,11 +4988,22 @@
       "kind": "Custom field",
       "name": "Account.Customer_Tier__c",
       "capability": "market",
+      "step": null,
       "verdict": "configure",
       "reason": "Global value sets shared by all orgs, with Enterprise Territory Management for market ownership",
       "confidence": "High",
       "fill": 72,
       "type": "picklist",
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^Account\\.(Market|Customer_Channel|Customer_Tier|Store_Format)__c$",
+          "area": "Customer master",
+          "capability": "Market and channel segmentation",
+          "step": null
+        },
+        "rule": "capability"
+      },
       "layer": "Custom",
       "effort": "Low",
       "priority": "Quick win",
@@ -2911,16 +5015,27 @@
       "org": "eu",
       "kind": "Custom field",
       "name": "Account.CustomerPriority__c",
-      "capability": "area-customer",
-      "verdict": "review",
-      "reason": "Placed in this area by the objects it belongs to or uses; compare with standard Account, Contact and account hierarchy before a verdict",
-      "confidence": "Low",
+      "capability": "kb-cm-accounts",
+      "step": "cm-record",
+      "verdict": "retain",
+      "reason": "Extends Account, the standard object of \"Record companies and people\".",
+      "confidence": "Medium",
       "fill": 12,
       "type": "picklist",
+      "trace": {
+        "place": {
+          "method": "Standard object of a process step (knowledge base)",
+          "detail": "Account",
+          "area": "Customer master",
+          "capability": "Account and contact management",
+          "step": "Record companies and people"
+        },
+        "rule": "extends-standard"
+      },
       "layer": "Custom",
       "effort": "Low",
-      "priority": "Immediate",
-      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "priority": "Strategic",
+      "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
       "decisionOwner": "Customer master owner (to confirm)"
     },
@@ -2929,11 +5044,22 @@
       "kind": "Custom field",
       "name": "Account.Legacy_ERP_Code__c",
       "capability": "erp-key",
+      "step": null,
       "verdict": "retain",
       "reason": "Keep as an external ID field so integrations can upsert by the ERP key",
       "confidence": "High",
       "fill": 44,
       "type": "string",
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^Account\\.(Legacy_ERP_Code|ERP_Code|ERP_Id)__c$",
+          "area": "Customer master",
+          "capability": "ERP customer key",
+          "step": null
+        },
+        "rule": "capability"
+      },
       "layer": "Custom",
       "effort": "Low",
       "priority": "Strategic",
@@ -2946,11 +5072,22 @@
       "kind": "Custom field",
       "name": "Account.Market__c",
       "capability": "market",
+      "step": null,
       "verdict": "configure",
       "reason": "Global value sets shared by all orgs, with Enterprise Territory Management for market ownership",
       "confidence": "High",
       "fill": 72,
       "type": "picklist",
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^Account\\.(Market|Customer_Channel|Customer_Tier|Store_Format)__c$",
+          "area": "Customer master",
+          "capability": "Market and channel segmentation",
+          "step": null
+        },
+        "rule": "capability"
+      },
       "layer": "Custom",
       "effort": "Low",
       "priority": "Quick win",
@@ -2962,16 +5099,27 @@
       "org": "eu",
       "kind": "Custom field",
       "name": "Account.NumberofLocations__c",
-      "capability": "area-customer",
-      "verdict": "review",
-      "reason": "Placed in this area by the objects it belongs to or uses; compare with standard Account, Contact and account hierarchy before a verdict",
-      "confidence": "Low",
+      "capability": "kb-cm-accounts",
+      "step": "cm-record",
+      "verdict": "retain",
+      "reason": "Extends Account, the standard object of \"Record companies and people\".",
+      "confidence": "Medium",
       "fill": 14,
       "type": "double",
+      "trace": {
+        "place": {
+          "method": "Standard object of a process step (knowledge base)",
+          "detail": "Account",
+          "area": "Customer master",
+          "capability": "Account and contact management",
+          "step": "Record companies and people"
+        },
+        "rule": "extends-standard"
+      },
       "layer": "Custom",
       "effort": "Low",
-      "priority": "Immediate",
-      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "priority": "Strategic",
+      "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
       "decisionOwner": "Customer master owner (to confirm)"
     },
@@ -2979,12 +5127,23 @@
       "org": "eu",
       "kind": "Custom field",
       "name": "Account.Old_Segment__c",
-      "capability": "area-customer",
+      "capability": "kb-cm-accounts",
+      "step": "cm-record",
       "verdict": "retire",
       "reason": "Filled on 0% of 78 records.",
-      "confidence": "Low",
+      "confidence": "Medium",
       "fill": 0,
       "type": "string",
+      "trace": {
+        "place": {
+          "method": "Standard object of a process step (knowledge base)",
+          "detail": "Account",
+          "area": "Customer master",
+          "capability": "Account and contact management",
+          "step": "Record companies and people"
+        },
+        "rule": "unused"
+      },
       "layer": "Custom",
       "effort": "Low",
       "priority": "Quick win",
@@ -2996,16 +5155,27 @@
       "org": "eu",
       "kind": "Custom field",
       "name": "Account.SLA__c",
-      "capability": "area-customer",
-      "verdict": "review",
-      "reason": "Placed in this area by the objects it belongs to or uses; compare with standard Account, Contact and account hierarchy before a verdict",
-      "confidence": "Low",
+      "capability": "kb-cm-accounts",
+      "step": "cm-record",
+      "verdict": "retain",
+      "reason": "Extends Account, the standard object of \"Record companies and people\".",
+      "confidence": "Medium",
       "fill": 14,
       "type": "picklist",
+      "trace": {
+        "place": {
+          "method": "Standard object of a process step (knowledge base)",
+          "detail": "Account",
+          "area": "Customer master",
+          "capability": "Account and contact management",
+          "step": "Record companies and people"
+        },
+        "rule": "extends-standard"
+      },
       "layer": "Custom",
       "effort": "Low",
-      "priority": "Immediate",
-      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "priority": "Strategic",
+      "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
       "decisionOwner": "Customer master owner (to confirm)"
     },
@@ -3013,16 +5183,27 @@
       "org": "eu",
       "kind": "Custom field",
       "name": "Account.SLAExpirationDate__c",
-      "capability": "area-customer",
-      "verdict": "review",
-      "reason": "Placed in this area by the objects it belongs to or uses; compare with standard Account, Contact and account hierarchy before a verdict",
-      "confidence": "Low",
+      "capability": "kb-cm-accounts",
+      "step": "cm-record",
+      "verdict": "retain",
+      "reason": "Extends Account, the standard object of \"Record companies and people\".",
+      "confidence": "Medium",
       "fill": 14,
       "type": "date",
+      "trace": {
+        "place": {
+          "method": "Standard object of a process step (knowledge base)",
+          "detail": "Account",
+          "area": "Customer master",
+          "capability": "Account and contact management",
+          "step": "Record companies and people"
+        },
+        "rule": "extends-standard"
+      },
       "layer": "Custom",
       "effort": "Low",
-      "priority": "Immediate",
-      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "priority": "Strategic",
+      "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
       "decisionOwner": "Customer master owner (to confirm)"
     },
@@ -3030,16 +5211,27 @@
       "org": "eu",
       "kind": "Custom field",
       "name": "Account.SLASerialNumber__c",
-      "capability": "area-customer",
-      "verdict": "review",
-      "reason": "Placed in this area by the objects it belongs to or uses; compare with standard Account, Contact and account hierarchy before a verdict",
-      "confidence": "Low",
+      "capability": "kb-cm-accounts",
+      "step": "cm-record",
+      "verdict": "retain",
+      "reason": "Extends Account, the standard object of \"Record companies and people\".",
+      "confidence": "Medium",
       "fill": 14,
       "type": "string",
+      "trace": {
+        "place": {
+          "method": "Standard object of a process step (knowledge base)",
+          "detail": "Account",
+          "area": "Customer master",
+          "capability": "Account and contact management",
+          "step": "Record companies and people"
+        },
+        "rule": "extends-standard"
+      },
       "layer": "Custom",
       "effort": "Low",
-      "priority": "Immediate",
-      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "priority": "Strategic",
+      "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
       "decisionOwner": "Customer master owner (to confirm)"
     },
@@ -3048,11 +5240,22 @@
       "kind": "Custom field",
       "name": "Account.Store_Format__c",
       "capability": "market",
+      "step": null,
       "verdict": "configure",
       "reason": "Global value sets shared by all orgs, with Enterprise Territory Management for market ownership",
       "confidence": "High",
       "fill": 54,
       "type": "picklist",
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^Account\\.(Market|Customer_Channel|Customer_Tier|Store_Format)__c$",
+          "area": "Customer master",
+          "capability": "Market and channel segmentation",
+          "step": null
+        },
+        "rule": "capability"
+      },
       "layer": "Custom",
       "effort": "Low",
       "priority": "Quick win",
@@ -3064,16 +5267,27 @@
       "org": "eu",
       "kind": "Custom field",
       "name": "Account.UpsellOpportunity__c",
-      "capability": "area-customer",
-      "verdict": "review",
-      "reason": "Placed in this area by the objects it belongs to or uses; compare with standard Account, Contact and account hierarchy before a verdict",
-      "confidence": "Low",
+      "capability": "kb-cm-accounts",
+      "step": "cm-record",
+      "verdict": "retain",
+      "reason": "Extends Account, the standard object of \"Record companies and people\".",
+      "confidence": "Medium",
       "fill": 14,
       "type": "picklist",
+      "trace": {
+        "place": {
+          "method": "Standard object of a process step (knowledge base)",
+          "detail": "Account",
+          "area": "Customer master",
+          "capability": "Account and contact management",
+          "step": "Record companies and people"
+        },
+        "rule": "extends-standard"
+      },
       "layer": "Custom",
       "effort": "Low",
-      "priority": "Immediate",
-      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "priority": "Strategic",
+      "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
       "decisionOwner": "Customer master owner (to confirm)"
     },
@@ -3082,11 +5296,22 @@
       "kind": "Custom field",
       "name": "Account.VAT_Number__c",
       "capability": "tax-id",
+      "step": null,
       "verdict": "retain",
       "reason": "No standard tax ID field on Account: keep one global field with per-market format rules",
       "confidence": "High",
       "fill": 36,
       "type": "string",
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^Account\\.(VAT_Number|GST_Number|Tax_ID|Tax_Number)__c$",
+          "area": "Customer master",
+          "capability": "Customer tax registration",
+          "step": null
+        },
+        "rule": "capability"
+      },
       "layer": "Custom",
       "effort": "Low",
       "priority": "Strategic",
@@ -3098,16 +5323,27 @@
       "org": "eu",
       "kind": "Custom field",
       "name": "Account.Won_Opportunity_Amount__c",
-      "capability": "area-customer",
-      "verdict": "review",
-      "reason": "Placed in this area by the objects it belongs to or uses; compare with standard Account, Contact and account hierarchy before a verdict",
-      "confidence": "Low",
+      "capability": "kb-cm-accounts",
+      "step": "cm-record",
+      "verdict": "retain",
+      "reason": "Extends Account, the standard object of \"Record companies and people\".",
+      "confidence": "Medium",
       "fill": 28,
       "type": "currency",
+      "trace": {
+        "place": {
+          "method": "Standard object of a process step (knowledge base)",
+          "detail": "Account",
+          "area": "Customer master",
+          "capability": "Account and contact management",
+          "step": "Record companies and people"
+        },
+        "rule": "extends-standard"
+      },
       "layer": "Custom",
       "effort": "Low",
-      "priority": "Immediate",
-      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "priority": "Strategic",
+      "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
       "decisionOwner": "Customer master owner (to confirm)"
     },
@@ -3115,16 +5351,27 @@
       "org": "eu",
       "kind": "Custom field",
       "name": "Account.Won_Opportunity_Count__c",
-      "capability": "area-customer",
-      "verdict": "review",
-      "reason": "Placed in this area by the objects it belongs to or uses; compare with standard Account, Contact and account hierarchy before a verdict",
-      "confidence": "Low",
+      "capability": "kb-cm-accounts",
+      "step": "cm-record",
+      "verdict": "retain",
+      "reason": "Extends Account, the standard object of \"Record companies and people\".",
+      "confidence": "Medium",
       "fill": 28,
       "type": "double",
+      "trace": {
+        "place": {
+          "method": "Standard object of a process step (knowledge base)",
+          "detail": "Account",
+          "area": "Customer master",
+          "capability": "Account and contact management",
+          "step": "Record companies and people"
+        },
+        "rule": "extends-standard"
+      },
       "layer": "Custom",
       "effort": "Low",
-      "priority": "Immediate",
-      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "priority": "Strategic",
+      "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
       "decisionOwner": "Customer master owner (to confirm)"
     },
@@ -3132,16 +5379,27 @@
       "org": "eu",
       "kind": "Custom field",
       "name": "Case.EngineeringReqNumber__c",
-      "capability": "area-service",
-      "verdict": "review",
-      "reason": "Placed in this area by the objects it belongs to or uses; compare with standard Service Cloud and Field Service before a verdict",
-      "confidence": "Low",
+      "capability": "kb-sv-cases",
+      "step": "sv-intake",
+      "verdict": "retain",
+      "reason": "Extends Case, the standard object of \"Take in cases\".",
+      "confidence": "Medium",
       "fill": 85,
       "type": "string",
+      "trace": {
+        "place": {
+          "method": "Standard object of a process step (knowledge base)",
+          "detail": "Case",
+          "area": "Service",
+          "capability": "Case management",
+          "step": "Take in cases"
+        },
+        "rule": "extends-standard"
+      },
       "layer": "Custom",
       "effort": "Low",
-      "priority": "Immediate",
-      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "priority": "Strategic",
+      "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
       "decisionOwner": "Service owner (to confirm)"
     },
@@ -3149,16 +5407,27 @@
       "org": "eu",
       "kind": "Custom field",
       "name": "Case.PotentialLiability__c",
-      "capability": "area-service",
-      "verdict": "review",
-      "reason": "Placed in this area by the objects it belongs to or uses; compare with standard Service Cloud and Field Service before a verdict",
-      "confidence": "Low",
+      "capability": "kb-sv-cases",
+      "step": "sv-intake",
+      "verdict": "retain",
+      "reason": "Extends Case, the standard object of \"Take in cases\".",
+      "confidence": "Medium",
       "fill": 100,
       "type": "picklist",
+      "trace": {
+        "place": {
+          "method": "Standard object of a process step (knowledge base)",
+          "detail": "Case",
+          "area": "Service",
+          "capability": "Case management",
+          "step": "Take in cases"
+        },
+        "rule": "extends-standard"
+      },
       "layer": "Custom",
       "effort": "Low",
-      "priority": "Immediate",
-      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "priority": "Strategic",
+      "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
       "decisionOwner": "Service owner (to confirm)"
     },
@@ -3166,33 +5435,55 @@
       "org": "eu",
       "kind": "Custom field",
       "name": "Case.Product__c",
-      "capability": "area-product",
-      "verdict": "review",
-      "reason": "Placed in this area by the objects it belongs to or uses; compare with standard Product and product hierarchy before a verdict",
-      "confidence": "Low",
+      "capability": "kb-sv-cases",
+      "step": "sv-intake",
+      "verdict": "retain",
+      "reason": "Extends Case, the standard object of \"Take in cases\".",
+      "confidence": "Medium",
       "fill": 100,
       "type": "picklist",
+      "trace": {
+        "place": {
+          "method": "Standard object of a process step (knowledge base)",
+          "detail": "Case",
+          "area": "Service",
+          "capability": "Case management",
+          "step": "Take in cases"
+        },
+        "rule": "extends-standard"
+      },
       "layer": "Custom",
       "effort": "Low",
-      "priority": "Immediate",
-      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "priority": "Strategic",
+      "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
-      "decisionOwner": "Product master owner (to confirm)"
+      "decisionOwner": "Service owner (to confirm)"
     },
     {
       "org": "eu",
       "kind": "Custom field",
       "name": "Case.SLAViolation__c",
-      "capability": "area-service",
-      "verdict": "review",
-      "reason": "Placed in this area by the objects it belongs to or uses; compare with standard Service Cloud and Field Service before a verdict",
-      "confidence": "Low",
+      "capability": "kb-sv-cases",
+      "step": "sv-intake",
+      "verdict": "retain",
+      "reason": "Extends Case, the standard object of \"Take in cases\".",
+      "confidence": "Medium",
       "fill": 96,
       "type": "picklist",
+      "trace": {
+        "place": {
+          "method": "Standard object of a process step (knowledge base)",
+          "detail": "Case",
+          "area": "Service",
+          "capability": "Case management",
+          "step": "Take in cases"
+        },
+        "rule": "extends-standard"
+      },
       "layer": "Custom",
       "effort": "Low",
-      "priority": "Immediate",
-      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "priority": "Strategic",
+      "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
       "decisionOwner": "Service owner (to confirm)"
     },
@@ -3201,11 +5492,22 @@
       "kind": "Custom field",
       "name": "Contact.Consent_Date__c",
       "capability": "consent",
+      "step": null,
       "verdict": "adopt",
       "reason": "Individual and contact point consent objects with data use purposes. Note: filled on 0% of 20 records.",
       "confidence": "High",
       "fill": 0,
       "type": "date",
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^Contact\\.(GDPR_Consent|Consent_Date|Marketing_Consent)__c$",
+          "area": "Customer master",
+          "capability": "Contact consent",
+          "step": null
+        },
+        "rule": "capability"
+      },
       "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
@@ -3218,11 +5520,22 @@
       "kind": "Custom field",
       "name": "Contact.GDPR_Consent__c",
       "capability": "consent",
+      "step": null,
       "verdict": "adopt",
       "reason": "Individual and contact point consent objects with data use purposes. Note: filled on 0% of 20 records.",
       "confidence": "High",
       "fill": 0,
       "type": "boolean",
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^Contact\\.(GDPR_Consent|Consent_Date|Marketing_Consent)__c$",
+          "area": "Customer master",
+          "capability": "Contact consent",
+          "step": null
+        },
+        "rule": "capability"
+      },
       "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
@@ -3234,16 +5547,27 @@
       "org": "eu",
       "kind": "Custom field",
       "name": "Contact.Languages__c",
-      "capability": "area-customer",
-      "verdict": "review",
-      "reason": "Placed in this area by the objects it belongs to or uses; compare with standard Account, Contact and account hierarchy before a verdict",
-      "confidence": "Low",
+      "capability": "kb-cm-accounts",
+      "step": "cm-record",
+      "verdict": "retain",
+      "reason": "Extends Contact, the standard object of \"Record companies and people\".",
+      "confidence": "Medium",
       "fill": 85,
       "type": "string",
+      "trace": {
+        "place": {
+          "method": "Standard object of a process step (knowledge base)",
+          "detail": "Contact",
+          "area": "Customer master",
+          "capability": "Account and contact management",
+          "step": "Record companies and people"
+        },
+        "rule": "extends-standard"
+      },
       "layer": "Custom",
       "effort": "Low",
-      "priority": "Immediate",
-      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "priority": "Strategic",
+      "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
       "decisionOwner": "Customer master owner (to confirm)"
     },
@@ -3251,16 +5575,27 @@
       "org": "eu",
       "kind": "Custom field",
       "name": "Contact.Level__c",
-      "capability": "area-customer",
-      "verdict": "review",
-      "reason": "Placed in this area by the objects it belongs to or uses; compare with standard Account, Contact and account hierarchy before a verdict",
-      "confidence": "Low",
+      "capability": "kb-cm-accounts",
+      "step": "cm-record",
+      "verdict": "retain",
+      "reason": "Extends Contact, the standard object of \"Record companies and people\".",
+      "confidence": "Medium",
       "fill": 85,
       "type": "picklist",
+      "trace": {
+        "place": {
+          "method": "Standard object of a process step (knowledge base)",
+          "detail": "Contact",
+          "area": "Customer master",
+          "capability": "Account and contact management",
+          "step": "Record companies and people"
+        },
+        "rule": "extends-standard"
+      },
       "layer": "Custom",
       "effort": "Low",
-      "priority": "Immediate",
-      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "priority": "Strategic",
+      "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
       "decisionOwner": "Customer master owner (to confirm)"
     },
@@ -3268,16 +5603,27 @@
       "org": "eu",
       "kind": "Custom field",
       "name": "Lead.CurrentGenerators__c",
-      "capability": "area-sales",
-      "verdict": "review",
-      "reason": "Placed in this area by the objects it belongs to or uses; compare with standard Opportunities, Forecasts and Territory Management before a verdict",
-      "confidence": "Low",
+      "capability": "kb-sp-leads",
+      "step": "sp-capture",
+      "verdict": "retain",
+      "reason": "Extends Lead, the standard object of \"Capture and assign leads\".",
+      "confidence": "Medium",
       "fill": 100,
       "type": "string",
+      "trace": {
+        "place": {
+          "method": "Standard object of a process step (knowledge base)",
+          "detail": "Lead",
+          "area": "Sales performance",
+          "capability": "Lead management",
+          "step": "Capture and assign leads"
+        },
+        "rule": "extends-standard"
+      },
       "layer": "Custom",
       "effort": "Low",
-      "priority": "Immediate",
-      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "priority": "Strategic",
+      "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
       "decisionOwner": "Sales performance owner (to confirm)"
     },
@@ -3285,16 +5631,27 @@
       "org": "eu",
       "kind": "Custom field",
       "name": "Lead.NumberofLocations__c",
-      "capability": "area-sales",
-      "verdict": "review",
-      "reason": "Placed in this area by the objects it belongs to or uses; compare with standard Opportunities, Forecasts and Territory Management before a verdict",
-      "confidence": "Low",
+      "capability": "kb-sp-leads",
+      "step": "sp-capture",
+      "verdict": "retain",
+      "reason": "Extends Lead, the standard object of \"Capture and assign leads\".",
+      "confidence": "Medium",
       "fill": 100,
       "type": "double",
+      "trace": {
+        "place": {
+          "method": "Standard object of a process step (knowledge base)",
+          "detail": "Lead",
+          "area": "Sales performance",
+          "capability": "Lead management",
+          "step": "Capture and assign leads"
+        },
+        "rule": "extends-standard"
+      },
       "layer": "Custom",
       "effort": "Low",
-      "priority": "Immediate",
-      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "priority": "Strategic",
+      "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
       "decisionOwner": "Sales performance owner (to confirm)"
     },
@@ -3302,16 +5659,27 @@
       "org": "eu",
       "kind": "Custom field",
       "name": "Lead.Primary__c",
-      "capability": "area-sales",
-      "verdict": "review",
-      "reason": "Placed in this area by the objects it belongs to or uses; compare with standard Opportunities, Forecasts and Territory Management before a verdict",
-      "confidence": "Low",
+      "capability": "kb-sp-leads",
+      "step": "sp-capture",
+      "verdict": "retain",
+      "reason": "Extends Lead, the standard object of \"Capture and assign leads\".",
+      "confidence": "Medium",
       "fill": 100,
       "type": "picklist",
+      "trace": {
+        "place": {
+          "method": "Standard object of a process step (knowledge base)",
+          "detail": "Lead",
+          "area": "Sales performance",
+          "capability": "Lead management",
+          "step": "Capture and assign leads"
+        },
+        "rule": "extends-standard"
+      },
       "layer": "Custom",
       "effort": "Low",
-      "priority": "Immediate",
-      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "priority": "Strategic",
+      "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
       "decisionOwner": "Sales performance owner (to confirm)"
     },
@@ -3319,33 +5687,55 @@
       "org": "eu",
       "kind": "Custom field",
       "name": "Lead.ProductInterest__c",
-      "capability": "area-product",
-      "verdict": "review",
-      "reason": "Placed in this area by the objects it belongs to or uses; compare with standard Product and product hierarchy before a verdict",
-      "confidence": "Low",
+      "capability": "kb-sp-leads",
+      "step": "sp-capture",
+      "verdict": "retain",
+      "reason": "Extends Lead, the standard object of \"Capture and assign leads\".",
+      "confidence": "Medium",
       "fill": 100,
       "type": "picklist",
+      "trace": {
+        "place": {
+          "method": "Standard object of a process step (knowledge base)",
+          "detail": "Lead",
+          "area": "Sales performance",
+          "capability": "Lead management",
+          "step": "Capture and assign leads"
+        },
+        "rule": "extends-standard"
+      },
       "layer": "Custom",
       "effort": "Low",
-      "priority": "Immediate",
-      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "priority": "Strategic",
+      "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
-      "decisionOwner": "Product master owner (to confirm)"
+      "decisionOwner": "Sales performance owner (to confirm)"
     },
     {
       "org": "eu",
       "kind": "Custom field",
       "name": "Lead.SICCode__c",
-      "capability": "area-sales",
-      "verdict": "review",
-      "reason": "Placed in this area by the objects it belongs to or uses; compare with standard Opportunities, Forecasts and Territory Management before a verdict",
-      "confidence": "Low",
+      "capability": "kb-sp-leads",
+      "step": "sp-capture",
+      "verdict": "retain",
+      "reason": "Extends Lead, the standard object of \"Capture and assign leads\".",
+      "confidence": "Medium",
       "fill": 100,
       "type": "string",
+      "trace": {
+        "place": {
+          "method": "Standard object of a process step (knowledge base)",
+          "detail": "Lead",
+          "area": "Sales performance",
+          "capability": "Lead management",
+          "step": "Capture and assign leads"
+        },
+        "rule": "extends-standard"
+      },
       "layer": "Custom",
       "effort": "Low",
-      "priority": "Immediate",
-      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "priority": "Strategic",
+      "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
       "decisionOwner": "Sales performance owner (to confirm)"
     },
@@ -3353,16 +5743,27 @@
       "org": "eu",
       "kind": "Custom field",
       "name": "Opportunity.CurrentGenerators__c",
-      "capability": "area-sales",
-      "verdict": "review",
-      "reason": "Placed in this area by the objects it belongs to or uses; compare with standard Opportunities, Forecasts and Territory Management before a verdict",
-      "confidence": "Low",
+      "capability": "kb-sp-opportunities",
+      "step": "sp-opp",
+      "verdict": "retain",
+      "reason": "Extends Opportunity, the standard object of \"Work opportunities through stages\".",
+      "confidence": "Medium",
       "fill": 52,
       "type": "string",
+      "trace": {
+        "place": {
+          "method": "Standard object of a process step (knowledge base)",
+          "detail": "Opportunity",
+          "area": "Sales performance",
+          "capability": "Opportunity management",
+          "step": "Work opportunities through stages"
+        },
+        "rule": "extends-standard"
+      },
       "layer": "Custom",
       "effort": "Low",
-      "priority": "Immediate",
-      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "priority": "Strategic",
+      "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
       "decisionOwner": "Sales performance owner (to confirm)"
     },
@@ -3370,33 +5771,55 @@
       "org": "eu",
       "kind": "Custom field",
       "name": "Opportunity.DeliveryInstallationStatus__c",
-      "capability": "area-order",
-      "verdict": "review",
-      "reason": "Placed in this area by the objects it belongs to or uses; compare with standard Orders, Price Books and Consumer Goods Cloud order capture before a verdict",
-      "confidence": "Low",
+      "capability": "kb-sp-opportunities",
+      "step": "sp-opp",
+      "verdict": "retain",
+      "reason": "Extends Opportunity, the standard object of \"Work opportunities through stages\".",
+      "confidence": "Medium",
       "fill": 74,
       "type": "picklist",
+      "trace": {
+        "place": {
+          "method": "Standard object of a process step (knowledge base)",
+          "detail": "Opportunity",
+          "area": "Sales performance",
+          "capability": "Opportunity management",
+          "step": "Work opportunities through stages"
+        },
+        "rule": "extends-standard"
+      },
       "layer": "Custom",
       "effort": "Low",
-      "priority": "Immediate",
-      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "priority": "Strategic",
+      "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
-      "decisionOwner": "Order to cash owner (to confirm)"
+      "decisionOwner": "Sales performance owner (to confirm)"
     },
     {
       "org": "eu",
       "kind": "Custom field",
       "name": "Opportunity.Loss_Reason__c",
-      "capability": "area-sales",
-      "verdict": "review",
-      "reason": "Placed in this area by the objects it belongs to or uses; compare with standard Opportunities, Forecasts and Territory Management before a verdict",
-      "confidence": "Low",
+      "capability": "kb-sp-opportunities",
+      "step": "sp-opp",
+      "verdict": "retain",
+      "reason": "Extends Opportunity, the standard object of \"Work opportunities through stages\".",
+      "confidence": "Medium",
       "fill": 13,
       "type": "picklist",
+      "trace": {
+        "place": {
+          "method": "Standard object of a process step (knowledge base)",
+          "detail": "Opportunity",
+          "area": "Sales performance",
+          "capability": "Opportunity management",
+          "step": "Work opportunities through stages"
+        },
+        "rule": "extends-standard"
+      },
       "layer": "Custom",
       "effort": "Low",
-      "priority": "Immediate",
-      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "priority": "Strategic",
+      "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
       "decisionOwner": "Sales performance owner (to confirm)"
     },
@@ -3404,16 +5827,27 @@
       "org": "eu",
       "kind": "Custom field",
       "name": "Opportunity.MainCompetitors__c",
-      "capability": "area-sales",
-      "verdict": "review",
-      "reason": "Placed in this area by the objects it belongs to or uses; compare with standard Opportunities, Forecasts and Territory Management before a verdict",
-      "confidence": "Low",
+      "capability": "kb-sp-opportunities",
+      "step": "sp-opp",
+      "verdict": "retain",
+      "reason": "Extends Opportunity, the standard object of \"Work opportunities through stages\".",
+      "confidence": "Medium",
       "fill": 58,
       "type": "string",
+      "trace": {
+        "place": {
+          "method": "Standard object of a process step (knowledge base)",
+          "detail": "Opportunity",
+          "area": "Sales performance",
+          "capability": "Opportunity management",
+          "step": "Work opportunities through stages"
+        },
+        "rule": "extends-standard"
+      },
       "layer": "Custom",
       "effort": "Low",
-      "priority": "Immediate",
-      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "priority": "Strategic",
+      "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
       "decisionOwner": "Sales performance owner (to confirm)"
     },
@@ -3421,33 +5855,55 @@
       "org": "eu",
       "kind": "Custom field",
       "name": "Opportunity.OrderNumber__c",
-      "capability": "area-order",
-      "verdict": "review",
-      "reason": "Placed in this area by the objects it belongs to or uses; compare with standard Orders, Price Books and Consumer Goods Cloud order capture before a verdict",
-      "confidence": "Low",
+      "capability": "kb-sp-opportunities",
+      "step": "sp-opp",
+      "verdict": "retain",
+      "reason": "Extends Opportunity, the standard object of \"Work opportunities through stages\".",
+      "confidence": "Medium",
       "fill": 58,
       "type": "string",
+      "trace": {
+        "place": {
+          "method": "Standard object of a process step (knowledge base)",
+          "detail": "Opportunity",
+          "area": "Sales performance",
+          "capability": "Opportunity management",
+          "step": "Work opportunities through stages"
+        },
+        "rule": "extends-standard"
+      },
       "layer": "Custom",
       "effort": "Low",
-      "priority": "Immediate",
-      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "priority": "Strategic",
+      "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
-      "decisionOwner": "Order to cash owner (to confirm)"
+      "decisionOwner": "Sales performance owner (to confirm)"
     },
     {
       "org": "eu",
       "kind": "Custom field",
       "name": "Opportunity.TrackingNumber__c",
-      "capability": "area-sales",
-      "verdict": "review",
-      "reason": "Placed in this area by the objects it belongs to or uses; compare with standard Opportunities, Forecasts and Territory Management before a verdict",
-      "confidence": "Low",
+      "capability": "kb-sp-opportunities",
+      "step": "sp-opp",
+      "verdict": "retain",
+      "reason": "Extends Opportunity, the standard object of \"Work opportunities through stages\".",
+      "confidence": "Medium",
       "fill": 29,
       "type": "string",
+      "trace": {
+        "place": {
+          "method": "Standard object of a process step (knowledge base)",
+          "detail": "Opportunity",
+          "area": "Sales performance",
+          "capability": "Opportunity management",
+          "step": "Work opportunities through stages"
+        },
+        "rule": "extends-standard"
+      },
       "layer": "Custom",
       "effort": "Low",
-      "priority": "Immediate",
-      "impact": "Purpose, usage or licensing to confirm before a verdict.",
+      "priority": "Strategic",
+      "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
       "decisionOwner": "Sales performance owner (to confirm)"
     },
@@ -3456,11 +5912,22 @@
       "kind": "Custom field",
       "name": "Product2.Brand__c",
       "capability": "product-master",
+      "step": null,
       "verdict": "retain",
       "reason": "Keep as fields on Product, owned by the product master (one definition for all orgs)",
       "confidence": "High",
       "fill": 37,
       "type": "picklist",
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^Product2\\.(Brand|Category|EAN|Case_Size)__c$",
+          "area": "Product master",
+          "capability": "Product attributes",
+          "step": null
+        },
+        "rule": "capability"
+      },
       "layer": "Custom",
       "effort": "Low",
       "priority": "Strategic",
@@ -3473,11 +5940,22 @@
       "kind": "Custom field",
       "name": "Product2.Case_Size__c",
       "capability": "product-master",
+      "step": null,
       "verdict": "retain",
       "reason": "Keep as fields on Product, owned by the product master (one definition for all orgs)",
       "confidence": "High",
       "fill": 37,
       "type": "double",
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^Product2\\.(Brand|Category|EAN|Case_Size)__c$",
+          "area": "Product master",
+          "capability": "Product attributes",
+          "step": null
+        },
+        "rule": "capability"
+      },
       "layer": "Custom",
       "effort": "Low",
       "priority": "Strategic",
@@ -3490,11 +5968,22 @@
       "kind": "Custom field",
       "name": "Product2.Category__c",
       "capability": "product-master",
+      "step": null,
       "verdict": "retain",
       "reason": "Keep as fields on Product, owned by the product master (one definition for all orgs)",
       "confidence": "High",
       "fill": 37,
       "type": "picklist",
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^Product2\\.(Brand|Category|EAN|Case_Size)__c$",
+          "area": "Product master",
+          "capability": "Product attributes",
+          "step": null
+        },
+        "rule": "capability"
+      },
       "layer": "Custom",
       "effort": "Low",
       "priority": "Strategic",
@@ -3507,11 +5996,22 @@
       "kind": "Custom field",
       "name": "Product2.EAN__c",
       "capability": "product-master",
+      "step": null,
       "verdict": "retain",
       "reason": "Keep as fields on Product, owned by the product master (one definition for all orgs)",
       "confidence": "High",
       "fill": 37,
       "type": "string",
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^Product2\\.(Brand|Category|EAN|Case_Size)__c$",
+          "area": "Product master",
+          "capability": "Product attributes",
+          "step": null
+        },
+        "rule": "capability"
+      },
       "layer": "Custom",
       "effort": "Low",
       "priority": "Strategic",
@@ -3524,11 +6024,22 @@
       "kind": "Custom object",
       "name": "Promotion_Claim__c",
       "capability": "claims",
+      "step": null,
       "verdict": "adopt",
       "reason": "Trade Promotion Management: claims and payments checked against promotion funds",
       "confidence": "High",
       "records": 9,
       "fields": 5,
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^(Distributor_Claim|Customer_Claim|Promotion_Claim|Claim)__c$ · ^(Distributor|Promotion)Claim\\w*$",
+          "area": "Trade promotion management (TPM)",
+          "capability": "Distributor and customer claims",
+          "step": null
+        },
+        "rule": "capability"
+      },
       "layer": "Custom",
       "effort": "Medium",
       "priority": "Medium term",
@@ -3541,11 +6052,22 @@
       "kind": "Custom object",
       "name": "Promotion_Product__c",
       "capability": "trade-promotions",
+      "step": null,
       "verdict": "adopt",
       "reason": "Consumer Goods Cloud Trade Promotion Management: promotion planning, funds and post-event analysis",
       "confidence": "High",
       "records": 56,
       "fields": 3,
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^(Trade_Promotion|Trade_Deal|Promotion_Product|Promotion_Line)__c$ · ^TradePromotionService$",
+          "area": "Trade promotion management (TPM)",
+          "capability": "Trade promotions and deals",
+          "step": null
+        },
+        "rule": "capability"
+      },
       "layer": "Custom",
       "effort": "Medium",
       "priority": "Medium term",
@@ -3558,11 +6080,22 @@
       "kind": "Custom object",
       "name": "Sales_Target__c",
       "capability": "targets",
+      "step": null,
       "verdict": "configure",
       "reason": "Collaborative Forecasts with quotas by user, territory or product family",
       "confidence": "High",
       "records": 28,
       "fields": 4,
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^(Sales_Target|Target|Quota)__c$",
+          "area": "Sales performance",
+          "capability": "Sales targets",
+          "step": null
+        },
+        "rule": "capability"
+      },
       "layer": "Custom",
       "effort": "Medium",
       "priority": "Quick win",
@@ -3575,11 +6108,22 @@
       "kind": "Custom object",
       "name": "Shelf_Check__c",
       "capability": "in-store-audit",
+      "step": null,
       "verdict": "adopt",
       "reason": "Consumer Goods Cloud: assessment tasks and retail store KPIs recorded during a visit",
       "confidence": "High",
       "records": 378,
       "fields": 5,
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^(Shelf_Check|Outlet_Audit|Store_Audit|Store_Check)__c$",
+          "area": "Retail execution",
+          "capability": "Shelf checks and in-store audits",
+          "step": null
+        },
+        "rule": "capability"
+      },
       "layer": "Custom",
       "effort": "Medium",
       "priority": "Medium term",
@@ -3592,11 +6136,22 @@
       "kind": "Custom object",
       "name": "Store_Assortment__c",
       "capability": "assortment",
+      "step": null,
       "verdict": "adopt",
       "reason": "Consumer Goods Cloud: product assortments assigned to retail store groups",
       "confidence": "High",
       "records": 168,
       "fields": 3,
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^(Store_Assortment|Must_Stock_List|Assortment\\w*)__c$",
+          "area": "Retail execution",
+          "capability": "Store assortment and must-stock lists",
+          "step": null
+        },
+        "rule": "capability"
+      },
       "layer": "Custom",
       "effort": "Medium",
       "priority": "Medium term",
@@ -3609,11 +6164,22 @@
       "kind": "Custom object",
       "name": "Store_Visit__c",
       "capability": "store-visits",
+      "step": null,
       "verdict": "adopt",
       "reason": "Consumer Goods Cloud: Visit and Retail Store, with visit tasks on the mobile app",
       "confidence": "High",
       "records": 252,
       "fields": 11,
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^(Store|Outlet|Field|Retail)_?Visit__c$ · ^(Store|Outlet|Field)Visit\\w*$",
+          "area": "Retail execution",
+          "capability": "Store visits",
+          "step": null
+        },
+        "rule": "capability"
+      },
       "layer": "Custom",
       "effort": "Medium",
       "priority": "Medium term",
@@ -3626,11 +6192,22 @@
       "kind": "Custom object",
       "name": "Subscription__c",
       "capability": "subscriptions",
+      "step": null,
       "verdict": "adopt",
       "reason": "Revenue Cloud subscription management",
       "confidence": "High",
       "records": 107,
       "fields": 15,
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^Subscription(_Line)?__c$ · ^(Subscription|Opportunity)\\w*$ · ^(Subscription|Opportunity)\\w*$",
+          "area": "Other",
+          "capability": "Subscriptions",
+          "step": null
+        },
+        "rule": "capability"
+      },
       "layer": "Custom",
       "effort": "Medium",
       "priority": "Medium term",
@@ -3643,11 +6220,22 @@
       "kind": "Custom object",
       "name": "Subscription_Line__c",
       "capability": "subscriptions",
+      "step": null,
       "verdict": "adopt",
       "reason": "Revenue Cloud subscription management",
       "confidence": "High",
       "records": 219,
       "fields": 6,
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^Subscription(_Line)?__c$ · ^(Subscription|Opportunity)\\w*$ · ^(Subscription|Opportunity)\\w*$",
+          "area": "Other",
+          "capability": "Subscriptions",
+          "step": null
+        },
+        "rule": "capability"
+      },
       "layer": "Custom",
       "effort": "Medium",
       "priority": "Medium term",
@@ -3660,11 +6248,22 @@
       "kind": "Custom object",
       "name": "Trade_Fund__c",
       "capability": "trade-funds",
+      "step": null,
       "verdict": "adopt",
       "reason": "Trade Promotion Management: funds with allocated, committed and spent amounts kept by the platform",
       "confidence": "High",
       "records": 56,
       "fields": 6,
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^(Trade_Fund|Promotion_Fund|Fund)__c$",
+          "area": "Trade promotion management (TPM)",
+          "capability": "Trade funds",
+          "step": null
+        },
+        "rule": "capability"
+      },
       "layer": "Custom",
       "effort": "Medium",
       "priority": "Medium term",
@@ -3677,11 +6276,22 @@
       "kind": "Custom object",
       "name": "Trade_Promotion__c",
       "capability": "trade-promotions",
+      "step": null,
       "verdict": "adopt",
       "reason": "Consumer Goods Cloud Trade Promotion Management: promotion planning, funds and post-event analysis",
       "confidence": "High",
       "records": 28,
       "fields": 13,
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^(Trade_Promotion|Trade_Deal|Promotion_Product|Promotion_Line)__c$ · ^TradePromotionService$",
+          "area": "Trade promotion management (TPM)",
+          "capability": "Trade promotions and deals",
+          "step": null
+        },
+        "rule": "capability"
+      },
       "layer": "Custom",
       "effort": "Medium",
       "priority": "Medium term",
@@ -3694,11 +6304,22 @@
       "kind": "Custom object",
       "name": "Visit_Task__c",
       "capability": "visit-tasks",
+      "step": null,
       "verdict": "adopt",
       "reason": "Consumer Goods Cloud: action plan templates create the tasks of each visit (assessment, inventory and price checks)",
       "confidence": "High",
       "records": 336,
       "fields": 5,
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^(Visit_Task|Visit_Activity|Visit_Action)__c$",
+          "area": "Retail execution",
+          "capability": "Visit tasks",
+          "step": null
+        },
+        "rule": "capability"
+      },
       "layer": "Custom",
       "effort": "Medium",
       "priority": "Medium term",
@@ -3711,10 +6332,21 @@
       "kind": "Flow",
       "name": "Subscription_At_Risk_Alert",
       "capability": "subscriptions",
+      "step": null,
       "verdict": "adopt",
       "reason": "Revenue Cloud subscription management",
       "confidence": "Medium",
       "object": "Subscription",
+      "trace": {
+        "place": {
+          "method": "Objects its code uses (catalogue)",
+          "detail": "^Subscription(_Line)?__c$ · ^(Subscription|Opportunity)\\w*$ · ^(Subscription|Opportunity)\\w*$",
+          "area": "Other",
+          "capability": "Subscriptions",
+          "step": null
+        },
+        "rule": "capability"
+      },
       "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
@@ -3727,9 +6359,20 @@
       "kind": "Installed package",
       "name": "Declarative Lookup Rollup Summaries Tool",
       "capability": "rollup-tool",
+      "step": null,
       "verdict": "configure",
       "reason": "Roll-up summary fields where the relationship is master-detail, record-triggered flows elsewhere",
       "confidence": "High",
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^Declarative Lookup Rollup Summaries",
+          "area": "Platform",
+          "capability": "Roll-ups between related records",
+          "step": null
+        },
+        "rule": "capability"
+      },
       "layer": "Installed package",
       "effort": "Medium",
       "priority": "Quick win",
@@ -3742,9 +6385,20 @@
       "kind": "Installed package",
       "name": "Developer Edition",
       "capability": null,
+      "step": null,
       "verdict": "review",
       "reason": "Not matched to a known capability; confirm owner and purpose in the workshop.",
       "confidence": "Low",
+      "trace": {
+        "place": {
+          "method": "Not placed",
+          "detail": "",
+          "area": "Other",
+          "capability": null,
+          "step": null
+        },
+        "rule": "none"
+      },
       "layer": "Installed package",
       "effort": "Low",
       "priority": "Immediate",
@@ -3757,10 +6411,21 @@
       "kind": "Validation rule",
       "name": "Account.VAT_Format",
       "capability": "tax-id",
+      "step": null,
       "verdict": "retain",
       "reason": "No standard tax ID field on Account: keep one global field with per-market format rules",
       "confidence": "High",
       "object": "Account",
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^Account\\.(VAT_Number|GST_Number|Tax_ID|Tax_Number)__c$",
+          "area": "Customer master",
+          "capability": "Customer tax registration",
+          "step": null
+        },
+        "rule": "capability"
+      },
       "layer": "Custom",
       "effort": "Low",
       "priority": "Strategic",
@@ -3772,11 +6437,22 @@
       "org": "eu",
       "kind": "Validation rule",
       "name": "Opportunity.Closed_Won_Requires_Amount",
-      "capability": "area-sales",
+      "capability": "kb-sp-opportunities",
+      "step": "sp-opp",
       "verdict": "review",
-      "reason": "Placed in this area by the objects it belongs to or uses; compare with standard Opportunities, Forecasts and Territory Management before a verdict",
-      "confidence": "Low",
+      "reason": "Custom logic on Opportunity in \"Work opportunities through stages\"; check whether the standard feature or configuration already covers it.",
+      "confidence": "Medium",
       "object": "Opportunity",
+      "trace": {
+        "place": {
+          "method": "Standard object of a process step (knowledge base)",
+          "detail": "Opportunity",
+          "area": "Sales performance",
+          "capability": "Opportunity management",
+          "step": "Work opportunities through stages"
+        },
+        "rule": "logic-on-standard"
+      },
       "layer": "Custom",
       "effort": "Low",
       "priority": "Immediate",
@@ -3788,11 +6464,22 @@
       "org": "eu",
       "kind": "Validation rule",
       "name": "Opportunity.Loss_Reason_Required_When_Lost",
-      "capability": "area-sales",
+      "capability": "kb-sp-opportunities",
+      "step": "sp-opp",
       "verdict": "review",
-      "reason": "Placed in this area by the objects it belongs to or uses; compare with standard Opportunities, Forecasts and Territory Management before a verdict",
-      "confidence": "Low",
+      "reason": "Custom logic on Opportunity in \"Work opportunities through stages\"; check whether the standard feature or configuration already covers it.",
+      "confidence": "Medium",
       "object": "Opportunity",
+      "trace": {
+        "place": {
+          "method": "Standard object of a process step (knowledge base)",
+          "detail": "Opportunity",
+          "area": "Sales performance",
+          "capability": "Opportunity management",
+          "step": "Work opportunities through stages"
+        },
+        "rule": "logic-on-standard"
+      },
       "layer": "Custom",
       "effort": "Low",
       "priority": "Immediate",
@@ -3805,10 +6492,21 @@
       "kind": "Validation rule",
       "name": "Promotion_Claim__c.Claim_Positive",
       "capability": "claims",
+      "step": null,
       "verdict": "adopt",
       "reason": "Trade Promotion Management: claims and payments checked against promotion funds",
       "confidence": "High",
       "object": "Promotion_Claim__c",
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^(Distributor_Claim|Customer_Claim|Promotion_Claim|Claim)__c$ · ^(Distributor|Promotion)Claim\\w*$",
+          "area": "Trade promotion management (TPM)",
+          "capability": "Distributor and customer claims",
+          "step": null
+        },
+        "rule": "capability"
+      },
       "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
@@ -3821,10 +6519,21 @@
       "kind": "Validation rule",
       "name": "Subscription__c.Active_Requires_MRR",
       "capability": "subscriptions",
+      "step": null,
       "verdict": "adopt",
       "reason": "Revenue Cloud subscription management",
       "confidence": "High",
       "object": "Subscription__c",
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^Subscription(_Line)?__c$ · ^(Subscription|Opportunity)\\w*$ · ^(Subscription|Opportunity)\\w*$",
+          "area": "Other",
+          "capability": "Subscriptions",
+          "step": null
+        },
+        "rule": "capability"
+      },
       "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
@@ -3837,10 +6546,21 @@
       "kind": "Validation rule",
       "name": "Subscription__c.Cancellation_Reason_Required",
       "capability": "subscriptions",
+      "step": null,
       "verdict": "adopt",
       "reason": "Revenue Cloud subscription management",
       "confidence": "High",
       "object": "Subscription__c",
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^Subscription(_Line)?__c$ · ^(Subscription|Opportunity)\\w*$ · ^(Subscription|Opportunity)\\w*$",
+          "area": "Other",
+          "capability": "Subscriptions",
+          "step": null
+        },
+        "rule": "capability"
+      },
       "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
@@ -3853,10 +6573,21 @@
       "kind": "Validation rule",
       "name": "Subscription__c.End_Date_After_Start_Date",
       "capability": "subscriptions",
+      "step": null,
       "verdict": "adopt",
       "reason": "Revenue Cloud subscription management",
       "confidence": "High",
       "object": "Subscription__c",
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^Subscription(_Line)?__c$ · ^(Subscription|Opportunity)\\w*$ · ^(Subscription|Opportunity)\\w*$",
+          "area": "Other",
+          "capability": "Subscriptions",
+          "step": null
+        },
+        "rule": "capability"
+      },
       "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
@@ -3869,10 +6600,21 @@
       "kind": "Validation rule",
       "name": "Subscription__c.No_Reactivation_After_Cancel",
       "capability": "subscriptions",
+      "step": null,
       "verdict": "adopt",
       "reason": "Revenue Cloud subscription management",
       "confidence": "High",
       "object": "Subscription__c",
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^Subscription(_Line)?__c$ · ^(Subscription|Opportunity)\\w*$ · ^(Subscription|Opportunity)\\w*$",
+          "area": "Other",
+          "capability": "Subscriptions",
+          "step": null
+        },
+        "rule": "capability"
+      },
       "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
@@ -3885,10 +6627,21 @@
       "kind": "Validation rule",
       "name": "Subscription_Line__c.Parent_Not_Cancelled",
       "capability": "subscriptions",
+      "step": null,
       "verdict": "adopt",
       "reason": "Revenue Cloud subscription management",
       "confidence": "High",
       "object": "Subscription_Line__c",
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^Subscription(_Line)?__c$ · ^(Subscription|Opportunity)\\w*$ · ^(Subscription|Opportunity)\\w*$",
+          "area": "Other",
+          "capability": "Subscriptions",
+          "step": null
+        },
+        "rule": "capability"
+      },
       "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
@@ -3901,10 +6654,21 @@
       "kind": "Validation rule",
       "name": "Subscription_Line__c.Quantity_Must_Be_Positive",
       "capability": "subscriptions",
+      "step": null,
       "verdict": "adopt",
       "reason": "Revenue Cloud subscription management",
       "confidence": "High",
       "object": "Subscription_Line__c",
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^Subscription(_Line)?__c$ · ^(Subscription|Opportunity)\\w*$ · ^(Subscription|Opportunity)\\w*$",
+          "area": "Other",
+          "capability": "Subscriptions",
+          "step": null
+        },
+        "rule": "capability"
+      },
       "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
@@ -3917,10 +6681,21 @@
       "kind": "Validation rule",
       "name": "Trade_Fund__c.Amount_Positive",
       "capability": "trade-funds",
+      "step": null,
       "verdict": "adopt",
       "reason": "Trade Promotion Management: funds with allocated, committed and spent amounts kept by the platform",
       "confidence": "High",
       "object": "Trade_Fund__c",
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^(Trade_Fund|Promotion_Fund|Fund)__c$",
+          "area": "Trade promotion management (TPM)",
+          "capability": "Trade funds",
+          "step": null
+        },
+        "rule": "capability"
+      },
       "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
@@ -3933,10 +6708,21 @@
       "kind": "Validation rule",
       "name": "Trade_Promotion__c.Budget_Required_To_Submit",
       "capability": "trade-promotions",
+      "step": null,
       "verdict": "adopt",
       "reason": "Consumer Goods Cloud Trade Promotion Management: promotion planning, funds and post-event analysis",
       "confidence": "High",
       "object": "Trade_Promotion__c",
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^(Trade_Promotion|Trade_Deal|Promotion_Product|Promotion_Line)__c$ · ^TradePromotionService$",
+          "area": "Trade promotion management (TPM)",
+          "capability": "Trade promotions and deals",
+          "step": null
+        },
+        "rule": "capability"
+      },
       "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",
@@ -3949,10 +6735,21 @@
       "kind": "Validation rule",
       "name": "Trade_Promotion__c.End_After_Start",
       "capability": "trade-promotions",
+      "step": null,
       "verdict": "adopt",
       "reason": "Consumer Goods Cloud Trade Promotion Management: promotion planning, funds and post-event analysis",
       "confidence": "High",
       "object": "Trade_Promotion__c",
+      "trace": {
+        "place": {
+          "method": "Its own name (catalogue)",
+          "detail": "^(Trade_Promotion|Trade_Deal|Promotion_Product|Promotion_Line)__c$ · ^TradePromotionService$",
+          "area": "Trade promotion management (TPM)",
+          "capability": "Trade promotions and deals",
+          "step": null
+        },
+        "rule": "capability"
+      },
       "layer": "Custom",
       "effort": "Low",
       "priority": "Medium term",

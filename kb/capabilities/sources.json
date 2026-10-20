@@ -1,0 +1,569 @@
+{
+  "about": "Every process step in kb/capabilities/processes.json cites one or more entries here: an official Salesforce page and the exact words on it. src/generators/verify-kb-sources.js opens each page in a browser (or the PDF) and confirms the words are there; the date of the last successful check is recorded per entry.",
+  "sources": [
+    {
+      "id": "re-name",
+      "url": "https://trailhead.salesforce.com/content/learn/projects/plan-and-manage-store-visits-with-consumer-goods-cloud/start-with-stores-and-locations",
+      "quote": "Consumer Goods Cloud is now called Agentforce Consumer Goods",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "re-stores",
+      "url": "https://trailhead.salesforce.com/content/learn/projects/plan-and-manage-store-visits-with-consumer-goods-cloud/start-with-stores-and-locations",
+      "quote": "Create retail stores, store groups, and in-store locations",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "re-dg-store",
+      "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+      "quote": "Create records for physical retail stores associated to business accounts",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "re-dg-instore",
+      "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+      "quote": "such as aisles, shelves, or backrooms",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "re-dg-orgunit",
+      "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+      "quote": "Stores the details of the relationship between the organization unit and the user",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "re-dg-assortment",
+      "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+      "quote": "Represents a list of products that are eligible for sale in a store",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "re-dg-storeproduct",
+      "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+      "quote": "Associate a product to a retail store or to a specific in-store location",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "re-dg-listing",
+      "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+      "quote": "Holds the information about the listing modules and the product category for a customer",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "re-actionplans",
+      "url": "https://trailhead.salesforce.com/content/learn/projects/plan-and-manage-store-visits-with-consumer-goods-cloud/start-with-stores-and-locations",
+      "quote": "Create action plan templates and visits to perform store audits",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "re-dg-visittemplate",
+      "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+      "quote": "Template that describes the basic call behavior",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "re-dg-triplist",
+      "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+      "quote": "Use Trip List to plan visits based on a predefined sequence of customers",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "re-dg-recommend",
+      "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+      "quote": "Represents the details of a visit recommendation",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "re-maps",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/retail-execution-in-consumer-goods-cloud/extend-consumer-goods-cloud-with-more-features",
+      "quote": "uses Salesforce Maps to determine the best sequence of store visits based on distance, travel time, and store hours",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "re-dg-visitstart",
+      "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+      "quote": "Indicates whether the visit started outside the allowed distance between the GPS location and the store",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "re-dg-tasks",
+      "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+      "quote": "Perform activities such as planogram check, inventory check, promotion check, in-store survey, or custom task in stores to capture",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "re-dg-signature",
+      "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+      "quote": "Represents the signature-related information that a visitor captures as part of a visit",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "re-dg-indicator",
+      "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+      "quote": "Define parameters that act as markers of compliance for retail tasks to compare target and actual values",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "re-dg-storekpi",
+      "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+      "quote": "Map store groups to assessment indicator definition, products, and in-store location categories and define targets",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "re-dg-visitkpi",
+      "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+      "quote": "Capture the actual information during a visit against the defined assessment indicator definition and target values",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "re-dg-ordertemplate",
+      "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+      "quote": "Template that controls the behavior of a sales document",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "re-dg-ordertask",
+      "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+      "quote": "Define an order activity that the sales rep can perform during a visit to the stores",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "re-dg-inventory",
+      "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+      "quote": "Represents information about shipments and orders to be delivered to a store in a visit",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "re-dg-promotion",
+      "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+      "quote": "Create promotional activities that are either part of a campaign or isolated targeted promotions to run at retail stores",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "re-promocheck",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/retail-execution-in-consumer-goods-cloud/plan-and-manage-store-visits",
+      "quote": "Gustavo can assign promotion checks to Chantelle",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "re-dg-sync",
+      "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+      "quote": "Represents the settings for synchronization engine client and its backend",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "re-dg-deploy",
+      "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+      "quote": "Deployment packages that contain application runtime artifacts of the mobile app",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "re-dg-syncids",
+      "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+      "quote": "Contains information about the mappings of the local mobile application IDs to Salesforce IDs",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "re-offline",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/retail-execution-in-consumer-goods-cloud/get-started-with-retail-execution",
+      "quote": "Execution of complex business processes offline, supported by background sync",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "re-dg-dsd",
+      "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+      "quote": "Create routes and tours to define a list of stops for the driver to deliver the goods",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "tpm-lifecycle",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/trade-promotion-management-in-consumer-goods-cloud/get-started-with-trade-promotion-management",
+      "quote": "Promotion Planning",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "tpm-years",
+      "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_sales_org_adding_business_years_to_sales_org.htm&language=en_US&type=5",
+      "quote": "Creating and activating business years in your sales organization is essential",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "tpm-kpiset",
+      "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_foundation_kpi_set_overview.htm&language=en_US&type=5",
+      "quote": "A KPI set includes KPIs or measures that help evaluate promotions",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "tpm-accountplan",
+      "url": "https://developer.salesforce.com/docs/atlas.en-us.retail_api.meta/retail_api/sforce_api_objects_cgcloud__account_plan__c.htm",
+      "quote": "Contains the details of the account data for one planning account",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "tpm-cbp",
+      "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_account_plan_cbp_parent.htm&language=en_US&type=5",
+      "quote": "You can create a CBP only for a business year",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "tpm-fundtemplate",
+      "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_reference_admin_funds_key_objects.htm&language=en_US&type=5",
+      "quote": "Template to create varied types of funds",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "tpm-funds",
+      "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_reference_admin_funds_key_objects.htm&language=en_US&type=5",
+      "quote": "Funds are budgets allocated for promotional activities",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "tpm-fundtx",
+      "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_concept_fund_transactions.htm&language=en_US&type=5",
+      "quote": "Use fund transactions to add money to your fund or transfer money from one fund to another",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "tpm-rbf",
+      "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_reference_admin_rbf_key_objects.htm&language=en_US&type=5",
+      "quote": "Use the RBF objects to create flexible budgets",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "tpm-fundauto",
+      "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_task_fund_auto_determination.htm&language=en_US&type=5",
+      "quote": "You can automate the process of assigning funds to tactics via fund auto-determination",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "tpm-templates",
+      "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_concept_promotion_templates.htm&language=en_US&type=5",
+      "quote": "Before a KAM creates a promotion, a business admin must create the promotion template",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "tpm-promotion",
+      "url": "https://developer.salesforce.com/docs/atlas.en-us.retail_api.meta/retail_api/sforce_api_objects_cgcloud__promotion__c.htm",
+      "quote": "Promotion is an activity of a user that includes the definition of prices for a time segment",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "tpm-tactics",
+      "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_reference_admin_tactics_key_objects.htm&language=en_US&type=5",
+      "quote": "Tactics are the tasks in a promotion, such as displays, advertisements, consumer price reductions, and allowances",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "tpm-push",
+      "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_task_push_national_promotion.htm&language=en_US&type=5",
+      "quote": "down to eligible customers at lower planning levels",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "tpm-calendar",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/trade-promotion-management-in-consumer-goods-cloud/run-your-promotions",
+      "quote": "The trade calendar is the entry point for Gustavo",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "tpm-phases",
+      "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_howto_configtradecal_addvalues.htm&language=en_US&type=5",
+      "quote": "The default phases in a promotion are",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "tpm-close",
+      "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
+      "quote": "It sets the promotion phase to ToBeFinanciallyClosed and initiates the save process",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "tpm-claimtemplate",
+      "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_reference_admin_claims_key_objects.htm&language=en_US&type=5",
+      "quote": "Template to create claims and set the claim type that determines how the retailer is paid for promotions",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "tpm-claimsarap",
+      "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_reference_admin_claims_key_objects.htm&language=en_US&type=5",
+      "quote": "Claims integrates with Accounts Receivable (A/R) and Accounts Payable (A/P)",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "tpm-claimlink",
+      "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_claim_approval_process.htm&language=en_US&type=5",
+      "quote": "Submit the claim for approval after you add tactics and funds to the claim",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "tpm-claimapprove",
+      "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_claim_approval_process.htm&language=en_US&type=5",
+      "quote": "Only approved claims are considered by other processes",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "tpm-claimadjust",
+      "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_payments_adjust_claims.htm&language=en_US&type=5",
+      "quote": "To revert a claim already processed by a third-party system, you can adjust a claim",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "tpm-actuals",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/trade-promotion-management-in-consumer-goods-cloud/run-your-promotions",
+      "quote": "Actual volume and costs are interfaced and can be reviewed in promotions or account plans",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "tpm-rtr",
+      "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_rtr.htm&language=en_US&type=5",
+      "quote": "builds fact-based account and promotion reports using the same KPIs and calculation rules as a P&L",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "tpm-accruals",
+      "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_setup_accrual_engine.htm&language=en_US&type=5",
+      "quote": "Set up your org and enable accrual engine",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "tpm-transfer",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/integrated-promotions-with-consumer-goods-cloud/explore-promotion-transfer",
+      "quote": "The promotion transfer process is unidirectional from TPM to RE",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "cm-accounts",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/accounts_contacts_lightning_experience/accounts-and-contacts-lightning",
+      "quote": "Accounts are companies that you're doing business with, and contacts are the people who work for them",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "cm-person",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/accounts_contacts_lightning_experience/accounts-and-contacts-lightning",
+      "quote": "you use a special account type called a person account",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "cm-duplicates",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/sales_admin_duplicate_management/sales_admin_duplicate_management_unit_2",
+      "quote": "Before an active matching rule can do anything, you pair it with a duplicate rule",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "cm-hierarchy",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/accounts_contacts_lightning_experience/understand-account-and-contact-relationships-lightning",
+      "quote": "Salesforce can generate a family tree for your account",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "cm-acr",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/accounts_contacts_lightning_experience/understand-account-and-contact-relationships-lightning",
+      "quote": "Any other accounts associated with the contact represent indirect relationships",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "cm-teams",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/accounts_contacts_lightning_experience/understand-account-and-contact-relationships-lightning",
+      "quote": "With account teams, you can enable the appropriate access to different account roles",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "pm-products",
+      "url": "https://help.salesforce.com/s/articleView?id=sales.products_def.htm&language=en_US&type=5",
+      "quote": "Products are the items and services that you sell to customers",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "pm-family",
+      "url": "https://help.salesforce.com/s/articleView?id=sf.customize_productfamily.htm&language=en_US&type=5",
+      "quote": "Use the Product Family picklist to categorize your products",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "pm-standardpb",
+      "url": "https://help.salesforce.com/s/articleView?id=sales.pricebooks_landing_page.htm&language=en_US&type=5",
+      "quote": "The standard price book is the master list of all your products and their default standard prices",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "pm-custompb",
+      "url": "https://help.salesforce.com/s/articleView?id=sales.pricebooks_landing_page.htm&language=en_US&type=5",
+      "quote": "A custom price book is a separate list of products with custom prices, called list prices",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "pm-pbe",
+      "url": "https://help.salesforce.com/s/articleView?id=sales.pricebooks_landing_page.htm&language=en_US&type=5",
+      "quote": "A price book entry is a product with its price as listed in a price book",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "oc-quote",
+      "url": "https://help.salesforce.com/s/articleView?id=sales.quotes_overview.htm&language=en_US&type=5",
+      "quote": "You create a quote from an opportunity and its products",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "oc-sync",
+      "url": "https://trailhead.salesforce.com/content/learn/projects/manage-products-prices-quotes-orders/create-multiple-quotes",
+      "quote": "An opportunity can have multiple quotes, but it can sync with only one quote at a time",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "oc-contract",
+      "url": "https://help.salesforce.com/s/articleView?id=sf.contract_manage_your_contracts.htm&language=en_US&type=5",
+      "quote": "Establish and document the contracts that you have with your accounts and opportunities",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "oc-order",
+      "url": "https://help.salesforce.com/s/articleView?id=sales.order_overview.htm&language=en_US&type=5",
+      "quote": "An order is an agreement between a company and a customer to provision services or deliver products with a known quantity, price, and date",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "oc-orderproducts",
+      "url": "https://help.salesforce.com/s/articleView?id=sales.orderproduct_add.htm&language=en_US&type=5",
+      "quote": "You can use only one price book per order",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "oc-activate",
+      "url": "https://help.salesforce.com/s/articleView?id=sales.order_activate.htm",
+      "quote": "You can activate orders only if they include order products",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "oc-asset",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/field_service_maint/field_service_maint_assets",
+      "quote": "An asset in Salesforce represents a specific purchased or installed product",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "oc-assethierarchy",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/field_service_maint/field_service_maint_assets",
+      "quote": "Asset hierarchies help you track related assets, like components of a machine, as a unit",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "sp-webtolead",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/leads_opportunities_lightning_experience/create-and-convert-leads-lightning",
+      "quote": "a Web-to-Lead form that collects leads from your business website",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "sp-convert",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/leads_opportunities_lightning_experience/create-and-convert-leads-lightning",
+      "quote": "Salesforce uses the information stored in the lead record to create a business account, a contact, and an opportunity",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "sp-opps",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/leads_opportunities_lightning_experience/work-your-opportunities",
+      "quote": "Opportunities represent potential sales",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "sp-contactroles",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/leads_opportunities_lightning_experience/work-your-opportunities",
+      "quote": "Contact roles on opportunities show which contacts are involved in an opportunity",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "sp-oppproducts",
+      "url": "https://help.salesforce.com/s/articleView?id=sales.products_add.htm&language=en_US&type=5",
+      "quote": "Track what's selling and in what quantity by adding products to opportunities",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "sp-forecasts",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/sales-territories-and-forecasting/sales-forecast-with-precision",
+      "quote": "Collaborative Forecasts tool included with your Sales Cloud license",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "sp-quotas",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/sales-territories-and-forecasting/sales-forecast-with-precision",
+      "quote": "set additional quotas based on product families",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "sp-territorymodel",
+      "url": "https://help.salesforce.com/s/articleView?id=sf.tm2_territory_mgmt_overview.htm&language=en_US&type=5",
+      "quote": "A territory model represents a complete territory management system for your company",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "sp-territories",
+      "url": "https://help.salesforce.com/s/articleView?id=sf.tm2_territory_mgmt_overview.htm&language=en_US&type=5",
+      "quote": "Territories organize groups of accounts, leads, and the Salesforce users who work with them",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "sp-campaignhier",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/campaign_basics/campaigns_basics_unit_2",
+      "quote": "relate her campaigns to each other in a hierarchy",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "sp-members",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/campaign_basics/campaigns_basics_unit_3",
+      "quote": "Member statuses are very useful for reporting on the response rate of your campaigns",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "sv-intake",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/service_lex/service_lex_channels",
+      "quote": "they automatically route to Salesforce as cases",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "sv-assign",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/service_lex/service_lex_case_manage",
+      "quote": "Automatically assign incoming cases to specific reps so that the right people work on the right cases",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "sv-escalate",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/service_lex/service_lex_case_manage",
+      "quote": "Automatically escalate cases to the right people when the cases aren't solved by a certain time",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "sv-entitlements",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/entitlement-management-for-lightning-experience/get-started-with-entitlements",
+      "quote": "entitlements are units of customer support in Salesforce",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "sv-milestones",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/entitlement-management-for-lightning-experience/set-up-milestones",
+      "quote": "Milestones represent required steps in your support process",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "sv-knowledge",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/lightning-knowledge-basics/get-started-with-lightning-knowledge",
+      "quote": "A knowledge base puts that organizational knowledge into a repository",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "sv-casearticles",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/lightning-knowledge-setup-and-customization/close-cases-with-articles",
+      "quote": "When they attach an article to a case, customers and agents have it for reference",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "sv-workorders",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/entitlement-management-for-lightning-experience/use-entitlements-with-work-orders",
+      "quote": "uses work orders to track the work it needs to perform on its customers' products",
+      "checked": "2026-10-20"
+    },
+    {
+      "id": "sv-worktypes",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/entitlement-management-for-lightning-experience/use-entitlements-with-work-orders",
+      "quote": "templates that save time and make it easier to standardize field service work",
+      "checked": "2026-10-20"
+    }
+  ]
+}

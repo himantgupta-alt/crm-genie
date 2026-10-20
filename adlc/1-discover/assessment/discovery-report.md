@@ -12,7 +12,7 @@ Owner: Discovery agent · Report sub-agent, from the org scan (read-only) and th
 | APAC | Not yet connected |  |  |  |  |  |  |  |
 | Americas & LATAM | Not yet connected |  |  |  |  |  |  |  |
 
-**Fit-gap across the orgs:** 35 adopt standard, 7 replace with configuration, 7 retain, 0 harmonise, 2 retire, 29 review with business.
+**Fit-gap across the orgs:** 35 adopt standard, 7 replace with configuration, 33 retain, 0 harmonise, 2 retire, 3 review with business.
 
 **Key findings**
 
@@ -61,7 +61,7 @@ Each finding has a risk level, its business impact, the evidence from the orgs, 
 
 | Finding and evidence | Affected capability | Risk and business impact | Root cause | Recommended treatment | Priority |
 | --- | --- | --- | --- | --- | --- |
-| 4 unused components in Europe. Account.Old_Segment__c, Contact.Consent_Date__c, Contact.GDPR_Consent__c, Trade_Promotion__c.ERP_Synced__c | Other customer extensions, Contact consent | Low: Clutter slows every change and would be migrated for nothing. | Components were created for needs that changed and were never removed | Confirm with the business owner and remove before any move. | Quick win |
+| 4 unused components in Europe. Account.Old_Segment__c, Contact.Consent_Date__c, Contact.GDPR_Consent__c, Trade_Promotion__c.ERP_Synced__c | Account and contact management, Contact consent | Low: Clutter slows every change and would be migrated for nothing. | Components were created for needs that changed and were never removed | Confirm with the business owner and remove before any move. | Quick win |
 
 ### Integrations
 
@@ -176,11 +176,10 @@ erDiagram
 | Product attributes | Product2.Brand__c, Product2.Case_Size__c, Product2.Category__c, Product2.EAN__c | Keep as fields on Product, owned by the product master (one definition for all orgs) | Retain |
 | Subscriptions | Subscription_Line__c, Subscription__c, OpportunityService, SubscriptionRenewalBatch | Revenue Cloud subscription management | Adopt standard |
 | Roll-ups between related records | — | Roll-up summary fields where the relationship is master-detail, record-triggered flows elsewhere | Replace with configuration |
-| Other order to cash extensions | Opportunity.DeliveryInstallationStatus__c, Opportunity.OrderNumber__c | Placed in this area by the objects it belongs to or uses; compare with standard Orders, Price Books and Consumer Goods Cloud order capture before a verdict | Review with business |
-| Other product extensions | Lead.ProductInterest__c, Case.Product__c | Placed in this area by the objects it belongs to or uses; compare with standard Product and product hierarchy before a verdict | Review with business |
-| Other customer extensions | Account.Active__c, Account.CustomerPriority__c, Account.NumberofLocations__c, Account.Old_Segment__c | Placed in this area by the objects it belongs to or uses; compare with standard Account, Contact and account hierarchy before a verdict | Review with business |
-| Other sales extensions | Lead.CurrentGenerators__c, Lead.NumberofLocations__c, Lead.Primary__c, Lead.SICCode__c | Placed in this area by the objects it belongs to or uses; compare with standard Opportunities, Forecasts and Territory Management before a verdict | Review with business |
-| Service extensions | Case.EngineeringReqNumber__c, Case.PotentialLiability__c, Case.SLAViolation__c | Placed in this area by the objects it belongs to or uses; compare with standard Service Cloud and Field Service before a verdict | Review with business |
+| Account and contact management | Account.Active__c, Account.CustomerPriority__c, Account.NumberofLocations__c, Account.Old_Segment__c | Accounts, contacts, person accounts and duplicate management | Review with business |
+| Lead management | Lead.CurrentGenerators__c, Lead.NumberofLocations__c, Lead.Primary__c, Lead.ProductInterest__c | Capture, assign and convert leads | Review with business |
+| Opportunity management | Opportunity.CurrentGenerators__c, Opportunity.DeliveryInstallationStatus__c, Opportunity.Loss_Reason__c, Opportunity.MainCompetitors__c | Opportunities with stages, contact roles and products | Review with business |
+| Case management | Case.EngineeringReqNumber__c, Case.PotentialLiability__c, Case.Product__c, Case.SLAViolation__c | Case intake, assignment and escalation rules | Review with business |
 
 The complete component-level fit-gap is in `fit-gap.json` and in the Org assessment view.
 
@@ -226,10 +225,10 @@ flowchart TB
 | --- | --- | --- |
 | Adopt standard | Use the native Salesforce or Consumer Goods Cloud capability | 35 |
 | Replace with configuration | Remove custom code; use supported configuration | 7 |
-| Retain | Keep as valuable, supportable differentiation | 7 |
+| Retain | Keep as valuable, supportable differentiation | 33 |
 | Harmonise | Align the pattern across orgs while retaining separate orgs | 0 |
 | Retire | Remove unused, duplicated or obsolete components | 2 |
-| Review with business | Validate intent, regulatory context, usage or licensing | 29 |
+| Review with business | Validate intent, regulatory context, usage or licensing | 3 |
 
 ## Appendices: detail per org
 

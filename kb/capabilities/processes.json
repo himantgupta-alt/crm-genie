@@ -1,0 +1,1331 @@
+{
+  "about": "Standard capabilities and process steps per business area, read by the Fit-gap sub-agent (src/generators/emit-assessment.js). A component is placed on a step by a standard object it sits on or uses (objects), otherwise by the step's keywords in its name (keywords: matching aids, not sourced). Every step links its official sources; their quoted words are in sources.json and confirmed by src/generators/verify-kb-sources.js.",
+  "areas": [
+    {
+      "area": "Retail execution",
+      "guide": "consumer-goods-processes.md",
+      "capabilities": [
+        {
+          "id": "re-store-setup",
+          "name": "Store and account setup",
+          "standard": "Retail stores, store groups and in-store locations, with the sales organisation structure",
+          "keywords": "(Retail_?Store|Outlet|Store_?Group)",
+          "steps": [
+            {
+              "id": "re-stores",
+              "name": "Create stores and store groups",
+              "objects": [
+                "RetailStore",
+                "RetailLocationGroup",
+                "RetailStoreGroupAssignment"
+              ],
+              "keywords": "(Retail_?Store|Outlet|Store_?Group|Store_?Cluster)",
+              "standard": "Retail store records for physical stores, grouped by shared features",
+              "sources": [
+                "re-stores",
+                "re-dg-store"
+              ]
+            },
+            {
+              "id": "re-locations",
+              "name": "Define in-store locations",
+              "objects": [
+                "InStoreLocation"
+              ],
+              "keywords": "(In_?Store|Shelf|Aisle|Backroom)",
+              "standard": "In-store locations such as aisles, shelves or backrooms",
+              "sources": [
+                "re-dg-instore"
+              ]
+            },
+            {
+              "id": "re-orgunits",
+              "name": "Sales organisation and org units",
+              "objects": [
+                "cgcloud__Org_Unit__c",
+                "cgcloud__Org_Unit_Hierarchy__c",
+                "cgcloud__Org_Unit_User__c",
+                "cgcloud__Sales_Organization__c",
+                "cgcloud__Account_Extension__c"
+              ],
+              "keywords": "(Org_?Unit|Sales_?Org)",
+              "standard": "Org units, their hierarchy and users",
+              "sources": [
+                "re-dg-orgunit"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "re-assortment",
+          "name": "Product assortment and store products",
+          "standard": "Assortments assigned to stores, store groups or accounts, and the products each store sells",
+          "keywords": "(Assortment|Listing|Must_?Stock)",
+          "steps": [
+            {
+              "id": "re-assortments",
+              "name": "Define assortments",
+              "objects": [
+                "Assortment",
+                "AssortmentProduct"
+              ],
+              "keywords": "(Assortment|Must_?Stock|MSL)",
+              "standard": "A list of products eligible for sale in a store",
+              "sources": [
+                "re-dg-assortment"
+              ]
+            },
+            {
+              "id": "re-storeproducts",
+              "name": "Assign assortments and products to stores",
+              "objects": [
+                "StoreAssortment",
+                "StoreProduct",
+                "cgcloud__Product_Assortment_Store__c"
+              ],
+              "keywords": "(Store_?Product|Store_?Assortment)",
+              "standard": "Products associated to a store or an in-store location",
+              "sources": [
+                "re-dg-storeproduct"
+              ]
+            },
+            {
+              "id": "re-listing",
+              "name": "Listing modules",
+              "objects": [
+                "cgcloud__Listing_Classification__c",
+                "cgcloud__Listing_Module__c",
+                "cgcloud__Product_Listing_Module__c"
+              ],
+              "keywords": "(Listing)",
+              "standard": "Listing modules and product categories per customer",
+              "sources": [
+                "re-dg-listing"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "re-visit-planning",
+          "name": "Visit planning and scheduling",
+          "standard": "Action plan templates, visit templates, trip lists and visit recommendations",
+          "keywords": "(Visit_?Plan|Call_?Plan|Journey|Trip)",
+          "steps": [
+            {
+              "id": "re-templates",
+              "name": "Define visit task templates",
+              "objects": [
+                "ActionPlanTemplate",
+                "StoreActionPlanTemplate",
+                "cgcloud__Visit_Template__c"
+              ],
+              "keywords": "(Action_?Plan|Visit_?Template|Call_?Template)",
+              "standard": "Action plan templates and visit templates describing the call behaviour",
+              "sources": [
+                "re-actionplans",
+                "re-dg-visittemplate"
+              ]
+            },
+            {
+              "id": "re-plan",
+              "name": "Plan visits and visit sequences",
+              "objects": [
+                "cgcloud__Trip_List__c",
+                "cgcloud__Trip_List_Account__c",
+                "cgcloud__Account_Visit_Setting__c"
+              ],
+              "keywords": "(Visit_?Plan|Call_?Plan|Trip|Journey|Visit_?Frequency|Visit_?Schedul)",
+              "standard": "Trip lists plan visits on a predefined sequence of customers",
+              "sources": [
+                "re-dg-triplist"
+              ]
+            },
+            {
+              "id": "re-recommend",
+              "name": "Recommended visits",
+              "objects": [
+                "AiVisitRecommendation",
+                "AiVisitRecommendRequest"
+              ],
+              "keywords": "(Visit_?Recommend)",
+              "standard": "Visit recommendations",
+              "sources": [
+                "re-dg-recommend"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "re-route",
+          "name": "Route optimisation with Salesforce Maps",
+          "standard": "Salesforce Maps sequences store visits by distance, travel time and store hours",
+          "keywords": "(Route_?Optim|Visit_?Route|Beat_?Plan|Geocod)",
+          "steps": [
+            {
+              "id": "re-sequence",
+              "name": "Optimise the visit sequence",
+              "objects": [],
+              "keywords": "(Route_?Optim|Visit_?Route|Visit_?Sequence|Beat_?Plan|Geocod)",
+              "standard": "Salesforce Maps determines the best sequence of store visits",
+              "sources": [
+                "re-maps"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "re-visit-exec",
+          "name": "Visit execution",
+          "standard": "Start a visit with a location check, perform tasks, capture a signature",
+          "keywords": "(Visit(?!or)|Check_?In(?![a-z])|Check_?Out(?![a-z]))",
+          "steps": [
+            {
+              "id": "re-start",
+              "name": "Start the visit",
+              "objects": [
+                "Visit",
+                "Visitor",
+                "VisitedParty"
+              ],
+              "keywords": "(Check_?In(?![a-z])|Visit_?Start|Geofence)",
+              "standard": "Visit start with the GPS location checked against the store",
+              "sources": [
+                "re-dg-visitstart"
+              ]
+            },
+            {
+              "id": "re-tasks",
+              "name": "Perform visit tasks",
+              "objects": [
+                "AssessmentTask",
+                "OtherComponentTask"
+              ],
+              "keywords": "(Visit_?Task|Store_?Task|Visit_?Job)",
+              "standard": "Planogram, inventory and promotion checks, surveys and custom tasks",
+              "sources": [
+                "re-dg-tasks"
+              ]
+            },
+            {
+              "id": "re-signature",
+              "name": "Capture a signature",
+              "objects": [
+                "SignatureTask",
+                "SignatureTaskLineItem",
+                "cgcloud__Signature__c"
+              ],
+              "keywords": "(Visit_?Signature|Signature_?Task)",
+              "standard": "Signature information captured during a visit",
+              "sources": [
+                "re-dg-signature"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "re-audit",
+          "name": "In-store audits and KPIs",
+          "standard": "Assessment indicators with store targets, and actuals captured on each visit",
+          "keywords": "(Store_?Audit|Retail_?Audit|Planogram|Share_?Of_?Shelf|Facing|Store_?KPI|Store_?Survey)",
+          "steps": [
+            {
+              "id": "re-metrics",
+              "name": "Define metrics and task definitions",
+              "objects": [
+                "AssessmentIndicatorDefinition",
+                "AssessmentTaskDefinition",
+                "AssessmentTaskIndDefinition"
+              ],
+              "keywords": "(Indicator|KPI_?Def|Task_?Def)",
+              "standard": "Markers of compliance that compare target and actual values",
+              "sources": [
+                "re-dg-indicator"
+              ]
+            },
+            {
+              "id": "re-targets",
+              "name": "Set store KPI targets",
+              "objects": [
+                "RetailStoreKpi"
+              ],
+              "keywords": "(Store_?KPI|Store_?Target)",
+              "standard": "Targets per store group, product and in-store location",
+              "sources": [
+                "re-dg-storekpi"
+              ]
+            },
+            {
+              "id": "re-actuals",
+              "name": "Capture actuals on the visit",
+              "objects": [
+                "RetailVisitKpi",
+                "AssessmentTaskContentDocument",
+                "cgcloud__Job_Definition_List__c",
+                "cgcloud__Visit_Job__c",
+                "cgcloud__Asset_Audit__c"
+              ],
+              "keywords": "(Store_?Audit|Retail_?Audit|Planogram|Share_?Of_?Shelf|Facing|Store_?Survey|Visit_?KPI)",
+              "standard": "Actual values captured during a visit against the targets",
+              "sources": [
+                "re-dg-visitkpi"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "re-order",
+          "name": "Retail order capture",
+          "standard": "Order templates and pricing, orders taken during visits, inventory",
+          "keywords": "(Retail_?Order|Order_?Template)",
+          "steps": [
+            {
+              "id": "re-ordersetup",
+              "name": "Configure order behaviour and pricing",
+              "objects": [
+                "cgcloud__Order_Template__c",
+                "cgcloud__Order_Item_Template__c",
+                "cgcloud__CP_Calculation_Schema__c",
+                "cgcloud__Product_Condition__c"
+              ],
+              "keywords": "(Order_?Template|Pricing_?Condition|Calculation_?Schema)",
+              "standard": "Templates that control the behaviour of a sales document, and pricing",
+              "sources": [
+                "re-dg-ordertemplate"
+              ]
+            },
+            {
+              "id": "re-takeorder",
+              "name": "Take the order during the visit",
+              "objects": [
+                "AssessmentTaskOrder",
+                "cgcloud__Order__c",
+                "cgcloud__Order_Item__c"
+              ],
+              "keywords": "(Visit_?Order|Store_?Order|Retail_?Order)",
+              "standard": "An order activity the sales rep performs during a store visit",
+              "sources": [
+                "re-dg-ordertask"
+              ]
+            },
+            {
+              "id": "re-inventory",
+              "name": "Inventory and delivery",
+              "objects": [
+                "cgcloud__Inventory__c",
+                "cgcloud__Inventory_Transaction__c",
+                "DeliveryTask"
+              ],
+              "keywords": "(Van_?Stock|Store_?Inventory|Delivery_?Task|Inventory_?Transaction)",
+              "standard": "Shipments and orders delivered to a store during a visit",
+              "sources": [
+                "re-dg-inventory"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "re-promo-exec",
+          "name": "Promotions in store",
+          "standard": "Retail promotions targeted at stores, and promotion checks on visits",
+          "keywords": "(Promo\\w*_?Display|POSM|Endcap)",
+          "steps": [
+            {
+              "id": "re-promotions",
+              "name": "Define store promotions and targeting",
+              "objects": [
+                "Promotion",
+                "PromotionChannel",
+                "PromotionProduct",
+                "PromotionProductCategory",
+                "cgcloud__Promotion_Store__c"
+              ],
+              "keywords": "(Promo\\w*_?Display|POSM|Endcap)",
+              "standard": "Promotions run at retail stores, part of a campaign or targeted",
+              "sources": [
+                "re-dg-promotion"
+              ]
+            },
+            {
+              "id": "re-promocheck",
+              "name": "Check promotion compliance on visits",
+              "objects": [],
+              "keywords": "(Promo\\w*_?Check|Promo\\w*_?Compliance)",
+              "standard": "Promotion checks assigned to field reps",
+              "sources": [
+                "re-promocheck"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "re-sync",
+          "name": "Mobile app and sync",
+          "standard": "Sync configuration, app deployment packages and sync monitoring for the offline app",
+          "keywords": "(Offline|Mobile_?Sync|CGC?_?Sync|Sync_?Config)",
+          "steps": [
+            {
+              "id": "re-syncconfig",
+              "name": "Configure sync",
+              "objects": [
+                "cgc_sync__Sync_Config__c",
+                "cgc_sync__Sync_Client_App_Profile_Mapping__c"
+              ],
+              "keywords": "(Sync_?Config|Mobile_?Sync)",
+              "standard": "Settings for the synchronization engine",
+              "sources": [
+                "re-dg-sync"
+              ]
+            },
+            {
+              "id": "re-deploy",
+              "name": "Deploy the mobile app",
+              "objects": [
+                "cgc_sync__Sync_Mobile_App_Depl_Pkg__c"
+              ],
+              "keywords": "(Mobile_?App|App_?Deploy)",
+              "standard": "Deployment packages with the mobile app's runtime artifacts",
+              "sources": [
+                "re-dg-deploy"
+              ]
+            },
+            {
+              "id": "re-offline",
+              "name": "Work offline and monitor sync",
+              "objects": [
+                "cgc_sync__Sync_History__c",
+                "cgc_sync__Sync_ID_Mapping__c",
+                "cgc_sync__Sync_API_Log__c"
+              ],
+              "keywords": "(Offline|Mobile_?Sync|CGC?_?Sync)",
+              "standard": "Offline execution with background sync, and sync history",
+              "sources": [
+                "re-offline",
+                "re-dg-syncids"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "re-dsd",
+          "name": "Direct store delivery",
+          "standard": "Routes, tours and vehicles for delivering goods to stores",
+          "keywords": "(Tour(?![a-z])|DSD|Direct_?Store_?Deliver)",
+          "steps": [
+            {
+              "id": "re-routes",
+              "name": "Routes, tours and vehicles",
+              "objects": [
+                "cgcloud__Route__c",
+                "cgcloud__Tour__c",
+                "cgcloud__Vehicle__c",
+                "VehicleUserAssignment"
+              ],
+              "keywords": "(Tour(?![a-z])|DSD|Direct_?Store_?Deliver|Van_?Route)",
+              "standard": "Routes and tours with the list of stops for the driver",
+              "sources": [
+                "re-dg-dsd"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "area": "Trade promotion management (TPM)",
+      "guide": "consumer-goods-processes.md",
+      "capabilities": [
+        {
+          "id": "tpm-planning",
+          "name": "Business years, KPIs and account planning",
+          "standard": "Business years, KPI sets, account plans and customer business plans",
+          "keywords": "(Account_?Plan|Business_?Year|CBP|KPI_?Set)",
+          "steps": [
+            {
+              "id": "tpm-years",
+              "name": "Set up business years",
+              "objects": [
+                "cgcloud__Business_Year__c"
+              ],
+              "keywords": "(Business_?Year|Fiscal_?Year)",
+              "standard": "Business years in the sales organisation",
+              "sources": [
+                "tpm-years"
+              ]
+            },
+            {
+              "id": "tpm-kpis",
+              "name": "Configure KPI sets",
+              "objects": [
+                "cgcloud__KPI_Set__c",
+                "cgcloud__KPI_Definition__c",
+                "cgcloud__KPI_Set_KPI_Definition__c"
+              ],
+              "keywords": "(KPI_?Set|KPI_?Def|Measure)",
+              "standard": "KPI sets that evaluate promotions, plans, funds and claims",
+              "sources": [
+                "tpm-kpiset"
+              ]
+            },
+            {
+              "id": "tpm-accountplan",
+              "name": "Plan accounts",
+              "objects": [
+                "cgcloud__Account_Plan__c",
+                "cgcloud__Account_Plan_Category__c"
+              ],
+              "keywords": "(Account_?Plan|Customer_?Plan)",
+              "standard": "Account plans per planning account, business year and category",
+              "sources": [
+                "tpm-accountplan"
+              ]
+            },
+            {
+              "id": "tpm-cbp",
+              "name": "Customer business plans",
+              "objects": [],
+              "keywords": "(CBP|Customer_?Business_?Plan|Baseline)",
+              "standard": "Customer business plans per business year",
+              "sources": [
+                "tpm-cbp"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "tpm-funds",
+          "name": "Funds and budgets",
+          "standard": "Fund templates, funds, fund transactions, rate-based funding and fund assignment to tactics",
+          "keywords": "(Trade_?Fund|Promo\\w*_?Fund|TPM_?Fund|Trade_?Budget|Rate_?Based|Accrual)",
+          "steps": [
+            {
+              "id": "tpm-fundtemplates",
+              "name": "Define fund types",
+              "objects": [
+                "cgcloud__Fund_Template__c"
+              ],
+              "keywords": "(Fund_?Template|Fund_?Type)",
+              "standard": "Templates for the kinds of funds",
+              "sources": [
+                "tpm-fundtemplate"
+              ]
+            },
+            {
+              "id": "tpm-fundcreate",
+              "name": "Create funds",
+              "objects": [
+                "cgcloud__Fund__c",
+                "cgcloud__Fund_Product__c"
+              ],
+              "keywords": "(Trade_?Fund|Promo\\w*_?Fund|TPM_?Fund|Trade_?Budget)",
+              "standard": "Budgets allocated for promotional activities",
+              "sources": [
+                "tpm-funds"
+              ]
+            },
+            {
+              "id": "tpm-fundtx",
+              "name": "Move money between funds",
+              "objects": [
+                "cgcloud__Fund_Transaction_Header__c",
+                "cgcloud__Fund_Transaction__c",
+                "cgcloud__Fund_Transaction_Row__c",
+                "cgcloud__Fund_Transaction_Template__c"
+              ],
+              "keywords": "(Fund_?Transaction|Fund_?Transfer|Drawback)",
+              "standard": "Fund transactions add money to a fund or transfer it",
+              "sources": [
+                "tpm-fundtx"
+              ]
+            },
+            {
+              "id": "tpm-rbf",
+              "name": "Rate-based funding",
+              "objects": [
+                "cgcloud__Rate_Based_Funding__c",
+                "cgcloud__RBF_Template__c"
+              ],
+              "keywords": "(Rate_?Based|RBF)",
+              "standard": "Flexible budgets with a fair-share distribution",
+              "sources": [
+                "tpm-rbf"
+              ]
+            },
+            {
+              "id": "tpm-fundassign",
+              "name": "Assign funds to tactics",
+              "objects": [
+                "cgcloud__Tactic_Fund__c",
+                "cgcloud__Tactic_Template_Fund_Template__c"
+              ],
+              "keywords": "(Tactic_?Fund|Fund_?Determin)",
+              "standard": "Funds assigned to tactics, also automatically",
+              "sources": [
+                "tpm-fundauto"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "tpm-promo-planning",
+          "name": "Promotion planning",
+          "standard": "Promotion and tactic templates, promotions with tactics and products, push to lower levels, trade calendar",
+          "keywords": "(Trade_?Promo|TPM|Tactic)",
+          "steps": [
+            {
+              "id": "tpm-templates",
+              "name": "Build promotion and tactic templates",
+              "objects": [
+                "cgcloud__Promotion_Template__c",
+                "cgcloud__Tactic_Template__c",
+                "cgcloud__Promotion_Template_Tactic_Template__c"
+              ],
+              "keywords": "(Promo\\w*_?Template|Tactic_?Template)",
+              "standard": "Templates created before promotions",
+              "sources": [
+                "tpm-templates"
+              ]
+            },
+            {
+              "id": "tpm-promo",
+              "name": "Create the promotion",
+              "objects": [
+                "cgcloud__Promotion__c"
+              ],
+              "keywords": "(Trade_?Promo|TPM_?Promo|Promo\\w*_?Plan)",
+              "standard": "A promotion defines prices for a time segment",
+              "sources": [
+                "tpm-promotion"
+              ]
+            },
+            {
+              "id": "tpm-tactics",
+              "name": "Add tactics and products",
+              "objects": [
+                "cgcloud__Tactic__c",
+                "cgcloud__Tactic_Product__c",
+                "cgcloud__Tactic_Product_Condition__c"
+              ],
+              "keywords": "(Tactic)",
+              "standard": "Tactics such as displays, advertisements, price reductions and allowances",
+              "sources": [
+                "tpm-tactics"
+              ]
+            },
+            {
+              "id": "tpm-push",
+              "name": "Push national promotions down",
+              "objects": [
+                "cgcloud__Promotion_Push_Status__c",
+                "cgcloud__Account_Set__c"
+              ],
+              "keywords": "(Promo\\w*_?Push|National_?Promo)",
+              "standard": "Push a promotion to eligible customers at lower planning levels",
+              "sources": [
+                "tpm-push"
+              ]
+            },
+            {
+              "id": "tpm-calendar",
+              "name": "Monitor in the trade calendar",
+              "objects": [
+                "cgcloud__View__c"
+              ],
+              "keywords": "(Trade_?Calendar)",
+              "standard": "The trade calendar as the planner's entry point",
+              "sources": [
+                "tpm-calendar"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "tpm-lifecycle",
+          "name": "Promotion lifecycle and approval",
+          "standard": "Promotion phases from preparation to commitment, and financial closure",
+          "keywords": "(Promo\\w*_?Phase|Promo\\w*_?Approv|Financial_?Clos)",
+          "steps": [
+            {
+              "id": "tpm-phases",
+              "name": "Move the promotion through its phases",
+              "objects": [],
+              "keywords": "(Promo\\w*_?Phase|Promo\\w*_?Approv|Promo\\w*_?Status)",
+              "standard": "Default promotion phases, including For Approval",
+              "sources": [
+                "tpm-phases"
+              ]
+            },
+            {
+              "id": "tpm-close",
+              "name": "Close the promotion financially",
+              "objects": [],
+              "keywords": "(Financial_?Clos|Promo\\w*_?Clos)",
+              "standard": "Financial closure handles accruals and final calculations",
+              "sources": [
+                "tpm-close"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "tpm-claims",
+          "name": "Claims and payments",
+          "standard": "Claim templates, claims from A/R and A/P, claim tactics and funds, approval and adjustment",
+          "keywords": "(Trade_?Claim|Promo\\w*_?Claim|TPM_?Claim|Deduction)",
+          "steps": [
+            {
+              "id": "tpm-claimtemplates",
+              "name": "Define claim types",
+              "objects": [
+                "cgcloud__Payment_Template__c"
+              ],
+              "keywords": "(Claim_?Template|Claim_?Type)",
+              "standard": "Claim templates set how the retailer is paid",
+              "sources": [
+                "tpm-claimtemplate"
+              ]
+            },
+            {
+              "id": "tpm-claimscreate",
+              "name": "Create or receive claims",
+              "objects": [
+                "cgcloud__Payment__c"
+              ],
+              "keywords": "(Trade_?Claim|Promo\\w*_?Claim|TPM_?Claim|Deduction)",
+              "standard": "Claims integrated with accounts receivable and payable",
+              "sources": [
+                "tpm-claimsarap"
+              ]
+            },
+            {
+              "id": "tpm-claimslink",
+              "name": "Link tactics and funds to the claim",
+              "objects": [
+                "cgcloud__Payment_Tactic__c",
+                "cgcloud__Payment_Tactic_Fund__c",
+                "cgcloud__Payment_Tactic_Product__c"
+              ],
+              "keywords": "(Payment_?Tactic|Claim_?Tactic)",
+              "standard": "Tactics and funds added to a claim before approval",
+              "sources": [
+                "tpm-claimlink"
+              ]
+            },
+            {
+              "id": "tpm-claimsapprove",
+              "name": "Approve claims",
+              "objects": [
+                "cgcloud__Approval_Code__c"
+              ],
+              "keywords": "(Claim_?Approv|Payment_?Approv)",
+              "standard": "Only approved claims count in other processes",
+              "sources": [
+                "tpm-claimapprove"
+              ]
+            },
+            {
+              "id": "tpm-claimsadjust",
+              "name": "Adjust claims",
+              "objects": [],
+              "keywords": "(Claim_?Adjust|Claim_?Revers|Claim_?Split|Settlement)",
+              "standard": "Reversal of claims processed by another system",
+              "sources": [
+                "tpm-claimadjust"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "tpm-analysis",
+          "name": "Post-event analysis and reporting",
+          "standard": "Actuals against plan, real-time reporting and accruals",
+          "keywords": "(Post_?Event|RTR|Accrual|Actuals)",
+          "steps": [
+            {
+              "id": "tpm-actuals",
+              "name": "Compare actuals with plan",
+              "objects": [],
+              "keywords": "(Actuals|Post_?Event|PEA)",
+              "standard": "Actual volume and costs reviewed in promotions or account plans",
+              "sources": [
+                "tpm-actuals"
+              ]
+            },
+            {
+              "id": "tpm-rtr",
+              "name": "Real-time reporting",
+              "objects": [
+                "cgcloud__RTR_Report_Configuration__c"
+              ],
+              "keywords": "(RTR|Real_?Time_?Report)",
+              "standard": "Account and promotion reports with the P&L KPIs",
+              "sources": [
+                "tpm-rtr"
+              ]
+            },
+            {
+              "id": "tpm-accruals",
+              "name": "Accruals",
+              "objects": [],
+              "keywords": "(Accrual)",
+              "standard": "Accrual engine",
+              "sources": [
+                "tpm-accruals"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "tpm-re",
+          "name": "Promotion transfer to Retail Execution",
+          "standard": "Promotions planned in TPM and transferred to Retail Execution",
+          "keywords": "(Promo\\w*_?Transfer)",
+          "steps": [
+            {
+              "id": "tpm-transfer",
+              "name": "Transfer promotions to Retail Execution",
+              "objects": [],
+              "keywords": "(Promo\\w*_?Transfer|Transfer_?Relevant)",
+              "standard": "One-way transfer from TPM to Retail Execution",
+              "sources": [
+                "tpm-transfer"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "area": "Customer master",
+      "guide": "core-processes.md",
+      "capabilities": [
+        {
+          "id": "cm-accounts",
+          "name": "Account and contact management",
+          "standard": "Accounts, contacts, person accounts and duplicate management",
+          "keywords": "(Customer|Dedup|Duplicate)",
+          "steps": [
+            {
+              "id": "cm-record",
+              "name": "Record companies and people",
+              "objects": [
+                "Account",
+                "Contact"
+              ],
+              "keywords": "(Customer_?Master|Sold_?To|Ship_?To|Bill_?To)",
+              "standard": "Accounts for companies, contacts for the people who work for them",
+              "sources": [
+                "cm-accounts"
+              ]
+            },
+            {
+              "id": "cm-person",
+              "name": "Person accounts for consumers",
+              "objects": [],
+              "keywords": "(Person_?Account|Consumer)",
+              "standard": "A special account type for individuals",
+              "sources": [
+                "cm-person"
+              ]
+            },
+            {
+              "id": "cm-duplicates",
+              "name": "Prevent duplicates",
+              "objects": [
+                "DuplicateRule",
+                "MatchingRule"
+              ],
+              "keywords": "(Dedup|Duplicate|Match_?Rule|Merge)",
+              "standard": "Matching rules paired with duplicate rules",
+              "sources": [
+                "cm-duplicates"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "cm-hierarchy",
+          "name": "Account hierarchy and relationships",
+          "standard": "Parent account hierarchy, contacts related to several accounts, account teams",
+          "keywords": "(Hierarchy|Relationship|Affiliation)",
+          "steps": [
+            {
+              "id": "cm-parent",
+              "name": "Account hierarchy",
+              "objects": [],
+              "keywords": "(Account_?Hierarchy|Parent_?Account|Ultimate_?Parent)",
+              "standard": "A family tree for an account",
+              "sources": [
+                "cm-hierarchy"
+              ]
+            },
+            {
+              "id": "cm-acr",
+              "name": "Contacts related to several accounts",
+              "objects": [
+                "AccountContactRelation"
+              ],
+              "keywords": "(Account_?Contact_?Rel|Affiliation)",
+              "standard": "Direct and indirect account relationships of a contact",
+              "sources": [
+                "cm-acr"
+              ]
+            },
+            {
+              "id": "cm-teams",
+              "name": "Account teams",
+              "objects": [
+                "AccountTeamMember"
+              ],
+              "keywords": "(Account_?Team)",
+              "standard": "Access by account role through account teams",
+              "sources": [
+                "cm-teams"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "area": "Product master",
+      "guide": "core-processes.md",
+      "capabilities": [
+        {
+          "id": "pm-products",
+          "name": "Product definition",
+          "standard": "Products and product families",
+          "keywords": "(SKU|EAN|GTIN|Material)",
+          "steps": [
+            {
+              "id": "pm-create",
+              "name": "Create products",
+              "objects": [
+                "Product2"
+              ],
+              "keywords": "(SKU|EAN|GTIN|Material|Product_?Master)",
+              "standard": "Products are the items and services sold to customers",
+              "sources": [
+                "pm-products"
+              ]
+            },
+            {
+              "id": "pm-family",
+              "name": "Categorise products",
+              "objects": [],
+              "keywords": "(Product_?Family|Product_?Categ|Brand)",
+              "standard": "The Product Family picklist categorises products",
+              "sources": [
+                "pm-family"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pm-pricing",
+          "name": "Pricing with price books",
+          "standard": "Standard and custom price books with price book entries",
+          "keywords": "(Price_?Book|List_?Price|Tariff)",
+          "steps": [
+            {
+              "id": "pm-standardpb",
+              "name": "Standard price book",
+              "objects": [
+                "Pricebook2"
+              ],
+              "keywords": "(Standard_?Price)",
+              "standard": "The master list of products and default prices",
+              "sources": [
+                "pm-standardpb"
+              ]
+            },
+            {
+              "id": "pm-custompb",
+              "name": "Custom price books per segment or region",
+              "objects": [],
+              "keywords": "(Price_?List|Tariff|Regional_?Price)",
+              "standard": "Separate lists of products with list prices",
+              "sources": [
+                "pm-custompb"
+              ]
+            },
+            {
+              "id": "pm-entries",
+              "name": "Price book entries",
+              "objects": [
+                "PricebookEntry"
+              ],
+              "keywords": "(Price_?Book_?Entr|PBE)",
+              "standard": "A product with its price in a price book",
+              "sources": [
+                "pm-pbe"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "area": "Order to cash",
+      "guide": "core-processes.md",
+      "capabilities": [
+        {
+          "id": "oc-quoting",
+          "name": "Quoting",
+          "standard": "Quotes created from opportunities, one synced quote per opportunity",
+          "keywords": "(Quote|Proposal)",
+          "steps": [
+            {
+              "id": "oc-quote",
+              "name": "Create a quote from an opportunity",
+              "objects": [
+                "Quote",
+                "QuoteLineItem"
+              ],
+              "keywords": "(Quote|Proposal)",
+              "standard": "A quote from an opportunity and its products",
+              "sources": [
+                "oc-quote"
+              ]
+            },
+            {
+              "id": "oc-sync",
+              "name": "Sync the quote with the opportunity",
+              "objects": [],
+              "keywords": "(Quote_?Sync)",
+              "standard": "One synced quote per opportunity",
+              "sources": [
+                "oc-sync"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "oc-contracting",
+          "name": "Contracting",
+          "standard": "Contracts with accounts and opportunities",
+          "keywords": "(Contract|Agreement)",
+          "steps": [
+            {
+              "id": "oc-contract",
+              "name": "Establish the contract",
+              "objects": [
+                "Contract"
+              ],
+              "keywords": "(Contract|Agreement|Renewal|Amendment)",
+              "standard": "Document the contracts with accounts and opportunities",
+              "sources": [
+                "oc-contract"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "oc-orders",
+          "name": "Order management",
+          "standard": "Orders with order products from one price book, activated once complete",
+          "keywords": "(Order|Fulfil|Shipment|Invoice)",
+          "steps": [
+            {
+              "id": "oc-order",
+              "name": "Create the order",
+              "objects": [
+                "Order"
+              ],
+              "keywords": "(Order_?Header|Sales_?Order)",
+              "standard": "An agreement to provision services or deliver products with quantity, price and date",
+              "sources": [
+                "oc-order"
+              ]
+            },
+            {
+              "id": "oc-orderproducts",
+              "name": "Add order products",
+              "objects": [
+                "OrderItem"
+              ],
+              "keywords": "(Order_?Item|Order_?Line|Order_?Product)",
+              "standard": "Order products from one price book per order",
+              "sources": [
+                "oc-orderproducts"
+              ]
+            },
+            {
+              "id": "oc-activate",
+              "name": "Activate the order",
+              "objects": [],
+              "keywords": "(Order_?Activ|Fulfil|Shipment|Delivery|Invoice)",
+              "standard": "Orders are activated once they include order products",
+              "sources": [
+                "oc-activate"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "oc-assets",
+          "name": "Installed base",
+          "standard": "Assets for purchased or installed products, in hierarchies",
+          "keywords": "(Asset|Equipment|Installed_?Base|Serial)",
+          "steps": [
+            {
+              "id": "oc-asset",
+              "name": "Record assets and their hierarchy",
+              "objects": [
+                "Asset"
+              ],
+              "keywords": "(Asset|Equipment|Installed_?Base|Serial|Cooler)",
+              "standard": "An asset is a specific purchased or installed product",
+              "sources": [
+                "oc-asset",
+                "oc-assethierarchy"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "area": "Sales performance",
+      "guide": "core-processes.md",
+      "capabilities": [
+        {
+          "id": "sp-leads",
+          "name": "Lead management",
+          "standard": "Capture, assign and convert leads",
+          "keywords": "(Lead|Prospect)",
+          "steps": [
+            {
+              "id": "sp-capture",
+              "name": "Capture and assign leads",
+              "objects": [
+                "Lead"
+              ],
+              "keywords": "(Web_?To_?Lead|Lead_?Assign|Lead_?Score|Prospect)",
+              "standard": "Web-to-Lead and lead assignment",
+              "sources": [
+                "sp-webtolead"
+              ]
+            },
+            {
+              "id": "sp-convert",
+              "name": "Convert leads",
+              "objects": [],
+              "keywords": "(Lead_?Conver)",
+              "standard": "Conversion creates an account, a contact and an opportunity",
+              "sources": [
+                "sp-convert"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "sp-opportunities",
+          "name": "Opportunity management",
+          "standard": "Opportunities with stages, contact roles and products",
+          "keywords": "(Opportunit|Deal|Pipeline)",
+          "steps": [
+            {
+              "id": "sp-opp",
+              "name": "Work opportunities through stages",
+              "objects": [
+                "Opportunity",
+                "OpportunityContactRole"
+              ],
+              "keywords": "(Opportunit|Deal|Pipeline|Stage)",
+              "standard": "Opportunities represent potential sales; contact roles show who is involved",
+              "sources": [
+                "sp-opps",
+                "sp-contactroles"
+              ]
+            },
+            {
+              "id": "sp-oppproducts",
+              "name": "Add products to opportunities",
+              "objects": [
+                "OpportunityLineItem"
+              ],
+              "keywords": "(Opp\\w*_?Line|Opp\\w*_?Product)",
+              "standard": "Track what is selling and in what quantity",
+              "sources": [
+                "sp-oppproducts"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "sp-forecasting",
+          "name": "Forecasting and targets",
+          "standard": "Collaborative Forecasts with quotas",
+          "keywords": "(Forecast|Quota|Sales_?Target)",
+          "steps": [
+            {
+              "id": "sp-forecast",
+              "name": "Forecast and set quotas",
+              "objects": [
+                "ForecastingItem",
+                "ForecastingQuota",
+                "ForecastingAdjustment"
+              ],
+              "keywords": "(Forecast|Quota|Sales_?Target)",
+              "standard": "Collaborative Forecasts and quotas",
+              "sources": [
+                "sp-forecasts",
+                "sp-quotas"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "sp-territories",
+          "name": "Sales territories",
+          "standard": "Territory models with territories and assignment rules",
+          "keywords": "(Territor)",
+          "steps": [
+            {
+              "id": "sp-territory",
+              "name": "Model territories and assign accounts",
+              "objects": [
+                "Territory2Model",
+                "Territory2",
+                "Territory2Type",
+                "ObjectTerritory2Association"
+              ],
+              "keywords": "(Territor|Region_?Assign)",
+              "standard": "Territories organise accounts, leads and the users who work with them",
+              "sources": [
+                "sp-territorymodel",
+                "sp-territories"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "sp-campaigns",
+          "name": "Campaign management",
+          "standard": "Campaign hierarchies and campaign members with statuses",
+          "keywords": "(Campaign)",
+          "steps": [
+            {
+              "id": "sp-campaign",
+              "name": "Plan campaigns and track members",
+              "objects": [
+                "Campaign",
+                "CampaignMember"
+              ],
+              "keywords": "(Campaign)",
+              "standard": "Campaign hierarchy and member statuses for response rates",
+              "sources": [
+                "sp-campaignhier",
+                "sp-members"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "area": "Service",
+      "guide": "core-processes.md",
+      "capabilities": [
+        {
+          "id": "sv-cases",
+          "name": "Case management",
+          "standard": "Case intake, assignment and escalation rules",
+          "keywords": "(Case|Ticket|Complaint|Incident)",
+          "steps": [
+            {
+              "id": "sv-intake",
+              "name": "Take in cases",
+              "objects": [
+                "Case"
+              ],
+              "keywords": "(Email_?To_?Case|Web_?To_?Case|Ticket|Complaint|Incident)",
+              "standard": "Cases created from email and web channels",
+              "sources": [
+                "sv-intake"
+              ]
+            },
+            {
+              "id": "sv-route",
+              "name": "Assign and escalate",
+              "objects": [],
+              "keywords": "(Case_?Assign|Escalat|Case_?Rout)",
+              "standard": "Assignment and escalation rules",
+              "sources": [
+                "sv-assign",
+                "sv-escalate"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "sv-entitlements",
+          "name": "Entitlements and service levels",
+          "standard": "Entitlements with milestones",
+          "keywords": "(Milestone|SLA(?![a-z])|Warranty)",
+          "steps": [
+            {
+              "id": "sv-entitlement",
+              "name": "Entitlements and milestones",
+              "objects": [
+                "Entitlement",
+                "ServiceContract",
+                "CaseMilestone"
+              ],
+              "keywords": "(Milestone|SLA(?![a-z])|Warranty|Service_?Contract)",
+              "standard": "Entitlements are units of support; milestones are required steps",
+              "sources": [
+                "sv-entitlements",
+                "sv-milestones"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "sv-knowledge",
+          "name": "Knowledge",
+          "standard": "A knowledge base attached to cases",
+          "keywords": "(Knowledge|Article|FAQ)",
+          "steps": [
+            {
+              "id": "sv-articles",
+              "name": "Publish articles and attach them to cases",
+              "objects": [
+                "CaseArticle"
+              ],
+              "keywords": "(Knowledge|Article|FAQ)",
+              "standard": "Articles in a repository, attached to cases",
+              "sources": [
+                "sv-knowledge",
+                "sv-casearticles"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "sv-workorders",
+          "name": "Work orders",
+          "standard": "Work orders from work type templates",
+          "keywords": "(Work_?Order|Technician|Dispatch)",
+          "steps": [
+            {
+              "id": "sv-workorder",
+              "name": "Plan field work",
+              "objects": [
+                "WorkOrder",
+                "WorkOrderLineItem",
+                "WorkType"
+              ],
+              "keywords": "(Work_?Order|Work_?Type|Technician|Dispatch)",
+              "standard": "Work orders track work on customers' products; work types standardise it",
+              "sources": [
+                "sv-workorders",
+                "sv-worktypes"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
