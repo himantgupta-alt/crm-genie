@@ -578,6 +578,9 @@ const validation = (() => {
 
 const fitGap = {
   owner: 'Discovery agent', subAgent: 'Fit-gap sub-agent', validation, businessMap,
+  // What the as-is could not read, per org: shown with the results so an incomplete inventory is never mistaken
+  // for a complete one.
+  completeness: Object.fromEntries(extracted.map((o) => [o.region, { complete: !(o.asIs.warnings || []).length, warnings: o.asIs.warnings || [] }])),
   // The standard processes with each step's sources resolved to the official page and the words quoted from it.
   processes: PROCESS_KB.areas.map((a) => ({ area: a.area, capabilities: a.capabilities.map((c) => ({ id: `kb-${c.id}`, name: c.name, standard: c.standard,
     steps: c.steps.map(({ re, keywords, ...s }) => ({ ...s, sources: (s.sources || []).map((id) => PROCESS_SOURCES[id]).filter(Boolean) })) })) })),

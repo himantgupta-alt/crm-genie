@@ -225,6 +225,8 @@ function install(app, owner) {
       // The sub-agents print "discovery: <step> <done>/<total> (<pct>%)"; the latest one drives the progress bar.
       const m = /^discovery: (.+?) (\d+)\/(\d+) \((\d+)%\)$/.exec(l);
       if (m) j.progress = { ...j.progress, step: m[1], done: Number(m[2]), total: Number(m[3]), pct: Number(m[4]) };
+      // "warning: ..." from a sub-agent: something could not be read; the run then finishes "with warnings".
+      if (/^warning: /.test(l)) (j.warnings ||= []).push(l.slice(9));
       j.log.push(`${new Date().toISOString().slice(11, 19)}  ${l}`); if (j.log.length > 400) j.log.shift();
     };
     // Agent code: the latest commit on main unless the caller asks for the deployed copy.
@@ -269,7 +271,7 @@ function install(app, owner) {
     }
     j.progress = null;
     j.finishedAt = new Date().toISOString();
-    j.status = failed ? 'finished with errors' : 'complete';
+    j.status = failed ? 'finished with errors' : j.warnings?.length ? `complete with ${j.warnings.length} warning${j.warnings.length === 1 ? '' : 's'}` : 'complete';
     log(`run ${j.id} ${j.status}`);
     try { archive(j); } catch (e) { log(`run history: ${e.message}`); }
   });
@@ -288,7 +290,7 @@ function install(app, owner) {
       ['discovery-report.md', path.join(DATA, 'adlc', '1-discover', 'assessment')]];
     for (const [f, from] of files) if (fs.existsSync(path.join(from, f))) fs.copyFileSync(path.join(from, f), path.join(dir, f));
     const labels = j.regions.map((r) => j.labels?.[r] || r);
-    fs.writeFileSync(path.join(dir, 'run.json'), JSON.stringify({ id: j.id, startedAt: j.startedAt, finishedAt: j.finishedAt, status: j.status, scope: j.scope, regions: j.regions, orgs: labels, by: j.by, agents: j.agents, log: j.log }, null, 2));
+    fs.writeFileSync(path.join(dir, 'run.json'), JSON.stringify({ id: j.id, startedAt: j.startedAt, finishedAt: j.finishedAt, status: j.status, warnings: j.warnings || [], scope: j.scope, regions: j.regions, orgs: labels, by: j.by, agents: j.agents, log: j.log }, null, 2));
     const all = fs.readdirSync(RUNS).filter((d) => fs.existsSync(path.join(RUNS, d, 'run.json'))).sort().reverse();
     for (const old of all.slice(KEEP_RUNS)) fs.rmSync(path.join(RUNS, old), { recursive: true, force: true });
   }

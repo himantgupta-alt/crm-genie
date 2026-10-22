@@ -785,6 +785,12 @@
       "capabilities": []
     }
   ],
+  "completeness": {
+    "eu": {
+      "complete": true,
+      "warnings": []
+    }
+  },
   "processes": [
     {
       "area": "Retail execution",

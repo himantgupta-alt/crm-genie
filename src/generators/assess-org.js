@@ -28,6 +28,20 @@ async function main() {
   };
   const count = async (q) => { try { return (await conn.query(q)).totalSize; } catch { return null; } };
   const ok = (r) => (Array.isArray(r) ? r : []);
+  // A query the inventory depends on is retried; if it still fails, the run says so (warning) instead of quietly
+  // treating it as "nothing found", so an incomplete inventory is never taken for a complete one.
+  const warnings = [];
+  const warn = (text) => { warnings.push(text); console.log(`warning: ${text}`); };
+  const critical = async (what, q, tooling = false) => {
+    let r;
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      r = await soql(q, tooling);
+      if (Array.isArray(r)) return r;
+      await new Promise((res) => setTimeout(res, 3000 * attempt));
+    }
+    warn(`${what} could not be read (${r?.error || 'unknown error'}); the inventory is incomplete`);
+    return [];
+  };
 
   const org = ok(await soql('SELECT OrganizationType, DefaultLocaleSidKey, TimeZoneSidKey FROM Organization'))[0] || {};
   const global = await conn.describeGlobal();
@@ -54,34 +68,37 @@ async function main() {
   // Objects someone extended with fields of their own: the standard objects above, plus every standard or package
   // object (e.g. cgcloud__Promotion__c) that carries an unmanaged custom field.
   const queryable = new Set(global.sobjects.filter((s) => s.queryable && !s.customSetting).map((s) => s.name));
-  const objById = Object.fromEntries(ok(await soql('SELECT Id, DeveloperName, NamespacePrefix FROM CustomObject', true)).map((o) => [o.Id, `${o.NamespacePrefix ? `${o.NamespacePrefix}__` : ''}${o.DeveloperName}__c`]));
-  const withOwnFields = new Set(ok(await soql('SELECT TableEnumOrId FROM CustomField WHERE NamespacePrefix = null', true)).map((f) => objById[f.TableEnumOrId] || f.TableEnumOrId));
+  const objById = Object.fromEntries((await critical('The list of custom objects', 'SELECT Id, DeveloperName, NamespacePrefix FROM CustomObject', true)).map((o) => [o.Id, `${o.NamespacePrefix ? `${o.NamespacePrefix}__` : ''}${o.DeveloperName}__c`]));
+  const withOwnFields = new Set((await critical('The list of fields built in the org', 'SELECT TableEnumOrId FROM CustomField WHERE NamespacePrefix = null', true)).map((f) => objById[f.TableEnumOrId] || f.TableEnumOrId));
   const stdObjs = [...new Set([...STANDARD, ...withOwnFields])].filter((n) => queryable.has(n) && !(n.endsWith('__c') && unmanaged(n))).sort();
   const totalObjs = customObjs.length + stdObjs.length;
   let doneObjs = 0;
   const tick = () => { doneObjs++; if (doneObjs % Math.max(1, Math.round(totalObjs / 20)) === 0 || doneObjs === totalObjs) progress('as-is objects', doneObjs, totalObjs); };
   progress('as-is objects', 0, totalObjs);
-  const objects = await pool(customObjs, CONCURRENCY, async (g) => {
-    try { const records = await count(`SELECT COUNT() FROM ${g.name}`); return { name: g.name, label: g.label, records, fields: await fields(g.name, records) }; } finally { tick(); }
-  });
+  // An object that cannot be described is retried once, then reported (never silently left out).
+  const readFields = async (name, records) => { try { return await fields(name, records); } catch { await new Promise((res) => setTimeout(res, 2000)); return fields(name, records); } };
+  const objects = (await pool(customObjs, CONCURRENCY, async (g) => {
+    try { const records = await count(`SELECT COUNT() FROM ${g.name}`); return { name: g.name, label: g.label, records, fields: await readFields(g.name, records) }; }
+    catch (e) { warn(`Object ${g.name} could not be read (${e.errorCode || e.message})`); return null; } finally { tick(); }
+  })).filter(Boolean);
   objects.sort(byName);
 
   // 2. Standard objects extended with custom fields
   const extended = (await pool(stdObjs, CONCURRENCY, async (name) => {
     try {
       const records = await count(`SELECT COUNT() FROM ${name}`);
-      const fs_ = await fields(name, records);
+      const fs_ = await readFields(name, records);
       const ns = name.match(/^([A-Za-z0-9_]+?)__\w+__c$/)?.[1];
       return fs_.length ? { name, records, fields: fs_, ...(ns ? { package: ns } : {}) } : null;
-    } catch { return null; } finally { tick(); }
+    } catch (e) { warn(`Fields added to ${name} could not be read (${e.errorCode || e.message})`); return null; } finally { tick(); }
   })).filter(Boolean);
   progress('as-is code and automation', 0, 1);
 
   // 3. Code and declarative automation (unmanaged only)
   const customNames = objects.map((o) => o.name);
   const touches = (body) => [...new Set(customNames.filter((n) => new RegExp(`\\b${n}\\b`).test(body || '')))].sort();
-  const classRows = ok(await soql('SELECT Id, Name, Body, ApiVersion, LastModifiedDate FROM ApexClass WHERE NamespacePrefix = null', true));
-  const trigRows = ok(await soql('SELECT Name, TableEnumOrId, Body, Status, ApiVersion, LastModifiedDate FROM ApexTrigger WHERE NamespacePrefix = null', true));
+  const classRows = await critical('Apex classes', 'SELECT Id, Name, Body, ApiVersion, LastModifiedDate FROM ApexClass WHERE NamespacePrefix = null', true);
+  const trigRows = await critical('Apex triggers', 'SELECT Name, TableEnumOrId, Body, Status, ApiVersion, LastModifiedDate FROM ApexTrigger WHERE NamespacePrefix = null', true);
 
   // "Is it used?" before anything is called unused. (1) Salesforce's dependency index: what refers to each class —
   // Lightning components, Visualforce, flows, other code. Queried 100 classes at a time (2,000 rows per query).
@@ -148,10 +165,10 @@ async function main() {
     .map((t) => ({ name: t.Name, object: objById[t.TableEnumOrId] || t.TableEnumOrId, active: t.Status === 'Active', lines: (t.Body || '').split('\n').length, ...version(t), lastRun: lastRun[t.Name] || null,
       analysis: analyseApex(t.Name, t.Body, { kind: 'trigger', object: t.TableEnumOrId }) }))
     .sort(byName);
-  const flows = ok(await soql('SELECT ApiName, Label, ProcessType, TriggerType, TriggerObjectOrEventLabel, IsActive FROM FlowDefinitionView WHERE NamespacePrefix = null'))
+  const flows = (await critical('Flows', 'SELECT ApiName, Label, ProcessType, TriggerType, TriggerObjectOrEventLabel, IsActive FROM FlowDefinitionView WHERE NamespacePrefix = null'))
     .map((f) => ({ name: f.ApiName, label: f.Label, kind: f.ProcessType, trigger: f.TriggerType, object: f.TriggerObjectOrEventLabel, active: f.IsActive }))
     .sort(byName);
-  const rules = ok(await soql('SELECT ValidationName, EntityDefinition.QualifiedApiName, Active FROM ValidationRule WHERE NamespacePrefix = null', true))
+  const rules = (await critical('Validation rules', 'SELECT ValidationName, EntityDefinition.QualifiedApiName, Active FROM ValidationRule WHERE NamespacePrefix = null', true))
     .map((v) => ({ name: v.ValidationName, object: v.EntityDefinition?.QualifiedApiName, active: v.Active }))
     .sort((a, b) => `${a.object}.${a.name}`.localeCompare(`${b.object}.${b.name}`));
   const workflowRules = ok(await soql('SELECT Name, TableEnumOrId FROM WorkflowRule WHERE NamespacePrefix = null', true)).map((w) => ({ name: w.Name, object: objById[w.TableEnumOrId] || w.TableEnumOrId })).sort(byName);
@@ -188,6 +205,8 @@ async function main() {
     usage: { activeUsers, reports },
     // How "is it used?" was established for this org, so every verdict can say how sure it is.
     usageCheck: { dependencies: dependencyCheck, logs },
+    // Anything the as-is could not read: an incomplete inventory is reported, never assumed complete.
+    warnings,
   };
   const file = path.join(P.ASSESSMENT, 'orgs', `${region}.json`);
   writeJson(file, asIs);
