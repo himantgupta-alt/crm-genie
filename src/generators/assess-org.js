@@ -144,7 +144,8 @@ async function main() {
     })
     .sort(byName);
   const triggers = trigRows
-    .map((t) => ({ name: t.Name, object: t.TableEnumOrId, active: t.Status === 'Active', lines: (t.Body || '').split('\n').length, ...version(t), lastRun: lastRun[t.Name] || null,
+    // TableEnumOrId is an Id for custom objects: keep the object's name, so placement and reports can read it.
+    .map((t) => ({ name: t.Name, object: objById[t.TableEnumOrId] || t.TableEnumOrId, active: t.Status === 'Active', lines: (t.Body || '').split('\n').length, ...version(t), lastRun: lastRun[t.Name] || null,
       analysis: analyseApex(t.Name, t.Body, { kind: 'trigger', object: t.TableEnumOrId }) }))
     .sort(byName);
   const flows = ok(await soql('SELECT ApiName, Label, ProcessType, TriggerType, TriggerObjectOrEventLabel, IsActive FROM FlowDefinitionView WHERE NamespacePrefix = null'))
@@ -153,7 +154,7 @@ async function main() {
   const rules = ok(await soql('SELECT ValidationName, EntityDefinition.QualifiedApiName, Active FROM ValidationRule WHERE NamespacePrefix = null', true))
     .map((v) => ({ name: v.ValidationName, object: v.EntityDefinition?.QualifiedApiName, active: v.Active }))
     .sort((a, b) => `${a.object}.${a.name}`.localeCompare(`${b.object}.${b.name}`));
-  const workflowRules = ok(await soql('SELECT Name, TableEnumOrId FROM WorkflowRule WHERE NamespacePrefix = null', true)).map((w) => ({ name: w.Name, object: w.TableEnumOrId })).sort(byName);
+  const workflowRules = ok(await soql('SELECT Name, TableEnumOrId FROM WorkflowRule WHERE NamespacePrefix = null', true)).map((w) => ({ name: w.Name, object: objById[w.TableEnumOrId] || w.TableEnumOrId })).sort(byName);
   const approvals = ok(await soql("SELECT Name, TableEnumOrId, State FROM ProcessDefinition WHERE Type = 'Approval'")).map((a) => ({ name: a.Name, object: a.TableEnumOrId, active: a.State === 'Active' })).sort(byName);
 
   // 4. Packages, licences, integrations, usage

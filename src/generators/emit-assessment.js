@@ -519,6 +519,43 @@ const findings = [
   `${n(items.filter((i) => i.verdict === 'review').length, 'component is', 'components are')} not matched to a known capability and ${items.filter((i) => i.verdict === 'review').length === 1 ? 'goes' : 'go'} on the workshop agenda.`,
 ];
 
+// One business map for every view: area → capability → process step, each with a stable code (RE, RE-05,
+// RE-05-01). Each component gets the code of where it sits: its step; "<capability>-00" when the capability is known
+// but not the step; "<area>-00" when only the area is known. Components matched to no business process keep where
+// they come from (the object they sit on or use, their package, or their name family) instead.
+const AREA_CODE = { 'Retail execution': 'RE', 'Trade promotion management (TPM)': 'TPM', 'Customer master': 'CM', 'Product master': 'PM', 'Order to cash': 'OC', 'Sales performance': 'SP', Service: 'SV', Platform: 'PL' };
+const pad2 = (n) => String(n).padStart(2, '0');
+const areaCode = (a) => AREA_CODE[a] || a.split(/\W+/).filter(Boolean).map((w) => w[0]).join('').toUpperCase().slice(0, 3);
+const businessMap = (() => {
+  const names = [...new Set([...PROCESS_KB.areas.map((a) => a.area), ...items.map((i) => i.trace?.place?.area).filter((a) => a && a !== 'Other')])];
+  return names.map((area) => {
+    const ac = areaCode(area);
+    const kbA = PROCESS_KB.areas.find((a) => a.area === area);
+    return { code: ac, area, capabilities: (kbA?.capabilities || []).map((c, ci) => ({ code: `${ac}-${pad2(ci + 1)}`, id: `kb-${c.id}`, name: c.name,
+      steps: c.steps.map((s, si) => ({ code: `${ac}-${pad2(ci + 1)}-${pad2(si + 1)}`, id: s.id, name: s.name })) })) };
+  });
+})();
+const nameFamily = (n) => { const s = String(n).replace(/^.*\./, '').replace(/^[A-Za-z0-9_]+?__(?=\w+__)/, ''); const m = s.match(/^([A-Za-z0-9]+?)(?:_|(?=[A-Z][a-z]))/); return m ? m[1] : s.slice(0, 8); };
+for (const i of items) {
+  const node = businessMap.find((n) => n.area === i.trace?.place?.area);
+  if (node) {
+    const cap = node.capabilities.find((c) => c.id === i.capability);
+    const st = cap?.steps.find((s) => s.id === i.step);
+    i.code = st ? st.code : cap ? `${cap.code}-00` : `${node.code}-00`;
+    continue;
+  }
+  i.code = null;
+  // Where an unmatched component comes from, in words a reviewer recognises.
+  const obj = ['Custom field', 'Validation rule', 'Workflow rule'].includes(i.kind) ? i.name.split('.')[0] : i.kind === 'Apex trigger' ? i.object : i.kind === 'Flow' ? i.object : i.kind === 'Apex class' ? (i.objects || [])[0] : null;
+  i.origin = i.kind === 'Installed package' ? 'Installed packages without a guide' : obj ? `Linked to object ${obj}` : `Name starts with ${nameFamily(i.name)}`;
+}
+// One group per name family whatever the case (SDO_ and Sdo_ are the same kit): the most common spelling wins.
+{
+  const spell = {};
+  for (const i of items) if (i.origin?.startsWith('Name starts with ')) { const k = i.origin.toLowerCase(); (spell[k] ||= {})[i.origin] = (spell[k][i.origin] || 0) + 1; }
+  for (const i of items) if (i.origin?.startsWith('Name starts with ')) i.origin = Object.entries(spell[i.origin.toLowerCase()]).sort((p, q) => q[1] - p[1])[0][0];
+}
+
 // How far the tool's verdicts hold up under expert review, per business area and per rule.
 const validation = (() => {
   const rows = {};
@@ -540,7 +577,7 @@ const validation = (() => {
 })();
 
 const fitGap = {
-  owner: 'Discovery agent', subAgent: 'Fit-gap sub-agent', validation,
+  owner: 'Discovery agent', subAgent: 'Fit-gap sub-agent', validation, businessMap,
   // The standard processes with each step's sources resolved to the official page and the words quoted from it.
   processes: PROCESS_KB.areas.map((a) => ({ area: a.area, capabilities: a.capabilities.map((c) => ({ id: `kb-${c.id}`, name: c.name, standard: c.standard,
     steps: c.steps.map(({ re, keywords, ...s }) => ({ ...s, sources: (s.sources || []).map((id) => PROCESS_SOURCES[id]).filter(Boolean) })) })) })),

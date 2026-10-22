@@ -76,6 +76,693 @@
       "none": "No capability found"
     }
   },
+  "businessMap": [
+    {
+      "code": "RE",
+      "area": "Retail execution",
+      "capabilities": [
+        {
+          "code": "RE-01",
+          "id": "kb-re-store-setup",
+          "name": "Store and account setup",
+          "steps": [
+            {
+              "code": "RE-01-01",
+              "id": "re-stores",
+              "name": "Create stores and store groups"
+            },
+            {
+              "code": "RE-01-02",
+              "id": "re-locations",
+              "name": "Define in-store locations"
+            },
+            {
+              "code": "RE-01-03",
+              "id": "re-orgunits",
+              "name": "Sales organisation and org units"
+            }
+          ]
+        },
+        {
+          "code": "RE-02",
+          "id": "kb-re-assortment",
+          "name": "Product assortment and store products",
+          "steps": [
+            {
+              "code": "RE-02-01",
+              "id": "re-assortments",
+              "name": "Define assortments"
+            },
+            {
+              "code": "RE-02-02",
+              "id": "re-storeproducts",
+              "name": "Assign assortments and products to stores"
+            },
+            {
+              "code": "RE-02-03",
+              "id": "re-listing",
+              "name": "Listing modules"
+            }
+          ]
+        },
+        {
+          "code": "RE-03",
+          "id": "kb-re-visit-planning",
+          "name": "Visit planning and scheduling",
+          "steps": [
+            {
+              "code": "RE-03-01",
+              "id": "re-templates",
+              "name": "Define visit task templates"
+            },
+            {
+              "code": "RE-03-02",
+              "id": "re-plan",
+              "name": "Plan visits and visit sequences"
+            },
+            {
+              "code": "RE-03-03",
+              "id": "re-recommend",
+              "name": "Recommended visits"
+            }
+          ]
+        },
+        {
+          "code": "RE-04",
+          "id": "kb-re-route",
+          "name": "Route optimisation with Salesforce Maps",
+          "steps": [
+            {
+              "code": "RE-04-01",
+              "id": "re-sequence",
+              "name": "Optimise the visit sequence"
+            }
+          ]
+        },
+        {
+          "code": "RE-05",
+          "id": "kb-re-visit-exec",
+          "name": "Visit execution",
+          "steps": [
+            {
+              "code": "RE-05-01",
+              "id": "re-start",
+              "name": "Start the visit"
+            },
+            {
+              "code": "RE-05-02",
+              "id": "re-tasks",
+              "name": "Perform visit tasks"
+            },
+            {
+              "code": "RE-05-03",
+              "id": "re-signature",
+              "name": "Capture a signature"
+            }
+          ]
+        },
+        {
+          "code": "RE-06",
+          "id": "kb-re-audit",
+          "name": "In-store audits and KPIs",
+          "steps": [
+            {
+              "code": "RE-06-01",
+              "id": "re-metrics",
+              "name": "Define metrics and task definitions"
+            },
+            {
+              "code": "RE-06-02",
+              "id": "re-targets",
+              "name": "Set store KPI targets"
+            },
+            {
+              "code": "RE-06-03",
+              "id": "re-actuals",
+              "name": "Capture actuals on the visit"
+            }
+          ]
+        },
+        {
+          "code": "RE-07",
+          "id": "kb-re-order",
+          "name": "Retail order capture",
+          "steps": [
+            {
+              "code": "RE-07-01",
+              "id": "re-ordersetup",
+              "name": "Configure order behaviour and pricing"
+            },
+            {
+              "code": "RE-07-02",
+              "id": "re-takeorder",
+              "name": "Take the order during the visit"
+            },
+            {
+              "code": "RE-07-03",
+              "id": "re-inventory",
+              "name": "Inventory and delivery"
+            }
+          ]
+        },
+        {
+          "code": "RE-08",
+          "id": "kb-re-promo-exec",
+          "name": "Promotions in store",
+          "steps": [
+            {
+              "code": "RE-08-01",
+              "id": "re-promotions",
+              "name": "Define store promotions and targeting"
+            },
+            {
+              "code": "RE-08-02",
+              "id": "re-promocheck",
+              "name": "Check promotion compliance on visits"
+            }
+          ]
+        },
+        {
+          "code": "RE-09",
+          "id": "kb-re-sync",
+          "name": "Mobile app and sync",
+          "steps": [
+            {
+              "code": "RE-09-01",
+              "id": "re-syncconfig",
+              "name": "Configure sync"
+            },
+            {
+              "code": "RE-09-02",
+              "id": "re-deploy",
+              "name": "Deploy the mobile app"
+            },
+            {
+              "code": "RE-09-03",
+              "id": "re-offline",
+              "name": "Work offline and monitor sync"
+            }
+          ]
+        },
+        {
+          "code": "RE-10",
+          "id": "kb-re-dsd",
+          "name": "Direct store delivery",
+          "steps": [
+            {
+              "code": "RE-10-01",
+              "id": "re-routes",
+              "name": "Routes, tours and vehicles"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TPM",
+      "area": "Trade promotion management (TPM)",
+      "capabilities": [
+        {
+          "code": "TPM-01",
+          "id": "kb-tpm-planning",
+          "name": "Business years, KPIs and account planning",
+          "steps": [
+            {
+              "code": "TPM-01-01",
+              "id": "tpm-years",
+              "name": "Set up business years"
+            },
+            {
+              "code": "TPM-01-02",
+              "id": "tpm-kpis",
+              "name": "Configure KPI sets"
+            },
+            {
+              "code": "TPM-01-03",
+              "id": "tpm-accountplan",
+              "name": "Plan accounts"
+            },
+            {
+              "code": "TPM-01-04",
+              "id": "tpm-cbp",
+              "name": "Customer business plans"
+            }
+          ]
+        },
+        {
+          "code": "TPM-02",
+          "id": "kb-tpm-funds",
+          "name": "Funds and budgets",
+          "steps": [
+            {
+              "code": "TPM-02-01",
+              "id": "tpm-fundtemplates",
+              "name": "Define fund types"
+            },
+            {
+              "code": "TPM-02-02",
+              "id": "tpm-fundcreate",
+              "name": "Create funds"
+            },
+            {
+              "code": "TPM-02-03",
+              "id": "tpm-fundtx",
+              "name": "Move money between funds"
+            },
+            {
+              "code": "TPM-02-04",
+              "id": "tpm-rbf",
+              "name": "Rate-based funding"
+            },
+            {
+              "code": "TPM-02-05",
+              "id": "tpm-fundassign",
+              "name": "Assign funds to tactics"
+            }
+          ]
+        },
+        {
+          "code": "TPM-03",
+          "id": "kb-tpm-promo-planning",
+          "name": "Promotion planning",
+          "steps": [
+            {
+              "code": "TPM-03-01",
+              "id": "tpm-templates",
+              "name": "Build promotion and tactic templates"
+            },
+            {
+              "code": "TPM-03-02",
+              "id": "tpm-promo",
+              "name": "Create the promotion"
+            },
+            {
+              "code": "TPM-03-03",
+              "id": "tpm-tactics",
+              "name": "Add tactics and products"
+            },
+            {
+              "code": "TPM-03-04",
+              "id": "tpm-push",
+              "name": "Push national promotions down"
+            },
+            {
+              "code": "TPM-03-05",
+              "id": "tpm-calendar",
+              "name": "Monitor in the trade calendar"
+            }
+          ]
+        },
+        {
+          "code": "TPM-04",
+          "id": "kb-tpm-lifecycle",
+          "name": "Promotion lifecycle and approval",
+          "steps": [
+            {
+              "code": "TPM-04-01",
+              "id": "tpm-phases",
+              "name": "Move the promotion through its phases"
+            },
+            {
+              "code": "TPM-04-02",
+              "id": "tpm-close",
+              "name": "Close the promotion financially"
+            }
+          ]
+        },
+        {
+          "code": "TPM-05",
+          "id": "kb-tpm-claims",
+          "name": "Claims and payments",
+          "steps": [
+            {
+              "code": "TPM-05-01",
+              "id": "tpm-claimtemplates",
+              "name": "Define claim types"
+            },
+            {
+              "code": "TPM-05-02",
+              "id": "tpm-claimscreate",
+              "name": "Create or receive claims"
+            },
+            {
+              "code": "TPM-05-03",
+              "id": "tpm-claimslink",
+              "name": "Link tactics and funds to the claim"
+            },
+            {
+              "code": "TPM-05-04",
+              "id": "tpm-claimsapprove",
+              "name": "Approve claims"
+            },
+            {
+              "code": "TPM-05-05",
+              "id": "tpm-claimsadjust",
+              "name": "Adjust claims"
+            }
+          ]
+        },
+        {
+          "code": "TPM-06",
+          "id": "kb-tpm-analysis",
+          "name": "Post-event analysis and reporting",
+          "steps": [
+            {
+              "code": "TPM-06-01",
+              "id": "tpm-actuals",
+              "name": "Compare actuals with plan"
+            },
+            {
+              "code": "TPM-06-02",
+              "id": "tpm-rtr",
+              "name": "Real-time reporting"
+            },
+            {
+              "code": "TPM-06-03",
+              "id": "tpm-accruals",
+              "name": "Accruals"
+            }
+          ]
+        },
+        {
+          "code": "TPM-07",
+          "id": "kb-tpm-re",
+          "name": "Promotion transfer to Retail Execution",
+          "steps": [
+            {
+              "code": "TPM-07-01",
+              "id": "tpm-transfer",
+              "name": "Transfer promotions to Retail Execution"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "CM",
+      "area": "Customer master",
+      "capabilities": [
+        {
+          "code": "CM-01",
+          "id": "kb-cm-accounts",
+          "name": "Account and contact management",
+          "steps": [
+            {
+              "code": "CM-01-01",
+              "id": "cm-record",
+              "name": "Record companies and people"
+            },
+            {
+              "code": "CM-01-02",
+              "id": "cm-person",
+              "name": "Person accounts for consumers"
+            },
+            {
+              "code": "CM-01-03",
+              "id": "cm-duplicates",
+              "name": "Prevent duplicates"
+            }
+          ]
+        },
+        {
+          "code": "CM-02",
+          "id": "kb-cm-hierarchy",
+          "name": "Account hierarchy and relationships",
+          "steps": [
+            {
+              "code": "CM-02-01",
+              "id": "cm-parent",
+              "name": "Account hierarchy"
+            },
+            {
+              "code": "CM-02-02",
+              "id": "cm-acr",
+              "name": "Contacts related to several accounts"
+            },
+            {
+              "code": "CM-02-03",
+              "id": "cm-teams",
+              "name": "Account teams"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "PM",
+      "area": "Product master",
+      "capabilities": [
+        {
+          "code": "PM-01",
+          "id": "kb-pm-products",
+          "name": "Product definition",
+          "steps": [
+            {
+              "code": "PM-01-01",
+              "id": "pm-create",
+              "name": "Create products"
+            },
+            {
+              "code": "PM-01-02",
+              "id": "pm-family",
+              "name": "Categorise products"
+            }
+          ]
+        },
+        {
+          "code": "PM-02",
+          "id": "kb-pm-pricing",
+          "name": "Pricing with price books",
+          "steps": [
+            {
+              "code": "PM-02-01",
+              "id": "pm-standardpb",
+              "name": "Standard price book"
+            },
+            {
+              "code": "PM-02-02",
+              "id": "pm-custompb",
+              "name": "Custom price books per segment or region"
+            },
+            {
+              "code": "PM-02-03",
+              "id": "pm-entries",
+              "name": "Price book entries"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "OC",
+      "area": "Order to cash",
+      "capabilities": [
+        {
+          "code": "OC-01",
+          "id": "kb-oc-quoting",
+          "name": "Quoting",
+          "steps": [
+            {
+              "code": "OC-01-01",
+              "id": "oc-quote",
+              "name": "Create a quote from an opportunity"
+            },
+            {
+              "code": "OC-01-02",
+              "id": "oc-sync",
+              "name": "Sync the quote with the opportunity"
+            }
+          ]
+        },
+        {
+          "code": "OC-02",
+          "id": "kb-oc-contracting",
+          "name": "Contracting",
+          "steps": [
+            {
+              "code": "OC-02-01",
+              "id": "oc-contract",
+              "name": "Establish the contract"
+            }
+          ]
+        },
+        {
+          "code": "OC-03",
+          "id": "kb-oc-orders",
+          "name": "Order management",
+          "steps": [
+            {
+              "code": "OC-03-01",
+              "id": "oc-order",
+              "name": "Create the order"
+            },
+            {
+              "code": "OC-03-02",
+              "id": "oc-orderproducts",
+              "name": "Add order products"
+            },
+            {
+              "code": "OC-03-03",
+              "id": "oc-activate",
+              "name": "Activate the order"
+            }
+          ]
+        },
+        {
+          "code": "OC-04",
+          "id": "kb-oc-assets",
+          "name": "Installed base",
+          "steps": [
+            {
+              "code": "OC-04-01",
+              "id": "oc-asset",
+              "name": "Record assets and their hierarchy"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SP",
+      "area": "Sales performance",
+      "capabilities": [
+        {
+          "code": "SP-01",
+          "id": "kb-sp-leads",
+          "name": "Lead management",
+          "steps": [
+            {
+              "code": "SP-01-01",
+              "id": "sp-capture",
+              "name": "Capture and assign leads"
+            },
+            {
+              "code": "SP-01-02",
+              "id": "sp-convert",
+              "name": "Convert leads"
+            }
+          ]
+        },
+        {
+          "code": "SP-02",
+          "id": "kb-sp-opportunities",
+          "name": "Opportunity management",
+          "steps": [
+            {
+              "code": "SP-02-01",
+              "id": "sp-opp",
+              "name": "Work opportunities through stages"
+            },
+            {
+              "code": "SP-02-02",
+              "id": "sp-oppproducts",
+              "name": "Add products to opportunities"
+            }
+          ]
+        },
+        {
+          "code": "SP-03",
+          "id": "kb-sp-forecasting",
+          "name": "Forecasting and targets",
+          "steps": [
+            {
+              "code": "SP-03-01",
+              "id": "sp-forecast",
+              "name": "Forecast and set quotas"
+            }
+          ]
+        },
+        {
+          "code": "SP-04",
+          "id": "kb-sp-territories",
+          "name": "Sales territories",
+          "steps": [
+            {
+              "code": "SP-04-01",
+              "id": "sp-territory",
+              "name": "Model territories and assign accounts"
+            }
+          ]
+        },
+        {
+          "code": "SP-05",
+          "id": "kb-sp-campaigns",
+          "name": "Campaign management",
+          "steps": [
+            {
+              "code": "SP-05-01",
+              "id": "sp-campaign",
+              "name": "Plan campaigns and track members"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SV",
+      "area": "Service",
+      "capabilities": [
+        {
+          "code": "SV-01",
+          "id": "kb-sv-cases",
+          "name": "Case management",
+          "steps": [
+            {
+              "code": "SV-01-01",
+              "id": "sv-intake",
+              "name": "Take in cases"
+            },
+            {
+              "code": "SV-01-02",
+              "id": "sv-route",
+              "name": "Assign and escalate"
+            }
+          ]
+        },
+        {
+          "code": "SV-02",
+          "id": "kb-sv-entitlements",
+          "name": "Entitlements and service levels",
+          "steps": [
+            {
+              "code": "SV-02-01",
+              "id": "sv-entitlement",
+              "name": "Entitlements and milestones"
+            }
+          ]
+        },
+        {
+          "code": "SV-03",
+          "id": "kb-sv-knowledge",
+          "name": "Knowledge",
+          "steps": [
+            {
+              "code": "SV-03-01",
+              "id": "sv-articles",
+              "name": "Publish articles and attach them to cases"
+            }
+          ]
+        },
+        {
+          "code": "SV-04",
+          "id": "kb-sv-workorders",
+          "name": "Work orders",
+          "steps": [
+            {
+              "code": "SV-04-01",
+              "id": "sv-workorder",
+              "name": "Plan field work"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "PL",
+      "area": "Platform",
+      "capabilities": []
+    }
+  ],
   "processes": [
     {
       "area": "Retail execution",
@@ -4518,7 +5205,9 @@
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Other owner (to confirm)"
+      "decisionOwner": "Other owner (to confirm)",
+      "code": null,
+      "origin": "Linked to object Subscription__c"
     },
     {
       "org": "eu",
@@ -4549,7 +5238,8 @@
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Trade promotion management (TPM) owner (to confirm)"
+      "decisionOwner": "Trade promotion management (TPM) owner (to confirm)",
+      "code": "TPM-00"
     },
     {
       "org": "eu",
@@ -4579,7 +5269,8 @@
       "priority": "Quick win",
       "impact": "Less clutter; nothing unused is maintained or migrated.",
       "where": "Europe org",
-      "decisionOwner": "Retail execution owner (to confirm)"
+      "decisionOwner": "Retail execution owner (to confirm)",
+      "code": "RE-00"
     },
     {
       "org": "eu",
@@ -4612,7 +5303,8 @@
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Retail execution owner (to confirm)"
+      "decisionOwner": "Retail execution owner (to confirm)",
+      "code": "RE-00"
     },
     {
       "org": "eu",
@@ -4642,7 +5334,9 @@
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Other owner (to confirm)"
+      "decisionOwner": "Other owner (to confirm)",
+      "code": null,
+      "origin": "Linked to object Subscription__c"
     },
     {
       "org": "eu",
@@ -4672,7 +5366,9 @@
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Other owner (to confirm)"
+      "decisionOwner": "Other owner (to confirm)",
+      "code": null,
+      "origin": "Linked to object Subscription__c"
     },
     {
       "org": "eu",
@@ -4702,7 +5398,8 @@
       "priority": "Quick win",
       "impact": "The business changes the rule as a setting, without a developer or a release.",
       "where": "Europe org",
-      "decisionOwner": "Trade promotion management (TPM) owner (to confirm)"
+      "decisionOwner": "Trade promotion management (TPM) owner (to confirm)",
+      "code": "TPM-00"
     },
     {
       "org": "eu",
@@ -4733,7 +5430,8 @@
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Trade promotion management (TPM) owner (to confirm)"
+      "decisionOwner": "Trade promotion management (TPM) owner (to confirm)",
+      "code": "TPM-00"
     },
     {
       "org": "eu",
@@ -4765,7 +5463,9 @@
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Other owner (to confirm)"
+      "decisionOwner": "Other owner (to confirm)",
+      "code": null,
+      "origin": "Linked to object Opportunity"
     },
     {
       "org": "eu",
@@ -4797,7 +5497,8 @@
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Trade promotion management (TPM) owner (to confirm)"
+      "decisionOwner": "Trade promotion management (TPM) owner (to confirm)",
+      "code": "TPM-00"
     },
     {
       "org": "eu",
@@ -4829,7 +5530,8 @@
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Retail execution owner (to confirm)"
+      "decisionOwner": "Retail execution owner (to confirm)",
+      "code": "RE-00"
     },
     {
       "org": "eu",
@@ -4861,7 +5563,8 @@
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Retail execution owner (to confirm)"
+      "decisionOwner": "Retail execution owner (to confirm)",
+      "code": "RE-00"
     },
     {
       "org": "eu",
@@ -4893,7 +5596,9 @@
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Other owner (to confirm)"
+      "decisionOwner": "Other owner (to confirm)",
+      "code": null,
+      "origin": "Linked to object Subscription__c"
     },
     {
       "org": "eu",
@@ -4925,7 +5630,8 @@
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Trade promotion management (TPM) owner (to confirm)"
+      "decisionOwner": "Trade promotion management (TPM) owner (to confirm)",
+      "code": "TPM-00"
     },
     {
       "org": "eu",
@@ -4953,7 +5659,8 @@
       "priority": "Strategic",
       "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
-      "decisionOwner": "Customer master owner (to confirm)"
+      "decisionOwner": "Customer master owner (to confirm)",
+      "code": "CM-01-01"
     },
     {
       "org": "eu",
@@ -4981,7 +5688,8 @@
       "priority": "Quick win",
       "impact": "The business changes the rule as a setting, without a developer or a release.",
       "where": "Europe org",
-      "decisionOwner": "Customer master owner (to confirm)"
+      "decisionOwner": "Customer master owner (to confirm)",
+      "code": "CM-00"
     },
     {
       "org": "eu",
@@ -5009,7 +5717,8 @@
       "priority": "Quick win",
       "impact": "The business changes the rule as a setting, without a developer or a release.",
       "where": "Europe org",
-      "decisionOwner": "Customer master owner (to confirm)"
+      "decisionOwner": "Customer master owner (to confirm)",
+      "code": "CM-00"
     },
     {
       "org": "eu",
@@ -5037,7 +5746,8 @@
       "priority": "Strategic",
       "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
-      "decisionOwner": "Customer master owner (to confirm)"
+      "decisionOwner": "Customer master owner (to confirm)",
+      "code": "CM-01-01"
     },
     {
       "org": "eu",
@@ -5065,7 +5775,8 @@
       "priority": "Strategic",
       "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
-      "decisionOwner": "Customer master owner (to confirm)"
+      "decisionOwner": "Customer master owner (to confirm)",
+      "code": "CM-00"
     },
     {
       "org": "eu",
@@ -5093,7 +5804,8 @@
       "priority": "Quick win",
       "impact": "The business changes the rule as a setting, without a developer or a release.",
       "where": "Europe org",
-      "decisionOwner": "Customer master owner (to confirm)"
+      "decisionOwner": "Customer master owner (to confirm)",
+      "code": "CM-00"
     },
     {
       "org": "eu",
@@ -5121,7 +5833,8 @@
       "priority": "Strategic",
       "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
-      "decisionOwner": "Customer master owner (to confirm)"
+      "decisionOwner": "Customer master owner (to confirm)",
+      "code": "CM-01-01"
     },
     {
       "org": "eu",
@@ -5149,7 +5862,8 @@
       "priority": "Quick win",
       "impact": "Less clutter; nothing unused is maintained or migrated.",
       "where": "Europe org",
-      "decisionOwner": "Customer master owner (to confirm)"
+      "decisionOwner": "Customer master owner (to confirm)",
+      "code": "CM-01-01"
     },
     {
       "org": "eu",
@@ -5177,7 +5891,8 @@
       "priority": "Strategic",
       "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
-      "decisionOwner": "Customer master owner (to confirm)"
+      "decisionOwner": "Customer master owner (to confirm)",
+      "code": "CM-01-01"
     },
     {
       "org": "eu",
@@ -5205,7 +5920,8 @@
       "priority": "Strategic",
       "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
-      "decisionOwner": "Customer master owner (to confirm)"
+      "decisionOwner": "Customer master owner (to confirm)",
+      "code": "CM-01-01"
     },
     {
       "org": "eu",
@@ -5233,7 +5949,8 @@
       "priority": "Strategic",
       "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
-      "decisionOwner": "Customer master owner (to confirm)"
+      "decisionOwner": "Customer master owner (to confirm)",
+      "code": "CM-01-01"
     },
     {
       "org": "eu",
@@ -5261,7 +5978,8 @@
       "priority": "Quick win",
       "impact": "The business changes the rule as a setting, without a developer or a release.",
       "where": "Europe org",
-      "decisionOwner": "Customer master owner (to confirm)"
+      "decisionOwner": "Customer master owner (to confirm)",
+      "code": "CM-00"
     },
     {
       "org": "eu",
@@ -5289,7 +6007,8 @@
       "priority": "Strategic",
       "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
-      "decisionOwner": "Customer master owner (to confirm)"
+      "decisionOwner": "Customer master owner (to confirm)",
+      "code": "CM-01-01"
     },
     {
       "org": "eu",
@@ -5317,7 +6036,8 @@
       "priority": "Strategic",
       "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
-      "decisionOwner": "Customer master owner (to confirm)"
+      "decisionOwner": "Customer master owner (to confirm)",
+      "code": "CM-00"
     },
     {
       "org": "eu",
@@ -5345,7 +6065,8 @@
       "priority": "Strategic",
       "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
-      "decisionOwner": "Customer master owner (to confirm)"
+      "decisionOwner": "Customer master owner (to confirm)",
+      "code": "CM-01-01"
     },
     {
       "org": "eu",
@@ -5373,7 +6094,8 @@
       "priority": "Strategic",
       "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
-      "decisionOwner": "Customer master owner (to confirm)"
+      "decisionOwner": "Customer master owner (to confirm)",
+      "code": "CM-01-01"
     },
     {
       "org": "eu",
@@ -5401,7 +6123,8 @@
       "priority": "Strategic",
       "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
-      "decisionOwner": "Service owner (to confirm)"
+      "decisionOwner": "Service owner (to confirm)",
+      "code": "SV-01-01"
     },
     {
       "org": "eu",
@@ -5429,7 +6152,8 @@
       "priority": "Strategic",
       "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
-      "decisionOwner": "Service owner (to confirm)"
+      "decisionOwner": "Service owner (to confirm)",
+      "code": "SV-01-01"
     },
     {
       "org": "eu",
@@ -5457,7 +6181,8 @@
       "priority": "Strategic",
       "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
-      "decisionOwner": "Service owner (to confirm)"
+      "decisionOwner": "Service owner (to confirm)",
+      "code": "SV-01-01"
     },
     {
       "org": "eu",
@@ -5485,7 +6210,8 @@
       "priority": "Strategic",
       "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
-      "decisionOwner": "Service owner (to confirm)"
+      "decisionOwner": "Service owner (to confirm)",
+      "code": "SV-01-01"
     },
     {
       "org": "eu",
@@ -5513,7 +6239,8 @@
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Customer master owner (to confirm)"
+      "decisionOwner": "Customer master owner (to confirm)",
+      "code": "CM-00"
     },
     {
       "org": "eu",
@@ -5541,7 +6268,8 @@
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Customer master owner (to confirm)"
+      "decisionOwner": "Customer master owner (to confirm)",
+      "code": "CM-00"
     },
     {
       "org": "eu",
@@ -5569,7 +6297,8 @@
       "priority": "Strategic",
       "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
-      "decisionOwner": "Customer master owner (to confirm)"
+      "decisionOwner": "Customer master owner (to confirm)",
+      "code": "CM-01-01"
     },
     {
       "org": "eu",
@@ -5597,7 +6326,8 @@
       "priority": "Strategic",
       "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
-      "decisionOwner": "Customer master owner (to confirm)"
+      "decisionOwner": "Customer master owner (to confirm)",
+      "code": "CM-01-01"
     },
     {
       "org": "eu",
@@ -5625,7 +6355,8 @@
       "priority": "Strategic",
       "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
-      "decisionOwner": "Sales performance owner (to confirm)"
+      "decisionOwner": "Sales performance owner (to confirm)",
+      "code": "SP-01-01"
     },
     {
       "org": "eu",
@@ -5653,7 +6384,8 @@
       "priority": "Strategic",
       "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
-      "decisionOwner": "Sales performance owner (to confirm)"
+      "decisionOwner": "Sales performance owner (to confirm)",
+      "code": "SP-01-01"
     },
     {
       "org": "eu",
@@ -5681,7 +6413,8 @@
       "priority": "Strategic",
       "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
-      "decisionOwner": "Sales performance owner (to confirm)"
+      "decisionOwner": "Sales performance owner (to confirm)",
+      "code": "SP-01-01"
     },
     {
       "org": "eu",
@@ -5709,7 +6442,8 @@
       "priority": "Strategic",
       "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
-      "decisionOwner": "Sales performance owner (to confirm)"
+      "decisionOwner": "Sales performance owner (to confirm)",
+      "code": "SP-01-01"
     },
     {
       "org": "eu",
@@ -5737,7 +6471,8 @@
       "priority": "Strategic",
       "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
-      "decisionOwner": "Sales performance owner (to confirm)"
+      "decisionOwner": "Sales performance owner (to confirm)",
+      "code": "SP-01-01"
     },
     {
       "org": "eu",
@@ -5765,7 +6500,8 @@
       "priority": "Strategic",
       "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
-      "decisionOwner": "Sales performance owner (to confirm)"
+      "decisionOwner": "Sales performance owner (to confirm)",
+      "code": "SP-02-01"
     },
     {
       "org": "eu",
@@ -5793,7 +6529,8 @@
       "priority": "Strategic",
       "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
-      "decisionOwner": "Sales performance owner (to confirm)"
+      "decisionOwner": "Sales performance owner (to confirm)",
+      "code": "SP-02-01"
     },
     {
       "org": "eu",
@@ -5821,7 +6558,8 @@
       "priority": "Strategic",
       "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
-      "decisionOwner": "Sales performance owner (to confirm)"
+      "decisionOwner": "Sales performance owner (to confirm)",
+      "code": "SP-02-01"
     },
     {
       "org": "eu",
@@ -5849,7 +6587,8 @@
       "priority": "Strategic",
       "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
-      "decisionOwner": "Sales performance owner (to confirm)"
+      "decisionOwner": "Sales performance owner (to confirm)",
+      "code": "SP-02-01"
     },
     {
       "org": "eu",
@@ -5877,7 +6616,8 @@
       "priority": "Strategic",
       "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
-      "decisionOwner": "Sales performance owner (to confirm)"
+      "decisionOwner": "Sales performance owner (to confirm)",
+      "code": "SP-02-01"
     },
     {
       "org": "eu",
@@ -5905,7 +6645,8 @@
       "priority": "Strategic",
       "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
-      "decisionOwner": "Sales performance owner (to confirm)"
+      "decisionOwner": "Sales performance owner (to confirm)",
+      "code": "SP-02-01"
     },
     {
       "org": "eu",
@@ -5933,7 +6674,8 @@
       "priority": "Strategic",
       "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
-      "decisionOwner": "Product master owner (to confirm)"
+      "decisionOwner": "Product master owner (to confirm)",
+      "code": "PM-00"
     },
     {
       "org": "eu",
@@ -5961,7 +6703,8 @@
       "priority": "Strategic",
       "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
-      "decisionOwner": "Product master owner (to confirm)"
+      "decisionOwner": "Product master owner (to confirm)",
+      "code": "PM-00"
     },
     {
       "org": "eu",
@@ -5989,7 +6732,8 @@
       "priority": "Strategic",
       "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
-      "decisionOwner": "Product master owner (to confirm)"
+      "decisionOwner": "Product master owner (to confirm)",
+      "code": "PM-00"
     },
     {
       "org": "eu",
@@ -6017,7 +6761,8 @@
       "priority": "Strategic",
       "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
-      "decisionOwner": "Product master owner (to confirm)"
+      "decisionOwner": "Product master owner (to confirm)",
+      "code": "PM-00"
     },
     {
       "org": "eu",
@@ -6045,7 +6790,8 @@
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Trade promotion management (TPM) owner (to confirm)"
+      "decisionOwner": "Trade promotion management (TPM) owner (to confirm)",
+      "code": "TPM-00"
     },
     {
       "org": "eu",
@@ -6073,7 +6819,8 @@
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Trade promotion management (TPM) owner (to confirm)"
+      "decisionOwner": "Trade promotion management (TPM) owner (to confirm)",
+      "code": "TPM-00"
     },
     {
       "org": "eu",
@@ -6101,7 +6848,8 @@
       "priority": "Quick win",
       "impact": "The business changes the rule as a setting, without a developer or a release.",
       "where": "Europe org",
-      "decisionOwner": "Sales performance owner (to confirm)"
+      "decisionOwner": "Sales performance owner (to confirm)",
+      "code": "SP-00"
     },
     {
       "org": "eu",
@@ -6129,7 +6877,8 @@
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Retail execution owner (to confirm)"
+      "decisionOwner": "Retail execution owner (to confirm)",
+      "code": "RE-00"
     },
     {
       "org": "eu",
@@ -6157,7 +6906,8 @@
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Retail execution owner (to confirm)"
+      "decisionOwner": "Retail execution owner (to confirm)",
+      "code": "RE-00"
     },
     {
       "org": "eu",
@@ -6185,7 +6935,8 @@
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Retail execution owner (to confirm)"
+      "decisionOwner": "Retail execution owner (to confirm)",
+      "code": "RE-00"
     },
     {
       "org": "eu",
@@ -6213,7 +6964,9 @@
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Other owner (to confirm)"
+      "decisionOwner": "Other owner (to confirm)",
+      "code": null,
+      "origin": "Name starts with Subscription"
     },
     {
       "org": "eu",
@@ -6241,7 +6994,9 @@
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Other owner (to confirm)"
+      "decisionOwner": "Other owner (to confirm)",
+      "code": null,
+      "origin": "Name starts with Subscription"
     },
     {
       "org": "eu",
@@ -6269,7 +7024,8 @@
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Trade promotion management (TPM) owner (to confirm)"
+      "decisionOwner": "Trade promotion management (TPM) owner (to confirm)",
+      "code": "TPM-00"
     },
     {
       "org": "eu",
@@ -6297,7 +7053,8 @@
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Trade promotion management (TPM) owner (to confirm)"
+      "decisionOwner": "Trade promotion management (TPM) owner (to confirm)",
+      "code": "TPM-00"
     },
     {
       "org": "eu",
@@ -6325,7 +7082,8 @@
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Retail execution owner (to confirm)"
+      "decisionOwner": "Retail execution owner (to confirm)",
+      "code": "RE-00"
     },
     {
       "org": "eu",
@@ -6352,7 +7110,9 @@
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Other owner (to confirm)"
+      "decisionOwner": "Other owner (to confirm)",
+      "code": null,
+      "origin": "Linked to object Subscription"
     },
     {
       "org": "eu",
@@ -6378,7 +7138,8 @@
       "priority": "Quick win",
       "impact": "The business changes the rule as a setting, without a developer or a release.",
       "where": "Europe org",
-      "decisionOwner": "Platform owner (to confirm)"
+      "decisionOwner": "Platform owner (to confirm)",
+      "code": "PL-00"
     },
     {
       "org": "eu",
@@ -6404,7 +7165,9 @@
       "priority": "Immediate",
       "impact": "Purpose, usage or licensing to confirm before a verdict.",
       "where": "Europe org",
-      "decisionOwner": "Product owner (to confirm)"
+      "decisionOwner": "Product owner (to confirm)",
+      "code": null,
+      "origin": "Installed packages without a guide"
     },
     {
       "org": "eu",
@@ -6431,7 +7194,8 @@
       "priority": "Strategic",
       "impact": "Kept as valuable differentiation; documented and supported.",
       "where": "Europe org",
-      "decisionOwner": "Customer master owner (to confirm)"
+      "decisionOwner": "Customer master owner (to confirm)",
+      "code": "CM-00"
     },
     {
       "org": "eu",
@@ -6458,7 +7222,8 @@
       "priority": "Immediate",
       "impact": "Purpose, usage or licensing to confirm before a verdict.",
       "where": "Europe org",
-      "decisionOwner": "Sales performance owner (to confirm)"
+      "decisionOwner": "Sales performance owner (to confirm)",
+      "code": "SP-02-01"
     },
     {
       "org": "eu",
@@ -6485,7 +7250,8 @@
       "priority": "Immediate",
       "impact": "Purpose, usage or licensing to confirm before a verdict.",
       "where": "Europe org",
-      "decisionOwner": "Sales performance owner (to confirm)"
+      "decisionOwner": "Sales performance owner (to confirm)",
+      "code": "SP-02-01"
     },
     {
       "org": "eu",
@@ -6512,7 +7278,8 @@
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Trade promotion management (TPM) owner (to confirm)"
+      "decisionOwner": "Trade promotion management (TPM) owner (to confirm)",
+      "code": "TPM-00"
     },
     {
       "org": "eu",
@@ -6539,7 +7306,9 @@
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Other owner (to confirm)"
+      "decisionOwner": "Other owner (to confirm)",
+      "code": null,
+      "origin": "Linked to object Subscription__c"
     },
     {
       "org": "eu",
@@ -6566,7 +7335,9 @@
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Other owner (to confirm)"
+      "decisionOwner": "Other owner (to confirm)",
+      "code": null,
+      "origin": "Linked to object Subscription__c"
     },
     {
       "org": "eu",
@@ -6593,7 +7364,9 @@
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Other owner (to confirm)"
+      "decisionOwner": "Other owner (to confirm)",
+      "code": null,
+      "origin": "Linked to object Subscription__c"
     },
     {
       "org": "eu",
@@ -6620,7 +7393,9 @@
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Other owner (to confirm)"
+      "decisionOwner": "Other owner (to confirm)",
+      "code": null,
+      "origin": "Linked to object Subscription__c"
     },
     {
       "org": "eu",
@@ -6647,7 +7422,9 @@
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Other owner (to confirm)"
+      "decisionOwner": "Other owner (to confirm)",
+      "code": null,
+      "origin": "Linked to object Subscription_Line__c"
     },
     {
       "org": "eu",
@@ -6674,7 +7451,9 @@
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Other owner (to confirm)"
+      "decisionOwner": "Other owner (to confirm)",
+      "code": null,
+      "origin": "Linked to object Subscription_Line__c"
     },
     {
       "org": "eu",
@@ -6701,7 +7480,8 @@
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Trade promotion management (TPM) owner (to confirm)"
+      "decisionOwner": "Trade promotion management (TPM) owner (to confirm)",
+      "code": "TPM-00"
     },
     {
       "org": "eu",
@@ -6728,7 +7508,8 @@
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Trade promotion management (TPM) owner (to confirm)"
+      "decisionOwner": "Trade promotion management (TPM) owner (to confirm)",
+      "code": "TPM-00"
     },
     {
       "org": "eu",
@@ -6755,7 +7536,8 @@
       "priority": "Medium term",
       "impact": "Less custom build to maintain; new Salesforce and Consumer Goods Cloud features become available.",
       "where": "Europe org",
-      "decisionOwner": "Trade promotion management (TPM) owner (to confirm)"
+      "decisionOwner": "Trade promotion management (TPM) owner (to confirm)",
+      "code": "TPM-00"
     }
   ]
 }
