@@ -15,12 +15,11 @@ Every statement links to an official Salesforce source listed in [sources.json](
 
 | Need | Standard feature | Source |
 |---|---|---|
-| Who can do a job, and who is best | Scheduling policy: work rules filter candidates, service objectives rank them | [Policies](https://trailhead.salesforce.com/content/learn/modules/field-service-lightning-scheduling-basics/examine-scheduling-policies) |
-| A rule the standard ones do not cover | Custom work rule, configured | [Policies](https://trailhead.salesforce.com/content/learn/modules/field-service-lightning-scheduling-basics/examine-scheduling-policies) |
+| Who does which job, and when | Scheduling and optimization in the scheduling console (managed package) | [Field Service basics](https://trailhead.salesforce.com/en/modules/field_service_basics/units/field_service_basics_intro) |
 | Reacting to in-day events (a job ends early, a worker is late) | Scheduling recipes | [In-day changes](https://trailhead.salesforce.com/content/learn/modules/field-service-lightning-optimization/handle-inday-changes) |
 | Templates for common jobs | Work types | [Work types](https://trailhead.salesforce.com/content/learn/projects/modify-the-field-service-center/create-a-work-type) |
 | Recurring maintenance | Maintenance plans generate future work orders | [Maintenance plans](https://trailhead.salesforce.com/content/learn/modules/field_service_maint/field_service_maint_plan) |
-| Offline access to other data, including custom objects | Offline Briefcase | [Briefcase](https://trailhead.salesforce.com/content/learn/modules/offline-briefcase/allow-access-to-information-online) |
+| Work in the field | The Field Service mobile app | [Field Service basics](https://trailhead.salesforce.com/en/modules/field_service_basics/units/field_service_basics_intro) |
 
 ## Best practices
 
@@ -32,8 +31,8 @@ Every statement links to an official Salesforce source listed in [sources.json](
 
 | Found in the org | Likely verdict | Why |
 |---|---|---|
-| Apex that picks or ranks technicians | Replace with configuration | Work rules and service objectives |
+| Apex that picks or ranks technicians | Review with business | Scheduling and optimization in the scheduling console |
 | Triggers that reschedule after a status change | Replace with configuration | Scheduling recipes |
 | Custom job templates or recurring-visit generators | Adopt standard | Work types and maintenance plans |
-| A custom offline app or offline data sync | Review with business | The mobile app and Offline Briefcase |
+| A custom offline app or offline data sync | Review with business | The Field Service mobile app |
 | Hundreds of territories, or territories with one or two resources | Review with business | Territory design guidance |

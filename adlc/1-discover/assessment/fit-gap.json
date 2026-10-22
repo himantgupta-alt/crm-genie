@@ -754,6 +754,28 @@
               "name": "Plan field work"
             }
           ]
+        },
+        {
+          "code": "SV-05",
+          "id": "kb-sv-fieldservice",
+          "name": "Field service scheduling",
+          "steps": [
+            {
+              "code": "SV-05-01",
+              "id": "sv-fs-resources",
+              "name": "Organise resources and territories"
+            },
+            {
+              "code": "SV-05-02",
+              "id": "sv-fs-schedule",
+              "name": "Schedule and dispatch appointments"
+            },
+            {
+              "code": "SV-05-03",
+              "id": "sv-fs-maintenance",
+              "name": "Plan recurring maintenance"
+            }
+          ]
         }
       ]
     },
@@ -2238,6 +2260,61 @@
                 {
                   "url": "https://trailhead.salesforce.com/content/learn/modules/entitlement-management-for-lightning-experience/use-entitlements-with-work-orders",
                   "quote": "templates that save time and make it easier to standardize field service work"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "kb-sv-fieldservice",
+          "name": "Field service scheduling",
+          "standard": "Service resources in service territories, appointments scheduled by scheduling policies and dispatched from the console, and maintenance plans",
+          "steps": [
+            {
+              "id": "sv-fs-resources",
+              "name": "Organise resources and territories",
+              "objects": [
+                "ServiceResource",
+                "ServiceTerritory",
+                "ServiceTerritoryMember",
+                "ServiceResourceSkill",
+                "ServiceCrew"
+              ],
+              "standard": "Service territories organise the workforce",
+              "sources": [
+                {
+                  "url": "https://trailhead.salesforce.com/content/learn/projects/install-the-field-service-lightning-managed-package/build-your-team",
+                  "quote": "Service territories help you organize your workforce"
+                }
+              ]
+            },
+            {
+              "id": "sv-fs-schedule",
+              "name": "Schedule and dispatch appointments",
+              "objects": [
+                "ServiceAppointment",
+                "AssignedResource"
+              ],
+              "standard": "Scheduling and optimization in the scheduling console (managed package)",
+              "sources": [
+                {
+                  "url": "https://trailhead.salesforce.com/en/modules/field_service_basics/units/field_service_basics_intro",
+                  "quote": "The Scheduling Console for scheduling and optimization from a managed package"
+                }
+              ]
+            },
+            {
+              "id": "sv-fs-maintenance",
+              "name": "Plan recurring maintenance",
+              "objects": [
+                "MaintenancePlan",
+                "MaintenanceAsset"
+              ],
+              "standard": "Maintenance plans generate future work orders",
+              "sources": [
+                {
+                  "url": "https://trailhead.salesforce.com/content/learn/modules/field_service_maint/field_service_maint_plan",
+                  "quote": "generate multiple work orders for future maintenance visits"
                 }
               ]
             }

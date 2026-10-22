@@ -164,3 +164,13 @@ Work orders from work type templates
 |---|---|---|
 | Plan field work | `WorkOrder`, `WorkOrderLineItem`, `WorkType` | [trailhead.salesforce.com](https://trailhead.salesforce.com/content/learn/modules/entitlement-management-for-lightning-experience/use-entitlements-with-work-orders): "uses work orders to track the work it needs to perform on its customers' products"<br>[trailhead.salesforce.com](https://trailhead.salesforce.com/content/learn/modules/entitlement-management-for-lightning-experience/use-entitlements-with-work-orders): "templates that save time and make it easier to standardize field service work" |
 
+### Field service scheduling
+
+Service resources in service territories, appointments scheduled by scheduling policies and dispatched from the console, and maintenance plans
+
+| Step | Standard objects and features | Official source |
+|---|---|---|
+| Organise resources and territories | `ServiceResource`, `ServiceTerritory`, `ServiceTerritoryMember`, `ServiceResourceSkill`, `ServiceCrew` | [trailhead.salesforce.com](https://trailhead.salesforce.com/content/learn/projects/install-the-field-service-lightning-managed-package/build-your-team): "Service territories help you organize your workforce" |
+| Schedule and dispatch appointments | `ServiceAppointment`, `AssignedResource` | [trailhead.salesforce.com](https://trailhead.salesforce.com/en/modules/field_service_basics/units/field_service_basics_intro): "The Scheduling Console for scheduling and optimization from a managed package" |
+| Plan recurring maintenance | `MaintenancePlan`, `MaintenanceAsset` | [trailhead.salesforce.com](https://trailhead.salesforce.com/content/learn/modules/field_service_maint/field_service_maint_plan): "generate multiple work orders for future maintenance visits" |
+

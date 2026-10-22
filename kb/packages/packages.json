@@ -1,14 +1,77 @@
 {
   "about": "Installed packages with a guide in kb/packages. The Fit-gap sub-agent (src/generators/emit-assessment.js) gives a package found in an org its business area, usual verdict and reason from here; any other package follows the method in kb/packages/README.md.",
   "packages": [
-    { "namespace": "cgcloud", "name": "Consumer Goods", "area": "Retail execution", "verdict": "retain", "reason": "Standard Consumer Goods Cloud package: keep, and check custom build around it against its standard objects", "guide": "kb/packages/consumer-goods-cloud.md" },
-    { "namespace": "cgc_sync", "name": "Consumer Goods Mobile Sync", "area": "Retail execution", "verdict": "retain", "reason": "Required by the Consumer Goods Cloud offline mobile app", "guide": "kb/packages/consumer-goods-cloud.md" },
-    { "namespace": "SBQQ", "name": "Salesforce CPQ", "area": "Order to cash", "verdict": "review", "reason": "End of sale, no new feature development; agree the roadmap (stay, or move to Revenue Cloud) with the business owner", "guide": "kb/packages/cpq-and-billing.md" },
-    { "namespace": "blng", "name": "Salesforce Billing", "area": "Order to cash", "verdict": "review", "reason": "No new feature development; Billing in Revenue Cloud is recommended. Agree the roadmap with the business owner", "guide": "kb/packages/cpq-and-billing.md" },
-    { "namespace": "sbaa", "name": "Advanced Approvals", "area": "Order to cash", "verdict": "review", "reason": "Documented with Salesforce CPQ; decide together with the CPQ roadmap", "guide": "kb/packages/cpq-and-billing.md" },
-    { "namespace": "FSL", "name": "Field Service", "area": "Service", "verdict": "retain", "reason": "Standard Field Service scheduling and optimization: keep, and check custom scheduling code against work rules and recipes", "guide": "kb/packages/field-service.md" },
-    { "namespace": "maps", "name": "Salesforce Maps", "area": "Sales performance", "verdict": "retain", "reason": "Keep; check users of the standalone mobile app and Live Tracking Mobile, both retired on 31 August 2026", "guide": "kb/packages/salesforce-maps.md" },
-    { "namespace": "et4ae5", "name": "Marketing Cloud Connect", "area": "Sales performance", "verdict": "retain", "reason": "Keep while Marketing Cloud Engagement is used; check the API user and tracking retention", "guide": "kb/packages/marketing.md" },
-    { "namespace": "pi", "name": "Account Engagement", "area": "Sales performance", "verdict": "retain", "reason": "Keep while Account Engagement is used; check for other syncs into the same records", "guide": "kb/packages/marketing.md" }
+    {
+      "namespace": "cgcloud",
+      "name": "Consumer Goods",
+      "area": "Retail execution",
+      "verdict": "retain",
+      "reason": "Standard Consumer Goods Cloud package: keep, and check custom build around it against its standard objects",
+      "guide": "kb/packages/consumer-goods-cloud.md"
+    },
+    {
+      "namespace": "cgc_sync",
+      "name": "Consumer Goods Mobile Sync",
+      "area": "Retail execution",
+      "verdict": "retain",
+      "reason": "Required by the Consumer Goods Cloud offline mobile app",
+      "guide": "kb/packages/consumer-goods-cloud.md"
+    },
+    {
+      "namespace": "SBQQ",
+      "name": "Salesforce CPQ",
+      "area": "Order to cash",
+      "verdict": "review",
+      "reason": "End of sale, no new feature development; agree the roadmap (stay, or move to Revenue Cloud) with the business owner",
+      "guide": "kb/packages/cpq-and-billing.md"
+    },
+    {
+      "namespace": "blng",
+      "name": "Salesforce Billing",
+      "area": "Order to cash",
+      "verdict": "review",
+      "reason": "No new feature development; Billing in Revenue Cloud is recommended. Agree the roadmap with the business owner",
+      "guide": "kb/packages/cpq-and-billing.md"
+    },
+    {
+      "namespace": "sbaa",
+      "name": "Advanced Approvals",
+      "area": "Order to cash",
+      "verdict": "review",
+      "reason": "Documented with Salesforce CPQ; decide together with the CPQ roadmap",
+      "guide": "kb/packages/cpq-and-billing.md"
+    },
+    {
+      "namespace": "FSL",
+      "name": "Field Service",
+      "area": "Service",
+      "verdict": "retain",
+      "reason": "Standard Field Service scheduling and optimization: keep, and check custom scheduling code against the scheduling console and scheduling recipes",
+      "guide": "kb/packages/field-service.md"
+    },
+    {
+      "namespace": "maps",
+      "name": "Salesforce Maps",
+      "area": "Sales performance",
+      "verdict": "retain",
+      "reason": "Keep; check users of the standalone mobile app and Live Tracking Mobile, both retired on 31 August 2026",
+      "guide": "kb/packages/salesforce-maps.md"
+    },
+    {
+      "namespace": "et4ae5",
+      "name": "Marketing Cloud Connect",
+      "area": "Sales performance",
+      "verdict": "retain",
+      "reason": "Keep while Marketing Cloud Engagement is used; check the API user and tracking retention",
+      "guide": "kb/packages/marketing.md"
+    },
+    {
+      "namespace": "pi",
+      "name": "Account Engagement",
+      "area": "Sales performance",
+      "verdict": "retain",
+      "reason": "Keep while Account Engagement is used; check for other syncs into the same records",
+      "guide": "kb/packages/marketing.md"
+    }
   ]
 }

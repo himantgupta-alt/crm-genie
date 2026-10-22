@@ -263,79 +263,67 @@
       "id": "fs-parts",
       "url": "https://trailhead.salesforce.com/en/modules/field_service_basics/units/field_service_basics_intro",
       "quote": "The Scheduling Console for scheduling and optimization from a managed package",
-      "checked": "2026-10-19"
+      "checked": "2026-10-22"
     },
     {
       "id": "fs-core",
       "url": "https://trailhead.salesforce.com/en/modules/field_service_basics/units/field_service_basics_intro",
       "quote": "these core features are ready to configure in Setup",
-      "checked": "2026-10-19"
+      "checked": "2026-10-22"
     },
     {
-      "id": "fs-policy",
-      "url": "https://trailhead.salesforce.com/content/learn/modules/field-service-lightning-scheduling-basics/examine-scheduling-policies",
-      "quote": "Each scheduling policy is made up of work rules and service objectives",
-      "checked": "2026-10-19"
-    },
-    {
-      "id": "fs-custom-rule",
-      "url": "https://trailhead.salesforce.com/content/learn/modules/field-service-lightning-scheduling-basics/examine-scheduling-policies",
-      "quote": "If the standard rules don't meet your needs, you can create one that does",
-      "checked": "2026-10-19"
+      "id": "fs-mobile",
+      "url": "https://trailhead.salesforce.com/en/modules/field_service_basics/units/field_service_basics_intro",
+      "quote": "A mobile app for your mobile workforce",
+      "checked": "2026-10-22"
     },
     {
       "id": "fs-recipes",
       "url": "https://trailhead.salesforce.com/content/learn/modules/field-service-lightning-optimization/handle-inday-changes",
       "quote": "what to do when a certain event occurs",
-      "checked": "2026-10-19"
+      "checked": "2026-10-22"
     },
     {
       "id": "fs-work-types",
       "url": "https://trailhead.salesforce.com/content/learn/projects/modify-the-field-service-center/create-a-work-type",
       "quote": "Work types are easy templates you can create for common jobs that your mobile workforce performs",
-      "checked": "2026-10-19"
+      "checked": "2026-10-22"
     },
     {
       "id": "fs-maintenance",
       "url": "https://trailhead.salesforce.com/content/learn/modules/field_service_maint/field_service_maint_plan",
       "quote": "generate multiple work orders for future maintenance visits",
-      "checked": "2026-10-19"
-    },
-    {
-      "id": "fs-briefcase",
-      "url": "https://trailhead.salesforce.com/content/learn/modules/offline-briefcase/allow-access-to-information-online",
-      "quote": "custom objects from outside the Salesforce Field Service data model hierarchy",
-      "checked": "2026-10-19"
+      "checked": "2026-10-22"
     },
     {
       "id": "fs-horizon",
       "url": "https://trailhead.salesforce.com/content/learn/modules/field-service-lightning-optimization/plan-ahead-with-global-optimization",
       "quote": "Usually, optimizing from 1 to 7 days in advance is the best practice",
-      "checked": "2026-10-19"
+      "checked": "2026-10-22"
     },
     {
       "id": "fs-pinned",
       "url": "https://trailhead.salesforce.com/content/learn/modules/field-service-lightning-optimization/plan-ahead-with-global-optimization",
       "quote": "Decrease the number of pinned appointments",
-      "checked": "2026-10-19"
+      "checked": "2026-10-22"
     },
     {
       "id": "fs-territories-large",
       "url": "https://architect.salesforce.com/docs/architect/fundamentals/guide/field-service-contractor-sharing-patterns.html",
       "quote": "can cause significant performance bottlenecks as well as risks of hitting platform limits",
-      "checked": "2026-10-19"
+      "checked": "2026-10-22"
     },
     {
       "id": "fs-territories-small",
       "url": "https://architect.salesforce.com/docs/architect/fundamentals/guide/field-service-contractor-sharing-patterns.html",
       "quote": "Creating a larger number of territories for a very low number of resources leads to scheduling overhead",
-      "checked": "2026-10-19"
+      "checked": "2026-10-22"
     },
     {
       "id": "fs-eso",
       "url": "https://www.salesforce.com/service/field-service-management/",
       "quote": "Enhanced Scheduling and Optimization automates workforce scheduling",
-      "checked": "2026-10-19"
+      "checked": "2026-10-22"
     },
     {
       "id": "maps-live-addon",

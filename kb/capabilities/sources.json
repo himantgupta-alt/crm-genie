@@ -564,6 +564,24 @@
       "url": "https://trailhead.salesforce.com/content/learn/modules/entitlement-management-for-lightning-experience/use-entitlements-with-work-orders",
       "quote": "templates that save time and make it easier to standardize field service work",
       "checked": "2026-10-20"
+    },
+    {
+      "id": "sv-fs-territories",
+      "url": "https://trailhead.salesforce.com/content/learn/projects/install-the-field-service-lightning-managed-package/build-your-team",
+      "quote": "Service territories help you organize your workforce",
+      "checked": "2026-10-22"
+    },
+    {
+      "id": "sv-fs-scheduling",
+      "url": "https://trailhead.salesforce.com/en/modules/field_service_basics/units/field_service_basics_intro",
+      "quote": "The Scheduling Console for scheduling and optimization from a managed package",
+      "checked": "2026-10-22"
+    },
+    {
+      "id": "sv-fs-maintenance",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/field_service_maint/field_service_maint_plan",
+      "quote": "generate multiple work orders for future maintenance visits",
+      "checked": "2026-10-22"
     }
   ]
 }

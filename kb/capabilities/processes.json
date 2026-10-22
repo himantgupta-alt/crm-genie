@@ -1306,7 +1306,7 @@
           "id": "sv-workorders",
           "name": "Work orders",
           "standard": "Work orders from work type templates",
-          "keywords": "(Work_?Order|Technician|Dispatch)",
+          "keywords": "(Work_?Order|Work_?Type)",
           "steps": [
             {
               "id": "sv-workorder",
@@ -1316,11 +1316,61 @@
                 "WorkOrderLineItem",
                 "WorkType"
               ],
-              "keywords": "(Work_?Order|Work_?Type|Technician|Dispatch)",
+              "keywords": "(Work_?Order|Work_?Type)",
               "standard": "Work orders track work on customers' products; work types standardise it",
               "sources": [
                 "sv-workorders",
                 "sv-worktypes"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "sv-fieldservice",
+          "name": "Field service scheduling",
+          "standard": "Service resources in service territories, appointments scheduled by scheduling policies and dispatched from the console, and maintenance plans",
+          "keywords": "(Service_?Resource|Service_?Territor|Service_?Appointment|Dispatch|Technician|Maintenance_?Plan)",
+          "steps": [
+            {
+              "id": "sv-fs-resources",
+              "name": "Organise resources and territories",
+              "objects": [
+                "ServiceResource",
+                "ServiceTerritory",
+                "ServiceTerritoryMember",
+                "ServiceResourceSkill",
+                "ServiceCrew"
+              ],
+              "keywords": "(Service_?Resource|Service_?Territor|Technician|Crew)",
+              "standard": "Service territories organise the workforce",
+              "sources": [
+                "sv-fs-territories"
+              ]
+            },
+            {
+              "id": "sv-fs-schedule",
+              "name": "Schedule and dispatch appointments",
+              "objects": [
+                "ServiceAppointment",
+                "AssignedResource"
+              ],
+              "keywords": "(Service_?Appointment|Dispatch|Appointment_?Assist)",
+              "standard": "Scheduling and optimization in the scheduling console (managed package)",
+              "sources": [
+                "sv-fs-scheduling"
+              ]
+            },
+            {
+              "id": "sv-fs-maintenance",
+              "name": "Plan recurring maintenance",
+              "objects": [
+                "MaintenancePlan",
+                "MaintenanceAsset"
+              ],
+              "keywords": "(Maintenance_?Plan|Preventive_?Maint)",
+              "standard": "Maintenance plans generate future work orders",
+              "sources": [
+                "sv-fs-maintenance"
               ]
             }
           ]
