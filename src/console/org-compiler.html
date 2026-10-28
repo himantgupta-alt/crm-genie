@@ -1495,7 +1495,11 @@ document.addEventListener('DOMContentLoaded', () => window.loadRuntimeData());
   });
   function heatmapView() {
     const a = ASD(); const F = a.fitmentCodes || {};
-    const rows = a.capabilities.filter((c) => Object.values(c.perOrg || {}).some((xs) => xs.length));
+    // A standard process configured only through records (templates, definitions) is shown too, not only processes
+    // with custom work on them.
+    const rows = a.capabilities.filter((c) => Object.values(c.perOrg || {}).some((xs) => xs.length) || c.inUse);
+    const whyOf = (r, sp, region) => (sp ? sp.fitmentWhy?.[region] : r?.fitmentWhy?.[region]) || '';
+    const modelIn = (r, sp, region) => (sp ? sp.model?.[region] : r?.model?.[region]?.model) || '';
     const areas = [...new Set(rows.map((r) => r.area))];
     if (!hm.area || !areas.includes(hm.area)) hm.area = areas.find((ar) => rows.some((r) => r.area === ar && r.subprocesses)) || areas[0];
     const shown = rows.filter((r) => hm.area === '__all' || r.area === hm.area);
@@ -1508,7 +1512,7 @@ document.addEventListener('DOMContentLoaded', () => window.loadRuntimeData());
       if (!o.extracted) return '<td><span class="fit none" title="Not connected yet">—</span></td>';
       const n = evid(r, sp?.id, o.region).length;
       const on = hm.cell && hm.cell.cap === r.id && (hm.cell.sp || null) === (sp?.id || null) && hm.cell.region === o.region;
-      return `<td><button type="button" class="fit ${code}" data-hm="cell:${esc(r.id)}|${esc(sp?.id || '')}|${o.region}" aria-pressed="${on}" title="${esc(sp ? sp.name : r.capability)} · ${esc(o.label)}: ${esc(F[code] || code)} (${n} finding${n === 1 ? '' : 's'})">${code}</button></td>`;
+      return `<td><button type="button" class="fit ${code}" data-hm="cell:${esc(r.id)}|${esc(sp?.id || '')}|${o.region}" aria-pressed="${on}" title="${esc(sp ? sp.name : r.capability)} · ${esc(o.label)}: ${esc(F[code] || code)} (${n} finding${n === 1 ? '' : 's'}). ${esc(whyOf(r, sp, o.region))}">${code}</button></td>`;
     };
     const body = areas.filter((ar) => hm.area === '__all' || ar === hm.area).map((ar) => `<tr class="area"><td colspan="${orgs.length + 1}">${esc(ar)}</td></tr>${shown.filter((r) => r.area === ar).map((r) => {
       const isOpen = r.subprocesses && hm.open.has(r.id);
@@ -1523,7 +1527,10 @@ document.addEventListener('DOMContentLoaded', () => window.loadRuntimeData());
       const it = list[0]; const org = orgs.find((o) => o.region === hm.cell.region);
       const where = r ? orgs.filter((o) => o.extracted && evid(r, hm.cell.sp, o.region).length).map((o) => o.label) : [];
       const crumb = `${esc(r?.area || '')} → ${esc(r?.capability || '')}${sp ? ` → ${esc(sp.name)}` : ''} · ${esc(org?.label || '')}`;
-      card = it ? `<div class="sample"><h4 style="margin:0">Sample component</h4><span class="as-note">${crumb}</span>
+      const code = sp ? sp.fitment?.[hm.cell.region] : r?.fitment?.[hm.cell.region];
+      const model = modelIn(r, sp, hm.cell.region);
+      const codeWhy = `<dl><dt>Fitment</dt><dd>${code ? `<span class="fit ${esc(code)}" style="min-width:0;padding:0 5px">${esc(code)}</span> ${esc(F[code] || code)}` : '—'}</dd><dt>Why this code</dt><dd>${esc(whyOf(r, sp, hm.cell.region))}</dd>${model ? `<dt>Model in use</dt><dd>${esc(model)}</dd>` : ''}</dl>`;
+      card = it ? `<div class="sample"><h4 style="margin:0">Sample component</h4><span class="as-note">${crumb}</span>${codeWhy}
         <dl><dt>Component</dt><dd>${esc(it.kind === 'Function' ? `${it.name} (${it.component})` : it.name)} <span class="as-note">(${esc(it.kind === 'Function' ? 'Apex' : it.kind)})</span></dd>
         <dt>Layer</dt><dd><span class="chipv" style="background:${it.layer === 'Installed package' ? 'var(--o-package)' : 'var(--f-dc)'}">${esc(it.layer || 'Custom')}</span></dd>
         <dt>Verdict</dt><dd>${vchip(it.verdict)}</dd>
@@ -1532,7 +1539,7 @@ document.addEventListener('DOMContentLoaded', () => window.loadRuntimeData());
         <dt>Where</dt><dd>${esc(where.length > 1 ? `${where.slice(0, -1).join(', ')} and ${where[where.length - 1]} orgs` : `${where[0] || ''} org`)}</dd>
         <dt>Code reference</dt><dd class="mono fg-ref">${esc(it.ref || it.name)}</dd></dl>
         <div class="hm-ev"><span class="as-note">${list.length} finding${list.length === 1 ? ' rolls' : 's roll'} up to this cell</span>${list.map((u) => `<div class="hm-evrow"><div>${u.componentId ? link('fitgap', u.componentId, u.kind === 'Function' ? u.name : u.ref) : `<span class="mono">${esc(u.ref || u.name)}</span>`}<br><span class="as-note">${esc(u.kind === 'Function' ? 'Apex function' : u.kind)}${u.sequenceSensitive ? ' · sequence-sensitive' : ''}</span></div>${vchip(u.verdict)}</div>`).join('')}</div></div>`
-        : `<div class="sample"><h4 style="margin:0">Sample component</h4><span class="as-note">${crumb}</span><p class="as-note">Nothing custom here: the standard capability is used as it is.</p></div>`;
+        : `<div class="sample"><h4 style="margin:0">Sample component</h4><span class="as-note">${crumb}</span>${codeWhy}</div>`;
     }
     return { title: 'Fitment heatmap', crumb: 'Area → process → sub-process by org; low-level findings roll up to the sub-process they serve', json: shown.map((r) => ({ area: r.area, process: r.capability, fitment: r.fitment, subprocesses: (r.subprocesses || []).map((s) => ({ name: s.name, fitment: s.fitment })) })), visual: () => `
       <div class="chips hm-areas">${[...areas, '__all'].map((ar) => `<button type="button" class="chip" data-hm="area:${esc(ar)}" aria-pressed="${hm.area === ar}">${esc(ar === '__all' ? 'All areas' : ar)}</button>`).join('')}</div>
@@ -1771,18 +1778,30 @@ document.addEventListener('DOMContentLoaded', () => window.loadRuntimeData());
         if (!cap) break;
         const row = (a.capabilities || []).find((r) => r.id === id);
         const mine = (a.items || []).filter((i) => i.org === org && i.capability === id);
-        const codeOf = (sid) => row?.subprocesses?.find((s) => s.id === sid)?.fitment?.[org] || (mine.some((i) => i.step === sid) ? 'RV' : 'NS');
+        const spOf = (sid) => row?.subprocesses?.find((s) => s.id === sid);
+        const codeOf = (sid) => spOf(sid)?.fitment?.[org] || (mine.some((i) => i.step === sid) ? 'RV' : 'NS');
         const codeName = (c) => (a.fitmentCodes || {})[c] || c;
-        const chain = cap.steps.map((s) => `<div class="pstep"><b>${esc(s.name)}</b><small><span class="fit ${codeOf(s.id)}" style="min-width:0;padding:0 5px">${codeOf(s.id)}</span> ${mine.filter((i) => i.step === s.id).length} components</small></div>`);
-        const vchip = (i) => `<button type="button" class="chip" data-validate="${esc(i.kind)}|${esc(i.name)}" title="Open in End-to-end validation"><span class="chipv" style="background:var(--v-${esc(i.verdict)})">${esc((a.verdicts || {})[i.verdict] || i.verdict)}</span><b>${esc(i.name)}</b></button>`;
-        return { title: cap.name, crumb: `${area.area} · standard process from the knowledge base, with this org's components as evidence`, json: { area: area.area, capability: cap, fitment: row?.fitment?.[org] || null, components: mine.map(({ trace, ...i }) => i) }, visual: () => `
+        const stOf = (s) => s.orgs?.[org] || null;
+        const cm = cap.model?.[org];
+        const chain = cap.steps.map((s) => `<div class="pstep"><b>${esc(s.name)}</b><small><span class="fit ${codeOf(s.id)}" style="min-width:0;padding:0 5px">${codeOf(s.id)}</span> ${mine.filter((i) => i.step === s.id).length} components${stOf(s)?.setupRecords ? ` · ${stOf(s).setupRecords.toLocaleString('en-GB')} set-up records` : ''}</small></div>`);
+        const vchip = (i) => `<button type="button" class="chip" data-validate="${esc(i.kind)}|${esc(i.name)}" title="${esc(i.reason || 'Open in End-to-end validation')}"><span class="chipv" style="background:var(--v-${esc(i.verdict)})">${esc((a.verdicts || {})[i.verdict] || i.verdict)}</span><b>${esc(i.name)}</b>${(i.tags || []).map((t) => ` <span class="as-note">${esc(t)}</span>`).join('')}</button>`;
+        // Records of a step, as a small table: object, count and model; "not available" when the integration user
+        // cannot see the object (feature off, or licence or permission missing).
+        const recTable = (rs) => tbl(['Object', 'Records', 'Model'], rs.map((r) => `<tr><td><code>${esc(r.object)}</code></td><td>${r.records === null ? '<span class="as-note">not available to the integration user</span>' : esc(Number(r.records).toLocaleString('en-GB'))}</td><td>${esc(r.model || 'Shared by both models')}</td></tr>`));
+        return { title: cap.name, crumb: `${area.area} · standard process from the knowledge base, with this org's components and records as evidence`, json: { area: area.area, capability: cap, fitment: row?.fitment?.[org] || null, fitmentWhy: row?.fitmentWhy?.[org] || null, model: cm || null, components: mine.map(({ trace, ...i }) => i) }, visual: () => `
           <div class="card"><h4>${esc(cap.name)}</h4><span class="as-note">${esc(cap.standard || '')}</span>
             <div class="pchain">${chain.join('<span class="parrow" aria-hidden="true">&rarr;</span>')}</div>
-            <span class="as-note">Capability fitment in this org: ${row?.fitment?.[org] ? `<span class="fit ${row.fitment[org]}" style="min-width:0;padding:0 5px">${row.fitment[org]}</span> ${esc(codeName(row.fitment[org]))}` : 'standard, nothing custom placed here'}</span></div>
-          ${cap.steps.map((s) => { const xs = mine.filter((i) => i.step === s.id); return `<div class="card"><h4>${esc(s.name)} <span class="fit ${codeOf(s.id)}" style="min-width:0;padding:0 5px">${codeOf(s.id)}</span> <span class="as-note">${esc(codeName(codeOf(s.id)))}</span></h4>
-            ${kvRows([['Standard objects and features', (s.objects || []).map((o) => `<code>${esc(o)}</code>`).join(' ') || esc(s.standard || '')], ['What it covers', esc(s.standard || '')], ['Official source', (s.sources || []).map((x) => `<a href="${esc(x.url || x)}" target="_blank" rel="noopener">${esc(x.quote ? `"${x.quote}"` : 'Salesforce')}</a>`).join('<br>')]])}
-            <div style="margin-top:6px">${xs.length ? `<div class="chips">${xs.map(vchip).join(' ')}</div>` : '<span class="as-note">Nothing custom found on this step: the standard is used as is, or not used.</span>'}</div></div>`; }).join('')}
-          ${mine.filter((i) => !i.step).length ? `<div class="card"><h4>In this capability, step not identified</h4><div class="chips">${mine.filter((i) => !i.step).map(vchip).join(' ')}</div></div>` : ''}` };
+            <span class="as-note">Capability fitment in this org: ${row?.fitment?.[org] ? `<span class="fit ${row.fitment[org]}" style="min-width:0;padding:0 5px">${row.fitment[org]}</span> ${esc(codeName(row.fitment[org]))}. ${esc(row.fitmentWhy?.[org] || '')}` : 'nothing custom and no records found for this process'}</span></div>
+          ${cm ? `<div class="card"><h4>Model in use: ${esc(cm.model || '')}</h4><span class="as-note">${esc(cm.text || '')}</span>${(cm.hidden || []).length ? `<p class="as-note">Not available to the integration user: ${cm.hidden.map((o) => `<code>${esc(o)}</code>`).join(' ')}. Check the feature, licence and permission sets, then run discovery again.</p>` : ''}</div>` : ''}
+          ${cap.steps.map((s) => { const xs = mine.filter((i) => i.step === s.id); const st = stOf(s); const why = spOf(s.id)?.fitmentWhy?.[org];
+            return `<div class="card"><h4>${esc(s.name)} <span class="fit ${codeOf(s.id)}" style="min-width:0;padding:0 5px">${codeOf(s.id)}</span> <span class="as-note">${esc(codeName(codeOf(s.id)))}</span></h4>
+            ${why ? `<p class="as-note" style="margin:0 0 6px">${esc(why)}</p>` : ''}
+            ${kvRows([['Standard objects and features', (s.objects || []).map((o) => `<code>${esc(o)}</code>`).join(' ') || esc(s.standard || '')], ['What it covers', esc(s.standard || '')], ...(st?.model ? [['Model in use', esc(st.model)]] : []), ['Official source', (s.sources || []).map((x) => `<a href="${esc(x.url || x)}" target="_blank" rel="noopener">${esc(x.quote ? `"${x.quote}"` : 'Salesforce')}</a>`).join('<br>')]])}
+            ${st?.read && st.setup.length ? `<details class="card" style="margin-top:6px"${st.setupRecords ? ' open' : ''}><summary><b>Set-up held as records</b> <span class="as-note">${st.setupRecords.toLocaleString('en-GB')} records: templates and definitions that configure this step</span></summary>${recTable(st.setup)}</details>` : ''}
+            ${st?.read && st.used.length ? `<details class="card" style="margin-top:6px"><summary><b>Records that show the step is used</b> <span class="as-note">${st.usedRecords.toLocaleString('en-GB')} records</span></summary>${recTable(st.used)}</details>` : ''}
+            ${st && !st.read ? '<p class="as-note">Set-up records and usage were not read in this run: run discovery again.</p>' : ''}
+            <div style="margin-top:6px">${xs.length ? `<div class="chips">${xs.map(vchip).join(' ')}</div>` : `<span class="as-note">${st?.setupRecords ? 'Nothing custom on this step: it is configured through the set-up records above.' : st?.usedRecords ? 'Nothing custom on this step: the standard is used as delivered.' : st?.read ? 'Nothing custom and no records on this step: it looks unused in this org.' : 'Nothing custom found on this step.'}</span>`}</div></div>`; }).join('')}
+          ${mine.filter((i) => !i.step).length ? `<div class="card"><h4>In this capability, step not identified</h4><span class="as-note">Components that work on this process without doing one of its steps, for example flows that only read its records.</span><div class="chips">${mine.filter((i) => !i.step).map(vchip).join(' ')}</div></div>` : ''}` };
       }
       case 'process': {
         const o = ob(id); const steps = der.saveOrder[id]; if (!o || !steps) break;

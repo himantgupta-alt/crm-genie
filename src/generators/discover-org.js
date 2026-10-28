@@ -20,8 +20,10 @@ const by = (k) => (a, b) => String(a[k]).localeCompare(String(b[k]));
 async function main() {
   const conn = await connect();
   conn.version = API;
+  // Anything that could not be read is listed in the output, never silently taken for "nothing there".
+  const warnings = [];
   const q = async (soql, tooling = false) => {
-    try { return (await (tooling ? conn.tooling : conn).query(soql, { autoFetch: true, maxFetch: 50000 })).records; } catch { return []; }
+    try { return (await (tooling ? conn.tooling : conn).query(soql, { autoFetch: true, maxFetch: 50000 })).records; } catch (e) { warnings.push(`Query failed (${e.errorCode || e.message}): ${soql.slice(0, 120)}`); return []; }
   };
   const count = async (soql) => { try { return (await conn.query(soql)).totalSize; } catch { return null; } };
   // Single-record Tooling queries (the Metadata field is only returned one record at a time).
@@ -69,7 +71,7 @@ async function main() {
 
   async function describeObject(name) {
     let d;
-    try { d = await conn.sobject(name).describe(); } catch { return null; }
+    try { d = await conn.sobject(name).describe(); } catch (e) { warnings.push(`Object ${name} could not be described (${e.errorCode || e.message})`); return null; }
     const records = d.queryable ? await count(`SELECT COUNT() FROM ${name}`) : null;
     const nsMatch = name.match(/^([A-Za-z0-9_]+?)__\w+__c$/);
     const fields = [];
@@ -80,7 +82,8 @@ async function main() {
         const n = await count(`SELECT COUNT() FROM ${name} WHERE ${f.name} ${f.type === 'boolean' ? '= true' : '!= null'}`);
         if (n != null) fill = Math.round((n / records) * 100);
       }
-      const fieldNs = f.name.match(/^([A-Za-z0-9_]+?)__\w+__c$/)?.[1];
+      // Package fields include compound parts (cgcloud__Geolocation__Latitude__s), not only __c.
+      const fieldNs = f.name.match(/^([A-Za-z0-9_]+?)__\w+__[cs]$/)?.[1];
       fields.push({
         name: f.name, label: f.label, type: f.calculated ? (f.calculatedFormula ? 'formula' : 'roll-up') : f.type,
         origin: custom ? managed(fieldNs) : 'standard', required: !f.nillable && f.createable && !f.defaultedOnCreate,
@@ -263,8 +266,9 @@ async function main() {
     code: { classes, lwc, aura, visualforce }, packages, featureConfig,
     security: { profiles, permissionSets, permissionSetGroups, roles, sharingRules },
     integrations: { namedCredentials, remoteSites, connectedApps, loginSources, calloutClasses: classes.filter((c) => c.callout).map((c) => c.name) },
-    ui: { apps, flexiPages }, usage, dependencies,
+    ui: { apps, flexiPages }, usage, dependencies, warnings,
   };
+  if (warnings.length) console.log(`warning: discovery: ${warnings.length} item(s) could not be read; see warnings in discovery.json`);
   const file = path.join(P.ASSESSMENT, 'discovery', region, 'discovery.json');
   writeJson(file, out);
   console.log(`discovery: ${out.label}: ${objects.length} objects, ${validationRules.length} validation rules, ${flows.length} flows, ${triggers.length} triggers, ${classes.length} classes, ${packages.length} packages -> ${P.rel(file)}`);

@@ -13,10 +13,12 @@ const [region, label] = process.argv.slice(2);
 if (!region) { console.error('usage: SF_ALIAS=<alias> node src/generators/assess-org.js <region> "<label>"'); process.exit(2); }
 
 const API = '67.0';
-// Standard objects whose added fields are always assessed; any other standard or package object with an unmanaged
-// custom field is added at run time.
-const STANDARD = ['Account', 'Contact', 'Lead', 'Opportunity', 'Product2', 'Order', 'OrderItem', 'Case', 'Campaign', 'Contract', 'Quote', 'Asset',
-  'RetailStore', 'Visit', 'RetailVisitKpi', 'AssessmentTask', 'RetailStoreGroup', 'InStoreLocation', 'StoreProduct'];
+// Standard objects whose added fields are always assessed: the standard objects of the process knowledge base
+// (kb/capabilities/processes.json). Any other standard or package object with an unmanaged custom field is added at
+// run time.
+const kb = JSON.parse(require('fs').readFileSync(path.join(P.ROOT, 'kb', 'capabilities', 'processes.json'), 'utf8'));
+const kbObjects = [...new Set(kb.areas.flatMap((ar) => ar.capabilities.flatMap((c) => c.steps.flatMap((s) => [...(s.objects || []), ...(s.creates || [])]))))].sort();
+const STANDARD = kbObjects.filter((n) => !n.includes('__'));
 const SKIP_FILL = new Set(['LongTextArea', 'Html', 'EncryptedString', 'base64', 'textarea']);
 const byName = (a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0);
 
@@ -165,9 +167,23 @@ async function main() {
     .map((t) => ({ name: t.Name, object: objById[t.TableEnumOrId] || t.TableEnumOrId, active: t.Status === 'Active', lines: (t.Body || '').split('\n').length, ...version(t), lastRun: lastRun[t.Name] || null,
       analysis: analyseApex(t.Name, t.Body, { kind: 'trigger', object: t.TableEnumOrId }) }))
     .sort(byName);
-  const flows = (await critical('Flows', 'SELECT ApiName, Label, ProcessType, TriggerType, TriggerObjectOrEventLabel, IsActive FROM FlowDefinitionView WHERE NamespacePrefix = null'))
-    .map((f) => ({ name: f.ApiName, label: f.Label, kind: f.ProcessType, trigger: f.TriggerType, object: f.TriggerObjectOrEventLabel, active: f.IsActive }))
-    .sort(byName);
+  // A flow is placed by the records it works on (starts from, reads, creates, updates, deletes), read from its
+  // definition, never by its name. A flow whose definition cannot be read is reported.
+  const flowRows = await critical('Flows', 'SELECT ApiName, Label, ProcessType, TriggerType, TriggerObjectOrEventLabel, IsActive, ActiveVersionId, LatestVersionId FROM FlowDefinitionView WHERE NamespacePrefix = null');
+  progress('as-is flow definitions', 0, flowRows.length);
+  let flowsRead = 0;
+  const unreadFlows = [];
+  const flows = (await pool(flowRows, CONCURRENCY, async (f) => {
+    const vid = f.ActiveVersionId || f.LatestVersionId;
+    let objects = null;
+    for (let attempt = 1; attempt <= 2 && !objects && vid; attempt++) {
+      try { const m = (await conn.tooling.query(`SELECT Metadata FROM Flow WHERE Id = '${vid}'`)).records[0]?.Metadata; if (m) objects = flowObjects(m); } catch { await new Promise((res) => setTimeout(res, 2000)); }
+    }
+    if (!objects) unreadFlows.push(f.ApiName);
+    if (++flowsRead % Math.max(1, Math.round(flowRows.length / 10)) === 0 || flowsRead === flowRows.length) progress('as-is flow definitions', flowsRead, flowRows.length);
+    return { name: f.ApiName, label: f.Label, kind: f.ProcessType, trigger: f.TriggerType, object: f.TriggerObjectOrEventLabel, active: f.IsActive, objects };
+  })).sort(byName);
+  if (unreadFlows.length) warn(`The definition of ${unreadFlows.length} flow(s) could not be read (${unreadFlows.slice(0, 5).join(', ')}${unreadFlows.length > 5 ? ', …' : ''}); they are placed by name only`);
   const rules = (await critical('Validation rules', 'SELECT ValidationName, EntityDefinition.QualifiedApiName, Active FROM ValidationRule WHERE NamespacePrefix = null', true))
     .map((v) => ({ name: v.ValidationName, object: v.EntityDefinition?.QualifiedApiName, active: v.Active }))
     .sort((a, b) => `${a.object}.${a.name}`.localeCompare(`${b.object}.${b.name}`));
@@ -181,6 +197,65 @@ async function main() {
     .map((l) => ({ name: l.MasterLabel, total: l.TotalLicenses, used: l.UsedLicenses })).sort(byName);
   const featureLicences = ok(await soql('SELECT MasterLabel, TotalLicenses, UsedLicenses FROM PermissionSetLicense WHERE TotalLicenses > 0'))
     .map((l) => ({ name: l.MasterLabel, total: l.TotalLicenses, used: l.UsedLicenses })).sort(byName);
+  // The records around each standard process (kb/capabilities/processes.json), read from the org itself: the
+  // process objects, the objects whose records hang off them (children, e.g. a package's records on a standard
+  // object), and what those point to (parents: templates, definitions, master data). For each: record count, its
+  // lookups, and which packages add fields to it. No object list is written in code; the fit-gap derives set-up,
+  // model and common objects from this graph. Counts only; null = not available to the integration user.
+  const gl = Object.fromEntries(global.sobjects.map((s) => [s.name, s]));
+  const nsOf = (n) => n.match(/^([A-Za-z0-9]+?)__\w+__[cs]$/)?.[1] || null;
+  const installedNs = new Set(ok(await soql('SELECT SubscriberPackage.NamespacePrefix FROM InstalledSubscriberPackage', true)).map((p) => p.SubscriberPackage?.NamespacePrefix).filter(Boolean));
+  // Records of the business or of an installed package; the org's own custom objects are assessed as components.
+  const NOISE = /(Share|Feed|History|ChangeEvent|Tag|__mdt|__e|__b|__x|__hd|__dlm|__dll|__chn|OwnerSharingRule)$/;
+  const inGraph = (n) => gl[n]?.queryable && !gl[n].customSetting && !NOISE.test(n) && (!gl[n].custom || installedNs.has(nsOf(n)));
+  const graph = {};
+  const kbSet = new Set(kbObjects);
+  const describeNode = async (n) => {
+    if (graph[n] || !gl[n]?.queryable) return;
+    graph[n] = { records: null, parents: [], children: [], extendedBy: [] };
+    try {
+      const d = await conn.sobject(n).describe();
+      // Only lookups to one object type are structure (a template, a parent record); a lookup that can point to many
+      // types ("related to") links everything to everything and says nothing about the process.
+      // The platform's audit lookups (created by, last modified by, owner) are on every object and are skipped.
+      const refs = d.fields.filter((f) => f.type === 'reference' && !(!f.custom && /^(CreatedById|LastModifiedById|OwnerId)$/.test(f.name)));
+      graph[n].parents = [...new Set(refs.filter((f) => (f.referenceTo || []).length === 1).map((f) => f.referenceTo[0]).filter((x) => x !== n && inGraph(x)))].sort();
+      // What its "related to" lookups can point to: an object that can relate to records of many processes (an
+      // activity, a note) is common to them all.
+      graph[n].related = [...new Set(refs.filter((f) => (f.referenceTo || []).length > 1).flatMap((f) => f.referenceTo).filter((x) => kbSet.has(x)))].sort();
+      graph[n].children = [...new Set((d.childRelationships || []).map((r) => r.childSObject).filter((x) => x !== n && inGraph(x)))].sort();
+      graph[n].extendedBy = [...new Set(d.fields.filter((f) => f.custom).map((f) => nsOf(f.name)).filter((x) => x && installedNs.has(x)))].sort();
+    } catch (e) { warn(`Object ${n} could not be described (${e.errorCode || e.message}); its relationships are missing`); }
+  };
+  progress('as-is process records', 0, 3);
+  await pool(kbObjects, CONCURRENCY, describeNode);
+  const level1 = [...new Set(kbObjects.flatMap((n) => graph[n]?.children || []))].filter((n) => !graph[n]);
+  progress('as-is process records', 1, 3);
+  await pool(level1, CONCURRENCY, describeNode);
+  for (const n of kbObjects) if (graph[n]) graph[n].children = graph[n].children.filter((c) => graph[c]?.parents.includes(n));
+  const kept = new Set([...kbObjects, ...kbObjects.flatMap((n) => graph[n]?.children || [])]);
+  for (const n of Object.keys(graph)) if (!kept.has(n)) delete graph[n];
+  const level2 = [...new Set([...kept].flatMap((n) => graph[n]?.parents || []))].filter((n) => !graph[n]);
+  progress('as-is process records', 2, 3);
+  await pool(level2, CONCURRENCY, describeNode);
+  // A child counts only when its own single-type lookup points back (the same rule as for parents).
+  for (const [n, v] of Object.entries(graph)) v.children = v.children.filter((c) => graph[c]?.parents.includes(n));
+  await pool(Object.keys(graph), CONCURRENCY, async (n) => { graph[n].records = await count(`SELECT COUNT() FROM ${n}`); });
+  progress('as-is process records', 3, 3);
+  const processRecords = Object.fromEntries(kbObjects.map((n) => [n, graph[n] ? graph[n].records : null]));
+
+  // What the integration user itself is licensed for: a missing feature licence hides that feature's objects, so the
+  // run says so rather than reporting the feature as unused.
+  let me = null;
+  try { me = (await conn.identity()).user_id; } catch { me = null; }
+  const userLicences = me ? ok(await soql(`SELECT PermissionSetLicense.MasterLabel FROM PermissionSetLicenseAssign WHERE AssigneeId = '${me}'`)).map((r) => r.PermissionSetLicense?.MasterLabel).filter(Boolean).sort() : [];
+  const hidden = kbObjects.filter((n) => processRecords[n] === null);
+  const hiddenPackage = hidden.filter((n) => installedNs.has(nsOf(n)));
+  // Standard objects that are not available may simply be a feature that is not switched on: they are listed with the
+  // results (access.notAvailable), not raised as a warning. Objects of an installed package are there: hidden ones
+  // mean the user lacks the package licence or permission sets.
+  if (hiddenPackage.length) warn(`${hiddenPackage.length} object(s) of installed packages are not visible to the integration user (${hiddenPackage.slice(0, 6).join(', ')}${hiddenPackage.length > 6 ? ', …' : ''}): assign the package licence and permission sets, then run discovery again`);
+
   const namedCredentials = ok(await soql('SELECT DeveloperName FROM NamedCredential')).map((n) => n.DeveloperName).sort();
   const remoteSites = ok(await soql('SELECT SiteName FROM RemoteProxy', true)).map((r) => r.SiteName).sort();
   const activeUsers = await count('SELECT COUNT() FROM User WHERE IsActive = true AND UserType = \'Standard\'');
@@ -203,6 +278,8 @@ async function main() {
     packages, licences, featureLicences,
     integrations: { namedCredentials, remoteSites, calloutClasses: classes.filter((c) => c.callout).map((c) => c.name) },
     usage: { activeUsers, reports },
+    processRecords, processGraph: graph,
+    access: { featureLicences: userLicences, notAvailable: hidden },
     // How "is it used?" was established for this org, so every verdict can say how sure it is.
     usageCheck: { dependencies: dependencyCheck, logs },
     // Anything the as-is could not read: an incomplete inventory is reported, never assumed complete.
@@ -211,6 +288,17 @@ async function main() {
   const file = path.join(P.ASSESSMENT, 'orgs', `${region}.json`);
   writeJson(file, asIs);
   console.log(`assessment as-is: ${asIs.label}: ${objects.length} custom objects, ${extended.reduce((a, o) => a + o.fields.length, 0)} custom fields on standard objects, ${classes.length} classes, ${triggers.length} triggers, ${flows.length} flows, ${markets.length} markets -> ${P.rel(file)}`);
+}
+
+// The objects a flow works on, from its definition: the record it starts from, and the records it reads, creates,
+// updates and deletes. A record element names its object directly, or through a record variable or lookup.
+function flowObjects(m) {
+  const vars = Object.fromEntries([].concat(m.variables || []).filter((v) => v.objectType).map((v) => [v.name, v.objectType]));
+  const lookups = Object.fromEntries([].concat(m.recordLookups || []).filter((l) => l.object).map((l) => [l.name, l.object]));
+  const start = m.start?.object || null;
+  const objOf = (e) => e.object || vars[e.inputReference] || lookups[e.inputReference] || (String(e.inputReference || '').startsWith('$Record') ? start : null);
+  const list = (k) => [...new Set([].concat(m[k] || []).map(objOf).filter(Boolean))].sort();
+  return { start, reads: list('recordLookups'), creates: list('recordCreates'), updates: list('recordUpdates'), deletes: list('recordDeletes') };
 }
 
 main().catch((e) => { console.error(e.message || e); process.exit(1); });

@@ -110,6 +110,7 @@
       "id": "cg-extensions",
       "area": "Retail execution",
       "capability": "Extensions to Consumer Goods Cloud objects",
+      "generic": true,
       "match": {
         "fields": "^(Visit|RetailStore|RetailVisitKpi|AssessmentTask|RetailStoreGroup|InStoreLocation|StoreProduct)\\.",
         "triggers": "^(Visit|RetailStore|RetailVisitKpi)\\w*Trigger$"
@@ -528,6 +529,10 @@
   ],
   "rules": {
     "retireWhenFillBelow": 1,
-    "retireObjectsWithoutRecords": true
+    "retireObjectsWithoutRecords": true,
+    "commonObjectAreas": 4,
+    "mainModelShare": 0.8,
+    "nameFamilyAreas": 3,
+    "nameFamilyMinimum": 10
   }
 }

@@ -27,7 +27,9 @@ function page(areas) {
       out.push(`### ${c.name}`, '', c.standard, '', '| Step | Standard objects and features | Official source |', '|---|---|---|');
       for (const s of c.steps) {
         const src = (s.sources || []).map((id) => `[${host(byId[id].url)}](${byId[id].url}): "${esc(byId[id].quote)}"`).join('<br>');
-        out.push(`| ${esc(s.name)} | ${(s.objects || []).map((o) => `\`${o}\``).join(', ') || esc(s.standard)} | ${src} |`);
+        const setupNames = s.setup || (kb.setupPattern ? (s.objects || []).filter((o) => new RegExp(kb.setupPattern).test(o)) : []);
+        const setup = setupNames.length ? `<br>Set-up held as records: ${setupNames.map((o) => `\`${o}\``).join(', ')}` : '';
+        out.push(`| ${esc(s.name)} | ${(s.objects || []).map((o) => `\`${o}\``).join(', ') || esc(s.standard)}${setup} | ${src} |`);
       }
       out.push('');
     }

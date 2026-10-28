@@ -1,8 +1,9 @@
 {
-  "about": "Standard capabilities and process steps per business area, read by the Fit-gap sub-agent (src/generators/emit-assessment.js). A component is placed on a step by a standard object it sits on or uses (objects), otherwise by the step's keywords in its name (keywords: matching aids, not sourced). Every step links its official sources; their quoted words are in sources.json and confirmed by src/generators/verify-kb-sources.js.",
+  "about": "Standard capabilities and process steps per business area, read by the Fit-gap sub-agent (src/generators/emit-assessment.js). A component is placed on a step by the records it creates (creates: the step where those records start), then by a standard object it starts from, sits on or changes (objects), otherwise by the step's keywords in its name (keywords: matching aids, not sourced). Everything else (the set-up held as records, the records that show a step is used, which model or package holds them, which objects are common to every process) is read from each org's own relationships and installed packages, not listed here. Every step links its official sources; their quoted words are in sources.json and confirmed by src/generators/verify-kb-sources.js.",
   "areas": [
     {
       "area": "Retail execution",
+      "code": "RE",
       "guide": "consumer-goods-processes.md",
       "capabilities": [
         {
@@ -134,6 +135,9 @@
                 "cgcloud__Trip_List_Account__c",
                 "cgcloud__Account_Visit_Setting__c"
               ],
+              "creates": [
+                "Visit"
+              ],
               "keywords": "(Visit_?Plan|Call_?Plan|Trip|Journey|Visit_?Frequency|Visit_?Schedul)",
               "standard": "Trip lists plan visits on a predefined sequence of customers",
               "sources": [
@@ -200,7 +204,7 @@
                 "AssessmentTask",
                 "OtherComponentTask"
               ],
-              "keywords": "(Visit_?Task|Store_?Task|Visit_?Job)",
+              "keywords": "(Visit_?Task|Store_?Task|Visit_?Job|Checklist)",
               "standard": "Planogram, inventory and promotion checks, surveys and custom tasks",
               "sources": [
                 "re-dg-tasks"
@@ -432,6 +436,7 @@
     },
     {
       "area": "Trade promotion management (TPM)",
+      "code": "TPM",
       "guide": "consumer-goods-processes.md",
       "capabilities": [
         {
@@ -796,6 +801,7 @@
     },
     {
       "area": "Customer master",
+      "code": "CM",
       "guide": "core-processes.md",
       "capabilities": [
         {
@@ -888,6 +894,7 @@
     },
     {
       "area": "Product master",
+      "code": "PM",
       "guide": "core-processes.md",
       "capabilities": [
         {
@@ -966,6 +973,7 @@
     },
     {
       "area": "Order to cash",
+      "code": "OC",
       "guide": "core-processes.md",
       "capabilities": [
         {
@@ -1086,6 +1094,7 @@
     },
     {
       "area": "Sales performance",
+      "code": "SP",
       "guide": "core-processes.md",
       "capabilities": [
         {
@@ -1225,6 +1234,7 @@
     },
     {
       "area": "Service",
+      "code": "SV",
       "guide": "core-processes.md",
       "capabilities": [
         {
