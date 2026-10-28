@@ -56,7 +56,9 @@ async function main() {
   const customObjNames = global.sobjects.filter((s) => s.custom && s.name.endsWith('__c') && !s.customSetting && s.queryable).map((s) => s.name);
   const names = [...new Set([...CORE.filter((n) => gl[n]), ...standardWithCustom, ...customObjNames])].sort();
 
-  const sharing = Object.fromEntries((await q(`SELECT QualifiedApiName, InternalSharingModel, ExternalSharingModel FROM EntityDefinition WHERE QualifiedApiName IN (${names.map((n) => `'${n}'`).join(',')})`, true))
+  // A long IN list is split into batches: one query over hundreds of objects is longer than a request may be.
+  const inBatches = async (list, make, tooling = false) => { const out = []; for (let i = 0; i < list.length; i += 100) out.push(...await q(make(list.slice(i, i + 100).map((n) => `'${n}'`).join(',')), tooling)); return out; };
+  const sharing = Object.fromEntries((await inBatches(names, (ids) => `SELECT QualifiedApiName, InternalSharingModel, ExternalSharingModel FROM EntityDefinition WHERE QualifiedApiName IN (${ids})`, true))
     .map((e) => [e.QualifiedApiName, { internal: e.InternalSharingModel, external: e.ExternalSharingModel }]));
   const recordTypes = await q('SELECT SobjectType, Name, DeveloperName, IsActive FROM RecordType');
   const layouts = await q('SELECT Name, TableEnumOrId FROM Layout', true);
@@ -215,9 +217,9 @@ async function main() {
   sharingRules.sort(by('name'));
   // Field-level access to custom fields: how many profiles and permission sets can read and edit each one.
   const fieldAccess = {};
-  const customObjs = objects.filter((ob) => ob.fields.some((f) => f.origin !== 'standard')).map((ob) => `'${ob.name}'`);
+  const customObjs = objects.filter((ob) => ob.fields.some((f) => f.origin !== 'standard')).map((ob) => ob.name);
   if (customObjs.length) {
-    for (const p of await q(`SELECT SobjectType, Field, PermissionsRead, PermissionsEdit, Parent.IsOwnedByProfile FROM FieldPermissions WHERE SobjectType IN (${customObjs.join(',')})`)) {
+    for (const p of await inBatches(customObjs, (ids) => `SELECT SobjectType, Field, PermissionsRead, PermissionsEdit, Parent.IsOwnedByProfile FROM FieldPermissions WHERE SobjectType IN (${ids})`)) {
       const a = (fieldAccess[p.Field] ||= { read: 0, edit: 0, profiles: 0, permissionSets: 0 });
       if (p.PermissionsRead) a.read++;
       if (p.PermissionsEdit) a.edit++;
