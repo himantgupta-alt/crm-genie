@@ -39,14 +39,14 @@
         "agreement": null
       },
       {
-        "area": "Product master",
+        "area": "Service",
         "components": 4,
         "reviewed": 0,
         "agreed": 0,
         "agreement": null
       },
       {
-        "area": "Service",
+        "area": "Product master",
         "components": 4,
         "reviewed": 0,
         "agreed": 0,
@@ -73,6 +73,9 @@
       "possible-duplicate": "Built next to a standard feature of the same process step",
       "logic-on-standard": "Custom logic on a standard object of a process step",
       "package-guide": "Package guide in the knowledge base",
+      "flow-on-standard": "A flow that works on the standard objects of a process step",
+      "read-only": "A flow that only reads records of the process",
+      "other-product": "Belongs to another installed product, not to a standard process",
       "none": "No capability found"
     }
   },
@@ -780,7 +783,7 @@
       ]
     },
     {
-      "code": "PL",
+      "code": "P",
       "area": "Platform",
       "capabilities": []
     }
@@ -788,7 +791,133 @@
   "completeness": {
     "eu": {
       "complete": true,
-      "warnings": []
+      "warnings": [],
+      "access": {
+        "featureLicences": [
+          "Agentforce (Default)",
+          "Agentforce Service Agent Builder",
+          "Data Cloud",
+          "Einstein Prompt Templates",
+          "Enhanced Chat User",
+          "Service User"
+        ],
+        "notAvailable": [
+          "AccountContactRelation",
+          "ActionPlanTemplate",
+          "AiVisitRecommendRequest",
+          "AiVisitRecommendation",
+          "AssessmentIndicatorDefinition",
+          "AssessmentTask",
+          "AssessmentTaskContentDocument",
+          "AssessmentTaskDefinition",
+          "AssessmentTaskIndDefinition",
+          "AssessmentTaskOrder",
+          "Assortment",
+          "AssortmentProduct",
+          "CaseArticle",
+          "DeliveryTask",
+          "ForecastingAdjustment",
+          "ForecastingItem",
+          "ForecastingQuota",
+          "InStoreLocation",
+          "MaintenanceAsset",
+          "MaintenancePlan",
+          "ObjectTerritory2Association",
+          "OtherComponentTask",
+          "PromotionChannel",
+          "PromotionProduct",
+          "PromotionProductCategory",
+          "Quote",
+          "QuoteLineItem",
+          "RetailLocationGroup",
+          "RetailStore",
+          "RetailStoreGroupAssignment",
+          "RetailStoreKpi",
+          "RetailVisitKpi",
+          "ServiceCrew",
+          "SignatureTask",
+          "SignatureTaskLineItem",
+          "StoreActionPlanTemplate",
+          "StoreAssortment",
+          "StoreProduct",
+          "Territory2",
+          "Territory2Model",
+          "Territory2Type",
+          "VehicleUserAssignment",
+          "Visit",
+          "VisitedParty",
+          "Visitor",
+          "cgc_sync__Sync_API_Log__c",
+          "cgc_sync__Sync_Client_App_Profile_Mapping__c",
+          "cgc_sync__Sync_Config__c",
+          "cgc_sync__Sync_History__c",
+          "cgc_sync__Sync_ID_Mapping__c",
+          "cgc_sync__Sync_Mobile_App_Depl_Pkg__c",
+          "cgcloud__Account_Extension__c",
+          "cgcloud__Account_Plan_Category__c",
+          "cgcloud__Account_Plan__c",
+          "cgcloud__Account_Set__c",
+          "cgcloud__Account_Visit_Setting__c",
+          "cgcloud__Approval_Code__c",
+          "cgcloud__Asset_Audit__c",
+          "cgcloud__Business_Year__c",
+          "cgcloud__CP_Calculation_Schema__c",
+          "cgcloud__Fund_Product__c",
+          "cgcloud__Fund_Template__c",
+          "cgcloud__Fund_Transaction_Header__c",
+          "cgcloud__Fund_Transaction_Row__c",
+          "cgcloud__Fund_Transaction_Template__c",
+          "cgcloud__Fund_Transaction__c",
+          "cgcloud__Fund__c",
+          "cgcloud__Inventory_Transaction__c",
+          "cgcloud__Inventory__c",
+          "cgcloud__Job_Definition_List__c",
+          "cgcloud__KPI_Definition__c",
+          "cgcloud__KPI_Set_KPI_Definition__c",
+          "cgcloud__KPI_Set__c",
+          "cgcloud__Listing_Classification__c",
+          "cgcloud__Listing_Module__c",
+          "cgcloud__Order_Item_Template__c",
+          "cgcloud__Order_Item__c",
+          "cgcloud__Order_Template__c",
+          "cgcloud__Order__c",
+          "cgcloud__Org_Unit_Hierarchy__c",
+          "cgcloud__Org_Unit_User__c",
+          "cgcloud__Org_Unit__c",
+          "cgcloud__Payment_Tactic_Fund__c",
+          "cgcloud__Payment_Tactic_Product__c",
+          "cgcloud__Payment_Tactic__c",
+          "cgcloud__Payment_Template__c",
+          "cgcloud__Payment__c",
+          "cgcloud__Product_Assortment_Store__c",
+          "cgcloud__Product_Condition__c",
+          "cgcloud__Product_Listing_Module__c",
+          "cgcloud__Promotion_Push_Status__c",
+          "cgcloud__Promotion_Store__c",
+          "cgcloud__Promotion_Template_Tactic_Template__c",
+          "cgcloud__Promotion_Template__c",
+          "cgcloud__Promotion__c",
+          "cgcloud__RBF_Template__c",
+          "cgcloud__RTR_Report_Configuration__c",
+          "cgcloud__Rate_Based_Funding__c",
+          "cgcloud__Route__c",
+          "cgcloud__Sales_Organization__c",
+          "cgcloud__Signature__c",
+          "cgcloud__Tactic_Fund__c",
+          "cgcloud__Tactic_Product_Condition__c",
+          "cgcloud__Tactic_Product__c",
+          "cgcloud__Tactic_Template_Fund_Template__c",
+          "cgcloud__Tactic_Template__c",
+          "cgcloud__Tactic__c",
+          "cgcloud__Tour__c",
+          "cgcloud__Trip_List_Account__c",
+          "cgcloud__Trip_List__c",
+          "cgcloud__Vehicle__c",
+          "cgcloud__View__c",
+          "cgcloud__Visit_Job__c",
+          "cgcloud__Visit_Template__c"
+        ]
+      }
     }
   },
   "processes": [
@@ -799,6 +928,25 @@
           "id": "kb-re-store-setup",
           "name": "Store and account setup",
           "standard": "Retail stores, store groups and in-store locations, with the sales organisation structure",
+          "model": {
+            "eu": {
+              "read": true,
+              "model": "Not used",
+              "byModel": {},
+              "text": "Not used. Core Salesforce: not available: retail store, not available: retail location group, not available: retail store group assignment, not available: in store location. cgcloud package: not available: org unit, not available: org unit hierarchy, not available: org unit user, not available: sales organization, not available: account extension.",
+              "hidden": [
+                "RetailStore",
+                "RetailLocationGroup",
+                "RetailStoreGroupAssignment",
+                "InStoreLocation",
+                "cgcloud__Org_Unit__c",
+                "cgcloud__Org_Unit_Hierarchy__c",
+                "cgcloud__Org_Unit_User__c",
+                "cgcloud__Sales_Organization__c",
+                "cgcloud__Account_Extension__c"
+              ]
+            }
+          },
           "steps": [
             {
               "id": "re-stores",
@@ -818,7 +966,40 @@
                   "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
                   "quote": "Create records for physical retail stores associated to business accounts"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "RetailStore",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "RetailLocationGroup",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "RetailStoreGroupAssignment",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "RetailStore",
+                    "RetailLocationGroup",
+                    "RetailStoreGroupAssignment"
+                  ]
+                }
+              }
             },
             {
               "id": "re-locations",
@@ -832,7 +1013,28 @@
                   "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
                   "quote": "such as aisles, shelves, or backrooms"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "InStoreLocation",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "InStoreLocation"
+                  ]
+                }
+              }
             },
             {
               "id": "re-orgunits",
@@ -850,7 +1052,52 @@
                   "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
                   "quote": "Stores the details of the relationship between the organization unit and the user"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "cgcloud__Org_Unit__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    },
+                    {
+                      "object": "cgcloud__Org_Unit_Hierarchy__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    },
+                    {
+                      "object": "cgcloud__Org_Unit_User__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    },
+                    {
+                      "object": "cgcloud__Sales_Organization__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    },
+                    {
+                      "object": "cgcloud__Account_Extension__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "cgcloud__Org_Unit__c",
+                    "cgcloud__Org_Unit_Hierarchy__c",
+                    "cgcloud__Org_Unit_User__c",
+                    "cgcloud__Sales_Organization__c",
+                    "cgcloud__Account_Extension__c"
+                  ]
+                }
+              }
             }
           ]
         },
@@ -858,6 +1105,24 @@
           "id": "kb-re-assortment",
           "name": "Product assortment and store products",
           "standard": "Assortments assigned to stores, store groups or accounts, and the products each store sells",
+          "model": {
+            "eu": {
+              "read": true,
+              "model": "Not used",
+              "byModel": {},
+              "text": "Not used. Core Salesforce: not available: assortment, not available: assortment product, not available: store assortment, not available: store product. cgcloud package: not available: product assortment store, not available: listing classification, not available: listing module, not available: product listing module.",
+              "hidden": [
+                "Assortment",
+                "AssortmentProduct",
+                "StoreAssortment",
+                "StoreProduct",
+                "cgcloud__Product_Assortment_Store__c",
+                "cgcloud__Listing_Classification__c",
+                "cgcloud__Listing_Module__c",
+                "cgcloud__Product_Listing_Module__c"
+              ]
+            }
+          },
           "steps": [
             {
               "id": "re-assortments",
@@ -872,7 +1137,34 @@
                   "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
                   "quote": "Represents a list of products that are eligible for sale in a store"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "Assortment",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "AssortmentProduct",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "Assortment",
+                    "AssortmentProduct"
+                  ]
+                }
+              }
             },
             {
               "id": "re-storeproducts",
@@ -888,7 +1180,40 @@
                   "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
                   "quote": "Associate a product to a retail store or to a specific in-store location"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "StoreAssortment",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "StoreProduct",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "cgcloud__Product_Assortment_Store__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "StoreAssortment",
+                    "StoreProduct",
+                    "cgcloud__Product_Assortment_Store__c"
+                  ]
+                }
+              }
             },
             {
               "id": "re-listing",
@@ -904,7 +1229,40 @@
                   "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
                   "quote": "Holds the information about the listing modules and the product category for a customer"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "cgcloud__Listing_Classification__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    },
+                    {
+                      "object": "cgcloud__Listing_Module__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    },
+                    {
+                      "object": "cgcloud__Product_Listing_Module__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "cgcloud__Listing_Classification__c",
+                    "cgcloud__Listing_Module__c",
+                    "cgcloud__Product_Listing_Module__c"
+                  ]
+                }
+              }
             }
           ]
         },
@@ -912,6 +1270,24 @@
           "id": "kb-re-visit-planning",
           "name": "Visit planning and scheduling",
           "standard": "Action plan templates, visit templates, trip lists and visit recommendations",
+          "model": {
+            "eu": {
+              "read": true,
+              "model": "Not used",
+              "byModel": {},
+              "text": "Not used. Core Salesforce: not available: action plan template, not available: store action plan template, not available: ai visit recommendation, not available: ai visit recommend request. cgcloud package: not available: visit template, not available: trip list, not available: trip list account, not available: account visit setting.",
+              "hidden": [
+                "ActionPlanTemplate",
+                "StoreActionPlanTemplate",
+                "cgcloud__Visit_Template__c",
+                "cgcloud__Trip_List__c",
+                "cgcloud__Trip_List_Account__c",
+                "cgcloud__Account_Visit_Setting__c",
+                "AiVisitRecommendation",
+                "AiVisitRecommendRequest"
+              ]
+            }
+          },
           "steps": [
             {
               "id": "re-templates",
@@ -931,7 +1307,40 @@
                   "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
                   "quote": "Template that describes the basic call behavior"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "ActionPlanTemplate",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "StoreActionPlanTemplate",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "cgcloud__Visit_Template__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "ActionPlanTemplate",
+                    "StoreActionPlanTemplate",
+                    "cgcloud__Visit_Template__c"
+                  ]
+                }
+              }
             },
             {
               "id": "re-plan",
@@ -941,13 +1350,49 @@
                 "cgcloud__Trip_List_Account__c",
                 "cgcloud__Account_Visit_Setting__c"
               ],
+              "creates": [
+                "Visit"
+              ],
               "standard": "Trip lists plan visits on a predefined sequence of customers",
               "sources": [
                 {
                   "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
                   "quote": "Use Trip List to plan visits based on a predefined sequence of customers"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "cgcloud__Trip_List__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    },
+                    {
+                      "object": "cgcloud__Trip_List_Account__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    },
+                    {
+                      "object": "cgcloud__Account_Visit_Setting__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "cgcloud__Trip_List__c",
+                    "cgcloud__Trip_List_Account__c",
+                    "cgcloud__Account_Visit_Setting__c"
+                  ]
+                }
+              }
             },
             {
               "id": "re-recommend",
@@ -962,7 +1407,34 @@
                   "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
                   "quote": "Represents the details of a visit recommendation"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "AiVisitRecommendation",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "AiVisitRecommendRequest",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "AiVisitRecommendation",
+                    "AiVisitRecommendRequest"
+                  ]
+                }
+              }
             }
           ]
         },
@@ -970,6 +1442,15 @@
           "id": "kb-re-route",
           "name": "Route optimisation with Salesforce Maps",
           "standard": "Salesforce Maps sequences store visits by distance, travel time and store hours",
+          "model": {
+            "eu": {
+              "read": true,
+              "model": "Not used",
+              "byModel": {},
+              "text": "Not used. .",
+              "hidden": []
+            }
+          },
           "steps": [
             {
               "id": "re-sequence",
@@ -981,7 +1462,20 @@
                   "url": "https://trailhead.salesforce.com/content/learn/modules/retail-execution-in-consumer-goods-cloud/extend-consumer-goods-cloud-with-more-features",
                   "quote": "uses Salesforce Maps to determine the best sequence of store visits based on distance, travel time, and store hours"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": []
+                }
+              }
             }
           ]
         },
@@ -989,6 +1483,24 @@
           "id": "kb-re-visit-exec",
           "name": "Visit execution",
           "standard": "Start a visit with a location check, perform tasks, capture a signature",
+          "model": {
+            "eu": {
+              "read": true,
+              "model": "Not used",
+              "byModel": {},
+              "text": "Not used. Core Salesforce: not available: visit, not available: visitor, not available: visited party, not available: assessment task, not available: other component task, not available: signature task, not available: signature task line item. cgcloud package: not available: signature.",
+              "hidden": [
+                "Visit",
+                "Visitor",
+                "VisitedParty",
+                "AssessmentTask",
+                "OtherComponentTask",
+                "SignatureTask",
+                "SignatureTaskLineItem",
+                "cgcloud__Signature__c"
+              ]
+            }
+          },
           "steps": [
             {
               "id": "re-start",
@@ -1004,7 +1516,40 @@
                   "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
                   "quote": "Indicates whether the visit started outside the allowed distance between the GPS location and the store"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "Visit",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "Visitor",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "VisitedParty",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "Visit",
+                    "Visitor",
+                    "VisitedParty"
+                  ]
+                }
+              }
             },
             {
               "id": "re-tasks",
@@ -1019,7 +1564,34 @@
                   "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
                   "quote": "Perform activities such as planogram check, inventory check, promotion check, in-store survey, or custom task in stores to capture"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "AssessmentTask",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "OtherComponentTask",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "AssessmentTask",
+                    "OtherComponentTask"
+                  ]
+                }
+              }
             },
             {
               "id": "re-signature",
@@ -1035,7 +1607,40 @@
                   "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
                   "quote": "Represents the signature-related information that a visitor captures as part of a visit"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "SignatureTask",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "SignatureTaskLineItem",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "cgcloud__Signature__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "SignatureTask",
+                    "SignatureTaskLineItem",
+                    "cgcloud__Signature__c"
+                  ]
+                }
+              }
             }
           ]
         },
@@ -1043,6 +1648,25 @@
           "id": "kb-re-audit",
           "name": "In-store audits and KPIs",
           "standard": "Assessment indicators with store targets, and actuals captured on each visit",
+          "model": {
+            "eu": {
+              "read": true,
+              "model": "Not used",
+              "byModel": {},
+              "text": "Not used. Core Salesforce: not available: assessment indicator definition, not available: assessment task definition, not available: assessment task ind definition, not available: retail store kpi, not available: retail visit kpi, not available: assessment task content document. cgcloud package: not available: job definition list, not available: visit job, not available: asset audit.",
+              "hidden": [
+                "AssessmentIndicatorDefinition",
+                "AssessmentTaskDefinition",
+                "AssessmentTaskIndDefinition",
+                "RetailStoreKpi",
+                "RetailVisitKpi",
+                "AssessmentTaskContentDocument",
+                "cgcloud__Job_Definition_List__c",
+                "cgcloud__Visit_Job__c",
+                "cgcloud__Asset_Audit__c"
+              ]
+            }
+          },
           "steps": [
             {
               "id": "re-metrics",
@@ -1058,7 +1682,40 @@
                   "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
                   "quote": "Define parameters that act as markers of compliance for retail tasks to compare target and actual values"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "AssessmentIndicatorDefinition",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "AssessmentTaskDefinition",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "AssessmentTaskIndDefinition",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "AssessmentIndicatorDefinition",
+                    "AssessmentTaskDefinition",
+                    "AssessmentTaskIndDefinition"
+                  ]
+                }
+              }
             },
             {
               "id": "re-targets",
@@ -1072,7 +1729,28 @@
                   "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
                   "quote": "Map store groups to assessment indicator definition, products, and in-store location categories and define targets"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "RetailStoreKpi",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "RetailStoreKpi"
+                  ]
+                }
+              }
             },
             {
               "id": "re-actuals",
@@ -1090,7 +1768,52 @@
                   "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
                   "quote": "Capture the actual information during a visit against the defined assessment indicator definition and target values"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "RetailVisitKpi",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "AssessmentTaskContentDocument",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "cgcloud__Job_Definition_List__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    },
+                    {
+                      "object": "cgcloud__Visit_Job__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    },
+                    {
+                      "object": "cgcloud__Asset_Audit__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "RetailVisitKpi",
+                    "AssessmentTaskContentDocument",
+                    "cgcloud__Job_Definition_List__c",
+                    "cgcloud__Visit_Job__c",
+                    "cgcloud__Asset_Audit__c"
+                  ]
+                }
+              }
             }
           ]
         },
@@ -1098,6 +1821,26 @@
           "id": "kb-re-order",
           "name": "Retail order capture",
           "standard": "Order templates and pricing, orders taken during visits, inventory",
+          "model": {
+            "eu": {
+              "read": true,
+              "model": "Not used",
+              "byModel": {},
+              "text": "Not used. cgcloud package: not available: order template, not available: order item template, not available: cp calculation schema, not available: product condition, not available: order, not available: order item, not available: inventory, not available: inventory transaction. Core Salesforce: not available: assessment task order, not available: delivery task.",
+              "hidden": [
+                "cgcloud__Order_Template__c",
+                "cgcloud__Order_Item_Template__c",
+                "cgcloud__CP_Calculation_Schema__c",
+                "cgcloud__Product_Condition__c",
+                "AssessmentTaskOrder",
+                "cgcloud__Order__c",
+                "cgcloud__Order_Item__c",
+                "cgcloud__Inventory__c",
+                "cgcloud__Inventory_Transaction__c",
+                "DeliveryTask"
+              ]
+            }
+          },
           "steps": [
             {
               "id": "re-ordersetup",
@@ -1114,7 +1857,46 @@
                   "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
                   "quote": "Template that controls the behavior of a sales document"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "cgcloud__Order_Template__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    },
+                    {
+                      "object": "cgcloud__Order_Item_Template__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    },
+                    {
+                      "object": "cgcloud__CP_Calculation_Schema__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    },
+                    {
+                      "object": "cgcloud__Product_Condition__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "cgcloud__Order_Template__c",
+                    "cgcloud__Order_Item_Template__c",
+                    "cgcloud__CP_Calculation_Schema__c",
+                    "cgcloud__Product_Condition__c"
+                  ]
+                }
+              }
             },
             {
               "id": "re-takeorder",
@@ -1130,7 +1912,40 @@
                   "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
                   "quote": "Define an order activity that the sales rep can perform during a visit to the stores"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "AssessmentTaskOrder",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "cgcloud__Order__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    },
+                    {
+                      "object": "cgcloud__Order_Item__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "AssessmentTaskOrder",
+                    "cgcloud__Order__c",
+                    "cgcloud__Order_Item__c"
+                  ]
+                }
+              }
             },
             {
               "id": "re-inventory",
@@ -1146,7 +1961,40 @@
                   "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
                   "quote": "Represents information about shipments and orders to be delivered to a store in a visit"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "cgcloud__Inventory__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    },
+                    {
+                      "object": "cgcloud__Inventory_Transaction__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    },
+                    {
+                      "object": "DeliveryTask",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "cgcloud__Inventory__c",
+                    "cgcloud__Inventory_Transaction__c",
+                    "DeliveryTask"
+                  ]
+                }
+              }
             }
           ]
         },
@@ -1154,6 +2002,20 @@
           "id": "kb-re-promo-exec",
           "name": "Promotions in store",
           "standard": "Retail promotions targeted at stores, and promotion checks on visits",
+          "model": {
+            "eu": {
+              "read": true,
+              "model": "Not used",
+              "byModel": {},
+              "text": "Not used. Core Salesforce: 0 promotions, not available: promotion channel, not available: promotion product, not available: promotion product category. cgcloud package: not available: promotion store.",
+              "hidden": [
+                "PromotionChannel",
+                "PromotionProduct",
+                "PromotionProductCategory",
+                "cgcloud__Promotion_Store__c"
+              ]
+            }
+          },
           "steps": [
             {
               "id": "re-promotions",
@@ -1171,7 +2033,51 @@
                   "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
                   "quote": "Create promotional activities that are either part of a campaign or isolated targeted promotions to run at retail stores"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "Promotion",
+                      "records": 0,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "PromotionChannel",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "PromotionProduct",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "PromotionProductCategory",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "cgcloud__Promotion_Store__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "PromotionChannel",
+                    "PromotionProduct",
+                    "PromotionProductCategory",
+                    "cgcloud__Promotion_Store__c"
+                  ]
+                }
+              }
             },
             {
               "id": "re-promocheck",
@@ -1183,7 +2089,20 @@
                   "url": "https://trailhead.salesforce.com/content/learn/modules/retail-execution-in-consumer-goods-cloud/plan-and-manage-store-visits",
                   "quote": "Gustavo can assign promotion checks to Chantelle"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": []
+                }
+              }
             }
           ]
         },
@@ -1191,6 +2110,22 @@
           "id": "kb-re-sync",
           "name": "Mobile app and sync",
           "standard": "Sync configuration, app deployment packages and sync monitoring for the offline app",
+          "model": {
+            "eu": {
+              "read": true,
+              "model": "Not used",
+              "byModel": {},
+              "text": "Not used. Core Salesforce: not available: cgc sync  sync config, not available: cgc sync  sync client app profile mapping, not available: cgc sync  sync mobile app depl pkg, not available: cgc sync  sync history, not available: cgc sync  sync id mapping, not available: cgc sync  sync api log.",
+              "hidden": [
+                "cgc_sync__Sync_Config__c",
+                "cgc_sync__Sync_Client_App_Profile_Mapping__c",
+                "cgc_sync__Sync_Mobile_App_Depl_Pkg__c",
+                "cgc_sync__Sync_History__c",
+                "cgc_sync__Sync_ID_Mapping__c",
+                "cgc_sync__Sync_API_Log__c"
+              ]
+            }
+          },
           "steps": [
             {
               "id": "re-syncconfig",
@@ -1205,7 +2140,34 @@
                   "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
                   "quote": "Represents the settings for synchronization engine client and its backend"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "cgc_sync__Sync_Config__c",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "cgc_sync__Sync_Client_App_Profile_Mapping__c",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "cgc_sync__Sync_Config__c",
+                    "cgc_sync__Sync_Client_App_Profile_Mapping__c"
+                  ]
+                }
+              }
             },
             {
               "id": "re-deploy",
@@ -1219,7 +2181,28 @@
                   "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
                   "quote": "Deployment packages that contain application runtime artifacts of the mobile app"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "cgc_sync__Sync_Mobile_App_Depl_Pkg__c",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "cgc_sync__Sync_Mobile_App_Depl_Pkg__c"
+                  ]
+                }
+              }
             },
             {
               "id": "re-offline",
@@ -1239,7 +2222,40 @@
                   "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
                   "quote": "Contains information about the mappings of the local mobile application IDs to Salesforce IDs"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "cgc_sync__Sync_History__c",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "cgc_sync__Sync_ID_Mapping__c",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "cgc_sync__Sync_API_Log__c",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "cgc_sync__Sync_History__c",
+                    "cgc_sync__Sync_ID_Mapping__c",
+                    "cgc_sync__Sync_API_Log__c"
+                  ]
+                }
+              }
             }
           ]
         },
@@ -1247,6 +2263,20 @@
           "id": "kb-re-dsd",
           "name": "Direct store delivery",
           "standard": "Routes, tours and vehicles for delivering goods to stores",
+          "model": {
+            "eu": {
+              "read": true,
+              "model": "Not used",
+              "byModel": {},
+              "text": "Not used. cgcloud package: not available: route, not available: tour, not available: vehicle. Core Salesforce: not available: vehicle user assignment.",
+              "hidden": [
+                "cgcloud__Route__c",
+                "cgcloud__Tour__c",
+                "cgcloud__Vehicle__c",
+                "VehicleUserAssignment"
+              ]
+            }
+          },
           "steps": [
             {
               "id": "re-routes",
@@ -1263,7 +2293,46 @@
                   "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
                   "quote": "Create routes and tours to define a list of stops for the driver to deliver the goods"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "cgcloud__Route__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    },
+                    {
+                      "object": "cgcloud__Tour__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    },
+                    {
+                      "object": "cgcloud__Vehicle__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    },
+                    {
+                      "object": "VehicleUserAssignment",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "cgcloud__Route__c",
+                    "cgcloud__Tour__c",
+                    "cgcloud__Vehicle__c",
+                    "VehicleUserAssignment"
+                  ]
+                }
+              }
             }
           ]
         }
@@ -1276,6 +2345,22 @@
           "id": "kb-tpm-planning",
           "name": "Business years, KPIs and account planning",
           "standard": "Business years, KPI sets, account plans and customer business plans",
+          "model": {
+            "eu": {
+              "read": true,
+              "model": "Not used",
+              "byModel": {},
+              "text": "Not used. cgcloud package: not available: business year, not available: kpi set, not available: kpi definition, not available: kpi set kpi definition, not available: account plan, not available: account plan category.",
+              "hidden": [
+                "cgcloud__Business_Year__c",
+                "cgcloud__KPI_Set__c",
+                "cgcloud__KPI_Definition__c",
+                "cgcloud__KPI_Set_KPI_Definition__c",
+                "cgcloud__Account_Plan__c",
+                "cgcloud__Account_Plan_Category__c"
+              ]
+            }
+          },
           "steps": [
             {
               "id": "tpm-years",
@@ -1289,7 +2374,28 @@
                   "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_sales_org_adding_business_years_to_sales_org.htm&language=en_US&type=5",
                   "quote": "Creating and activating business years in your sales organization is essential"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "cgcloud__Business_Year__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "cgcloud__Business_Year__c"
+                  ]
+                }
+              }
             },
             {
               "id": "tpm-kpis",
@@ -1305,7 +2411,40 @@
                   "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_foundation_kpi_set_overview.htm&language=en_US&type=5",
                   "quote": "A KPI set includes KPIs or measures that help evaluate promotions"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "cgcloud__KPI_Set__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    },
+                    {
+                      "object": "cgcloud__KPI_Definition__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    },
+                    {
+                      "object": "cgcloud__KPI_Set_KPI_Definition__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "cgcloud__KPI_Set__c",
+                    "cgcloud__KPI_Definition__c",
+                    "cgcloud__KPI_Set_KPI_Definition__c"
+                  ]
+                }
+              }
             },
             {
               "id": "tpm-accountplan",
@@ -1320,7 +2459,34 @@
                   "url": "https://developer.salesforce.com/docs/atlas.en-us.retail_api.meta/retail_api/sforce_api_objects_cgcloud__account_plan__c.htm",
                   "quote": "Contains the details of the account data for one planning account"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "cgcloud__Account_Plan__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    },
+                    {
+                      "object": "cgcloud__Account_Plan_Category__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "cgcloud__Account_Plan__c",
+                    "cgcloud__Account_Plan_Category__c"
+                  ]
+                }
+              }
             },
             {
               "id": "tpm-cbp",
@@ -1332,7 +2498,20 @@
                   "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_account_plan_cbp_parent.htm&language=en_US&type=5",
                   "quote": "You can create a CBP only for a business year"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": []
+                }
+              }
             }
           ]
         },
@@ -1340,6 +2519,27 @@
           "id": "kb-tpm-funds",
           "name": "Funds and budgets",
           "standard": "Fund templates, funds, fund transactions, rate-based funding and fund assignment to tactics",
+          "model": {
+            "eu": {
+              "read": true,
+              "model": "Not used",
+              "byModel": {},
+              "text": "Not used. cgcloud package: not available: fund template, not available: fund, not available: fund product, not available: fund transaction header, not available: fund transaction, not available: fund transaction row, not available: fund transaction template, not available: rate based funding, not available: rbf template, not available: tactic fund, not available: tactic template fund template.",
+              "hidden": [
+                "cgcloud__Fund_Template__c",
+                "cgcloud__Fund__c",
+                "cgcloud__Fund_Product__c",
+                "cgcloud__Fund_Transaction_Header__c",
+                "cgcloud__Fund_Transaction__c",
+                "cgcloud__Fund_Transaction_Row__c",
+                "cgcloud__Fund_Transaction_Template__c",
+                "cgcloud__Rate_Based_Funding__c",
+                "cgcloud__RBF_Template__c",
+                "cgcloud__Tactic_Fund__c",
+                "cgcloud__Tactic_Template_Fund_Template__c"
+              ]
+            }
+          },
           "steps": [
             {
               "id": "tpm-fundtemplates",
@@ -1353,7 +2553,28 @@
                   "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_reference_admin_funds_key_objects.htm&language=en_US&type=5",
                   "quote": "Template to create varied types of funds"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "cgcloud__Fund_Template__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "cgcloud__Fund_Template__c"
+                  ]
+                }
+              }
             },
             {
               "id": "tpm-fundcreate",
@@ -1368,7 +2589,34 @@
                   "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_reference_admin_funds_key_objects.htm&language=en_US&type=5",
                   "quote": "Funds are budgets allocated for promotional activities"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "cgcloud__Fund__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    },
+                    {
+                      "object": "cgcloud__Fund_Product__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "cgcloud__Fund__c",
+                    "cgcloud__Fund_Product__c"
+                  ]
+                }
+              }
             },
             {
               "id": "tpm-fundtx",
@@ -1385,7 +2633,46 @@
                   "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_concept_fund_transactions.htm&language=en_US&type=5",
                   "quote": "Use fund transactions to add money to your fund or transfer money from one fund to another"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "cgcloud__Fund_Transaction_Header__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    },
+                    {
+                      "object": "cgcloud__Fund_Transaction__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    },
+                    {
+                      "object": "cgcloud__Fund_Transaction_Row__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    },
+                    {
+                      "object": "cgcloud__Fund_Transaction_Template__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "cgcloud__Fund_Transaction_Header__c",
+                    "cgcloud__Fund_Transaction__c",
+                    "cgcloud__Fund_Transaction_Row__c",
+                    "cgcloud__Fund_Transaction_Template__c"
+                  ]
+                }
+              }
             },
             {
               "id": "tpm-rbf",
@@ -1400,7 +2687,34 @@
                   "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_reference_admin_rbf_key_objects.htm&language=en_US&type=5",
                   "quote": "Use the RBF objects to create flexible budgets"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "cgcloud__Rate_Based_Funding__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    },
+                    {
+                      "object": "cgcloud__RBF_Template__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "cgcloud__Rate_Based_Funding__c",
+                    "cgcloud__RBF_Template__c"
+                  ]
+                }
+              }
             },
             {
               "id": "tpm-fundassign",
@@ -1415,7 +2729,34 @@
                   "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_task_fund_auto_determination.htm&language=en_US&type=5",
                   "quote": "You can automate the process of assigning funds to tactics via fund auto-determination"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "cgcloud__Tactic_Fund__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    },
+                    {
+                      "object": "cgcloud__Tactic_Template_Fund_Template__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "cgcloud__Tactic_Fund__c",
+                    "cgcloud__Tactic_Template_Fund_Template__c"
+                  ]
+                }
+              }
             }
           ]
         },
@@ -1423,6 +2764,26 @@
           "id": "kb-tpm-promo-planning",
           "name": "Promotion planning",
           "standard": "Promotion and tactic templates, promotions with tactics and products, push to lower levels, trade calendar",
+          "model": {
+            "eu": {
+              "read": true,
+              "model": "Not used",
+              "byModel": {},
+              "text": "Not used. cgcloud package: not available: promotion template, not available: tactic template, not available: promotion template tactic template, not available: promotion, not available: tactic, not available: tactic product, not available: tactic product condition, not available: promotion push status, not available: account set, not available: view.",
+              "hidden": [
+                "cgcloud__Promotion_Template__c",
+                "cgcloud__Tactic_Template__c",
+                "cgcloud__Promotion_Template_Tactic_Template__c",
+                "cgcloud__Promotion__c",
+                "cgcloud__Tactic__c",
+                "cgcloud__Tactic_Product__c",
+                "cgcloud__Tactic_Product_Condition__c",
+                "cgcloud__Promotion_Push_Status__c",
+                "cgcloud__Account_Set__c",
+                "cgcloud__View__c"
+              ]
+            }
+          },
           "steps": [
             {
               "id": "tpm-templates",
@@ -1438,7 +2799,40 @@
                   "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_concept_promotion_templates.htm&language=en_US&type=5",
                   "quote": "Before a KAM creates a promotion, a business admin must create the promotion template"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "cgcloud__Promotion_Template__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    },
+                    {
+                      "object": "cgcloud__Tactic_Template__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    },
+                    {
+                      "object": "cgcloud__Promotion_Template_Tactic_Template__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "cgcloud__Promotion_Template__c",
+                    "cgcloud__Tactic_Template__c",
+                    "cgcloud__Promotion_Template_Tactic_Template__c"
+                  ]
+                }
+              }
             },
             {
               "id": "tpm-promo",
@@ -1452,7 +2846,28 @@
                   "url": "https://developer.salesforce.com/docs/atlas.en-us.retail_api.meta/retail_api/sforce_api_objects_cgcloud__promotion__c.htm",
                   "quote": "Promotion is an activity of a user that includes the definition of prices for a time segment"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "cgcloud__Promotion__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "cgcloud__Promotion__c"
+                  ]
+                }
+              }
             },
             {
               "id": "tpm-tactics",
@@ -1468,7 +2883,40 @@
                   "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_reference_admin_tactics_key_objects.htm&language=en_US&type=5",
                   "quote": "Tactics are the tasks in a promotion, such as displays, advertisements, consumer price reductions, and allowances"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "cgcloud__Tactic__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    },
+                    {
+                      "object": "cgcloud__Tactic_Product__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    },
+                    {
+                      "object": "cgcloud__Tactic_Product_Condition__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "cgcloud__Tactic__c",
+                    "cgcloud__Tactic_Product__c",
+                    "cgcloud__Tactic_Product_Condition__c"
+                  ]
+                }
+              }
             },
             {
               "id": "tpm-push",
@@ -1483,7 +2931,34 @@
                   "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_task_push_national_promotion.htm&language=en_US&type=5",
                   "quote": "down to eligible customers at lower planning levels"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "cgcloud__Promotion_Push_Status__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    },
+                    {
+                      "object": "cgcloud__Account_Set__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "cgcloud__Promotion_Push_Status__c",
+                    "cgcloud__Account_Set__c"
+                  ]
+                }
+              }
             },
             {
               "id": "tpm-calendar",
@@ -1497,7 +2972,28 @@
                   "url": "https://trailhead.salesforce.com/content/learn/modules/trade-promotion-management-in-consumer-goods-cloud/run-your-promotions",
                   "quote": "The trade calendar is the entry point for Gustavo"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "cgcloud__View__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "cgcloud__View__c"
+                  ]
+                }
+              }
             }
           ]
         },
@@ -1505,6 +3001,15 @@
           "id": "kb-tpm-lifecycle",
           "name": "Promotion lifecycle and approval",
           "standard": "Promotion phases from preparation to commitment, and financial closure",
+          "model": {
+            "eu": {
+              "read": true,
+              "model": "Not used",
+              "byModel": {},
+              "text": "Not used. .",
+              "hidden": []
+            }
+          },
           "steps": [
             {
               "id": "tpm-phases",
@@ -1516,7 +3021,20 @@
                   "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_howto_configtradecal_addvalues.htm&language=en_US&type=5",
                   "quote": "The default phases in a promotion are"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": []
+                }
+              }
             },
             {
               "id": "tpm-close",
@@ -1528,7 +3046,20 @@
                   "url": "https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/retail_api.pdf",
                   "quote": "It sets the promotion phase to ToBeFinanciallyClosed and initiates the save process"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": []
+                }
+              }
             }
           ]
         },
@@ -1536,6 +3067,22 @@
           "id": "kb-tpm-claims",
           "name": "Claims and payments",
           "standard": "Claim templates, claims from A/R and A/P, claim tactics and funds, approval and adjustment",
+          "model": {
+            "eu": {
+              "read": true,
+              "model": "Not used",
+              "byModel": {},
+              "text": "Not used. cgcloud package: not available: payment template, not available: payment, not available: payment tactic, not available: payment tactic fund, not available: payment tactic product, not available: approval code.",
+              "hidden": [
+                "cgcloud__Payment_Template__c",
+                "cgcloud__Payment__c",
+                "cgcloud__Payment_Tactic__c",
+                "cgcloud__Payment_Tactic_Fund__c",
+                "cgcloud__Payment_Tactic_Product__c",
+                "cgcloud__Approval_Code__c"
+              ]
+            }
+          },
           "steps": [
             {
               "id": "tpm-claimtemplates",
@@ -1549,7 +3096,28 @@
                   "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_reference_admin_claims_key_objects.htm&language=en_US&type=5",
                   "quote": "Template to create claims and set the claim type that determines how the retailer is paid for promotions"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "cgcloud__Payment_Template__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "cgcloud__Payment_Template__c"
+                  ]
+                }
+              }
             },
             {
               "id": "tpm-claimscreate",
@@ -1563,7 +3131,28 @@
                   "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_reference_admin_claims_key_objects.htm&language=en_US&type=5",
                   "quote": "Claims integrates with Accounts Receivable (A/R) and Accounts Payable (A/P)"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "cgcloud__Payment__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "cgcloud__Payment__c"
+                  ]
+                }
+              }
             },
             {
               "id": "tpm-claimslink",
@@ -1579,7 +3168,40 @@
                   "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_claim_approval_process.htm&language=en_US&type=5",
                   "quote": "Submit the claim for approval after you add tactics and funds to the claim"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "cgcloud__Payment_Tactic__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    },
+                    {
+                      "object": "cgcloud__Payment_Tactic_Fund__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    },
+                    {
+                      "object": "cgcloud__Payment_Tactic_Product__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "cgcloud__Payment_Tactic__c",
+                    "cgcloud__Payment_Tactic_Fund__c",
+                    "cgcloud__Payment_Tactic_Product__c"
+                  ]
+                }
+              }
             },
             {
               "id": "tpm-claimsapprove",
@@ -1593,7 +3215,28 @@
                   "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_claim_approval_process.htm&language=en_US&type=5",
                   "quote": "Only approved claims are considered by other processes"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "cgcloud__Approval_Code__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "cgcloud__Approval_Code__c"
+                  ]
+                }
+              }
             },
             {
               "id": "tpm-claimsadjust",
@@ -1605,7 +3248,20 @@
                   "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_payments_adjust_claims.htm&language=en_US&type=5",
                   "quote": "To revert a claim already processed by a third-party system, you can adjust a claim"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": []
+                }
+              }
             }
           ]
         },
@@ -1613,6 +3269,17 @@
           "id": "kb-tpm-analysis",
           "name": "Post-event analysis and reporting",
           "standard": "Actuals against plan, real-time reporting and accruals",
+          "model": {
+            "eu": {
+              "read": true,
+              "model": "Not used",
+              "byModel": {},
+              "text": "Not used. cgcloud package: not available: rtr report configuration.",
+              "hidden": [
+                "cgcloud__RTR_Report_Configuration__c"
+              ]
+            }
+          },
           "steps": [
             {
               "id": "tpm-actuals",
@@ -1624,7 +3291,20 @@
                   "url": "https://trailhead.salesforce.com/content/learn/modules/trade-promotion-management-in-consumer-goods-cloud/run-your-promotions",
                   "quote": "Actual volume and costs are interfaced and can be reviewed in promotions or account plans"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": []
+                }
+              }
             },
             {
               "id": "tpm-rtr",
@@ -1638,7 +3318,28 @@
                   "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_rtr.htm&language=en_US&type=5",
                   "quote": "builds fact-based account and promotion reports using the same KPIs and calculation rules as a P&L"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "cgcloud__RTR_Report_Configuration__c",
+                      "records": null,
+                      "model": "cgcloud package"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "cgcloud__RTR_Report_Configuration__c"
+                  ]
+                }
+              }
             },
             {
               "id": "tpm-accruals",
@@ -1650,7 +3351,20 @@
                   "url": "https://help.salesforce.com/s/articleView?id=ind.tpm_setup_accrual_engine.htm&language=en_US&type=5",
                   "quote": "Set up your org and enable accrual engine"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": []
+                }
+              }
             }
           ]
         },
@@ -1658,6 +3372,15 @@
           "id": "kb-tpm-re",
           "name": "Promotion transfer to Retail Execution",
           "standard": "Promotions planned in TPM and transferred to Retail Execution",
+          "model": {
+            "eu": {
+              "read": true,
+              "model": "Not used",
+              "byModel": {},
+              "text": "Not used. .",
+              "hidden": []
+            }
+          },
           "steps": [
             {
               "id": "tpm-transfer",
@@ -1669,7 +3392,20 @@
                   "url": "https://trailhead.salesforce.com/content/learn/modules/integrated-promotions-with-consumer-goods-cloud/explore-promotion-transfer",
                   "quote": "The promotion transfer process is unidirectional from TPM to RE"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": []
+                }
+              }
             }
           ]
         }
@@ -1682,6 +3418,17 @@
           "id": "kb-cm-accounts",
           "name": "Account and contact management",
           "standard": "Accounts, contacts, person accounts and duplicate management",
+          "model": {
+            "eu": {
+              "read": true,
+              "model": "Core Salesforce",
+              "byModel": {
+                "Core Salesforce": 130
+              },
+              "text": "Runs on the Core Salesforce. Core Salesforce: 78 accounts, 20 contacts, 8 users, 18 user roles, 3 duplicate rules, 3 matching rules.",
+              "hidden": []
+            }
+          },
           "steps": [
             {
               "id": "cm-record",
@@ -1696,7 +3443,51 @@
                   "url": "https://trailhead.salesforce.com/content/learn/modules/accounts_contacts_lightning_experience/accounts-and-contacts-lightning",
                   "quote": "Accounts are companies that you're doing business with, and contacts are the people who work for them"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [
+                    {
+                      "object": "Profile",
+                      "records": 44,
+                      "model": "Core Salesforce"
+                    }
+                  ],
+                  "used": [
+                    {
+                      "object": "Account",
+                      "records": 78,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "Contact",
+                      "records": 20,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "User",
+                      "records": 8,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "UserRole",
+                      "records": 18,
+                      "model": "Core Salesforce"
+                    }
+                  ],
+                  "setupRecords": 44,
+                  "usedRecords": 124,
+                  "usedByModel": {
+                    "Core Salesforce": 124
+                  },
+                  "setupByModel": {
+                    "Core Salesforce": 44
+                  },
+                  "model": "Core Salesforce",
+                  "hidden": []
+                }
+              }
             },
             {
               "id": "cm-person",
@@ -1708,7 +3499,20 @@
                   "url": "https://trailhead.salesforce.com/content/learn/modules/accounts_contacts_lightning_experience/accounts-and-contacts-lightning",
                   "quote": "you use a special account type called a person account"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": []
+                }
+              }
             },
             {
               "id": "cm-duplicates",
@@ -1723,7 +3527,33 @@
                   "url": "https://trailhead.salesforce.com/content/learn/modules/sales_admin_duplicate_management/sales_admin_duplicate_management_unit_2",
                   "quote": "Before an active matching rule can do anything, you pair it with a duplicate rule"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "DuplicateRule",
+                      "records": 3,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "MatchingRule",
+                      "records": 3,
+                      "model": "Core Salesforce"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 6,
+                  "usedByModel": {
+                    "Core Salesforce": 6
+                  },
+                  "setupByModel": {},
+                  "model": "Core Salesforce",
+                  "hidden": []
+                }
+              }
             }
           ]
         },
@@ -1731,6 +3561,17 @@
           "id": "kb-cm-hierarchy",
           "name": "Account hierarchy and relationships",
           "standard": "Parent account hierarchy, contacts related to several accounts, account teams",
+          "model": {
+            "eu": {
+              "read": true,
+              "model": "Not used",
+              "byModel": {},
+              "text": "Not used. Core Salesforce: not available: account contact relation, 0 account team members.",
+              "hidden": [
+                "AccountContactRelation"
+              ]
+            }
+          },
           "steps": [
             {
               "id": "cm-parent",
@@ -1742,7 +3583,20 @@
                   "url": "https://trailhead.salesforce.com/content/learn/modules/accounts_contacts_lightning_experience/understand-account-and-contact-relationships-lightning",
                   "quote": "Salesforce can generate a family tree for your account"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": []
+                }
+              }
             },
             {
               "id": "cm-acr",
@@ -1756,7 +3610,28 @@
                   "url": "https://trailhead.salesforce.com/content/learn/modules/accounts_contacts_lightning_experience/understand-account-and-contact-relationships-lightning",
                   "quote": "Any other accounts associated with the contact represent indirect relationships"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "AccountContactRelation",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "AccountContactRelation"
+                  ]
+                }
+              }
             },
             {
               "id": "cm-teams",
@@ -1770,7 +3645,26 @@
                   "url": "https://trailhead.salesforce.com/content/learn/modules/accounts_contacts_lightning_experience/understand-account-and-contact-relationships-lightning",
                   "quote": "With account teams, you can enable the appropriate access to different account roles"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "AccountTeamMember",
+                      "records": 0,
+                      "model": "Core Salesforce"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": []
+                }
+              }
             }
           ]
         }
@@ -1783,6 +3677,17 @@
           "id": "kb-pm-products",
           "name": "Product definition",
           "standard": "Products and product families",
+          "model": {
+            "eu": {
+              "read": true,
+              "model": "Core Salesforce",
+              "byModel": {
+                "Core Salesforce": 27
+              },
+              "text": "Runs on the Core Salesforce. Core Salesforce: 27 product2s.",
+              "hidden": []
+            }
+          },
           "steps": [
             {
               "id": "pm-create",
@@ -1796,7 +3701,28 @@
                   "url": "https://help.salesforce.com/s/articleView?id=sales.products_def.htm&language=en_US&type=5",
                   "quote": "Products are the items and services that you sell to customers"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "Product2",
+                      "records": 27,
+                      "model": "Core Salesforce"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 27,
+                  "usedByModel": {
+                    "Core Salesforce": 27
+                  },
+                  "setupByModel": {},
+                  "model": "Core Salesforce",
+                  "hidden": []
+                }
+              }
             },
             {
               "id": "pm-family",
@@ -1808,7 +3734,20 @@
                   "url": "https://help.salesforce.com/s/articleView?id=sf.customize_productfamily.htm&language=en_US&type=5",
                   "quote": "Use the Product Family picklist to categorize your products"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": []
+                }
+              }
             }
           ]
         },
@@ -1816,6 +3755,17 @@
           "id": "kb-pm-pricing",
           "name": "Pricing with price books",
           "standard": "Standard and custom price books with price book entries",
+          "model": {
+            "eu": {
+              "read": true,
+              "model": "Core Salesforce",
+              "byModel": {
+                "Core Salesforce": 36
+              },
+              "text": "Runs on the Core Salesforce. Core Salesforce: 2 pricebook2s, 34 pricebook entries.",
+              "hidden": []
+            }
+          },
           "steps": [
             {
               "id": "pm-standardpb",
@@ -1829,7 +3779,28 @@
                   "url": "https://help.salesforce.com/s/articleView?id=sales.pricebooks_landing_page.htm&language=en_US&type=5",
                   "quote": "The standard price book is the master list of all your products and their default standard prices"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "Pricebook2",
+                      "records": 2,
+                      "model": "Core Salesforce"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 2,
+                  "usedByModel": {
+                    "Core Salesforce": 2
+                  },
+                  "setupByModel": {},
+                  "model": "Core Salesforce",
+                  "hidden": []
+                }
+              }
             },
             {
               "id": "pm-custompb",
@@ -1841,7 +3812,20 @@
                   "url": "https://help.salesforce.com/s/articleView?id=sales.pricebooks_landing_page.htm&language=en_US&type=5",
                   "quote": "A custom price book is a separate list of products with custom prices, called list prices"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": []
+                }
+              }
             },
             {
               "id": "pm-entries",
@@ -1855,7 +3839,28 @@
                   "url": "https://help.salesforce.com/s/articleView?id=sales.pricebooks_landing_page.htm&language=en_US&type=5",
                   "quote": "A price book entry is a product with its price as listed in a price book"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "PricebookEntry",
+                      "records": 34,
+                      "model": "Core Salesforce"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 34,
+                  "usedByModel": {
+                    "Core Salesforce": 34
+                  },
+                  "setupByModel": {},
+                  "model": "Core Salesforce",
+                  "hidden": []
+                }
+              }
             }
           ]
         }
@@ -1868,6 +3873,18 @@
           "id": "kb-oc-quoting",
           "name": "Quoting",
           "standard": "Quotes created from opportunities, one synced quote per opportunity",
+          "model": {
+            "eu": {
+              "read": true,
+              "model": "Not used",
+              "byModel": {},
+              "text": "Not used. Core Salesforce: not available: quote, not available: quote line item.",
+              "hidden": [
+                "Quote",
+                "QuoteLineItem"
+              ]
+            }
+          },
           "steps": [
             {
               "id": "oc-quote",
@@ -1882,7 +3899,34 @@
                   "url": "https://help.salesforce.com/s/articleView?id=sales.quotes_overview.htm&language=en_US&type=5",
                   "quote": "You create a quote from an opportunity and its products"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "Quote",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "QuoteLineItem",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "Quote",
+                    "QuoteLineItem"
+                  ]
+                }
+              }
             },
             {
               "id": "oc-sync",
@@ -1894,7 +3938,20 @@
                   "url": "https://trailhead.salesforce.com/content/learn/projects/manage-products-prices-quotes-orders/create-multiple-quotes",
                   "quote": "An opportunity can have multiple quotes, but it can sync with only one quote at a time"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": []
+                }
+              }
             }
           ]
         },
@@ -1902,6 +3959,15 @@
           "id": "kb-oc-contracting",
           "name": "Contracting",
           "standard": "Contracts with accounts and opportunities",
+          "model": {
+            "eu": {
+              "read": true,
+              "model": "Not used",
+              "byModel": {},
+              "text": "Not used. Core Salesforce: 0 contracts.",
+              "hidden": []
+            }
+          },
           "steps": [
             {
               "id": "oc-contract",
@@ -1915,7 +3981,26 @@
                   "url": "https://help.salesforce.com/s/articleView?id=sf.contract_manage_your_contracts.htm&language=en_US&type=5",
                   "quote": "Establish and document the contracts that you have with your accounts and opportunities"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "Contract",
+                      "records": 0,
+                      "model": "Core Salesforce"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": []
+                }
+              }
             }
           ]
         },
@@ -1923,6 +4008,15 @@
           "id": "kb-oc-orders",
           "name": "Order management",
           "standard": "Orders with order products from one price book, activated once complete",
+          "model": {
+            "eu": {
+              "read": true,
+              "model": "Not used",
+              "byModel": {},
+              "text": "Not used. Core Salesforce: 0 orders, 0 order items.",
+              "hidden": []
+            }
+          },
           "steps": [
             {
               "id": "oc-order",
@@ -1936,7 +4030,26 @@
                   "url": "https://help.salesforce.com/s/articleView?id=sales.order_overview.htm&language=en_US&type=5",
                   "quote": "An order is an agreement between a company and a customer to provision services or deliver products with a known quantity, price, and date"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "Order",
+                      "records": 0,
+                      "model": "Core Salesforce"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": []
+                }
+              }
             },
             {
               "id": "oc-orderproducts",
@@ -1950,7 +4063,26 @@
                   "url": "https://help.salesforce.com/s/articleView?id=sales.orderproduct_add.htm&language=en_US&type=5",
                   "quote": "You can use only one price book per order"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "OrderItem",
+                      "records": 0,
+                      "model": "Core Salesforce"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": []
+                }
+              }
             },
             {
               "id": "oc-activate",
@@ -1962,7 +4094,20 @@
                   "url": "https://help.salesforce.com/s/articleView?id=sales.order_activate.htm",
                   "quote": "You can activate orders only if they include order products"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": []
+                }
+              }
             }
           ]
         },
@@ -1970,6 +4115,15 @@
           "id": "kb-oc-assets",
           "name": "Installed base",
           "standard": "Assets for purchased or installed products, in hierarchies",
+          "model": {
+            "eu": {
+              "read": true,
+              "model": "Not used",
+              "byModel": {},
+              "text": "Not used. Core Salesforce: 0 assets.",
+              "hidden": []
+            }
+          },
           "steps": [
             {
               "id": "oc-asset",
@@ -1987,7 +4141,26 @@
                   "url": "https://trailhead.salesforce.com/content/learn/modules/field_service_maint/field_service_maint_assets",
                   "quote": "Asset hierarchies help you track related assets, like components of a machine, as a unit"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "Asset",
+                      "records": 0,
+                      "model": "Core Salesforce"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": []
+                }
+              }
             }
           ]
         }
@@ -2000,6 +4173,17 @@
           "id": "kb-sp-leads",
           "name": "Lead management",
           "standard": "Capture, assign and convert leads",
+          "model": {
+            "eu": {
+              "read": true,
+              "model": "Core Salesforce",
+              "byModel": {
+                "Core Salesforce": 22
+              },
+              "text": "Runs on the Core Salesforce. Core Salesforce: 22 leads.",
+              "hidden": []
+            }
+          },
           "steps": [
             {
               "id": "sp-capture",
@@ -2013,7 +4197,28 @@
                   "url": "https://trailhead.salesforce.com/content/learn/modules/leads_opportunities_lightning_experience/create-and-convert-leads-lightning",
                   "quote": "a Web-to-Lead form that collects leads from your business website"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "Lead",
+                      "records": 22,
+                      "model": "Core Salesforce"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 22,
+                  "usedByModel": {
+                    "Core Salesforce": 22
+                  },
+                  "setupByModel": {},
+                  "model": "Core Salesforce",
+                  "hidden": []
+                }
+              }
             },
             {
               "id": "sp-convert",
@@ -2025,7 +4230,20 @@
                   "url": "https://trailhead.salesforce.com/content/learn/modules/leads_opportunities_lightning_experience/create-and-convert-leads-lightning",
                   "quote": "Salesforce uses the information stored in the lead record to create a business account, a contact, and an opportunity"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": []
+                }
+              }
             }
           ]
         },
@@ -2033,6 +4251,17 @@
           "id": "kb-sp-opportunities",
           "name": "Opportunity management",
           "standard": "Opportunities with stages, contact roles and products",
+          "model": {
+            "eu": {
+              "read": true,
+              "model": "Core Salesforce",
+              "byModel": {
+                "Core Salesforce": 31
+              },
+              "text": "Runs on the Core Salesforce. Core Salesforce: 31 opportunities, 0 opportunity contact roles, 0 opportunity line items.",
+              "hidden": []
+            }
+          },
           "steps": [
             {
               "id": "sp-opp",
@@ -2051,7 +4280,41 @@
                   "url": "https://trailhead.salesforce.com/content/learn/modules/leads_opportunities_lightning_experience/work-your-opportunities",
                   "quote": "Contact roles on opportunities show which contacts are involved in an opportunity"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [
+                    {
+                      "object": "Campaign",
+                      "records": 4,
+                      "model": "Core Salesforce"
+                    }
+                  ],
+                  "used": [
+                    {
+                      "object": "Opportunity",
+                      "records": 31,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "OpportunityContactRole",
+                      "records": 0,
+                      "model": "Core Salesforce"
+                    }
+                  ],
+                  "setupRecords": 4,
+                  "usedRecords": 31,
+                  "usedByModel": {
+                    "Core Salesforce": 31
+                  },
+                  "setupByModel": {
+                    "Core Salesforce": 4
+                  },
+                  "model": "Core Salesforce",
+                  "hidden": []
+                }
+              }
             },
             {
               "id": "sp-oppproducts",
@@ -2065,7 +4328,26 @@
                   "url": "https://help.salesforce.com/s/articleView?id=sales.products_add.htm&language=en_US&type=5",
                   "quote": "Track what's selling and in what quantity by adding products to opportunities"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "OpportunityLineItem",
+                      "records": 0,
+                      "model": "Core Salesforce"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": []
+                }
+              }
             }
           ]
         },
@@ -2073,6 +4355,19 @@
           "id": "kb-sp-forecasting",
           "name": "Forecasting and targets",
           "standard": "Collaborative Forecasts with quotas",
+          "model": {
+            "eu": {
+              "read": true,
+              "model": "Not used",
+              "byModel": {},
+              "text": "Not used. Core Salesforce: not available: forecasting item, not available: forecasting quota, not available: forecasting adjustment.",
+              "hidden": [
+                "ForecastingItem",
+                "ForecastingQuota",
+                "ForecastingAdjustment"
+              ]
+            }
+          },
           "steps": [
             {
               "id": "sp-forecast",
@@ -2092,7 +4387,40 @@
                   "url": "https://trailhead.salesforce.com/content/learn/modules/sales-territories-and-forecasting/sales-forecast-with-precision",
                   "quote": "set additional quotas based on product families"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "ForecastingItem",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "ForecastingQuota",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "ForecastingAdjustment",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "ForecastingItem",
+                    "ForecastingQuota",
+                    "ForecastingAdjustment"
+                  ]
+                }
+              }
             }
           ]
         },
@@ -2100,6 +4428,20 @@
           "id": "kb-sp-territories",
           "name": "Sales territories",
           "standard": "Territory models with territories and assignment rules",
+          "model": {
+            "eu": {
+              "read": true,
+              "model": "Not used",
+              "byModel": {},
+              "text": "Not used. Core Salesforce: not available: territory2model, not available: territory2, not available: territory2type, not available: object territory2association.",
+              "hidden": [
+                "Territory2Model",
+                "Territory2",
+                "Territory2Type",
+                "ObjectTerritory2Association"
+              ]
+            }
+          },
           "steps": [
             {
               "id": "sp-territory",
@@ -2120,7 +4462,46 @@
                   "url": "https://help.salesforce.com/s/articleView?id=sf.tm2_territory_mgmt_overview.htm&language=en_US&type=5",
                   "quote": "Territories organize groups of accounts, leads, and the Salesforce users who work with them"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "Territory2Model",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "Territory2",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "Territory2Type",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "ObjectTerritory2Association",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "Territory2Model",
+                    "Territory2",
+                    "Territory2Type",
+                    "ObjectTerritory2Association"
+                  ]
+                }
+              }
             }
           ]
         },
@@ -2128,6 +4509,17 @@
           "id": "kb-sp-campaigns",
           "name": "Campaign management",
           "standard": "Campaign hierarchies and campaign members with statuses",
+          "model": {
+            "eu": {
+              "read": true,
+              "model": "Core Salesforce",
+              "byModel": {
+                "Core Salesforce": 110
+              },
+              "text": "Runs on the Core Salesforce. Core Salesforce: 4 campaigns, 0 campaign members, 12 campaign member status, 94 flow records.",
+              "hidden": []
+            }
+          },
           "steps": [
             {
               "id": "sp-campaign",
@@ -2146,7 +4538,56 @@
                   "url": "https://trailhead.salesforce.com/content/learn/modules/campaign_basics/campaigns_basics_unit_3",
                   "quote": "Member statuses are very useful for reporting on the response rate of your campaigns"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [
+                    {
+                      "object": "FlowRecordVersion",
+                      "records": 94,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "RecordType",
+                      "records": 2,
+                      "model": "Core Salesforce"
+                    }
+                  ],
+                  "used": [
+                    {
+                      "object": "Campaign",
+                      "records": 4,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "CampaignMember",
+                      "records": 0,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "CampaignMemberStatus",
+                      "records": 12,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "FlowRecord",
+                      "records": 94,
+                      "model": "Core Salesforce"
+                    }
+                  ],
+                  "setupRecords": 96,
+                  "usedRecords": 110,
+                  "usedByModel": {
+                    "Core Salesforce": 110
+                  },
+                  "setupByModel": {
+                    "Core Salesforce": 96
+                  },
+                  "model": "Core Salesforce",
+                  "hidden": []
+                }
+              }
             }
           ]
         }
@@ -2159,6 +4600,17 @@
           "id": "kb-sv-cases",
           "name": "Case management",
           "standard": "Case intake, assignment and escalation rules",
+          "model": {
+            "eu": {
+              "read": true,
+              "model": "Core Salesforce",
+              "byModel": {
+                "Core Salesforce": 52
+              },
+              "text": "Runs on the Core Salesforce. Core Salesforce: 26 cases, 26 case history2s.",
+              "hidden": []
+            }
+          },
           "steps": [
             {
               "id": "sv-intake",
@@ -2172,7 +4624,33 @@
                   "url": "https://trailhead.salesforce.com/content/learn/modules/service_lex/service_lex_channels",
                   "quote": "they automatically route to Salesforce as cases"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "Case",
+                      "records": 26,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "CaseHistory2",
+                      "records": 26,
+                      "model": "Core Salesforce"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 52,
+                  "usedByModel": {
+                    "Core Salesforce": 52
+                  },
+                  "setupByModel": {},
+                  "model": "Core Salesforce",
+                  "hidden": []
+                }
+              }
             },
             {
               "id": "sv-route",
@@ -2188,7 +4666,20 @@
                   "url": "https://trailhead.salesforce.com/content/learn/modules/service_lex/service_lex_case_manage",
                   "quote": "Automatically escalate cases to the right people when the cases aren't solved by a certain time"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": []
+                }
+              }
             }
           ]
         },
@@ -2196,6 +4687,17 @@
           "id": "kb-sv-entitlements",
           "name": "Entitlements and service levels",
           "standard": "Entitlements with milestones",
+          "model": {
+            "eu": {
+              "read": true,
+              "model": "Core Salesforce",
+              "byModel": {
+                "Core Salesforce": 1
+              },
+              "text": "Runs on the Core Salesforce. Core Salesforce: 1 entitlement, 0 service contracts, 0 case milestones.",
+              "hidden": []
+            }
+          },
           "steps": [
             {
               "id": "sv-entitlement",
@@ -2215,7 +4717,56 @@
                   "url": "https://trailhead.salesforce.com/content/learn/modules/entitlement-management-for-lightning-experience/set-up-milestones",
                   "quote": "Milestones represent required steps in your support process"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [
+                    {
+                      "object": "BusinessHours",
+                      "records": 1,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "MilestoneType",
+                      "records": 3,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "SlaProcess",
+                      "records": 1,
+                      "model": "Core Salesforce"
+                    }
+                  ],
+                  "used": [
+                    {
+                      "object": "Entitlement",
+                      "records": 1,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "ServiceContract",
+                      "records": 0,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "CaseMilestone",
+                      "records": 0,
+                      "model": "Core Salesforce"
+                    }
+                  ],
+                  "setupRecords": 5,
+                  "usedRecords": 1,
+                  "usedByModel": {
+                    "Core Salesforce": 1
+                  },
+                  "setupByModel": {
+                    "Core Salesforce": 5
+                  },
+                  "model": "Core Salesforce",
+                  "hidden": []
+                }
+              }
             }
           ]
         },
@@ -2223,6 +4774,17 @@
           "id": "kb-sv-knowledge",
           "name": "Knowledge",
           "standard": "A knowledge base attached to cases",
+          "model": {
+            "eu": {
+              "read": true,
+              "model": "Not used",
+              "byModel": {},
+              "text": "Not used. Core Salesforce: not available: case article.",
+              "hidden": [
+                "CaseArticle"
+              ]
+            }
+          },
           "steps": [
             {
               "id": "sv-articles",
@@ -2240,7 +4802,28 @@
                   "url": "https://trailhead.salesforce.com/content/learn/modules/lightning-knowledge-setup-and-customization/close-cases-with-articles",
                   "quote": "When they attach an article to a case, customers and agents have it for reference"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "CaseArticle",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "CaseArticle"
+                  ]
+                }
+              }
             }
           ]
         },
@@ -2248,6 +4831,15 @@
           "id": "kb-sv-workorders",
           "name": "Work orders",
           "standard": "Work orders from work type templates",
+          "model": {
+            "eu": {
+              "read": true,
+              "model": "Set up, not yet used",
+              "byModel": {},
+              "text": "Set up, not yet used. Core Salesforce: 0 work orders, 0 work order line items, 0 work types.",
+              "hidden": []
+            }
+          },
           "steps": [
             {
               "id": "sv-workorder",
@@ -2267,7 +4859,44 @@
                   "url": "https://trailhead.salesforce.com/content/learn/modules/entitlement-management-for-lightning-experience/use-entitlements-with-work-orders",
                   "quote": "templates that save time and make it easier to standardize field service work"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [
+                    {
+                      "object": "BusinessHours",
+                      "records": 1,
+                      "model": "Core Salesforce"
+                    }
+                  ],
+                  "used": [
+                    {
+                      "object": "WorkOrder",
+                      "records": 0,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "WorkOrderLineItem",
+                      "records": 0,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "WorkType",
+                      "records": 0,
+                      "model": "Core Salesforce"
+                    }
+                  ],
+                  "setupRecords": 1,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {
+                    "Core Salesforce": 1
+                  },
+                  "model": "Core Salesforce (set up, no records yet)",
+                  "hidden": []
+                }
+              }
             }
           ]
         },
@@ -2275,6 +4904,19 @@
           "id": "kb-sv-fieldservice",
           "name": "Field service scheduling",
           "standard": "Service resources in service territories, appointments scheduled by scheduling policies and dispatched from the console, and maintenance plans",
+          "model": {
+            "eu": {
+              "read": true,
+              "model": "Not used",
+              "byModel": {},
+              "text": "Not used. Core Salesforce: 0 service resources, 0 service territories, 0 service territory members, 0 service resource skills, not available: service crew, 0 service appointments, 0 assigned resources, not available: maintenance plan, not available: maintenance asset.",
+              "hidden": [
+                "ServiceCrew",
+                "MaintenancePlan",
+                "MaintenanceAsset"
+              ]
+            }
+          },
           "steps": [
             {
               "id": "sv-fs-resources",
@@ -2292,7 +4934,48 @@
                   "url": "https://trailhead.salesforce.com/content/learn/projects/install-the-field-service-lightning-managed-package/build-your-team",
                   "quote": "Service territories help you organize your workforce"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "ServiceResource",
+                      "records": 0,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "ServiceTerritory",
+                      "records": 0,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "ServiceTerritoryMember",
+                      "records": 0,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "ServiceResourceSkill",
+                      "records": 0,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "ServiceCrew",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "ServiceCrew"
+                  ]
+                }
+              }
             },
             {
               "id": "sv-fs-schedule",
@@ -2307,7 +4990,31 @@
                   "url": "https://trailhead.salesforce.com/en/modules/field_service_basics/units/field_service_basics_intro",
                   "quote": "The Scheduling Console for scheduling and optimization from a managed package"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "ServiceAppointment",
+                      "records": 0,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "AssignedResource",
+                      "records": 0,
+                      "model": "Core Salesforce"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": []
+                }
+              }
             },
             {
               "id": "sv-fs-maintenance",
@@ -2322,7 +5029,34 @@
                   "url": "https://trailhead.salesforce.com/content/learn/modules/field_service_maint/field_service_maint_plan",
                   "quote": "generate multiple work orders for future maintenance visits"
                 }
-              ]
+              ],
+              "orgs": {
+                "eu": {
+                  "read": true,
+                  "setup": [],
+                  "used": [
+                    {
+                      "object": "MaintenancePlan",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    },
+                    {
+                      "object": "MaintenanceAsset",
+                      "records": null,
+                      "model": "Core Salesforce"
+                    }
+                  ],
+                  "setupRecords": 0,
+                  "usedRecords": 0,
+                  "usedByModel": {},
+                  "setupByModel": {},
+                  "model": null,
+                  "hidden": [
+                    "MaintenancePlan",
+                    "MaintenanceAsset"
+                  ]
+                }
+              }
             }
           ]
         }
@@ -2550,9 +5284,13 @@
         ]
       },
       "inOrgs": 1,
+      "inUse": 0,
       "builtDifferently": false,
       "fitment": {
         "eu": "TD"
+      },
+      "fitmentWhy": {
+        "eu": "Custom build for a need the standard covers (Consumer Goods Cloud: Visit and Retail Store, with visit tasks on the mobile app): Store_Visit__c, StoreVisitLegacyHandler, StoreVisitService, StoreVisitTrigger; verdict adopt standard."
       },
       "subprocesses": [
         {
@@ -2560,6 +5298,9 @@
           "name": "Visit scheduling",
           "fitment": {
             "eu": "TD"
+          },
+          "fitmentWhy": {
+            "eu": "Custom build that should move to the standard or go: Store_Visit__c (adopt standard: Consumer Goods Cloud: Visit and Retail Store, with visit tasks on the mobile app)."
           },
           "evidence": {
             "eu": [
@@ -2626,6 +5367,9 @@
           "fitment": {
             "eu": "TD"
           },
+          "fitmentWhy": {
+            "eu": "Custom build that should move to the standard or go: Blocks the save when a field rule fails (replace with configuration: Validation rule), Whole class: no live code calls it (retire: Not called by any active trigger or class and not an entry point (screen, flow, batch, schedule or API). Remove it with its test after confirming in the org)."
+          },
           "evidence": {
             "eu": [
               {
@@ -2687,6 +5431,9 @@
           "name": "Visit outcome and alerts",
           "fitment": {
             "eu": "TD"
+          },
+          "fitmentWhy": {
+            "eu": "Custom build that should move to the standard or go: Keeps totals on Store Visit from its related records (replace with configuration: Roll-up summary field where the relationship is master-detail; otherwise a record-triggered flow), Builds and sends an email in code (adopt standard: Email template with an email alert, sent from a flow or an approval step)."
           },
           "evidence": {
             "eu": [
@@ -2760,9 +5507,13 @@
         ]
       },
       "inOrgs": 1,
+      "inUse": 0,
       "builtDifferently": false,
       "fitment": {
         "eu": "TD"
+      },
+      "fitmentWhy": {
+        "eu": "Custom build for a need the standard covers (Consumer Goods Cloud: action plan templates create the tasks of each visit (assessment, inventory and price checks)): Visit_Task__c; verdict adopt standard."
       },
       "subprocesses": [
         {
@@ -2770,6 +5521,9 @@
           "name": "Task generation",
           "fitment": {
             "eu": "TD"
+          },
+          "fitmentWhy": {
+            "eu": "Custom build that should move to the standard or go: Visit_Task__c (adopt standard: Consumer Goods Cloud: action plan templates create the tasks of each visit (assessment, inventory and price checks)), Creates Visit Task records automatically (adopt standard: Covered by the standard feature: Consumer Goods Cloud: Visit and Retail Store, with visit tasks on the mobile app)."
           },
           "evidence": {
             "eu": [
@@ -2802,6 +5556,9 @@
           "name": "Task completion",
           "fitment": {
             "eu": "ES"
+          },
+          "fitmentWhy": {
+            "eu": "The standard is extended: fields Visit_Task__c.Done__c, Visit_Task__c.Result__c."
           },
           "evidence": {
             "eu": [
@@ -2843,9 +5600,13 @@
         ]
       },
       "inOrgs": 1,
+      "inUse": 0,
       "builtDifferently": false,
       "fitment": {
         "eu": "TD"
+      },
+      "fitmentWhy": {
+        "eu": "Custom build for a need the standard covers (Consumer Goods Cloud: assessment tasks and retail store KPIs recorded during a visit): Shelf_Check__c, ShelfCheckTrigger; verdict adopt standard."
       },
       "subprocesses": [
         {
@@ -2853,6 +5614,9 @@
           "name": "Shelf availability check",
           "fitment": {
             "eu": "TD"
+          },
+          "fitmentWhy": {
+            "eu": "Custom build that should move to the standard or go: Shelf_Check__c (adopt standard: Consumer Goods Cloud: assessment tasks and retail store KPIs recorded during a visit)."
           },
           "evidence": {
             "eu": [
@@ -2901,6 +5665,9 @@
           "fitment": {
             "eu": "ES"
           },
+          "fitmentWhy": {
+            "eu": "The standard is extended: fields Shelf_Check__c.Shelf_Price__c."
+          },
           "evidence": {
             "eu": [
               {
@@ -2931,9 +5698,13 @@
         ]
       },
       "inOrgs": 1,
+      "inUse": 0,
       "builtDifferently": false,
       "fitment": {
         "eu": "TD"
+      },
+      "fitmentWhy": {
+        "eu": "Custom build for a need the standard covers (Consumer Goods Cloud: product assortments assigned to retail store groups): Store_Assortment__c; verdict adopt standard."
       },
       "subprocesses": [
         {
@@ -2941,6 +5712,9 @@
           "name": "Must-stock lists",
           "fitment": {
             "eu": "TD"
+          },
+          "fitmentWhy": {
+            "eu": "Custom build that should move to the standard or go: Store_Assortment__c (adopt standard: Consumer Goods Cloud: product assortments assigned to retail store groups)."
           },
           "evidence": {
             "eu": [
@@ -2977,9 +5751,13 @@
         ]
       },
       "inOrgs": 1,
+      "inUse": 0,
       "builtDifferently": false,
       "fitment": {
         "eu": "TD"
+      },
+      "fitmentWhy": {
+        "eu": "Custom build for a need the standard covers (Consumer Goods Cloud Trade Promotion Management: promotion planning, funds and post-event analysis): Promotion_Product__c, Trade_Promotion__c, TradePromotionService, TradePromotionTrigger; verdict adopt standard."
       },
       "subprocesses": [
         {
@@ -2987,6 +5765,9 @@
           "name": "Promotion planning",
           "fitment": {
             "eu": "TD"
+          },
+          "fitmentWhy": {
+            "eu": "Custom build that should move to the standard or go: Promotion_Product__c (adopt standard: Consumer Goods Cloud Trade Promotion Management: promotion planning, funds and post-event analysis), Trade_Promotion__c (adopt standard: Consumer Goods Cloud Trade Promotion Management: promotion planning, funds and post-event analysis)."
           },
           "evidence": {
             "eu": [
@@ -3098,6 +5879,9 @@
           "fitment": {
             "eu": "TD"
           },
+          "fitmentWhy": {
+            "eu": "Custom build that should move to the standard or go: Calculates ROI (adopt standard: Covered by the standard feature: Consumer Goods Cloud Trade Promotion Management: promotion planning, funds and post-event analysis)."
+          },
           "evidence": {
             "eu": [
               {
@@ -3157,6 +5941,9 @@
           "fitment": {
             "eu": "TD"
           },
+          "fitmentWhy": {
+            "eu": "Custom build that should move to the standard or go: Posts a Chatter message (replace with configuration: Flow 'Post to Chatter' action), Builds and sends an email in code (adopt standard: Email template with an email alert, sent from a flow or an approval step)."
+          },
           "evidence": {
             "eu": [
               {
@@ -3191,6 +5978,9 @@
           "name": "ERP hand-off",
           "fitment": {
             "eu": "DC"
+          },
+          "fitmentWhy": {
+            "eu": "Custom build kept as differentiation: Calls an external system asynchronously (@future)."
           },
           "evidence": {
             "eu": [
@@ -3235,9 +6025,13 @@
         ]
       },
       "inOrgs": 1,
+      "inUse": 0,
       "builtDifferently": false,
       "fitment": {
         "eu": "TD"
+      },
+      "fitmentWhy": {
+        "eu": "Custom build for a need the standard covers (Trade Promotion Management: funds with allocated, committed and spent amounts kept by the platform): Trade_Fund__c; verdict adopt standard."
       },
       "subprocesses": [
         {
@@ -3245,6 +6039,9 @@
           "name": "Fund allocation",
           "fitment": {
             "eu": "TD"
+          },
+          "fitmentWhy": {
+            "eu": "Custom build that should move to the standard or go: Trade_Fund__c (adopt standard: Trade Promotion Management: funds with allocated, committed and spent amounts kept by the platform)."
           },
           "evidence": {
             "eu": [
@@ -3320,6 +6117,9 @@
           "fitment": {
             "eu": "TD"
           },
+          "fitmentWhy": {
+            "eu": "Custom build that should move to the standard or go: Blocks the save after checking other records (Trade Fund) (adopt standard: Covered by the standard feature: Consumer Goods Cloud Trade Promotion Management: promotion planning, funds and post-event analysis), Keeps totals on Trade Fund from its related records (replace with configuration: Roll-up summary field where the relationship is master-detail; otherwise a record-triggered flow)."
+          },
           "evidence": {
             "eu": [
               {
@@ -3386,9 +6186,13 @@
         ]
       },
       "inOrgs": 1,
+      "inUse": 0,
       "builtDifferently": false,
       "fitment": {
         "eu": "TD"
+      },
+      "fitmentWhy": {
+        "eu": "Custom build for a need the standard covers (Trade Promotion Management: claims and payments checked against promotion funds): Promotion_Claim__c, PromotionClaimService, PromotionClaimTrigger; verdict adopt standard."
       },
       "subprocesses": [
         {
@@ -3396,6 +6200,9 @@
           "name": "Claim capture",
           "fitment": {
             "eu": "TD"
+          },
+          "fitmentWhy": {
+            "eu": "Custom build that should move to the standard or go: Promotion_Claim__c (adopt standard: Trade Promotion Management: claims and payments checked against promotion funds)."
           },
           "evidence": {
             "eu": [
@@ -3462,6 +6269,9 @@
           "fitment": {
             "eu": "TD"
           },
+          "fitmentWhy": {
+            "eu": "Custom build that should move to the standard or go: Blocks the save after checking other records (Trade Promotion) (adopt standard: Covered by the standard feature: Trade Promotion Management: claims and payments checked against promotion funds), Sets the status automatically (replace with configuration: Approval process entry criteria or a before-save flow; keep any threshold as custom metadata, not in code)."
+          },
           "evidence": {
             "eu": [
               {
@@ -3516,9 +6326,13 @@
         ]
       },
       "inOrgs": 1,
+      "inUse": 0,
       "builtDifferently": false,
       "fitment": {
         "eu": "TD"
+      },
+      "fitmentWhy": {
+        "eu": "Custom build for a need the standard covers (Approval processes or Flow approval orchestration, with the threshold held as configuration): TradePromotionApproval; verdict replace with configuration."
       },
       "subprocesses": [
         {
@@ -3526,6 +6340,9 @@
           "name": "Approval routing",
           "fitment": {
             "eu": "TD"
+          },
+          "fitmentWhy": {
+            "eu": "Custom build that should move to the standard or go: Sets the status automatically (replace with configuration: Approval process entry criteria or a before-save flow; keep any threshold as custom metadata, not in code)."
           },
           "evidence": {
             "eu": [
@@ -3560,9 +6377,13 @@
         ]
       },
       "inOrgs": 1,
+      "inUse": 0,
       "builtDifferently": false,
       "fitment": {
         "eu": "TD"
+      },
+      "fitmentWhy": {
+        "eu": "Custom build for a need the standard covers (Collaborative Forecasts with quotas by user, territory or product family): Sales_Target__c; verdict replace with configuration."
       }
     },
     {
@@ -3582,9 +6403,13 @@
         ]
       },
       "inOrgs": 1,
+      "inUse": 0,
       "builtDifferently": false,
       "fitment": {
         "eu": "ES"
+      },
+      "fitmentWhy": {
+        "eu": "The standard is extended: Account.Customer_Channel__c, Account.Customer_Tier__c, Account.Market__c, Account.Store_Format__c."
       }
     },
     {
@@ -3602,9 +6427,13 @@
         ]
       },
       "inOrgs": 1,
+      "inUse": 0,
       "builtDifferently": false,
       "fitment": {
         "eu": "ES"
+      },
+      "fitmentWhy": {
+        "eu": "The standard is extended: Account.VAT_Number__c, Account.VAT_Format."
       }
     },
     {
@@ -3621,9 +6450,13 @@
         ]
       },
       "inOrgs": 1,
+      "inUse": 0,
       "builtDifferently": false,
       "fitment": {
         "eu": "ES"
+      },
+      "fitmentWhy": {
+        "eu": "The standard is extended: Account.Legacy_ERP_Code__c."
       }
     },
     {
@@ -3641,9 +6474,13 @@
         ]
       },
       "inOrgs": 1,
+      "inUse": 0,
       "builtDifferently": false,
       "fitment": {
         "eu": "ES"
+      },
+      "fitmentWhy": {
+        "eu": "The standard is extended: Contact.Consent_Date__c, Contact.GDPR_Consent__c."
       }
     },
     {
@@ -3663,9 +6500,13 @@
         ]
       },
       "inOrgs": 1,
+      "inUse": 0,
       "builtDifferently": false,
       "fitment": {
         "eu": "ES"
+      },
+      "fitmentWhy": {
+        "eu": "The standard is extended: Product2.Brand__c, Product2.Case_Size__c, Product2.Category__c, Product2.EAN__c."
       }
     },
     {
@@ -3695,9 +6536,13 @@
         ]
       },
       "inOrgs": 1,
+      "inUse": 0,
       "builtDifferently": false,
       "fitment": {
         "eu": "TD"
+      },
+      "fitmentWhy": {
+        "eu": "Custom build for a need the standard covers (Revenue Cloud subscription management): Subscription_Line__c, Subscription__c, OpportunityService, SubscriptionRenewalBatch and 3 more; verdict adopt standard."
       }
     },
     {
@@ -3714,9 +6559,13 @@
         ]
       },
       "inOrgs": 1,
+      "inUse": 0,
       "builtDifferently": false,
       "fitment": {
         "eu": "CS"
+      },
+      "fitmentWhy": {
+        "eu": "The standard is configured: Declarative Lookup Rollup Summaries Tool."
       }
     },
     {
@@ -3744,9 +6593,24 @@
         ]
       },
       "inOrgs": 1,
+      "inUse": 1,
       "builtDifferently": false,
       "fitment": {
         "eu": "ES"
+      },
+      "fitmentWhy": {
+        "eu": "The standard is extended: fields Account.Active__c, Account.CustomerPriority__c, Account.NumberofLocations__c, Account.Old_Segment__c and 8 more; set up as records: 44 profiles."
+      },
+      "model": {
+        "eu": {
+          "read": true,
+          "model": "Core Salesforce",
+          "byModel": {
+            "Core Salesforce": 130
+          },
+          "text": "Runs on the Core Salesforce. Core Salesforce: 78 accounts, 20 contacts, 8 users, 18 user roles, 3 duplicate rules, 3 matching rules.",
+          "hidden": []
+        }
       },
       "subprocesses": [
         {
@@ -3754,6 +6618,9 @@
           "name": "Record companies and people",
           "fitment": {
             "eu": "ES"
+          },
+          "fitmentWhy": {
+            "eu": "The standard is extended: fields Account.Active__c, Account.CustomerPriority__c, Account.NumberofLocations__c, Account.Old_Segment__c and 8 more; set up as records: 44 profiles."
           },
           "evidence": {
             "eu": [
@@ -3866,6 +6733,53 @@
                 "ref": "Contact.Level__c"
               }
             ]
+          },
+          "setup": {
+            "eu": {
+              "read": true,
+              "setup": [
+                {
+                  "object": "Profile",
+                  "records": 44,
+                  "model": "Core Salesforce"
+                }
+              ],
+              "used": [
+                {
+                  "object": "Account",
+                  "records": 78,
+                  "model": "Core Salesforce"
+                },
+                {
+                  "object": "Contact",
+                  "records": 20,
+                  "model": "Core Salesforce"
+                },
+                {
+                  "object": "User",
+                  "records": 8,
+                  "model": "Core Salesforce"
+                },
+                {
+                  "object": "UserRole",
+                  "records": 18,
+                  "model": "Core Salesforce"
+                }
+              ],
+              "setupRecords": 44,
+              "usedRecords": 124,
+              "usedByModel": {
+                "Core Salesforce": 124
+              },
+              "setupByModel": {
+                "Core Salesforce": 44
+              },
+              "model": "Core Salesforce",
+              "hidden": []
+            }
+          },
+          "model": {
+            "eu": "Core Salesforce"
           }
         },
         {
@@ -3874,7 +6788,26 @@
           "fitment": {
             "eu": "NS"
           },
-          "evidence": {}
+          "fitmentWhy": {
+            "eu": "Nothing custom and no records on this step: it looks unused in this org."
+          },
+          "evidence": {},
+          "setup": {
+            "eu": {
+              "read": true,
+              "setup": [],
+              "used": [],
+              "setupRecords": 0,
+              "usedRecords": 0,
+              "usedByModel": {},
+              "setupByModel": {},
+              "model": null,
+              "hidden": []
+            }
+          },
+          "model": {
+            "eu": null
+          }
         },
         {
           "id": "cm-duplicates",
@@ -3882,7 +6815,266 @@
           "fitment": {
             "eu": "NS"
           },
-          "evidence": {}
+          "fitmentWhy": {
+            "eu": "Nothing custom; the standard is used as delivered (3 duplicate rules, 3 matching rules)."
+          },
+          "evidence": {},
+          "setup": {
+            "eu": {
+              "read": true,
+              "setup": [],
+              "used": [
+                {
+                  "object": "DuplicateRule",
+                  "records": 3,
+                  "model": "Core Salesforce"
+                },
+                {
+                  "object": "MatchingRule",
+                  "records": 3,
+                  "model": "Core Salesforce"
+                }
+              ],
+              "setupRecords": 0,
+              "usedRecords": 6,
+              "usedByModel": {
+                "Core Salesforce": 6
+              },
+              "setupByModel": {},
+              "model": "Core Salesforce",
+              "hidden": []
+            }
+          },
+          "model": {
+            "eu": "Core Salesforce"
+          }
+        }
+      ]
+    },
+    {
+      "id": "kb-pm-products",
+      "area": "Product master",
+      "capability": "Product definition",
+      "verdict": "review",
+      "standard": "Products and product families",
+      "licence": "",
+      "reference": "kb/capabilities/core-processes.md",
+      "perOrg": {
+        "eu": []
+      },
+      "inOrgs": 0,
+      "inUse": 1,
+      "builtDifferently": false,
+      "fitment": {
+        "eu": "NS"
+      },
+      "fitmentWhy": {
+        "eu": "Nothing custom; the standard is used as delivered (27 product2s)."
+      },
+      "model": {
+        "eu": {
+          "read": true,
+          "model": "Core Salesforce",
+          "byModel": {
+            "Core Salesforce": 27
+          },
+          "text": "Runs on the Core Salesforce. Core Salesforce: 27 product2s.",
+          "hidden": []
+        }
+      },
+      "subprocesses": [
+        {
+          "id": "pm-create",
+          "name": "Create products",
+          "fitment": {
+            "eu": "NS"
+          },
+          "fitmentWhy": {
+            "eu": "Nothing custom; the standard is used as delivered (27 product2s)."
+          },
+          "evidence": {},
+          "setup": {
+            "eu": {
+              "read": true,
+              "setup": [],
+              "used": [
+                {
+                  "object": "Product2",
+                  "records": 27,
+                  "model": "Core Salesforce"
+                }
+              ],
+              "setupRecords": 0,
+              "usedRecords": 27,
+              "usedByModel": {
+                "Core Salesforce": 27
+              },
+              "setupByModel": {},
+              "model": "Core Salesforce",
+              "hidden": []
+            }
+          },
+          "model": {
+            "eu": "Core Salesforce"
+          }
+        },
+        {
+          "id": "pm-family",
+          "name": "Categorise products",
+          "fitment": {
+            "eu": "NS"
+          },
+          "fitmentWhy": {
+            "eu": "Nothing custom and no records on this step: it looks unused in this org."
+          },
+          "evidence": {},
+          "setup": {
+            "eu": {
+              "read": true,
+              "setup": [],
+              "used": [],
+              "setupRecords": 0,
+              "usedRecords": 0,
+              "usedByModel": {},
+              "setupByModel": {},
+              "model": null,
+              "hidden": []
+            }
+          },
+          "model": {
+            "eu": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "kb-pm-pricing",
+      "area": "Product master",
+      "capability": "Pricing with price books",
+      "verdict": "review",
+      "standard": "Standard and custom price books with price book entries",
+      "licence": "",
+      "reference": "kb/capabilities/core-processes.md",
+      "perOrg": {
+        "eu": []
+      },
+      "inOrgs": 0,
+      "inUse": 1,
+      "builtDifferently": false,
+      "fitment": {
+        "eu": "NS"
+      },
+      "fitmentWhy": {
+        "eu": "Nothing custom; the standard is used as delivered (2 pricebook2s, 34 pricebook entries)."
+      },
+      "model": {
+        "eu": {
+          "read": true,
+          "model": "Core Salesforce",
+          "byModel": {
+            "Core Salesforce": 36
+          },
+          "text": "Runs on the Core Salesforce. Core Salesforce: 2 pricebook2s, 34 pricebook entries.",
+          "hidden": []
+        }
+      },
+      "subprocesses": [
+        {
+          "id": "pm-standardpb",
+          "name": "Standard price book",
+          "fitment": {
+            "eu": "NS"
+          },
+          "fitmentWhy": {
+            "eu": "Nothing custom; the standard is used as delivered (2 pricebook2s)."
+          },
+          "evidence": {},
+          "setup": {
+            "eu": {
+              "read": true,
+              "setup": [],
+              "used": [
+                {
+                  "object": "Pricebook2",
+                  "records": 2,
+                  "model": "Core Salesforce"
+                }
+              ],
+              "setupRecords": 0,
+              "usedRecords": 2,
+              "usedByModel": {
+                "Core Salesforce": 2
+              },
+              "setupByModel": {},
+              "model": "Core Salesforce",
+              "hidden": []
+            }
+          },
+          "model": {
+            "eu": "Core Salesforce"
+          }
+        },
+        {
+          "id": "pm-custompb",
+          "name": "Custom price books per segment or region",
+          "fitment": {
+            "eu": "NS"
+          },
+          "fitmentWhy": {
+            "eu": "Nothing custom and no records on this step: it looks unused in this org."
+          },
+          "evidence": {},
+          "setup": {
+            "eu": {
+              "read": true,
+              "setup": [],
+              "used": [],
+              "setupRecords": 0,
+              "usedRecords": 0,
+              "usedByModel": {},
+              "setupByModel": {},
+              "model": null,
+              "hidden": []
+            }
+          },
+          "model": {
+            "eu": null
+          }
+        },
+        {
+          "id": "pm-entries",
+          "name": "Price book entries",
+          "fitment": {
+            "eu": "NS"
+          },
+          "fitmentWhy": {
+            "eu": "Nothing custom; the standard is used as delivered (34 pricebook entries)."
+          },
+          "evidence": {},
+          "setup": {
+            "eu": {
+              "read": true,
+              "setup": [],
+              "used": [
+                {
+                  "object": "PricebookEntry",
+                  "records": 34,
+                  "model": "Core Salesforce"
+                }
+              ],
+              "setupRecords": 0,
+              "usedRecords": 34,
+              "usedByModel": {
+                "Core Salesforce": 34
+              },
+              "setupByModel": {},
+              "model": "Core Salesforce",
+              "hidden": []
+            }
+          },
+          "model": {
+            "eu": "Core Salesforce"
+          }
         }
       ]
     },
@@ -3904,9 +7096,24 @@
         ]
       },
       "inOrgs": 1,
+      "inUse": 1,
       "builtDifferently": false,
       "fitment": {
         "eu": "ES"
+      },
+      "fitmentWhy": {
+        "eu": "The standard is extended: fields Lead.CurrentGenerators__c, Lead.NumberofLocations__c, Lead.Primary__c, Lead.ProductInterest__c and 1 more."
+      },
+      "model": {
+        "eu": {
+          "read": true,
+          "model": "Core Salesforce",
+          "byModel": {
+            "Core Salesforce": 22
+          },
+          "text": "Runs on the Core Salesforce. Core Salesforce: 22 leads.",
+          "hidden": []
+        }
       },
       "subprocesses": [
         {
@@ -3914,6 +7121,9 @@
           "name": "Capture and assign leads",
           "fitment": {
             "eu": "ES"
+          },
+          "fitmentWhy": {
+            "eu": "The standard is extended: fields Lead.CurrentGenerators__c, Lead.NumberofLocations__c, Lead.Primary__c, Lead.ProductInterest__c and 1 more."
           },
           "evidence": {
             "eu": [
@@ -3963,6 +7173,30 @@
                 "ref": "Lead.SICCode__c"
               }
             ]
+          },
+          "setup": {
+            "eu": {
+              "read": true,
+              "setup": [],
+              "used": [
+                {
+                  "object": "Lead",
+                  "records": 22,
+                  "model": "Core Salesforce"
+                }
+              ],
+              "setupRecords": 0,
+              "usedRecords": 22,
+              "usedByModel": {
+                "Core Salesforce": 22
+              },
+              "setupByModel": {},
+              "model": "Core Salesforce",
+              "hidden": []
+            }
+          },
+          "model": {
+            "eu": "Core Salesforce"
           }
         },
         {
@@ -3971,7 +7205,26 @@
           "fitment": {
             "eu": "NS"
           },
-          "evidence": {}
+          "fitmentWhy": {
+            "eu": "Nothing custom and no records on this step: it looks unused in this org."
+          },
+          "evidence": {},
+          "setup": {
+            "eu": {
+              "read": true,
+              "setup": [],
+              "used": [],
+              "setupRecords": 0,
+              "usedRecords": 0,
+              "usedByModel": {},
+              "setupByModel": {},
+              "model": null,
+              "hidden": []
+            }
+          },
+          "model": {
+            "eu": null
+          }
         }
       ]
     },
@@ -3996,9 +7249,24 @@
         ]
       },
       "inOrgs": 1,
+      "inUse": 1,
       "builtDifferently": false,
       "fitment": {
         "eu": "RV"
+      },
+      "fitmentWhy": {
+        "eu": "To validate before a verdict: Opportunity.Closed_Won_Requires_Amount, Opportunity.Loss_Reason_Required_When_Lost. The standard is set up as records: 4 campaigns."
+      },
+      "model": {
+        "eu": {
+          "read": true,
+          "model": "Core Salesforce",
+          "byModel": {
+            "Core Salesforce": 31
+          },
+          "text": "Runs on the Core Salesforce. Core Salesforce: 31 opportunities, 0 opportunity contact roles, 0 opportunity line items.",
+          "hidden": []
+        }
       },
       "subprocesses": [
         {
@@ -4006,6 +7274,9 @@
           "name": "Work opportunities through stages",
           "fitment": {
             "eu": "RV"
+          },
+          "fitmentWhy": {
+            "eu": "To validate before a verdict: Opportunity.Closed_Won_Requires_Amount, Opportunity.Loss_Reason_Required_When_Lost. The standard is set up as records: 4 campaigns."
           },
           "evidence": {
             "eu": [
@@ -4082,6 +7353,43 @@
                 "ref": "Opportunity.TrackingNumber__c"
               }
             ]
+          },
+          "setup": {
+            "eu": {
+              "read": true,
+              "setup": [
+                {
+                  "object": "Campaign",
+                  "records": 4,
+                  "model": "Core Salesforce"
+                }
+              ],
+              "used": [
+                {
+                  "object": "Opportunity",
+                  "records": 31,
+                  "model": "Core Salesforce"
+                },
+                {
+                  "object": "OpportunityContactRole",
+                  "records": 0,
+                  "model": "Core Salesforce"
+                }
+              ],
+              "setupRecords": 4,
+              "usedRecords": 31,
+              "usedByModel": {
+                "Core Salesforce": 31
+              },
+              "setupByModel": {
+                "Core Salesforce": 4
+              },
+              "model": "Core Salesforce",
+              "hidden": []
+            }
+          },
+          "model": {
+            "eu": "Core Salesforce"
           }
         },
         {
@@ -4090,7 +7398,129 @@
           "fitment": {
             "eu": "NS"
           },
-          "evidence": {}
+          "fitmentWhy": {
+            "eu": "Nothing custom and no records on this step: it looks unused in this org."
+          },
+          "evidence": {},
+          "setup": {
+            "eu": {
+              "read": true,
+              "setup": [],
+              "used": [
+                {
+                  "object": "OpportunityLineItem",
+                  "records": 0,
+                  "model": "Core Salesforce"
+                }
+              ],
+              "setupRecords": 0,
+              "usedRecords": 0,
+              "usedByModel": {},
+              "setupByModel": {},
+              "model": null,
+              "hidden": []
+            }
+          },
+          "model": {
+            "eu": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "kb-sp-campaigns",
+      "area": "Sales performance",
+      "capability": "Campaign management",
+      "verdict": "review",
+      "standard": "Campaign hierarchies and campaign members with statuses",
+      "licence": "",
+      "reference": "kb/capabilities/core-processes.md",
+      "perOrg": {
+        "eu": []
+      },
+      "inOrgs": 0,
+      "inUse": 1,
+      "builtDifferently": false,
+      "fitment": {
+        "eu": "CS"
+      },
+      "fitmentWhy": {
+        "eu": "Nothing custom; the standard is configured, set up as records: 94 flow record versions, 2 record types."
+      },
+      "model": {
+        "eu": {
+          "read": true,
+          "model": "Core Salesforce",
+          "byModel": {
+            "Core Salesforce": 110
+          },
+          "text": "Runs on the Core Salesforce. Core Salesforce: 4 campaigns, 0 campaign members, 12 campaign member status, 94 flow records.",
+          "hidden": []
+        }
+      },
+      "subprocesses": [
+        {
+          "id": "sp-campaign",
+          "name": "Plan campaigns and track members",
+          "fitment": {
+            "eu": "CS"
+          },
+          "fitmentWhy": {
+            "eu": "Nothing custom; the standard is configured, set up as records: 94 flow record versions, 2 record types."
+          },
+          "evidence": {},
+          "setup": {
+            "eu": {
+              "read": true,
+              "setup": [
+                {
+                  "object": "FlowRecordVersion",
+                  "records": 94,
+                  "model": "Core Salesforce"
+                },
+                {
+                  "object": "RecordType",
+                  "records": 2,
+                  "model": "Core Salesforce"
+                }
+              ],
+              "used": [
+                {
+                  "object": "Campaign",
+                  "records": 4,
+                  "model": "Core Salesforce"
+                },
+                {
+                  "object": "CampaignMember",
+                  "records": 0,
+                  "model": "Core Salesforce"
+                },
+                {
+                  "object": "CampaignMemberStatus",
+                  "records": 12,
+                  "model": "Core Salesforce"
+                },
+                {
+                  "object": "FlowRecord",
+                  "records": 94,
+                  "model": "Core Salesforce"
+                }
+              ],
+              "setupRecords": 96,
+              "usedRecords": 110,
+              "usedByModel": {
+                "Core Salesforce": 110
+              },
+              "setupByModel": {
+                "Core Salesforce": 96
+              },
+              "model": "Core Salesforce",
+              "hidden": []
+            }
+          },
+          "model": {
+            "eu": "Core Salesforce"
+          }
         }
       ]
     },
@@ -4111,9 +7541,24 @@
         ]
       },
       "inOrgs": 1,
+      "inUse": 1,
       "builtDifferently": false,
       "fitment": {
         "eu": "ES"
+      },
+      "fitmentWhy": {
+        "eu": "The standard is extended: fields Case.EngineeringReqNumber__c, Case.PotentialLiability__c, Case.Product__c, Case.SLAViolation__c."
+      },
+      "model": {
+        "eu": {
+          "read": true,
+          "model": "Core Salesforce",
+          "byModel": {
+            "Core Salesforce": 52
+          },
+          "text": "Runs on the Core Salesforce. Core Salesforce: 26 cases, 26 case history2s.",
+          "hidden": []
+        }
       },
       "subprocesses": [
         {
@@ -4121,6 +7566,9 @@
           "name": "Take in cases",
           "fitment": {
             "eu": "ES"
+          },
+          "fitmentWhy": {
+            "eu": "The standard is extended: fields Case.EngineeringReqNumber__c, Case.PotentialLiability__c, Case.Product__c, Case.SLAViolation__c."
           },
           "evidence": {
             "eu": [
@@ -4161,6 +7609,35 @@
                 "ref": "Case.SLAViolation__c"
               }
             ]
+          },
+          "setup": {
+            "eu": {
+              "read": true,
+              "setup": [],
+              "used": [
+                {
+                  "object": "Case",
+                  "records": 26,
+                  "model": "Core Salesforce"
+                },
+                {
+                  "object": "CaseHistory2",
+                  "records": 26,
+                  "model": "Core Salesforce"
+                }
+              ],
+              "setupRecords": 0,
+              "usedRecords": 52,
+              "usedByModel": {
+                "Core Salesforce": 52
+              },
+              "setupByModel": {},
+              "model": "Core Salesforce",
+              "hidden": []
+            }
+          },
+          "model": {
+            "eu": "Core Salesforce"
           }
         },
         {
@@ -4169,7 +7646,206 @@
           "fitment": {
             "eu": "NS"
           },
-          "evidence": {}
+          "fitmentWhy": {
+            "eu": "Nothing custom and no records on this step: it looks unused in this org."
+          },
+          "evidence": {},
+          "setup": {
+            "eu": {
+              "read": true,
+              "setup": [],
+              "used": [],
+              "setupRecords": 0,
+              "usedRecords": 0,
+              "usedByModel": {},
+              "setupByModel": {},
+              "model": null,
+              "hidden": []
+            }
+          },
+          "model": {
+            "eu": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "kb-sv-entitlements",
+      "area": "Service",
+      "capability": "Entitlements and service levels",
+      "verdict": "review",
+      "standard": "Entitlements with milestones",
+      "licence": "",
+      "reference": "kb/capabilities/core-processes.md",
+      "perOrg": {
+        "eu": []
+      },
+      "inOrgs": 0,
+      "inUse": 1,
+      "builtDifferently": false,
+      "fitment": {
+        "eu": "CS"
+      },
+      "fitmentWhy": {
+        "eu": "Nothing custom; the standard is configured, set up as records: 1 business hours, 3 milestone types, 1 sla process."
+      },
+      "model": {
+        "eu": {
+          "read": true,
+          "model": "Core Salesforce",
+          "byModel": {
+            "Core Salesforce": 1
+          },
+          "text": "Runs on the Core Salesforce. Core Salesforce: 1 entitlement, 0 service contracts, 0 case milestones.",
+          "hidden": []
+        }
+      },
+      "subprocesses": [
+        {
+          "id": "sv-entitlement",
+          "name": "Entitlements and milestones",
+          "fitment": {
+            "eu": "CS"
+          },
+          "fitmentWhy": {
+            "eu": "Nothing custom; the standard is configured, set up as records: 1 business hours, 3 milestone types, 1 sla process."
+          },
+          "evidence": {},
+          "setup": {
+            "eu": {
+              "read": true,
+              "setup": [
+                {
+                  "object": "BusinessHours",
+                  "records": 1,
+                  "model": "Core Salesforce"
+                },
+                {
+                  "object": "MilestoneType",
+                  "records": 3,
+                  "model": "Core Salesforce"
+                },
+                {
+                  "object": "SlaProcess",
+                  "records": 1,
+                  "model": "Core Salesforce"
+                }
+              ],
+              "used": [
+                {
+                  "object": "Entitlement",
+                  "records": 1,
+                  "model": "Core Salesforce"
+                },
+                {
+                  "object": "ServiceContract",
+                  "records": 0,
+                  "model": "Core Salesforce"
+                },
+                {
+                  "object": "CaseMilestone",
+                  "records": 0,
+                  "model": "Core Salesforce"
+                }
+              ],
+              "setupRecords": 5,
+              "usedRecords": 1,
+              "usedByModel": {
+                "Core Salesforce": 1
+              },
+              "setupByModel": {
+                "Core Salesforce": 5
+              },
+              "model": "Core Salesforce",
+              "hidden": []
+            }
+          },
+          "model": {
+            "eu": "Core Salesforce"
+          }
+        }
+      ]
+    },
+    {
+      "id": "kb-sv-workorders",
+      "area": "Service",
+      "capability": "Work orders",
+      "verdict": "review",
+      "standard": "Work orders from work type templates",
+      "licence": "",
+      "reference": "kb/capabilities/core-processes.md",
+      "perOrg": {
+        "eu": []
+      },
+      "inOrgs": 0,
+      "inUse": 1,
+      "builtDifferently": false,
+      "fitment": {
+        "eu": "CS"
+      },
+      "fitmentWhy": {
+        "eu": "Nothing custom; the standard is configured, set up as records: 1 business hours."
+      },
+      "model": {
+        "eu": {
+          "read": true,
+          "model": "Set up, not yet used",
+          "byModel": {},
+          "text": "Set up, not yet used. Core Salesforce: 0 work orders, 0 work order line items, 0 work types.",
+          "hidden": []
+        }
+      },
+      "subprocesses": [
+        {
+          "id": "sv-workorder",
+          "name": "Plan field work",
+          "fitment": {
+            "eu": "CS"
+          },
+          "fitmentWhy": {
+            "eu": "Nothing custom; the standard is configured, set up as records: 1 business hours."
+          },
+          "evidence": {},
+          "setup": {
+            "eu": {
+              "read": true,
+              "setup": [
+                {
+                  "object": "BusinessHours",
+                  "records": 1,
+                  "model": "Core Salesforce"
+                }
+              ],
+              "used": [
+                {
+                  "object": "WorkOrder",
+                  "records": 0,
+                  "model": "Core Salesforce"
+                },
+                {
+                  "object": "WorkOrderLineItem",
+                  "records": 0,
+                  "model": "Core Salesforce"
+                },
+                {
+                  "object": "WorkType",
+                  "records": 0,
+                  "model": "Core Salesforce"
+                }
+              ],
+              "setupRecords": 1,
+              "usedRecords": 0,
+              "usedByModel": {},
+              "setupByModel": {
+                "Core Salesforce": 1
+              },
+              "model": "Core Salesforce (set up, no records yet)",
+              "hidden": []
+            }
+          },
+          "model": {
+            "eu": "Core Salesforce (set up, no records yet)"
+          }
         }
       ]
     }
@@ -4179,6 +7855,9 @@
     "capability": "Not matched to a capability",
     "fitment": {
       "eu": "RV"
+    },
+    "fitmentWhy": {
+      "eu": "Not matched to a capability: Developer Edition."
     }
   },
   "functionFitGap": {
@@ -5281,7 +8960,21 @@
           "capability": "Subscriptions",
           "step": null
         },
-        "rule": "capability"
+        "rule": "capability",
+        "use": {
+          "entryPoint": false,
+          "calledFromCode": true,
+          "usedBy": [
+            {
+              "type": "ApexTrigger",
+              "name": "OpportunityTrigger"
+            }
+          ],
+          "usedByCount": 1,
+          "lastRun": null,
+          "dependencies": "ok",
+          "logs": "not available in this org"
+        }
       },
       "layer": "Custom",
       "effort": "Low",
@@ -5314,7 +9007,21 @@
           "capability": "Distributor and customer claims",
           "step": null
         },
-        "rule": "capability"
+        "rule": "capability",
+        "use": {
+          "entryPoint": false,
+          "calledFromCode": true,
+          "usedBy": [
+            {
+              "type": "ApexTrigger",
+              "name": "PromotionClaimTrigger"
+            }
+          ],
+          "usedByCount": 1,
+          "lastRun": null,
+          "dependencies": "ok",
+          "logs": "not available in this org"
+        }
       },
       "layer": "Custom",
       "effort": "Low",
@@ -5332,7 +9039,7 @@
       "step": null,
       "verdict": "retire",
       "reason": "Nothing refers to it (no code, Lightning component, Visualforce page or flow) and it is no entry point (screen, flow, batch, schedule or API); usage logs are not available in this org, so confirm it is unused.",
-      "confidence": "Low",
+      "confidence": "Medium",
       "lines": 9,
       "objects": [
         "Store_Visit__c"
@@ -5345,7 +9052,16 @@
           "capability": "Store visits",
           "step": null
         },
-        "rule": "unreferenced"
+        "rule": "unreferenced",
+        "use": {
+          "entryPoint": false,
+          "calledFromCode": false,
+          "usedBy": [],
+          "usedByCount": 0,
+          "lastRun": null,
+          "dependencies": "ok",
+          "logs": "not available in this org"
+        }
       },
       "layer": "Custom",
       "effort": "Low",
@@ -5379,7 +9095,25 @@
           "capability": "Store visits",
           "step": null
         },
-        "rule": "capability"
+        "rule": "capability",
+        "use": {
+          "entryPoint": false,
+          "calledFromCode": true,
+          "usedBy": [
+            {
+              "type": "ApexTrigger",
+              "name": "ShelfCheckTrigger"
+            },
+            {
+              "type": "ApexTrigger",
+              "name": "StoreVisitTrigger"
+            }
+          ],
+          "usedByCount": 2,
+          "lastRun": null,
+          "dependencies": "ok",
+          "logs": "not available in this org"
+        }
       },
       "layer": "Custom",
       "effort": "Low",
@@ -5410,7 +9144,16 @@
           "capability": "Subscriptions",
           "step": null
         },
-        "rule": "capability"
+        "rule": "capability",
+        "use": {
+          "entryPoint": true,
+          "calledFromCode": false,
+          "usedBy": [],
+          "usedByCount": 0,
+          "lastRun": null,
+          "dependencies": "ok",
+          "logs": "not available in this org"
+        }
       },
       "layer": "Custom",
       "effort": "Low",
@@ -5442,7 +9185,25 @@
           "capability": "Subscriptions",
           "step": null
         },
-        "rule": "capability"
+        "rule": "capability",
+        "use": {
+          "entryPoint": false,
+          "calledFromCode": true,
+          "usedBy": [
+            {
+              "type": "ApexClass",
+              "name": "SubscriptionRenewalBatch"
+            },
+            {
+              "type": "ApexTrigger",
+              "name": "SubscriptionTrigger"
+            }
+          ],
+          "usedByCount": 2,
+          "lastRun": null,
+          "dependencies": "ok",
+          "logs": "not available in this org"
+        }
       },
       "layer": "Custom",
       "effort": "Low",
@@ -5474,7 +9235,21 @@
           "capability": "Promotion approval",
           "step": null
         },
-        "rule": "capability"
+        "rule": "capability",
+        "use": {
+          "entryPoint": false,
+          "calledFromCode": true,
+          "usedBy": [
+            {
+              "type": "ApexTrigger",
+              "name": "TradePromotionTrigger"
+            }
+          ],
+          "usedByCount": 1,
+          "lastRun": null,
+          "dependencies": "ok",
+          "logs": "not available in this org"
+        }
       },
       "layer": "Custom",
       "effort": "Low",
@@ -5506,7 +9281,21 @@
           "capability": "Trade promotions and deals",
           "step": null
         },
-        "rule": "capability"
+        "rule": "capability",
+        "use": {
+          "entryPoint": false,
+          "calledFromCode": true,
+          "usedBy": [
+            {
+              "type": "ApexTrigger",
+              "name": "TradePromotionTrigger"
+            }
+          ],
+          "usedByCount": 1,
+          "lastRun": null,
+          "dependencies": "ok",
+          "logs": "not available in this org"
+        }
       },
       "layer": "Custom",
       "effort": "Medium",
@@ -7178,6 +10967,15 @@
       "reason": "Revenue Cloud subscription management",
       "confidence": "Medium",
       "object": "Subscription",
+      "works": {
+        "start": "Subscription__c",
+        "reads": [],
+        "creates": [
+          "Task"
+        ],
+        "updates": [],
+        "deletes": []
+      },
       "trace": {
         "place": {
           "method": "Objects its code uses (catalogue)",
@@ -7222,7 +11020,7 @@
       "impact": "The business changes the rule as a setting, without a developer or a release.",
       "where": "Europe org",
       "decisionOwner": "Platform owner (to confirm)",
-      "code": "PL-00"
+      "code": "P-00"
     },
     {
       "org": "eu",

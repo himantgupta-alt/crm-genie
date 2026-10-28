@@ -179,7 +179,7 @@
     "limits": {
       "DataStorageMB": {
         "max": 5,
-        "used": 2
+        "used": 3
       },
       "FileStorageMB": {
         "max": 20,
@@ -187,7 +187,7 @@
       },
       "DailyApiRequests": {
         "max": 15000,
-        "used": 2913
+        "used": 566
       },
       "DailyBulkV2QueryJobs": {
         "max": 10000,
@@ -13000,21 +13000,21 @@
       "type": "System job (type K)",
       "state": "WAITING",
       "schedule": "0 54 10 ? * 1,2,3,4,5,6,7",
-      "next": "2026-10-14"
+      "next": "2026-10-28"
     },
     {
       "name": "System job (type P) 1",
       "type": "System job (type P)",
       "state": "WAITING",
       "schedule": "0 59 6,11,16,23 ? * *",
-      "next": "2026-10-14"
+      "next": "2026-10-28"
     },
     {
       "name": "System job (type S) 1",
       "type": "System job (type S)",
       "state": "WAITING",
       "schedule": "0 0 5,20 ? * *",
-      "next": "2026-10-15"
+      "next": "2026-10-28"
     }
   ],
   "code": {
@@ -13969,7 +13969,7 @@
         "name": "OptimizerService",
         "apiVersion": 66,
         "origin": "package",
-        "lines": 50,
+        "lines": null,
         "test": false,
         "callout": false,
         "batch": false,
@@ -14035,7 +14035,7 @@
         "name": "RollupActionCalculate",
         "apiVersion": 66,
         "origin": "package",
-        "lines": 26,
+        "lines": null,
         "test": false,
         "callout": false,
         "batch": false,
@@ -14189,11 +14189,11 @@
         "name": "RollupJob",
         "apiVersion": 66,
         "origin": "package",
-        "lines": 16,
+        "lines": null,
         "test": false,
         "callout": false,
-        "batch": true,
-        "schedulable": true,
+        "batch": false,
+        "schedulable": false,
         "coverage": null
       },
       {
@@ -14233,7 +14233,7 @@
         "name": "RollupService",
         "apiVersion": 66,
         "origin": "package",
-        "lines": 74,
+        "lines": null,
         "test": false,
         "callout": false,
         "batch": false,
@@ -15772,6 +15772,18 @@
         "assignments": 0
       },
       {
+        "name": "PagesCreator",
+        "label": "Create Quick Pages",
+        "origin": "salesforce",
+        "assignments": 0
+      },
+      {
+        "name": "PagesViewer",
+        "label": "View Quick Pages",
+        "origin": "salesforce",
+        "assignments": 0
+      },
+      {
         "name": "PartnerConnectPartnerAdminSetup",
         "label": "Partner Connect Partner Admin Setup",
         "origin": "salesforce",
@@ -15906,6 +15918,12 @@
       {
         "name": "UseSetupWithAgentforce",
         "label": "Use Setup with Agentforce",
+        "origin": "salesforce",
+        "assignments": 0
+      },
+      {
+        "name": "YukonNudgeHeadlessPublishPermSet",
+        "label": "Publish Suggested for You Nudges: Integration User",
         "origin": "salesforce",
         "assignments": 0
       },
@@ -16070,7 +16088,7 @@
       {
         "application": "Salesforce CLI",
         "type": "Remote Access 2.0",
-        "logins": 35
+        "logins": 49
       },
       {
         "application": "Browser",
@@ -18465,5 +18483,6 @@
       "to": "VAT_Number",
       "toType": "CustomField"
     }
-  ]
+  ],
+  "warnings": []
 }

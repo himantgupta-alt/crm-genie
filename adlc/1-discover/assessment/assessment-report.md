@@ -59,9 +59,14 @@ Each row is a business capability; each cell lists the components that implement
 | Other | Subscriptions | Subscription_Line__c, Subscription__c, OpportunityService, SubscriptionRenewalBatch, SubscriptionService, OpportunityTrigger, SubscriptionTrigger, Subscription_At_Risk_Alert, Subscription__c.Active_Requires_MRR, Subscription__c.Cancellation_Reason_Required, Subscription__c.End_Date_After_Start_Date, Subscription__c.No_Reactivation_After_Cancel, Subscription_Line__c.Parent_Not_Cancelled, Subscription_Line__c.Quantity_Must_Be_Positive | No | Revenue Cloud subscription management | Adopt standard |
 | Platform | Roll-ups between related records | Declarative Lookup Rollup Summaries Tool | No | Roll-up summary fields where the relationship is master-detail, record-triggered flows elsewhere | Replace with configuration |
 | Customer master | Account and contact management | Account.Active__c, Account.CustomerPriority__c, Account.NumberofLocations__c, Account.Old_Segment__c, Account.SLAExpirationDate__c, Account.SLASerialNumber__c, Account.SLA__c, Account.UpsellOpportunity__c, Account.Won_Opportunity_Amount__c, Account.Won_Opportunity_Count__c, Contact.Languages__c, Contact.Level__c | No | Accounts, contacts, person accounts and duplicate management | Review with business |
+| Product master | Product definition | — | No | Products and product families | Review with business |
+| Product master | Pricing with price books | — | No | Standard and custom price books with price book entries | Review with business |
 | Sales performance | Lead management | Lead.CurrentGenerators__c, Lead.NumberofLocations__c, Lead.Primary__c, Lead.ProductInterest__c, Lead.SICCode__c | No | Capture, assign and convert leads | Review with business |
 | Sales performance | Opportunity management | Opportunity.CurrentGenerators__c, Opportunity.DeliveryInstallationStatus__c, Opportunity.Loss_Reason__c, Opportunity.MainCompetitors__c, Opportunity.OrderNumber__c, Opportunity.TrackingNumber__c, Opportunity.Closed_Won_Requires_Amount, Opportunity.Loss_Reason_Required_When_Lost | No | Opportunities with stages, contact roles and products | Review with business |
+| Sales performance | Campaign management | — | No | Campaign hierarchies and campaign members with statuses | Review with business |
 | Service | Case management | Case.EngineeringReqNumber__c, Case.PotentialLiability__c, Case.Product__c, Case.SLAViolation__c | No | Case intake, assignment and escalation rules | Review with business |
+| Service | Entitlements and service levels | — | No | Entitlements with milestones | Review with business |
+| Service | Work orders | — | No | Work orders from work type templates | Review with business |
 
 ## Fitment heatmap
 
@@ -86,10 +91,99 @@ Each org is assessed in its own implementation context. Codes: NS native standar
 | Other | Subscriptions | TD technical-debt candidate |
 | Platform | Roll-ups between related records | CS configured standard |
 | Customer master | Account and contact management | ES extended standard |
+| Product master | Product definition | NS native standard |
+| Product master | Pricing with price books | NS native standard |
 | Sales performance | Lead management | ES extended standard |
 | Sales performance | Opportunity management | RV requires validation |
+| Sales performance | Campaign management | CS configured standard |
 | Service | Case management | ES extended standard |
+| Service | Entitlements and service levels | CS configured standard |
+| Service | Work orders | CS configured standard |
 | Other | Not matched to a capability | RV requires validation |
+
+## Standard processes: model in use, set-up and fitment by step
+
+For each standard process with records or custom work: which model holds its records (core Salesforce or an installed package), the set-up held as records on each step, and why each step has its fitment code.
+
+### Customer master: Account and contact management
+
+- Europe: Runs on the Core Salesforce. Core Salesforce: 78 accounts, 20 contacts, 8 users, 18 user roles, 3 duplicate rules, 3 matching rules. Fitment ES: The standard is extended: fields Account.Active__c, Account.CustomerPriority__c, Account.NumberofLocations__c, Account.Old_Segment__c and 8 more; set up as records: 44 profiles.
+
+| Step | Europe: fitment | Europe: set-up records | Europe: why |
+| --- | --- | --- | --- |
+| Record companies and people | ES | 44 profiles | The standard is extended: fields Account.Active__c, Account.CustomerPriority__c, Account.NumberofLocations__c, Account.Old_Segment__c and 8 more; set up as records: 44 profiles. |
+| Person accounts for consumers | NS | none | Nothing custom and no records on this step: it looks unused in this org. |
+| Prevent duplicates | NS | none | Nothing custom; the standard is used as delivered (3 duplicate rules, 3 matching rules). |
+
+### Product master: Product definition
+
+- Europe: Runs on the Core Salesforce. Core Salesforce: 27 product2s. Fitment NS: Nothing custom; the standard is used as delivered (27 product2s).
+
+| Step | Europe: fitment | Europe: set-up records | Europe: why |
+| --- | --- | --- | --- |
+| Create products | NS | none | Nothing custom; the standard is used as delivered (27 product2s). |
+| Categorise products | NS | none | Nothing custom and no records on this step: it looks unused in this org. |
+
+### Product master: Pricing with price books
+
+- Europe: Runs on the Core Salesforce. Core Salesforce: 2 pricebook2s, 34 pricebook entries. Fitment NS: Nothing custom; the standard is used as delivered (2 pricebook2s, 34 pricebook entries).
+
+| Step | Europe: fitment | Europe: set-up records | Europe: why |
+| --- | --- | --- | --- |
+| Standard price book | NS | none | Nothing custom; the standard is used as delivered (2 pricebook2s). |
+| Custom price books per segment or region | NS | none | Nothing custom and no records on this step: it looks unused in this org. |
+| Price book entries | NS | none | Nothing custom; the standard is used as delivered (34 pricebook entries). |
+
+### Sales performance: Lead management
+
+- Europe: Runs on the Core Salesforce. Core Salesforce: 22 leads. Fitment ES: The standard is extended: fields Lead.CurrentGenerators__c, Lead.NumberofLocations__c, Lead.Primary__c, Lead.ProductInterest__c and 1 more.
+
+| Step | Europe: fitment | Europe: set-up records | Europe: why |
+| --- | --- | --- | --- |
+| Capture and assign leads | ES | none | The standard is extended: fields Lead.CurrentGenerators__c, Lead.NumberofLocations__c, Lead.Primary__c, Lead.ProductInterest__c and 1 more. |
+| Convert leads | NS | none | Nothing custom and no records on this step: it looks unused in this org. |
+
+### Sales performance: Opportunity management
+
+- Europe: Runs on the Core Salesforce. Core Salesforce: 31 opportunities, 0 opportunity contact roles, 0 opportunity line items. Fitment RV: To validate before a verdict: Opportunity.Closed_Won_Requires_Amount, Opportunity.Loss_Reason_Required_When_Lost. The standard is set up as records: 4 campaigns.
+
+| Step | Europe: fitment | Europe: set-up records | Europe: why |
+| --- | --- | --- | --- |
+| Work opportunities through stages | RV | 4 campaigns | To validate before a verdict: Opportunity.Closed_Won_Requires_Amount, Opportunity.Loss_Reason_Required_When_Lost. The standard is set up as records: 4 campaigns. |
+| Add products to opportunities | NS | none | Nothing custom and no records on this step: it looks unused in this org. |
+
+### Sales performance: Campaign management
+
+- Europe: Runs on the Core Salesforce. Core Salesforce: 4 campaigns, 0 campaign members, 12 campaign member status, 94 flow records. Fitment CS: Nothing custom; the standard is configured, set up as records: 94 flow record versions, 2 record types.
+
+| Step | Europe: fitment | Europe: set-up records | Europe: why |
+| --- | --- | --- | --- |
+| Plan campaigns and track members | CS | 94 flow record versions, 2 record types | Nothing custom; the standard is configured, set up as records: 94 flow record versions, 2 record types. |
+
+### Service: Case management
+
+- Europe: Runs on the Core Salesforce. Core Salesforce: 26 cases, 26 case history2s. Fitment ES: The standard is extended: fields Case.EngineeringReqNumber__c, Case.PotentialLiability__c, Case.Product__c, Case.SLAViolation__c.
+
+| Step | Europe: fitment | Europe: set-up records | Europe: why |
+| --- | --- | --- | --- |
+| Take in cases | ES | none | The standard is extended: fields Case.EngineeringReqNumber__c, Case.PotentialLiability__c, Case.Product__c, Case.SLAViolation__c. |
+| Assign and escalate | NS | none | Nothing custom and no records on this step: it looks unused in this org. |
+
+### Service: Entitlements and service levels
+
+- Europe: Runs on the Core Salesforce. Core Salesforce: 1 entitlement, 0 service contracts, 0 case milestones. Fitment CS: Nothing custom; the standard is configured, set up as records: 1 business hours, 3 milestone types, 1 sla process.
+
+| Step | Europe: fitment | Europe: set-up records | Europe: why |
+| --- | --- | --- | --- |
+| Entitlements and milestones | CS | 1 business hours, 3 milestone types, 1 sla process | Nothing custom; the standard is configured, set up as records: 1 business hours, 3 milestone types, 1 sla process. |
+
+### Service: Work orders
+
+- Europe: Set up, not yet used. Core Salesforce: 0 work orders, 0 work order line items, 0 work types. Fitment CS: Nothing custom; the standard is configured, set up as records: 1 business hours.
+
+| Step | Europe: fitment | Europe: set-up records | Europe: why |
+| --- | --- | --- | --- |
+| Plan field work | CS | 1 business hours | Nothing custom; the standard is configured, set up as records: 1 business hours. |
 
 ## Fit-gap by org
 
@@ -196,7 +290,7 @@ Each org is assessed in its own implementation context. Codes: NS native standar
 
 | Org | Type | Component | Why | Effort | Priority | Evidence confidence |
 | --- | --- | --- | --- | --- | --- | --- |
-| Europe | Apex class | StoreVisitLegacyHandler | Nothing refers to it (no code, Lightning component, Visualforce page or flow) and it is no entry point (screen, flow, batch, schedule or API); usage logs are not available in this org, so confirm it is unused. | Low | Quick win | Low |
+| Europe | Apex class | StoreVisitLegacyHandler | Nothing refers to it (no code, Lightning component, Visualforce page or flow) and it is no entry point (screen, flow, batch, schedule or API); usage logs are not available in this org, so confirm it is unused. | Low | Quick win | Medium |
 | Europe | Custom field | Account.Old_Segment__c | Filled on 0% of 78 records. | Low | Quick win | Medium |
 
 ### Review with business (3)
@@ -211,5 +305,8 @@ Each org is assessed in its own implementation context. Codes: NS native standar
 
 - Read-only: describe, SOQL counts and the Tooling API, with the permissions of one integration user per org. No record contents leave the org; the as-is files hold component names, counts and fill rates only.
 - Each component is matched to a capability by name, then by the objects its code reads or writes (`src/agents/assessment/capabilities.json`). The verdict is the capability's default, overridden to Retire when a component is unused (no records, field filled on under 1% of records, or inactive).
+- Flows are placed on a process step by their definition: the records they create, start from and change (`kb/capabilities/processes.json`); a flow that only reads is placed on the capability without a step. A name is used only when a flow works on nothing but common objects (accounts, tasks, users).
+- Components that work only on records of an installed package that holds no standard process object are kept under "Other products", named after that package, unless their records place them on a process step. A name prefix shared by many components across several business areas is flagged as a kit to confirm.
+- For every step, the records that hang off its standard objects and what they point to (templates, definitions) are read from the org's own relationships and counted, with the package (or core Salesforce) that holds them; a step configured only through records is "configured standard", not "nothing custom". Objects that components of many business areas point to (accounts, users, activities) are treated as common and never place a component.
 - Not yet covered: page layouts and Lightning pages, reports and dashboards by usage, profiles and sharing, email templates. These are listed in the gap register of the Extraction agent for the migration and are added here in the next iteration.
 - Verdicts are proposals for the workshop. Licence fit (Consumer Goods Cloud, Trade Promotion Management, Revenue Cloud) is confirmed before any verdict becomes a decision.

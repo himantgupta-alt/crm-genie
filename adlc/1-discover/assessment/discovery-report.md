@@ -107,7 +107,7 @@ Each finding has a risk level, its business impact, the evidence from the orgs, 
 | Apex triggers | 6 | 1 | 0 |
 | Lightning components | 0 | 17 | 0 |
 | Visualforce pages | 0 | 14 | 0 |
-| Permission sets | 4 | 3 | 120 |
+| Permission sets | 4 | 3 | 123 |
 | Apps | 0 | 3 | 31 |
 | Lightning pages | 14 | 3 | 0 |
 
@@ -177,9 +177,14 @@ erDiagram
 | Subscriptions | Subscription_Line__c, Subscription__c, OpportunityService, SubscriptionRenewalBatch | Revenue Cloud subscription management | Adopt standard |
 | Roll-ups between related records | — | Roll-up summary fields where the relationship is master-detail, record-triggered flows elsewhere | Replace with configuration |
 | Account and contact management | Account.Active__c, Account.CustomerPriority__c, Account.NumberofLocations__c, Account.Old_Segment__c | Accounts, contacts, person accounts and duplicate management | Review with business |
+| Product definition | — | Products and product families | Review with business |
+| Pricing with price books | — | Standard and custom price books with price book entries | Review with business |
 | Lead management | Lead.CurrentGenerators__c, Lead.NumberofLocations__c, Lead.Primary__c, Lead.ProductInterest__c | Capture, assign and convert leads | Review with business |
 | Opportunity management | Opportunity.CurrentGenerators__c, Opportunity.DeliveryInstallationStatus__c, Opportunity.Loss_Reason__c, Opportunity.MainCompetitors__c | Opportunities with stages, contact roles and products | Review with business |
+| Campaign management | — | Campaign hierarchies and campaign members with statuses | Review with business |
 | Case management | Case.EngineeringReqNumber__c, Case.PotentialLiability__c, Case.Product__c, Case.SLAViolation__c | Case intake, assignment and escalation rules | Review with business |
+| Entitlements and service levels | — | Entitlements with milestones | Review with business |
+| Work orders | — | Work orders from work type templates | Review with business |
 
 The complete component-level fit-gap is in `fit-gap.json` and in the Org assessment view.
 
@@ -250,9 +255,9 @@ The same detail is interactive in the Discovery explorer (Org Compiler) and mach
 
 | Limit | Used | Maximum |
 | --- | --- | --- |
-| DataStorageMB | 2 | 5 |
+| DataStorageMB | 3 | 5 |
 | FileStorageMB | 0 | 20 |
-| DailyApiRequests | 2913 | 15000 |
+| DailyApiRequests | 566 | 15000 |
 | DailyBulkV2QueryJobs | 0 | 10000 |
 | DailyAsyncApexExecutions | 0 | 250000 |
 
@@ -316,7 +321,7 @@ The same detail is interactive in the Discovery explorer (Org Compiler) and mach
 | Apex triggers | 6 | 1 | 0 |
 | Lightning components | 0 | 17 | 0 |
 | Visualforce pages | 0 | 14 | 0 |
-| Permission sets | 4 | 3 | 120 |
+| Permission sets | 4 | 3 | 123 |
 | Apps | 0 | 3 | 31 |
 | Lightning pages | 14 | 3 | 0 |
 
@@ -1361,9 +1366,9 @@ _None._
 
 | Job | Type | State | Schedule | Next run |
 | --- | --- | --- | --- | --- |
-| System job (type K) 1 | System job (type K) | WAITING | 0 54 10 ? * 1,2,3,4,5,6,7 | 2026-10-14 |
-| System job (type P) 1 | System job (type P) | WAITING | 0 59 6,11,16,23 ? * * | 2026-10-14 |
-| System job (type S) 1 | System job (type S) | WAITING | 0 0 5,20 ? * * | 2026-10-15 |
+| System job (type K) 1 | System job (type K) | WAITING | 0 54 10 ? * 1,2,3,4,5,6,7 | 2026-10-28 |
+| System job (type P) 1 | System job (type P) | WAITING | 0 59 6,11,16,23 ? * * | 2026-10-28 |
+| System job (type S) 1 | System job (type S) | WAITING | 0 0 5,20 ? * * | 2026-10-28 |
 
 #### Workflow rules
 
@@ -1642,7 +1647,7 @@ How many profiles and permission sets can read and edit each custom field.
 
 | Application | Login type | Logins |
 | --- | --- | --- |
-| Salesforce CLI | Remote Access 2.0 | 35 |
+| Salesforce CLI | Remote Access 2.0 | 49 |
 | Browser | Application | 12 |
 | Browser | Remote Access Client | 5 |
 | orgfarm_app_1 | Remote Access 2.0 | 3 |

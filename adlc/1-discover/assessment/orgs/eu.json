@@ -763,6 +763,36 @@
       ]
     },
     {
+      "name": "Case",
+      "records": 26,
+      "fields": [
+        {
+          "name": "EngineeringReqNumber__c",
+          "label": "Engineering Req Number",
+          "type": "string",
+          "fill": 85
+        },
+        {
+          "name": "PotentialLiability__c",
+          "label": "Potential Liability",
+          "type": "picklist",
+          "fill": 100
+        },
+        {
+          "name": "Product__c",
+          "label": "Product",
+          "type": "picklist",
+          "fill": 100
+        },
+        {
+          "name": "SLAViolation__c",
+          "label": "SLA Violation",
+          "type": "picklist",
+          "fill": 96
+        }
+      ]
+    },
+    {
       "name": "Contact",
       "records": 20,
       "fields": [
@@ -899,36 +929,6 @@
           "fill": 37
         }
       ]
-    },
-    {
-      "name": "Case",
-      "records": 26,
-      "fields": [
-        {
-          "name": "EngineeringReqNumber__c",
-          "label": "Engineering Req Number",
-          "type": "string",
-          "fill": 85
-        },
-        {
-          "name": "PotentialLiability__c",
-          "label": "Potential Liability",
-          "type": "picklist",
-          "fill": 100
-        },
-        {
-          "name": "Product__c",
-          "label": "Product",
-          "type": "picklist",
-          "fill": 100
-        },
-        {
-          "name": "SLAViolation__c",
-          "label": "SLA Violation",
-          "type": "picklist",
-          "fill": 96
-        }
-      ]
     }
   ],
   "automation": {
@@ -997,7 +997,19 @@
             }
           ]
         },
-        "unreferenced": false
+        "unreferenced": false,
+        "use": {
+          "entryPoint": false,
+          "calledFromCode": true,
+          "usedBy": [
+            {
+              "type": "ApexTrigger",
+              "name": "OpportunityTrigger"
+            }
+          ],
+          "usedByCount": 1,
+          "lastRun": null
+        }
       },
       {
         "name": "PromotionClaimService",
@@ -1085,7 +1097,19 @@
           "lines": 23,
           "calls": []
         },
-        "unreferenced": false
+        "unreferenced": false,
+        "use": {
+          "entryPoint": false,
+          "calledFromCode": true,
+          "usedBy": [
+            {
+              "type": "ApexTrigger",
+              "name": "PromotionClaimTrigger"
+            }
+          ],
+          "usedByCount": 1,
+          "lastRun": null
+        }
       },
       {
         "name": "PromotionClaimServiceTest",
@@ -1148,7 +1172,14 @@
           "lines": 9,
           "calls": []
         },
-        "unreferenced": true
+        "unreferenced": true,
+        "use": {
+          "entryPoint": false,
+          "calledFromCode": false,
+          "usedBy": [],
+          "usedByCount": 0,
+          "lastRun": null
+        }
       },
       {
         "name": "StoreVisitService",
@@ -1325,7 +1356,23 @@
             }
           ]
         },
-        "unreferenced": false
+        "unreferenced": false,
+        "use": {
+          "entryPoint": false,
+          "calledFromCode": true,
+          "usedBy": [
+            {
+              "type": "ApexTrigger",
+              "name": "ShelfCheckTrigger"
+            },
+            {
+              "type": "ApexTrigger",
+              "name": "StoreVisitTrigger"
+            }
+          ],
+          "usedByCount": 2,
+          "lastRun": null
+        }
       },
       {
         "name": "StoreVisitServiceTest",
@@ -1438,7 +1485,14 @@
             }
           ]
         },
-        "unreferenced": false
+        "unreferenced": false,
+        "use": {
+          "entryPoint": true,
+          "calledFromCode": false,
+          "usedBy": [],
+          "usedByCount": 0,
+          "lastRun": null
+        }
       },
       {
         "name": "SubscriptionService",
@@ -1546,7 +1600,23 @@
             }
           ]
         },
-        "unreferenced": false
+        "unreferenced": false,
+        "use": {
+          "entryPoint": false,
+          "calledFromCode": true,
+          "usedBy": [
+            {
+              "type": "ApexClass",
+              "name": "SubscriptionRenewalBatch"
+            },
+            {
+              "type": "ApexTrigger",
+              "name": "SubscriptionTrigger"
+            }
+          ],
+          "usedByCount": 2,
+          "lastRun": null
+        }
       },
       {
         "name": "SubscriptionServiceTest",
@@ -1616,7 +1686,19 @@
           "lines": 10,
           "calls": []
         },
-        "unreferenced": false
+        "unreferenced": false,
+        "use": {
+          "entryPoint": false,
+          "calledFromCode": true,
+          "usedBy": [
+            {
+              "type": "ApexTrigger",
+              "name": "TradePromotionTrigger"
+            }
+          ],
+          "usedByCount": 1,
+          "lastRun": null
+        }
       },
       {
         "name": "TradePromotionApprovalTest",
@@ -1895,7 +1977,19 @@
             }
           ]
         },
-        "unreferenced": false
+        "unreferenced": false,
+        "use": {
+          "entryPoint": false,
+          "calledFromCode": true,
+          "usedBy": [
+            {
+              "type": "ApexTrigger",
+              "name": "TradePromotionTrigger"
+            }
+          ],
+          "usedByCount": 1,
+          "lastRun": null
+        }
       },
       {
         "name": "TradePromotionServiceTest",
@@ -1918,6 +2012,7 @@
         "lines": 3,
         "apiVersion": 67,
         "modified": "2026-09-18",
+        "lastRun": null,
         "analysis": {
           "name": "OpportunityTrigger",
           "functions": [],
@@ -1957,6 +2052,7 @@
         "lines": 4,
         "apiVersion": 67,
         "modified": "2026-10-14",
+        "lastRun": null,
         "analysis": {
           "name": "PromotionClaimTrigger",
           "functions": [],
@@ -2003,6 +2099,7 @@
         "lines": 5,
         "apiVersion": 67,
         "modified": "2026-10-14",
+        "lastRun": null,
         "analysis": {
           "name": "ShelfCheckTrigger",
           "functions": [],
@@ -2046,6 +2143,7 @@
         "lines": 5,
         "apiVersion": 67,
         "modified": "2026-10-14",
+        "lastRun": null,
         "analysis": {
           "name": "StoreVisitTrigger",
           "functions": [],
@@ -2100,6 +2198,7 @@
         "lines": 7,
         "apiVersion": 67,
         "modified": "2026-09-18",
+        "lastRun": null,
         "analysis": {
           "name": "SubscriptionTrigger",
           "functions": [],
@@ -2147,6 +2246,7 @@
         "lines": 19,
         "apiVersion": 67,
         "modified": "2026-10-14",
+        "lastRun": null,
         "analysis": {
           "name": "TradePromotionTrigger",
           "functions": [],
@@ -2225,7 +2325,16 @@
         "kind": "AutoLaunchedFlow",
         "trigger": "RecordAfterSave",
         "object": "Subscription",
-        "active": true
+        "active": true,
+        "objects": {
+          "start": "Subscription__c",
+          "reads": [],
+          "creates": [
+            "Task"
+          ],
+          "updates": [],
+          "deletes": []
+        }
       }
     ],
     "validationRules": [
@@ -2759,5 +2868,2788 @@
   "usage": {
     "activeUsers": 4,
     "reports": 30
-  }
+  },
+  "processRecords": {
+    "Account": 78,
+    "AccountContactRelation": null,
+    "AccountTeamMember": 0,
+    "ActionPlanTemplate": null,
+    "AiVisitRecommendRequest": null,
+    "AiVisitRecommendation": null,
+    "AssessmentIndicatorDefinition": null,
+    "AssessmentTask": null,
+    "AssessmentTaskContentDocument": null,
+    "AssessmentTaskDefinition": null,
+    "AssessmentTaskIndDefinition": null,
+    "AssessmentTaskOrder": null,
+    "Asset": 0,
+    "AssignedResource": 0,
+    "Assortment": null,
+    "AssortmentProduct": null,
+    "Campaign": 4,
+    "CampaignMember": 0,
+    "Case": 26,
+    "CaseArticle": null,
+    "CaseMilestone": 0,
+    "Contact": 20,
+    "Contract": 0,
+    "DeliveryTask": null,
+    "DuplicateRule": 3,
+    "Entitlement": 1,
+    "ForecastingAdjustment": null,
+    "ForecastingItem": null,
+    "ForecastingQuota": null,
+    "InStoreLocation": null,
+    "Lead": 22,
+    "MaintenanceAsset": null,
+    "MaintenancePlan": null,
+    "MatchingRule": 3,
+    "ObjectTerritory2Association": null,
+    "Opportunity": 31,
+    "OpportunityContactRole": 0,
+    "OpportunityLineItem": 0,
+    "Order": 0,
+    "OrderItem": 0,
+    "OtherComponentTask": null,
+    "Pricebook2": 2,
+    "PricebookEntry": 34,
+    "Product2": 27,
+    "Promotion": 0,
+    "PromotionChannel": null,
+    "PromotionProduct": null,
+    "PromotionProductCategory": null,
+    "Quote": null,
+    "QuoteLineItem": null,
+    "RetailLocationGroup": null,
+    "RetailStore": null,
+    "RetailStoreGroupAssignment": null,
+    "RetailStoreKpi": null,
+    "RetailVisitKpi": null,
+    "ServiceAppointment": 0,
+    "ServiceContract": 0,
+    "ServiceCrew": null,
+    "ServiceResource": 0,
+    "ServiceResourceSkill": 0,
+    "ServiceTerritory": 0,
+    "ServiceTerritoryMember": 0,
+    "SignatureTask": null,
+    "SignatureTaskLineItem": null,
+    "StoreActionPlanTemplate": null,
+    "StoreAssortment": null,
+    "StoreProduct": null,
+    "Territory2": null,
+    "Territory2Model": null,
+    "Territory2Type": null,
+    "VehicleUserAssignment": null,
+    "Visit": null,
+    "VisitedParty": null,
+    "Visitor": null,
+    "WorkOrder": 0,
+    "WorkOrderLineItem": 0,
+    "WorkType": 0,
+    "cgc_sync__Sync_API_Log__c": null,
+    "cgc_sync__Sync_Client_App_Profile_Mapping__c": null,
+    "cgc_sync__Sync_Config__c": null,
+    "cgc_sync__Sync_History__c": null,
+    "cgc_sync__Sync_ID_Mapping__c": null,
+    "cgc_sync__Sync_Mobile_App_Depl_Pkg__c": null,
+    "cgcloud__Account_Extension__c": null,
+    "cgcloud__Account_Plan_Category__c": null,
+    "cgcloud__Account_Plan__c": null,
+    "cgcloud__Account_Set__c": null,
+    "cgcloud__Account_Visit_Setting__c": null,
+    "cgcloud__Approval_Code__c": null,
+    "cgcloud__Asset_Audit__c": null,
+    "cgcloud__Business_Year__c": null,
+    "cgcloud__CP_Calculation_Schema__c": null,
+    "cgcloud__Fund_Product__c": null,
+    "cgcloud__Fund_Template__c": null,
+    "cgcloud__Fund_Transaction_Header__c": null,
+    "cgcloud__Fund_Transaction_Row__c": null,
+    "cgcloud__Fund_Transaction_Template__c": null,
+    "cgcloud__Fund_Transaction__c": null,
+    "cgcloud__Fund__c": null,
+    "cgcloud__Inventory_Transaction__c": null,
+    "cgcloud__Inventory__c": null,
+    "cgcloud__Job_Definition_List__c": null,
+    "cgcloud__KPI_Definition__c": null,
+    "cgcloud__KPI_Set_KPI_Definition__c": null,
+    "cgcloud__KPI_Set__c": null,
+    "cgcloud__Listing_Classification__c": null,
+    "cgcloud__Listing_Module__c": null,
+    "cgcloud__Order_Item_Template__c": null,
+    "cgcloud__Order_Item__c": null,
+    "cgcloud__Order_Template__c": null,
+    "cgcloud__Order__c": null,
+    "cgcloud__Org_Unit_Hierarchy__c": null,
+    "cgcloud__Org_Unit_User__c": null,
+    "cgcloud__Org_Unit__c": null,
+    "cgcloud__Payment_Tactic_Fund__c": null,
+    "cgcloud__Payment_Tactic_Product__c": null,
+    "cgcloud__Payment_Tactic__c": null,
+    "cgcloud__Payment_Template__c": null,
+    "cgcloud__Payment__c": null,
+    "cgcloud__Product_Assortment_Store__c": null,
+    "cgcloud__Product_Condition__c": null,
+    "cgcloud__Product_Listing_Module__c": null,
+    "cgcloud__Promotion_Push_Status__c": null,
+    "cgcloud__Promotion_Store__c": null,
+    "cgcloud__Promotion_Template_Tactic_Template__c": null,
+    "cgcloud__Promotion_Template__c": null,
+    "cgcloud__Promotion__c": null,
+    "cgcloud__RBF_Template__c": null,
+    "cgcloud__RTR_Report_Configuration__c": null,
+    "cgcloud__Rate_Based_Funding__c": null,
+    "cgcloud__Route__c": null,
+    "cgcloud__Sales_Organization__c": null,
+    "cgcloud__Signature__c": null,
+    "cgcloud__Tactic_Fund__c": null,
+    "cgcloud__Tactic_Product_Condition__c": null,
+    "cgcloud__Tactic_Product__c": null,
+    "cgcloud__Tactic_Template_Fund_Template__c": null,
+    "cgcloud__Tactic_Template__c": null,
+    "cgcloud__Tactic__c": null,
+    "cgcloud__Tour__c": null,
+    "cgcloud__Trip_List_Account__c": null,
+    "cgcloud__Trip_List__c": null,
+    "cgcloud__Vehicle__c": null,
+    "cgcloud__View__c": null,
+    "cgcloud__Visit_Job__c": null,
+    "cgcloud__Visit_Template__c": null
+  },
+  "processGraph": {
+    "Account": {
+      "records": 78,
+      "parents": [
+        "DandBCompany",
+        "OperatingHours"
+      ],
+      "children": [
+        "AccountCleanInfo",
+        "AccountContactRole",
+        "AccountPartner",
+        "AccountTeamMember",
+        "AlternativePaymentMethod",
+        "Asset",
+        "AssociatedLocation",
+        "AuthProvider",
+        "CardPaymentMethod",
+        "Case",
+        "Contact",
+        "Contract",
+        "CreditMemo",
+        "DigitalWallet",
+        "Entitlement",
+        "Event",
+        "ExtlRecShrStagedRecord",
+        "FinanceBalanceSnapshot",
+        "FinanceTransaction",
+        "FulfillmentOrder",
+        "Invoice",
+        "Lead",
+        "MessagingEndUser",
+        "MessagingSession",
+        "Opportunity",
+        "OpportunityPartner",
+        "Order",
+        "Partner",
+        "Payment",
+        "PaymentAuthAdjustment",
+        "PaymentAuthorization",
+        "PaymentCredit",
+        "PaymentCreditLinePayment",
+        "PaymentCreditTransaction",
+        "PaymentLineInvoice",
+        "PaymentMethod",
+        "PendingOrderSummary",
+        "Refund",
+        "RefundLinePayment",
+        "ReturnOrder",
+        "ScorecardAssociation",
+        "ServiceAppointment",
+        "ServiceContract",
+        "ServiceResource",
+        "Task",
+        "User",
+        "UserRole",
+        "WorkOrder"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "AccountTeamMember": {
+      "records": 0,
+      "parents": [
+        "Account",
+        "User"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "Asset": {
+      "records": 0,
+      "parents": [
+        "Account",
+        "Contact",
+        "Product2"
+      ],
+      "children": [
+        "AssetAction",
+        "AssetRelationship",
+        "AssetStatePeriod",
+        "AsyncOperationLog",
+        "Case",
+        "ChangeRequestRelatedItem",
+        "ContractLineItem",
+        "Entitlement",
+        "IncidentRelatedItem",
+        "ProblemRelatedItem",
+        "ProcessException",
+        "ReturnOrderLineItem",
+        "WorkOrder",
+        "WorkOrderLineItem"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "AssignedResource": {
+      "records": 0,
+      "parents": [
+        "Event",
+        "ServiceAppointment",
+        "ServiceResource"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "Campaign": {
+      "records": 4,
+      "parents": [
+        "RecordType"
+      ],
+      "children": [
+        "CampaignMember",
+        "CampaignMemberStatus",
+        "FlowRecord",
+        "ListEmail",
+        "MessagingSession",
+        "Opportunity",
+        "OutboundEngmtContentRsrc",
+        "Promotion"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "CampaignMember": {
+      "records": 0,
+      "parents": [
+        "Campaign",
+        "Contact",
+        "Lead"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": [
+        "Account",
+        "Contact",
+        "Lead"
+      ]
+    },
+    "Case": {
+      "records": 26,
+      "parents": [
+        "Account",
+        "Asset",
+        "Contact"
+      ],
+      "children": [
+        "CaseComment",
+        "CaseContactRole",
+        "CaseHistory2",
+        "CaseMilestone",
+        "CaseRelatedIssue",
+        "CaseSolution",
+        "CaseTeamMember",
+        "CaseTeamTemplateRecord",
+        "EmailMessage",
+        "MessagingSession",
+        "ProcessException",
+        "ReturnOrder",
+        "WorkOrder"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "CaseMilestone": {
+      "records": 0,
+      "parents": [
+        "BusinessHours",
+        "Case",
+        "MilestoneType"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "Contact": {
+      "records": 20,
+      "parents": [
+        "Account",
+        "Individual"
+      ],
+      "children": [
+        "AccountContactRole",
+        "Asset",
+        "CampaignMember",
+        "Case",
+        "CaseContactRole",
+        "ContactCleanInfo",
+        "Contract",
+        "ContractContactRole",
+        "CreditMemo",
+        "EntitlementContact",
+        "FulfillmentOrder",
+        "Invoice",
+        "Lead",
+        "MatchingInformation",
+        "MessagingEndUser",
+        "MessagingSession",
+        "Opportunity",
+        "OpportunityContactRole",
+        "Order",
+        "PendingOrderSummary",
+        "ReturnOrder",
+        "ServiceAppointment",
+        "ServiceContract",
+        "User",
+        "WorkOrder"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "Contract": {
+      "records": 0,
+      "parents": [
+        "Account",
+        "Contact",
+        "Pricebook2",
+        "User"
+      ],
+      "children": [
+        "ContractContactRole",
+        "Order"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "DuplicateRule": {
+      "records": 3,
+      "parents": [],
+      "children": [
+        "DuplicateRecordSet"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "Entitlement": {
+      "records": 1,
+      "parents": [
+        "Account",
+        "Asset",
+        "BusinessHours",
+        "ContractLineItem",
+        "Location",
+        "OperatingHours",
+        "ServiceContract",
+        "SlaProcess"
+      ],
+      "children": [
+        "EntitlementContact",
+        "Incident",
+        "WorkOrder"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "Lead": {
+      "records": 22,
+      "parents": [
+        "Account",
+        "Contact",
+        "DandBCompany",
+        "Individual",
+        "Opportunity"
+      ],
+      "children": [
+        "CampaignMember",
+        "LeadCleanInfo",
+        "MessagingEndUser",
+        "MessagingSession"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "MatchingRule": {
+      "records": 3,
+      "parents": [],
+      "children": [
+        "MatchingRuleItem"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "Opportunity": {
+      "records": 31,
+      "parents": [
+        "Account",
+        "Campaign",
+        "Contact",
+        "Pricebook2"
+      ],
+      "children": [
+        "AccountPartner",
+        "Lead",
+        "MessagingSession",
+        "OpportunityCompetitor",
+        "OpportunityContactRole",
+        "OpportunityLineItem",
+        "OpportunityPartner",
+        "OpportunityRelatedDeleteLog",
+        "Partner"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "OpportunityContactRole": {
+      "records": 0,
+      "parents": [
+        "Contact",
+        "Opportunity"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "OpportunityLineItem": {
+      "records": 0,
+      "parents": [
+        "Opportunity",
+        "PricebookEntry",
+        "Product2"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "Order": {
+      "records": 0,
+      "parents": [
+        "Account",
+        "Contact",
+        "Contract",
+        "Pricebook2",
+        "User"
+      ],
+      "children": [
+        "CartCheckoutSession",
+        "FulfillmentOrder",
+        "OrderItem",
+        "PaymentGroup",
+        "ReturnOrder",
+        "ServiceAppointment",
+        "WorkOrderLineItem"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "OrderItem": {
+      "records": 0,
+      "parents": [
+        "Order",
+        "PricebookEntry",
+        "Product2"
+      ],
+      "children": [
+        "FulfillmentOrderLineItem",
+        "InvoiceLine",
+        "ReturnOrderLineItem"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "Pricebook2": {
+      "records": 2,
+      "parents": [],
+      "children": [
+        "Contract",
+        "Opportunity",
+        "Order",
+        "PricebookEntry",
+        "ServiceContract",
+        "ServiceTerritory",
+        "WorkOrder"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "PricebookEntry": {
+      "records": 34,
+      "parents": [
+        "Pricebook2",
+        "Product2"
+      ],
+      "children": [
+        "ContractLineItem",
+        "OpportunityLineItem",
+        "OrderItem",
+        "WorkOrderLineItem"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "Product2": {
+      "records": 27,
+      "parents": [
+        "ExternalDataSource"
+      ],
+      "children": [
+        "Asset",
+        "CartDeliveryGroupMethod",
+        "CartItem",
+        "ContractLineItem",
+        "CreditMemoLine",
+        "FulfillmentOrderLineItem",
+        "IncidentRelatedItem",
+        "InventoryItemReservation",
+        "InvoiceLine",
+        "OpportunityLineItem",
+        "OrderItem",
+        "PricebookEntry",
+        "ProductAttribute",
+        "ProductAttributeSetProduct",
+        "ProductCategoryProduct",
+        "ProductConsumptionSchedule",
+        "ProductEntitlementTemplate",
+        "ReturnOrderLineItem",
+        "ShipmentItem",
+        "WebCartActivityLog",
+        "WorkOrderLineItem",
+        "WorkType"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "Promotion": {
+      "records": 0,
+      "parents": [
+        "Campaign"
+      ],
+      "children": [
+        "CartItemPriceAdjustment",
+        "Coupon",
+        "PromotionMarketSegment",
+        "PromotionQualifier",
+        "PromotionTarget",
+        "PromotionTier",
+        "WebCartAdjustmentGroup"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "ServiceAppointment": {
+      "records": 0,
+      "parents": [
+        "Account",
+        "AppointmentCategory",
+        "AppointmentInvitation",
+        "Contact",
+        "EngagementChannelType",
+        "Order",
+        "ServiceTerritory",
+        "WorkType"
+      ],
+      "children": [
+        "AssignedResource",
+        "Event",
+        "ServiceAppointmentAttendee",
+        "WaitlistParticipant"
+      ],
+      "extendedBy": [],
+      "related": [
+        "Account",
+        "Asset",
+        "Case",
+        "Lead",
+        "Opportunity",
+        "WorkOrder",
+        "WorkOrderLineItem"
+      ]
+    },
+    "ServiceContract": {
+      "records": 0,
+      "parents": [
+        "Account",
+        "Contact",
+        "Pricebook2"
+      ],
+      "children": [
+        "ContractLineItem",
+        "Entitlement",
+        "WorkOrder"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "ServiceResource": {
+      "records": 0,
+      "parents": [
+        "Account",
+        "Location",
+        "User"
+      ],
+      "children": [
+        "AppointmentInvitee",
+        "AppointmentScheduleAggr",
+        "AppointmentScheduleLog",
+        "AssignedResource",
+        "ResourceAbsence",
+        "ResourcePreference",
+        "ServiceResourceSkill",
+        "ServiceTerritoryMember",
+        "Shift",
+        "WaitlistParticipant",
+        "WaitlistServiceResource"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "ServiceResourceSkill": {
+      "records": 0,
+      "parents": [
+        "ServiceResource",
+        "Skill"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "ServiceTerritory": {
+      "records": 0,
+      "parents": [
+        "OperatingHours",
+        "Pricebook2"
+      ],
+      "children": [
+        "AppointmentInvitation",
+        "ServiceAppointment",
+        "ServiceTerritoryMember",
+        "ServiceTerritoryWorkType",
+        "Shift",
+        "Waitlist",
+        "WorkOrder",
+        "WorkOrderLineItem"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "ServiceTerritoryMember": {
+      "records": 0,
+      "parents": [
+        "OperatingHours",
+        "ServiceResource",
+        "ServiceTerritory"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "WorkOrder": {
+      "records": 0,
+      "parents": [
+        "Account",
+        "Asset",
+        "BusinessHours",
+        "Case",
+        "Contact",
+        "Entitlement",
+        "Location",
+        "Pricebook2",
+        "ServiceContract",
+        "ServiceTerritory",
+        "WorkType"
+      ],
+      "children": [
+        "WorkOrderLineItem",
+        "WorkPlan",
+        "WorkStep"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "WorkOrderLineItem": {
+      "records": 0,
+      "parents": [
+        "Asset",
+        "Location",
+        "Order",
+        "PricebookEntry",
+        "Product2",
+        "ServiceTerritory",
+        "WorkOrder",
+        "WorkType"
+      ],
+      "children": [
+        "WorkPlan",
+        "WorkStep"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "WorkType": {
+      "records": 0,
+      "parents": [
+        "AppointmentCategory",
+        "OperatingHours",
+        "Product2"
+      ],
+      "children": [
+        "AppointmentTopicTimeSlot",
+        "EngagementChannelWorkType",
+        "ServiceAppointment",
+        "ServiceTerritoryWorkType",
+        "Shift",
+        "ShiftWorkTopic",
+        "WaitlistParticipant",
+        "WaitlistWorkType",
+        "WorkOrder",
+        "WorkOrderLineItem",
+        "WorkTypeGroupMember"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "AccountCleanInfo": {
+      "records": 0,
+      "parents": [
+        "Account",
+        "User"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "AccountContactRole": {
+      "records": 0,
+      "parents": [
+        "Account",
+        "Contact"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "AccountPartner": {
+      "records": 0,
+      "parents": [
+        "Account",
+        "Opportunity"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "AlternativePaymentMethod": {
+      "records": 0,
+      "parents": [
+        "Account",
+        "PaymentGateway"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "AssociatedLocation": {
+      "records": 0,
+      "parents": [
+        "Account",
+        "Location"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "AuthProvider": {
+      "records": 0,
+      "parents": [
+        "Account",
+        "ApexClass",
+        "Profile",
+        "User"
+      ],
+      "children": [
+        "ExternalDataSource"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "CardPaymentMethod": {
+      "records": 0,
+      "parents": [
+        "Account",
+        "PaymentGateway"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "CreditMemo": {
+      "records": 0,
+      "parents": [
+        "Account",
+        "Contact"
+      ],
+      "children": [
+        "CreditMemoLine",
+        "PaymentCredit"
+      ],
+      "extendedBy": [],
+      "related": [
+        "Order"
+      ]
+    },
+    "DigitalWallet": {
+      "records": 0,
+      "parents": [
+        "Account",
+        "PaymentGateway"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "EmailMessage": {
+      "records": 0,
+      "parents": [
+        "Case",
+        "EmailTemplate",
+        "Task"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": [
+        "Account",
+        "Asset",
+        "AssignedResource",
+        "Campaign",
+        "Case",
+        "Contact",
+        "Contract",
+        "Entitlement",
+        "Lead",
+        "Opportunity",
+        "Order",
+        "Product2",
+        "Promotion",
+        "ServiceAppointment",
+        "ServiceContract",
+        "ServiceResource",
+        "WorkOrder",
+        "WorkOrderLineItem"
+      ]
+    },
+    "Event": {
+      "records": 0,
+      "parents": [
+        "Account",
+        "ServiceAppointment"
+      ],
+      "children": [
+        "AssignedResource"
+      ],
+      "extendedBy": [],
+      "related": [
+        "Account",
+        "Asset",
+        "AssignedResource",
+        "Campaign",
+        "Case",
+        "Contact",
+        "Contract",
+        "Entitlement",
+        "Lead",
+        "Opportunity",
+        "Order",
+        "Product2",
+        "Promotion",
+        "ServiceAppointment",
+        "ServiceContract",
+        "ServiceResource",
+        "WorkOrder",
+        "WorkOrderLineItem"
+      ]
+    },
+    "ExtlRecShrStagedRecord": {
+      "records": 0,
+      "parents": [
+        "Account"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": [
+        "Account",
+        "Case",
+        "Contact",
+        "Lead",
+        "Opportunity",
+        "Product2"
+      ]
+    },
+    "FinanceBalanceSnapshot": {
+      "records": 0,
+      "parents": [
+        "Account",
+        "FinanceTransaction"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "FinanceTransaction": {
+      "records": 0,
+      "parents": [
+        "Account"
+      ],
+      "children": [
+        "FinanceBalanceSnapshot"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "FulfillmentOrder": {
+      "records": 0,
+      "parents": [
+        "Account",
+        "Contact",
+        "Invoice",
+        "Location",
+        "Order"
+      ],
+      "children": [
+        "FulfillmentOrderLineItem"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "Invoice": {
+      "records": 0,
+      "parents": [
+        "Account",
+        "Contact"
+      ],
+      "children": [
+        "FulfillmentOrder",
+        "InvoiceLine",
+        "PaymentLineInvoice"
+      ],
+      "extendedBy": [],
+      "related": [
+        "Opportunity",
+        "Order"
+      ]
+    },
+    "MessagingEndUser": {
+      "records": 0,
+      "parents": [
+        "Account",
+        "Contact",
+        "Lead",
+        "MessagingChannel",
+        "User"
+      ],
+      "children": [
+        "MessagingSession"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "MessagingSession": {
+      "records": 0,
+      "parents": [
+        "Account",
+        "Campaign",
+        "Case",
+        "Contact",
+        "Conversation",
+        "Lead",
+        "MessagingChannel",
+        "MessagingEndUser",
+        "Opportunity",
+        "User"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "OpportunityPartner": {
+      "records": 0,
+      "parents": [
+        "Account",
+        "Opportunity"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "Partner": {
+      "records": 0,
+      "parents": [
+        "Account",
+        "Opportunity"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "Payment": {
+      "records": 0,
+      "parents": [
+        "Account",
+        "PaymentAuthorization",
+        "PaymentGateway",
+        "PaymentGroup",
+        "PaymentMethod"
+      ],
+      "children": [
+        "PaymentCredit",
+        "PaymentCreditLinePayment",
+        "PaymentLineInvoice",
+        "RefundLinePayment"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "PaymentAuthAdjustment": {
+      "records": 0,
+      "parents": [
+        "Account",
+        "PaymentAuthorization"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "PaymentAuthorization": {
+      "records": 0,
+      "parents": [
+        "Account",
+        "PaymentGateway",
+        "PaymentGroup",
+        "PaymentMethod"
+      ],
+      "children": [
+        "Payment",
+        "PaymentAuthAdjustment"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "PaymentCredit": {
+      "records": 0,
+      "parents": [
+        "Account",
+        "CreditMemo",
+        "Payment",
+        "ReturnOrder"
+      ],
+      "children": [
+        "PaymentCreditLinePayment",
+        "PaymentCreditTransaction"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "PaymentCreditLinePayment": {
+      "records": 0,
+      "parents": [
+        "Account",
+        "Payment",
+        "PaymentCredit"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "PaymentCreditTransaction": {
+      "records": 0,
+      "parents": [
+        "Account",
+        "PaymentCredit"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "PaymentLineInvoice": {
+      "records": 0,
+      "parents": [
+        "Account",
+        "Invoice",
+        "Payment"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "PaymentMethod": {
+      "records": 0,
+      "parents": [
+        "Account"
+      ],
+      "children": [
+        "Payment",
+        "PaymentAuthorization",
+        "Refund"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "PendingOrderSummary": {
+      "records": null,
+      "parents": [
+        "Account",
+        "Contact",
+        "WebStore"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "Refund": {
+      "records": 0,
+      "parents": [
+        "Account",
+        "PaymentGateway",
+        "PaymentGroup",
+        "PaymentMethod"
+      ],
+      "children": [
+        "RefundLinePayment"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "RefundLinePayment": {
+      "records": 0,
+      "parents": [
+        "Account",
+        "Payment",
+        "Refund"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "ResourcePreference": {
+      "records": 0,
+      "parents": [
+        "ServiceResource"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": [
+        "Account",
+        "Asset",
+        "WorkOrder",
+        "WorkOrderLineItem"
+      ]
+    },
+    "ReturnOrder": {
+      "records": 0,
+      "parents": [
+        "Account",
+        "Case",
+        "Contact",
+        "Location",
+        "Order",
+        "User"
+      ],
+      "children": [
+        "PaymentCredit",
+        "ReturnOrderLineItem"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "ScorecardAssociation": {
+      "records": 0,
+      "parents": [
+        "Account",
+        "Scorecard"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "ServiceAppointmentAttendee": {
+      "records": 0,
+      "parents": [
+        "ServiceAppointment"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": [
+        "Account",
+        "Contact",
+        "Lead"
+      ]
+    },
+    "Task": {
+      "records": 49,
+      "parents": [
+        "Account"
+      ],
+      "children": [
+        "EmailMessage"
+      ],
+      "extendedBy": [],
+      "related": [
+        "Account",
+        "Asset",
+        "AssignedResource",
+        "Campaign",
+        "Case",
+        "Contact",
+        "Contract",
+        "Entitlement",
+        "Lead",
+        "Opportunity",
+        "Order",
+        "Product2",
+        "Promotion",
+        "ServiceAppointment",
+        "ServiceContract",
+        "ServiceResource",
+        "WorkOrder",
+        "WorkOrderLineItem"
+      ]
+    },
+    "User": {
+      "records": 8,
+      "parents": [
+        "Account",
+        "CallCenter",
+        "Contact",
+        "Individual",
+        "Profile",
+        "UserRole"
+      ],
+      "children": [
+        "AccountCleanInfo",
+        "AccountTeamMember",
+        "AuthProvider",
+        "ChangeRequest",
+        "ContactCleanInfo",
+        "Contract",
+        "FlowRecordVersion",
+        "Incident",
+        "LeadCleanInfo",
+        "MatchingInformation",
+        "MessagingEndUser",
+        "MessagingSession",
+        "Order",
+        "Problem",
+        "ReturnOrder",
+        "ServiceResource",
+        "UserRole",
+        "WebCart",
+        "WebCartActivityLog"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "UserRole": {
+      "records": 18,
+      "parents": [
+        "Account",
+        "User"
+      ],
+      "children": [
+        "User"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "WaitlistParticipant": {
+      "records": 0,
+      "parents": [
+        "ServiceAppointment",
+        "ServiceResource",
+        "Waitlist",
+        "WorkType"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": [
+        "Account",
+        "Contact",
+        "Lead"
+      ]
+    },
+    "AssetAction": {
+      "records": 0,
+      "parents": [
+        "Asset"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "AssetRelationship": {
+      "records": 0,
+      "parents": [
+        "Asset"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "AssetStatePeriod": {
+      "records": 0,
+      "parents": [
+        "Asset",
+        "LegalEntity"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "AsyncOperationLog": {
+      "records": 0,
+      "parents": [
+        "Asset"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "ChangeRequestRelatedItem": {
+      "records": 0,
+      "parents": [
+        "Asset",
+        "ChangeRequest"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "ContractLineItem": {
+      "records": 0,
+      "parents": [
+        "Asset",
+        "Location",
+        "PricebookEntry",
+        "Product2",
+        "ServiceContract"
+      ],
+      "children": [
+        "Entitlement"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "IncidentRelatedItem": {
+      "records": 0,
+      "parents": [
+        "Asset",
+        "Incident",
+        "Product2"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "ProblemRelatedItem": {
+      "records": 0,
+      "parents": [
+        "Asset",
+        "Problem"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "ProcessException": {
+      "records": 0,
+      "parents": [
+        "Asset",
+        "Case"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": [
+        "Order",
+        "OrderItem"
+      ]
+    },
+    "ReturnOrderLineItem": {
+      "records": 0,
+      "parents": [
+        "Asset",
+        "Location",
+        "OrderItem",
+        "Product2",
+        "ReturnOrder"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "CampaignMemberStatus": {
+      "records": 12,
+      "parents": [
+        "Campaign"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "FlowRecord": {
+      "records": 94,
+      "parents": [
+        "Campaign",
+        "FlowRecordVersion",
+        "MarketSegment",
+        "MarketSegmentActivation"
+      ],
+      "children": [
+        "FlowRecordVersion"
+      ],
+      "extendedBy": [],
+      "related": [
+        "Campaign"
+      ]
+    },
+    "ListEmail": {
+      "records": 0,
+      "parents": [
+        "Campaign"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": [
+        "Case",
+        "Contact",
+        "Lead",
+        "Opportunity",
+        "Product2"
+      ]
+    },
+    "OutboundEngmtContentRsrc": {
+      "records": 0,
+      "parents": [
+        "Campaign",
+        "OutboundEngagementTmplView"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": [
+        "Campaign",
+        "Promotion"
+      ]
+    },
+    "CaseComment": {
+      "records": 0,
+      "parents": [
+        "Case"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "CaseContactRole": {
+      "records": 0,
+      "parents": [
+        "Case",
+        "Contact"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "CaseHistory2": {
+      "records": 26,
+      "parents": [
+        "Case"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "CaseRelatedIssue": {
+      "records": 0,
+      "parents": [
+        "Case"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "CaseSolution": {
+      "records": 0,
+      "parents": [
+        "Case",
+        "Solution"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "CaseTeamMember": {
+      "records": 0,
+      "parents": [
+        "Case",
+        "CaseTeamRole",
+        "CaseTeamTemplate",
+        "CaseTeamTemplateMember"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": [
+        "Contact"
+      ]
+    },
+    "CaseTeamTemplateRecord": {
+      "records": 0,
+      "parents": [
+        "Case",
+        "CaseTeamTemplate"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "ContactCleanInfo": {
+      "records": 0,
+      "parents": [
+        "Contact",
+        "User"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "ContractContactRole": {
+      "records": 0,
+      "parents": [
+        "Contact",
+        "Contract"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "EntitlementContact": {
+      "records": 0,
+      "parents": [
+        "Contact",
+        "Entitlement"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "MatchingInformation": {
+      "records": 0,
+      "parents": [
+        "Contact",
+        "User"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "DuplicateRecordSet": {
+      "records": 0,
+      "parents": [
+        "DuplicateRule"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "Incident": {
+      "records": 0,
+      "parents": [
+        "BusinessHours",
+        "Entitlement",
+        "User"
+      ],
+      "children": [
+        "IncidentRelatedItem"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "LeadCleanInfo": {
+      "records": 0,
+      "parents": [
+        "Lead",
+        "User"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "MatchingRuleItem": {
+      "records": 0,
+      "parents": [
+        "MatchingRule"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "OpportunityCompetitor": {
+      "records": 0,
+      "parents": [
+        "Opportunity"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "OpportunityRelatedDeleteLog": {
+      "records": 0,
+      "parents": [
+        "Opportunity"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "CartCheckoutSession": {
+      "records": 0,
+      "parents": [
+        "BackgroundOperation",
+        "Order",
+        "WebCart"
+      ],
+      "children": [
+        "CartDeliveryGroupMethod"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "PaymentGroup": {
+      "records": 0,
+      "parents": [
+        "Order"
+      ],
+      "children": [
+        "Payment",
+        "PaymentAuthorization",
+        "Refund",
+        "WebCart"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "CreditMemoLine": {
+      "records": 0,
+      "parents": [
+        "CreditMemo",
+        "Product2"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": [
+        "OrderItem"
+      ]
+    },
+    "FulfillmentOrderLineItem": {
+      "records": 0,
+      "parents": [
+        "FulfillmentOrder",
+        "OrderItem",
+        "Product2"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "InventoryItemReservation": {
+      "records": 0,
+      "parents": [
+        "InventoryReservation",
+        "Product2"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": [
+        "OrderItem",
+        "WorkOrderLineItem"
+      ]
+    },
+    "InvoiceLine": {
+      "records": 0,
+      "parents": [
+        "Invoice",
+        "OrderItem",
+        "Product2"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "CartDeliveryGroupMethod": {
+      "records": 0,
+      "parents": [
+        "CartCheckoutSession",
+        "CartDeliveryGroup",
+        "Product2",
+        "WebCart"
+      ],
+      "children": [
+        "CartDeliveryGroup"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "CartItem": {
+      "records": 0,
+      "parents": [
+        "CartDeliveryGroup",
+        "Product2",
+        "WebCart"
+      ],
+      "children": [
+        "CartItemPriceAdjustment",
+        "WebCartActivityLog"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "ProductAttribute": {
+      "records": 0,
+      "parents": [
+        "Product2"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "ProductAttributeSetProduct": {
+      "records": 0,
+      "parents": [
+        "Product2",
+        "ProductAttributeSet"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "ProductCategoryProduct": {
+      "records": 0,
+      "parents": [
+        "Product2",
+        "ProductCatalog",
+        "ProductCategory"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "ProductConsumptionSchedule": {
+      "records": 0,
+      "parents": [
+        "ConsumptionSchedule",
+        "Product2"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "ProductEntitlementTemplate": {
+      "records": 0,
+      "parents": [
+        "EntitlementTemplate",
+        "Product2"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "PromotionQualifier": {
+      "records": 0,
+      "parents": [
+        "Promotion",
+        "PromotionTier"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": [
+        "Product2"
+      ]
+    },
+    "PromotionTarget": {
+      "records": 0,
+      "parents": [
+        "Promotion",
+        "PromotionTier"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": [
+        "Product2"
+      ]
+    },
+    "ShipmentItem": {
+      "records": 0,
+      "parents": [
+        "Product2",
+        "Shipment"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "WebCartActivityLog": {
+      "records": 0,
+      "parents": [
+        "CartItem",
+        "Product2",
+        "User",
+        "WebCart"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "CartItemPriceAdjustment": {
+      "records": 0,
+      "parents": [
+        "CartItem",
+        "Coupon",
+        "Promotion",
+        "PromotionTier",
+        "WebCart",
+        "WebCartAdjustmentGroup"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "Coupon": {
+      "records": 0,
+      "parents": [
+        "Promotion"
+      ],
+      "children": [
+        "CartItemPriceAdjustment",
+        "WebCartAdjustmentGroup"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "PromotionMarketSegment": {
+      "records": 0,
+      "parents": [
+        "Promotion",
+        "PromotionSegment"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "PromotionTier": {
+      "records": 0,
+      "parents": [
+        "Promotion"
+      ],
+      "children": [
+        "CartItemPriceAdjustment",
+        "PromotionQualifier",
+        "PromotionTarget",
+        "WebCartAdjustmentGroup"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "WebCartAdjustmentGroup": {
+      "records": 0,
+      "parents": [
+        "Coupon",
+        "Promotion",
+        "PromotionTier",
+        "WebCart"
+      ],
+      "children": [
+        "CartItemPriceAdjustment"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "AppointmentScheduleLog": {
+      "records": 0,
+      "parents": [
+        "AppointmentScheduleAggr",
+        "ServiceResource"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": [
+        "ServiceAppointment"
+      ]
+    },
+    "AppointmentInvitee": {
+      "records": 0,
+      "parents": [
+        "AppointmentInvitation",
+        "ServiceResource"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "AppointmentScheduleAggr": {
+      "records": 0,
+      "parents": [
+        "ServiceResource"
+      ],
+      "children": [
+        "AppointmentScheduleLog"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "ResourceAbsence": {
+      "records": 0,
+      "parents": [
+        "ServiceResource"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "Shift": {
+      "records": 0,
+      "parents": [
+        "AppointmentCategory",
+        "ServiceResource",
+        "ServiceTerritory",
+        "WorkType",
+        "WorkTypeGroup"
+      ],
+      "children": [
+        "ShiftWorkTopic"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "WaitlistServiceResource": {
+      "records": 0,
+      "parents": [
+        "ServiceResource",
+        "Waitlist"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "AppointmentInvitation": {
+      "records": 0,
+      "parents": [
+        "EngagementChannelType",
+        "ServiceTerritory"
+      ],
+      "children": [
+        "AppointmentInvitee",
+        "ServiceAppointment"
+      ],
+      "extendedBy": [],
+      "related": [
+        "WorkType"
+      ]
+    },
+    "ServiceTerritoryWorkType": {
+      "records": 0,
+      "parents": [
+        "ServiceTerritory",
+        "WorkType"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "Waitlist": {
+      "records": 0,
+      "parents": [
+        "ServiceTerritory"
+      ],
+      "children": [
+        "WaitlistParticipant",
+        "WaitlistServiceResource",
+        "WaitlistWorkType"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "WorkPlan": {
+      "records": 0,
+      "parents": [
+        "WorkOrder",
+        "WorkOrderLineItem",
+        "WorkPlanTemplate"
+      ],
+      "children": [
+        "WorkStep"
+      ],
+      "extendedBy": [],
+      "related": [
+        "WorkOrder",
+        "WorkOrderLineItem"
+      ]
+    },
+    "WorkStep": {
+      "records": 0,
+      "parents": [
+        "FlowInterview",
+        "WorkOrder",
+        "WorkOrderLineItem",
+        "WorkPlan"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": [
+        "WorkOrder",
+        "WorkOrderLineItem"
+      ]
+    },
+    "AppointmentTopicTimeSlot": {
+      "records": 0,
+      "parents": [
+        "OperatingHours",
+        "TimeSlot",
+        "WorkType",
+        "WorkTypeGroup"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "EngagementChannelWorkType": {
+      "records": 0,
+      "parents": [
+        "EngagementChannelType",
+        "WorkType"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "ShiftWorkTopic": {
+      "records": 0,
+      "parents": [
+        "Shift",
+        "WorkType",
+        "WorkTypeGroup"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "WaitlistWorkType": {
+      "records": 0,
+      "parents": [
+        "Waitlist",
+        "WorkType"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "WorkTypeGroupMember": {
+      "records": 0,
+      "parents": [
+        "WorkType",
+        "WorkTypeGroup"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "DandBCompany": {
+      "records": 0,
+      "parents": [],
+      "children": [
+        "Account",
+        "Lead"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "OperatingHours": {
+      "records": 0,
+      "parents": [],
+      "children": [
+        "Account",
+        "AppointmentTopicTimeSlot",
+        "Entitlement",
+        "ServiceTerritory",
+        "ServiceTerritoryMember",
+        "TimeSlot",
+        "WorkType"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "RecordType": {
+      "records": 2,
+      "parents": [
+        "BusinessProcess"
+      ],
+      "children": [
+        "Campaign"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "BusinessHours": {
+      "records": 1,
+      "parents": [],
+      "children": [
+        "CaseMilestone",
+        "Entitlement",
+        "EntitlementTemplate",
+        "Incident",
+        "Location",
+        "MessagingChannel",
+        "SlaProcess",
+        "WorkOrder"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "MilestoneType": {
+      "records": 3,
+      "parents": [],
+      "children": [
+        "CaseMilestone"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "Individual": {
+      "records": 0,
+      "parents": [],
+      "children": [
+        "Contact",
+        "Lead",
+        "User"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "Location": {
+      "records": 0,
+      "parents": [
+        "Address",
+        "BusinessHours",
+        "ContentAsset"
+      ],
+      "children": [
+        "AssociatedLocation",
+        "ContractLineItem",
+        "Entitlement",
+        "FulfillmentOrder",
+        "ReturnOrder",
+        "ReturnOrderLineItem",
+        "ServiceResource",
+        "Shipment",
+        "WorkOrder",
+        "WorkOrderLineItem"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "SlaProcess": {
+      "records": 1,
+      "parents": [
+        "BusinessHours"
+      ],
+      "children": [
+        "Entitlement",
+        "EntitlementTemplate"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "ExternalDataSource": {
+      "records": 0,
+      "parents": [
+        "AuthProvider",
+        "NamedCredential",
+        "StaticResource"
+      ],
+      "children": [
+        "Product2"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "AppointmentCategory": {
+      "records": 0,
+      "parents": [],
+      "children": [
+        "ServiceAppointment",
+        "Shift",
+        "WorkType"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "EngagementChannelType": {
+      "records": 0,
+      "parents": [],
+      "children": [
+        "AppointmentInvitation",
+        "EngagementChannelWorkType",
+        "ServiceAppointment"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "Skill": {
+      "records": 0,
+      "parents": [
+        "SkillType"
+      ],
+      "children": [
+        "ServiceResourceSkill"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "PaymentGateway": {
+      "records": 0,
+      "parents": [
+        "NamedCredential",
+        "PaymentGatewayProvider"
+      ],
+      "children": [
+        "AlternativePaymentMethod",
+        "CardPaymentMethod",
+        "DigitalWallet",
+        "Payment",
+        "PaymentAuthorization",
+        "Refund"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "ApexClass": {
+      "records": 151,
+      "parents": [],
+      "children": [
+        "AuthProvider"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "Profile": {
+      "records": 44,
+      "parents": [
+        "UserLicense"
+      ],
+      "children": [
+        "AuthProvider",
+        "User"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "MessagingChannel": {
+      "records": 0,
+      "parents": [
+        "BusinessHours",
+        "ConversationChannelDefinition",
+        "Group",
+        "QueueRoutingConfig"
+      ],
+      "children": [
+        "MessagingEndUser",
+        "MessagingSession"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "Conversation": {
+      "records": 0,
+      "parents": [],
+      "children": [
+        "MessagingSession"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "WebStore": {
+      "records": 0,
+      "parents": [],
+      "children": [
+        "PendingOrderSummary",
+        "WebCart"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "Scorecard": {
+      "records": 0,
+      "parents": [],
+      "children": [
+        "ScorecardAssociation"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "CallCenter": {
+      "records": 0,
+      "parents": [],
+      "children": [
+        "User"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "LegalEntity": {
+      "records": 0,
+      "parents": [],
+      "children": [
+        "AssetStatePeriod"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "ChangeRequest": {
+      "records": 0,
+      "parents": [
+        "User"
+      ],
+      "children": [
+        "ChangeRequestRelatedItem"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "Problem": {
+      "records": 0,
+      "parents": [
+        "User"
+      ],
+      "children": [
+        "ProblemRelatedItem"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "FlowRecordVersion": {
+      "records": 94,
+      "parents": [
+        "FlowRecord",
+        "User"
+      ],
+      "children": [
+        "FlowRecord"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "MarketSegment": {
+      "records": 0,
+      "parents": [
+        "DataGraph"
+      ],
+      "children": [
+        "FlowRecord",
+        "MarketSegmentActivation"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "MarketSegmentActivation": {
+      "records": 0,
+      "parents": [
+        "ActivationTarget",
+        "MarketSegment"
+      ],
+      "children": [
+        "FlowRecord"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "OutboundEngagementTmplView": {
+      "records": null,
+      "parents": [],
+      "children": [
+        "OutboundEngmtContentRsrc"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "Solution": {
+      "records": 10,
+      "parents": [],
+      "children": [
+        "CaseSolution"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "CaseTeamRole": {
+      "records": 0,
+      "parents": [],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "CaseTeamTemplate": {
+      "records": 0,
+      "parents": [],
+      "children": [],
+      "extendedBy": [],
+      "related": []
+    },
+    "CaseTeamTemplateMember": {
+      "records": 0,
+      "parents": [
+        "CaseTeamRole",
+        "CaseTeamTemplate"
+      ],
+      "children": [],
+      "extendedBy": [],
+      "related": [
+        "Contact"
+      ]
+    },
+    "EmailTemplate": {
+      "records": 28,
+      "parents": [
+        "BrandTemplate",
+        "EnhancedLetterhead"
+      ],
+      "children": [
+        "EmailMessage"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "BackgroundOperation": {
+      "records": 0,
+      "parents": [],
+      "children": [
+        "CartCheckoutSession",
+        "WebCart"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "WebCart": {
+      "records": 0,
+      "parents": [
+        "BackgroundOperation",
+        "PaymentGroup",
+        "User",
+        "WebStore"
+      ],
+      "children": [
+        "CartCheckoutSession",
+        "CartDeliveryGroup",
+        "CartDeliveryGroupMethod",
+        "CartItem",
+        "CartItemPriceAdjustment",
+        "WebCartActivityLog",
+        "WebCartAdjustmentGroup"
+      ],
+      "extendedBy": [],
+      "related": [
+        "Account"
+      ]
+    },
+    "CartDeliveryGroup": {
+      "records": 0,
+      "parents": [
+        "CartDeliveryGroupMethod",
+        "WebCart"
+      ],
+      "children": [
+        "CartDeliveryGroupMethod",
+        "CartItem"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "InventoryReservation": {
+      "records": 0,
+      "parents": [],
+      "children": [
+        "InventoryItemReservation"
+      ],
+      "extendedBy": [],
+      "related": [
+        "Order",
+        "WorkOrder"
+      ]
+    },
+    "ProductAttributeSet": {
+      "records": 0,
+      "parents": [],
+      "children": [
+        "ProductAttributeSetProduct"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "ProductCatalog": {
+      "records": 0,
+      "parents": [],
+      "children": [
+        "ProductCategory",
+        "ProductCategoryProduct"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "ProductCategory": {
+      "records": 0,
+      "parents": [
+        "ProductCatalog"
+      ],
+      "children": [
+        "ProductCategoryProduct"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "ConsumptionSchedule": {
+      "records": 0,
+      "parents": [],
+      "children": [
+        "ProductConsumptionSchedule"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "EntitlementTemplate": {
+      "records": 0,
+      "parents": [
+        "BusinessHours",
+        "SlaProcess"
+      ],
+      "children": [
+        "ProductEntitlementTemplate"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "Shipment": {
+      "records": 0,
+      "parents": [
+        "Location"
+      ],
+      "children": [
+        "ShipmentItem"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "PromotionSegment": {
+      "records": 0,
+      "parents": [],
+      "children": [
+        "PromotionMarketSegment"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "WorkTypeGroup": {
+      "records": 0,
+      "parents": [],
+      "children": [
+        "AppointmentTopicTimeSlot",
+        "Shift",
+        "ShiftWorkTopic",
+        "TimeSlot",
+        "WorkTypeGroupMember"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "WorkPlanTemplate": {
+      "records": 0,
+      "parents": [],
+      "children": [
+        "WorkPlan"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "FlowInterview": {
+      "records": 0,
+      "parents": [],
+      "children": [
+        "WorkStep"
+      ],
+      "extendedBy": [],
+      "related": []
+    },
+    "TimeSlot": {
+      "records": 0,
+      "parents": [
+        "OperatingHours",
+        "WorkTypeGroup"
+      ],
+      "children": [
+        "AppointmentTopicTimeSlot"
+      ],
+      "extendedBy": [],
+      "related": []
+    }
+  },
+  "access": {
+    "featureLicences": [
+      "Agentforce (Default)",
+      "Agentforce Service Agent Builder",
+      "Data Cloud",
+      "Einstein Prompt Templates",
+      "Enhanced Chat User",
+      "Service User"
+    ],
+    "notAvailable": [
+      "AccountContactRelation",
+      "ActionPlanTemplate",
+      "AiVisitRecommendRequest",
+      "AiVisitRecommendation",
+      "AssessmentIndicatorDefinition",
+      "AssessmentTask",
+      "AssessmentTaskContentDocument",
+      "AssessmentTaskDefinition",
+      "AssessmentTaskIndDefinition",
+      "AssessmentTaskOrder",
+      "Assortment",
+      "AssortmentProduct",
+      "CaseArticle",
+      "DeliveryTask",
+      "ForecastingAdjustment",
+      "ForecastingItem",
+      "ForecastingQuota",
+      "InStoreLocation",
+      "MaintenanceAsset",
+      "MaintenancePlan",
+      "ObjectTerritory2Association",
+      "OtherComponentTask",
+      "PromotionChannel",
+      "PromotionProduct",
+      "PromotionProductCategory",
+      "Quote",
+      "QuoteLineItem",
+      "RetailLocationGroup",
+      "RetailStore",
+      "RetailStoreGroupAssignment",
+      "RetailStoreKpi",
+      "RetailVisitKpi",
+      "ServiceCrew",
+      "SignatureTask",
+      "SignatureTaskLineItem",
+      "StoreActionPlanTemplate",
+      "StoreAssortment",
+      "StoreProduct",
+      "Territory2",
+      "Territory2Model",
+      "Territory2Type",
+      "VehicleUserAssignment",
+      "Visit",
+      "VisitedParty",
+      "Visitor",
+      "cgc_sync__Sync_API_Log__c",
+      "cgc_sync__Sync_Client_App_Profile_Mapping__c",
+      "cgc_sync__Sync_Config__c",
+      "cgc_sync__Sync_History__c",
+      "cgc_sync__Sync_ID_Mapping__c",
+      "cgc_sync__Sync_Mobile_App_Depl_Pkg__c",
+      "cgcloud__Account_Extension__c",
+      "cgcloud__Account_Plan_Category__c",
+      "cgcloud__Account_Plan__c",
+      "cgcloud__Account_Set__c",
+      "cgcloud__Account_Visit_Setting__c",
+      "cgcloud__Approval_Code__c",
+      "cgcloud__Asset_Audit__c",
+      "cgcloud__Business_Year__c",
+      "cgcloud__CP_Calculation_Schema__c",
+      "cgcloud__Fund_Product__c",
+      "cgcloud__Fund_Template__c",
+      "cgcloud__Fund_Transaction_Header__c",
+      "cgcloud__Fund_Transaction_Row__c",
+      "cgcloud__Fund_Transaction_Template__c",
+      "cgcloud__Fund_Transaction__c",
+      "cgcloud__Fund__c",
+      "cgcloud__Inventory_Transaction__c",
+      "cgcloud__Inventory__c",
+      "cgcloud__Job_Definition_List__c",
+      "cgcloud__KPI_Definition__c",
+      "cgcloud__KPI_Set_KPI_Definition__c",
+      "cgcloud__KPI_Set__c",
+      "cgcloud__Listing_Classification__c",
+      "cgcloud__Listing_Module__c",
+      "cgcloud__Order_Item_Template__c",
+      "cgcloud__Order_Item__c",
+      "cgcloud__Order_Template__c",
+      "cgcloud__Order__c",
+      "cgcloud__Org_Unit_Hierarchy__c",
+      "cgcloud__Org_Unit_User__c",
+      "cgcloud__Org_Unit__c",
+      "cgcloud__Payment_Tactic_Fund__c",
+      "cgcloud__Payment_Tactic_Product__c",
+      "cgcloud__Payment_Tactic__c",
+      "cgcloud__Payment_Template__c",
+      "cgcloud__Payment__c",
+      "cgcloud__Product_Assortment_Store__c",
+      "cgcloud__Product_Condition__c",
+      "cgcloud__Product_Listing_Module__c",
+      "cgcloud__Promotion_Push_Status__c",
+      "cgcloud__Promotion_Store__c",
+      "cgcloud__Promotion_Template_Tactic_Template__c",
+      "cgcloud__Promotion_Template__c",
+      "cgcloud__Promotion__c",
+      "cgcloud__RBF_Template__c",
+      "cgcloud__RTR_Report_Configuration__c",
+      "cgcloud__Rate_Based_Funding__c",
+      "cgcloud__Route__c",
+      "cgcloud__Sales_Organization__c",
+      "cgcloud__Signature__c",
+      "cgcloud__Tactic_Fund__c",
+      "cgcloud__Tactic_Product_Condition__c",
+      "cgcloud__Tactic_Product__c",
+      "cgcloud__Tactic_Template_Fund_Template__c",
+      "cgcloud__Tactic_Template__c",
+      "cgcloud__Tactic__c",
+      "cgcloud__Tour__c",
+      "cgcloud__Trip_List_Account__c",
+      "cgcloud__Trip_List__c",
+      "cgcloud__Vehicle__c",
+      "cgcloud__View__c",
+      "cgcloud__Visit_Job__c",
+      "cgcloud__Visit_Template__c"
+    ]
+  },
+  "usageCheck": {
+    "dependencies": "ok",
+    "logs": {
+      "available": false,
+      "days": 30,
+      "files": 0
+    }
+  },
+  "warnings": []
 }

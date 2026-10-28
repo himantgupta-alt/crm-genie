@@ -23,7 +23,8 @@ async function main() {
   // Anything that could not be read is listed in the output, never silently taken for "nothing there".
   const warnings = [];
   const q = async (soql, tooling = false) => {
-    try { return (await (tooling ? conn.tooling : conn).query(soql, { autoFetch: true, maxFetch: 50000 })).records; } catch (e) { warnings.push(`Query failed (${e.errorCode || e.message}): ${soql.slice(0, 120)}`); return []; }
+    // INVALID_TYPE: the feature is not enabled in this org (nothing to read), so it is not an incomplete inventory.
+    try { return (await (tooling ? conn.tooling : conn).query(soql, { autoFetch: true, maxFetch: 50000 })).records; } catch (e) { if (e.errorCode !== 'INVALID_TYPE') warnings.push(`Query failed (${e.errorCode || e.message}): ${soql.slice(0, 120)}`); return []; }
   };
   const count = async (soql) => { try { return (await conn.query(soql)).totalSize; } catch { return null; } };
   // Single-record Tooling queries (the Metadata field is only returned one record at a time).
