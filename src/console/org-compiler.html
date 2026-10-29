@@ -56,7 +56,7 @@ code, .mono { font-family: var(--mono); font-size: 0.86em; }
 h1, h2, h3 { margin: 0; font-weight: 600; text-wrap: balance; }
 p { margin: 0; }
 
-.app { min-height: 100%; display: grid; grid-template-columns: 200px minmax(0, 1fr); grid-template-rows: auto 1fr; }
+.app { min-height: 100%; display: grid; grid-template-columns: 236px minmax(0, 1fr); grid-template-rows: auto 1fr; }
 
 /* top bar */
 .bar {
@@ -76,7 +76,23 @@ p { margin: 0; }
 
 /* nav */
 .nav { background: var(--surface); border-right: 1px solid var(--line); padding: 14px 10px; display: flex; flex-direction: column; gap: 2px; }
-.nav .grp { font: 500 11px/1 var(--sans); text-transform: uppercase; letter-spacing: 0.08em; color: var(--faint); padding: 12px 10px 6px; }
+/* Menu tree: a section header per stage (strong, with a chevron and a count), its items indented under a guide line. */
+.nav .navgrp { border-top: 1px solid var(--line); padding: 6px 0 4px; }
+.nav .navgrp:first-of-type { border-top: 0; padding-top: 0; }
+.nav .navgrp > summary { list-style: none; display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 6px; cursor: pointer; font: 600 13.5px/1.2 var(--sans); color: var(--ink); user-select: none; }
+.nav .navgrp > summary::-webkit-details-marker { display: none; }
+.nav .navgrp > summary::before { content: ""; width: 6px; height: 6px; border-right: 1.5px solid var(--muted); border-bottom: 1.5px solid var(--muted); transform: rotate(-45deg); transition: transform 0.15s; flex: none; margin-left: 2px; }
+.nav .navgrp[open] > summary::before { transform: rotate(45deg); }
+.nav .navgrp > summary:hover { background: var(--sunk); }
+.nav .navgrp > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.nav .navgrp-t { flex: 1; }
+.nav .navgrp-n { font: 500 11px/1 var(--sans); color: var(--faint); }
+.nav .navgrp-items { display: flex; flex-direction: column; gap: 1px; margin: 2px 0 4px 15px; padding-left: 8px; border-left: 1px solid var(--line); }
+.nav .navgrp-items button, .nav .navgrp-items a.navlink { font-size: 13.5px; }
+.nav .navgrp-items button > span:first-child { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.nav .navgrp-items button > .badge { flex: none; }
+.nav .navgrp.has-current > summary { color: var(--accent); }
+.nav .navsub { font: 500 11px/1 var(--sans); text-transform: uppercase; letter-spacing: 0.06em; color: var(--faint); padding: 8px 10px 4px; margin: 0; }
 .nav button { display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%; text-align: left; border: 0; background: none; padding: 8px 10px; border-radius: 6px; color: var(--muted); }
 .nav button:hover { background: var(--sunk); color: var(--ink); }
 .nav button[aria-current="page"] { background: var(--accent-soft); color: var(--accent); font-weight: 500; }
@@ -321,7 +337,9 @@ dialog.rv::backdrop { background: var(--scrim); }
 @media (max-width: 1100px) {
   .app { grid-template-columns: 1fr; grid-template-rows: auto auto 1fr; }
   .nav { flex-direction: row; overflow-x: auto; border-right: 0; border-bottom: 1px solid var(--line); padding: 6px 12px; }
-  .nav .grp { display: none; }
+  .nav .navgrp, .nav .navgrp-items { display: contents; }
+  .nav .navgrp > summary, .nav .navsub, .nav .navgrp-links { display: none; }
+  .nav .navgrp { border-top: 0; padding: 0; }
   .nav button { width: auto; white-space: nowrap; }
   main { padding: 14px 16px 32px; }
   .runbar { grid-template-columns: 1fr; }
@@ -585,7 +603,7 @@ button.fit { cursor: pointer; width: 100%; padding: 8px; } button.fit:hover { fi
 .steps { display: grid; gap: 6px; } .steps div { display: grid; grid-template-columns: 70px minmax(0, 1fr); gap: 8px; font-size: 12.5px; align-items: start; }
 .steps .k { font: 600 11px var(--sans); text-transform: uppercase; letter-spacing: .05em; padding: 3px 6px; border-radius: 5px; text-align: center; background: var(--sunk); color: var(--muted); }
 .steps .k.insert { background: var(--accent-soft); color: var(--accent); } .steps .k.read { background: var(--ok-soft); color: var(--ok); } .steps .k.update { background: var(--run-soft); color: var(--run); }
-@media (max-width: 1100px) { .navtoggle { display: none; } .app.navmin { grid-template-columns: 1fr; } .app.navmin .nav > :not(.navtoggle) { display: revert; } }
+@media (max-width: 1100px) { .nav .navtoggle { display: none; } .app.navmin { grid-template-columns: 1fr; } .app.navmin .nav > :not(.navtoggle) { display: revert; } }
 @media (max-width: 900px) { .dx-body, .dx-body.treemin { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); height: auto; } .dx-tree { max-height: 320px; border-right: 0; border-bottom: 1px solid var(--line); } .dx-main { overflow: visible; } }
 @media (max-width: 640px) { .stack { grid-template-columns: 90px minmax(0, 1fr) 36px; } .hbar { grid-template-columns: 110px minmax(0, 1fr) 34px; } }
 /* Fit-gap by business area: expandable rows in the explorer menu */
@@ -639,29 +657,49 @@ button.fit { cursor: pointer; width: 100%; padding: 8px; } button.fit:hover { fi
 
   <aside class="nav" aria-label="Main">
     <button type="button" class="iconbtn navtoggle" id="nav-toggle" aria-label="Collapse the menu" aria-expanded="true" title="Collapse the menu">&#x2039;</button>
-    <p class="grp">Assessment</p>
-    <button type="button" data-view="connections"><span>1 · Connections</span><span class="badge n" id="nav-conn"></span></button>
-    <button type="button" data-view="discovery"><span>Discovery explorer</span></button>
-    <button type="button" data-view="assessment"><span>Org assessment</span><span class="badge n" id="nav-orgs">3 orgs</span></button>
-    <button type="button" data-view="validation"><span>End-to-end validation</span></button>
-    <p class="grp">Migration</p>
-    <button type="button" data-view="workflow" aria-current="page"><span>Workflow</span></button>
-    <button type="button" data-view="approvals"><span>Approvals</span><span class="badge" id="nav-badge" hidden>1</span></button>
-    <button type="button" data-view="artifacts"><span>Artifacts</span><span class="badge n" id="nav-art" hidden>0</span></button>
-    <button type="button" data-view="audit"><span>Audit log</span></button>
-    <p class="grp">Repository</p>
-    <a class="navlink" data-gh="adlc/README.md" target="_blank" rel="noopener">Agent outputs (ADLC)</a>
-    <a class="navlink" data-gh="adlc/2-design/modelling/design/HLD.md" target="_blank" rel="noopener">HLD · LLD · ADRs</a>
-    <a class="navlink" data-gh="kb/README.md" target="_blank" rel="noopener">Knowledge base</a>
-    <a class="navlink" data-gh="guardrails/README.md" target="_blank" rel="noopener">Guardrails</a>
-    <a class="navlink" data-gh="evals/README.md" target="_blank" rel="noopener">Evals and test cases</a>
-    <a class="navlink" data-gh="presentations/client-pack/" target="_blank" rel="noopener">Client pack (PDF)</a>
-    <a class="navlink" data-gh="docs/client-pack/README.md" target="_blank" rel="noopener">Client pack sources</a>
-    <a class="navlink" data-gh="presentations/Salesforce-Exit-Approach.pptx" target="_blank" rel="noopener">Approach deck</a>
-    <a class="navlink" data-gh="" target="_blank" rel="noopener">Source code</a>
-    <p class="grp">Project</p>
-    <button type="button" data-view="docs"><span>Design documents</span><span class="badge n">HLD · LLD</span></button>
-    <button type="button" data-view="scope"><span>Scope</span></button>
+    <!-- The menu is a tree in the order of the work: discover, design, migrate; resources (links out) last. Each
+         section opens and closes; the section of the page shown is always open. -->
+    <details class="navgrp" data-grp="discover" open>
+      <summary><span class="navgrp-t">Discover</span><span class="navgrp-n">4</span></summary>
+      <div class="navgrp-items">
+        <button type="button" data-view="connections"><span>Connections</span><span class="badge n" id="nav-conn"></span></button>
+        <button type="button" data-view="discovery"><span>Discovery explorer</span></button>
+        <button type="button" data-view="assessment"><span>Org assessment</span><span class="badge n" id="nav-orgs">3 orgs</span></button>
+        <button type="button" data-view="validation"><span>End-to-end validation</span></button>
+      </div>
+    </details>
+    <details class="navgrp" data-grp="design" open>
+      <summary><span class="navgrp-t">Design and scope</span><span class="navgrp-n">2</span></summary>
+      <div class="navgrp-items">
+        <button type="button" data-view="scope"><span>Scope</span></button>
+        <button type="button" data-view="docs" title="High-level design, low-level design and decision records"><span>Design documents</span></button>
+      </div>
+    </details>
+    <details class="navgrp" data-grp="migrate" open>
+      <summary><span class="navgrp-t">Migrate</span><span class="navgrp-n">4</span></summary>
+      <div class="navgrp-items">
+        <button type="button" data-view="workflow" aria-current="page"><span>Workflow</span></button>
+        <button type="button" data-view="approvals"><span>Approvals</span><span class="badge" id="nav-badge" hidden>1</span></button>
+        <button type="button" data-view="artifacts"><span>Artifacts</span><span class="badge n" id="nav-art" hidden>0</span></button>
+        <button type="button" data-view="audit"><span>Audit log</span></button>
+      </div>
+    </details>
+    <details class="navgrp navgrp-links" data-grp="resources">
+      <summary><span class="navgrp-t">Resources</span><span class="navgrp-n">9</span></summary>
+      <div class="navgrp-items">
+        <p class="navsub">Outputs and documents</p>
+        <a class="navlink" data-gh="adlc/README.md" target="_blank" rel="noopener">Agent outputs (ADLC)</a>
+        <a class="navlink" data-gh="adlc/2-design/modelling/design/HLD.md" target="_blank" rel="noopener">HLD · LLD · ADRs</a>
+        <a class="navlink" data-gh="presentations/client-pack/" target="_blank" rel="noopener">Client pack (PDF)</a>
+        <a class="navlink" data-gh="docs/client-pack/README.md" target="_blank" rel="noopener">Client pack sources</a>
+        <a class="navlink" data-gh="presentations/Salesforce-Exit-Approach.pptx" target="_blank" rel="noopener">Approach deck</a>
+        <p class="navsub">Standards</p>
+        <a class="navlink" data-gh="kb/README.md" target="_blank" rel="noopener">Knowledge base</a>
+        <a class="navlink" data-gh="guardrails/README.md" target="_blank" rel="noopener">Guardrails</a>
+        <a class="navlink" data-gh="evals/README.md" target="_blank" rel="noopener">Evals and test cases</a>
+        <a class="navlink" data-gh="" target="_blank" rel="noopener">Source code</a>
+      </div>
+    </details>
   </aside>
 
   <main>
@@ -3686,11 +3724,27 @@ replay     19 rule cases from adlc/5-validate/verification/cases.json` },
   $('#reset').addEventListener('click', reset);
 
   // ------------------------------------------------------------ navigation
+  // Menu sections: the section of the page shown is open and marked; the others keep the state the viewer left
+  // them in. On a narrow screen the menu is one row, so every section is open.
+  const NAV_KEY = 'orgc-nav-open';
+  const narrow = window.matchMedia('(max-width: 1100px)');
+  const navGroups = [...document.querySelectorAll('.nav .navgrp')];
+  try { const saved = JSON.parse(localStorage.getItem(NAV_KEY) || 'null'); if (saved) navGroups.forEach((g) => { g.open = saved.includes(g.dataset.grp); }); } catch { /* defaults from the markup */ }
+  const saveNav = () => { if (narrow.matches) return; try { localStorage.setItem(NAV_KEY, JSON.stringify(navGroups.filter((g) => g.open).map((g) => g.dataset.grp))); } catch { /* not kept */ } };
+  navGroups.forEach((g) => g.addEventListener('toggle', saveNav));
+  const markCurrent = () => navGroups.forEach((g) => {
+    const has = !!g.querySelector('[aria-current="page"]');
+    g.classList.toggle('has-current', has);
+    if (has || narrow.matches) g.open = true;
+  });
+  narrow.addEventListener('change', markCurrent);
   document.querySelectorAll('.nav [data-view]').forEach((b) => b.addEventListener('click', () => {
     document.querySelectorAll('.nav [data-view]').forEach((x) => x.removeAttribute('aria-current'));
     b.setAttribute('aria-current', 'page');
     document.querySelectorAll('.view').forEach((v) => { v.hidden = v.id !== `view-${b.dataset.view}`; });
+    markCurrent();
   }));
+  markCurrent();
 
   renderAudit();
   renderAll();
